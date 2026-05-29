@@ -30,3 +30,7 @@ pip install -r requirements.txt
 > uvicorn backend.app:app --reload --host 0.0.0.0 --port 8000 (O acesso ocorre pelo IP ou `localhost` na porta configurada)
 
 > uvicorn backend.app:app --reload (acesso pelo ip http://127.0.0.1:8000 conforme configuração local)
+
+
+## matar o servidor
+pkill -f uvicorn && python3 -m uvicorn backend.app:app --port 8788
