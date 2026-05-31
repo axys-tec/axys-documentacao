@@ -29,3 +29,35 @@ ON CONFLICT (fte_codigo) DO UPDATE
     SET fte_nome           = EXCLUDED.fte_nome,
         fte_ordem_edicao   = EXCLUDED.fte_ordem_edicao,
         fte_atualizado_em  = CURRENT_TIMESTAMP;
+
+-- ─── audit.logs_retencao ─────────────────────────────────────
+INSERT INTO audit.logs_retencao (ret_descricao, ret_permanente, ret_dias) VALUES
+    ('Permanente', true,  NULL),
+    ('90 dias',    false,   90),
+    ('180 dias',   false,  180),
+    ('1 ano',      false,  365),
+    ('2 anos',     false,  730),
+    ('5 anos',     false, 1825)
+ON CONFLICT DO NOTHING;
+
+-- ─── audit.criterio_retencao ─────────────────────────────────
+-- Schema cpu: catálogo histórico — tudo permanente
+INSERT INTO audit.criterio_retencao (crit_schema, crit_tabela, crit_ret_id)
+SELECT v.sch, v.tab, lr.ret_id
+FROM (VALUES
+    ('cpu', 'fontes'),
+    ('cpu', 'tipos_insumo'),
+    ('cpu', 'edicoes'),
+    ('cpu', 'grupos'),
+    ('cpu', 'subgrupos'),
+    ('cpu', 'insumos'),
+    ('cpu', 'precos_insumo'),
+    ('cpu', 'composicoes'),
+    ('cpu', 'composicao_itens'),
+    ('cpu', 'custos_composicao'),
+    ('cpu', 'sinapi_manutencoes'),
+    ('cpu', 'cadernos')
+) AS v(sch, tab)
+CROSS JOIN audit.logs_retencao lr
+WHERE lr.ret_descricao = 'Permanente'
+ON CONFLICT (crit_schema, crit_tabela) DO NOTHING;

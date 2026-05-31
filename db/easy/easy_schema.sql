@@ -1,14 +1,15 @@
 -- ============================================================
 -- AxysEasy — Schema SQL
 -- Banco: PostgreSQL 14+
--- Schemas: cpu · orca
+-- Schemas: cpu · orca · audit
 --
--- cpu  : catálogo de fontes de preços, insumos, preços por
---        edição/UF/modalidade, composições de preço versionadas
---        e hierarquia de grupos/subgrupos.
--- orca : obras orçamentárias, BDI, serviços em estrutura
---        hierárquica, motor paramétrico e cronograma
---        físico-financeiro.
+-- cpu   : catálogo de fontes de preços, insumos, preços por
+--         edição/UF/modalidade, composições de preço versionadas
+--         e hierarquia de grupos/subgrupos.
+-- orca  : obras orçamentárias, BDI, serviços em estrutura
+--         hierárquica, motor paramétrico e cronograma
+--         físico-financeiro.
+-- audit : trilha de auditoria — quem/quando/o quê/antes/depois.
 --
 -- Decisões de arquitetura
 -- ───────────────────────
@@ -136,7 +137,7 @@ CREATE TABLE IF NOT EXISTS cpu.fontes (
         CHECK (btrim(fte_nome) <> ''),
 
     CONSTRAINT ck_fontes_ordem_edicao
-        CHECK (fte_ordem_edicao IN ('DATA', 'VERSAO'))
+        CHECK (fte_ordem_edicao IN ('DATA', 'VERSÃO'))
 );
 
 CREATE INDEX ix_fontes_ativa
@@ -1058,3 +1059,230 @@ CREATE INDEX ix_cri_cro
 
 CREATE INDEX ix_cri_srv
     ON orca.cronograma_itens (cri_srv_id);
+
+
+-- ============================================================
+-- SCHEMA: audit
+-- Trilha de auditoria. Append-only — sem UPDATE nem DELETE via app.
+--
+-- Tabelas ativas:
+--   audit.logs_retencao     — políticas de retenção (lookup controlado
+--                             pelo gestor tech — users não vêem)
+--   audit.criterio_retencao — mapeamento (schema, tabela) → política
+--   audit.logs              — histórico de alterações em dados
+--   audit.login_logs        — eventos de autenticação e origem
+--   audit.api_logs          — chamadas externas à API (writes only)
+--
+-- Limpeza periódica (dias 5/10/15/20/25 de cada mês, 02h00):
+--
+--   DELETE FROM audit.logs l
+--   USING audit.criterio_retencao cr
+--   JOIN  audit.logs_retencao lr ON cr.crit_ret_id = lr.ret_id
+--   WHERE cr.crit_schema   = l.log_schema
+--     AND cr.crit_tabela   = l.log_tabela
+--     AND lr.ret_permanente = false
+--     AND l.log_criado_em  < NOW() - (lr.ret_dias || ' days')::INTERVAL;
+--
+--   Tabelas SEM critério definido → NÃO deletadas (seguro por omissão).
+--   Detectar tabelas não configuradas:
+--     SELECT DISTINCT log_schema, log_tabela FROM audit.logs l
+--     WHERE NOT EXISTS (
+--         SELECT 1 FROM audit.criterio_retencao cr
+--         WHERE cr.crit_schema = l.log_schema
+--           AND cr.crit_tabela = l.log_tabela
+--     );
+--
+-- ── Arquitetura futura: sanitização de dados de tenants ──────
+--
+-- Distinção importante: limpeza de logs ≠ sanitização de dados.
+-- A sanitização afeta dados de negócio (orca.*, etc.) de tenants
+-- que encerraram uso. Por isso, o worker deve ser tratado em
+-- separado do cleanup de audit.logs.
+--
+-- Tabelas previstas (a implementar quando orca estiver maduro):
+--
+--   audit.logs_retencao_by_tenant
+--     id, tenant_id, tenant_role
+--     → marca tenants que NÃO podem ter dados tocados,
+--       independente do critério global de retenção.
+--
+--   audit.logs_table_arquivar_r2
+--     id, schema, tabela
+--     → cataloga quais tabelas devem ter seus dados exportados
+--       para R2 como CSV antes da sanitização (fallback de controle).
+--
+-- Worker executar_limpeza() — três passagens:
+--   1. retencao_criterios()    → avalia quais tabelas/registros limpar
+--   2. retencao_by_tenant()    → exclui UUIDs de tenants protegidos
+--   3. gerar_backup_tenants()  → exporta CSV para R2 os registros
+--                                 que serão sanitizados
+--   DELETE final apenas após o backup confirmado no R2.
+--
+-- Rationale: tenants de uso único geram orçamentos e não retornam.
+-- O banco é sanitizado, mas o dado fica no R2 ad-aeternum como
+-- fallback para reinsert controlado se necessário.
+-- Tudo na app é auditável — este schema é o lugar canônico para
+-- documentar essa intenção.
+--
+-- Decisões de design:
+--   - Retenção determinada no momento da limpeza (não gravada por linha)
+--     → política pode ser ajustada retroativamente sem perda silenciosa
+--   - Sem FK para tabelas de negócio (sobrevive a soft/hard delete)
+--   - audit.logs: full JSON em cadastros, diff parcial em alta frequência
+--   - audit.api_logs: apenas writes (POST/PUT/DELETE); GETs ignorados
+--   - audit.login_logs: campo origem prevê OAuth futuro (gov.br, Apple…)
+-- ============================================================
+
+CREATE SCHEMA IF NOT EXISTS audit;
+
+GRANT USAGE ON SCHEMA audit TO "axys_tec";
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA audit
+    GRANT SELECT, INSERT ON TABLES TO "axys_tec";
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA audit
+    GRANT USAGE, SELECT ON SEQUENCES TO "axys_tec";
+
+
+-- ------------------------------------------------------------
+-- audit.logs_retencao — políticas de retenção (lookup)
+-- Seed inicial em easy_seed.sql.
+-- ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS audit.logs_retencao (
+    ret_id          INTEGER GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+    ret_descricao   TEXT    NOT NULL,
+    ret_permanente  BOOLEAN NOT NULL DEFAULT false,
+    ret_dias        INTEGER NULL,
+
+    CONSTRAINT ck_retencao_permanencia CHECK (
+        (ret_permanente = true  AND ret_dias IS NULL)
+        OR
+        (ret_permanente = false AND ret_dias IS NOT NULL AND ret_dias > 0)
+    )
+);
+
+
+-- ------------------------------------------------------------
+-- audit.criterio_retencao — mapeamento (schema, tabela) → política
+-- ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS audit.criterio_retencao (
+    crit_id       INTEGER GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+    crit_schema   TEXT    NOT NULL,
+    crit_tabela   TEXT    NOT NULL,
+    crit_ret_id   INTEGER NOT NULL,
+
+    CONSTRAINT fk_criterio_retencao
+        FOREIGN KEY (crit_ret_id)
+        REFERENCES audit.logs_retencao (ret_id)
+        ON UPDATE CASCADE ON DELETE RESTRICT,
+
+    CONSTRAINT uq_criterio_schema_tabela
+        UNIQUE (crit_schema, crit_tabela)
+);
+
+CREATE INDEX ix_criterio_schema_tabela
+    ON audit.criterio_retencao (crit_schema, crit_tabela);
+
+
+-- ------------------------------------------------------------
+-- audit.logs — histórico de alterações em dados
+-- Retenção determinada por audit.criterio_retencao no cleanup job.
+-- ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS audit.logs (
+    log_id           BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+
+    -- O quê
+    log_schema       TEXT          NOT NULL,
+    log_tabela       TEXT          NOT NULL,
+    log_registro_id  TEXT          NOT NULL,
+    log_acao         TEXT          NOT NULL
+                     CHECK (log_acao IN ('INSERT', 'UPDATE', 'DELETE')),
+
+    -- Quem / quando
+    log_usuario      TEXT          NOT NULL,
+    log_ip           TEXT,
+
+    -- Como estava / como ficou
+    log_dados_antes  JSONB,
+    log_dados_depois JSONB,
+
+    log_criado_em    TIMESTAMPTZ   NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX ix_audit_logs_registro
+    ON audit.logs (log_tabela, log_registro_id);
+CREATE INDEX ix_audit_logs_usuario
+    ON audit.logs (log_usuario);
+CREATE INDEX ix_audit_logs_criado_em
+    ON audit.logs (log_criado_em DESC);
+
+
+-- ------------------------------------------------------------
+-- audit.login_logs — eventos de autenticação e origem
+-- ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS audit.login_logs (
+    log_id          BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+
+    log_user_id     TEXT,
+    log_email       TEXT,
+    log_nome        TEXT,
+    log_tenant_id   TEXT,
+
+    log_acao        TEXT         NOT NULL
+                    CHECK (log_acao IN ('LOGIN', 'LOGOUT', 'LOGIN_FALHA')),
+
+    log_origem      TEXT         NOT NULL DEFAULT 'LOCAL'
+                    CHECK (log_origem IN (
+                        'LOCAL',
+                        'GOV_BR',
+                        'APPLE',
+                        'GOOGLE',
+                        'API_KEY'
+                    )),
+
+    log_ip          TEXT,
+    log_user_agent  TEXT,
+    log_detalhes    JSONB,
+
+    log_criado_em   TIMESTAMPTZ  NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX ix_audit_login_email
+    ON audit.login_logs (log_email);
+CREATE INDEX ix_audit_login_user_id
+    ON audit.login_logs (log_user_id)
+    WHERE log_user_id IS NOT NULL;
+CREATE INDEX ix_audit_login_criado_em
+    ON audit.login_logs (log_criado_em DESC);
+
+
+-- ------------------------------------------------------------
+-- audit.api_logs — chamadas externas à API (writes only)
+-- Registra POST/PUT/PATCH/DELETE; GETs ignorados.
+-- audit.api_logs captura o contexto HTTP; audit.logs captura o dado.
+-- ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS audit.api_logs (
+    log_id          BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+
+    log_method      TEXT         NOT NULL
+                    CHECK (log_method IN ('POST', 'PUT', 'PATCH', 'DELETE')),
+    log_endpoint    TEXT         NOT NULL,
+    log_status      SMALLINT     NOT NULL,
+
+    log_cliente     TEXT,
+    log_usuario     TEXT,
+    log_ip          TEXT,
+
+    log_corpo_req   JSONB,
+    log_duracao_ms  INTEGER,
+
+    log_criado_em   TIMESTAMPTZ  NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX ix_audit_api_endpoint
+    ON audit.api_logs (log_endpoint, log_criado_em DESC);
+CREATE INDEX ix_audit_api_cliente
+    ON audit.api_logs (log_cliente)
+    WHERE log_cliente IS NOT NULL;
+CREATE INDEX ix_audit_api_criado_em
+    ON audit.api_logs (log_criado_em DESC);
