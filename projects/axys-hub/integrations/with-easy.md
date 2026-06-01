@@ -1,0 +1,138 @@
+# AxysHub ← → AxysEasy
+
+**Status:** 🟢 Ativa e Confiável  
+**Padrão:** SSO via JWT (ADR-029)
+
+---
+
+## Fluxo de Integração
+
+```
+AxysEasy Client
+    ↓
+Clica "Login"
+    ↓
+POST /auth/login (Hub)
+    ↓
+Hub emite JWT
+    ↓
+Easy armazena em cookie httponly
+    ↓
+Easy requisições: Bearer Token
+    ↓
+Hub valida e retorna claims
+    ↓
+Easy usa claims para autorização
+```
+
+---
+
+## JWT Claims (de Hub)
+
+Quando Easy valida o token com Hub, recebe:
+
+```json
+{
+  "sub": "user-uuid",
+  "email": "user@example.com",
+  "name": "John Doe",
+  "tenant_uuid": "tenant-uuid",
+  "tenant_code": "ACME",
+  "tenant_name": "ACME Inc",
+  "is_staff": false,
+  "role": "admin",
+  "apps_licenciadas": ["easy-cpu", "easy-price", "easy-orca"],
+  "iat": 1622505600,
+  "exp": 1622534400
+}
+```
+
+---
+
+## Validação em Easy
+
+### Backend (FastAPI)
+
+```python
+from backend.core.security import require_auth
+
+@router.get("/main")
+def main_page(claims: dict = Depends(require_auth)):
+    # claims vem do Hub via JWT validation
+    tenant_id = claims.get("tenant_uuid")
+    is_staff = claims.get("is_staff")
+    # ... use claims para autorizar
+```
+
+### Frontend (JavaScript)
+
+```javascript
+// Token está em cookie httponly (seguro)
+// Headers adicionados automaticamente
+
+fetch("/api/fontes-base", {
+  headers: { "Authorization": "Bearer <token>" }
+})
+```
+
+---
+
+## Fluxo de Logout
+
+```
+Easy → POST /auth/logout (Hub)
+    ↓
+Hub invalida token
+    ↓
+Easy limpa cookie
+    ↓
+Redireciona para /login
+```
+
+---
+
+## Tratamento de Erros
+
+### Token Expirado
+
+```
+HTTP 401
+{ "detail": "Token expired" }
+
+Ação: Easy redireciona para /login
+```
+
+### Sem Licença para Módulo
+
+```
+HTTP 403
+{ "detail": "App not licensed" }
+
+Ação: Easy mostra página "sem contrato"
+```
+
+---
+
+## Configuração Easy
+
+### .env
+
+```
+HUB_URL=https://axys-hub.com
+JWT_SECRET=<shared-secret-dev> ou <public-key-prod>
+JWT_ALGORITHM=HS256 (dev) ou RS256 (prod)
+```
+
+### Middleware de Autenticação
+
+Veja: `backend/core/security.py`
+
+---
+
+## ⚠️ TODO
+
+- [ ] Documentar webhook para licensa expirada
+- [ ] Fluxo de refresh token automático
+- [ ] Tratamento de multitenant simultâneo
+- [ ] Rate limiting na integração
+
