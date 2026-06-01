@@ -293,3 +293,191 @@ Vou:
 3. Limpar contratos duplicados
 4. Atualizar DOCS_TREE.md
 
+
+---
+
+## 7️⃣ Projetos Adicionais Descobertos
+
+### Axys_Sync (8 documentos)
+**Localização:** `/Users/rdias07/Documents/GitHub/axys-sync/docs/`  
+**Status:** 🟢 Produção  
+**Conteúdo:**
+```
+axys_sync/docs/
+├── axys_sync_ascont_regras_vendas.md
+├── axys_sync_baseline_operacional.md
+├── axys_sync_business_matrix.md
+├── axys_sync_business_rules.md
+├── axys_sync_continuous_redesign.md
+├── axys_sync_documentacao.md
+├── axys_sync_runtime_environment.md
+└── axys_sync_smoke_test_checklist.md
+```
+
+**Análise:**
+- ✅ Documentação de domínio bem focada (contabilidade/vendas)
+- ⚠️ Não segue padrão foundation/projects/schemas
+- ❌ Sem ADRs estruturadas
+- ❌ Sem contratos técnicos
+- ⚠️ Business rules soltas (não em código)
+
+**Ação:** Deixar onde está (repo independente) MAS fazer bridge com axys-easy/docs
+
+### Axys_Sync_Loccitane (13 documentos + dados)
+**Localização:** `/Users/rdias07/Documents/GitHub/axys-sync-loccitane/docs/`  
+**Status:** 🟢 Produção (especializado)  
+**Conteúdo:**
+```
+axys-sync-loccitane/docs/
+├── axys_sync_*.md                  # 7 padrão (compartilhado com sync)
+├── contas_pagar_receber_vo.txt     # Implementação (dados reais)
+├── custo_mercadoria_doutrina.md
+├── expansao_futura_custo_vo.md
+├── validacao_empirica_saidas.md
+├── varejonline_api_endpoints.txt
+└── vo_*.{json,txt}                 # Dados de VO mapeamento
+```
+
+**Análise:**
+- ✅ Especializado para domínio Loccitane
+- ⚠️ Mistura docs com dados brutos (VO mapping, endpoints)
+- ⚠️ Sem estrutura de projeto
+- ❌ Sem ADRs, schemas, migrations
+- ✅ Business validações bem documentadas
+
+**Ação:** Deixar onde está MAS considerar refatorar dados para JSON/SQL estruturado
+
+---
+
+## 8️⃣ Visão de Ecossistema Completo
+
+```
+Ecossistema Axys
+│
+├─ axys-easy/                       ← COORDENADOR
+│  └─ docs/ (subrepo)               # Central de documentação
+│     ├─ foundation/                # Decisões globais
+│     ├─ projects/axys-hub/
+│     ├─ projects/axys-easy/
+│     ├─ projects/axys-pro/
+│     ├─ projects/axys-sync/        ← Link para axys-sync/docs
+│     ├─ projects/axys-sync-loccitane/  ← Link para axys-sync-loccitane/docs
+│     └─ integrations/              # Fluxos entre projetos
+│
+├─ axys-hub/                        # Auth central + tenants (produção)
+│  └─ (docs gerenciados em axys-easy/docs)
+│
+├─ axys-sync/                       # Engine de contabilidade (produção)
+│  ├─ docs/                         # Business rules locais
+│  ├─ backend/                      # Implementação
+│  └─ frontend/
+│
+├─ axys-sync-loccitane/            # Sync + especialização Loccitane (produção)
+│  ├─ docs/                         # Specs + dados VO (precisa refactorar)
+│  ├─ backend/
+│  ├─ frontend/
+│  └─ data/                         # Raw VO data
+│
+└─ axys-pro/                        # (Planejado, não iniciado)
+   └─ (documentação especulativa)
+```
+
+**Estratégia:**
+1. **axys-easy/docs/** = Hub centralizado (foundation + projects)
+2. **axys-sync/docs/** = Fica lá (é especializado, foco: sales/accounting)
+3. **axys-sync-loccitane/docs/** = Fica lá MAS refatorar dados para estrutura clara
+4. **axys-sync & loccitane** no axys-easy/docs = Links de integração apenas
+
+---
+
+## 9️⃣ Plano Estendido (Incluindo Sync)
+
+### FASE 1: Limpar Duplicações (Foundation)
+✅ MESMO (sem mudança)
+
+### FASE 2: Ajustar Hub (Produção)
+✅ MESMO (sem mudança)
+
+### FASE 3: Validar Easy (Confiável)
+✅ MESMO (sem mudança)
+
+### FASE 4: Tratar Pro (Especulativo)
+✅ MESMO (sem mudança)
+
+### **FASE 5: NOVO — Integrar Sync (Bridge)**
+
+**Ação:** Criar `projects/axys-sync/` em axys-easy/docs com:
+```
+projects/axys-sync/README.md        # O que é Sync, documentação local
+projects/axys-sync/integrations/
+├── with-easy.md                    # Como Easy consome Sync? (financeiro)
+├── with-hub.md                     # Como Sync autentica no Hub?
+└── data-flows.md                   # Fluxo de dados contábeis
+```
+
+**Link para docs originais:**
+```
+projects/axys-sync/docs-reference.md
+└── "Documentação original em: /Users/rdias07/Documents/GitHub/axys-sync/docs/"
+```
+
+### **FASE 6: NOVO — Refatorar Loccitane (Dados)**
+
+**Ação:** Criar estrutura clara em axys-sync-loccitane/docs:
+```
+docs/
+├── business-rules/                 # Docs MD
+│   ├── *.md (existentes)
+├── vo-mapping/                     # Dados estruturados (JSON)
+│   ├── contas_pagar.json
+│   ├── plano_contas.json
+│   └── provisoes.json
+└── integration/
+    └── with-easy-sync.md
+```
+
+**SQL Schema:** Criar `docs/schemas/` com DDL do VO (plano de contas)
+
+---
+
+## 🔟 Métricas Estendidas
+
+| Item | Antes | Depois |
+|------|-------|--------|
+| Projects documentados | 3 | 5 |
+| Integration docs | 0 | 5+ |
+| Sync/Loccitane dados estruturados | 0% | 80% |
+| Cross-repo links funcionando | 0 | 15+ |
+| foundation/ preenchido | 0% | 100% |
+
+---
+
+## Roadmap Estendido
+
+```
+HOJE      → FASE 1 (movimentar ADRs globais)
+           + Limpar contratos
+
+SEMANA 1  → FASE 2 (ajustar Hub)
+           + FASE 3 (validar Easy)
+
+SEMANA 2  → FASE 4 (tratar Pro)
+           + FASE 5 (criar bridge Sync)
+
+SEMANA 3  → FASE 6 (refatorar Loccitane dados)
+           + Construir integrations/
+
+SEMANA 4+ → Evolução contínua de foundation/
+```
+
+---
+
+## 📋 Próximo Passo (Atualizado)
+
+**Quer começar ainda com FASE 1?** (Reorganizar ADRs globais)
+
+Com os 5 projetos mapeados, a estratégia é:
+1. **Fase 1-4:** Reorganizar axys-easy/docs (centralizado)
+2. **Fase 5-6:** Integrar Sync + Loccitane (bridges + dados estruturados)
+3. **Resultado:** Ecossistema coeso com documentação centralizada + especializações locais
+
