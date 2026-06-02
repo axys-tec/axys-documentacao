@@ -63,6 +63,53 @@
 --   Timestamps: TIMESTAMPTZ; datas: DATE
 --   Coeficientes: NUMERIC(14,6); preços/valores: NUMERIC(14,4)
 --   Audit trail: _criado_em, _atualizado_em, _criado_por, _atualizado_por
+--
+-- DOCUMENTAÇÃO EXTERNA (JSONB) — ESTRUTURA CANÔNICA
+--   Campos ativos: catalogo.insumos.ins_external_path e
+--                  catalogo.composicoes.cmp_external_path.
+--   O banco guarda só metadados/paths; o conteúdo fica no R2
+--   (bucket easy-public). HTML é o documento principal; PDF é derivado;
+--   assets ficam em pasta própria. tipo_documento varia por entidade:
+--   'catalogo_tecnico' (insumo) | 'caderno_encargos' (composição); o
+--   diretório segue /insumos/... ou /composicoes/...
+--
+--   {
+--     "bucket": "easy-public",
+--     "tipo_documento": "catalogo_tecnico",
+--     "vigente": {
+--       "revisao": "rev_001",
+--       "edicao_inicio": "2024-10",
+--       "edicao_fim": null,
+--       "formato_principal": "html",
+--       "html_path":   "/insumos/45087_2024-10_rev001.html",
+--       "pdf_path":    "/insumos/45087_2024-10_rev001.pdf",
+--       "assets_path": "/insumos/45087_2024-10_rev001_assets/",
+--       "mime_type": "text/html",
+--       "checksum": null,
+--       "publicado_em": null,
+--       "publicado_por": null,
+--       "observacao": null
+--     },
+--     "revisoes": [
+--       {
+--         "revisao": "rev_001",
+--         "edicao_inicio": "2024-10",
+--         "edicao_fim": null,
+--         "html_path":   "/insumos/45087_2024-10_rev001.html",
+--         "pdf_path":    "/insumos/45087_2024-10_rev001.pdf",
+--         "assets_path": "/insumos/45087_2024-10_rev001_assets/",
+--         "status": "VIGENTE",
+--         "publicado_em": null,
+--         "publicado_por": null,
+--         "motivo_revisao": "publicacao_inicial"
+--       }
+--     ]
+--   }
+--
+--   Regra de revisão: ao entrar nova revisão, ela vira "vigente"; a
+--   anterior recebe edicao_fim e status != 'VIGENTE'; "revisoes"
+--   preserva o histórico. (JSONB das tabelas de EXPANSÃO — diffs de
+--   histórico — não têm estrutura fixa e ficam fora desta seção.)
 -- ============================================================
 
 
