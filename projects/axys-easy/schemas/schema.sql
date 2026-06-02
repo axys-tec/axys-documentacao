@@ -64,6 +64,15 @@
 --   Coeficientes: NUMERIC(14,6); preços/valores: NUMERIC(14,4)
 --   Audit trail: _criado_em, _atualizado_em, _criado_por, _atualizado_por
 --
+-- ESTRUTURA RECOMENDADA / CONTRATO INTERNO DA APP
+-- Estes JSONB são gerados exclusivamente pela aplicação.
+-- Não devem ser montados livremente por usuários, integrações externas
+-- ou rotinas ad hoc.
+-- A estrutura pode evoluir, mas somente por alteração deliberada da app,
+-- com compatibilidade documentada e, quando necessário, versionamento.
+-- Qualquer alteração estrutural nestes JSONB deve ser tratada como
+-- mudança de contrato interno da aplicação.
+--
 -- DOCUMENTAÇÃO EXTERNA (JSONB) — ESTRUTURA CANÔNICA
 --   Campos ativos: catalogo.insumos.ins_external_path e
 --                  catalogo.composicoes.cmp_external_path.
@@ -124,9 +133,10 @@
 --     já são colunas próprias). Cadastros: objeto completo; alta
 --     frequência: diff parcial (só campos alterados).
 --     Ex.: { "ins_descricao": "...", "ins_unidade": "UN", "ins_ti_id": 4 }
---   audit.api_logs.log_corpo_req: corpo SANITIZADO da requisição —
---     VEDADO senha, token, segredo, chave privada, credenciais ou
---     qualquer dado sensível (mascarar/omitir ANTES de gravar).
+--   audit.api_logs.log_corpo_req: corpo da requisição (POST/PUT/PATCH/DELETE).
+--     O conteúdo deve ser SANITIZADO antes da gravação. É VEDADO registrar
+--     senha, token, segredo, chave privada, credenciais ou dados sensíveis.
+--     Alteração estrutural deste JSONB = mudança de contrato interno da app.
 --     Ex.: { "codigo": "45087", "descricao": "..." }
 --   audit.login_logs.log_detalhes: metadados do evento de autenticação.
 --     Ex.: { "motivo_falha": "senha_invalida", "tentativas": 3 }
