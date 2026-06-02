@@ -63,8 +63,7 @@ FROM (VALUES
     ('catalogo', 'composicoes'),
     ('catalogo', 'composicao_itens'),
     ('catalogo', 'custos_composicao'),
-    ('catalogo', 'sinapi_manutencoes'),
-    ('catalogo', 'cadernos')
+    ('catalogo', 'sinapi_manutencoes')
 ) AS v(sch, tab)
 CROSS JOIN audit.logs_retencao lr
 WHERE lr.ret_descricao = 'Permanente'
