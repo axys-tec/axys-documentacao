@@ -2,6 +2,7 @@
 
 **Status:** 🟡 Contrato para implementação no Hub
 **Padrão:** AXYS-ADR-021 (SSO via JWT entre Hub e aplicações)
+**Handshake:** ✅ **Decidido — Opção A2 (authorization code + exchange)** — ver seção 5
 **Origem:** levantado a partir do código real do AxysEasy (paths abaixo são do repo `axys-easy`)
 **Escopo:** login de usuário em `easy.axys-tec.com.br` via SSO do AxysHub
 
@@ -130,36 +131,68 @@ emitir os slugs canônicos, então é preciso fechar a lista oficial antes:
 
 ---
 
-## 5. ⚠️ Ponto em aberto — o "handshake" (decisão Hub + Easy)
+## 5. ✅ Handshake — Opção A2 (authorization code + exchange) — DECIDIDO
 
-Esta é a parte que **ainda não está implementada** no Easy para produção e que mais
-depende do Hub. Hoje o Easy:
+Decidido entre Hub e Easy: **redirect com código de uso único + troca server-to-server**
+(padrão *authorization code* do OIDC). Mantém cada app self-contained (ADR-021), o Easy
+dono do próprio cookie, e o **JWT nunca trafega pela URL/logs**.
 
-- valida token vindo do **cookie `easy_token`** (httpOnly) ou do header
-  `Authorization: Bearer` (`backend/core/security.py`);
-- possui um formulário de login local (`POST /login`, `backend/modules/pages/routes.py`)
-  que é **dev-only** (HS256 batendo direto no banco do Hub) — **não serve para produção**.
+> Hoje o Easy ainda **não** tem essa implementação para produção: ele valida token de
+> cookie `easy_token`/Bearer (`backend/core/security.py`) e tem um login local dev-only
+> (`POST /login`). O `/sso/callback` e o cliente de exchange serão implementados no Easy.
 
-Falta definir **como o Hub entrega o token ao navegador no domínio do Easy**.
-Duas abordagens viáveis:
+### 5.1 Fluxo
 
-### Opção A — Redirect com callback (recomendada)
-Usuário autentica no Hub → Hub redireciona para
-`https://easy.axys-tec.com.br/sso/callback?token=<jwt>` → o Easy valida e seta o
-cookie `easy_token` httpOnly e redireciona para `/main`.
-- **Prós:** desacoplado; o Easy controla o próprio cookie; funciona mesmo se os
-  domínios não forem irmãos.
-- **Requer:** Easy implementar `/sso/callback` (não existe hoje) + Hub fazer o redirect.
+```
+1. User → https://easy.axys-tec.com.br/<algo>   (sem cookie easy_token válido)
+   Easy 302 →
+     {HUB_BASE_URL}/login?app=easy&redirect_uri=https://easy.axys-tec.com.br/sso/callback
 
-### Opção B — Cookie de domínio compartilhado
-Hub e Easy ambos sob `.axys-tec.com.br`; o Hub seta o cookie `easy_token` no domínio
-pai e o Easy só lê.
-- **Prós:** mais simples; próximo do código atual (o Easy já lê `easy_token`).
-- **Requer:** alinhar nome do cookie (`easy_token`) e flags (httpOnly, `secure`,
-  `samesite=lax`), e configurar `EASY_COOKIE_DOMAIN=.axys-tec.com.br`
-  (`backend/core/runtime_config.py`). Acopla o Hub ao nome do cookie do Easy.
+2. Hub autentica o usuário (login próprio do Hub).
 
-> **Decisão necessária:** A ou B. Recomendação: **A** (menor acoplamento).
+3. Hub gera um CODE de uso único e redireciona:
+   302 → https://easy.axys-tec.com.br/sso/callback?code=<code>[&state=<state>]
+
+4. Easy (server-to-server, sem browser):
+   POST {HUB_BASE_URL}/auth/exchange
+   → recebe o JWT (RS256), valida via JWKS, seta cookie easy_token (host-only), 302 → /main
+```
+
+### 5.2 O que o Hub precisa implementar
+
+**(a) `GET /login`** — aceitar os parâmetros e, após autenticar, redirecionar para o
+`redirect_uri` com o `code`:
+
+| Param (entrada) | Descrição |
+|---|---|
+| `app` | slug da aplicação chamadora (`easy`). Permite ao Hub montar `apps_licenciadas` e validar o `redirect_uri`. |
+| `redirect_uri` | URL de callback do Easy. **Deve ser validada contra allowlist** no Hub (evita open redirect). |
+| `state` | (opcional, recomendado) string opaca anti-CSRF gerada pelo Easy; o Hub devolve igual no callback. |
+
+**(b) `POST /auth/exchange`** — troca o `code` pelo JWT, server-to-server:
+
+- **Request (JSON):** `{ "code": "<code>", "app": "easy" }`
+- **Autenticação do cliente:** o Hub deve confirmar que quem chama é o Easy. Usar
+  **client credentials por app** — header `Authorization: Basic base64(client_id:client_secret)`
+  ou body `{ client_id, client_secret }`. O Hub emite ao Easy um `client_id`/`client_secret`
+  (ver seção 7: `EASY_HUB_CLIENT_ID` / `EASY_HUB_CLIENT_SECRET`).
+- **Response 200 (JSON):** `{ "token": "<jwt RS256>" }` (JWT conforme contrato da seção 3).
+- **Erros:** `400` code inválido/expirado/já usado; `401` client credentials inválidas.
+
+**(c) Propriedades do `code`:**
+
+- **opaco e aleatório** (não é o JWT; é uma chave de lookup no Hub);
+- **uso único** — invalidado no primeiro `exchange`;
+- **TTL curto** — 60–120s;
+- **vinculado** a `app` + `redirect_uri` + usuário/tenant emitidos no passo 2
+  (o exchange só devolve o JWT correspondente àquele code).
+
+### 5.3 O que o Easy implementa (lado axys-easy — não é tarefa do Hub)
+
+- redireciona para `/login` quando não há `easy_token` válido (com `state`);
+- `GET /sso/callback?code=&state=` → valida `state`, chama `POST /auth/exchange`,
+  valida o JWT via JWKS, seta `easy_token` (httpOnly, `secure` em prod, `samesite=lax`,
+  host-only), 302 → `/main`.
 
 ---
 
@@ -184,9 +217,13 @@ Definidas em `backend/core/runtime_config.py`:
 | `EASY_ENV` | `development` | `development` / `production` |
 | `EASY_JWT_ALGORITHM` | `RS256` | algoritmo de validação |
 | `EASY_JWT_SECRET` | `` | segredo HS256 (dev only) |
-| `HUB_BASE_URL` | `http://localhost:8000` | base do Hub p/ JWKS |
-| `EASY_COOKIE_DOMAIN` | `null` | domínio do cookie (handshake Opção B) |
+| `HUB_BASE_URL` | `http://localhost:8000` | base do Hub p/ JWKS, `/login` e `/auth/exchange` |
+| `EASY_HUB_CLIENT_ID` | — | client id do Easy no exchange (A2) — emitido pelo Hub |
+| `EASY_HUB_CLIENT_SECRET` | — | client secret do Easy no exchange (A2) — emitido pelo Hub |
 | `EASY_AUTH_BYPASS` | `false` | bypass de auth (dev only; bloqueado em produção) |
+
+> `EASY_HUB_CLIENT_ID`/`EASY_HUB_CLIENT_SECRET` ainda não existem no Easy — entram junto
+> com a implementação do `/sso/callback`. O Hub precisa **emitir esse par** para o Easy.
 
 > Os nomes corretos são os `EASY_*` / `HUB_BASE_URL` acima — **não** `HUB_URL`,
 > `JWT_SECRET`, `HUB_PUBLIC_KEY` como apareciam em docs antigos.
@@ -200,5 +237,8 @@ Definidas em `backend/core/runtime_config.py`:
 - [ ] (Recomendado) incluir `iss` e `aud`.
 - [ ] Emitir `apps_licenciadas` com os **slugs canônicos** (fechar a inconsistência da seção 4).
 - [ ] Garantir `is_staff` e/ou ≥1 app `easy-*` para quem deve entrar.
-- [ ] **Definir o handshake (seção 5)** — A ou B — e combinar a implementação dos dois lados.
+- [x] ~~Definir o handshake~~ → **A2 (code + exchange)** decidido (seção 5).
+- [ ] **`GET /login`** aceitar `app`, `redirect_uri` (com allowlist) e `state`; redirecionar com `?code=`.
+- [ ] **`POST /auth/exchange`** trocar `code` (uso único, TTL 60–120s) pelo JWT, autenticando o client.
+- [ ] **Emitir `client_id`/`client_secret`** para o Easy usar no exchange.
 - [ ] (Futuro) revogação/blacklist se logout forçado for requisito.
