@@ -26,8 +26,8 @@ AxysEasy é a **plataforma de orçamentação para construção civil**.
 Easy Database
 ├── catalogo.*                 # referência (SINAPI, CDHU, preços)
 │   ├── fontes, edicoes
-│   ├── insumos, precos
-│   ├── grupos, composicoes
+│   ├── insumos, insumos_preco
+│   ├── composicoes_grupos, composicoes
 │   └── ...
 ├── ativo.*                    # estrutura de orçamentos
 │   ├── ativos (projects)
@@ -38,8 +38,7 @@ Easy Database
 ```
 
 **Acessar schema:**
-- [schema.sql](schemas/schema.sql) — DDL completo
-- [seed.sql](schemas/seed.sql) — dados iniciais (SINAPI, CDHU seed)
+- [schema.sql](schemas/schema.sql) — DDL completo + todos os seeds inline (sem seed.sql separado)
 - [migrations/](schemas/migrations/) — histórico
 
 ---
@@ -75,7 +74,7 @@ O Easy segue um **design system canônico**:
 
 | Projeto | Como integra |
 |---------|-------------|
-| **AxysHub** | Autentica via SSO [ADR-029](../../foundation/adrs/ADR-029-SSO-JWT-hub-easy.md) |
+| **AxysHub** | Autentica via SSO [AXYS-ADR-021](../../foundation/adrs/AXYS-ADR-021-SSO-JWT-hub-easy.md) |
 | **AxysLisp** | Recebe levantamentos (JSON) de CAD |
 | **AxysRvt** | Recebe estruturas de BIM |
 | **AxysIFC** | Processa arquivos IFC |
@@ -117,7 +116,7 @@ Veja [next-steps/](next-steps/) para mais detalhes.
 
 ## 📞 Referências
 
-- @see [ADR-031 — Modular Architecture](adrs/)
+- @see [EASY-ADR-001 — Modular Architecture](adrs/)
 - @see [Contrato — Módulo Ativo](contracts/MODULO_ATIVO_ARCHITECTURE_CONTRACT_v0.md)
-- @see [ADR-029 — SSO](../../foundation/adrs/ADR-029-SSO-JWT-hub-easy.md)
+- @see [AXYS-ADR-021 — SSO](../../foundation/adrs/AXYS-ADR-021-SSO-JWT-hub-easy.md)
 - @see [Tenant Model](../../foundation/contracts/tenant-model.md)

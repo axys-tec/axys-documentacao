@@ -56,7 +56,7 @@ Veja [ARCHITECTURE.md](ARCHITECTURE.md) para visão detalhada.
 
 | Projeto | Como consome |
 |---------|-------------|
-| **AxysEasy** | Valida JWT via [ADR-029](../../foundation/adrs/ADR-029-SSO-JWT-hub-easy.md) |
+| **AxysEasy** | Valida JWT via [AXYS-ADR-021](../../foundation/adrs/AXYS-ADR-021-SSO-JWT-hub-easy.md) |
 | **AxysPro** | (futuro) Usará mesma autenticação |
 | **AxysDash** | Autentica via client credentials |
 
@@ -87,6 +87,6 @@ Veja [integrations/](../../integrations/) para mapa completo.
 
 ## 📞 Referências
 
-- @see [ADR-029 — SSO JWT](../../foundation/adrs/ADR-029-SSO-JWT-hub-easy.md)
-- @see [ADR-023 — Hub Control Plane](../../foundation/adrs/ADR-023-hub-control-plane.md)
+- @see [AXYS-ADR-021 — SSO JWT](../../foundation/adrs/AXYS-ADR-021-SSO-JWT-hub-easy.md)
+- @see [HUB-ADR-002 — Hub Control Plane](../../foundation/adrs/HUB-ADR-002-hub-control-plane.md)
 - @see [Tenant Model](../../foundation/contracts/tenant-model.md)

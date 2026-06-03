@@ -95,10 +95,10 @@ Isolamento garantido em queries: `WHERE tenant_id = ?`
 
 | ADR | Propósito |
 |-----|-----------|
-| **ADR-011** | Seed Mínimo (dados iniciais) |
-| **ADR-023** | Hub Control Plane (gestão central) |
-| **ADR-025** | Licenciamento Lease Token |
-| **ADR-027** | Arquitetura Push-Only para ERP |
+| **HUB-ADR-001** | Seed Mínimo (dados iniciais) |
+| **HUB-ADR-002** | Hub Control Plane (gestão central) |
+| **HUB-ADR-003** | Licenciamento Lease Token |
+| **HUB-ADR-004** | Arquitetura Push-Only para ERP |
 
 ### Globais (referência de foundation/)
 
@@ -149,6 +149,6 @@ Veja [foundation/adrs/](../../foundation/adrs/) para decisões arquiteturais que
 
 ## 📞 Referências
 
-- @see [ADR-029 — SSO JWT Hub/Easy](../../foundation/adrs/ADR-029-SSO-JWT-hub-easy.md)
-- @see [ADR-023 — Hub Control Plane](adrs/ADR-023-hub-control-plane.md)
+- @see [AXYS-ADR-021 — SSO JWT Hub/Easy](../../foundation/adrs/AXYS-ADR-021-SSO-JWT-hub-easy.md)
+- @see [HUB-ADR-002 — Hub Control Plane](adrs/HUB-ADR-002-hub-control-plane.md)
 - @see [Tenant Model](../../foundation/contracts/axys_ecossistema_contrato_arquitetural.md)

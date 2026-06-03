@@ -6,7 +6,7 @@
 **Regras globais:** ver [CATALOGO_BUSINESS_RULES.md](CATALOGO_BUSINESS_RULES.md).
 **Comportamento/UX da tela:** `backend/frontend/templates/catalogo/catalogo_work_pages.md`.
 
-> Fonte = origem de preços/composições (SINAPI, CDHU, FDE, ORSE, EMOP, AXYS). É dado **estrutural** — raramente criado por usuário final; majoritariamente seedado.
+> Fonte = origem de preços/composições (SINAPI, CDHU, AXYS). É dado **estrutural** — raramente criado por usuário final; majoritariamente seedado. A forma de importação de **outras fontes** será doutrinada via template (fora do escopo atual).
 > **Acesso ao módulo Catálogo:** exclusivo da equipe interna Axys (`is_staff=True`); clientes não acessam.
 
 ---
@@ -20,7 +20,7 @@
 | `fte_ordem_edicao` | `DATA` (recente = maior `edi_mes_ref`) ou `VERSAO` (recente = maior `edi_codigo_versao`, ex.: CDHU `'201'`). |
 | `fte_ativa` | Liga/desliga a fonte na operação. Default `TRUE`. |
 
-`AXYS` = composições próprias do tenant — sem edição mensal, preço informado direto (sem linha em `precos_insumo`).
+`AXYS` = composições próprias do tenant — sem edição mensal, preço informado direto (sem linha em `insumos_preco`).
 
 ---
 

@@ -6,7 +6,7 @@
 
 ### Por que?
 
-Os 7 tipos de insumo em SINAPI ("MATERIAL", "MAO DE OBRA", etc.) são exatamente os mesmos em nossa tabela `catalogo.tipos_insumo`. Se SINAPI adicionar novos tipos, apenas adicionaremos à nossa tabela — nunca vão remover/alterar os existentes.
+Os 7 tipos de insumo em SINAPI ("MATERIAL", "MAO DE OBRA", etc.) são exatamente os mesmos em nossa tabela `catalogo.insumos_tipo`. Se SINAPI adicionar novos tipos, apenas adicionaremos à nossa tabela — nunca vão remover/alterar os existentes.
 
 Portanto, `ins_tipo_sinapi` era redundante. **Solução:** mapear direto para `ins_ti_id` no momento do import.
 
@@ -20,7 +20,7 @@ Portanto, `ins_tipo_sinapi` era redundante. **Solução:** mapear direto para `i
 ✅ **next_step_map.md:**
 - Atualizado: SINAPI mapping direto para `ins_ti_id` (não guarda texto)
 - Atualizado: CDHU mapping por prefixo (já era assim)
-- Simplificado: Lookup de tipos_insumo
+- Simplificado: Lookup de insumos_tipo
 
 ---
 
@@ -58,7 +58,7 @@ ins_ti_id = lookup_tipo(row["Classificação"])  # Mapear direto
 
 ## Checklist para o Parser
 
-- [ ] Carregar `tipos_insumo` em memória no início (lookup dict `ti_codigo → ti_id`)
+- [ ] Carregar `insumos_tipo` em memória no início (lookup dict `ti_codigo → ti_id`)
 - [ ] CDHU: `ins_ti_id` via prefixo (sem mudança)
 - [ ] SINAPI: `ins_ti_id` via lookup de "Classificação" (remover `ins_tipo_sinapi`)
 - [ ] SQL INSERT: não tentar inserir coluna `ins_tipo_sinapi` (ela não existe mais)

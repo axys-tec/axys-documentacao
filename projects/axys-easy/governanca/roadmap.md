@@ -23,5 +23,7 @@ Permitir que composições produzidas por tenants possam ser disponibilizadas pa
 - Sistema de versionamento
 - Workflow de aprovação
 
-**Documento:** [../modules/catalogo/AXYS_CATALOGO_COLABORATIVO_v0.md](../modules/catalogo/AXYS_CATALOGO_COLABORATIVO_v0.md)
+**Princípio de governança:** Contrato governa · Schema suporta · Código implementa · Tela opera.
+
+**Documento:** [../modules/catalogo/AXYS_CATALOGO_COLABORATIVO_v0.md](../modules/catalogo/AXYS_CATALOGO_COLABORATIVO_v0.md) — alinhado à **Fase 7** do `PLANO_IMPORT_CATALOGO.md`.
 **Pendências:** [pendencias.md](pendencias.md)

@@ -426,7 +426,7 @@ Botões de ação: 13×13 | Header: 20×20 | Alertas: 16×16
 [ex: Código deve ser único por fonte. Não inativar se houver preços ativos associados.]
 
 ## Dependências para inativação (se aplicável):
-[ex: Verificar cpu.precos_insumo ativos antes de inativar]
+[ex: Verificar cpu.insumos_preco ativos antes de inativar]
 
 ## Campos extras no modal de detalhamento:
 [ex: além do padrão: Tipo SINAPI, Tipo Interno]

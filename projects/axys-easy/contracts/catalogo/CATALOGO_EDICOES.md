@@ -34,7 +34,9 @@ Unicidade: `(edi_fte_id, edi_mes_ref)` (`uq_edicoes_fte_mes`).
 
 ## 4. Importação / Reimportação
 - A importação roda o parser da fonte (ver [CATALOGO_SINAPI_IMPORT_CONTRACT.md](CATALOGO_SINAPI_IMPORT_CONTRACT.md) / [CATALOGO_CDHU_IMPORT_CONTRACT.md](CATALOGO_CDHU_IMPORT_CONTRACT.md)) **para aquela edição**.
-- **Hierarquia de import** (SINAPI): identidade (ISE) → órfãos (Analítico/fuzzy) → preços → composições. Não seguir sem insumos materializados.
+- **Entrada (CDHU):** tela `/edicoes` → seleciona caderno → botão **"importar composições"** → modal com **3 excels obrigatórios** (insumos, composições, serviços). Botão **"importar caderno"** (PDFs/R2) é fase própria. (UI = Fase 5 do `PLANO_IMPORT_CATALOGO.md`.)
+- **Leis sociais por edição:** cada edição carrega `catalogo.edicoes_leis_sociais` (LS por UF/modalidade SD/CD; horista/mensalista). Origem: cabeçalhos ISD/ICD (SINAPI) ou cabeçalho de serviços (CDHU). Base da derivação SD/CD ([CATALOGO_BUSINESS_RULES.md §3.2–3.3](CATALOGO_BUSINESS_RULES.md)).
+- **Hierarquia de import** (SINAPI): identidade (ISE) → órfãos (Analítico/fuzzy) → preços (ISE + LS de ISD/ICD) → composições + conferência. Não seguir sem insumos materializados.
 - **Reimport idempotente**:
   - insumos = identidade vigente (upsert, precedência FONTE>MANUAL>REGRA);
   - preços/composições/custos = **imutáveis por edição** (regravados iguais).

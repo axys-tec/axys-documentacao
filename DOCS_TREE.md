@@ -1,22 +1,25 @@
 # Estrutura do Repositório docs — Ecossistema Axys
 
-**Status:** v0.2 — Reorganizado em 01/06/2026
+**Status:** v1.0 — Finalizado (01/06/2026)  
+**Fases:** ✅ FASE 1-6 completas (ADRs reorganizadas, 5 projetos documentados, integrações mapeadas)
 
 ---
 
 ## Visão Geral
 
-Este repositório centraliza documentação, decisões arquiteturais (ADRs), contratos técnicos, schemas de banco de dados e migrations para o **ecossistema completo Axys**.
+Este repositório centraliza documentação, decisões arquiteturais (ADRs), contratos técnicos, schemas de banco de dados e migrations para o **ecossistema completo Axys** (5 projetos principais).
 
 **Princípios:**
-- Cada projeto possui seus próprios ADRs, schemas, seeds e migrations
-- Foundation reservado para decisões realmente ecosystem-wide
-- Schemas/migrations sempre dentro de `projects/{project}/schemas/`
-- Cross-references claras entre projetos
+- ✅ **ADRs com prefixo de escopo:** `AXYS-ADR-*` (global), `HUB-ADR-*`, `EASY-ADR-*`, `PRO-ADR-*`
+- ✅ Cada projeto tem seus próprios ADRs, schemas, seeds, migrations
+- ✅ Foundation reservado para decisões **realmente ecosystem-wide** (21 ADRs)
+- ✅ Schemas/migrations sempre dentro de `projects/{project}/schemas/`
+- ✅ Integrações mapeadas em `projects/{project}/integrations/`
+- ✅ Cross-references claras entre projetos
 
 ---
 
-## Estrutura Atual
+## Estrutura Atual (v1.0)
 
 ```
 docs/
@@ -68,14 +71,32 @@ docs/
 │   │   ├── next-steps/
 │   │   └── ...
 │   │
-│   ├── axys-pro/                       # 🟡 Planejado
-│   │   ├── README.md
-│   │   ├── adrs/                       # 14 ADRs
+│   ├── axys-pro/                       # 🟡 Planejado (ERP)
+│   │   ├── README.md                   # ✅ Atualizado
+│   │   ├── ARCHITECTURE.md             # ✅ Criado
+│   │   ├── adrs/                       # 5 ADRs específicas
+│   │   ├── contracts/
+│   │   │   └── contrato_geral_axyspro.md  # ✅ Normativo
 │   │   ├── schemas/
-│   │   │   ├── schema.sql (por criar)
-│   │   │   ├── seed.sql (por criar)
+│   │   │   ├── schema.sql              # 🔄 Por criar
+│   │   │   ├── seed.sql                # 🔄 Por criar
 │   │   │   └── migrations/
-│   │   └── ...
+│   │   ├── modules/                    # 🔄 Por documentar
+│   │   └── integrations/               # 🔄 Por criar
+│   │
+│   ├── axys-sync/                      # 🟢 Produção (Contabilidade)
+│   │   ├── README.md                   # ✅ Bridge criado
+│   │   ├── integrations/
+│   │   │   ├── with-hub.md             # ✅ Autenticação & tenants
+│   │   │   ├── with-easy.md            # ✅ Consumo de dados
+│   │   │   └── data-flows.md           # ✅ Fluxos completos
+│   │   └── docs-reference.md           # Link para docs remotas
+│   │
+│   ├── axys-sync-loccitane/            # 🟢 Produção (Especializado)
+│   │   ├── README.md                   # ✅ Bridge criado
+│   │   ├── integrations/
+│   │   │   └── with-easy.md            # ✅ Futuro: orçamentos
+│   │   └── docs-reference.md           # Link para docs remotas
 │   │
 │   ├── axys-lisp/                      # 🟡 Planejado
 │   │   ├── README.md

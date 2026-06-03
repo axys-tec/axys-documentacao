@@ -38,5 +38,5 @@ Veja [contracts/](contracts/) quando iniciado.
 
 ## 📞 Referências
 
-- @see [ADR-030 — Ferramentas Excel, AutoLISP, API](../../foundation/adrs/ADR-030-ferramentas-excel-autolisp-api.md)
+- @see [AXYS-ADR-020 — Ferramentas Excel, AutoLISP, API](../../foundation/adrs/AXYS-ADR-020-ferramentas-excel-autolisp-api.md)
 - @see [AxysEasy — Integração](../axys-easy/integrations/with-lisp.md)
