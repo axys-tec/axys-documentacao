@@ -4,15 +4,9 @@
 -- Idempotente: ON CONFLICT DO UPDATE / DO NOTHING
 -- ============================================================
 
--- ─── catalogo.tipos_insumo ────────────────────────────────────────
-INSERT INTO catalogo.tipos_insumo (ti_codigo, ti_nome) VALUES
-    ('MO',       'Mão de Obra'),
-    ('EQUIP_AQ', 'Equipamento — Aquisição'),
-    ('EQUIP_LOC','Equipamento — Locação'),
-    ('MAT',      'Material'),
-    ('SERV',     'Serviço'),
-    ('ESP',      'Especiais')
-ON CONFLICT (ti_codigo) DO NOTHING;
+-- ─── Domínios estruturais (tipos_insumo, situacoes) ───────────────
+--   O seed ESSENCIAL desses domínios agora vive INLINE no schema.sql,
+--   logo após cada CREATE TABLE (não aqui). Mantido canônico e legível.
 
 -- ─── catalogo.fontes ──────────────────────────────────────────────
 -- fte_ordem_edicao:
