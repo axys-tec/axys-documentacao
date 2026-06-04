@@ -214,6 +214,7 @@ Catálogo de preço só fica **disponível ao tenant** quando **completo e valid
 
 **10.1 Flags.**
 - **Fonte:** `fte_tem_catalogo_insumos` (bool, default `false`) — o usuário declara no cadastro se a fonte publica catálogo/relatório de insumos (na prática hoje só a SINAPI tem fichas; CDHU não).
+- **Fonte:** `fte_catalogos_continuos` (bool, default `false`) — os documentos (fichas/cadernos/critérios) **podem não mudar por edição**? `true` = contínuos (SINAPI: trazem data de atualização → publica com **skip por data**, §11.3); `false` = reemitidos/mudam por edição (CDHU: **sobe tudo por edição**, §11.2). Default `false` é conservador (re-sobe sempre) — fonte que o usuário sobe declara isso.
 - **Edição:** ciclo de vida em enum `edi_situacao_ciclo` ∈ {`RASCUNHO`, `LIBERADA`} (+ gates abaixo). `RASCUNHO` é o default.
   - `edi_ins_catalogo_ok` (bool): se `fte_tem_catalogo_insumos` → exige upload das fichas de insumo; **senão o back seta `true` automático** (não há o que subir).
   - `edi_comp_catalogo_ok` (bool): exige upload dos **cadernos/critérios** (composições) — **obrigatório para toda fonte**.
@@ -241,11 +242,11 @@ Camada **documental** (especificação de insumo, critério de medição, cadern
 - Todo HTML carrega o **favicon** oficial (`appicon_logo.png`) via URL pública do R2.
 - O documento vive na **IDENTIDADE**: insumo → `insumos.ins_external_path`; composição → `composicoes.cmp_external_path` (JSONB). A **edição** apenas **exige a existência** do doc (gate §10), não é dona do arquivo.
 
-**11.2 CDHU — sobe tudo a cada edição.** A CDHU reemite o catálogo de critérios a cada edição (repete textos, sem controle de mudança). Como é leve (texto), **sobe tudo por edição**:
+**11.2 Fonte `fte_catalogos_continuos=false` (ex.: CDHU) — sobe tudo a cada edição.** A CDHU reemite o catálogo de critérios a cada edição (repete textos, sem controle de mudança). Como é leve (texto), **sobe tudo por edição**:
 - Arquivo nomeado com a edição: `criterios/cdhu/<edi>/<cmp_codigo>.html` (≡ `{codigo}_{edicao}`).
 - `cmp_external_path` mantém o **path mais atual** + um **histórico** dos paths anteriores (auditoria; redundante com o nome `{codigo}_{edicao}`, mas guardado).
 
-**11.3 SINAPI — skip por data de atualização.** Fichas (`Atualizado em:`) e cadernos (`Atualização`) trazem a data da última revisão. Regra **idempotente**: se a data do doc **≤** a edição **E** o item **já existe no R2** → **não sobe (skip)**. Evita re-subir docs idênticos a cada boletim (o conteúdo é contínuo na identidade).
+**11.3 Fonte `fte_catalogos_continuos=true` (ex.: SINAPI) — skip por data de atualização.** Fichas (`Atualizado em:`) e cadernos (`Atualização`) trazem a data da última revisão. Regra **idempotente**: se a data do doc **≤** a edição **E** o item **já existe no R2** → **não sobe (skip)**. Evita re-subir docs idênticos a cada boletim (o conteúdo é contínuo na identidade).
 
 **11.4 Estado (2026-06-04).**
 - **CDHU critérios:** parser OK (font-style), publicado 184+201. ⚠️ Pendente: rodapé `Página X de Y` vazou no 184 (filtrar) + favicon.
