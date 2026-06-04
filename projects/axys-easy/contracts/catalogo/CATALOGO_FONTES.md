@@ -19,8 +19,10 @@
 | `fte_nome` | Não vazio, **maiúsculas**. Editável. |
 | `fte_ordem_edicao` | `DATA` (recente = maior `edi_mes_ref`) ou `VERSAO` (recente = maior `edi_codigo_versao`, ex.: CDHU `'201'`). |
 | `fte_ativa` | Liga/desliga a fonte na operação. Default `TRUE`. |
+| `fte_tem_catalogo_insumos` | Bool, default `FALSE`. A fonte publica **catálogo/relatório de insumos** (fichas)? Hoje só SINAPI. Se `TRUE`, a edição **exige** upload das fichas p/ publicar (BUSINESS_RULES §10). |
+| `fte_catalogos_continuos` | Bool, default `FALSE`. Documentos (fichas/cadernos/critérios) **contínuos** (não mudam por edição → skip por data)? SINAPI=`TRUE`; CDHU=`FALSE` (reemite por edição); AXYS=`TRUE` (app-own). (BUSINESS_RULES §11) |
 
-`AXYS` = composições próprias do tenant — sem edição mensal, preço informado direto (sem linha em `insumos_preco`).
+`AXYS` = composições próprias do tenant — sem edição mensal, preço informado direto (sem linha em `insumos_preco`); só caderno/critério, sem catálogo de insumos.
 
 ---
 

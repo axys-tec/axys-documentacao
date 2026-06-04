@@ -276,6 +276,9 @@ CREATE TABLE IF NOT EXISTS catalogo.fontes (
     fte_nome           TEXT    NOT NULL,
     fte_ordem_edicao   TEXT    NOT NULL DEFAULT 'DATA',
     fte_ativa          BOOLEAN NOT NULL DEFAULT TRUE,
+    -- Governança de catálogo de documentos (R2) — ver BUSINESS_RULES §10/§11:
+    fte_tem_catalogo_insumos BOOLEAN NOT NULL DEFAULT FALSE,  -- publica fichas de insumo? (só SINAPI). Se TRUE, edição exige upload das fichas p/ publicar.
+    fte_catalogos_continuos  BOOLEAN NOT NULL DEFAULT FALSE,  -- docs contínuos (não mudam por edição → skip por data)? SINAPI=TRUE; CDHU=FALSE (reemite por edição).
     fte_criado_em      TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     fte_atualizado_em  TIMESTAMPTZ,
     fte_criado_por     TEXT,
@@ -300,16 +303,22 @@ CREATE INDEX ix_fontes_ativa
 -- Seed inline — fontes de preços do tenant.
 --   fte_ordem_edicao: 'DATA' = mais recente é maior edi_mes_ref;
 --                     'VERSAO' = mais recente é maior edi_codigo_versao.
-INSERT INTO catalogo.fontes (fte_codigo, fte_nome, fte_ordem_edicao, fte_criado_por)
-SELECT v.codigo, v.nome, v.ordem, 'Axys — seed inicial'
+--   fte_tem_catalogo_insumos: SINAPI publica fichas de insumo; CDHU/AXYS não.
+--   fte_catalogos_continuos:  SINAPI traz data de atualização (skip por data); CDHU reemite
+--                             por edição; AXYS é app-own (contínuo).
+INSERT INTO catalogo.fontes (fte_codigo, fte_nome, fte_ordem_edicao,
+                             fte_tem_catalogo_insumos, fte_catalogos_continuos, fte_criado_por)
+SELECT v.codigo, v.nome, v.ordem, v.tem_ins, v.continuos, 'Axys — seed inicial'
 FROM (VALUES
-    ('SINAPI', 'SINAPI — Caixa Econômica Federal',                          'DATA'),
-    ('CDHU',   'CDHU — Companhia de Desenvolvimento Habitacional e Urbano', 'VERSAO'),
-    ('AXYS',   'AXYS — Composições Próprias',                               'DATA')
-) AS v(codigo, nome, ordem)
+    ('SINAPI', 'SINAPI — Caixa Econômica Federal',                          'DATA',   TRUE,  TRUE),
+    ('CDHU',   'CDHU — Companhia de Desenvolvimento Habitacional e Urbano', 'VERSAO', FALSE, FALSE),
+    ('AXYS',   'AXYS — Composições Próprias',                               'DATA',   FALSE, TRUE)
+) AS v(codigo, nome, ordem, tem_ins, continuos)
 ON CONFLICT (fte_codigo) DO UPDATE
     SET fte_nome           = EXCLUDED.fte_nome,
         fte_ordem_edicao   = EXCLUDED.fte_ordem_edicao,
+        fte_tem_catalogo_insumos = EXCLUDED.fte_tem_catalogo_insumos,
+        fte_catalogos_continuos  = EXCLUDED.fte_catalogos_continuos,
         fte_atualizado_em  = CURRENT_TIMESTAMP,
         fte_atualizado_por = 'Axys — seed inicial';
 
@@ -335,6 +344,11 @@ CREATE TABLE IF NOT EXISTS catalogo.edicoes (
     edi_codigo_versao  TEXT,
     edi_uf_padrao      CHAR(2) NOT NULL DEFAULT 'SP',
     edi_ativa          BOOLEAN NOT NULL DEFAULT TRUE,
+    -- Ciclo de vida (BUSINESS_RULES §10): RASCUNHO = importada, indisponível ao tenant;
+    -- PUBLICADA = liberada (validações ok) + TRAVADA (imutável; lock na camada app).
+    edi_situacao_ciclo  TEXT    NOT NULL DEFAULT 'RASCUNHO',
+    edi_ins_catalogo_ok  BOOLEAN NOT NULL DEFAULT FALSE,  -- fichas de insumo no R2 (auto-TRUE se fonte sem catálogo de insumos)
+    edi_comp_catalogo_ok BOOLEAN NOT NULL DEFAULT FALSE,  -- cadernos/critérios no R2 (obrigatório p/ publicar)
     edi_criado_em      TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     edi_atualizado_em  TIMESTAMPTZ,
     edi_criado_por     TEXT,
@@ -352,7 +366,10 @@ CREATE TABLE IF NOT EXISTS catalogo.edicoes (
         CHECK (EXTRACT(DAY FROM edi_mes_ref) = 1),
 
     CONSTRAINT ck_edicoes_codigo_versao_vazio
-        CHECK (edi_codigo_versao IS NULL OR btrim(edi_codigo_versao) <> '')
+        CHECK (edi_codigo_versao IS NULL OR btrim(edi_codigo_versao) <> ''),
+
+    CONSTRAINT ck_edicoes_situacao_ciclo
+        CHECK (edi_situacao_ciclo IN ('RASCUNHO', 'PUBLICADA'))
 );
 
 CREATE INDEX ix_edicoes_fte_mes

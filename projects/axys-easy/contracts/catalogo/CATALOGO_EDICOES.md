@@ -20,6 +20,9 @@
 | `edi_codigo_versao` | Versão p/ fontes `VERSAO` (ex.: CDHU `'201'`; SINAPI = `MM-YY`, ex.: Abr/2026 → `'04-26'`). Não vazio quando presente. |
 | `edi_uf_padrao` | UF default na consulta. SINAPI: `'SP'` (todas as 27 importadas). CDHU: `'SP'` (estadual). |
 | `edi_ativa` | Edição vigente/visível na operação. |
+| `edi_situacao_ciclo` | `RASCUNHO` (importada, **indisponível ao tenant**) → `PUBLICADA` (liberada + **travada**). Default `RASCUNHO`. Ver §5. |
+| `edi_ins_catalogo_ok` | Gate: fichas de insumo no R2 (auto-`TRUE` se fonte sem catálogo de insumos). |
+| `edi_comp_catalogo_ok` | Gate: cadernos/critérios no R2 (obrigatório p/ publicar). |
 
 Unicidade: `(edi_fte_id, edi_mes_ref)` (`uq_edicoes_fte_mes`).
 
@@ -42,9 +45,12 @@ Unicidade: `(edi_fte_id, edi_mes_ref)` (`uq_edicoes_fte_mes`).
   - preços/composições/custos = **imutáveis por edição** (regravados iguais).
 - **Contrato de cobertura**: toda UF da edição tem linha de preço por insumo; ausência de linha = falha/não-processado (não "sem preço").
 
-## 5. Bloqueios
-- Dados de uma edição importada são **imutáveis** (preços/composições/itens/custos). Correção = reprocessar a edição, não editar registro a registro.
-- *(A confirmar)* travar reimport sobre edição "fechada"/publicada vs. permitir reprocesso controlado.
+## 5. Ciclo de vida / Bloqueios (BUSINESS_RULES §10)
+- **`edi_situacao_ciclo`**: `RASCUNHO` (default) = importada mas **indisponível a qualquer tenant**; `PUBLICADA` = **disponível + travada**.
+- **Botão "Publicar edição"** (front) → o back valida: import "grande" feito **+** `edi_ins_catalogo_ok` (auto-`TRUE` se `fte_tem_catalogo_insumos=false`) **+** `edi_comp_catalogo_ok` (cadernos/critérios obrigatórios). Passando → `PUBLICADA` + **lock**.
+- Dados de edição `PUBLICADA` são **imutáveis** (preços/composições/itens/custos) — **lock na camada app/parser, sem trigger**. Manutenção pós-publicação só por **usuário de acesso máximo**, em tela específica.
+- Correção = **reprocessar** a edição (não editar registro a registro).
+- **Badge na listagem**: `RASCUNHO` (cinza/aviso) × `PUBLICADA` (verde) — ver `catalogo_work_pages.md`.
 
 ## 6. Auditoria
 - `edi_criado_por`/`edi_criado_em` + `*_atualizado_*`.
@@ -62,6 +68,6 @@ Unicidade: `(edi_fte_id, edi_mes_ref)` (`uq_edicoes_fte_mes`).
 Auditoria: escrita em `audit.logs` (`log_tabela='edicoes'`), snapshot antes/depois (`_snapshot_edicao`); sem mudança = sem gravação/auditoria.
 
 ## 8. Pontos abertos (a revisar)
-- Estado de "edição fechada/publicada" e política de reprocesso.
+- ~~Estado de "edição fechada/publicada" e política de reprocesso.~~ **Resolvido (§5):** `edi_situacao_ciclo` RASCUNHO→PUBLICADA + lock.
 - Onde persistir o relatório de import (avisos/erros) para auditoria.
 - UX do disparo de import (upload do arquivo × caminho fixo).

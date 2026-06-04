@@ -215,7 +215,7 @@ Catálogo de preço só fica **disponível ao tenant** quando **completo e valid
 **10.1 Flags.**
 - **Fonte:** `fte_tem_catalogo_insumos` (bool, default `false`) — o usuário declara no cadastro se a fonte publica catálogo/relatório de insumos (na prática hoje só a SINAPI tem fichas; CDHU não).
 - **Fonte:** `fte_catalogos_continuos` (bool, default `false`) — os documentos (fichas/cadernos/critérios) **podem não mudar por edição**? `true` = contínuos (SINAPI: trazem data de atualização → publica com **skip por data**, §11.3); `false` = reemitidos/mudam por edição (CDHU: **sobe tudo por edição**, §11.2). Default `false` é conservador (re-sobe sempre) — fonte que o usuário sobe declara isso.
-- **Edição:** ciclo de vida em enum `edi_situacao_ciclo` ∈ {`RASCUNHO`, `LIBERADA`} (+ gates abaixo). `RASCUNHO` é o default.
+- **Edição:** ciclo de vida em enum `edi_situacao_ciclo` ∈ {`RASCUNHO`, `PUBLICADA`} (+ gates abaixo). `RASCUNHO` é o default.
   - `edi_ins_catalogo_ok` (bool): se `fte_tem_catalogo_insumos` → exige upload das fichas de insumo; **senão o back seta `true` automático** (não há o que subir).
   - `edi_comp_catalogo_ok` (bool): exige upload dos **cadernos/critérios** (composições) — **obrigatório para toda fonte**.
 
@@ -224,10 +224,10 @@ Catálogo de preço só fica **disponível ao tenant** quando **completo e valid
 2. **3.2 — fichas de insumo → R2** — **opcional**, só para fonte com `fte_tem_catalogo_insumos=true`.
 3. **3.3 — cadernos de encargos / critério de medição e remuneração → R2** — **obrigatório**.
 
-**10.3 Liberar e travar.**
+**10.3 Publicar e travar.**
 - `RASCUNHO` → itens da edição **indisponíveis** a **qualquer** tenant.
-- Botão **Liberar** (front) → o back valida: import grande feito **+** `edi_ins_catalogo_ok` **+** `edi_comp_catalogo_ok`. Passando → `LIBERADA`: itens **disponíveis** e edição **travada (imutável)**.
-- **Lock é de camada app/parser** (rejeita mutação em edição `LIBERADA`), **sem trigger** — casa com "imutável por edição" (§7). Manutenção pós-lock só por **usuário de acesso máximo**, em tela específica.
+- Botão **Publicar** (front) → o back valida: import grande feito **+** `edi_ins_catalogo_ok` **+** `edi_comp_catalogo_ok`. Passando → `PUBLICADA`: itens **disponíveis** e edição **travada (imutável)**.
+- **Lock é de camada app/parser** (rejeita mutação em edição `PUBLICADA`), **sem trigger** — casa com "imutável por edição" (§7). Manutenção pós-lock só por **usuário de acesso máximo**, em tela específica.
 
 **10.4 Impacto.** Colunas/flags são **aditivas** (default conservador) — **não** alteram o import, os parses nem os uploads ao R2 já validados. É governança de camada app, plugada na refatoração de fontes/edições e nas telas de import.
 
