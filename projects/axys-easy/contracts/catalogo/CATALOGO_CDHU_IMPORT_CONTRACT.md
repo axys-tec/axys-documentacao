@@ -20,7 +20,7 @@
 ### 1.1 Arquivos e fluxo de import
 A CDHU divulga **4 arquivos**: `insumos`, `composicao` (analítico), `servicos`, `subgrupos`. O import "tudo de uma vez" (tela `/edicoes` → caderno → "importar composições") exige **3 excels obrigatórios**: **insumos**, **composições**, **serviços**.
 - **`subgrupos.xlsx` é DESCARTADO**: grupo/subgrupo (código **e descrição**) já vêm no analítico e convergem por codificação. Grupo/subgrupo vinculam à **CPU** (`composicoes.cmp_sub_id`), nunca ao insumo.
-- **`servicos`** = custo de referência da CPU (`cc_custo_fonte`) + **cabeçalho** com modalidade (COM/SEM DESONERAÇÃO), versão, data-base e **LS%** (§5).
+- **`servicos`** = custo de referência da CPU (`cc_custo_fonte`) + **cabeçalho** com modalidade (COM/SEM DESONERAÇÃO), versão, data-base e **LS%** (§5). A CDHU publica **DOIS arquivos de serviço por edição** (`servicos_sd_*` e `servicos_cd_*`) — **ambos são importados**, cada um detectando sua modalidade no cabeçalho. (O insumo é pelado/`SE` único; o desdobramento SD/CD é só no custo da composição, via LS de cada regime.)
 
 ---
 
@@ -70,7 +70,7 @@ O analítico é lido sequencialmente pela **coluna A**, discriminando **primeiro
 ## 5. Serviços, custo e leis sociais
 
 - O arquivo **serviços** traz o **custo de referência** de cada CPU → `composicoes_custo.cc_custo_fonte` (custo `0`/vazio = **SEM CUSTO** → `NULL`, ver BUSINESS_RULES §4).
-- O **cabeçalho** traz **modalidade** (COM/SEM DESONERAÇÃO = `CD`/`SD`), versão, data-base e **LS%** (um único %, **horista**) → `edicoes_leis_sociais` (`els_horista`; `els_mensalista` NULL na CDHU). **Sanidade:** LS é alta (ex.: v184 = 128,23%); valor que chegue como fração (~1,28) normaliza/aborta.
+- O **cabeçalho** traz **modalidade** (COM/SEM DESONERAÇÃO = `CD`/`SD`), versão, data-base e **LS%** (um único %, **horista**) → `edicoes_leis_sociais` (`els_horista`; `els_mensalista` NULL na CDHU). **Importam-se os DOIS regimes** (arquivos `servicos_sd_*` e `servicos_cd_*`) → `edicoes_leis_sociais` e `composicoes_custo` ganham `SD` **e** `CD`. **Sanidade:** LS é alta (ex.: v184 SD=128,23%, CD=97,78%); valor que chegue como fração (~1,28) normaliza/aborta.
 - **Conferência** calculado×fonte (BUSINESS_RULES §4.1): método CDHU = **round half-up**, duas passagens — `unit_mo = round(pelado×(1+LS/100),2)`; `custo_cpu = Σ round(unit_carregado×coef,2)`. **CDHU 201 converge 100% ao centavo** (3560/3560). Truncar gerava viés negativo sistemático — a CDHU arredonda.
 
 ---

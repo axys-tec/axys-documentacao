@@ -84,13 +84,13 @@ Para insumo de **mão de obra**: `preco = ARRED( pelado × (1 + LS%/100), 2 )`, 
 
 **A LS (encargos sociais) incide SÓ no salário-base (`ti=MO`).** `ENC_COMP` (encargos complementares), `MAT`, `EQUIP_*`, `SERV`, `ESP` entram a **valor de face** (sem LS). Prova SINAPI: SERVENTE COM ENCARGOS (88316, SP/SD) = base 6111 `trunc(9,95×2,1501)=21,39` + complementares (face 9,20) + curso (0,45) = **31,04 = fonte**.
 
-**%AS** (montagem por UF): insumo sem preço na UF usa o preço de **SP**; se SP também nulo → item sem preço → composição SEM CUSTO. Validado nas 27 UFs.
+**%AS** (montagem por UF): insumo sem preço na UF → preço atribuído via **coeficiente de família** `trunc(preço_SP × coef_UF/coef_SP, 2)` (SP plano se não houver coef); SP nulo → SEM CUSTO. Detalhe e prova em **§5**. Validado nas 27 UFs.
 
 > O método é **declarado por fonte** (CDHU=round · SINAPI=trunc). Política conservadora de orçamento (se houver) é da camada **ativo** (§3.4), não do catálogo.
 
 ### 3.3 Leis sociais (`edicoes_leis_sociais`)
 - LS por **(edição, UF, modalidade ∈ {SD, CD})** — **não** se grava `SE` (SE = 0% implícito). Guarda `els_mensalista` e `els_horista` como percentual (`14,2`), dividido por 100 no cálculo.
-- **Fonte das LS:** SINAPI = cabeçalhos dos arquivos SD e CD (LS por UF, horista/mensalista); CDHU = cabeçalho do arquivo de serviços (um único % horista; mensalista NULL).
+- **Fonte das LS:** SINAPI = cabeçalhos dos arquivos SD e CD (LS por UF, horista/mensalista); CDHU = cabeçalho **de cada arquivo de serviços (SD e CD — ambos importados por edição)**, um % horista por regime (mensalista NULL).
 - **Sanidade no import:** LS real é alta (>100% típico); valor que chegue como fração (~1,28) deve ser normalizado/abortado.
 
 ### 3.4 Fronteira catálogo × orçamento
@@ -107,8 +107,10 @@ Para insumo de **mão de obra**: `preco = ARRED( pelado × (1 + LS%/100), 2 )`, 
 - **Aferição** (`AF_MM/AAAA`) é atividade técnica (dimensionar coeficientes) **ortogonal** a ter custo. Composição pode ser aferida e sem custo.
 - Situação da composição (domínio `COMPOSICAO`): `COM_CUSTO` | `SEM_CUSTO` | `SUSPENSO` | `EM_ESTUDO`.
 - Custo de referência da fonte é guardado lado a lado com o calculado (`composicoes_custo.cc_custo_fonte` × `cc_custo_calculado`) — divergência é **conferência/alerta**, nunca mascarada e **sem trigger**.
+- **Fidelidade canônica dos itens:** a composição é gravada **exatamente como a fonte apresenta** — os mesmos N itens (código, descrição, unidade, coeficiente, ordem; colunas `ci_*_fonte_original`). A fonte pode publicar **coeficiente 0** (item presente, quantidade não atribuída / CPU incompleta) — **não cabe à app julgar, só repetir**: `CHECK ci_coef >= 0` (negativo é barrado = lixo). Insumo SEM PREÇO com coef 0 **ainda propaga SEM CUSTO** (basta a presença na árvore, não o coeficiente). Descartar coef-0 mutilava a árvore e gerava custo falso (ex.: CPU 104871 — materiais de protensão sem preço, custo real = sem custo).
 
 ### 4.1 Motor de conferência (calculado × fonte)
+- **Modalidades:** `SD` e `CD` (com leis sociais) **e `SE`** (PELADO, sem LS). SINAPI: fonte de cada uma nas abas **CSD/CCD/CSE**; CDHU: **SD e CD** (dois arquivos de serviço; sem pelado publicado). `composicoes_custo` guarda as três para **consulta direta** (telas não recomputam o pelado). O `SE` valida a doutrina SE-only no nível de composição (Σ pelado×coef = CSE).
 - Logo após o import, para cada (composição, UF, modalidade) calcula-se `cc_custo_calculado` (montagem §3.2/§3.4 com a LS **oficial** da edição) e compara-se com `cc_custo_fonte` (publicado).
 - **Limiar:** `|diferença|` ≤ **0,5%** (ou ≤ R$0,01) → `cc_status_conferencia = DIVERGENTE_ARREDONDAMENTO`; acima → `DIVERGENTE_RELEVANTE`. **Validado (2026-06-03): AMBOS convergem 100% ao centavo** com o método da fonte — CDHU 3560/3560 (round) e SINAPI 445.074 células (trunc), ZERO divergência relevante.
 
@@ -120,12 +122,15 @@ Para insumo de **mão de obra**: `preco = ARRED( pelado × (1 + LS%/100), 2 )`, 
 
 ## 5. %AS (Atribuído São Paulo)
 
-`%AS` é **artefato da composição**, não origem de preço de insumo (origens de preço seguem só `C`/`CR`). Na montagem da composição por UF:
-1. insumo com preço `NULL` na UF → **adota preço de SP**;
-2. se SP também é `NULL` → item fica sem preço → composição **sem custo**;
-3. **%AS do item** = 100% quando substituído por SP; **%AS da CPU** = Σ(valor dos itens AS) / valor total.
+`%AS` é **artefato da composição**, não origem de preço de insumo (origens seguem só `C`/`CR`). Na montagem por UF, quando o insumo **não tem preço `SE` na UF**:
 
-Persistido em `composicoes_custo.cc_pct_sp`.
+1. **Representado (`CR`) com coeficiente de família** → preço atribuído = `trunc( preço_SP × (coef_UF / coef_SP), 2 )` (≡ `representativo_SP × coef_UF`). O coeficiente é **por UF** (tabela `catalogo.insumos_familia`, do arquivo `SINAPI_familias_e_coeficientes`). MAT/EQUIP/SERV têm coef **igual entre UFs** (ratio 1 → SP plano); o efeito real recai sobre **MO**. O atribuído **é preço** → vive a **2 casas, truncado** (doutrina TRUNC da fonte).
+2. **Sem coeficiente de família** → adota o preço de **SP** plano.
+3. Se SP também é `NULL` → item sem preço → composição **SEM CUSTO** (propaga na árvore).
+4. **%AS do item** = 100% quando substituído; **%AS da CPU** = Σ(valor dos itens AS) / total. Persistido em `composicoes_custo.cc_pct_sp`.
+
+> **Por que coef, não SP plano (correção 2026-06-04):** a fonte deriva o preço do representado por UF via `representativo × coef_UF`; usar SP plano ignora o coeficiente da UF-alvo e **subconta** sistematicamente (−1% a −4% em MO de UFs com buraco). Provado: motorista em MA ≈ R$2.400 (= 12,62 × 190,25) bate a CPU **ao centavo**; SP plano (2.312,67) dava −3,7%. A premissa antiga "%AS = SP plano" estava errada.
+> **Truncar o atribuído a 2 casas** elimina falsos de arredondamento (08/2024, MT: 160 → 2). O resíduo (~2 células de 1 centavo em 560k) é **irredutível** — reconstrução a partir de preço publicado já arredondado; conferência segue **0 divergência relevante**.
 
 ---
 

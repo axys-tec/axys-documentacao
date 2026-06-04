@@ -70,14 +70,21 @@ Regra canônica em [CATALOGO_BUSINESS_RULES.md §3.1–3.3](CATALOGO_BUSINESS_RU
 - **Item** (`composicoes_itens`): tipo `INSUMO` ou `COMPOSICAO`, com coeficiente. Origem dos itens = aba **Analítico**.
 - **Situação declarada** (Analítico) é guardada para **auditoria** (modelagem de `ci_sit_id`/`cmp_sit_id` será fechada antes do parser de composição). A **situação efetiva** é **derivada** pela app.
 - **SEM CUSTO** ⟺ composição contém insumo SEM PREÇO ou subcomposição SEM CUSTO (propaga na árvore).
-- **Custo de referência** (CSD/CCD): `cc_custo_fonte` = valor da CSD/CCD **COMO ESTÁ** — `0` é **R$0,00 real**, gravado como 0 (NÃO vira NULL). **Sem custo vem da Situação do Analítico** (`cmp_situacao='SEM CUSTO'` → `cc_custo_fonte = NULL`), nunca do valor 0. (Correção 2026-06-03: a regra anterior "0 = sem custo" jogava zeros reais de equipamento ínfimo pra sem-custo.) Célula vazia (sem coleta na UF) → NULL.
+- **Custo de referência** (CSD/CCD/**CSE**): `cc_custo_fonte` = valor da aba **COMO ESTÁ** — `0` é **R$0,00 real**, gravado como 0 (NÃO vira NULL). **Sem custo vem da Situação do Analítico** (`cmp_situacao='SEM CUSTO'` → `cc_custo_fonte = NULL`), nunca do valor 0. (Correção 2026-06-03.) Célula vazia (sem coleta na UF) → NULL.
+- **Três modalidades** em `composicoes_custo`: `SD` (CSD), `CD` (CCD) e **`SE`** (CSE = PELADO, sem encargos). O `SE` é gravado p/ consulta (telas leem direto, não recomputam) e o calculado do SE (Σ pelado×coef, **sem LS**, trunc) confere contra a CSE — fechando a doutrina SE-only no nível de composição. Ver [BUSINESS_RULES §4.1](CATALOGO_BUSINESS_RULES.md).
+- **Fidelidade canônica:** grava-se TODOS os itens do Analítico, inclusive **coef 0** (`CHECK ci_coef >= 0`) — a fonte publica coef 0 em CPU incompleta; não se julga, repete-se. Insumo SEM PREÇO coef-0 propaga SEM CUSTO (ex.: 104871). Ver [BUSINESS_RULES §4](CATALOGO_BUSINESS_RULES.md).
 - Aferição (`AF_`) é ortogonal a ter custo (composições de MO/encargos não têm `AF_` e ainda assim saem no boletim).
 
 ---
 
 ## 7. %AS (Atribuído SP)
 
-Artefato de **composição** (não de preço de insumo). Montagem por UF: preço de insumo `NULL` → usa SP; SP `NULL` → sem custo. `%AS_item` = 100% se substituído; `%AS_CPU` = Σ(itens AS)/total. Persistido em `composicoes_custo.cc_pct_sp`.
+Artefato de **composição** (não de preço de insumo). Montagem por UF, insumo sem preço `SE` na UF:
+- **Representado (`CR`) com coeficiente de família** → `trunc( preço_SP × coef_UF/coef_SP, 2 )` (≡ `representativo_SP × coef_UF`), coef da tabela `insumos_familia` (arquivo `SINAPI_familias_e_coeficientes`, aba `Coeficientes`, por edição). MAT/EQUIP/SERV: coef igual entre UFs (ratio 1 → SP plano); efeito real só em **MO**.
+- **Sem coef** → SP plano. SP `NULL` → sem custo.
+- `%AS_item` = 100% se substituído; `%AS_CPU` = Σ(itens AS)/total → `composicoes_custo.cc_pct_sp`.
+
+> **Correção 2026-06-04:** a premissa "%AS = SP plano" estava errada — ignorava o coef da UF e subcontava MO (−1% a −4% em UFs com buraco). O atribuído é preço → **truncado a 2 casas**. Prova e detalhe em [BUSINESS_RULES §5](CATALOGO_BUSINESS_RULES.md).
 
 ---
 
@@ -90,10 +97,12 @@ Artefato de **composição** (não de preço de insumo). Montagem por UF: preço
 | Tipo `ENC_COMP` (encargos complementares, sem LS) + import bloqueia classif sem tipo | **Implementado** (2026-06-03) |
 | Grupo-guarda-chuva `GERAL` (SINAPI não publica grupo) | **Implementado** (2026-06-03) |
 | Parser SINAPI (ISE pelado+classif FONTE → órfãos NC → LS CSD/CCD → composições/subcomps → custos) | **Implementado** (2026-06-03) — `parser_sinapi.py`, runner `import_sinapi.py` |
-| **GATE 3.2 — convergência (método TRUNC)** | **CRAVADO** (2026-06-03): 445.074 células IGUAL, 0 divergência (27 UF × SD/CD), %AS validado |
+| **GATE 3.2 — convergência (método TRUNC)** | **CRAVADO** (2026-06-03): 445.122 células IGUAL, 0 divergência (27 UF × SD/CD) |
+| **`%AS` por coeficiente de família** (`insumos_familia` + `parse_familia`; trunc 2 casas) | **Implementado** (2026-06-04) — corrige premissa "SP plano"; 08-24 RELEVANTE 68→0, ARRED→2 (MT) |
+| **Modalidade `SE` em `composicoes_custo`** (lê CSE; pelado sem LS; conferência) | **Implementado** (2026-06-04) |
+| **Fidelidade coef-0** (`CHECK ci_coef>=0`; não descarta; SEM PREÇO propaga) | **Implementado** (2026-06-04) |
+| **Diff/ciclo de vida** (contra estado vigente do banco; situação não é gatilho) | **Implementado** (2026-06-04) — `parser_cdhu` genérico; 08-24→04-26 validado |
 | `ci_sit_id` / `cmp_sit_id` (situação declarada por FK) | **Deferido** — hoje usa texto `ci_situacao`/`cmp_situacao` (declarado do Analítico) |
 | Fuzzy de classificação dos órfãos (hoje NC) | **Pendente** |
-| Diff/ciclo de vida sequencial (08-24→04-26) | **Pendente** (Fase 3.4) |
 | Manutenções (SINAPI-Diff) + Axys-DIFF | **Pendente** (Fase 3.4) |
 | Mapa horista↔mensalista (`composicoes_mapeamento_mdo`) | **Pendente** (Fase 3.5) |
-| 48 células `SEM_CUSTO_FONTE` (calc tem custo, fonte não) | **A investigar** (0,009%) |
