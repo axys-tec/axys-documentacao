@@ -25,15 +25,21 @@ AxysHub é o **sistema central de autenticação e gestão de tenants** para o e
 ### Estrutura Principal
 
 ```sql
-Hub Database
-├── users              -- Usuários globais do ecossistema
-├── tenants            -- Empresas/organizações (multitenancy)
-├── hub_user_tenant    -- Mapeamento usuário ↔ tenant
-├── permissions        -- Papéis e permissões
-├── licenses           -- Licenças por tenant
-├── audit.login_logs   -- Login/logout eventos
-└── audit.logs         -- Mudanças em dados
+Hub Database (tabelas hub_*)
+├── hub_user              -- Usuários globais do ecossistema
+├── hub_tenant            -- Empresas/organizações (multitenancy)
+├── hub_user_tenant       -- Mapeamento usuário ↔ tenant (papel/role no vínculo)
+├── hub_plano             -- Planos comercializáveis
+├── hub_assinatura        -- Assinaturas por tenant
+├── hub_licenca           -- Licenças por tenant
+├── hub_microapp_instance -- Apps licenciados por tenant (→ claim apps_licenciadas)
+├── hub_auth_token        -- Tokens emitidos (autenticação / refresh)
+├── hub_audit_log         -- Mudanças em dados (audit imutável, evento + payload_json)
+└── hub_login_log         -- Eventos de login/logout e origem (SSO, LOCAL, OAuth…)
 ```
+
+> Lista ilustrativa das tabelas principais — não exaustiva. Todas seguem o
+> prefixo `hub_*` no schema público (não há schema `audit` separado no Hub).
 
 ### Schemas & Migrations
 

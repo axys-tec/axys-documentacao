@@ -206,6 +206,20 @@ dono do próprio cookie, e o **JWT nunca trafega pela URL/logs**.
   e de um endpoint que o Easy consulte — isso **não existe hoje** no Easy e seria
   trabalho adicional dos dois lados.
 
+### 6.1 Auditoria de login — `'SSO'` como origem canônica
+
+Cada login federado deixa rastro **nos dois lados**, com a origem explícita:
+
+- **Hub:** registra o evento em `hub_login_log` (`acao` = `LOGIN`/`LOGOUT`/`LOGIN_FALHA`,
+  `origem` = **`'SSO'`**). Tabela em `docs/projects/axys-hub/schemas/schema.sql`, com
+  `CHECK (origem IN ('LOCAL','SSO','GOV_BR','APPLE','GOOGLE','API_KEY'))`.
+- **Easy:** registra no aceite do token em `audit.login_logs` (`log_origem` = **`'SSO'`**)
+  via `backend/core/audit_service.py`.
+
+`'SSO'` é **valor canônico e explícito** — não reaproveitar `LOCAL`/`API_KEY`, que
+misturaria canais e degradaria a rastreabilidade. Um login SSO gera **dois registros**
+(Hub na autenticação + Easy no aceite do token) — perspectivas distintas, esperado.
+
 ---
 
 ## 7. Variáveis de ambiente do Easy (referência)
@@ -241,4 +255,5 @@ Definidas em `backend/core/runtime_config.py`:
 - [ ] **`GET /login`** aceitar `app`, `redirect_uri` (com allowlist) e `state`; redirecionar com `?code=`.
 - [ ] **`POST /auth/exchange`** trocar `code` (uso único, TTL 60–120s) pelo JWT, autenticando o client.
 - [ ] **Emitir `client_id`/`client_secret`** para o Easy usar no exchange.
+- [ ] **Registrar login/logout em `hub_login_log`** com `origem = 'SSO'` (seção 6.1).
 - [ ] (Futuro) revogação/blacklist se logout forçado for requisito.

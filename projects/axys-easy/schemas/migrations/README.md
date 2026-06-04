@@ -98,7 +98,7 @@ Adicionar header à migration com:
 | # | Nome | Status | Data |
 |---|------|--------|------|
 | 001 | initial-schema.sql | ✅ Applied | 31/05/2026 |
-| 002 | add-sso-login-origem.sql | ⏳ Pendente | 03/06/2026 |
+| 002+ | (não existem ainda) | — | — |
 
 ---
 
