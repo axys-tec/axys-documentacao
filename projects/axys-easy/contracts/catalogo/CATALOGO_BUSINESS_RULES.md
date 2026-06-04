@@ -205,3 +205,49 @@ O que vem da fonte e o que é nosso depende do que cada fonte publica:
 - **Dois diffs no SINAPI:** **SINAPI-Diff** (`catalogo.sinapi_manutencoes`, changelog publicado) e **Axys-DIFF** (série histórica computada pela Axys, agora contra o banco vigente). A app apresenta ambos e **reconcilia** ("a manutenção cobre tudo que o Axys-DIFF achou?"). CDHU não publica changelog → só Axys-DIFF.
 - **Reimport sem rebuild ainda não é idempotente** quanto ao *supersede* (a linha superada por uma edição segue inativa → no reimport apareceria como `REATIVACAO`). Para reimportar a **mesma** edição, `rebuild` antes. Imports novos / fora de ordem estão corretos.
 - **Sequenciamento:** o diff é estágio **posterior** ao import "puro" funcionar (ver `PLANO_IMPORT_CATALOGO.md`, Fases 2.2 e 3.4).
+
+---
+
+## 10. Ciclo de vida da fonte/edição (upload em fases · liberação · lock)
+
+Catálogo de preço só fica **disponível ao tenant** quando **completo e validado**; depois **congela**.
+
+**10.1 Flags.**
+- **Fonte:** `fte_tem_catalogo_insumos` (bool, default `false`) — o usuário declara no cadastro se a fonte publica catálogo/relatório de insumos (na prática hoje só a SINAPI tem fichas; CDHU não).
+- **Edição:** ciclo de vida em enum `edi_situacao_ciclo` ∈ {`RASCUNHO`, `LIBERADA`} (+ gates abaixo). `RASCUNHO` é o default.
+  - `edi_ins_catalogo_ok` (bool): se `fte_tem_catalogo_insumos` → exige upload das fichas de insumo; **senão o back seta `true` automático** (não há o que subir).
+  - `edi_comp_catalogo_ok` (bool): exige upload dos **cadernos/critérios** (composições) — **obrigatório para toda fonte**.
+
+**10.2 Fases do upload da edição.**
+1. **3.1 — import "grande"** (insumos/preços/composições/custos/conferência/diff) — o pipeline já validado.
+2. **3.2 — fichas de insumo → R2** — **opcional**, só para fonte com `fte_tem_catalogo_insumos=true`.
+3. **3.3 — cadernos de encargos / critério de medição e remuneração → R2** — **obrigatório**.
+
+**10.3 Liberar e travar.**
+- `RASCUNHO` → itens da edição **indisponíveis** a **qualquer** tenant.
+- Botão **Liberar** (front) → o back valida: import grande feito **+** `edi_ins_catalogo_ok` **+** `edi_comp_catalogo_ok`. Passando → `LIBERADA`: itens **disponíveis** e edição **travada (imutável)**.
+- **Lock é de camada app/parser** (rejeita mutação em edição `LIBERADA`), **sem trigger** — casa com "imutável por edição" (§7). Manutenção pós-lock só por **usuário de acesso máximo**, em tela específica.
+
+**10.4 Impacto.** Colunas/flags são **aditivas** (default conservador) — **não** alteram o import, os parses nem os uploads ao R2 já validados. É governança de camada app, plugada na refatoração de fontes/edições e nas telas de import.
+
+---
+
+## 11. Publicação do catálogo de DOCUMENTOS no R2 (fichas/critérios/cadernos)
+
+Camada **documental** (especificação de insumo, critério de medição, caderno técnico) — distinta do preço.
+
+**11.1 Conteúdo puro + identidade.**
+- O HTML no R2 é **conteúdo puro** (semântico, editável): a ficha/critério **sem** o chrome da app. O **header** (tarja, logo, tenant) é montado **no render da app**, não gravado no R2.
+- Todo HTML carrega o **favicon** oficial (`appicon_logo.png`) via URL pública do R2.
+- O documento vive na **IDENTIDADE**: insumo → `insumos.ins_external_path`; composição → `composicoes.cmp_external_path` (JSONB). A **edição** apenas **exige a existência** do doc (gate §10), não é dona do arquivo.
+
+**11.2 CDHU — sobe tudo a cada edição.** A CDHU reemite o catálogo de critérios a cada edição (repete textos, sem controle de mudança). Como é leve (texto), **sobe tudo por edição**:
+- Arquivo nomeado com a edição: `criterios/cdhu/<edi>/<cmp_codigo>.html` (≡ `{codigo}_{edicao}`).
+- `cmp_external_path` mantém o **path mais atual** + um **histórico** dos paths anteriores (auditoria; redundante com o nome `{codigo}_{edicao}`, mas guardado).
+
+**11.3 SINAPI — skip por data de atualização.** Fichas (`Atualizado em:`) e cadernos (`Atualização`) trazem a data da última revisão. Regra **idempotente**: se a data do doc **≤** a edição **E** o item **já existe no R2** → **não sobe (skip)**. Evita re-subir docs idênticos a cada boletim (o conteúdo é contínuo na identidade).
+
+**11.4 Estado (2026-06-04).**
+- **CDHU critérios:** parser OK (font-style), publicado 184+201. ⚠️ Pendente: rodapé `Página X de Y` vazou no 184 (filtrar) + favicon.
+- **SINAPI fichas:** parser OK (tabela+bordas+imagem, 7 campos fixos), publicando 6010. ⚠️ Pendente: favicon + regra skip-por-data.
+- **SINAPI cadernos (por subgrupo → por CPU, com diagramas):** **a fazer**.
