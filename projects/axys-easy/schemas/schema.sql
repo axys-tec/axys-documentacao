@@ -1005,7 +1005,7 @@ CREATE TABLE IF NOT EXISTS catalogo.composicoes_custo (
         CHECK (cc_status_conferencia IS NULL OR cc_status_conferencia IN (
             'NAO_CALCULADO', 'IGUAL', 'DIVERGENTE_ARREDONDAMENTO',
             'DIVERGENTE_RELEVANTE', 'SEM_CUSTO_FONTE', 'SEM_CUSTO_CALCULADO',
-            'ERRO_PROCESSAMENTO'
+            'DERIVADO', 'ERRO_PROCESSAMENTO'
         ))
 );
 
