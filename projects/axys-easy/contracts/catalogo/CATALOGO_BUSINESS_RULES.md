@@ -32,11 +32,13 @@ Contratos irmãos:
 ## 2. Classificação de insumos
 
 - **Todo insumo é classificado** — `catalogo.insumos.ins_ti_id` é **NOT NULL**.
-- Tipos (`catalogo.insumos_tipo`): `MO`, `EQUIP_AQ`, `EQUIP_LOC`, `MAT`, `SERV`, `ESP`, `NC`.
+- Tipos (`catalogo.insumos_tipo`): `MO`, `ENC_COMP`, `EQUIP_AQ`, `EQUIP_LOC`, `MAT`, `SERV`, `ESP`, `NC`.
+  - **`ENC_COMP`** = encargos complementares (EPI, ferramentas, transporte, alimentação, exames, seguro, curso…). É labor-add-on, **mas NÃO recebe leis sociais** no cálculo (só o salário-base `MO` recebe — ver §3.2). Distinto de `MO` justamente por isso.
 - Fonte da classificação por origem (`ins_ti_origem`):
   - **`FONTE`** — classificação nativa confiável da fonte-base (ex.: classificação SINAPI);
   - **`REGRA`** — inferida pela app: léxico (CDHU) ou fuzzy (órfão SINAPI);
   - **`MANUAL`** — curadoria humana (tela), nunca por parser.
+- **Import bloqueia classificação sem tipo cadastrado:** se a fonte trouxer uma classificação que não mapeia para nenhum `ti_codigo`, o import **aborta** (nada gravado) e devolve ao usuário para cadastrar o tipo antes. **Não inventa `NC`** para classificação-de-fonte desconhecida (`NC` é só para órfão sem classificação após fuzzy).
 
 ### 2.1 `NC` — Não Classificado (fallback controlado)
 - `NC` **não é categoria técnica real** da fonte. É fallback técnico de curadoria.
@@ -78,8 +80,13 @@ Para insumo de **mão de obra**: `preco = ARRED( pelado × (1 + LS%/100), 2 )`, 
 - **CDHU — custo de composição: `round half-up (2)` em DUAS passagens** (decisão 2026-06-03):
   `unit_mo = round( (1 + LS%/100) × pelado, 2 )` e `custo_cpu = Σ round( unit × coef, 2 )`.
   Converge **100% ao centavo** com a fonte (CDHU 201: 3560/3560). Truncar dava viés sistemático negativo (até −R$12,91 em CPUs grandes); a CDHU arredonda.
+- **SINAPI — custo de composição: `trunc(2)`** em todas as etapas (unit MO carregado, por linha, soma). Validado: **445.074 células IGUAL ao centavo, ZERO divergência** (10378 composições × 27 UF × SD/CD). Consistente com o preço de insumo SD que também trunca.
 
-> O método é **declarado por fonte** no contrato de import respectivo. SINAPI (custo de composição CSD/CCD) será confirmado na Fase 3. Política conservadora de orçamento (se houver) é da camada **ativo** (§3.4), não do catálogo.
+**A LS (encargos sociais) incide SÓ no salário-base (`ti=MO`).** `ENC_COMP` (encargos complementares), `MAT`, `EQUIP_*`, `SERV`, `ESP` entram a **valor de face** (sem LS). Prova SINAPI: SERVENTE COM ENCARGOS (88316, SP/SD) = base 6111 `trunc(9,95×2,1501)=21,39` + complementares (face 9,20) + curso (0,45) = **31,04 = fonte**.
+
+**%AS** (montagem por UF): insumo sem preço na UF usa o preço de **SP**; se SP também nulo → item sem preço → composição SEM CUSTO. Validado nas 27 UFs.
+
+> O método é **declarado por fonte** (CDHU=round · SINAPI=trunc). Política conservadora de orçamento (se houver) é da camada **ativo** (§3.4), não do catálogo.
 
 ### 3.3 Leis sociais (`edicoes_leis_sociais`)
 - LS por **(edição, UF, modalidade ∈ {SD, CD})** — **não** se grava `SE` (SE = 0% implícito). Guarda `els_mensalista` e `els_horista` como percentual (`14,2`), dividido por 100 no cálculo.
@@ -103,7 +110,7 @@ Para insumo de **mão de obra**: `preco = ARRED( pelado × (1 + LS%/100), 2 )`, 
 
 ### 4.1 Motor de conferência (calculado × fonte)
 - Logo após o import, para cada (composição, UF, modalidade) calcula-se `cc_custo_calculado` (montagem §3.2/§3.4 com a LS **oficial** da edição) e compara-se com `cc_custo_fonte` (publicado).
-- **Limiar:** `|diferença|` ≤ **0,5%** (ou ≤ R$0,01) → `cc_status_conferencia = DIVERGENTE_ARREDONDAMENTO`; acima → `DIVERGENTE_RELEVANTE`. Esperado: **SINAPI converge**; **CDHU diverge** (sob controle, classificado).
+- **Limiar:** `|diferença|` ≤ **0,5%** (ou ≤ R$0,01) → `cc_status_conferencia = DIVERGENTE_ARREDONDAMENTO`; acima → `DIVERGENTE_RELEVANTE`. **Validado (2026-06-03): AMBOS convergem 100% ao centavo** com o método da fonte — CDHU 3560/3560 (round) e SINAPI 445.074 células (trunc), ZERO divergência relevante.
 
 ### 4.2 Custo × alerta — `composicoes_custo` é a casa única dos números
 - Os **números** (`cc_custo_fonte`, `cc_custo_calculado`, diferença, `cc_status_conferencia`, `cc_pct_sp`) vivem **só** em `composicoes_custo` (1 linha por cmp/uf/modalidade). É o "headline" do alerta.
@@ -128,6 +135,18 @@ Persistido em `composicoes_custo.cc_pct_sp`.
 - Não há domínio `PRECO` (situação de preço É do insumo) nem `ITEM` (item é só insumo ou composição dentro de composição).
 - A situação guardada é a **declarada pela fonte** (auditoria). A **situação efetiva** (para cálculo) é **derivada em runtime** pela app — não persistida, não confiada cegamente.
 - Integridade de domínio garantida por **FK composta** `(sit_id, dominio)` — sem trigger.
+
+### 6.1 Procedência da situação — DECLARADA (fonte) × DERIVADA (nós), por fonte
+O que vem da fonte e o que é nosso depende do que cada fonte publica:
+
+| Campo | CDHU | SINAPI |
+|---|---|---|
+| **Situação do PREÇO** por UF (`insumos_preco.pri_sit_id` COM/SEM_PRECO) | **Derivada por nós** (presença do custo). CDHU **só publica COM PREÇO** — não tem coluna de situação; todo insumo tem preço. | **Derivada por nós** por UF (a aba ISE não rotula cada UF; presença da célula → COM/SEM_PRECO). |
+| **Situação do ITEM/COMPOSIÇÃO** (com/sem custo, com/sem preço) | **Computada por nós** — CDHU **não declara**; vem do cálculo (`calcular_custos` grava a efetiva em `cmp_situacao`). | **Declarada pela fonte** — a coluna **"Situação"** do Analítico publica COM PREÇO/SEM PREÇO/COM CUSTO/SEM CUSTO/EM ESTUDO; gravamos **verbatim** em `ci_situacao`/`cmp_situacao`. |
+| **Custo de referência** (`cc_custo_fonte`, `cc_pct_sp`) | Da fonte (serviços). | Da fonte (CSD/CCD). |
+| **Custo calculado + status de conferência** (`cc_custo_calculado`, `cc_status_conferencia`) | **Nosso** (cálculo/conferência). | **Nosso**. |
+
+> Consequência: o campo `cmp_situacao` hoje carrega naturezas diferentes — **declarada** (SINAPI, do Analítico) e **computada** (CDHU, do cálculo). Funciona, mas mistura. A separação limpa (situação **declarada** por FK `ci_sit_id`/`cmp_sit_id` + situação **efetiva** derivada em runtime) está **DEFERIDA** (ver nota de estado abaixo) e deve ser endereçada na frente de tela/uso.
 
 > **Estado de implementação (schema atual, 2026-06-03):** apenas **`insumos_preco.pri_sit_id`** (domínio `INSUMO`) está implementado. As situações **declaradas do lado composição** (`composicoes_itens.ci_sit_id` e `composicoes.cmp_sit_id`) estão **conceitualmente previstas, porém DEFERIDAS** — a natureza do item (INSUMO vs COMPOSICAO) e a forma de guardar a situação declarada serão decididas **antes do parser de composição**. Hoje `composicoes`/`composicoes_itens` ainda usam o campo de situação textual herdado, a ser refatorado nessa frente.
 
@@ -157,8 +176,27 @@ Persistido em `composicoes_custo.cc_pct_sp`.
 
 ## 9. Época / Diff (evolução entre edições)
 
-- **No import**, após parsear e **antes de gravar**: "este registro já existe?" → se **sim**, computa **diff cadastral** (descrição/unidade) e grava em `*_historico`; se **não**, grava e pula auditoria.
+- **No import**, após parsear e **antes de gravar**: "este registro já existe?" → se **sim**, computa **diff** e grava em `*_historico`; se **não**, grava `CRIACAO` e pula auditoria.
 - **Preço nunca vai para histórico** — a série temporal vive em `insumos_preco` por edição; composições são versionadas por edição (`cmp_edi_id`).
-- Insumos = identidade vigente (upsert; diff vs. o registro atual). Composições = versionadas por edição (diff vs. a versão da edição anterior).
-- **Dois diffs no SINAPI:** **SINAPI-Diff** (`catalogo.sinapi_manutencoes`, changelog publicado) e **Axys-DIFF** (série histórica computada pela Axys edição-a-edição). A app apresenta ambos e **reconcilia** ("a manutenção cobre tudo que o Axys-DIFF achou?"). CDHU não publica changelog → só Axys-DIFF.
+
+**9.1 Diff é contra o ESTADO VIGENTE DO BANCO (não contra a edição anterior).**
+- Para **cada item** (insumo ou composição) da edição entrando, compara-se contra o **estado vigente** do banco **filtrando pela fonte** — a linha ativa mais recente daquele código em **qualquer** edição anterior. **Não** contra a edição N-1.
+- Por quê: um item nascido há N edições pode ser ajustado hoje; um item inativado que **pulou versões** pode voltar (`REATIVACAO`). Comparar só com a N-1 perde os dois casos e exige import estritamente sequencial. Contra o banco vigente, o diff é correto mesmo com import esparso/fora de ordem.
+- Eventos: `CRIACAO` (código nunca existiu na fonte) · `ALTERACAO_*` (mudou vs a vigente) · `INATIVACAO` (estava ativo, ausente nesta edição) · `REATIVACAO` (estava inativo, reapareceu). Vigente/ativo = versão mais recente.
+
+**9.2 O que conta como ALTERAÇÃO ("alteração verdadeira").**
+- **Só** os campos de **conteúdo**: **descrição (texto)**, **unidade**, e **coeficiente/itens** (inclusão, exclusão, mudança de coef).
+- **`null` ≠ alteração:** `null`/ausente → valor **não** é alteração — é **dado que faltava naquela época** da fonte (ex.: a coluna `Situação` do Analítico SINAPI, inexistente em 08/2024 e publicada em 04/2026). Tratar `null→valor` como mudança gera falso positivo em massa (na virada 08-24→04-26 seriam ~9,3k composições "alteradas"; reais = ~3,3k).
+- **Situação NÃO é gatilho de alteração** — em direção alguma (`null↔valor` nem `valor→outro`). É **metadado de presença**, gravado por época em `cmp_situacao`/`ci_situacao` para consulta, mas não emite evento. (Se a situação mudar por causa real — insumo sem preço entrando na árvore — o gatilho real é a mudança de **itens**, que já registra.) Implementação: helper `_alteracao(de, para)` em `parser_cdhu.py`, **não** chamado para situação.
+- **Risco-espelho coberto:** como situação nunca é gatilho, uma futura edição que **deixe** de publicar a coluna (`valor→null` em massa) também **não** gera ruído.
+
+**9.3 Snapshot por época (consulta ponto-no-tempo).**
+- Cada import grava o **snapshot completo** da edição: 1 linha por composição com `cmp_edi_id` daquela edição. "Quantas composições ativas na época X" = `COUNT(*) WHERE cmp_fte_id=F AND cmp_edi_id=<época>` — **1× por CPU** (identidade), não multiplicado.
+- **Não usar `cmp_ativa` para ponto-no-tempo:** `cmp_ativa=TRUE` marca só a versão **vigente (hoje)**; para a época X filtre por `cmp_edi_id`.
+- Só é consultável para épocas **efetivamente importadas** (imports esparsos não reconstroem o miolo).
+- **Cardinalidade:** custo multiplica, identidade não. `composicoes` = 1×/CPU; `composicoes_custo` = CPU × 27 UF × **2 modalidades (SD, CD)**. **SE não existe para composição** (é nível de insumo, pelado); são **2** modalidades de custo, não 3.
+
+**9.4 Reconciliação e sequenciamento.**
+- **Dois diffs no SINAPI:** **SINAPI-Diff** (`catalogo.sinapi_manutencoes`, changelog publicado) e **Axys-DIFF** (série histórica computada pela Axys, agora contra o banco vigente). A app apresenta ambos e **reconcilia** ("a manutenção cobre tudo que o Axys-DIFF achou?"). CDHU não publica changelog → só Axys-DIFF.
+- **Reimport sem rebuild ainda não é idempotente** quanto ao *supersede* (a linha superada por uma edição segue inativa → no reimport apareceria como `REATIVACAO`). Para reimportar a **mesma** edição, `rebuild` antes. Imports novos / fora de ordem estão corretos.
 - **Sequenciamento:** o diff é estágio **posterior** ao import "puro" funcionar (ver `PLANO_IMPORT_CATALOGO.md`, Fases 2.2 e 3.4).

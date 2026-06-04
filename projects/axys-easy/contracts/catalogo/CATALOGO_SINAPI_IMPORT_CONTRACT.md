@@ -16,7 +16,7 @@
 |---|---|
 | `SINAPI_Referência` → aba **ISE** | **Preço pelado** (sem encargos) dos insumos COM preço, por 27 UFs — **única aba de preço gravada** (`insumos_preco` é SE-only). |
 | `SINAPI_Referência` → **cabeçalhos de ISD / ICD** | **Leis sociais** (LS Horista/Mensalista por UF) → `edicoes_leis_sociais` (`SD`/`CD`). **Corpo não importado** — SD/CD são derivados. |
-| `SINAPI_Referência` → abas **CSD / CCD / CSE** | **Custo de referência** das composições por UF/modalidade. Custo `0` = **SEM CUSTO** (sentinela), não zero real. Código é fórmula `HYPERLINK` (vem 0 em `data_only`). |
+| `SINAPI_Referência` → abas **CSD / CCD / CSE** | **Custo de referência** das composições por UF/modalidade. Custo `0` = **R$0,00 REAL** (ex.: equipamento de depreciação ínfima), **não** sem custo. Sem custo vem da **Situação do Analítico**, nunca do valor 0. Código é fórmula `HYPERLINK` (vem 0 em `data_only`) → casa por ordem com o Analítico. |
 | `SINAPI_Referência` → aba **Analítico** | **Estrutura** das composições (item, coeficiente, situação declarada) e **universo real de insumos** (inclui os SEM PREÇO). Código real das composições. |
 | `SINAPI_familias_e_coeficientes` | Família homogênea: representativo (origem `C`) × representados (origem `CR`) + coeficientes. (Não usado para precificar — preço já vem derivado.) |
 | `SINAPI_Manutenções` | Changelog mensal entre edições (criação/desativação/alteração), insumo e composição → `catalogo.sinapi_manutencoes` (**SINAPI-Diff**). Reconciliado com o **Axys-DIFF** (série histórica computada pela Axys edição-a-edição) — ver [CATALOGO_BUSINESS_RULES.md §9](CATALOGO_BUSINESS_RULES.md). |
@@ -70,7 +70,7 @@ Regra canônica em [CATALOGO_BUSINESS_RULES.md §3.1–3.3](CATALOGO_BUSINESS_RU
 - **Item** (`composicoes_itens`): tipo `INSUMO` ou `COMPOSICAO`, com coeficiente. Origem dos itens = aba **Analítico**.
 - **Situação declarada** (Analítico) é guardada para **auditoria** (modelagem de `ci_sit_id`/`cmp_sit_id` será fechada antes do parser de composição). A **situação efetiva** é **derivada** pela app.
 - **SEM CUSTO** ⟺ composição contém insumo SEM PREÇO ou subcomposição SEM CUSTO (propaga na árvore).
-- **Custo de referência** (CSD/CCD/CSE): `custo = 0` = **SEM CUSTO → gravar `NULL`** em `cc_custo_fonte` (não 0). Situação autoritativa = Analítico.
+- **Custo de referência** (CSD/CCD): `cc_custo_fonte` = valor da CSD/CCD **COMO ESTÁ** — `0` é **R$0,00 real**, gravado como 0 (NÃO vira NULL). **Sem custo vem da Situação do Analítico** (`cmp_situacao='SEM CUSTO'` → `cc_custo_fonte = NULL`), nunca do valor 0. (Correção 2026-06-03: a regra anterior "0 = sem custo" jogava zeros reais de equipamento ínfimo pra sem-custo.) Célula vazia (sem coleta na UF) → NULL.
 - Aferição (`AF_`) é ortogonal a ter custo (composições de MO/encargos não têm `AF_` e ainda assim saem no boletim).
 
 ---
@@ -86,10 +86,14 @@ Artefato de **composição** (não de preço de insumo). Montagem por UF: preço
 | Item | Estado |
 |---|---|
 | Schema fundação (situacoes, NC, ins_ti_id NOT NULL, pri_sit_id) | **Aplicado** (2026-06-02) |
-| Doutrina SE-only (pelado + LS derivada) + `edicoes_leis_sociais` | **Decidido** (2026-06-03) — schema na Fase 1 |
-| `ci_sit_id` / `cmp_sit_id` (situação declarada por FK) | **Deferido** — reavaliar natureza do item antes do parser de composição |
-| Parser SINAPI redesenhado (identidade → órfãos → ISE+LS → composições) | **Pendente** (Fase 3) |
-| Gate de convergência calculado×fonte (valida SE-only) | **Pendente** (Fase 3.2) |
-| Import de composições + custos + %AS | **Pendente** (Fase 3) |
+| Doutrina SE-only (pelado + LS derivada) + `edicoes_leis_sociais` | **Implementado** (2026-06-03) |
+| Tipo `ENC_COMP` (encargos complementares, sem LS) + import bloqueia classif sem tipo | **Implementado** (2026-06-03) |
+| Grupo-guarda-chuva `GERAL` (SINAPI não publica grupo) | **Implementado** (2026-06-03) |
+| Parser SINAPI (ISE pelado+classif FONTE → órfãos NC → LS CSD/CCD → composições/subcomps → custos) | **Implementado** (2026-06-03) — `parser_sinapi.py`, runner `import_sinapi.py` |
+| **GATE 3.2 — convergência (método TRUNC)** | **CRAVADO** (2026-06-03): 445.074 células IGUAL, 0 divergência (27 UF × SD/CD), %AS validado |
+| `ci_sit_id` / `cmp_sit_id` (situação declarada por FK) | **Deferido** — hoje usa texto `ci_situacao`/`cmp_situacao` (declarado do Analítico) |
+| Fuzzy de classificação dos órfãos (hoje NC) | **Pendente** |
+| Diff/ciclo de vida sequencial (08-24→04-26) | **Pendente** (Fase 3.4) |
 | Manutenções (SINAPI-Diff) + Axys-DIFF | **Pendente** (Fase 3.4) |
 | Mapa horista↔mensalista (`composicoes_mapeamento_mdo`) | **Pendente** (Fase 3.5) |
+| 48 células `SEM_CUSTO_FONTE` (calc tem custo, fonte não) | **A investigar** (0,009%) |
