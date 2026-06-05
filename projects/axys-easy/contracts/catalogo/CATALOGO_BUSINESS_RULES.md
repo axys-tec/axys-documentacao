@@ -239,16 +239,45 @@ Camada **documental** (especificação de insumo, critério de medição, cadern
 
 **11.1 Conteúdo puro + identidade.**
 - O HTML no R2 é **conteúdo puro** (semântico, editável): a ficha/critério **sem** o chrome da app. O **header** (tarja, logo, tenant) é montado **no render da app**, não gravado no R2.
-- Todo HTML carrega o **favicon** oficial (`appicon_logo.png`) via URL pública do R2.
+- Todo HTML carrega o **favicon** oficial (`assets/favicon.png`, 64px — gerado por downscale Lanczos do app icon; o PNG grande original dava halo no tab) via URL pública do R2.
 - O documento vive na **IDENTIDADE**: insumo → `insumos.ins_external_path`; composição → `composicoes.cmp_external_path` (JSONB). A **edição** apenas **exige a existência** do doc (gate §10), não é dona do arquivo.
+- **Responsivo obrigatório:** todo HTML publicado é mobile-friendly **E** desktop — sem overflow horizontal. O CSS embutido é responsivo por si (não depende da render da app): tabelas largas rolam na horizontal (wrapper `overflow-x:auto`), só colunas de descrição quebram, demais ficam `nowrap`.
 
-**11.2 Fonte `fte_catalogos_continuos=false` (ex.: CDHU) — sobe tudo a cada edição.** A CDHU reemite o catálogo de critérios a cada edição (repete textos, sem controle de mudança). Como é leve (texto), **sobe tudo por edição**:
-- Arquivo nomeado com a edição: `criterios/cdhu/<edi>/<cmp_codigo>.html` (≡ `{codigo}_{edicao}`).
-- `cmp_external_path` mantém o **path mais atual** + um **histórico** dos paths anteriores (auditoria; redundante com o nome `{codigo}_{edicao}`, mas guardado).
+**11.2 Organização de diretórios no R2 (bucket público `axys-public`).** O layout **reflete a natureza da fonte** (contínua × por edição):
 
-**11.3 Fonte `fte_catalogos_continuos=true` (ex.: SINAPI) — skip por data de atualização.** Fichas (`Atualizado em:`) e cadernos (`Atualização`) trazem a data da última revisão. Regra **idempotente**: se a data do doc **≤** a edição **E** o item **já existe no R2** → **não sobe (skip)**. Evita re-subir docs idênticos a cada boletim (o conteúdo é contínuo na identidade).
+```
+fontes/
+  sinapi/                     ← CONTÍNUA: o doc vive na identidade, SEM nível de edição
+    fichas/<ins_codigo>.html
+    cadernos/<cmp_codigo>.html
+    cadernos/_apresentacao/<subgrupo_slug>.html   → edicoes.edi_capa_path
+    audit/                    ← arquivos-fonte do import, em 3 subpastas:
+      ficha/fichas_insumos.pdf        (PDF das fichas — hyperlink do xlsx)
+      cadernos/SINAPI-CT-*.pdf        (PDFs dos cadernos — hyperlink das composições)
+      <ano>-<versão>/SINAPI_*.xlsx    (os 4 excels da edição; ex.: 2026-04/)
+  cdhu/                       ← NÃO-CONTÍNUA: reemite por versão → nível da VERSÃO
+    <edi_codigo_versao>/
+      criterios/<cmp_codigo>.html
+      audit/                  ← criterio.pdf + excels da versão
+assets/                       ← favicon.png (e estáticos)
+livros/                       ← índices ("guia de bolso"): <fonte>.html + sinapi_descontinuados.html
+```
 
-**11.4 Estado (2026-06-04).**
-- **CDHU critérios:** parser OK (font-style), publicado 184+201. ⚠️ Pendente: rodapé `Página X de Y` vazou no 184 (filtrar) + favicon.
-- **SINAPI fichas:** parser OK (tabela+bordas+imagem, 7 campos fixos), publicando 6010. ⚠️ Pendente: favicon + regra skip-por-data.
-- **SINAPI cadernos (por subgrupo → por CPU, com diagramas):** **a fazer**.
+Regra estrutural: **fonte contínua** (`fte_catalogos_continuos=true`, SINAPI) **NÃO** aninha o doc na edição (seria snapshot por edição — modelo errado p/ contínua, onde o doc é o vigente na identidade); **fonte por edição** (`false`, CDHU) aninha em `<versão>` (versões antigas SÃO o histórico). Tudo que o usuário "sobe para import" é guardado em `…/audit/` (rastreabilidade). **Estado final do bucket = só `fontes/` + `assets/` + `livros/`.**
+
+**11.3 Fonte `fte_catalogos_continuos=false` (ex.: CDHU) — sobe tudo a cada versão.** A CDHU reemite o catálogo de critérios a cada edição (repete textos, sem controle de mudança). Como é leve (texto), **sobe tudo por versão**:
+- `fontes/cdhu/<versão>/criterios/<cmp_codigo>.html` + originais em `fontes/cdhu/<versão>/audit/`.
+- `cmp_external_path` mantém o **path mais atual** + um **histórico** dos paths anteriores (auditoria).
+
+**11.4 Fonte `fte_catalogos_continuos=true` (ex.: SINAPI) — skip por data de atualização.** Fichas (`Atualizado em:`) e cadernos (`Atualização`) trazem a data da última revisão. Path **sem edição** (`fontes/sinapi/fichas/`, `fontes/sinapi/cadernos/`). Regra **idempotente**: se a data do doc **≤** a edição **E** o item **já existe no R2** → **não sobe (skip)**. Evita re-subir docs idênticos a cada boletim (o conteúdo é contínuo na identidade).
+
+**11.5 Livros (índices / "guia de bolso").** Sumários navegáveis por fonte; cada item é link → abre o HTML no R2. São consulta rápida — na prática **a app consome os dados conforme as funcionalidades**.
+- **SINAPI** (contínua): no topo, `Versão atual: <edi>` + link **descontinuados** (`sinapi_descontinuados.html` — insumos/composições **inativos** que têm doc; lista contínua que **cresce com os imports**; vazia por ora). Cadernos agrupados por subgrupo; fichas em lista.
+- **CDHU** (por versão): lista **todas as versões** (`<details>`, mais recente **aberta** no topo, ordenado desc). **Sem** descontinuados — versões antigas são o histórico.
+
+**11.6 Estado (2026-06-05).**
+- **SINAPI:** 170 cadernos (8664 CPUs + 170 apresentações) + 6010 fichas em `fontes/sinapi/` (path contínuo, sem edição); responsivo + favicon novo. `audit/` **reorganizado** nas 3 subpastas (`ficha/`, `cadernos/`, `<ano>-<mês>/`) — antes os xlsx/PDF ficavam soltos em `audit/` (errado); corrigido. Livro com versão atual + descontinuados.
+- **CDHU:** 184+201 re-emitidos em `fontes/cdhu/<v>/criterios` + `audit/` + `metodologia.html` (§11.7); banco 100% no path novo; path antigo `criterios/cdhu/` removido.
+- **Limpeza concluída:** órfãos do esquema anterior removidos — `fichas/` e `criterios/` de topo + o nível `fontes/sinapi/04-26/`. Bucket = `fontes/` + `assets/` + `livros/`.
+
+**11.7 Metodologia do boletim (CDHU).** Algumas versões trazem `metodologia_boletim_<v>.pdf` (METODOLOGIA DE CONSULTA + tabela UNIDADES PADRÃO) — é a **"apresentação" do CDHU** (análoga à do caderno SINAPI). Vai pro `audit/` **e** vira `fontes/cdhu/<v>/metodologia.html` (gravado em `edicoes.edi_capa_path.metodologia`); no livro CDHU aparece **antes das composições** da versão.
