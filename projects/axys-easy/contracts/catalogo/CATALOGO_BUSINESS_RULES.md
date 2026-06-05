@@ -251,6 +251,7 @@ fontes/
     fichas/<ins_codigo>.html
     cadernos/<cmp_codigo>.html
     cadernos/_apresentacao/<subgrupo_slug>.html   → edicoes.edi_capa_path
+    metodologia/<Livro>.pdf   ← livros de referência (PDF original; §11.8)
     audit/                    ← arquivos-fonte do import, em 3 subpastas:
       ficha/fichas_insumos.pdf        (PDF das fichas — hyperlink do xlsx)
       cadernos/SINAPI-CT-*.pdf        (PDFs dos cadernos — hyperlink das composições)
@@ -279,5 +280,17 @@ Regra estrutural: **fonte contínua** (`fte_catalogos_continuos=true`, SINAPI) *
 - **SINAPI:** 170 cadernos (8664 CPUs + 170 apresentações) + 6010 fichas em `fontes/sinapi/` (path contínuo, sem edição); responsivo + favicon novo. `audit/` **reorganizado** nas 3 subpastas (`ficha/`, `cadernos/`, `<ano>-<mês>/`) — antes os xlsx/PDF ficavam soltos em `audit/` (errado); corrigido. Livro com versão atual + descontinuados.
 - **CDHU:** 184+201 re-emitidos em `fontes/cdhu/<v>/criterios` + `audit/` + `metodologia.html` (§11.7); banco 100% no path novo; path antigo `criterios/cdhu/` removido.
 - **Limpeza concluída:** órfãos do esquema anterior removidos — `fichas/` e `criterios/` de topo + o nível `fontes/sinapi/04-26/`. Bucket = `fontes/` + `assets/` + `livros/`.
+
+**11.8 Livros de metodologia (SINAPI) — PDF original, não convertido.** Livros de
+referência (ex.: *SINAPI — Cálculos e Parâmetros*) têm **autores registrados** (direito
+autoral) e a conversão p/ HTML degrada (caracteres/figuras). Regra: **mantém o documento
+ORIGINAL** (link do PDF), no R2 sempre a **versão mais recente**, em `fontes/sinapi/metodologia/`.
+- **Descoberta:** o link vem da aba CCD do SINAPI_Referência (URL de `sinapi-metodologia`).
+  No import de cada edição há **pesquisa** pelo livro (`import_cadernos_sinapi.publica_livros_metodologia`);
+  **se a CCD não trouxer**, a **UI EXIGE** arquivo/link (obrigatório — regra de tela).
+- **Change-check + histórico:** a cada edição compara o **sha1**; se mudou, re-sobe e empilha
+  a versão anterior. Banco: `edicoes.edi_capa_path._livros` `{slug:{titulo,url,path,sha1,atualizado_em,historico[]}}`.
+- **Parser HTML** (`backend/core/import_cpu/livro_sinapi.py`) existe **só p/ auditoria** — NÃO publica.
+- No livro/índice (§11.5) aparece em "Livros SINAPI (referência)".
 
 **11.7 Metodologia do boletim (CDHU).** Algumas versões trazem `metodologia_boletim_<v>.pdf` (METODOLOGIA DE CONSULTA + tabela UNIDADES PADRÃO) — é a **"apresentação" do CDHU** (análoga à do caderno SINAPI). Vai pro `audit/` **e** vira `fontes/cdhu/<v>/metodologia.html` (gravado em `edicoes.edi_capa_path.metodologia`); no livro CDHU aparece **antes das composições** da versão.
