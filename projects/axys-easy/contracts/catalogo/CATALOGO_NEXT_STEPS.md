@@ -42,6 +42,12 @@ IMPORTAR, não duplicar/reescrever.**
 
 ## Pendências menores (não bloqueiam)
 - **skip-por-data**: implementado, exercitado só na 1ª subida; validar numa virada de edição real.
-- **~6 CPUs de caderno** sem composição correspondente na edição (no R2, sem `cmp_external_path`).
-- **descontinuados** (`livros/sinapi_descontinuados.html`): vazio hoje; cresce conforme imports
-  desativam itens (`NOT ins_ativo` / `NOT cmp_ativa` com doc).
+- ~~6 CPUs de caderno órfãs~~ **RESOLVIDO**: CPU documentada no caderno mas fora da edição atual
+  (descontinuada) → o runner linka na edição mais recente que tem o código (inativa) marcando
+  `orfao=True` → aparece em **Cadernos descontinuados**. Códigos nunca importados ficam p/ a UI
+  (criar inativo + auditar histórico) — ver sugestão Rodrigo.
+- **2 cadernos de EQUIPAMENTO** (*Custos Horários… dos Equipamentos*, *Depreciação… Operação dos
+  Equipamentos*): têm apresentação mas **0 composição** (custo horário de equipamento não é
+  `composicao` no modelo). Hoje a apresentação fica órfã (não listada). **Decisão pendente**:
+  listar como caderno-referência (só apresentação) ou modelar o custo de equipamento.
+- **descontinuados**: cadernos = 6 (pipe-PVC ed. antiga); fichas = 874 (insumos inativos com ficha).
