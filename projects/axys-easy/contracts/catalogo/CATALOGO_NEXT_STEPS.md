@@ -55,6 +55,19 @@ Fronteira de governança: import escreve, app/livros lêem. Backfill do estado a
   (árvore opcional) e gerar per-CPU dos 2 cadernos de equipamento, linkando ao insumo — hoje estão
   como `referencia` (PDF) no registro.
 
+## fontes / edicoes — reconciliação com o registro (desenho p/ a recriação, Fase 2)
+Como a Fase 2 **recria o banco**, as mudanças de coluna vão pro `schema.sql` (não ALTER no vivo).
+Decisão de coerência com o registro `documentos` (§11.9), p/ **não re-misturar governança**:
+- **NÃO** criar `fontes.metodologia`/`metodologia_old` — metodologia é `documentos(tipo='metodologia')`
+  com `doc_vigente` (atual) + linhas `vigente=false` (histórico). (Ideia anterior superada pelo registro.)
+- **NÃO** criar `composicoes_subgrupos.apresentacao_path` — apresentação é `documentos(tipo='apresentacao', sub_id, edi_id)`.
+- **Dropar** `edicoes.edi_capa_path` e os `*_external_path` (eram cache da fase 1).
+- **Manter** as colunas de GOVERNANÇA já existentes (não são doc): `fontes.fte_catalogos_continuos`,
+  `fontes.fte_tem_catalogo_insumos`; `edicoes.edi_situacao_ciclo`, `edi_ins_catalogo_ok`,
+  `edi_comp_catalogo_ok`. ⚠️ **A confirmar com Rodrigo:** se há OUTRA coluna de governança desejada
+  em fontes/edicoes (fora docs) — p/ docs, o registro já cobre.
+- **Origem das fontes-base** (links de import) → `documentos_origem` (não em `fontes`).
+
 ## Rollout de produção (obs Rodrigo)
 - Importar da edição SINAPI **mais antiga → mais nova**; se faltar item, a app **skipa** (casos de
   skip: sem links etc.) — sem ficar vaga em excesso.
