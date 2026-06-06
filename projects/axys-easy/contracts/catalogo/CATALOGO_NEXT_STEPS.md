@@ -44,9 +44,13 @@ IMPORTAR, não duplicar/reescrever.**
 Adotado o **Caminho 2**: `catalogo.documentos` + `documentos_origem` (ver BUSINESS_RULES §11.9).
 Fronteira de governança: import escreve, app/livros lêem. Backfill do estado atual feito
 (`backfill_documentos.py`: ~21.978 docs + 177 origens) e **livros já lêem do registro**.
-- **Fase 2 (a fazer):** reescrever os runners (`import_fichas`, `import_cadernos`, `import_criterios`)
-  p/ gravar direto em `documentos`/`documentos_origem` (em vez dos JSONB). Depois **deprecar/dropar**
-  `ins_external_path`/`cmp_external_path`/`edi_capa_path` (hoje cache).
+- **Fase 2 (a fazer — JUNTO DA UI):** reescrever os runners (`import_fichas`, `import_cadernos`,
+  `import_criterios`) p/ gravar direto em `documentos`/`documentos_origem` (em vez dos JSONB).
+  > **DIRETRIZ (Rodrigo):** para avançar, **DROPAR e RECRIAR o banco do zero** — o `schema.sql` novo
+  > já nasce com `documentos`/`documentos_origem` como **fonte única** e **SEM** as colunas
+  > `ins_external_path`/`cmp_external_path`/`edi_capa_path`. Re-importar tudo do **audit/R2 (que NÃO
+  > se limpa)** já gravando no registro. Não há migração in-place: recria limpo. (Backfill atual é
+  > ponte só enquanto o banco vigente existir.)
 - **Equipamento por-insumo:** ajustar `parse_caderno` p/ detectar CPU pelo cabeçalho de metadados
   (árvore opcional) e gerar per-CPU dos 2 cadernos de equipamento, linkando ao insumo — hoje estão
   como `referencia` (PDF) no registro.
