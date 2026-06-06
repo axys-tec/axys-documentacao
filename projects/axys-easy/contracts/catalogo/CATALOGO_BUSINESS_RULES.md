@@ -294,3 +294,26 @@ ORIGINAL** (link do PDF), no R2 sempre a **versão mais recente**, em `fontes/si
 - No livro/índice (§11.5) aparece em "Livros SINAPI (referência)".
 
 **11.7 Metodologia do boletim (CDHU).** Algumas versões trazem `metodologia_boletim_<v>.pdf` (METODOLOGIA DE CONSULTA + tabela UNIDADES PADRÃO) — é a **"apresentação" do CDHU** (análoga à do caderno SINAPI). Vai pro `audit/` **e** vira `fontes/cdhu/<v>/metodologia.html` (gravado em `edicoes.edi_capa_path.metodologia`); no livro CDHU aparece **antes das composições** da versão.
+
+**11.9 REGISTRO central de documentos (`catalogo.documentos` + `documentos_origem`).** É a
+**fronteira de governança**: "não misturar governanças" — o **import** (SINAPI/CDHU, cada um com
+sua própria governança de época/histórico/links que somem) **ESCREVE** o registro; a **app** e os
+**livros** **LÊEM** dele. Unifica num só modelo o que estava espalhado em colunas JSONB
+(`ins_external_path`, `cmp_external_path`, `edi_capa_path`) e evita criar novas colunas nullable
+por tipo de doc.
+- **`documentos_origem`** = proveniência: arquivo da **matriz (Caixa)** — guardado p/ governança,
+  pois pode sumir — **+** cópia no **R2/audit**. Dedup por arquivo (muitos docs compartilham origem).
+- **`documentos`** = 1 linha por doc, FK p/ **identidade** (`doc_ins_id`/`doc_cmp_id`/`doc_sub_id`/
+  `doc_edi_id`), p/ **origem** (`doc_org_id`), `doc_tipo`, `doc_path`/`url`, `doc_titulo` (docs sem
+  identidade), `doc_sha1`, `doc_data`, **`doc_vigente`** (atual × histórico), **`doc_orfao`** (no R2
+  sem identidade vigente). Tipos: ficha(ins) · caderno_cpu(cmp) · apresentacao(sub,edi) ·
+  criterio(cmp,edi) · metodologia(fte,edi) · referencia(fte/sub,edi: planilhas e cadernos de equipamento).
+- **Desempenho:** point-lookup por FK com índice parcial `WHERE doc_vigente` = um seek (≈ ler coluna);
+  listas até mais rápidas (não varrem insumos/composicoes). Índices: `(doc_ins_id)`, `(doc_cmp_id)`,
+  `(doc_sub_id)`, `(doc_fte_id,doc_tipo,doc_vigente)`.
+- **Governança de links:** os livros e o registro referenciam **sempre o R2**, nunca a matriz.
+- **Admissível:** doc no R2 sem item no banco (`doc_orfao=true` / sem FK) — "o que tá lá a gente sabe".
+  O inverso (item sem doc) é tratado na tela de verificação.
+- **Fase 1 (feita):** tabelas + **backfill** do estado atual (`backfill_documentos.py`) + livros lendo
+  do registro. **Fase 2:** runners gravam direto no registro e os JSONB `*_external_path`/`edi_capa_path`
+  são deprecados (hoje mantidos como cache; não quebrar o validado).

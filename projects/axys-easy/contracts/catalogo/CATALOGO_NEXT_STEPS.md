@@ -40,6 +40,23 @@ IMPORTAR, não duplicar/reescrever.**
      badge `RASCUNHO`/`PUBLICADA`, **lock** da edição publicada (camada app);
    - render responsivo (calibrar mobile/desktop na app, sobre o conteúdo puro do R2).
 
+## Registro central de documentos (FEITO fase 1 — 2026-06-05)
+Adotado o **Caminho 2**: `catalogo.documentos` + `documentos_origem` (ver BUSINESS_RULES §11.9).
+Fronteira de governança: import escreve, app/livros lêem. Backfill do estado atual feito
+(`backfill_documentos.py`: ~21.978 docs + 177 origens) e **livros já lêem do registro**.
+- **Fase 2 (a fazer):** reescrever os runners (`import_fichas`, `import_cadernos`, `import_criterios`)
+  p/ gravar direto em `documentos`/`documentos_origem` (em vez dos JSONB). Depois **deprecar/dropar**
+  `ins_external_path`/`cmp_external_path`/`edi_capa_path` (hoje cache).
+- **Equipamento por-insumo:** ajustar `parse_caderno` p/ detectar CPU pelo cabeçalho de metadados
+  (árvore opcional) e gerar per-CPU dos 2 cadernos de equipamento, linkando ao insumo — hoje estão
+  como `referencia` (PDF) no registro.
+
+## Rollout de produção (obs Rodrigo)
+- Importar da edição SINAPI **mais antiga → mais nova**; se faltar item, a app **skipa** (casos de
+  skip: sem links etc.) — sem ficar vaga em excesso.
+- Sobe pra produção nos imports, mas **só libera p/ tenants** quando TODAS as tabelas do modelo
+  recente (os 4 excels) estiverem no banco. Mapear esses docs também (já no registro como `referencia`).
+
 ## Pendências menores (não bloqueiam)
 - **skip-por-data**: implementado, exercitado só na 1ª subida; validar numa virada de edição real.
 - ~~6 CPUs de caderno órfãs~~ **RESOLVIDO**: CPU documentada no caderno mas fora da edição atual
