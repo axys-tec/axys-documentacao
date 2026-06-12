@@ -32,8 +32,8 @@ Quando Easy valida um token, recebe claims:
 ```json
 {
   "sub": "user-uuid",
-  "email": "rodrigo@axys.com",
-  "name": "Rodrigo Dias",
+  "email": "renan@axys.com",
+  "name": "Renan Dias",
   "tenant_uuid": "550e8400-e29b-41d4-a716-446655440000",
   "tenant_code": "AXYS",
   "tenant_name": "Axys Tecnologia",
@@ -131,7 +131,7 @@ Página: /sem-contrato
 Uma pessoa pode ter acesso a **múltiplos tenants**:
 
 ```json
-Usuario: Rodrigo Dias
+Usuario: Renan Dias
   ├─ Tenant 1: AXYS (is_staff=true, role=owner)
   ├─ Tenant 2: ACME (is_staff=false, role=admin)
   └─ Tenant 3: XYZ Corp (is_staff=false, role=user)

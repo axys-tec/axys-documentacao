@@ -98,6 +98,14 @@ Para insumo de **mão de obra**: `preco = ARRED( pelado × (1 + LS%/100), 2 )`, 
 - No **orçamento** (módulo ativo), o usuário pode usar LS customizada / base mensalista → computado **ao vivo** sobre o SE. Nada a "reprocessar" no catálogo; cache de orçamento invalida ao mudar LS.
 - **Horista ↔ mensalista** não é linear (a CPU mensalista tem itens diferentes, não é `horista × 220`) → resolve-se por **mapeamento de CPUs** (`composicoes_mapeamento_mdo`, por edição), consumido no orçamento.
 
+### 3.5 Preço por COTAÇÃO de mercado (`pri_origem='CT'` + `insumos_cotacoes`) *(decisão Renan 2026-06-07)*
+- Para insumos **próprios** (AXYS) ou **sem preço de fonte**, o preço vem de **cotação de mercado** (fornecedores). `pri_origem` ganha **`'CT'`** (além de `C`=coletado, `CR`=coef. representativo).
+- **Lastro/detalhe em `catalogo.insumos_cotacoes`** (mínima): `ic_ins_id`, `ic_edi_id`, `ic_uf` (preço de insumo é **SE-only** §3.1 → sem modalidade), `ic_preco_mediano`, `ic_certidao_path` (JSONB — certidão de pesquisa de preço, 1 por cotação), `ic_cotacoes` (JSONB **array** de fornecedores: `{fornecedor:{nome,razao_social,cnpj,nome_fantasia,telefone,contato}, data_cotacao, ambiente(online|link|presencial), valor, proposta_path}`).
+- **Fluxo:** junta cotações → **mediana** (robusta a outlier) → grava em **`insumos_preco`** (`pri_valor = ic_preco_mediano`, `pri_origem='CT'`, modalidade `SE`, na UF). **A verdade do preço continua sendo `insumos_preco`** (§3.4); `insumos_cotacoes` é o **detalhe/auditoria** que justifica aquele CT. `ic_preco_mediano` é derivado (recalcula quando o array muda).
+- **Docs (proposta por fornecedor; certidão)** = justificativa do **usuário** → **R2 privado** (NÃO o registro público de documentos da fonte, §11.9).
+- **Fornecedor**: hoje **snapshot no JSONB** (mínimo, fiel ao momento da cotação). Se o reuso de fornecedor doer (mesmo CNPJ recorrente), extrair `catalogo.fornecedores` (CNPJ = PK natural, padrão `unidades`) — **futuro**, não agora.
+- **Estado:** tabela criada (schema + dev) + `'CT'` no CHECK. **Wiring** (mediana→`insumos_preco`, UI de cotação, upload dos docs) entra com a tela de insumos próprios (AXYS) — gate `fte_permite_manipular_dados` (§8.1).
+
 ---
 
 ## 4. Composição e custo
@@ -134,12 +142,15 @@ Para insumo de **mão de obra**: `preco = ARRED( pelado × (1 + LS%/100), 2 )`, 
 
 ---
 
-## 6. Situação como lookup
+## 6. Situação
 
-- `catalogo.situacoes` — lookup por **domínio** (`INSUMO`, `COMPOSICAO`); situações são **FK**, não texto repetido.
-- Não há domínio `PRECO` (situação de preço É do insumo) nem `ITEM` (item é só insumo ou composição dentro de composição).
+> ⚠️ **DECISÃO 2026-06-07 (alvo Fase 2): situação vira CHECK-text, a tabela `catalogo.situacoes` SAI.**
+> Motivo: a lookup só era usada por `insumos_preco`; as composições já guardam situação como **CHECK-text** (`cmp_situacao`/`ci_situacao`), e as linhas de domínio `COMPOSICAO` da lookup eram **peso morto**. Situação é **enum pequeno e fixo** → `CHECK` é suficiente; tabela + FK composta + discriminador era complexidade desnecessária (e até com grafia divergente: lookup `'COM_PRECO'` × texto `'COM PREÇO'`). **Princípio:** enum pequeno/fixo → `CHECK`; vocabulário grande/extensível → tabela (ex.: `unidades`, §8.2).
+> **Alvo:** `insumos_preco` troca `(pri_sit_id, pri_sit_dominio + FK composta)` por `pri_situacao TEXT CHECK (… IN ('COM PREÇO','SEM PREÇO'))` (null = sem preço). Aplicar no recreate + parser (Fase 2 — NEXT_STEPS). Até lá, schema/parser vivos seguem com `situacoes`.
+
 - A situação guardada é a **declarada pela fonte** (auditoria). A **situação efetiva** (para cálculo) é **derivada em runtime** pela app — não persistida, não confiada cegamente.
-- Integridade de domínio garantida por **FK composta** `(sit_id, dominio)` — sem trigger.
+- Não há domínio `PRECO` (situação de preço É do insumo) nem `ITEM` (item é só insumo ou composição dentro de composição).
+- Domínios de valores: INSUMO → `COM PREÇO`/`SEM PREÇO`; COMPOSICAO → `COM CUSTO`/`SEM CUSTO`/`SUSPENSO`/`EM ESTUDO`. Cada CHECK só admite os do seu lado (a guarda de domínio que a FK composta dava passa a ser o próprio CHECK).
 
 ### 6.1 Procedência da situação — DECLARADA (fonte) × DERIVADA (nós), por fonte
 O que vem da fonte e o que é nosso depende do que cada fonte publica:
@@ -177,6 +188,21 @@ O que vem da fonte e o que é nosso depende do que cada fonte publica:
 
 **Sem triggers.** Regra de coerência é responsabilidade do parser/importador.
 
+**8.1 Manipulação de dados por fonte — `fontes.fte_permite_manipular_dados` (gate de segurança).**
+- **Catálogos de terceiros são IMUTÁVEIS** na app: ninguém cria/edita/ajusta insumos, composições ou itens de uma fonte de terceiro (SINAPI, CDHU). Alterar dado de catálogo oficial é **risco alto** (descaracteriza a fonte, quebra auditoria/convergência). Esses dados entram **só por import**.
+- Só **fontes próprias** (AXYS — composições/insumos do tenant) permitem manipulação manual. Flag booleana **`fte_permite_manipular_dados`** (default `FALSE`; seed: AXYS=`TRUE`, SINAPI/CDHU=`FALSE`).
+- **É o GATE** que as telas/serviços de insumos e composições consultam: criar/editar/excluir/ajustar só é oferecido (e aceito no back) quando a fonte do registro tem `fte_permite_manipular_dados = TRUE`. Import **não** passa por esse gate (escreve sempre).
+- **Edição da própria flag:** atributo restrito a **administrador** (gating padrão `_pode_editar`); na criação o admin a define livremente; em modo edição fica travada para perfil sem role adequada. Toda mudança é auditada (`fontes` UPDATE).
+
+**8.2 Unidades de grandeza — vocabulário controlado (`catalogo.unidades`).** *(decisão Renan 2026-06-07; alvo Fase 2 p/ as FKs)*
+- **Tabela `unidades`** = vocabulário único (uma só; unidade é universal — metro é metro p/ insumo ou composição). **PK natural = o código** (`un_codigo` TEXT: `'M3'`,`'KG'`,`'UN'`,`'M3XKM'`). O valor gravado em `insumos.ins_unidade`/`composicoes.cmp_unidade` é esse **código legível** (FK), **sem id surrogate** → banco continua legível **e** íntegro.
+- **Por quê:** import vem (quase) normalizado, mas a **criação manual** (fontes próprias, AXYS) geraria typos/variantes (`m4`, `M2/MES`×`M2XMES`). A tabela barra isso. **Enum pequeno fixo → CHECK (situação); vocabulário grande/extensível → tabela (unidade).**
+- **Tipo:** `TEXT`/`VARCHAR` — unidades **compostas** existem (`M3XKM`,`TXKM`,`M2XMES`); `char(3/4)` não serve.
+- **Import = VERBATIM (fidelidade §9.5):** faz **UPSERT** da unidade **exatamente como a fonte publica** (cria em `unidades` se não existir). **NÃO normalizar dado de fonte** — transformar `M2/MES→M2XMES` em dado importado abre uma caixa infinita ("a gnt fica maluco") e quebra a fidelidade. Variantes de fonte ficam no registro **como publicadas**.
+- **Criação manual:** só **seleciona** da lista; **"Outra"** = nova unidade, restrita a **admin** + confirmação (senão reabre o vetor de typo). A **convenção canônica** (maiúsculas, `X` p/ composta, sem acento `MES`) é **guia para o que o humano cria** — não um transform sobre dado de fonte.
+- **Hook:** `un_categoria` (comprimento/área/volume/massa/tempo/composta) prepara o **fator de conversão** da retroanálise (§9.5).
+- **Estado:** tabela `unidades` **criada** (schema + dev, semeada com o vocabulário atual). **FK** em insumos/composições = **Fase 2** (quebra parser atual; ver NEXT_STEPS).
+
 ---
 
 ## 9. Época / Diff (evolução entre edições)
@@ -195,7 +221,7 @@ O que vem da fonte e o que é nosso depende do que cada fonte publica:
 - **Situação NÃO é gatilho de alteração** — em direção alguma (`null↔valor` nem `valor→outro`). É **metadado de presença**, gravado por época em `cmp_situacao`/`ci_situacao` para consulta, mas não emite evento. (Se a situação mudar por causa real — insumo sem preço entrando na árvore — o gatilho real é a mudança de **itens**, que já registra.) Implementação: helper `_alteracao(de, para)` em `parser_cdhu.py`, **não** chamado para situação.
 - **Risco-espelho coberto:** como situação nunca é gatilho, uma futura edição que **deixe** de publicar a coluna (`valor→null` em massa) também **não** gera ruído.
 
-**9.3 Snapshot por época (consulta ponto-no-tempo).**
+**9.3 Snapshot por época (consulta ponto-no-tempo).** — ⚠️ **MODELO FASE 1 (atual)**; o **alvo** é o modelo **contínuo** de §9.6 (composição vigente + custo denso + histórico esparso). §9.3 descreve o banco vivo de hoje (per-edição) até a migração da Fase 2.
 - Cada import grava o **snapshot completo** da edição: 1 linha por composição com `cmp_edi_id` daquela edição. "Quantas composições ativas na época X" = `COUNT(*) WHERE cmp_fte_id=F AND cmp_edi_id=<época>` — **1× por CPU** (identidade), não multiplicado.
 - **Não usar `cmp_ativa` para ponto-no-tempo:** `cmp_ativa=TRUE` marca só a versão **vigente (hoje)**; para a época X filtre por `cmp_edi_id`.
 - Só é consultável para épocas **efetivamente importadas** (imports esparsos não reconstroem o miolo).
@@ -206,6 +232,33 @@ O que vem da fonte e o que é nosso depende do que cada fonte publica:
 - **Reimport sem rebuild ainda não é idempotente** quanto ao *supersede* (a linha superada por uma edição segue inativa → no reimport apareceria como `REATIVACAO`). Para reimportar a **mesma** edição, `rebuild` antes. Imports novos / fora de ordem estão corretos.
 - **Sequenciamento:** o diff é estágio **posterior** ao import "puro" funcionar (ver `PLANO_IMPORT_CATALOGO.md`, Fases 2.2 e 3.4).
 
+**9.5 Retroação — leitura ponto-no-tempo de insumo (trinca atômica + conversão app-dependente).**
+Complementa o lado da escrita (9.1–9.4): aqui é como a app **lê** o passado.
+- **Modelo (insumo):** `insumos` = **vigente** (1 linha/código → a busca não multiplica por época); `insumos_preco` = **denso por edição** (preço exato@E); `insumos_historico` = **esparso**, faixa de validade `edi_id_inicio/edi_id_fim`, eventos `CRIACAO`/`ALTERACAO_*`/`INATIVACAO`/`REATIVACAO`. Atributos que entram em `ALTERACAO_*`: **descrição** e **unidade** (a "alteração verdadeira" de 9.2). Grava só quando difere; 1º aparecimento = `CRIACAO` (`dados_anteriores=null`).
+- **Leitura histórica é a TRINCA ATÔMICA `(preço@E, unidade@E, descrição@E)`** — nunca o preço sozinho, nunca pareado com a unidade **vigente**. Uma função única (`obter_insumo_em_edicao(ins, E)`) devolve a trinca: preço de `insumos_preco@E` (lookup direto); unidade/descrição reconstruídas de `insumos_historico` (`E ENTRE [edi_inicio, edi_fim)`) com **fallback ao vigente**. Custo: ~2 lookups indexados — retroação O(1), sem varredura.
+- **Por que atômica:** preço histórico sem a unidade da época **engana**. Ex.: vergalhão muda `barra→kg` e `R$74,04/br → R$15/kg`; lido com a unidade vigente diria "barateou" quando **encareceu**.
+- **Conversão NÃO é automática — é app-dependente.** O domínio é aberto (br↔kg via peso, etc.; infinitas possibilidades) — automatizar quebra. Quando a app retroage e detecta **divergência de unidade** (unidade@E ≠ vigente, ou muda dentro do intervalo), ela **não converte**: **notifica o usuário** a definir o **fator de conversão** e **registra como observação** no artefato. Casos:
+  - **Retroagir orçamento:** varre insumo a insumo; em cada divergência de unidade → aviso + observação no orçamento.
+  - **Retroagir composição isolada:** idem.
+  - **Série histórica / gráfico:** idem (sem fator, não plota cruzando unidades).
+  - Mudança só de **descrição** (texto, não quantidade) = aviso **informativo**, não bloqueia. O gatilho de conversão é **unidade**.
+- **De onde vem o fator:** decisão do usuário (registrada no artefato); fonte auxiliar possível = `insumos_equivalencias`/peso — **feature de análise futura**, não buraco de storage (o storage já entrega a unidade correta de cada ponta).
+- UX do aviso: ver `config_ui_ux_easy.md` → "Retroanálise com modificações impactantes".
+
+**9.6 Modelo contínuo de composição (ALVO Fase 2) — substitui o snapshot-por-edição de §9.3.**
+Espelha insumos (§9.5): **identidade vigente + custo denso por edição + histórico esparso por mudança**. Mata a duplicação da `composicoes_itens` por edição (a busca deixa de retornar "a mesma CPU N vezes por época").
+- **`composicoes` = identidade vigente** (1 linha por `(fonte, código)`; **sem `cmp_edi_id`**; UNIQUE `(cmp_fte_id, cmp_codigo)`). descrição/unidade/situação/flags/external_path = estado **vigente**.
+- **`composicoes_itens` = receita VIGENTE apenas** (`ci_cmp_id` → identidade). **Sem** `ci_*_fonte_original` — o filho (insumo/CPU) é resolvido pela **identidade**; o texto histórico vive no snapshot do histórico. **Dedup**: descrição de filho não se repete.
+- **`composicoes_custo` = série densa por edição** (`+ cc_edi_id`; UNIQUE `(cc_cmp_id, cc_edi_id, cc_uf, cc_modalidade)`), simétrico a `insumos_preco`. Guarda `custo_fonte`/`custo_calculado`/conferência por edição. Retroanálise de custo = **lê, não recalcula**; só explode a árvore sob demanda.
+- **`composicoes_historico` = snapshot-na-mudança** (esparso): `ch_dados_novos` = snapshot **completo** `{descricao, unidade, receita:[{tipo, id(+cod), coef}]}` → "como era na edição E" = **1 lookup**; `ch_diff` = só o que mudou. Evento **só quando muda** descrição/unidade/receita; **custo nunca** entra no histórico.
+- **Nomenclatura — preço × custo é distinção de DOMÍNIO, não despadronização:** insumo tem **preço** (`insumos_preco`, valor unitário publicado); composição tem **custo** (`composicoes_custo`, derivado = Σ filhos×coef + LS, com conferência fonte×calculado). Manter os dois nomes (SINAPI/ABNT publicam "preços de insumos" × "custos de composições"; §3 × §4). **Não** renomear.
+- **Retroação (leitura ponto-no-tempo de composição):**
+  - **Custo@E** = lookup direto em `composicoes_custo@E` (sem recalcular).
+  - **Receita@E** = `ch_dados_novos` do evento cuja validade cobre E (ou a vigente em `composicoes_itens` se E é o período atual).
+  - **Analítico (explosão da árvore)@E** = recursivo: cada filho resolvido **as-of-E** — insumo via trinca §9.5; CPU-filha via receita@E + custo@E. Mais memória, mas limitado; análise sem explosão usa `composicoes_custo@E` direto.
+  - Conversão de unidade segue §9.5 (app detecta divergência, usuário define o fator, vira observação — nunca auto-converte).
+- **Status/implementação:** modelo **documentado**; aplicar no **schema.sql** (CREATE TABLE) e **parsers** na **Fase 2** (drop+recriar + re-import do audit) — ver `CATALOGO_NEXT_STEPS.md`. Banco vivo e parsers seguem no modelo §9.3 até lá.
+
 ---
 
 ## 10. Ciclo de vida da fonte/edição (upload em fases · liberação · lock)
@@ -215,7 +268,7 @@ Catálogo de preço só fica **disponível ao tenant** quando **completo e valid
 **10.1 Flags.**
 - **Fonte:** `fte_tem_catalogo_insumos` (bool, default `false`) — o usuário declara no cadastro se a fonte publica catálogo/relatório de insumos (na prática hoje só a SINAPI tem fichas; CDHU não).
 - **Fonte:** `fte_catalogos_continuos` (bool, default `false`) — os documentos (fichas/cadernos/critérios) **podem não mudar por edição**? `true` = contínuos (SINAPI: trazem data de atualização → publica com **skip por data**, §11.3); `false` = reemitidos/mudam por edição (CDHU: **sobe tudo por edição**, §11.2). Default `false` é conservador (re-sobe sempre) — fonte que o usuário sobe declara isso.
-- **Edição:** ciclo de vida em enum `edi_situacao_ciclo` ∈ {`RASCUNHO`, `PUBLICADA`} (+ gates abaixo). `RASCUNHO` é o default.
+- **Edição:** estado **único** em enum `edi_situacao_ciclo` ∈ {`RASCUNHO`, `PUBLICADA`, `EM_REVISAO`, `ARQUIVADA`} (+ gates abaixo). `RASCUNHO` é o default. **Não há `edi_ativa`** (removido 2026-06-06 — sobreposição com o ciclo). Semântica: `RASCUNHO` = em construção, indisponível, mutável; `PUBLICADA` = disponível p/ novo uso E histórico, travada; `EM_REVISAO` = só pós-PUBLICADA (recall): reaberta/mutável p/ correção mas **segue disponível** ao tenant com aviso (`edi_revisao_nota`) — volta a `PUBLICADA` ao concluir; `ARQUIVADA` = descontinuada p/ **novos** usos mas histórico/usos existentes permanecem (não é "indisponível"; raro). "Disponível p/ novo uso" := `PUBLICADA`∪`EM_REVISAO`; "acessível (histórico)" := `PUBLICADA`∪`EM_REVISAO`∪`ARQUIVADA`. Travadas: `PUBLICADA`/`ARQUIVADA`; mutáveis: `RASCUNHO`/`EM_REVISAO`.
   - `edi_ins_catalogo_ok` (bool): se `fte_tem_catalogo_insumos` → exige upload das fichas de insumo; **senão o back seta `true` automático** (não há o que subir).
   - `edi_comp_catalogo_ok` (bool): exige upload dos **cadernos/critérios** (composições) — **obrigatório para toda fonte**.
 
@@ -224,10 +277,13 @@ Catálogo de preço só fica **disponível ao tenant** quando **completo e valid
 2. **3.2 — fichas de insumo → R2** — **opcional**, só para fonte com `fte_tem_catalogo_insumos=true`.
 3. **3.3 — cadernos de encargos / critério de medição e remuneração → R2** — **obrigatório**.
 
-**10.3 Publicar e travar.**
+**10.3 Publicar, travar e arquivar.**
 - `RASCUNHO` → itens da edição **indisponíveis** a **qualquer** tenant.
-- Botão **Publicar** (front) → o back valida: import grande feito **+** `edi_ins_catalogo_ok` **+** `edi_comp_catalogo_ok`. Passando → `PUBLICADA`: itens **disponíveis** e edição **travada (imutável)**.
-- **Lock é de camada app/parser** (rejeita mutação em edição `PUBLICADA`), **sem trigger** — casa com "imutável por edição" (§7). Manutenção pós-lock só por **usuário de acesso máximo**, em tela específica.
+- Botão **Publicar** (`RASCUNHO`→`PUBLICADA`, front) → o back valida: import grande feito **+** `edi_ins_catalogo_ok` **+** `edi_comp_catalogo_ok`. Passando → `PUBLICADA`: itens **disponíveis** (novo uso + histórico) e edição **travada (imutável)**.
+- Botão **Revisão** (`PUBLICADA`→`EM_REVISAO`) → caso de **recall/correção** (ex.: a SINAPI solta um recall): destrava a edição p/ atualizar, grava o que será revisado em `edi_revisao_nota`, e **mantém disponível** ao tenant com **aviso**. **Concluir revisão** (`EM_REVISAO`→`PUBLICADA`) re-trava.
+- Botão **Arquivar** (`PUBLICADA`→`ARQUIVADA`) → a edição **sai de novos usos**, mas **histórico e usos existentes permanecem acessíveis** (não apaga, não bloqueia consulta). Estado **raro**; acesso restrito.
+- **Lock é de camada app/parser** (rejeita mutação em edição `PUBLICADA`/`ARQUIVADA`; `EM_REVISAO` é mutável), **sem trigger** — casa com "imutável por edição" (§7). Manutenção pós-lock só por **usuário de acesso máximo**, em tela específica.
+- **Sem `edi_ativa`** (removido 2026-06-06): "disponível p/ novo uso" = `situacao_ciclo IN ('PUBLICADA','EM_REVISAO')`; não há inativar/reativar — só Publicar/Revisão/Arquivar.
 
 **10.4 Impacto.** Colunas/flags são **aditivas** (default conservador) — **não** alteram o import, os parses nem os uploads ao R2 já validados. É governança de camada app, plugada na refatoração de fontes/edições e nas telas de import.
 

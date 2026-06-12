@@ -324,7 +324,9 @@ Com ícone SVG 13×13 à esquerda do texto.
 | Nome | `f.nome` | texto simples |
 | Ordem | `f.ordem_edicao` | texto |
 | Última Versão | `f.ultima_versao` + `f.ultima_versao_mes` | `.ae-tag-versao` + `.ae-versao-mes` |
-| Status | `f.ativa` | badge `.ae-badge` |
+| Status | `f.ativa` | badge `.ae-badge` — `<td class="js-status-cell">` (JS atualiza por classe, não nth-child) |
+
+> **Padrões de tabela (ordenação clicável, cabeçalho congelado/scroll na própria tabela, densidade) — canônico:** `catalogo/catalogo_work_pages.md` → "Padrões de tabela de listagem". Colunas ordenáveis = `<th class="ae-sortable">` (+ `data-sort`); a tabela rola (não o painel) via CSS `:has(.ae-table-wrap)`; card chapado (sem box-shadow). Não duplicar aqui.
 
 **Badges de status:**
 
@@ -414,13 +416,17 @@ O campo `pode_editar` vem da rota e determina se o formulário é editável ou s
 Grid de linhas (`.fg-row`) com colunas (`.fg-col`):
 
 ```
-Linha 1: [ Código (fg-col-2) ]  [ Ordenação (fg-col-2) ]
+Linha 1: [ Código (fg-col-2) ]  [ Ordenação (fg-col-2) ]  [ Status: BADGE read-only (só editar) ]
 Linha 2: [ Descrição (fg-col-full) ]
-Linha 3: [ Ativa checkbox ] ← apenas no modo "editar"
-Linha 4: [ Salvar (se pode_editar) ]  [ Cancelar/Voltar ]  ← fg-actions
+...      [ campos específicos do recurso ]
+Última:  [ Salvar (se pode_editar) ]  [ Cancelar/Voltar ]  ← fg-actions
 ```
 
-**Regra:** campo "Ativa" **não** aparece em modo `novo` — todo cadastro nasce ativo.
+**Regra (atualizada 2026-06-06):** o **Status (ativa) NÃO é campo editável** do form. Em modo
+`editar` aparece como **badge read-only** na 1ª linha; em `novo` não aparece (nasce ativo).
+**Ativar/inativar é ação da LISTAGEM** (botões Desativar/Reativar), não do formulário — o service
+de criar/atualizar **preserva** o status no UPDATE. (O form atual de Fontes tem ainda os grupos
+"Catálogos técnicos" e "Publicação" — ver `catalogo/catalogo_work_pages.md`, não duplicar aqui.)
 
 ### Classes CSS do formulário
 
@@ -443,7 +449,7 @@ Linha 4: [ Salvar (se pode_editar) ]  [ Cancelar/Voltar ]  ← fg-actions
 | Código | `text` | sim | sim (`.fg-upper`) | 50 |
 | Descrição | `text` | sim | sim (`.fg-upper`) | 255 |
 | Ordenação | `select` | sim | — | — |
-| Ativa | `checkbox` | — (edit only) | — | — |
+| Status (ativa) | **badge read-only** | — (só editar; não editável) | — | — |
 
 **Valores do select Ordenação:** `DATA` · `VERSÃO` (com til — constraint no banco)
 
@@ -613,7 +619,7 @@ async def criar_fonte(
 ### Padrão de Serviço
 
 ```python
-def criar_ou_atualizar_fonte(fonte_id, codigo, nome, ativa, ordem, usuario) -> dict:
+def criar_ou_atualizar_fonte(fonte_id, codigo, nome, ordem, usuario) -> dict:  # sem 'ativa' (não editável no form)
     with easy_conn() as conn:
         cur = conn.cursor()
 
@@ -625,7 +631,7 @@ def criar_ou_atualizar_fonte(fonte_id, codigo, nome, ativa, ordem, usuario) -> d
 
         else:                        # UPDATE
             antes = _snapshot(cur, fonte_id)
-            if _sem_mudanca(antes, codigo, nome, ativa, ordem):
+            if _sem_mudanca(antes, codigo, nome, ordem):  # 'ativa' preservado, fora do diff
                 return {"success": True, "unchanged": True, "message": "Nenhuma alteração a ser aplicada.", "id": fonte_id}
             ...
             audit_service.registrar(..., conn=conn)
@@ -643,7 +649,8 @@ def criar_ou_atualizar_fonte(fonte_id, codigo, nome, ativa, ordem, usuario) -> d
 
 ```python
 antes = _snapshot(cur, fonte_id)
-if (antes["codigo"], antes["nome"], antes["ativa"], antes["ordem_edicao"]) == (codigo, nome, ativa, ordem):
+# 'ativa' NÃO entra no diff do form (status não é editável aqui; é preservado no UPDATE).
+if (antes["codigo"], antes["nome"], antes["ordem_edicao"], ...) == (codigo, nome, ordem, ...):
     return {"success": True, "unchanged": True, "message": "Nenhuma alteração a ser aplicada."}
 ```
 
@@ -659,7 +666,7 @@ def _audit_label(claims: dict) -> str:
     return f"{name} — {email}" if email and name != email else name
 ```
 
-Formato nos logs: `"Rodrigo Dias — rdias07@live.com"`
+Formato nos logs: `"Renan Dias — rdias07@live.com"`
 
 ### Respostas da API
 
@@ -824,6 +831,21 @@ HTTP 403 em request HTML → retorna JSON `{"detail": "..."}` (sem redirect — 
 
 ---
 
+## Retroanálise com modificações impactantes (transversal)
+
+Padrão de UX para **qualquer fluxo que retroage no tempo** (orçamento retroagido, composição isolada retroagida, gráfico de série histórica). Regra de negócio: `CATALOGO_BUSINESS_RULES.md §9.5`.
+
+- A app **lê o passado pela trinca atômica** `(preço@E, unidade@E, descrição@E)` — nunca pareia preço histórico com a **unidade vigente** (enganaria: ex. vergalhão `barra→kg`, "barateou" sendo que subiu).
+- A app **NÃO converte unidade automaticamente** (domínio aberto). Ao detectar **divergência de unidade** entre a época E e a vigente (ou mudança dentro do intervalo), exibe **aviso ao usuário** pedindo o **fator de conversão**, e **registra como observação** no artefato (orçamento/composição/série).
+  - Componente: alerta/modal não-bloqueante (padrão `#page-alert-container` / modal), **um aviso por insumo divergente** (ou agrupado, com a lista). Nunca `confirm()` nativo.
+  - O fator informado fica **persistido como observação** no artefato retroagido (rastreável).
+- Mudança só de **descrição** (texto) = aviso **informativo** (não bloqueia, não pede fator). O gatilho de conversão é **unidade**.
+- Sem fator definido: a série/gráfico **não cruza** unidades diferentes (não plota número enganoso); o orçamento retroagido marca o item como "pendente de conversão".
+
+> Resumo: storage entrega a unidade correta de cada época (§9.5); a **decisão de conversão é do usuário**, sempre visível e registrada — a app só **detecta e avisa**.
+
+---
+
 ## 12. Checklist de Reutilização
 
 ### Ao criar nova tela de Listagem
@@ -835,7 +857,8 @@ HTTP 403 em request HTML → retorna JSON `{"detail": "..."}` (sem redirect — 
 - [ ] Leitura de `?msg=` e `?type=` no `DOMContentLoaded` → `showPageAlert`
 - [ ] Botões em `.cpu-actions` com IDs padronizados
 - [ ] Botão Reativar oculto por padrão (`ae-hidden`)
-- [ ] Tabela com `data-*` em cada `<tr>`
+- [ ] Tabela com `data-*` em cada `<tr>`; `<td>` de status com `class="js-status-cell"`
+- [ ] Colunas ordenáveis (`<th class="ae-sortable">` + `AXYS.makeSortable`); linha vazia `ae-no-select` (ver "Padrões de tabela")
 - [ ] Modal de detalhamento lendo `data-*` (sem fetch)
 - [ ] Modal de confirmação substituindo `confirm()` nativo
 - [ ] Guards em todos os botões (sem seleção → `showPageAlert info`)
@@ -855,7 +878,7 @@ HTTP 403 em request HTML → retorna JSON `{"detail": "..."}` (sem redirect — 
 - [ ] `disabled` em todos os campos quando `not pode_editar`
 - [ ] `.fg-upper` em campos que devem ser caixa alta
 - [ ] Campos obrigatórios com `required` + validação JS antes do fetch
-- [ ] Campo "Ativa" apenas no modo editar
+- [ ] Status NÃO editável no form (badge read-only na 1ª linha em modo editar; ativar/inativar é ação da listagem)
 - [ ] Botão Salvar ausente quando `not pode_editar` (apenas "Voltar")
 - [ ] JS com `{% if not pode_editar %}return;{% endif %}` no início do script
 - [ ] Redirecionamento com `?msg=&type=` após sucesso
@@ -941,3 +964,70 @@ Ao final da sessão de validação de um módulo — quando as telas estiverem a
 - Ao alterar regras de negócio
 - Ao resolver um placeholder (substituir `#` por URL real)
 - Ao mudar permissões de uma rota
+
+---
+
+## 14. Checklist para Validação de Nova Tela
+
+Use este checklist **antes de considerar uma tela "pronta"**. Cada item deve estar ✅.
+
+### Templates & Hierarquia
+
+- [ ] Tela extends `base/base_app.html` ou `base/base_sidebar.html` (correto para tipo)?
+- [ ] Bloco `{% block title %}` definido com título curto
+- [ ] Bloco `{% block page_css %}` aponta para CSS correto
+- [ ] Blocos adicionais (`sidebar`, `main_content`, `panel_content`, `page_scripts`) preenchidos
+- [ ] Nenhum CSS inline (`style="..."`) — todo em arquivo `.css`
+
+### Layout & Componentes
+
+- [ ] Respeita grid system do design (2/3/4 colunas)
+- [ ] Cards usam classe `.ae-card` (ou `.ae-launcher-card` se MAIN)
+- [ ] Tabelas usam classe `.ae-table` com hover e cabeçalho destacado
+- [ ] Inputs herdam `font-family: inherit`
+- [ ] Rótulos (labels) seguem padrão de caixa alta (via JS `.fg-upper`)
+- [ ] Cores usam variáveis CSS (`--ae-*`), nunca valores hardcoded
+
+### Backend & Rota
+
+- [ ] Rota decorada com `@router.get()` ou `@router.post()`
+- [ ] Função com `Depends(require_auth)` para extrair `claims`
+- [ ] Contexto inclui `axys_user = _user_ctx(claims)`
+- [ ] Contexto inclui `page_module` e `page_section`
+- [ ] Permissões verificadas (staff? apps_licenciadas? roles?)
+- [ ] TemplateResponse passa contexto correto
+
+### Auditoria & Segurança
+
+- [ ] Se formulário POST, chamou `audit_service.registrar_acao(...)`
+- [ ] Campos sensíveis não aparecem em logs/auditoria
+- [ ] Acesso a dados filtra por `tenant_uuid` (multitenancy)
+- [ ] CSRF token no formulário (gerado automaticamente por Jinja2 + middleware)
+
+### Header & Footer
+
+- [ ] Header exibe logo, tenant_code, tenant_name, user.name
+- [ ] Footer exibe apps_licenciadas (ou "Módulo Administrativo" se staff)
+- [ ] Relógio atualiza via JS (hora + data)
+- [ ] Ícone "Sair" leva a `/login/logout`
+
+### JavaScript (se houver)
+
+- [ ] Nenhum JS inline em template — todo em arquivo separado em `static/js/pages/{modulo}/`
+- [ ] Arquivo incluído **ao final do body** (não no head)
+- [ ] JS reutilizável (2+ telas) está em `static/js/widgets/`
+- [ ] Função global necessária está em `static/js/core/axyspro.core.js`
+- [ ] Modal usa `axyspro.modal()` (Universal Modal)
+
+### Responsividade (se aplicável)
+
+- [ ] Tela funciona em viewport >= 1024px (desktop)
+- [ ] Não assume tela menor (mobile não é prioridade em AxysEasy)
+
+### Teste Manual
+
+- [ ] Tela carrega sem erros (browser console limpo)
+- [ ] Dados aparecem corretamente
+- [ ] Interações (cliques, submissões) funcionam
+- [ ] Redirecionamentos corretos após ação
+- [ ] Sem "console.log" ou `print()` deixados no código

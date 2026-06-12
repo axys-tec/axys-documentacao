@@ -12,16 +12,23 @@
 Antes de escrever qualquer código, leia os seguintes arquivos na ordem indicada:
 
 ```
-1. backend/frontend/templates/base/config_ui_ux_easy.md
+1. docs/projects/axys-easy/ui-ux/config_ui_ux_easy.md
 2. backend/frontend/templates/base/base.html
 3. backend/frontend/templates/base/base_app.html
 4. backend/frontend/templates/base/base_sidebar.html
 5. backend/frontend/templates/partials/app_header.html
 6. backend/frontend/templates/partials/app_footer.html
+7. backend/frontend/templates/catalogo/catalogo_work_pages.md  (padrões de tabela/listagem — fica junto do front)
 ```
 
 Estes arquivos definem os padrões canônicos de UI, UX, Backend e Auditoria do sistema.
 **Nenhum padrão novo deve ser inventado.** Toda decisão de UI/UX/Backend deve estar ancorada nesses arquivos.
+
+**Referências em ADRs:**
+- **EASY-ADR-003** — UX e Consistência de Interface
+  (Localização: docs/projects/axys-easy/adrs/EASY-ADR-003-ux-e-consistencia-de-interface.md)
+- **AXYS-ADR-021** — SSO via JWT (autenticação, claims)
+  (Localização: docs/foundation/adrs/AXYS-ADR-021-sso-jwt-hub-easy.md)
 
 Se a nova tela pertence a um módulo existente, leia também:
 ```
@@ -29,6 +36,12 @@ backend/frontend/templates/partials/sidebar_{modulo}.html
 backend/modules/{modulo}/routes.py
 backend/modules/{modulo}/service.py
 ```
+
+**Padrões de tabela de listagem (ordenação, cabeçalho congelado, densidade) — canônico:**
+`backend/frontend/templates/catalogo/catalogo_work_pages.md` → seção **"Padrões de tabela de listagem"**.
+Resumo: `AXYS.makeSortable(table)` ordena colunas (`<th class="ae-sortable">` + `data-sort` p/ datas ISO/ordem
+lógica); a PRÓPRIA tabela rola (não o painel) com `thead` sticky — automático via CSS `:has(.ae-table-wrap)`;
+densidade/ritmo (padding 14/44, gaps 8px, card chapado) já no CSS global. Não reinventar — seguir esse contrato.
 
 ---
 
@@ -120,8 +133,10 @@ INÍCIO
   │       Status → .ae-badge:
   │         Ativo   → .ae-badge-success (verde)
   │         Inativo → .ae-badge-neutral (âmbar: bg #fff3cd, color #856404)
-  │       Atenção: confirmar o nth-child correto para a coluna Status no JS
-  │               (muda conforme quantidade de colunas da tabela)
+  │       A <td> de Status leva class="js-status-cell" → o JS atualiza a badge por
+  │         essa CLASSE (não por nth-child), independente da posição da coluna.
+  │       Colunas ordenáveis: <th class="ae-sortable"> (+ data-sort em datas/ordem lógica).
+  │       Linha vazia: <tr class="ae-no-select"> (ignorada por seleção e ordenação).
   │
   ├─ 4. Botões de ação (.cpu-btn, height 28px, font-size 12px, font-weight 700)
   │       Cadastrar  → sempre visível → GET /{recurso}/novo
@@ -153,8 +168,8 @@ INÍCIO
   │         rowElement.setAttribute("data-ativa", "true/false")
   │         rowElement.setAttribute("data-atualizado-em", fonte.atualizado_em)
   │         rowElement.setAttribute("data-atualizado-por", fonte.atualizado_por)
-  │       JS atualiza badge de status: querySelector("td:nth-child(N)")
-  │         ← N deve ser contado manualmente na tabela (começa em 1)
+  │       JS atualiza badge de status: rowElement.querySelector(".js-status-cell")
+  │         ← por CLASSE, não nth-child (robusto a mudança/ordem de colunas)
   │       NÃO recarregar a página
   │       Erros (400, 403): result.body.message || result.body.detail → showPageAlert danger
   │
@@ -223,8 +238,12 @@ INÍCIO
   │         → browser aplica visual de desabilitado automaticamente
   │
   ├─ 4. Regras de campos
-  │       Campo "Ativa" → APENAS no modo "editar" (nunca no cadastro)
-  │       Todo cadastro nasce com ativa=true por padrão (não exibir no form)
+  │       Status (ativa) → NÃO é campo editável do form. Em modo "editar" exibir como
+  │         BADGE read-only na 1ª linha (Ativa/Inativa). Ativar/inativar é ação da
+  │         LISTAGEM (decisão Renan 2026-06-06: pergunta/checkbox em form "fica estranho").
+  │         → o service de criar/atualizar PRESERVA o status no UPDATE (não o sobrescreve);
+  │           cadastro nasce ativo. (Estados de ciclo de vida mais ricos: ver Edições —
+  │           edi_situacao_ciclo como enum único, em catalogo_work_pages.md.)
   │       Campos de auditoria (criado_em, atualizado_em) → não exibir no form
   │       disabled em TODOS os campos quando pode_editar=False
   │
@@ -464,13 +483,14 @@ Botões de ação: 13×13 | Header: 20×20 | Alertas: 16×16
 - [ ] Guards em todos os botões de ação
 - [ ] Modal de confirmação personalizado (sem `confirm()` nativo)
 - [ ] Atualização otimista da linha após inativar/reativar
-- [ ] `nth-child` correto para badge de status após operação
+- [ ] `<td>` de status com `class="js-status-cell"` (badge atualizada por classe, não nth-child)
+- [ ] Colunas ordenáveis com `ae-sortable` + `AXYS.makeSortable`; linha vazia `ae-no-select`
 
 ### Formulário
 
 - [ ] `<form>` sem `method`/`action`
 - [ ] `.fg-upper` nos campos de caixa alta
-- [ ] Campo "Ativa" ausente no modo cadastro
+- [ ] Status NÃO é campo editável; em modo editar = badge read-only na 1ª linha (ativar/inativar é ação da listagem)
 - [ ] `pode_editar` passado pela rota ao contexto do template
 - [ ] Banner somente leitura quando `not pode_editar`
 - [ ] `disabled` em todos os campos quando `not pode_editar`

@@ -968,7 +968,7 @@ Toda implementação futura do Easy Orca — e extensões que dela dependem (cro
 ## 25. Aprovação e Evoluções
 
 **Versão:** 0.1  
-**Aprovado por:** Rodrigo Dias (Product + Architecture)  
+**Aprovado por:** Renan Dias (Product + Architecture)  
 **Data aprovação:** 2026-05-31
 
 **Próximas etapas:**

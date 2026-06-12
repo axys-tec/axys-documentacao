@@ -20,18 +20,20 @@
 | `fte_ordem_edicao` | `DATA` (recente = maior `edi_mes_ref`) ou `VERSAO` (recente = maior `edi_codigo_versao`, ex.: CDHU `'201'`). |
 | `fte_ativa` | Liga/desliga a fonte na operação. Default `TRUE`. |
 | `fte_tem_catalogo_insumos` | Bool, default `FALSE`. A fonte publica **catálogo/relatório de insumos** (fichas)? Hoje só SINAPI. Se `TRUE`, a edição **exige** upload das fichas p/ publicar (BUSINESS_RULES §10). |
+| `fte_tem_caderno_metodologia` | Bool, default `FALSE`. A fonte publica **livro/caderno de metodologia** (conceitos, instruções)? SINAPI=`TRUE`; CDHU=`TRUE`; AXYS=`FALSE`. |
 | `fte_catalogos_continuos` | Bool, default `FALSE`. Documentos (fichas/cadernos/critérios) **contínuos** (não mudam por edição → skip por data)? SINAPI=`TRUE`; CDHU=`FALSE` (reemite por edição); AXYS=`TRUE` (app-own). (BUSINESS_RULES §11) |
+| `fte_permite_manipular_dados` | Bool, default `FALSE`. **Gate de segurança** (BUSINESS_RULES §8.1): permite criar/editar insumos/composições/ajustes manuais nesta fonte? Só fontes **próprias** (AXYS)=`TRUE`; terceiros (SINAPI/CDHU)=`FALSE` (imutáveis — risco alto). Edição da flag **restrita a admin**. |
 
-`AXYS` = composições próprias do tenant — sem edição mensal, preço informado direto (sem linha em `insumos_preco`); só caderno/critério, sem catálogo de insumos.
+`AXYS` = composições/insumos próprios do tenant — sem edição mensal de fonte. **Atualizado 2026-06-07:** insumos próprios **têm preço** via **cotação de mercado** (`pri_origem='CT'`; lastro em `catalogo.insumos_cotacoes`, mediana → `insumos_preco`; ver BUSINESS_RULES §3.5). É a fonte que permite **manipulação manual** (`fte_permite_manipular_dados=TRUE`, §8.1). (Supera a nota antiga "sem linha em insumos_preco".)
 
 ---
 
 ## 2. Comportamento
 
 - **Listagem**: todas as fontes; ordenar por `fte_codigo`; indicar ativa/inativa e contagem de edições.
-- **Criação**: restrita (estrutural). Exige `fte_codigo` + `fte_nome` + `fte_ordem_edicao`.
-- **Edição**: `fte_nome`, `fte_ordem_edicao`, `fte_ativa`. **`fte_codigo` não muda** (chave referenciada por código).
-- **Ativar/Inativar**: alterna `fte_ativa`. Inativar **não** apaga dados — apenas oculta da operação corrente.
+- **Criação**: restrita (estrutural). Exige `fte_codigo` + `fte_nome` + `fte_ordem_edicao`; opcionais: flags `fte_tem_catalogo_insumos`, `fte_tem_caderno_metodologia`, `fte_catalogos_continuos`, `fte_permite_manipular_dados`.
+- **Edição**: `fte_nome`, `fte_ordem_edicao` e as flags acima. **`fte_codigo` não muda** (chave referenciada por código). **`fte_ativa` NÃO é editável no form** (badge read-only) — muda só pela ação inativar/reativar da listagem. `fte_permite_manipular_dados` só por **admin**.
+- **Ativar/Inativar**: alterna `fte_ativa` (ação da listagem). Inativar **não** apaga dados — apenas oculta da operação corrente.
 
 ## 3. Filtros
 - Por status (ativa/inativa); busca por `fte_codigo`/`fte_nome`.
