@@ -213,7 +213,7 @@ FROM (VALUES
     ('MAT',      'Material'),
     ('SERV',     'Serviço'),
     ('ESP',      'Especiais'),
-    ('NC',       'Não Classificado (fallback de curadoria)')
+    ('NC',       'Não Classificado')
 ) AS v(codigo, nome)
 ON CONFLICT (ti_codigo) DO NOTHING;
 

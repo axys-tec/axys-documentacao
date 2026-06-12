@@ -21,8 +21,8 @@
 | `edi_uf_padrao` | UF default na consulta. SINAPI: `'SP'` (todas as 27 importadas). CDHU: `'SP'` (estadual). |
 | `edi_situacao_ciclo` | **Estado único** (substitui o antigo par com `edi_ativa`, removido — decisão Renan 2026-06-06, por sobreposição). `RASCUNHO` → `PUBLICADA` → `EM_REVISAO` ⇄ `PUBLICADA` · `ARQUIVADA` (raro). Default `RASCUNHO`. Ver §5. |
 | `edi_revisao_nota` | Texto opcional — o que será revisado; exibido ao tenant quando `EM_REVISAO`. |
-| `edi_ins_catalogo_ok` | Gate: fichas de insumo no R2 (auto-`TRUE` se fonte sem catálogo de insumos). |
-| `edi_comp_catalogo_ok` | Gate: cadernos/critérios no R2 (obrigatório p/ publicar). |
+| `edi_ins_catalogo_ok` | Gate **binário**: o catálogo de fichas de insumo da fonte foi **publicado no R2 + registrado** (`catalogo.documentos`). **Não é cobertura por insumo** — a ficha é *extraída* do material da própria fonte (SINAPI: planilha + links de referência; CDHU: anexo), não redigida insumo-a-insumo; 100% de cobertura é impossível (não controlamos a fonte). Auto-`TRUE` / "Não se aplica" quando `fte_tem_catalogo_insumos = false`. |
+| `edi_comp_catalogo_ok` | Gate **binário**: cadernos/critérios da fonte **publicados no R2 + registrados** (obrigatório p/ publicar). É o entregável que realmente controlamos ("nosso import se resume aos cadernos"). |
 
 Unicidade: `(edi_fte_id, edi_mes_ref)` (`uq_edicoes_fte_mes`).
 
@@ -75,14 +75,27 @@ Estado **único** em `edi_situacao_ciclo` (não há mais `edi_ativa`):
 
 Auditoria: escrita em `audit.logs` (`log_tabela='edicoes'`), snapshot antes/depois (`_snapshot_edicao`); sem mudança = sem gravação/auditoria.
 
-## 7.1 Leis Sociais e Preços manuais na tela de edição (2026-06-12)
-A tela `/edicoes/{id}/editar` ganhou dois grids editáveis abaixo do form (só modo Edição, `internal_admin`, auditados):
-- **Leis Sociais** → `edicoes_leis_sociais`. Grid **UF | Horista(SD%/CD%) | Mensalista(SD%/CD%)**; cada UF = 2 linhas no banco (SD e CD); `(UF,modalidade)` só grava com horista OU mensalista (CHECK). **Salvar** = replace do conjunto. `salvar_leis_sociais()`/`get_leis_sociais_grid()`.
-- **Preços (SE)** → `insumos_preco`. Grid dos insumos **da fonte-base** na UF-padrão; modal de busca **elástica isolada na fonte** + input de preço por item; `pri_modalidade='SE'`, `pri_origem='C'`, `pri_sit_id=1` (COM_PRECO), upsert por `(ins,edi,uf,SE)`. SD/CD permanecem derivados das LS. `salvar_precos_edicao()`/`remover_preco_edicao()`/`get_precos_edicao()`.
-- Isto **inicia a entrada manual de preço** (antes só import) — fontes próprias (AXYS) preenchem aqui; o resto vem por import.
+## 7.1 Leis Sociais e listagem de insumos na tela de edição (2026-06-12)
+A tela `/edicoes/{id}/editar` traz, abaixo do form (só modo Edição), **27 abas de UF** (todas as UFs, estáticas). A aba alterna **apenas as Leis Sociais**; a listagem de insumos é estática.
+
+- **Leis Sociais por UF** → `edicoes_leis_sociais` (`internal_admin`, auditado). A aba ativa mostra **uma linha** de LS (texto corrido: Horista SD/CD · Mensalista SD/CD) com **Editar/Salvar/×** por linha. Cada `(edi, uf, modalidade SD/CD)` = registro próprio; CHECK exige horista OU mensalista. **Salvar por linha**, audita só se mudou (`registro_id = f"{edi}/{uf}"`). `get_leis_sociais_all()` (carrega as 27 UFs de uma vez) · `salvar_ls_uf()`/`remover_ls_uf()`.
+- **Listagem de insumos** = **estática / somente leitura** — deduplicada (insumos com preço na edição, qualquer UF), **paginada**, com filtro elástico por descrição. **Sem preço e sem CRUD aqui**; o código é **link → `/insumos/{ins_id}/editar`**. `get_insumos_edicao()`.
+- **O registro manual de preço migrou para a tela de Insumos** (preço SE por UF/edição) — ver [CATALOGO_INSUMOS.md §7](CATALOGO_INSUMOS.md). Os scripts de preço em lote no backend (`salvar_precos_edicao`/`get_precos_edicao`/`get_leis_sociais_grid`) ficam **preservados** para o caminho de import/migração.
 
 ## 8. Pontos abertos (a revisar)
 - ~~Estado de "edição fechada/publicada" e política de reprocesso.~~ **Resolvido (§5):** `edi_situacao_ciclo` RASCUNHO→PUBLICADA + lock.
+
+### 8.1 Pipeline `import → passar status → publicar` (PENDENTE — prioridade)
+Hoje o ciclo (§5) e os gates (`edi_ins_catalogo_ok` / `edi_comp_catalogo_ok`) existem no **schema e no front**, mas **nada os vira**: toda edição nasce e permanece `RASCUNHO` com os dois gates `false` — por isso a tela mostra "Pendente" (ou "Não se aplica") em **todas** as edições. **Não há análise por trás do "Pendente"**: é leitura direta do booleano (`true`→OK, `false`→Pendente); nada varre insumo-a-insumo nem caderno-a-caderno. O "Pendente" universal é esperado, não defeito — falta o fluxo que **publica os documentos no R2, registra em `catalogo.documentos`, vira o gate e promove a edição**.
+
+Evoluir para a cadeia explícita:
+1. **Import principal** — identidade (ISE + órfãos/fuzzy → `NC`) + preços com **cobertura total de UF** + composições/custos + **conferência**.
+2. **Publicação dos documentos no R2** — fichas de insumo *extraídas do material da fonte* (SINAPI: planilha + links de referência; CDHU: anexo) e cadernos/critérios → registra em `catalogo.documentos` → **vira `edi_ins_catalogo_ok` / `edi_comp_catalogo_ok`**.
+3. **Botão "Publicar"** (`RASCUNHO→PUBLICADA`) — back valida o gate (import grande + os dois `*_catalogo_ok`, respeitando `fte_tem_catalogo_insumos`) e **trava** (lock).
+
+**Seed a revisar no drop+reseed:** o valor de `fte_tem_catalogo_insumos` por fonte define se o gate de insumos se aplica. Hoje: AXYS=`true`, SINAPI=`true`, CDHU=`false`. Rever à luz da proveniência real das fichas (SINAPI por planilha/links; CDHU por anexo) para que o gate nasça coerente — fonte sem material de ficha extraível → `false` ("Não se aplica").
+
+### 8.2 Outros
 - Onde persistir o relatório de import (avisos/erros) para auditoria.
 - UX do disparo de import (upload do arquivo × caminho fixo).
-- Preço manual hoje é **SE na UF-padrão**; multi-UF/cotação (`insumos_cotacoes`) = Fase 2.
+- Preço manual: **multi-UF por edição já implementado** na tela de Insumos (registro SE por UF/edição); cotação (`insumos_cotacoes`) segue Fase 2. *(Atualizar §4/§7.1 e o contrato de Insumos na revisão.)*

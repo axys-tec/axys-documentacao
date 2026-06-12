@@ -19,7 +19,7 @@
 | `fte_nome` | Não vazio, **maiúsculas**. Editável. |
 | `fte_ordem_edicao` | `DATA` (recente = maior `edi_mes_ref`) ou `VERSAO` (recente = maior `edi_codigo_versao`, ex.: CDHU `'201'`). |
 | `fte_ativa` | Liga/desliga a fonte na operação. Default `TRUE`. |
-| `fte_tem_catalogo_insumos` | Bool, default `FALSE`. A fonte publica **catálogo/relatório de insumos** (fichas)? Hoje só SINAPI. Se `TRUE`, a edição **exige** upload das fichas p/ publicar (BUSINESS_RULES §10). |
+| `fte_tem_catalogo_insumos` | Bool, default `FALSE`. A fonte tem **catálogo de fichas de insumo** extraível (SINAPI: planilha + links de referência; CDHU: anexo)? Se `TRUE`, a edição **exige** publicar/registrar essas fichas no R2 p/ liberar o gate `edi_ins_catalogo_ok`; se `FALSE` → gate **"Não se aplica"** (BUSINESS_RULES §10–§11). Hoje AXYS=`TRUE`, SINAPI=`TRUE`, CDHU=`FALSE` — **valores a rever no reseed** ([CATALOGO_EDICOES.md §8.1](CATALOGO_EDICOES.md)): o gate é **binário "bundle publicado"**, nunca cobertura por insumo. |
 | `fte_tem_caderno_metodologia` | Bool, default `FALSE`. A fonte publica **livro/caderno de metodologia** (conceitos, instruções)? SINAPI=`TRUE`; CDHU=`TRUE`; AXYS=`FALSE`. |
 | `fte_catalogos_continuos` | Bool, default `FALSE`. Documentos (fichas/cadernos/critérios) **contínuos** (não mudam por edição → skip por data)? SINAPI=`TRUE`; CDHU=`FALSE` (reemite por edição); AXYS=`TRUE` (app-own). (BUSINESS_RULES §11) |
 | `fte_permite_manipular_dados` | Bool, default `FALSE`. **Gate de segurança** (BUSINESS_RULES §8.1): permite criar/editar insumos/composições/ajustes manuais nesta fonte? Só fontes **próprias** (AXYS)=`TRUE`; terceiros (SINAPI/CDHU)=`FALSE` (imutáveis — risco alto). Edição da flag **restrita a admin**. |
