@@ -88,6 +88,8 @@ Para insumo de **mão de obra**: `preco = ARRED( pelado × (1 + LS%/100), 2 )`, 
 
 > O método é **declarado por fonte** (CDHU=round · SINAPI=trunc). Política conservadora de orçamento (se houver) é da camada **ativo** (§3.4), não do catálogo.
 
+**SE é SEMPRE gravado em `composicoes_custo` (custo nunca zera).** ⚠️ ATUALIZADO 2026-06. `SE` (Sem Encargos = pelado, LS=0) **não é** o regime de orçamento — é a **base de de/recomposição** com qualquer LS. Como o pelado está 100% em `insumos_preco`, o custo SE é sempre calculável: `calcular_custos` **sempre emite SE** (LS=0 → MO sem carga); **SD/CD** entram quando há LS (arquivo de serviço **ou** LS manual). Assim uma edição só-SD ainda tem custo (ex.: CDHU 201 = SD conferido + **SE DERIVADO**); SINAPI emite SD/CD/SE por UF (CSD/CCD/**CSE**, todos com fonte → conferidos). A leitura na app usa `COALESCE(cc_custo_fonte, cc_custo_calculado)` (fonte quando há; senão o derivado).
+
 ### 3.3 Leis sociais (`edicoes_leis_sociais`)
 - LS por **(edição, UF, modalidade ∈ {SD, CD})** — **não** se grava `SE` (SE = 0% implícito). Guarda `els_mensalista` e `els_horista` como percentual (`14,2`), dividido por 100 no cálculo.
 - **Fonte das LS:** SINAPI = cabeçalhos dos arquivos SD e CD (LS por UF, horista/mensalista); CDHU = cabeçalho **de cada arquivo de serviços (SD e CD — ambos importados por edição)**, um % horista por regime (mensalista NULL).
@@ -210,10 +212,13 @@ O que vem da fonte e o que é nosso depende do que cada fonte publica:
 - **No import**, após parsear e **antes de gravar**: "este registro já existe?" → se **sim**, computa **diff** e grava em `*_historico`; se **não**, grava `CRIACAO` e pula auditoria.
 - **Preço nunca vai para histórico** — a série temporal vive em `insumos_preco` por edição; composições são versionadas por edição (`cmp_edi_id`).
 
-**9.1 Diff é contra o ESTADO VIGENTE DO BANCO (não contra a edição anterior).**
-- Para **cada item** (insumo ou composição) da edição entrando, compara-se contra o **estado vigente** do banco **filtrando pela fonte** — a linha ativa mais recente daquele código em **qualquer** edição anterior. **Não** contra a edição N-1.
-- Por quê: um item nascido há N edições pode ser ajustado hoje; um item inativado que **pulou versões** pode voltar (`REATIVACAO`). Comparar só com a N-1 perde os dois casos e exige import estritamente sequencial. Contra o banco vigente, o diff é correto mesmo com import esparso/fora de ordem.
-- Eventos: `CRIACAO` (código nunca existiu na fonte) · `ALTERACAO_*` (mudou vs a vigente) · `INATIVACAO` (estava ativo, ausente nesta edição) · `REATIVACAO` (estava inativo, reapareceu). Vigente/ativo = versão mais recente.
+**9.1 Diff por PRESENÇA na edição imediatamente anterior (`edi_prior`).** ⚠️ ATUALIZADO 2026-06 (antes: "contra o estado vigente / ativo = mais recente" — incorreto após a vigência migrar p/ o publicar).
+- Como a **vigência** (`cmp_ativa`/`ins_ativo`) só é decidida no **PUBLICAR**, não no import (§EDICOES), a diff **NÃO** usa o flag de ativo como proxy de "estava no banco" (no import tudo está inativo → daria reativação espúria em massa). Usa-se a **PRESENÇA** do código em **`edi_prior`** (edição imediatamente anterior COM DADOS):
+  - **ausente** em `edi_prior` + presente agora → `REATIVACAO` (cobre reativação após salto: a ocorrência anterior do código não está em `edi_prior`);
+  - **presente** em `edi_prior` + ausente agora → `INATIVACAO`;
+  - presente em ambas → compara conteúdo (`ALTERACAO_*`, §9.2);
+  - código nunca existiu na fonte → `CRIACAO`.
+- Implementação: `aplicar_diff_edicao` em `parser_cdhu.py` (compartilhado SINAPI+CDHU); idempotente por edição. `edicao_anterior()` resolve o `edi_prior`. Validado no salto CDHU 184→201 e SINAPI 08-24→04-26: **zero reativação espúria**.
 
 **9.2 O que conta como ALTERAÇÃO ("alteração verdadeira").**
 - **Só** os campos de **conteúdo**: **descrição (texto)**, **unidade**, e **coeficiente/itens** (inclusão, exclusão, mudança de coef).
@@ -292,6 +297,21 @@ Catálogo de preço só fica **disponível ao tenant** quando **completo e valid
 ## 11. Publicação do catálogo de DOCUMENTOS no R2 (fichas/critérios/cadernos)
 
 Camada **documental** (especificação de insumo, critério de medição, caderno técnico) — distinta do preço.
+
+> ⚠️ **ATUALIZADO 2026-06 — `CATALOGO_STORAGE_LAYOUT.md` é a referência de paths.** Os caminhos
+> citados nos itens abaixo (`fontes/sinapi/fichas/`, `audit/…`, etc.) foram **padronizados**: tudo
+> sob `easy/fontes/{fonte}/{edicao}/{originais|fichas|cadernos}` + livros em `…/livros/`. Acabou o
+> `audit/` (vira `{edicao}/originais/`); o critério CDHU unifica em `cadernos/`. Centralizado em
+> `backend/modules/catalogo/storage_paths.py`. Novos `doc_tipo`: **`original`** (xlsx do import +
+> critério-fonte), **`leis_sociais`** (PDFs CDHU inteiros), **`caderno_tecnico`** (índice gerado).
+>
+> **Realces da exibição vêm do BACK ao servir** (`/doc/{id}/conteudo`): injeta no topo do `<body>`
+> a **hierarquia grupo/subgrupo** (CDHU, do banco) — o parser do PDF **não** lê isso (nem toda
+> página tem). SINAPI usa o **rótulo** canônico. O HTML do CPU traz `{código} - {descrição}`.
+>
+> **Caderno técnico** (botão Fontes-Base): a app gera um **HTML estático** (header + originais
+> Ver/Baixar + índice grupo›subgrupo com links hardcoded `/doc/{id}`), sobe ao R2, async + cache
+> (1 por edição). Ver `CATALOGO_STORAGE_LAYOUT.md §4` e `CATALOGO_FECHAMENTO.md`.
 
 **11.1 Conteúdo puro + identidade.**
 - O HTML no R2 é **conteúdo puro** (semântico, editável): a ficha/critério **sem** o chrome da app. O **header** (tarja, logo, tenant) é montado **no render da app**, não gravado no R2.
@@ -373,3 +393,14 @@ por tipo de doc.
 - **Fase 1 (feita):** tabelas + **backfill** do estado atual (`backfill_documentos.py`) + livros lendo
   do registro. **Fase 2:** runners gravam direto no registro e os JSONB `*_external_path`/`edi_capa_path`
   são deprecados (hoje mantidos como cache; não quebrar o validado).
+
+**11.10 Vigência + auditoria de docs (substituição + `_old`).** Ver detalhe em
+`CATALOGO_SINAPI_IMPORT_CONTRACT.md §8`. Resumo:
+- **Registro guarda só o VIGENTE**; ao substituir, a linha anterior fica **histórico** (`doc_vigente=false`)
+  com `doc_path` re-apontado pro **`_old/`**. `UNIQUE(doc_path)` preservado.
+- **Storage:** sobrescrever path canônico **move o anterior pra `_old/`** (auditoria; nada some).
+- **`doc_versao`** (coluna nova, TEXT): rótulo da **edição própria** do doc. **Livros** (metodologia/livro)
+  têm edição própria → o import **pede a edição**; igual ⇒ **skip**, divergiu ⇒ arquiva+substitui.
+  Notas/fichas/cadernos seguem a edição do catálogo (notas por path; fichas/cadernos comparam `doc_sha1`).
+- **Publicar NUNCA trava** por doc: vigente presente ⇒ ok; ausente ⇒ publica com **aviso/confirmação**
+  (suaviza o gate `fte_tem_catalogo_insumos`/§10 — hook do pipeline de publicar, a construir).

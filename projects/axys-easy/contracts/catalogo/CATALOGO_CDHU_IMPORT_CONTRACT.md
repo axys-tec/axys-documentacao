@@ -17,10 +17,19 @@
 - **Sem classificação nativa**: a planilha traz código, descrição, unidade e custo — não traz o tipo do insumo.
 - **Sem marcador textual de SEM PREÇO**.
 
-### 1.1 Arquivos e fluxo de import
-A CDHU divulga **4 arquivos**: `insumos`, `composicao` (analítico), `servicos`, `subgrupos`. O import "tudo de uma vez" (tela `/edicoes` → caderno → "importar composições") exige **3 excels obrigatórios**: **insumos**, **composições**, **serviços**.
+### 1.1 Arquivos e fluxo de import (tela — decisão Renan 2026-06-13)
+A CDHU divulga **4 arquivos**: `insumos`, `composicao` (analítico), `servicos`, `subgrupos`.
+**Obrigatórios no import (tela):**
+- **`insumos`** (excel) — obrigatório.
+- **`composições`/analítico** (excel) — obrigatório.
+- **`serviços`** (SD e/ou CD) — **pelo menos 1 obrigatório**. Espelha o padrão de docs do SINAPI:
+  cada modalidade (SD, CD) tem um **checkbox "disponível" (default marcado)**; desmarcar = aquela
+  modalidade não veio (edições com só uma versão). Importa-se a(s) que vier(em); a modalidade
+  ausente fica **sem custo** (e a LS dela vem do manual, ver §5).
+- **`critério`** (PDF) — **OBRIGATÓRIO, sem opção de indisponível**. É o documento técnico de
+  medição da CDHU (PDF), análogo ao caderno do SINAPI, porém **sempre exigido**.
 - **`subgrupos.xlsx` é DESCARTADO**: grupo/subgrupo (código **e descrição**) já vêm no analítico e convergem por codificação. Grupo/subgrupo vinculam à **CPU** (`composicoes.cmp_sub_id`), nunca ao insumo.
-- **`servicos`** = custo de referência da CPU (`cc_custo_fonte`) + **cabeçalho** com modalidade (COM/SEM DESONERAÇÃO), versão, data-base e **LS%** (§5). A CDHU publica **DOIS arquivos de serviço por edição** (`servicos_sd_*` e `servicos_cd_*`) — **ambos são importados**, cada um detectando sua modalidade no cabeçalho. (O insumo é pelado/`SE` único; o desdobramento SD/CD é só no custo da composição, via LS de cada regime.)
+- **`servicos`** = custo de referência da CPU (`cc_custo_fonte`) + **cabeçalho** com modalidade (COM/SEM DESONERAÇÃO), versão, data-base e **LS%** (§5). Cada arquivo detecta sua modalidade no cabeçalho. (O insumo é pelado/`SE` único; o desdobramento SD/CD é só no custo da composição, via LS de cada regime.)
 
 ---
 
@@ -70,8 +79,15 @@ O analítico é lido sequencialmente pela **coluna A**, discriminando **primeiro
 ## 5. Serviços, custo e leis sociais
 
 - O arquivo **serviços** traz o **custo de referência** de cada CPU → `composicoes_custo.cc_custo_fonte` (custo `0`/vazio = **SEM CUSTO** → `NULL`, ver BUSINESS_RULES §4).
-- O **cabeçalho** traz **modalidade** (COM/SEM DESONERAÇÃO = `CD`/`SD`), versão, data-base e **LS%** (um único %, **horista**) → `edicoes_leis_sociais` (`els_horista`; `els_mensalista` NULL na CDHU). **Importam-se os DOIS regimes** (arquivos `servicos_sd_*` e `servicos_cd_*`) → `edicoes_leis_sociais` e `composicoes_custo` ganham `SD` **e** `CD`. **Sanidade:** LS é alta (ex.: v184 SD=128,23%, CD=97,78%); valor que chegue como fração (~1,28) normaliza/aborta.
+- O **cabeçalho** traz **modalidade** (COM/SEM DESONERAÇÃO = `CD`/`SD`), versão, data-base e **LS%** (um único %, **horista**) → `edicoes_leis_sociais` (`els_horista`; `els_mensalista` NULL na CDHU). Importa-se **cada regime presente** (`servicos_sd_*` / `servicos_cd_*`); a modalidade ausente fica sem custo. **Sanidade:** LS é alta (ex.: v184 SD=128,23%, CD=97,78%); valor que chegue como fração (~1,28) normaliza/aborta.
+- **LS = parser + manual reconciliados (decisão Renan 2026-06-13).** O form de import permite **informar a LS% (SD/CD)** manualmente. Regra de precedência: o **parser do cabeçalho PREVALECE**; se o manual divergir do parser → vale o parser (o manual serve de conferência). **Se o parser NÃO tiver a LS** daquela modalidade (ex.: SD/CD ausente) → vale o **valor manual** do usuário. A LS afeta só o **custo carregado da composição** (SD/CD) — **não altera o "pelado" `SE`** do insumo, que entra cru no banco.
 - **Conferência** calculado×fonte (BUSINESS_RULES §4.1): método CDHU = **round half-up**, duas passagens — `unit_mo = round(pelado×(1+LS/100),2)`; `custo_cpu = Σ round(unit_carregado×coef,2)`. **CDHU 201 converge 100% ao centavo** (3560/3560). Truncar gerava viés negativo sistemático — a CDHU arredonda.
+- **`SE` sempre calculado** (custo nunca zera) — ver BUSINESS_RULES §3.2-bis. Edição só-SD → SD conferido + **SE DERIVADO**.
+
+### 5.1 PDF(s) de Leis Sociais (documento inteiro, não parseado) — 2026-06
+- Além da LS lida do cabeçalho do serviço (para o cálculo), a CDHU publica o(s) **PDF(s) de encargos sociais** (ex.: `encargos sociais 128.23.pdf` / `97.78.pdf`). São guardados **inteiros** (não parseados), como livros/notas.
+- O form de import aceita **lista de PDFs** (a CDHU às vezes tem mais de um — é o único campo multi-arquivo). Cada um vira um documento da edição: `doc_tipo='leis_sociais'`, `doc_edi_id`, em `easy/fontes/cdhu/{edicao}/originais/leis_sociais_{edicao}_{n}.pdf` (ver CATALOGO_STORAGE_LAYOUT). Entram na lista "Ver/Baixar" do caderno técnico.
+- **Flag de disponibilidade:** desmarcar a modalidade (SD/CD) zera também a LS manual daquela modalidade — sem caderno técnico = sem LS.
 
 ---
 

@@ -53,7 +53,7 @@ Estado **único** em `edi_situacao_ciclo` (não há mais `edi_ativa`):
 - **`EM_REVISAO`** = só **pós-PUBLICADA**, se houver recall/correção (ex.: a SINAPI solta um recall). A edição é **reaberta** (volta a ser **mutável** p/ o staff aplicar a correção), mas **segue disponível ao tenant** como a `PUBLICADA` — com **aviso** de que está em revisão e o que será revisado (`edi_revisao_nota`, se houver). Concluída a revisão, **volta a `PUBLICADA`**.
 - **`ARQUIVADA`** = descontinuada p/ **novos** usos, mas **histórico e usos existentes permanecem acessíveis**; imutável. **Não é "indisponível"** — só não inicia coisas novas. Estado **raro** (na prática quase não acontece).
 - **Botão "Publicar edição"** (`RASCUNHO`→`PUBLICADA`, front) → o back valida: import "grande" feito **+** `edi_ins_catalogo_ok` (auto-`TRUE` se `fte_tem_catalogo_insumos=false`) **+** `edi_comp_catalogo_ok` (cadernos/critérios obrigatórios). Passando → `PUBLICADA` + **lock**.
-- **Botão "Revisão"** (`PUBLICADA`→`EM_REVISAO`) → destrava a edição p/ correção, grava `edi_revisao_nota`, mantém disponível com aviso. **"Concluir revisão"** (`EM_REVISAO`→`PUBLICADA`) volta a travar.
+- **Botão "Reabrir edição"** (`PUBLICADA`→`EM_REVISAO`, **implementado 2026-06-13**) → **SÓ owner** (`exige_internal_owner`); pede a **própria senha** num modal, revalidada igual ao login (`authenticate` via Hub, usando o documento guardado na sessão no ingresso) — **renova a sessão** no sucesso. **NÃO mexe na vigência** (itens seguem ativos; edição continua disponível ao tenant), só destrava p/ reimport e grava `edi_revisao_nota`. Reimport e Publicar passam a aceitar `EM_REVISAO`; ao re-publicar, a vigência é **recomputada** (publicada mais recente por data). Auditado.
 - **Botão "Arquivar"** (`PUBLICADA`→`ARQUIVADA`) → tira de novos usos, mantém histórico. Raro; acesso restrito.
 - **Travadas/imutáveis:** `PUBLICADA` e `ARQUIVADA`. **Mutáveis:** `RASCUNHO` e `EM_REVISAO`. Lock na camada app/parser, sem trigger. Manutenção pós-publicação só por **usuário de acesso máximo**, em tela específica.
 - Correção = **reprocessar** a edição (não editar registro a registro).
@@ -94,6 +94,23 @@ Evoluir para a cadeia explícita:
 3. **Botão "Publicar"** (`RASCUNHO→PUBLICADA`) — back valida o gate (import grande + os dois `*_catalogo_ok`, respeitando `fte_tem_catalogo_insumos`) e **trava** (lock).
 
 **Seed a revisar no drop+reseed:** o valor de `fte_tem_catalogo_insumos` por fonte define se o gate de insumos se aplica. Hoje: AXYS=`true`, SINAPI=`true`, CDHU=`false`. Rever à luz da proveniência real das fichas (SINAPI por planilha/links; CDHU por anexo) para que o gate nasça coerente — fonte sem material de ficha extraível → `false` ("Não se aplica").
+
+### 8.2-bis `edi_docs_status` + badge "Disponível para publicação" (2026-06-13 — implementado)
+Primeiro passo da cadeia: o import grava **`edi_docs_status`** (JSONB) com a resolução por tipo
+de doc (`metodologia|calculos|notas|cadernos|fichas: ok|indisponivel`), só no **fim de um import
+concluído**. A disponibilidade dos docs do form vem de **checkboxes "Disponível"** (marcados por
+padrão; desmarcar = indisponível/skip consciente). A listagem de Edições exibe **"Disponível para
+publicação"** quando a edição é `RASCUNHO` **e** tem `edi_docs_status` preenchido (⇒ dados
+importados E todos os docs resolvidos). Docs `indisponivel` viram aviso (⚠) — **publicar avisa e
+permite**. Ver `CATALOGO_SINAPI_IMPORT_CONTRACT.md §8`.
+
+**Botão Publicar (implementado 2026-06-13):** `service.publicar_edicao` + `POST /api/edicoes/{id}/publicar`
+(`internal_admin`). Gate = RASCUNHO + `edi_docs_status` preenchido (consome o JSONB, não os booleanos
+legados — que são setados `true` por consistência). RASCUNHO→**PUBLICADA** + lock; audita. O front
+(botão no modal de detalhe da listagem) **confirma** antes, avisando se há indisponíveis. Os documentos
+já foram publicados no R2/registro pelo **import** — Publicar é a **promoção de estado** que libera a
+edição. **Edições já importadas (publicáveis) saem da aba de import** (`/api/edicoes/rascunho` filtra
+`edi_docs_status IS NULL`). Falta só **→ARQUIVADA** e **EM_REVISAO** (recall).
 
 ### 8.2 Outros
 - Onde persistir o relatório de import (avisos/erros) para auditoria.

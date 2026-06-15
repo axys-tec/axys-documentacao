@@ -88,7 +88,49 @@ Artefato de **composição** (não de preço de insumo). Montagem por UF, insumo
 
 ---
 
-## 8. Estado de implementação
+## 8. Documentos de fonte — vigência e auditoria
+
+Os documentos da fonte (livros, notas, fichas, cadernos) chegam por **link da matriz** (Caixa),
+que **pode sumir**; os **livros têm edição própria** (não mudam a cada edição do catálogo).
+Regra de vigência e trilha de auditoria:
+
+- **Registro (`catalogo.documentos`) guarda só o VIGENTE** por fonte/tipo (`doc_vigente=true`,
+  1 por fonte/tipo; fichas/cadernos: 1 por identidade ins/cmp). Na substituição, a linha
+  anterior é **mantida como histórico** (`doc_vigente=false`) com o `doc_path` **re-apontado
+  para `_old/`**. `UNIQUE(doc_path)` preservado (cada linha tem path distinto).
+- **Storage**: ao sobrescrever um path canônico, o arquivo anterior é **movido para `_old/`**
+  (trilha de auditoria controlada). Nada some — o `_old` persiste mesmo se o link da matriz morrer.
+- **Livros** (`metodologia`, `livro`): têm **edição própria** (`doc_versao`) → o import **pede a
+  edição** de cada livro. Comparação por rótulo: **igual** à vigente ⇒ **skip** (não baixa, não
+  substitui); **divergiu** (ou inexistente) ⇒ arquiva a anterior em `_old` + grava a nova vigente.
+- **Notas**: seguem a edição do catálogo (`doc_path = notas_{versao}.pdf`, por edição → não
+  sobrescreve; a anterior só passa a `doc_vigente=false`).
+- **Fichas/cadernos**: seguem a edição do catálogo, sobrescrevem path fixo → arquivam a anterior
+  em `_old` quando o **conteúdo muda** (comparação por `doc_sha1`); conteúdo igual ⇒ skip.
+- **Indisponível na fonte** (download falha): faz **skip** — mantém o vigente anterior (se houver).
+- **Disponibilidade declarada no form** (checkbox "Disponível", **marcado por padrão**, para
+  metodologia/cálculos/notas/cadernos): desmarcar bloqueia os campos e marca o doc como
+  **indisponível** (skip consciente). Livros/notas exigem link (e edição, p/ livros) só quando
+  disponíveis. **Fichas** não têm flag no form — o core resolve em runtime (obteve ⇒ ok; link
+  morto ⇒ indisponível). Cadernos vêm do Excel; a flag só liga/desliga o estágio.
+- **`edi_docs_status` (JSONB na edição)**: o import grava a resolução por tipo —
+  `metodologia|calculos|notas|cadernos|fichas: ok|indisponivel`. Escrito **só no fim de um import
+  concluído** (após `dados`). "Disponível para publicação" := edição **RASCUNHO** com
+  `edi_docs_status` preenchido (⇒ dados importados E todo doc resolvido). A listagem de Edições
+  exibe o badge; docs `indisponivel` viram aviso (⚠) — publicar **avisa e permite**.
+- **Publicação NUNCA trava** por documento: vigente presente ⇒ ok; **indisponível** ⇒ publica com
+  **aviso/confirmação explícita**. Suaviza o gate `fte_tem_catalogo_insumos`. (Hook do pipeline
+  de publicar — a construir.)
+- **Robustez de download** (`_baixar`): valida o magic `%PDF`. A Caixa responde **200 + HTML**
+  (SharePoint "File Not Found") quando o link da matriz morreu → trata como **indisponível**
+  (skip), nunca salva HTML como `.pdf`.
+
+Schema: `catalogo.documentos.doc_versao TEXT` (rótulo da edição própria do doc; usado p/ comparar
+livros). Sem mudança de constraint. Ver `schemas/schema.sql` e `CATALOGO_BUSINESS_RULES.md §10/§11`.
+
+---
+
+## 9. Estado de implementação
 
 | Item | Estado |
 |---|---|
@@ -106,3 +148,4 @@ Artefato de **composição** (não de preço de insumo). Montagem por UF, insumo
 | Fuzzy de classificação dos órfãos (hoje NC) | **Pendente** |
 | Manutenções (SINAPI-Diff) + Axys-DIFF | **Pendente** (Fase 3.4) |
 | Mapa horista↔mensalista (`composicoes_mapeamento_mdo`) | **Pendente** (Fase 3.5) |
+| **Vigência+auditoria de docs** (§8: vigente único, `_old` no storage, `doc_versao` p/ livros, publicar avisa+permite) | **A implementar** (2026-06-13) — `doc_versao`, `archive_public_file`, compare livros por edição |

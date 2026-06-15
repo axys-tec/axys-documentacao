@@ -1,5 +1,13 @@
 # Catálogo — Próximos passos (orientação)
 
+> ⚠️ **ATUALIZAÇÃO 2026-06-14 — Fase 2 (drop+recriar banco) CANCELADA (Renan).**
+> O Catálogo é usado **COMO ESTÁ** (módulo fechado em dev — ver `CATALOGO_FECHAMENTO.md`).
+> As mudanças de schema descritas abaixo como "Fase 2 / recriação" (dropar `*_external_path`,
+> `catalogo.situacoes`→CHECK-text, `cmp_edi_id`, `cc_edi_id`, FK `unidades` etc.) **não serão
+> aplicadas** — custo@edição já é resolvível no modelo atual (composição é por edição), e o
+> módulo **Ativos** parte do Catálogo como está. Trate as seções de "Fase 2" abaixo como
+> **histórico**, não como pendência.
+
 Estado em **2026-06-05**: o **import p/ o banco** (CDHU + SINAPI: parse → normalização →
 armazenamento → conferência) e a **publicação dos documentos no R2** (fichas, cadernos +
 apresentação, critérios + metodologia, livros) estão **completos e validados** (pipeline +

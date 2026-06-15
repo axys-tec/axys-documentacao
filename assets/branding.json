@@ -1,0 +1,16 @@
+{
+  "_doc": "Manifesto de branding Axys (fonte única). Subir em R2 axys-public/assets/branding.json. Caminhos RELATIVOS à base (AXYS_ASSETS_BASE_URL). Editar aqui = todos os apps refletem (sem deploy).",
+  "logo_dark": "axys/axys_white-n-blue.png",
+  "logo_light": "axys/axys_black-n-blue.png",
+  "logo_ai": "axys/axys-ai.png",
+  "favicon": "axys/favicon.png",
+  "apps": {
+    "easy": "apps/axys_easy.png",
+    "manager": "apps/axys_manager.png",
+    "pro": "apps/axys_pro.png",
+    "proj_manager": "apps/axys_proj-manager.png"
+  },
+  "pages": {
+    "login": "pages/login_page.png"
+  }
+}
