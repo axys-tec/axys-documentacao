@@ -1,1 +1,2 @@
-db/backups/
+.DS_Store
+*.DS_Store
