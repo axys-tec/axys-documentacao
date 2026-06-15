@@ -2,7 +2,7 @@
 
 > Até aqui o Easy é **internal Axys** (catálogo, import, fontes). A **porteira cliente** começa
 > agora. Este plano cresce por **ciclos**; cada ciclo é discutido e registrado antes de codar.
-> Contexto do domínio: `contracts/ativo/EASY_ATIVO_v0.3.md`.
+> Contexto do domínio: `contracts/ativo/EASY_ATIVO_CONTRATO.md`.
 
 ---
 
@@ -63,3 +63,26 @@ workspace do MÓDULO
 > Montar **UMA tela** + abrir discussão, antes do plano de ataque. Candidata natural à 1ª tela:
 > o **sub-main do projeto** (porta de entrada do ativo) **ou** a **grade do Orça** (`ativo_itens`,
 > o coração). A definir com Renan.
+
+---
+
+## Ciclo 1b — Porteira adm × client + Main construída (2026-06-14)
+
+**Porteira (decisão Renan):** **HOME ÚNICA para todos.** Dois eixos separados:
+- `apps_licenciadas` (licença do Hub) → quais **produtos** o tenant vê (ativo/stand-by).
+- `is_staff` (claim do Hub) → acende a **porta extra "Catálogo (Axys)"** (back-office), sem trocar a home.
+
+Assim o colaborador Axys (is_staff) usa os produtos (inclusive p/ autorar **modelos** na tenant Axys)
+**e** alcança o catálogo. A porteira mora no **token do Hub**; o Easy só lê.
+
+**Construído + validado (render 200):**
+- `app/main_client.html` (home: boas-vindas + recentes[vazio] + vitrine de módulos).
+- `partials/main_sidebar.html` (rail de abreviações de TODOS os produtos; stand-by p/ não-liberados;
+  porta "Catálogo (Axys)" p/ is_staff; reusa o recolher `#lpanel`).
+- `static/css/easy_main_client.css`.
+- Rotas: `/main` = home única p/ todos; `/inicio` → 302 `/main`. (`app/main.html` = launcher
+  interno antigo, hoje órfão — Catálogo entra por `/fontes-base`.)
+
+**Pendências:** recentes ligar a `ativo.ativos`; alinhar códigos `_DEV_CLAIMS`
+(easy-diary/fin/licit) ao `_APP_LABELS` (easy-build-diary/fin-control/licit-plan);
+`.env.local` está `EASY_ENV=production` (bloqueia bypass — Renan usa Hub dev real).

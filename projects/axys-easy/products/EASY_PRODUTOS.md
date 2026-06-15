@@ -1,7 +1,7 @@
 # AxysEasy — Mapa de Produtos (módulos)
 
 > Catálogo dos produtos/módulos do Easy. Cada módulo **opera sobre o ATIVO** (não é entidade
-> isolada — contrato `ativo/EASY_ATIVO_v0.3.md` §2). A **liberação por tenant vem da licença no
+> isolada — contrato `ativo/EASY_ATIVO_CONTRATO.md` §11). A **liberação por tenant vem da licença no
 > HUB**. Este doc é a fonte do texto de vitrine **e** do mapeamento técnico (qual slot/tabela cada
 > módulo usa, e o que já está modelado vs reservado).
 

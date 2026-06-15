@@ -111,5 +111,5 @@ Easy segue um **design system canônico** documentado:
 ## 📞 Referências
 
 - @see [EASY-ADR-005 — Ferramentas Excel/AutoLISP](../../foundation/adrs/EASY-ADR-005-ferramentas-excel-autolisp-api.md)
-- @see [Módulo Ativo — Contrato Completo](contracts/easy_modulo_ativo_architecture_contract.md)
+- @see [Módulo Ativo — Contrato (v1.0)](contracts/ativo/EASY_ATIVO_CONTRATO.md)
 - @see [Hub Integration](integrations/with-hub.md)

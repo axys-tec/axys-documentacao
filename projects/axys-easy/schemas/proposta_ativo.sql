@@ -5,8 +5,7 @@
 --         migra-se para docs/projects/axys-easy/schemas/schema.sql.
 --
 -- Contratos canônicos (governam este schema):
---   docs/projects/axys-easy/contracts/ativo/easy_modulo_ativo_architecture_contract.md (v0.2)
---   docs/projects/axys-easy/contracts/ativo/modulo_ativo_sumario_executivo.md (v0.2)
+--   docs/projects/axys-easy/contracts/ativo/EASY_ATIVO_CONTRATO.md (v1.0 — contrato único)
 -- Memórias de decisão: project_ativos_decisoes, project_catalogo_sem_recriar.
 --
 -- ESCOPO DESTA PROPOSTA

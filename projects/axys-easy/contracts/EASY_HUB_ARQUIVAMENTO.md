@@ -127,3 +127,13 @@ O payload em si vai para o R2 (ou schema frio); o **índice consultável** fica 
 
 > Quando o Hub fechar esses pontos, o Easy implementa o `ArquivamentoService`
 > (`desconstruir`/`reconstruir`) e a tarefa Celery contra esta interface.
+
+---
+
+## Cross-ref: graça pós-contrato (licenciamento)
+
+O gatilho da **desconstrução** respeita a **garantia de persistência** definida em
+`EASY_HUB_LICENCIAMENTO.md` §5: **30 dias garantidos** no banco quente após o fim do contrato
+(**prática: 90 dias**), durante os quais o tenant fica em **VIEW_ONLY** (vê/baixa RASCUNHO, não
+produz) e **NÃO** vai para backup. Só após esse N (decisão do Hub, ≥30) a desconstrução leva ao
+backup e o status vira **ARCHIVED**.
