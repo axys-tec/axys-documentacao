@@ -18,7 +18,7 @@
 | **Easy ProjectManager** | Estrutura projeto (ASBEA/próprio): pastas + checklists | slot `ativo_pm` | ⏳ slot reservado |
 | **Easy BuildDiary** | Diário de obra objetivo + evidência + PDF | slot `ativo_diario` (+ cronograma p/ físico) | ⏳ slot reservado |
 | **Easy FinControl** | Medições + evolução físico-financeira + export | slot `ativo_fin` (+ `cronograma`) | ⏳ slot reservado |
-| **Easy LicitPlan** | Planejamento de licitações: checklist + cronograma-base | slot `ativo_licit` (pode existir avulso) | ⏳ slot reservado |
+| **Axys LicitPlan** | ETP, TR e engenharia para contratações públicas | slot `ativo_licit` (pode existir avulso) | ⏳ slot reservado |
 
 > ✅ = tabelas já no `schema.sql` · ⏳ = namespace reservado (DDL entra quando o microapp nascer).
 > **Composição:** Orça ⊃ Price + CPU + documentação.
@@ -144,20 +144,58 @@ da obra/contrato.
 
 ---
 
-## Easy LicitPlan™
-**Organização e planejamento de licitações — antes do caos começar.**
+## Axys LicitPlan™
+**Engenharia para contratações públicas.**
 
-Estrutura a participação em licitações (públicas/privadas) antes da fase crítica: prazos, documentos e
-responsabilidades.
+Elaboração assistida de documentos técnicos para licitações e contratações, com foco no trabalho do
+engenheiro fiscal, das equipes de planejamento e das áreas técnicas que precisam estruturar processos
+consistentes, defensáveis e rápidos de produzir.
 
-- Checklist completo de documentos e etapas da licitação.
-- Organização por processo, órgão e modalidade.
-- Cronograma-base com alertas de prazos críticos.
-- Redução de riscos por esquecimento ou falha operacional.
-- Ideal para equipes que lidam com múltiplas licitações simultâneas.
+Mais do que controlar prazos, o módulo apoia a construção do conteúdo técnico que fundamenta a
+contratação.
 
-**Mapa técnico:** slot reservado `ativo_licit`. **Pode existir avulso**; quando associado a
-contrato/obra, o núcleo é o ativo (contrato v0.2 §12).
+**Principais entregáveis**
+
+- Estudos Técnicos Preliminares (ETP).
+- Termos de Referência (TR).
+- Matrizes de Riscos.
+- Critérios de medição e pagamento.
+- Definição de requisitos técnicos.
+- Itens e parcelas de maior relevância técnica.
+- Critérios de habilitação e aptidão técnica.
+- Atestados de capacidade técnica.
+- Requisitos de qualificação operacional e profissional.
+- Memoriais e documentos auxiliares.
+
+**Recursos**
+
+- Assistente especializado em engenharia e contratação pública.
+- Geração orientada de documentos a partir do objeto contratado.
+- Biblioteca de modelos e referências reutilizáveis.
+- Consolidação automática de informações do empreendimento.
+- Rastreabilidade de alterações e versões.
+- Exportação para formatos institucionais.
+
+**Benefícios**
+
+- Redução significativa do tempo de elaboração.
+- Padronização documental entre processos.
+- Menor risco de inconsistências técnicas.
+- Apoio à conformidade com a Lei nº 14.133/2021.
+- Preservação do conhecimento técnico institucional.
+
+**Público-alvo**
+
+- Órgãos públicos.
+- Fiscalização de contratos.
+- Equipes de planejamento.
+- Secretarias de obras.
+- Autarquias.
+- Empresas públicas.
+- Consultorias de engenharia.
+
+**Mapa técnico:** slot reservado `ativo_licit`. **Pode operar de forma independente** ou integrado a
+um empreendimento, contrato ou ativo existente no ecossistema Axys.
 
 ---
 
@@ -276,7 +314,7 @@ main-client monta os cards a partir do que o Hub libera. Ver `next-steps/PLANO_C
 - **Principal:** tabela de **medições por período/serviço/etapa** (correlaciona `ativo_itens` × `cronograma`) + **curva físico-financeira** + export Excel.
 - **Dados:** slot `ativo_fin`.
 
-### Easy LicitPlan — planejamento de licitações
-- **Sidebar:** `Processos` · `Checklist de documentos` · `Cronograma-base / prazos` · `Alertas`.
-- **Principal:** lista por **órgão/modalidade**; checklist de documentos; cronograma com **alertas de prazo**.
-- **Dados:** slot `ativo_licit` (pode existir avulso; quando vira obra, núcleo = ativo).
+### Axys LicitPlan — ETP, TR e engenharia de contratação
+- **Sidebar:** `Objeto / contexto` · `ETP` · `TR` · `Matriz de Riscos` · `Habilitação técnica` · `Memoriais / anexos` · `Versões / exportar`.
+- **Principal:** formulário guiado + assistente técnico para consolidar informações do objeto, gerar minutas estruturadas, reaproveitar modelos e produzir documentos consistentes para contratação pública.
+- **Dados:** slot `ativo_licit` (pode existir avulso; quando integrado, conversa com empreendimento, contrato e demais dados do ativo).
