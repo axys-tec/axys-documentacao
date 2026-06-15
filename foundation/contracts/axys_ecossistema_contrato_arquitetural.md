@@ -27,7 +27,7 @@ easy.axys-tec.com.br     → AxysEasy (apps de engenharia)
 | Usuários | Cadastro, autenticação, senha, perfil |
 | Tenants | Criação, ativação, suspensão |
 | Vínculos user↔tenant | Roles, ativação, remoção |
-| Licenças | Quais apps cada tenant pode usar (`hub_microapp_instance`) |
+| Licenças | Quais apps cada tenant contratou e quais apps cada usuário pode usar (`hub_licenca` + `hub_user_app`) |
 | Billing | Cotas, limites de usuários, planos |
 | Audit log | `hub_audit_log` — registro de todas as ações sensíveis |
 | JWT | Emissor do token que os demais serviços consomem |
@@ -79,7 +79,7 @@ Referência de mercado: Salesforce, Linear, Notion — mesma URL, experiência a
 O campo **Num. Doc. Cliente (CNPJ ou CPF)** é obrigatório e serve para identificar em qual tenant o usuário está entrando. Um mesmo usuário pode pertencer a múltiplos tenants — o documento do tenant é o seletor.
 
 ```
-Login com doc 38060729810 (AxysHQ) → perfil staff/admin
+Login com doc 38060729810 (AXYS) → perfil staff/admin
 Login com doc [CNPJ cliente]       → perfil user convencional
 ```
 
@@ -89,17 +89,18 @@ Login com doc [CNPJ cliente]       → perfil user convencional
 |---|---|---|
 | `internal_owner` | Sócio/fundador Axys | Acesso total ao ecossistema |
 | `internal_admin` | Funcionário Axys (admin) | Acesso administrativo ao ecossistema |
-| `internal_viewer` | Funcionário Axys (suporte) | Leitura apenas — sem ações destrutivas |
-| `admin` | Admin do tenant cliente | Apps licenciadas + gestão interna do tenant via Hub |
+| `internal_user` | Funcionário Axys (uso interno) | Uso interno sem poderes administrativos sensíveis |
+| `owner` | Responsável máximo do tenant cliente | Apps licenciadas + billing + gestão de admins |
+| `admin` | Admin do tenant cliente | Apps licenciadas + gestão operacional de usuários |
 | `user` | Usuário do tenant cliente | Apps licenciadas (uso operacional) |
 
 **Regra de derivação no JWT:**
 ```python
-is_staff = role.startswith("internal_")  # cobre qualquer role interna presente ou futura
+is_staff = (tenant_code == "AXYS" and tenant_role == "internal_owner")
 ```
 
-**Controle de permissão nas apps:**  
-O campo `role` do JWT é a fonte de verdade. Cada funcionalidade do Easy verificará o role recebido para determinar o que pode ser lido, criado ou alterado. Não há tabela de permissões separada — o JWT é suficiente.
+**Separação de responsabilidades nas apps:**  
+O campo `tenant_role` preserva o papel bruto do vínculo no Hub, enquanto `role` é o papel normalizado de compatibilidade consumido pelo Easy (`owner`, `admin`, `user`). O Hub entrega apenas o contexto autenticado e o acesso macro por app. A matriz funcional interna de cada app deve morar na documentação e implementação da própria app.
 
 ### 3.4 JWT — Campos Relevantes
 
@@ -111,9 +112,10 @@ O campo `role` do JWT é a fonte de verdade. Cada funcionalidade do Easy verific
 | `tenant_uuid` | `hub_tenant.tenant_id` | Escopo de dados |
 | `tenant_code` | `hub_tenant.tenant_code` | Referência curta |
 | `tenant_name` | `hub_tenant.tenant_name` | Exibição |
-| `role` | `hub_user_tenant.role` | Controle de acesso |
-| `is_staff` | derivado de `role` | Flag rápido para templates |
-| `apps_licenciadas` | `hub_microapp_instance` | O que o tenant pode usar |
+| `tenant_role` | `hub_user_tenant.role` | Papel bruto do vínculo no Hub |
+| `role` | derivado de `tenant_role` | Papel normalizado de compatibilidade (`owner`, `admin`, `user`) |
+| `is_staff` | derivado de `tenant_code` + `tenant_role` | Flag contextual para uso interno Axys |
+| `apps_licenciadas` | `hub_licenca ∩ hub_user_app` | Apps efetivas do usuário no tenant atual |
 
 ---
 
@@ -132,7 +134,7 @@ O campo `role` do JWT é a fonte de verdade. Cada funcionalidade do Easy verific
 - [x] Estrutura CSS/JS canônica por escopo de página
 
 ### Pendente / Próximos passos
-- [ ] `role` e `is_staff` no JWT (próxima tarefa)
+- [x] `tenant_role`, `role` e `is_staff` contextual no JWT
 - [ ] `/main` diferenciada por perfil (staff vs cliente)
 - [ ] `last_login` e `failed_attempts` no auth_service
 - [ ] Schema `orca` revisado

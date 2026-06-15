@@ -93,6 +93,20 @@ Toda requisição autenticada inclui `tenant_id`:
 
 Isolamento garantido em queries: `WHERE tenant_id = ?`
 
+### Papéis, Billing e Acesso por App
+
+O Hub é o dono de:
+- papéis (`owner`, `admin`, `user`, `internal_*`);
+- billing e ações comerciais;
+- cotas de usuários por assinatura;
+- vínculo usuário ↔ app.
+
+O Easy não calcula nada disso. Ele consome apenas o contexto resolvido pelo Hub
+para o usuário atual.
+
+Contrato canônico:
+- [contracts/ACESSO_E_GOVERNANCA.md](contracts/ACESSO_E_GOVERNANCA.md)
+
 ---
 
 ## 🏗️ Módulos
@@ -129,7 +143,7 @@ Veja [foundation/adrs/](../../foundation/adrs/) para decisões arquiteturais que
 | Item | Local | Status |
 |------|-------|--------|
 | **ADRs Hub-específicas** | [adrs/](adrs/) | ✅ 5 documentadas |
-| **Contratos** | [contracts/](contracts/) | ⚠️ Vazio (revisar) |
+| **Contratos** | [contracts/ACESSO_E_GOVERNANCA.md](contracts/ACESSO_E_GOVERNANCA.md) | ✅ papéis, billing e vínculo usuário ↔ app |
 | **API Endpoints** | [api/](api/) | ⚠️ Por documenter |
 | **Operações** | [operations/](operations/) | ⚠️ Por documenter |
 | **Schema** | [schemas/schema.sql](schemas/schema.sql) | ✅ Existe |

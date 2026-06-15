@@ -62,6 +62,11 @@ Veja [ARCHITECTURE.md](ARCHITECTURE.md) para visão detalhada.
 
 Veja [integrations/](../../integrations/) para mapa completo.
 
+**Documentos relacionados:**
+- [integrations/sso-login-easy.md](integrations/sso-login-easy.md)
+- [contracts/ACESSO_E_GOVERNANCA.md](contracts/ACESSO_E_GOVERNANCA.md)
+- [EASY_HUB_ARQUIVAMENTO.md](EASY_HUB_ARQUIVAMENTO.md)
+
 ---
 
 ## 📚 Documentação
@@ -70,7 +75,7 @@ Veja [integrations/](../../integrations/) para mapa completo.
 |---------|----------|
 | [ARCHITECTURE.md](ARCHITECTURE.md) | Visão geral e componentes principais |
 | [adrs/](adrs/) | Decisões específicas do Hub |
-| [contracts/](contracts/) | Contratos de entidade (User, Tenant) |
+| [contracts/ACESSO_E_GOVERNANCA.md](contracts/ACESSO_E_GOVERNANCA.md) | Contrato de papéis, billing e vínculo usuário ↔ app |
 | [api/](api/) | Endpoints e fluxos |
 | [schemas/](schemas/) | Banco de dados |
 | [operations/](operations/) | Deploy e monitoramento |
@@ -81,6 +86,7 @@ Veja [integrations/](../../integrations/) para mapa completo.
 
 - ⬜ Completar ARCHITECTURE.md
 - ⬜ Documentar endpoints em api/endpoints.md
+- ⬜ Consolidar o vínculo usuário ↔ app no portal Hub com regra comercial por assinatura
 - ⬜ Criar runbooks de operação
 
 ---

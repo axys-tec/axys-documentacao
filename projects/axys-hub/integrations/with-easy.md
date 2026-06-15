@@ -20,7 +20,7 @@ Easy armazena em cookie httponly
     ↓
 Easy requisições: Bearer Token
     ↓
-Hub valida e retorna claims
+Hub valida e retorna claims resolvidos por usuário
     ↓
 Easy usa claims para autorização
 ```
@@ -39,9 +39,10 @@ Quando Easy valida o token com Hub, recebe:
   "tenant_uuid": "tenant-uuid",
   "tenant_code": "ACME",
   "tenant_name": "ACME Inc",
+  "tenant_role": "admin",
   "is_staff": false,
   "role": "admin",
-  "apps_licenciadas": ["easy-cpu", "easy-price", "easy-orca"],
+  "apps_licenciadas": ["easy-cpu", "easy-price-1", "easy-orca"],
   "iat": 1622505600,
   "exp": 1622534400
 }
@@ -106,7 +107,7 @@ Ação: Easy redireciona para /login
 
 ```
 HTTP 403
-{ "detail": "App not licensed" }
+{ "detail": "App not licensed for user" }
 
 Ação: Easy mostra página "sem contrato"
 ```
@@ -135,4 +136,3 @@ Veja: `backend/core/security.py`
 - [ ] Fluxo de refresh token automático
 - [ ] Tratamento de multitenant simultâneo
 - [ ] Rate limiting na integração
-

@@ -64,9 +64,10 @@ Claims que o Easy **lê e usa**. O Hub deve emitir todas com **estes nomes exato
 | `tenant_uuid` | string (UUID) | tenant atual (multitenancy) | ✅ |
 | `tenant_code` | string | código curto do tenant | ✅ |
 | `tenant_name` | string | exibição do tenant | ✅ |
-| `role` | string (`user`/`admin`/`owner`) | papel do usuário | ✅ |
+| `role` | string (`user`/`admin`/`owner`) | papel normalizado para compatibilidade | ✅ |
+| `tenant_role` | string (`internal_*`/cliente) | papel exato do vínculo no Hub | ✅ |
 | `is_staff` | boolean | time interno Axys (acesso total) | ✅ |
-| `apps_licenciadas` | array de slugs | apps que o tenant pode acessar | ✅ |
+| `apps_licenciadas` | array de slugs | apps efetivas do usuário atual (`tenant ∩ vínculo`) | ✅ |
 | `iat` | int (unix) | emissão | ✅ |
 | `exp` | int (unix) | expiração — **TTL 8h** | ✅ |
 
@@ -81,6 +82,7 @@ Exemplo:
   "tenant_code": "AXYS",
   "tenant_name": "Axys Tecnologia",
   "role": "owner",
+  "tenant_role": "internal_owner",
   "is_staff": true,
   "apps_licenciadas": ["easy-cpu", "easy-price-1", "easy-orca"],
   "iat": 1748908800,
@@ -99,16 +101,20 @@ Consumo no Easy: `backend/modules/pages/routes.py` (`_user_ctx`),
 
 ---
 
-## 4. Regras de negócio que o Easy aplica sobre as claims
+## 4. Regras de integração que o Easy aplica sobre as claims
 
 Definem se o usuário **entra** ou cai em `/sem-contrato`:
 
 1. O Easy só considera apps cujo slug **começa com `easy`**
    (`backend/modules/pages/routes.py`).
-2. Acesso liberado se `is_staff == true` **OU** houver ≥1 app `easy-*` em
-   `apps_licenciadas`. Caso contrário → redireciona para `/sem-contrato`.
-3. Autorização por app específico via `apps_licenciadas`
+2. Acesso liberado se houver ≥1 app `easy-*` em `apps_licenciadas`.
+   `is_staff` continua útil para contexto interno, mas não substitui o vínculo efetivo
+   do usuário às apps. Caso contrário → redireciona para `/sem-contrato`.
+3. Gate de acesso por app específico via `apps_licenciadas`
    (`backend/core/security.py`, `require_app`).
+
+> O que cada `role`/`tenant_role` pode fazer **dentro do Easy** não pertence a este documento do Hub.
+> Essa matriz funcional deve morar no contrato e na implementação do próprio Easy.
 
 ### 4.1 ⚠️ Inconsistência de slugs a reconciliar
 

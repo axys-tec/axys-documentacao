@@ -34,14 +34,12 @@ Seed mínimo obrigatório, idempotente (ON CONFLICT seguro), versionado neste AD
 
 ### 2.1 Sistemas (hub_sistema)
 
-13 sistemas do ecossistema cadastrados no seed:
+11 sistemas do ecossistema cadastrados no seed:
 
 | sistema_code       | nome               | tipo     |
 |:-------------------|:-------------------|:---------|
-| AXYSHUB            | AxysHub            | system   |
-| AXYSSYSTEM         | AxysSystem         | system   |
 | AXYSPRO            | AxysPro            | suite    |
-| AXYSDASH           | AxysDash           | microapp |
+| AXYSDASH           | AxysGestor         | microapp |
 | API_DASH           | API_Dash           | api      |
 | EASYCPU            | EasyCPU            | microapp |
 | EASYORCA           | EasyOrça           | microapp |
@@ -56,7 +54,7 @@ Seed mínimo obrigatório, idempotente (ON CONFLICT seguro), versionado neste AD
 
 | tenant_code | tenant_name | document (fiscal)  | Natureza            |
 |:------------|:------------|:-------------------|:--------------------|
-| AXYSHQ      | AxysHQ      | 38060729810 (CPF)  | Conta interna Axys  |
+| AXYS        | Axys Engenharia e Tecnologia Ltda | 38060729810 (CPF)  | Conta interna Axys  |
 | LUNALO      | Lunalô      | 45580611000194     | Cliente             |
 | DCENG       | D&CEng      | 17695703000184     | Cliente             |
 
@@ -66,10 +64,12 @@ Seed mínimo obrigatório, idempotente (ON CONFLICT seguro), versionado neste AD
 
 | email                            | name            | sys_role  | tenant  | role (tenant)   |
 |:---------------------------------|:----------------|:----------|:--------|:----------------|
-| rdias07@live.com                 | Renan Dias      | hub_admin | AXYSHQ  | internal_owner  |
-| thays_hernandes@hotmail.com      | Thaís           | user      | LUNALO  | admin           |
+| rdias07@live.com                 | Renan Dias      | hub_admin | AXYS    | internal_owner  |
+| thays_hernandes@hotmail.com      | Thaís           | user      | AXYS    | internal_user   |
 | lunalocalcados@hotmail.com       | Lunalô Calcados | user      | LUNALO  | admin           |
-| diasecardozo@diasecardozo.com.br | Dias e Cardozo  | user      | DCENG   | owner           |
+| rdias07@live.com                 | Renan Dias      | hub_admin | DCENG   | owner           |
+| thays_hernandes@hotmail.com      | Thaís           | user      | DCENG   | admin           |
+| diasecardozo@diasecardozo.com.br | Dias e Cardozo  | user      | DCENG   | member          |
 
 Campos obrigatórios preenchidos no seed:
 
@@ -82,7 +82,7 @@ Campos obrigatórios preenchidos no seed:
 
 | store_code | store_name                    | tenant  |
 |:-----------|:------------------------------|:--------|
-| AXYSSYSTEM | AxysSystem                    | AXYSHQ  |
+| AXYSSYSTEM | AxysSystem                    | AXYS    |
 | OUROESTE   | Lunalô Ouroeste               | LUNALO  |
 | JALES      | Lunalô Jales                  | LUNALO  |
 | LOC-JALES  | L'Occitane Jales              | LUNALO  |
@@ -90,9 +90,9 @@ Campos obrigatórios preenchidos no seed:
 
 ### 2.5 Licenças (hub_licenca)
 
-- **AXYSHQ**: todos os 13 sistemas licenciados como `active`
-- **LUNALO**: apenas `AXYSDASH` e `API_DASH`
-- **DCENG**: **sem licenças** no seed inicial
+- **AXYS**: sistemas internos e apps Easy liberados no bootstrap inicial
+- **LUNALO**: apenas `AXYSDASH` (`AxysGestor`) e `API_DASH`
+- **DCENG**: apps Easy liberadas no bootstrap inicial
 
 ### 2.6 Princípios obrigatórios
 

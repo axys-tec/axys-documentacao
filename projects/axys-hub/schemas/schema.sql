@@ -20,7 +20,7 @@
 -- USUÁRIOS:
 -- - hub_user: identidade global do usuário (cross-tenant)
 -- - hub_user_tenant: vínculo usuário ↔ tenant com role local
---   (owner | admin | member)
+--   (owner | admin | member | internal_owner | internal_admin | internal_user)
 -- - sys_role em hub_user: role de sistema (hub_admin | user)
 --   distinto do role de tenant
 -- - CPF: opcional, único quando informado, 11 dígitos numéricos
@@ -270,9 +270,12 @@ CREATE TABLE IF NOT EXISTS hub_pacote_combo (
 -- TABELA: hub_user_tenant
 -- Vínculo usuário ↔ tenant com role local.
 -- role: papel do usuário dentro deste tenant específico
---   'owner'  — dono da conta, permissões máximas
---   'admin'  — administrador delegado
---   'member' — usuário padrão (padrão)
+--   'owner'          — dono da conta, permissões máximas no tenant cliente
+--   'admin'          — administrador delegado do tenant cliente
+--   'member'         — usuário padrão (padrão)
+--   'internal_owner' — poder máximo interno Axys
+--   'internal_admin' — operação administrativa interna Axys
+--   'internal_user'  — uso interno comum Axys
 -- ============================================================
 CREATE TABLE IF NOT EXISTS hub_user_tenant (
     user_tenant_id UUID        NOT NULL DEFAULT gen_random_uuid(),
@@ -299,7 +302,7 @@ CREATE TABLE IF NOT EXISTS hub_user_tenant (
         ON DELETE CASCADE,
 
     CONSTRAINT ck_hub_user_tenant_role
-        CHECK (role IN ('owner', 'admin', 'member', 'internal_owner'))
+        CHECK (role IN ('owner', 'admin', 'member', 'internal_owner', 'internal_admin', 'internal_user'))
 );
 
 CREATE INDEX idx_hub_user_tenant_tenant
@@ -667,6 +670,48 @@ CREATE TABLE IF NOT EXISTS hub_microapp_instance (
 
 CREATE INDEX idx_hub_microapp_tenant
     ON hub_microapp_instance (tenant_id);
+
+
+-- ============================================================
+-- TABELA: hub_user_app
+-- Vínculo explícito usuário ↔ app dentro de um tenant.
+-- O tenant pode ter a licença, mas o Hub decide quais usuários
+-- daquele tenant entram em cada app.
+-- ============================================================
+CREATE TABLE IF NOT EXISTS hub_user_app (
+    tenant_id   UUID        NOT NULL,
+    user_id     UUID        NOT NULL,
+    sistema_id  UUID        NOT NULL,
+    status      TEXT        NOT NULL DEFAULT 'active',
+    granted_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
+
+    CONSTRAINT hub_user_app_pkey
+        PRIMARY KEY (tenant_id, user_id, sistema_id),
+
+    CONSTRAINT hub_user_app_tenant_id_fkey
+        FOREIGN KEY (tenant_id)
+        REFERENCES hub_tenant (tenant_id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT hub_user_app_user_id_fkey
+        FOREIGN KEY (user_id)
+        REFERENCES hub_user (user_id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT hub_user_app_sistema_id_fkey
+        FOREIGN KEY (sistema_id)
+        REFERENCES hub_sistema (sistema_id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT ck_hub_user_app_status
+        CHECK (status IN ('active', 'inactive'))
+);
+
+CREATE INDEX idx_hub_user_app_tenant_user
+    ON hub_user_app (tenant_id, user_id);
+
+CREATE INDEX idx_hub_user_app_sistema
+    ON hub_user_app (sistema_id);
 
 
 -- ============================================================
