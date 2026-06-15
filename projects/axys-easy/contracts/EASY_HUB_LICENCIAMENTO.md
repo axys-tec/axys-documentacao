@@ -16,7 +16,7 @@ dois lados precisam trocar. Companheiro de `EASY_HUB_ARQUIVAMENTO.md` (offboardi
 
 | Modelo | Produtos | Unidade |
 |---|---|---|
-| **Contador (consumo)** | Price 1/2, CPU, Orça, Docs, PM, LicitPlan | **N usos / período** |
+| **Contador (consumo)** | Price 12, CPU, Orça, Docs, PM, LicitPlan | **N usos / período** |
 | **Slot (vaga)** | BuildDiary, FinControl | **N obras ativas / período** |
 
 Planos (iguais para ambos os modelos):
@@ -62,7 +62,8 @@ Regra-mãe: **uso = entrega de valor, contada uma vez no download final, ancorad
 
 | Produto | 1 uso = | Chave idempotente |
 |---|---|---|
-| **Price 1/2** | 1 orçamento (ativo) finalizado | `ativo_id + ciclo` |
+| **Price** (`easy-price-1`) | 1 orçamento (ativo) finalizado | `ativo_id + ciclo` |
+| **Price 2** (`easy-price-2`) | 1 orçamento (ativo) finalizado | `ativo_id + ciclo` |
 | **CPU** | 1 orçamento importado finalizado | `ativo_id + ciclo` |
 | **Orça** | 1 orçamento finalizado/emitido | `ativo_id + ciclo` |
 | **Docs** | 1 documento finalizado | `documento_id + ciclo` |
@@ -76,23 +77,53 @@ Regra-mãe: **uso = entrega de valor, contada uma vez no download final, ancorad
 
 O Hub assina um **status por app**; o Easy interpreta:
 
-| Status | Pode | Não pode | Dado |
-|---|---|---|---|
-| **ACTIVE** | abrir, editar, produzir, **download final** (consome) | — | no banco quente |
-| **VIEW_ONLY** (graça pós-contrato) | abrir, **visualizar**, download **RASCUNHO** do que já existe | editar, produzir, download final, novo uso | no banco quente |
-| **ARCHIVED** | — (precisa reconstruir) | tudo | foi p/ backup (ver arquivamento) |
+| Status | Entra? | Vê conteúdo? | Produz? | Dado |
+|---|---|---|---|---|
+| **ACTIVE** | sim | sim (edita) | sim (**download final** consome) | quente |
+| **VIEW_ONLY** (graça pós-contrato) | sim | **sim** (leitura + RASCUNHO do que já existe) | não (sem editar/final/novo uso) | quente |
+| **ARCHIVED** | **sim** | **não** (conteúdo arquivado, nada exibido) | não | backup |
 
-> **VIEW_ONLY responde a pergunta do Renan:** licença vencida mas dentro do prazo → o Hub deixa
-> entrar **só para ver** (nada ativado). Bom p/ o cliente (vê o que pagou) e gancho de renovação.
+> **Nenhum status é parede 403.** Em VIEW_ONLY e ARCHIVED o usuário **entra** — muda só o que vê e
+> a parte comercial. VIEW_ONLY (licença vencida, dentro da graça): vê o que pagou. ARCHIVED: entra,
+> **não vê nada** (já foi p/ backup), e recebe o CTA de desarquivar.
+
+### 4.1 Camada comercial (CTA de renovação/desarquivamento)
+Quando **sem licença ativa** (VIEW_ONLY **ou** ARCHIVED) o app exibe o gancho comercial. Em ARCHIVED:
+
+> *"Poxa, você está sem licença ativa e seus projetos foram arquivados. Deseja desarquivá-los?
+> Clique aqui para saber mais."*
+
+"Desarquivar" dispara a **reconstrução** (`EASY_HUB_ARQUIVAMENTO.md`). A mesma frase (adaptada) vale na
+**graça** (retenção informada 30, real 90) como nudge de renovação, mesmo antes de arquivar.
+
+> **Regra comercial (inegociável):** desarquivamento é **SEMPRE** `cobrança de reconstrução +
+> assinatura por 30 dias`. **Nunca reconstrução isolada** (não se paga só para ver e sumir). Ao
+> término, o tenant volta a **ACTIVE** por ≥30 dias.
+
+**Fluxo:** user clica o CTA → **Hub** processa a compra (reconstrução + 30d) → Hub chama
+`reconstruir(tenant)` no Easy → Easy roda a reconstrução em **Celery** → ao concluir, **callback de
+sucesso ao Hub** → Hub **notifica o user** ("reconstruído, acesso liberado") e abre o acesso (ACTIVE).
+Detalhe operacional em `EASY_HUB_ARQUIVAMENTO.md` §3.2.
 
 ---
 
 ## 5. Persistência e graça pós-contrato
 
-- **Garantia:** dados ficam no **banco quente por 30 dias após o fim do contrato** (prática: **90
-  dias**). Nesse período: status **VIEW_ONLY**, **não** vai para backup.
-- Passado o prazo (Hub decide N; ≥30, prática 90) → **desconstrução** para backup
-  (`EASY_HUB_ARQUIVAMENTO.md`); status **ARCHIVED**; volta exige **reconstrução**.
+Linha do tempo após o fim do contrato:
+
+| Janela | Status (user) | Dado | Pode |
+|---|---|---|---|
+| **0–30d** (retenção **informada**) | VIEW_ONLY | quente | ver o que pagou + RASCUNHO |
+| **30d → avisado** | **ARCHIVED (aviso)** | **ainda quente** (até 90d) | nada (CTA desarquivar §4.1) |
+| **90d** (retenção **real**) | ARCHIVED (real) | **vai p/ backup** (desconstrução) | nada (desarquivar = reconstrução) |
+
+- **Aviso × real (otimização de estágio inicial):** no **30º dia** o user é **avisado** que foi
+  arquivado (status ARCHIVED + CTA), **mas o dado fica no banco quente até o 90º dia** — ele não sabe
+  que ainda não saiu. Isso **evita forçar workers** com poucos clients e torna o desarquivamento
+  **instantâneo** nessa janela (o dado está lá). A **desconstrução real** (→ backup) só roda no **90º**.
+- **Futuro:** quando a escala pedir, retenção real = informada (ex.: 30 = 30).
+- Comercialmente **nada muda**: desarquivar é sempre reconstrução + 30d (§4.1) — mesmo na janela
+  30–90 (só o custo operacional é ~zero, pois o dado ainda está quente).
 - "Voltou para 30 e o cliente perdeu? Problema dele — não renovou." (Regra do Hub.)
 
 ---
@@ -106,30 +137,102 @@ O Hub assina um **status por app**; o Easy interpreta:
 
 ---
 
-## 7. Interface de dados
+## 7. Interface de dados (contrato fechado)
 
-**Hub → Easy** (no login e sob consulta; **somente apps `easy-*`**):
+### 7.1 Registro canônico de apps (`nome_apps`) — fonte da verdade
+O Hub **DEVE** usar exatamente estes `code` (e enviar **somente** `easy-*`). `modelo` é
+**derivado pelo Easy** a partir deste registro — o Hub **não** envia `modelo`.
+
+| `code` | abbr | label | modelo |
+|---|---|---|---|
+| `easy-price-1`     | PR1  | Easy Price          | contador |
+| `easy-price-2`     | PR2  | Easy Price 2        | contador |
+| `easy-cpu`         | CPU  | Easy CPU            | contador |
+| `easy-orca`        | ORÇ  | Easy Orça           | contador |
+| `easy-docs`        | DOCS | Easy Docs           | contador |
+| `easy-pm`          | PM   | Easy ProjectManager | contador |
+| `easy-licit-plan`  | LIC  | Easy LicitPlan      | contador |
+| `easy-build-diary` | DIÁ  | Easy BuildDiary     | slot |
+| `easy-fin-control` | FIN  | Easy FinControl     | slot |
+
+> ⚠️ Alinhar o stub de dev `_DEV_CLAIMS` (`easy-diary`/`easy-fin`/`easy-licit` estão **errados**) a
+> estes códigos canônicos. O Hub real **deve** assinar exatamente os `code` acima.
+
+**Cada variante é um app independente.** `easy-price-1` e `easy-price-2` são **apps separados**
+(código/licença próprios) — a diferença é interna (drivers/parâmetros), não estrutural.
+
+**Doutrina de evolução (forward-compat):** todo **produto novo** ou **nova variante** (ex.: um
+futuro `easy-price-3` / "Price 2+") **entra AQUI** neste registro, com **a mesma estrutura de
+dados** (code/abbr/label/modelo + os campos §7.3/§7.4). **Não se pré-lista produto não lançado** —
+o doc só carrega o que existe; ao lançar, registra-se aqui e o padrão se mantém (zero refactor de
+interface).
+
+### 7.2 Envelope (Hub → Easy) — no login e sob consulta
+```json
+{
+  "tenant_uuid": "…",
+  "emitido_em": "2026-06-14T12:00:00Z",
+  "licencas": [ /* itens §7.3/§7.4 — só easy-* */ ]
+}
 ```
-licencas: [
-  { app: "easy-orca", modelo: "contador", plano: "advanced",
-    restantes: 7, periodo_fim: "2026-07-01", status: "ACTIVE" },
-  { app: "easy-build-diary", modelo: "slot", plano: "starter",
-    slots: 5, slots_em_uso: 3, swaps_restantes: 1, periodo_fim: "...", status: "ACTIVE" },
-  { app: "easy-docs", plano: "single-use", restantes: 0,
-    expira_em: "2026-06-20", status: "VIEW_ONLY" }
-]
+- App **ausente** da lista = **não-licenciado** (card em stand-by "assinar").
+- App **presente** = licenciado; `status` (§7.5) diz se ACTIVE / VIEW_ONLY / ARCHIVED.
+
+**Campos comuns a todo item:**
+| campo | tipo | obs |
+|---|---|---|
+| `app` | string | `code` canônico (§7.1) |
+| `plano` | enum | `single-use` \| `starter` \| `advanced` \| `unlimited` |
+| `status` | enum | `ACTIVE` \| `VIEW_ONLY` \| `ARCHIVED` (§7.5) |
+| `periodo_inicio` | date | início do período corrente |
+| `periodo_fim` | date | renovação (reset **não-cumulativo**); p/ `single-use` = expiração da janela 30d |
+
+### 7.3 Item CONTADOR (Price1/2, CPU, Orça, Docs, PM, LicitPlan)
+| campo | tipo | obs |
+|---|---|---|
+| `cota` | int \| null | usos do período (`single-use`=1; `null` se `unlimited`) |
+| `restante` | int \| null | **autoritativo do Hub** na emissão (`null` se `unlimited`) |
+```json
+{ "app": "easy-orca", "plano": "advanced", "status": "ACTIVE",
+  "periodo_inicio": "2026-06-01", "periodo_fim": "2026-07-01",
+  "cota": 10, "restante": 7 }
 ```
-*Prazos:* o Easy **precisa** de `periodo_fim`/`expira_em` — mas **só como snapshot** para UX
-("renova/expira em") e gate local. **A verdade da cota é do Hub.**
+Easy mantém contador **local** (`cota − usos confirmados no período`, do ledger) p/ gate ao vivo e
+**reconcilia** com `restante` a cada sync.
 
-**Easy → Hub** (ao consumir — **com garantia, padrão outbox**):
-1. Easy grava o uso **localmente** (ledger, chave = artefato+ciclo) e libera a entrega.
-2. Worker **entrega ao Hub e re-tenta com backoff até ACK** (PENDENTE→ENVIADO→CONFIRMADO; ERRO
-   re-tenta). Nunca desiste sem confirmação.
-3. Hub **deduplica pela chave** e decrementa; devolve o restante atualizado.
-4. No login/periodicamente o Easy **re-sincroniza** o restante (reconciliação).
+### 7.4 Item SLOT (BuildDiary, FinControl)
+| campo | tipo | obs |
+|---|---|---|
+| `slots` | int \| null | obras ativas permitidas (`null` se `unlimited`) |
+| `swaps_cota` | int | trocas por período (padrão **1**) |
+```json
+{ "app": "easy-build-diary", "plano": "starter", "status": "ACTIVE",
+  "periodo_inicio": "2026-06-01", "periodo_fim": "2026-07-01",
+  "slots": 5, "swaps_cota": 1 }
+```
+`slots_em_uso` e `swaps_restante` são **derivados pelo Easy** (as obras vivem no Easy); o Easy
+reporta ativação/desativação ao Hub (mesmo outbox) p/ billing/auditoria.
 
-Tolera queda de rede **sem perder cobrança nem cobrar em dobro**.
+### 7.5 Status (enum) — quem calcula
+O **Hub calcula** a partir de vencimento/graça e assina por app:
+`ACTIVE` (full) · `VIEW_ONLY` (graça pós-contrato, §4/§5) · `ARCHIVED` (foi p/ backup, §5).
+
+### 7.6 Easy → Hub — report de uso (com garantia, padrão outbox)
+```json
+{
+  "evento_id": "uuid",                 // idempotência (dedup no Hub)
+  "tenant_uuid": "…",
+  "app": "easy-orca",
+  "tipo": "USO",                       // USO | SLOT_ATIVAR | SLOT_DESATIVAR
+  "artefato": { "tipo": "ativo", "id": 123, "ciclo": 2 },
+  "ocorrido_em": "2026-06-14T12:34:56Z"
+}
+```
+Fluxo: (1) Easy grava o uso local (ledger, UNIQUE por `app+artefato+ciclo`) e libera a entrega →
+(2) worker **entrega e re-tenta com backoff até ACK** (PENDENTE→ENVIADO→CONFIRMADO; ERRO re-tenta,
+nunca desiste) → (3) Hub **deduplica por `evento_id`** e decrementa; responde ACK + `restante`
+atualizado → (4) Easy **re-sincroniza** no login/periodicamente. **Sem perder cobrança nem cobrar
+em dobro.**
 
 ---
 
