@@ -2452,7 +2452,7 @@ CREATE INDEX ix_ativos_catalog_source
 --   ficha_tec            → a GERAÇÃO/versão do deck (global, curada Axys)
 --   ficha_tec_itens      → PONTE N:N: que parâmetros esta versão usa
 --   ficha_tec_parametros → VOCABULÁRIO global de parâmetros (AREA_TERRENO, TEM_SPDA…)
---   ficha_tec_atributos  → VALOR por ativo: (ativo | parâmetro | valor tipado) — do user
+--   ativo_ficha_tec_atributos → VALOR por ativo: (ativo | parâmetro | valor tipado) — do user
 --   ficha_tec_param_servicos → SUGESTÕES de composição por parâmetro (auto-check)
 --
 -- Regras transversais:
@@ -2571,11 +2571,11 @@ CREATE INDEX ix_fti_fparam
 -- CDHU 44.01.052 / …). Serve para:
 --   (a) tornar a estimativa por driver mais CONVERGENTE (o parâmetro "sabe" em que
 --       serviços vira quantidade);
---   (b) o botão "CONFERIR PARÂMETROS": concilia o que o user digitou (ficha_tec_atributos)
+--   (b) o botão "CONFERIR PARÂMETROS": concilia o que o user digitou (ativo_ficha_tec_atributos)
 --       com o que o orçamento levantou — mostra divergências, o user DECIDE (não bloqueia,
 --       não corrige sozinho; é conciliação, perícia humana — mesma filosofia do AxysCAD).
 --
--- NÃO carrega quantidade (o "quanto" mora em ficha_tec_atributos / drivers). Aqui é só
+-- NÃO carrega quantidade (o "quanto" mora em ativo_ficha_tec_atributos / drivers). Aqui é só
 -- o "qual serviço" (o "o quê"). Mantém os dois eixos separados.
 --
 -- LINHA-POR-SUGESTÃO (nunca array de cmp_id em jsonb — lição ins_external_path):
@@ -2650,7 +2650,7 @@ CREATE TABLE IF NOT EXISTS ativo.ativo_ficha_tec_atributos (
 CREATE INDEX ix_fatr_atv
     ON ativo.ativo_ficha_tec_atributos (fatr_atv_id);
 CREATE INDEX ix_fatr_fparam
-    ON ativo.ficha_tec_atributos (fatr_fparam_id);
+    ON ativo.ativo_ficha_tec_atributos (fatr_fparam_id);
 
 
 -- ============================================================
