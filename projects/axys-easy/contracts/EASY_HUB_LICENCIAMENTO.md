@@ -139,6 +139,31 @@ Linha do tempo após o fim do contrato:
 
 ## 7. Interface de dados (contrato fechado)
 
+### 7.0 Claims do token (JWT que o Hub assina)
+O Easy **lê** estes claims do JWT (SSO RS256 em prod; HS256 no login local de dev). Identidade +
+licenças no mesmo token:
+```json
+{
+  "sub": "<user_uuid>",
+  "name": "Renan", "email": "renan@…",
+  "tenant_uuid": "<tenant_uuid>", "tenant_code": "AXYS", "tenant_name": "Axys…",
+  "role": "owner|admin|user",                 // NORMALIZADO (sem prefixo)
+  "tenant_role": "internal_owner|owner|…",     // role EXATO do vínculo no Hub
+  "is_staff": true,
+  "licencas": [ /* §7.3/§7.4 — só easy-* */ ],
+  "iss": "…", "aud": "easy", "iat": 0, "exp": 0
+}
+```
+- **`is_staff`** (bool) = **porteira** (back-office Axys) — vem **direto do Hub** (não derivar do
+  prefixo do `role`). O Hub manda `role` **já normalizado** (`owner|admin|user`) + `tenant_role`
+  (exato, `internal_*` p/ time interno). `easy-*` define os produtos; `tenant_uuid` = **raiz de
+  isolamento**. (Confere com `axys-hub/integrations/sso-login-easy.md` §3.)
+- **`licencas` é por USUÁRIO** — o Hub resolve `licença-do-tenant ∩ vínculo-do-user` e envia só os
+  apps que **este** user pode abrir (ex.: user com Price e sem Orça). `role` só pesa no **internal**
+  (catálogo) — no client é role-agnóstico. Ver `EASY_PERFIS_PERMISSOES.md`.
+- **Compat de transição:** se vier o molde antigo `apps_licenciadas: ["easy-…"]` (lista de strings),
+  o Easy sintetiza `licencas` com `status=ACTIVE`/`plano=unlimited`. O alvo é o molde novo (`licencas`).
+
 ### 7.1 Registro canônico de apps (`nome_apps`) — fonte da verdade
 O Hub **DEVE** usar exatamente estes `code` (e enviar **somente** `easy-*`). `modelo` é
 **derivado pelo Easy** a partir deste registro — o Hub **não** envia `modelo`.
@@ -149,10 +174,10 @@ O Hub **DEVE** usar exatamente estes `code` (e enviar **somente** `easy-*`). `mo
 | `easy-price-2`     | PR2  | Easy Price 2        | contador |
 | `easy-cpu`         | CPU  | Easy CPU            | contador |
 | `easy-orca`        | ORÇ  | Easy Orça           | contador |
-| `easy-docs`        | DOCS | Easy Docs           | contador |
-| `easy-pm`          | PM   | Easy ProjectManager | contador |
+| `easy-docs`        | DOC  | Easy Docs           | contador |
+| `easy-pm`          | PRJ  | Easy ProjectManager | contador |
 | `easy-licit-plan`  | LIC  | Easy LicitPlan      | contador |
-| `easy-build-diary` | DIÁ  | Easy BuildDiary     | slot |
+| `easy-build-diary` | DIA  | Easy BuildDiary     | slot |
 | `easy-fin-control` | FIN  | Easy FinControl     | slot |
 
 > ⚠️ Alinhar o stub de dev `_DEV_CLAIMS` (`easy-diary`/`easy-fin`/`easy-licit` estão **errados**) a
@@ -166,6 +191,12 @@ futuro `easy-price-3` / "Price 2+") **entra AQUI** neste registro, com **a mesma
 dados** (code/abbr/label/modelo + os campos §7.3/§7.4). **Não se pré-lista produto não lançado** —
 o doc só carrega o que existe; ao lançar, registra-se aqui e o padrão se mantém (zero refactor de
 interface).
+
+**Labels/abbr são canônicos AQUI (UTF-8, com acento).** A coluna `label`/`abbr` desta tabela é a
+fonte da verdade de exibição (ex.: **`Easy Orça`** com cedilha, abbr **`ORÇ`**). O Easy usa os
+**próprios** labels (`_APP_LABELS`/`_PRODUCTS`), então o Hub **não precisa** enviar `label`/`app_labels`;
+se enviar, **deve bater 100%** com esta tabela. ⚠️ **Pendência Hub:** hoje o token traz
+`label: "Easy Orca"` (sem cedilha) → corrigir para **`Easy Orça`** (ou parar de enviar `label`).
 
 ### 7.2 Envelope (Hub → Easy) — no login e sob consulta
 ```json
@@ -191,7 +222,7 @@ interface).
 | campo | tipo | obs |
 |---|---|---|
 | `cota` | int \| null | usos do período (`single-use`=1; `null` se `unlimited`) |
-| `restante` | int \| null | **autoritativo do Hub** na emissão (`null` se `unlimited`) |
+| `restante` | int \| null | **snapshot** do Hub na emissão; contador **vivo** = ledger do Easy (ver §10) (`null` se `unlimited`) |
 ```json
 { "app": "easy-orca", "plano": "advanced", "status": "ACTIVE",
   "periodo_inicio": "2026-06-01", "periodo_fim": "2026-07-01",
@@ -261,11 +292,34 @@ agora — evoluem livres. (Já refletido no código: `apps = [s for s in ... if 
 
 ---
 
-## 10. A confirmar com o time do Hub
+## 10. Reconciliação Hub ↔ Easy (2026-06-15) — cruzamento dos contratos
 
-1. Campos exatos do snapshot por app (§7) e o **endpoint de consulta** (re-sync) + **endpoint de
-   report** (idempotente por chave).
-2. **N de graça pós-contrato** (≥30, prática 90) — gatilho da desconstrução (cruza com arquivamento).
-3. Política de **renovação não-cumulativa** (reset do contador no `periodo_fim`).
-4. Semântica de **swap** do slot (1/mês) — Hub guarda a contagem ou confia no Easy?
-5. Formato do `status` (ACTIVE/VIEW_ONLY/ARCHIVED) e quem o calcula (Hub, a partir de vencimento).
+Cruzado com `axys-hub/adrs/HUB-ADR-003-licenciamento-lease-token.md`,
+`axys-hub/integrations/sso-login-easy.md` e `with-easy.md`. **Decisões para fechar o assunto e
+liberar o Hub a implementar depois** (Easy ajusta do seu lado; Hub puxa, lê e alinha):
+
+**Divisão de responsabilidade (fica assim):**
+- **Hub = ACESSO + PLANO.** É dono do **lease/token** (ADR-003): quais apps, **plano**
+  (single-use/starter/advanced/unlimited) e **`status`** (ACTIVE/VIEW_ONLY/ARCHIVED) por
+  vencimento/graça. Assina no JWT o array **`licencas`** (§7) + identidade (§7.0).
+- **Easy = CONTADOR DE USO.** O "uso" (**download final**, §2) acontece no Easy → o Easy mantém o
+  ledger `licenca.uso` (`restante = cota − usos no período`) e **reporta cada uso ao Hub** (outbox
+  §7.6) p/ billing/auditoria. O `cota`/`restante` no token são **snapshot/reconciliação**; a verdade
+  **viva** do contador é o ledger do Easy. (O Hub não precisa decrementar em tempo real — recebe o report.)
+
+**Mapeamento de modelos (lease ↔ per-use):** o **lease-token** do Hub governa o **acesso no tempo**;
+o **per-use** do Easy governa o **consumo dentro do acesso**. Compõem, não competem:
+- Hub **Grace / Modo Degradado** (ADR-003: leitura/rascunho OK, export oficial bloqueado) **=** nosso
+  **VIEW_ONLY** (lê + RASCUNHO; sem download final/produzir).
+- **ARCHIVED** = nosso arquivamento (offload p/ backup — `EASY_HUB_ARQUIVAMENTO.md`).
+
+**Pontos para o Hub ajustar no lado dele (relay):**
+1. **Documentar `licencas`** (objetos, §7.3/§7.4) em `sso-login-easy.md §3` — hoje lista só
+   `apps_licenciadas` (flat). Manter `apps_licenciadas` apenas como **compat**.
+2. **Slugs canônicos** = os 9 do §7.1 (fecha a inconsistência apontada em `sso-login-easy §4.1`:
+   `easy-build-diary`/`easy-fin-control`/`easy-licit-plan`, não `easy-diary`/`easy-fin`/`easy-licit`).
+3. **Report de uso:** aceitar o POST do §7.6 (idempotente por `evento_id`/artefato+ciclo) p/ billing —
+   **sem** obrigação de decrementar contador (o Easy conta).
+
+**Já alinhado / nada a fazer:** SSO A2 (code+exchange) + validação **offline via JWKS**; porteira
+`is_staff`; `tenant_role`+`role`+`is_staff` no token (nosso §7.0 atualizado); grace↔VIEW_ONLY.
