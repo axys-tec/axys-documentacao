@@ -10,7 +10,7 @@
 
 AxysHub é o **sistema central de autenticação e gestão de tenants** do ecossistema Axys.
 
-**Função principal:** Centralizar identidade, permissões e autorização para todos os projetos Axys (Easy, Pro, Dash, etc).
+**Função principal:** Centralizar identidade, permissões e autorização para todos os projetos Axys (Easy, Pro, Gestor, etc).
 
 **Responsabilidades:**
 - Autenticação via SSO (OAuth/JWT)
@@ -29,8 +29,8 @@ Hub Database
 ├── tenants            # empresas/organizações (multitenancy)
 ├── hub_user_tenant    # mapeamento usuário ↔ tenant
 ├── permissions        # papéis e permissões
-├── audit.login_logs   # login/logout eventos
-└── audit.logs         # mudanças em dados
+├── hub_login_log      # login/logout eventos
+└── hub_audit_log      # mudanças em dados
 ```
 
 **Acessar schema:**
@@ -42,7 +42,7 @@ Hub Database
 
 ## 🏗️ Arquitetura
 
-Veja [ARCHITECTURE.md](ARCHITECTURE.md) para visão detalhada.
+Veja [ARCHITECTURE.md](ARCHITECTURE.md) para a visão canônica consolidada do Hub.
 
 **Principais componentes:**
 1. **API REST** — endpoints de autenticação e gestão
@@ -58,14 +58,13 @@ Veja [ARCHITECTURE.md](ARCHITECTURE.md) para visão detalhada.
 |---------|-------------|
 | **AxysEasy** | Valida JWT via [AXYS-ADR-021](../../foundation/adrs/AXYS-ADR-021-SSO-JWT-hub-easy.md) |
 | **AxysPro** | (futuro) Usará mesma autenticação |
-| **AxysDash** | Autentica via client credentials |
+| **AxysGestor** | Autentica via client credentials |
 
 Veja [integrations/](../../integrations/) para mapa completo.
 
 **Documentos relacionados:**
 - [integrations/sso-login-easy.md](integrations/sso-login-easy.md)
-- [contracts/ACESSO_E_GOVERNANCA.md](contracts/ACESSO_E_GOVERNANCA.md)
-- [EASY_HUB_ARQUIVAMENTO.md](EASY_HUB_ARQUIVAMENTO.md)
+- [ARCHITECTURE.md](ARCHITECTURE.md)
 
 ---
 
@@ -73,9 +72,8 @@ Veja [integrations/](../../integrations/) para mapa completo.
 
 | Arquivo | Propósito |
 |---------|----------|
-| [ARCHITECTURE.md](ARCHITECTURE.md) | Visão geral e componentes principais |
+| [ARCHITECTURE.md](ARCHITECTURE.md) | Documento canônico do Hub: escopo, arquitetura, `client`, `internal`, billing, Gestor e arquivamento |
 | [adrs/](adrs/) | Decisões específicas do Hub |
-| [contracts/ACESSO_E_GOVERNANCA.md](contracts/ACESSO_E_GOVERNANCA.md) | Contrato de papéis, billing e vínculo usuário ↔ app |
 | [api/](api/) | Endpoints e fluxos |
 | [schemas/](schemas/) | Banco de dados |
 | [operations/](operations/) | Deploy e monitoramento |
@@ -84,9 +82,10 @@ Veja [integrations/](../../integrations/) para mapa completo.
 
 ## 🚀 Próximos Passos
 
-- ⬜ Completar ARCHITECTURE.md
 - ⬜ Documentar endpoints em api/endpoints.md
-- ⬜ Consolidar o vínculo usuário ↔ app no portal Hub com regra comercial por assinatura
+- ⬜ Materializar no código o mapa formal `Client Portal` × `Internal Console`
+- ⬜ Modelar billing/recebimentos com Asaas antes da refatoração profunda de telas
+- ⬜ Consolidar o domínio `Internal` do Hub antes de expandir UI
 - ⬜ Criar runbooks de operação
 
 ---

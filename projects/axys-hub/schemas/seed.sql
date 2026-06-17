@@ -25,8 +25,7 @@
 INSERT INTO hub_sistema (sistema_id, sistema_code, nome, tipo, sha256_key, status)
 VALUES
     (gen_random_uuid(), 'AXYSPRO',            'AxysPro',            'suite',    '716f845961260056ec1918d9dc19816cedbb91328aaf796217b9e1a41a6e27e7', 'active'),
-    (gen_random_uuid(), 'AXYSDASH',           'AxysGestor',         'microapp', 'ff07ba8dc2c1df2dc5274987330e725bd7e55aa3227926affb2fa6eff531e498', 'active'),
-    (gen_random_uuid(), 'API_DASH',           'API_Dash',           'api',      '5f77f7c5f459ce703c27854439a8e4c82b22bd84fe84f651605d2f06e54f1631', 'active'),
+    (gen_random_uuid(), 'AXYSGESTOR',         'AxysGestor',         'microapp', 'ff07ba8dc2c1df2dc5274987330e725bd7e55aa3227926affb2fa6eff531e498', 'active'),
     (gen_random_uuid(), 'EASYCPU',            'EasyCPU',            'microapp', 'aa0e6a2c5ab55942079a1f04e77e799f72a985c2dc5c1d1593b639c0d6fb255b', 'active'),
     (gen_random_uuid(), 'EASYORCA',           'EasyOrça',           'microapp', '92ea1795d5cd591833de60267d0fb8a3211ee73f09c576174aca6d8a7e290017', 'active'),
     (gen_random_uuid(), 'EASYPRICE',          'EasyPrice',          'microapp', 'a9b60a18d72d64302d89e2439ca6e39088691ebb196edc85c62db3d34ac10f1b', 'active'),
@@ -135,7 +134,7 @@ FROM (VALUES
     ('LUNALO', 'lunalocalcados@hotmail.com',        'admin'),
     ('DCENG',  'rdias07@live.com',                  'owner'),
     ('DCENG',  'thays_hernandes@hotmail.com',       'admin'),
-    ('DCENG',  'diasecardozo@diasecardozo.com.br',  'member')
+    ('DCENG',  'diasecardozo@diasecardozo.com.br',  'user')
 ) AS v(tenant_code, email, role)
 JOIN hub_tenant t ON t.tenant_code = v.tenant_code
 JOIN hub_user   u ON u.email       = v.email
@@ -206,8 +205,7 @@ SELECT
     now()
 FROM hub_sistema s
 WHERE s.sistema_code IN (
-    'AXYSDASH',
-    'API_DASH',
+    'AXYSGESTOR',
     'AXYSPRO',
     'EASYCPU',
     'EASYDOCS',
@@ -227,7 +225,7 @@ ON CONFLICT (sistema_id, versao, nome) DO UPDATE SET
 
 
 -- ─── hub_assinatura ──────────────────────────────────────────
--- AXYS: tudo liberado. LUNALO: apenas Gestor/API. DCENG: Easy liberado.
+-- AXYS: tudo liberado. LUNALO: apenas Gestor. DCENG: Easy liberado.
 INSERT INTO hub_assinatura (assinatura_id, tenant_id, sistema_id, plano_id, status, started_at)
 SELECT
     gen_random_uuid(),
@@ -246,7 +244,7 @@ WHERE
     (t.tenant_code = 'AXYS')
     OR (
         t.tenant_code = 'LUNALO'
-        AND s.sistema_code IN ('AXYSDASH', 'API_DASH')
+        AND s.sistema_code IN ('AXYSGESTOR')
     )
     OR (
         t.tenant_code = 'DCENG'

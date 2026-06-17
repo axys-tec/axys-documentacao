@@ -16,7 +16,7 @@ O AxysHub é o núcleo de governança do ecossistema Axys, responsável por:
 - Catálogo de sistemas e microapps
 - Licenciamento e assinaturas
 - Auditoria central
-- Integração com sistemas externos (AxysDash, AxysPro, etc.)
+- Integração com sistemas externos (AxysGestor, AxysPro, etc.)
 
 Este ADR define o **Seed Mínimo Inicial** como referência canônica do projeto, servindo como:
 
@@ -34,15 +34,15 @@ Seed mínimo obrigatório, idempotente (ON CONFLICT seguro), versionado neste AD
 
 ### 2.1 Sistemas (hub_sistema)
 
-11 sistemas do ecossistema cadastrados no seed:
+10 sistemas vendáveis do ecossistema cadastrados no seed:
 
 | sistema_code       | nome               | tipo     |
 |:-------------------|:-------------------|:---------|
 | AXYSPRO            | AxysPro            | suite    |
-| AXYSDASH           | AxysGestor         | microapp |
-| API_DASH           | API_Dash           | api      |
+| AXYSGESTOR         | AxysGestor         | microapp |
 | EASYCPU            | EasyCPU            | microapp |
 | EASYORCA           | EasyOrça           | microapp |
+| EASYPRICE2         | EasyPrice 2        | microapp |
 | EASYPRICE          | EasyPrice          | microapp |
 | EASYPROJECTMANAGER | EasyProjectManager | microapp |
 | EASYBUILDDIARY     | EasyBuildDiary     | microapp |
@@ -69,7 +69,7 @@ Seed mínimo obrigatório, idempotente (ON CONFLICT seguro), versionado neste AD
 | lunalocalcados@hotmail.com       | Lunalô Calcados | user      | LUNALO  | admin           |
 | rdias07@live.com                 | Renan Dias      | hub_admin | DCENG   | owner           |
 | thays_hernandes@hotmail.com      | Thaís           | user      | DCENG   | admin           |
-| diasecardozo@diasecardozo.com.br | Dias e Cardozo  | user      | DCENG   | member          |
+| diasecardozo@diasecardozo.com.br | Dias e Cardozo  | user      | DCENG   | user            |
 
 Campos obrigatórios preenchidos no seed:
 
@@ -91,7 +91,7 @@ Campos obrigatórios preenchidos no seed:
 ### 2.5 Licenças (hub_licenca)
 
 - **AXYS**: sistemas internos e apps Easy liberados no bootstrap inicial
-- **LUNALO**: apenas `AXYSDASH` (`AxysGestor`) e `API_DASH`
+- **LUNALO**: apenas `AXYSGESTOR` (`AxysGestor`)
 - **DCENG**: apps Easy liberadas no bootstrap inicial
 
 ### 2.6 Princípios obrigatórios
@@ -114,7 +114,7 @@ Campos obrigatórios preenchidos no seed:
 
 **Negativas / compensações:**
 - CPFs e endereços reais não podem ser commitados no repositório
-- Seed mais extenso que o mínimo absoluto (13 sistemas + 3 tenants + 4 usuários)
+- Seed mais extenso que o mínimo absoluto (10 sistemas vendáveis + 3 tenants + 4 usuários)
 
 ---
 

@@ -20,7 +20,7 @@
 -- USUÁRIOS:
 -- - hub_user: identidade global do usuário (cross-tenant)
 -- - hub_user_tenant: vínculo usuário ↔ tenant com role local
---   (owner | admin | member | internal_owner | internal_admin | internal_user)
+--   (owner | admin | user | internal_owner | internal_admin | internal_user)
 -- - sys_role em hub_user: role de sistema (hub_admin | user)
 --   distinto do role de tenant
 -- - CPF: opcional, único quando informado, 11 dígitos numéricos
@@ -272,7 +272,7 @@ CREATE TABLE IF NOT EXISTS hub_pacote_combo (
 -- role: papel do usuário dentro deste tenant específico
 --   'owner'          — dono da conta, permissões máximas no tenant cliente
 --   'admin'          — administrador delegado do tenant cliente
---   'member'         — usuário padrão (padrão)
+--   'user'           — usuário padrão (padrão)
 --   'internal_owner' — poder máximo interno Axys
 --   'internal_admin' — operação administrativa interna Axys
 --   'internal_user'  — uso interno comum Axys
@@ -281,7 +281,7 @@ CREATE TABLE IF NOT EXISTS hub_user_tenant (
     user_tenant_id UUID        NOT NULL DEFAULT gen_random_uuid(),
     tenant_id      UUID        NOT NULL,
     user_id        UUID        NOT NULL,
-    role           TEXT        NOT NULL DEFAULT 'member',
+    role           TEXT        NOT NULL DEFAULT 'user',
     is_active      BOOLEAN     NOT NULL DEFAULT TRUE,
     created_at     TIMESTAMPTZ NOT NULL DEFAULT now(),
 
@@ -302,7 +302,7 @@ CREATE TABLE IF NOT EXISTS hub_user_tenant (
         ON DELETE CASCADE,
 
     CONSTRAINT ck_hub_user_tenant_role
-        CHECK (role IN ('owner', 'admin', 'member', 'internal_owner', 'internal_admin', 'internal_user'))
+        CHECK (role IN ('owner', 'admin', 'user', 'internal_owner', 'internal_admin', 'internal_user'))
 );
 
 CREATE INDEX idx_hub_user_tenant_tenant
