@@ -550,7 +550,8 @@ FROM (VALUES
     ('SINAPI', '2026-01-01', '01-26'),
     ('SINAPI', '2026-02-01', '02-26'),
     ('SINAPI', '2026-03-01', '03-26'),
-    ('SINAPI', '2026-04-01', '04-26')
+    ('SINAPI', '2026-04-01', '04-26'),
+    ('SINAPI', '2026-05-01', '05-26')
 ) AS v(fonte, mes, versao)
 JOIN catalogo.fontes f ON f.fte_codigo = v.fonte
 ORDER BY v.mes::DATE, v.fonte;
@@ -2251,6 +2252,109 @@ CREATE INDEX ix_audit_api_criado_em
 
 
 
+-- ============================================================
+-- SCHEMA: core  (infra transversal da app — não é domínio)
+-- ============================================================
+-- Casa de tabelas de plumbing que não pertencem a catalogo/ativo:
+-- hoje, o registro durável de JOBS assíncronos (Celery).
+-- Decisão: ADR-006 (docs/.../adrs/EASY-ADR-006-arquitetura-de-jobs-e-escala.md).
+-- ============================================================
+CREATE SCHEMA IF NOT EXISTS core;
+
+GRANT USAGE ON SCHEMA core TO "axys_tec";
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA core
+    GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO "axys_tec";
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA core
+    GRANT USAGE, SELECT ON SEQUENCES TO "axys_tec";
+
+-- ------------------------------------------------------------
+-- core.jobs — registro durável de jobs assíncronos (ADR-006 §3.4)
+-- ------------------------------------------------------------
+-- A VERDADE do status de um job (o AsyncResult do Redis expira em 24h e não é
+-- consultável por tenant). Também é a fila lógica do ingest→process: linhas
+-- 'pendente'/'agendado' aguardam o disparo ("processar agora" do admin).
+--
+-- ESTADO é MUTÁVEL (pendente→rodando→ok/erro) — por isso fica em `core`, não em
+-- `audit` (que é trilha append-only). A auditoria de quem disparou continua em
+-- audit.logs; aqui guardamos a execução.
+--
+-- TENANCY: job_tenant_uuid é a RAIZ de isolamento, NULLABLE — jobs de sistema/admin
+-- (import de fonte-base) NÃO têm tenant; jobs de cliente (módulo ativo) SEMPRE têm.
+-- RLS: ATIVA já neste subir (decisão 2026-06-18 — exceção ao deferral do resto do repo;
+-- o custo da coluna+policy é baixo e preferimos subir isolado). Ver ADR-006 §3.5.
+-- ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS core.jobs (
+    job_id            INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,  -- INT basta: jobs são purgáveis (sanitização periódica) e o volume de inserts/vida não chega perto de 2,1 bi
+
+    -- Identidade de execução
+    job_task_id       TEXT,                              -- id da task Celery (AsyncResult); NULL enquanto só 'pendente'/'agendado'
+    job_tenant_uuid   UUID,                              -- RAIZ de isolamento; NULL = job de sistema/admin (sem tenant). [VALIDAR] sem FK física (hub é banco externo).
+
+    -- O quê / pra onde
+    job_tipo          TEXT          NOT NULL,            -- ex.: 'importar_sinapi' | 'importar_cdhu' | 'gerar_caderno' | 'conversao_cliente' (conjunto aberto — sem CHECK p/ não acoplar)
+    job_fila          TEXT          NOT NULL             -- classe de carga / roteamento (ADR-006 §3.1)
+                      CHECK (job_fila IN ('imports', 'clients', 'maint')),
+    job_prioridade    SMALLINT      NOT NULL DEFAULT 0,  -- ordenação OPCIONAL dentro da fila 'clients' (maior = antes); não preempta — ver ADR-006 §3.1
+
+    -- Máquina de estados
+    job_estado        TEXT          NOT NULL DEFAULT 'pendente'
+                      CHECK (job_estado IN ('pendente', 'agendado', 'rodando', 'ok', 'erro', 'cancelado')),
+
+    -- Dados (entrada / progresso / saída)
+    job_payload       JSONB,                             -- args do enfileiramento (fte_id, edi_id, arquivos…)
+    job_progresso     JSONB,                             -- stages/percentual em andamento (espelha o stage() do import)
+    job_resultado     JSONB,                             -- retorno em sucesso (url do caderno, contagens…)
+    job_erro          TEXT,                              -- mensagem em falha
+
+    -- Quem / quando
+    job_usuario       TEXT,                              -- quem disparou (mesmo rótulo do audit)
+    job_agendado_para TIMESTAMPTZ,                       -- ingest→process: quando processar; NULL = assim que possível
+    job_criado_em     TIMESTAMPTZ   NOT NULL DEFAULT NOW(),
+    job_iniciado_em   TIMESTAMPTZ,
+    job_terminado_em  TIMESTAMPTZ
+);
+
+-- drainer/painel: pega o próximo a rodar por fila (pendentes/agendados vencidos)
+CREATE INDEX ix_core_jobs_fila_estado
+    ON core.jobs (job_fila, job_estado, job_prioridade DESC, job_agendado_para);
+-- histórico por tenant (área do cliente)
+CREATE INDEX ix_core_jobs_tenant
+    ON core.jobs (job_tenant_uuid, job_criado_em DESC)
+    WHERE job_tenant_uuid IS NOT NULL;
+-- lookup pelo id da task Celery (status em tempo real)
+CREATE UNIQUE INDEX ix_core_jobs_task
+    ON core.jobs (job_task_id)
+    WHERE job_task_id IS NOT NULL;
+CREATE INDEX ix_core_jobs_criado_em
+    ON core.jobs (job_criado_em DESC);
+
+-- ── RLS (ATIVA) — isolamento por tenant em core.jobs ──
+-- Contrato de contexto de sessão (a app SETa por request/task):
+--   • servidor/admin (workers, ingest, painel staff): SET app.is_internal = 'on'
+--       → acesso total, inclui jobs de sistema sem tenant (ex.: import de fonte-base).
+--   • área do cliente: SET app.current_tenant = '<uuid>' (sem is_internal)
+--       → enxerga/escreve só os próprios jobs.
+--   • nada setado → NEGA tudo (default-deny): contexto esquecido não vaza.
+-- FORCE: o dono (axys_tec, não-superuser) também obedece — sem FORCE o owner ignora RLS.
+ALTER TABLE core.jobs ENABLE ROW LEVEL SECURITY;
+ALTER TABLE core.jobs FORCE  ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS jobs_acesso ON core.jobs;   -- idempotente (CREATE POLICY não tem IF NOT EXISTS)
+CREATE POLICY jobs_acesso ON core.jobs
+    USING (
+        current_setting('app.is_internal', true) = 'on'
+        OR job_tenant_uuid = NULLIF(current_setting('app.current_tenant', true), '')::uuid
+    )
+    WITH CHECK (
+        current_setting('app.is_internal', true) = 'on'
+        OR job_tenant_uuid = NULLIF(current_setting('app.current_tenant', true), '')::uuid
+    );
+
+
+
+
 -- ############################################################
 -- ############################################################
 -- MÓDULO ATIVO (+ tenant_catalogo + arquivo)
@@ -2414,6 +2518,15 @@ CREATE TABLE IF NOT EXISTS ativo.empreendimentos (
     emp_codigo_interno  TEXT,                              -- código próprio do tenant (nullable)
     emp_nome            TEXT    NOT NULL,
     emp_descricao       TEXT,
+    -- Endereço (NULLABLE; cadastro via BuscaCEP/ViaCEP). O ativo herda este endereço,
+    -- mas pode ter o seu próprio (ativo.ativos.atv_end_*).
+    emp_end_cep         TEXT,                              -- só dígitos (8); preenche logradouro/bairro/município/UF via CEP
+    emp_end_logradouro  TEXT,
+    emp_end_numero      TEXT,
+    emp_end_complemento TEXT,
+    emp_end_bairro      TEXT,
+    emp_end_municipio   TEXT,
+    emp_end_uf          CHAR(2),                           -- UF DO ENDEREÇO (≠ UF de preço do ativo)
     emp_is_public       BOOLEAN NOT NULL DEFAULT FALSE,    -- ABRANGÊNCIA: TRUE=PÚBLICA (modelo Axys visível a todos), FALSE=PRIVADA (do tenant)
     emp_arquivado       BOOLEAN NOT NULL DEFAULT FALSE,    -- arquivado (sai da listagem padrão; reaparece com "exibir arquivados")
     emp_criado_em       TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -2489,6 +2602,14 @@ CREATE TABLE IF NOT EXISTS ativo.ativos (
     atv_nome            TEXT    NOT NULL,
     atv_status          TEXT    NOT NULL DEFAULT 'RASCUNHO',-- rascunho/ativo/arquivado…
     atv_uf              CHAR(2),                           -- UF default (sobreposta no contexto de preço)
+    -- Endereço PRÓPRIO do ativo (NULLABLE). Vazio = herda do empreendimento (emp_end_*).
+    atv_end_cep         TEXT,                              -- só dígitos (8); BuscaCEP/ViaCEP
+    atv_end_logradouro  TEXT,
+    atv_end_numero      TEXT,
+    atv_end_complemento TEXT,
+    atv_end_bairro      TEXT,
+    atv_end_municipio   TEXT,
+    atv_end_uf          CHAR(2),                           -- UF DO ENDEREÇO (≠ atv_uf de preço)
     atv_criado_em       TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     atv_atualizado_em   TIMESTAMPTZ,
     atv_criado_por      TEXT,
@@ -2715,7 +2836,7 @@ CREATE INDEX ix_fatr_fparam ON ativo.ativo_ficha_tec_atributos (fatr_fparam_id);
 INSERT INTO ativo.ficha_tec_etapas (fet_codigo, fet_nome, fet_ordem) VALUES
     ('PARAMETROS_GERAIS',        'PARÂMETROS GERAIS',                   0),
     ('SERVICOS_INICIAIS',        'SERVIÇOS INICIAIS',                  10),
-    ('ADM_OBRA',                 'ADM DA OBRA',                        20),
+    ('ADM_OBRA',                 'ALO - ADMINISTRAÇÃO LOCAL DA OBRA',                        20),
     ('CANTEIRO_OBRAS',           'INSTALAÇÃO DO CANTEIRO DE OBRAS',    30),
     ('INFRAESTRUTURA',           'INFRAESTRUTURA',                     40),
     ('IMPERM_FUNDACAO',          'IMPERMEABILIZAÇÃO DE FUNDAÇÃO',      50),
