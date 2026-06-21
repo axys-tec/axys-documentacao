@@ -3125,7 +3125,8 @@ CREATE TABLE IF NOT EXISTS ativo.ativo_itens (
     ati_descricao       TEXT,
     ati_cmp_origem      TEXT,                              -- 'CATALOGO' | 'TENANT' | NULL
     ati_cmp_id          INTEGER,                           -- id da composição NA origem (FK polimórfica via app)
-    ati_quantidade      NUMERIC(18,6),                     -- derivada da memória se houver; senão digitada
+    ati_quantidade      NUMERIC(14,2),                     -- orçamento: 2 casas (preço já é TRUNC 2; +casas não muda o total).
+                                                           --   Derivada da memória de cálculo (round 2, SEM trunc) ou digitada.
     ati_unidade         TEXT,
     ati_bdi_id          INTEGER,                           -- BDI da linha (FK ativo_bdi; NULL em título/não-precificável). FK via ALTER (ver §BDI)
     ati_ajuste_json     JSONB,                             -- camada de ajuste REVERSÍVEL sobre o preço resolvido (§10)
