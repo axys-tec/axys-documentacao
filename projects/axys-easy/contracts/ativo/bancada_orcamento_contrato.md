@@ -2,7 +2,7 @@
 
 > **Escopo:** este documento especifica a **tela de produção** do orçamento — a grade dinâmica, reposicionável, estilo Excel-web — e o **contrato de ida-e-volta com o Excel** (easy-to-excel). Não trata da tab de exibição (resumo no workspace), que só mostra estado. Cronograma é documento separado.
 >
-> **Princípio que costura tudo:** tela, Excel e API são **três portas para a mesma `ativo_itens`**. O que se faz numa porta tem que aparecer igual na outra. Round-trip sem perda. A garantia disso é **uma só**: cada item carrega uma **chave estável** (`ati_id`) que viaja em toda representação.
+> **Princípio que costura tudo:** tela, Excel e API são **três portas para a mesma `ativo_itens`**. O que se faz numa porta tem que aparecer igual na outra. Round-trip sem perda. A garantia disso é **uma só**: cada item carrega uma **chave estável** (`ati_num`, local ao ativo — a PK global `ati_id` é interna; ver §2) que viaja em toda representação.
 
 ---
 
@@ -28,17 +28,23 @@
 
 ## 2. A chave estável — o que faz "não quebrar"
 
-Cada linha, em qualquer representação, carrega o **`ati_id`** (o id real do item na árvore) — e ele fica **exposto**, não escondido. É a identidade que vincula a linha à API e aos geradores de memória (AxysCAD/Revit): ver a chave ensina o usuário a confiar nela como o registro de verdade. No Excel ela ocupa uma **coluna própria visível** (ex.: coluna `A`), **protegida contra edição** e fora da **área imprimível** (não suja o orçamento impresso, mas está lá para o usuário e para o round-trip). Na tela aparece como identificador da linha.
+> **Duas identidades, papéis distintos (decisão 2026-06-21):**
+> - **`ati_num` — id LOCAL ao ativo (a chave exposta).** Sequencial **por ativo** (cada ativo começa em **1**), estável e **nunca reusado** (high-water em `ativos.atv_orc_seq`; excluir o último item não devolve o número). É o que o usuário **vê** (tela e Excel) e a **chave do round-trip**. Pequeno e legível — não cresce globalmente.
+> - **`ati_id` — PK GLOBAL interna.** Identity do banco; serve a FK (`parent_id`), joins e plumbing da API server-side. **Não é exibida** nem viaja no Excel (cresceria a números enormes e vazaria escopo entre ativos/tenants).
+>
+> Onde o contrato diz "a chave" / "chave estável", leia **`ati_num`**. O `ati_id` aparece só quando o assunto é mecânica interna do servidor.
+
+Cada linha, em qualquer representação, carrega o **`ati_num`** (a chave estável, local ao ativo) — e ele fica **exposto**, não escondido. É a identidade que vincula a linha à API e aos geradores de memória (AxysCAD/Revit): ver a chave ensina o usuário a confiar nela como o registro de verdade. No Excel ela ocupa uma **coluna própria visível** (ex.: coluna `A`), **protegida contra edição** e fora da **área imprimível** (não suja o orçamento impresso, mas está lá para o usuário e para o round-trip). Na tela aparece como identificador da linha (gutter). *(O `ati_id` global fica disponível em segundo plano — ex.: tooltip/suporte —, nunca como a coluna-chave.)*
 
 Regra de ouro do round-trip:
 
-- Linha **com `ati_id`** → é um item **existente**. Na volta, o sistema **atualiza no lugar** (qtd, descrição, cmp, bdi, posição). Reposicionar = mudar `parent_id`/`ordem`, **nunca** apagar-e-recriar.
-- Linha **sem `ati_id`** (em branco) → é um item **novo**. Na volta, o sistema **cria** (gera `ati_id`, calcula `path`).
-- `ati_id` que **existia e sumiu** do Excel/tela → item **removido** (deleta subárvore, primitiva "deletar").
+- Linha **com `ati_num`** → é um item **existente**. Na volta, o sistema **atualiza no lugar** (qtd, descrição, cmp, bdi, posição). Reposicionar = mudar `parent_id`/`ordem`, **nunca** apagar-e-recriar.
+- Linha **sem `ati_num`** (em branco) → é um item **novo**. Na volta, o sistema **cria** (gera `ati_num` do high-water do ativo + `ati_id` interno, calcula `path`).
+- `ati_num` que **existia e sumiu** do Excel/tela → item **removido** (deleta subárvore, primitiva "deletar").
 
-Sem a chave, mover uma linha no Excel viraria "apaguei o item X e criei o item Y" — perderia memória de cálculo, histórico, vínculos. **Com a chave, mover é mover.** É isto que torna o round-trip idempotente.
+Sem a chave, mover uma linha no Excel viraria "apaguei o item X e criei o item Y" — perderia memória de cálculo, histórico, vínculos. **Com a chave, mover é mover.** É isto que torna o round-trip idempotente. (A chave é **local ao ativo**: a reconciliação acontece sempre dentro do escopo de um ativo, então `ati_num` identifica a linha sem ambiguidade.)
 
-> Implicação de produto: o usuário **vê** a coluna do `ati_id` (ela é a identidade do registro, útil para suporte, API e vínculo com o AxysCAD), mas **não pode editá-la** — é protegida no template e fica fora da área imprimível. Se ele apagar/alterar por engano, a linha vira "nova" na volta (cria duplicata). O template blinda a coluna contra escrita, mas a mantém à vista.
+> Implicação de produto: o usuário **vê** a coluna do `ati_num` (a identidade do registro naquele ativo, útil para suporte, API e vínculo com o AxysCAD), mas **não pode editá-la** — é protegida no template e fica fora da área imprimível. Se ele apagar/alterar por engano, a linha vira "nova" na volta (cria duplicata). O template blinda a coluna contra escrita, mas a mantém à vista.
 
 ---
 
@@ -48,7 +54,7 @@ Espelha a `Plan Orçamentária` da planilha-alvo, já com a sua compactação de
 
 | Col | Campo | Origem | Editável? |
 |-----|-------|--------|-----------|
-| (chave) | `ati_id` | árvore | **não** (visível, protegida) |
+| (chave) | `ati_num` (id local ao ativo; `ati_id` global = interno) | árvore | **não** (visível, protegida) |
 | Nível | `ati_tipo` (NÍVEL 1–5 / SERVIÇO) | usuário escolhe | sim — define comportamento |
 | Item | numeração `1.2.3` | **derivada** (render) | não (calculada) |
 | Base | `ati_cmp_origem` (CATALOGO/TENANT) | usuário | sim (no serviço) |
@@ -77,14 +83,14 @@ Dois comportamentos por tipo de linha (a mecânica central, vinda da planilha):
 A grade renderiza a **árvore inteira** (numeração derivada). Cada **grupo é colapsável/expansível** pelo caret (▾/▸) — colapso **manual, sob demanda**; **não** há colapso forçado no nascimento nem render preguiçoso *(decisão de tela 2026-06: render completo + colapso manual)*. O usuário monta descendo nos níveis e inserindo serviços/níveis abaixo.
 
 Fluxo de produção (tela, implementado):
-1. **"+ linha" / Enter no fim / menu "Incluir acima/abaixo"** abre uma linha **rascunho client-side sem `ati_id`** (nada gravado ainda — não estoura id). A nova linha **repete o nível da linha acima** (1ª linha = Nível 1).
+1. **"+ linha" / Enter no fim / menu "Incluir acima/abaixo"** abre uma linha **rascunho client-side sem chave** (nada gravado ainda — não estoura id). A nova linha **repete o nível da linha acima** (1ª linha = Nível 1).
 2. No rascunho, escolhe o **NÍVEL** no dropdown (define o `ati_tipo`/profundidade). **SERVIÇO sempre enrabicha no grupo acima** (nunca fica na raiz); nível N = filho do nível N-1 mais próximo acima.
 3. No SERVIÇO, busca a composição no catálogo (base+código) → a API resolve descrição/unid./custo. No NÍVEL, digita o nome.
 4. Informa **quantidade** (digitada — 2 casas, ≥ 0 — ou herda da memória se `ati_have_memory_calc`).
 5. Escolhe o **BDI** da linha (ou herda o default da obra).
-6. **Enter grava** o rascunho (gera 1 `ati_id`, calcula `path`) e abre o próximo abaixo; **Esc descarta**. O cabeçalho do nível **autossoma** sozinho (derivado).
+6. **Enter grava** o rascunho (gera 1 `ati_num` do high-water do ativo + `ati_id` interno, calcula `path`) e abre o próximo abaixo; **Esc descarta**. O cabeçalho do nível **autossoma** sozinho (derivado).
 
-Reposicionar (o "dinâmico"): arrastar/recortar uma linha ou subárvore para outro pai muda `parent_id`+`ordem`; a numeração re-renderiza; o `path` recalcula; **o `ati_id` não muda** → nada se perde.
+Reposicionar (o "dinâmico"): arrastar/recortar uma linha ou subárvore para outro pai muda `parent_id`+`ordem`; a numeração re-renderiza; o `path` recalcula; **a chave não muda** (nem `ati_num` nem `ati_id`) → nada se perde.
 
 ---
 
@@ -112,7 +118,7 @@ A bancada é **planilha viva**, não "read-only + popup". Comportamentos esperad
 
 - **Teclado:** Tab/⇧Tab entre células · setas ↑/↓ entre linhas · **Enter** confirma e desce (no fim, cria) · **Tab no campo Nível** indenta / ⇧Tab desindenta (re-parenteia **mantendo a posição**).
 - **Seleção pela coluna `id`** (cabeçalho de linha, estilo Excel): clique = seleciona · Ctrl = alterna · Shift = intervalo · **arrastar** (segurar e mover) = intervalo · **Esc** desseleciona. Cursor: seta → no hover, cruz ao arrastar.
-- **Inserir = rascunho:** "+ linha" / Enter no fim / menu "Incluir acima/abaixo" → linha **sem `ati_id`**; grava só no **Enter**, descarta no **Esc** (§4).
+- **Inserir = rascunho:** "+ linha" / Enter no fim / menu "Incluir acima/abaixo" → linha **sem chave**; grava só no **Enter**, descarta no **Esc** (§4).
 - **Delete/Backspace = LIMPA os dados** da(s) linha(s) selecionada(s) (mantém a linha/tipo/posição). **Excluir** (deleta subárvore) = menu botão-direito "Excluir".
 - **Clipboard de linhas:** Ctrl+C / Ctrl+X / Ctrl+V; no menu, **Copiar / Colar** e **"Inserir células copiadas/recortadas"**. Cópia duplica a subárvore; recorte move.
 - **Arrastar** (alça ⠿) reordena/reparenteia: soltar num **grupo** = 1ª filha; soltar num **serviço** = irmã.
@@ -152,19 +158,19 @@ O cabeçalho de nível soma os `preco_total_cbdi` (já truncados) dos serviços 
 
 ### 7.1 Ida (árvore → Excel)
 A API exporta a árvore atual num template fixo da Axys. Cada linha leva:
-- **`ati_id`** (coluna visível e protegida, fora da área imprimível — a chave/identidade do registro) · **Nível** · **Base** · **Código** · **Qtd** · **BDI (seletor)**
+- **`ati_num`** (coluna visível e protegida, fora da área imprimível — a chave/identidade do registro no ativo; `ati_id` global não vai ao Excel) · **Nível** · **Base** · **Código** · **Qtd** · **BDI (seletor)**
 - E, **só como exibição** (read-only, resultado que no Excel antigo vinha de VLOOKUP): Descrição, Unid., Unitário, Preço c/ BDI. Esses campos a API **resolve** — o Excel não os carrega como verdade.
 
 > O Excel deixa de ter o catálogo embutido. Os VLOOKUP morrem. A planilha vira "burra no dado, fiel na estrutura"; a resolução é da API.
 
 ### 7.2 Volta (Excel → árvore)
-O parser lê **apenas o núcleo editável**: `ati_id` (chave) + Nível + Base + Código + Qtd + BDI. Descrição/unid./custo do Excel são **ignorados na volta** (a API re-resolve do catálogo). Reconciliação pela chave (§2):
+O parser lê **apenas o núcleo editável**: `ati_num` (chave) + Nível + Base + Código + Qtd + BDI. Descrição/unid./custo do Excel são **ignorados na volta** (a API re-resolve do catálogo). Reconciliação pela chave, no escopo do ativo (§2):
 
 ```
 para cada linha do Excel:
-   tem ati_id existente?  → UPDATE no lugar (qtd, cmp, bdi, posição)
-   ati_id em branco?      → CREATE (gera id, calcula path)
-ati_id que sumiu?         → DELETE subárvore
+   tem ati_num existente?  → UPDATE no lugar (qtd, cmp, bdi, posição)
+   ati_num em branco?      → CREATE (gera ati_num do high-water + ati_id interno, calcula path)
+ati_num que sumiu?         → DELETE subárvore
 ```
 
 A posição (nível + ordem das linhas no arquivo) reconstrói `parent_id`/`ordem`. A numeração `1.2.3` do Excel é **descartada** na leitura (é render; a árvore a recalcula).
@@ -189,7 +195,7 @@ Axys_Easy_Orca_Plan.xlsx
 ├── "Início"     → vincula ativo (login → API → monta as abas)
 ├── "CPUs"       → ÍNDICE de busca: Fonte | Código | Descrição | Unid | Custo-base
 │                  (datado por edição; alimenta o VLOOKUP e a busca offline)
-└── "Orçamento"  → a plan (a grade): ati_id · Nível · Base · Código · Qtd · BDI · valores
+└── "Orçamento"  → a plan (a grade): ati_num · Nível · Base · Código · Qtd · BDI · valores
 ```
 
 Onboarding da aba CPUs (passo a passo do modo 1): vincula ativo → define **fonte-base/edição/modalidade-LS** (a API pergunta, o usuário escolhe uma edição por fonte) → a API preenche a aba CPUs com o índice daquela(s) fonte(s).
@@ -242,7 +248,7 @@ Consequência: na **geração** trabalha-se sempre em `TRUNC(A1,2)` (interno); o
 
 **Evolução futura (registrada, fora do MVP):**
 - *Socket parcial:* notificar a principal "a faixa X foi atualizada" (um evento de aviso, não stream de deltas) — barato, dá vivacidade sem complexidade. Acima dele:
-- *WebSocket completo:* presença + sync ao vivo + delta por `ati_id`. A chave estável já habilita o sync incremental (empurrar "item 47 mudou" e atualizar só aquela linha).
+- *WebSocket completo:* presença + sync ao vivo + delta pela chave (`ati_num`). A chave estável já habilita o sync incremental (empurrar "item 47 mudou" e atualizar só aquela linha).
 - *Edição célula-a-célula simultânea:* exige CRDT/OT **sobre árvore** — problema difícil, **conscientemente evitado** (ver §9-bis: particionamento elimina a necessidade).
 
 **Fronteira tela × Excel (vale em qualquer fase):** tempo real (quando existir) vale para **tela** e **excel-web** (cliente do socket). O **`.xlsx` desktop NÃO** participa de tempo real — é sempre round-trip **discreto** (baixa, edita, sobe, reconcilia pela chave §7.2).
@@ -320,7 +326,7 @@ ATUALIZAR (na principal) =
   2. SÓ ENTÃO puxa o que é WEB-novo (existe na web, não aqui)         ← tipicamente o que a apoio empurrou
 ```
 
-Nunca **sobrescrever** o Excel com a web direto — isso apagaria o local não-empurrado. Como apoio e principal mexem em **regiões disjuntas** (lock por path), o merge é trivial: "web tem e aqui não" = trabalho da apoio chegando; "aqui tem e web não" = trabalho local subindo. Reconciliação por `ati_id` (item novo local sem id → sobe; item da faixa travada criado pela apoio → desce). Nenhum pisa no outro.
+Nunca **sobrescrever** o Excel com a web direto — isso apagaria o local não-empurrado. Como apoio e principal mexem em **regiões disjuntas** (lock por path), o merge é trivial: "web tem e aqui não" = trabalho da apoio chegando; "aqui tem e web não" = trabalho local subindo. Reconciliação pela chave `ati_num` (item novo local sem chave → sobe; item da faixa travada criado pela apoio → desce). Nenhum pisa no outro.
 
 ### Múltiplas bancadas
 
@@ -331,7 +337,7 @@ Pode haver **N** bancadas de apoio, cada uma ancorada num nó **disjunto** (apoi
 ## 10. Invariantes (cravados — valem nas três portas)
 
 1. **A árvore é a verdade**; numeração é render; preço é resolvido, não gravado.
-2. **Chave estável (`ati_id`)** viaja **exposta** (visível, protegida contra edição, fora da área imprimível) em tela, Excel e API — é a identidade do registro e o que faz o round-trip não quebrar; também é o vínculo com os geradores (AxysCAD/Revit).
+2. **Chave estável (`ati_num`, id local ao ativo: 1..N, nunca reusado)** viaja **exposta** (visível, protegida contra edição, fora da área imprimível) em tela, Excel e API — é a identidade do registro e o que faz o round-trip não quebrar; também é o vínculo com os geradores (AxysCAD/Revit). A **PK global `ati_id` é interna** (FK/`parent_id`/joins/plumbing) e **não é exibida nem vai ao Excel**.
 3. **TRUNC(2) em cascata**, nunca ROUND, nunca só no fim — igual nas três portas.
 4. **Nível define comportamento** (folha calcula, nó soma), não profundidade por coluna.
 5. **BDI é seletor por linha** (qual BDI), não só percentual.
@@ -348,7 +354,7 @@ Pode haver **N** bancadas de apoio, cada uma ancorada num nó **disjunto** (apoi
 16. **Geração locale-safe** — número e fórmula sempre nativos via biblioteca (formato interno en-US); o Excel pt-BR exibe traduzido (`TRUNCAR`/`;`/vírgula) sozinho. Nunca fórmula como string; colunas de valor sempre numéricas.
 17. **Colaboração por particionamento** — trava pessimista + escritor único por faixa; sem edição concorrente da mesma região (dispensa CRDT). Apoio deriva da principal, nasce regrada, só empurra.
 18. **Lock por path** — ancorado num nó; trava o nó + toda a subárvore (`path LIKE âncora.'.%'`). Persistido como coluna na âncora (`ativo_itens`); escopo derivado por path. Sem TTL → exige liberação forçada manual contra lock órfão.
-19. **"Atualizar" é merge em duas fases** — empurra local-novo antes de puxar web-novo; nunca overwrite. Regiões disjuntas tornam o merge trivial (reconciliação por `ati_id`).
+19. **"Atualizar" é merge em duas fases** — empurra local-novo antes de puxar web-novo; nunca overwrite. Regiões disjuntas tornam o merge trivial (reconciliação pela chave `ati_num`).
 
 ---
 
