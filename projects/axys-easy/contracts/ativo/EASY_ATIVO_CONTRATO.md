@@ -81,9 +81,10 @@ tenant_catalogo                (biblioteca própria do tenant)
 ativo
 ├── empreendimentos
 └── ativos                                         (atv_is_catalog_source = modelo/fonte do gerador)
-    ├── ativo_ficha_tecnica
-    │   ├── ficha_parametros                       (lookup GLOBAL de parâmetros)
-    │   └── ficha_atributos
+    ├── ficha_tec (+ ficha_tec_itens = DECK do motor paramétrico)
+    │   ├── ficha_tec_etapas                       (etapa-árvore: grupo=N1, sub-etapa=N2)
+    │   ├── ficha_tec_parametros (+_param_opcoes, +_param_gatilho)   (vocabulário + cascata)
+    │   └── ativo_ficha_tec_atributos              (valores por ativo)
     ├── ativo_itens                                (ÁRVORE: parent_id+ordem+path · ati_bdi_id · cmp_origem)
     ├── orcamento_parametros                       (contexto de preço rotacionável)
     ├── orcamento_composicoes(+_itens) · orcamento_insumos(+_preco)   (forks locais)
@@ -117,12 +118,23 @@ audit  logs · api_logs · login_logs
   **modelo/fonte do catálogo de ativos** (alimenta o gerador por drivers). `atv_uf`, `atv_tipo`,
   `atv_status`.
 
-### 6.2 Ficha (parâmetros + valores)
-- `ativo_ficha_tecnica`: cabeçalho (1:1 lógico com o ativo; versão/status).
-- `ficha_parametros`: **lookup GLOBAL** (vocabulário semeado pela Axys; `par_codigo`/`par_tipo`/
-  `par_grupo`). É a **entrada que os drivers leem**. Cresce por INSERT.
-- `ficha_atributos`: valores por ativo em **colunas tipadas** (número/texto/bool/data). Análise por
-  view pivotada (não EAV no OLTP).
+### 6.2 Ficha técnica (vocabulário paramétrico + valores) — **CONGELADO em dev 2026-06-22**
+Vocabulário **global** (semeado pela Axys, by-code, idempotente via helpers `pg_temp`); valores **por
+ativo**. Seed canônico no `schema.sql` (bloco "SEED — FICHA TÉCNICA").
+- `ficha_tec_etapas`: **etapa-árvore** (`fet_parent_id` auto-ref). Grupo (parent NULL) = **Nível 1** do
+  orçamento; sub-etapa (filha) = **Nível 2**. Ordenação esparsa (grupo = dezena; sub = dezena+offset).
+- `ficha_tec_parametros`: vocabulário (`fparam_codigo`/`fparam_tipo` NUMERO|TEXTO|LISTA|BOOL/
+  `fparam_unidade`/`fparam_ordem`/`fparam_is_descritivel`). **Cascata** via `fparam_parent_id` (filho
+  condicional). É a **entrada que os drivers leem**. Cresce por INSERT.
+- `ficha_tec_param_opcoes`: opções de parâmetro LISTA (`fpo_codigo`/`fpo_rotulo`/`fpo_ordem`).
+- `ficha_tec_param_gatilho` (`fpg_fparam_id`, `fpg_fpo_id`): **quais opções do pai abrem o filho**.
+  **Sem gatilho = qualquer valor do pai abre** (ex.: Vidro abre em qualquer esquadria).
+- `ativo_ficha_tec_atributos`: valores por ativo em **colunas tipadas**; LISTA grava
+  `fatr_valor_opcao_id` (FK composta RESTRICT à opção). Não-EAV no OLTP.
+- `ficha_tec` (+ `ficha_tec_itens`): **DECK** do motor paramétrico (FT_V00) — parâmetros macro que os
+  drivers leem (`fti_fparam_id` referencia por código, RESTRICT).
+- **`descritível`** = flag **read-only** por parâmetro: "quando preenchido, esse parâmetro é
+  apresentado no memorial descritivo do orçamento" (hoje: os 7 indicadores macro de área + nº pav.).
 
 ### 6.3 `ativo_itens` — a árvore canônica (coração)
 - `ati_parent_id` (NULL=raiz; profundidade), `ati_ordem` (esparsa), `ati_path` (TEXT zero-padded,
@@ -131,7 +143,12 @@ audit  logs · api_logs · login_logs
   (resolvido pelo app). `ati_quantidade`, `ati_unidade`.
 - **`ati_bdi_id`** → `ativo_bdi` (BDI da linha; NULL em título/não-precificável).
 - **`ati_ajuste_json`** = camada de ajuste reversível sobre o preço resolvido. `ati_have_memory_calc`.
-- **Preço NÃO é coluna aqui** — resolve-se ao vivo contra a edição do contexto.
+- **`ati_custo_unit`** (NUMERIC 14,2) = **custo unitário BASE da fonte, GRAVADO na entrada** ("pega de
+  lá, grava cá"). É a camada `preço_catálogo`. **Imune** a edição/reimport da fonte; só muda por
+  **rotação** (comando explícito do usuário, que regrava). **L.S., BDI e ajuste são camadas AO VIVO
+  por cima** — nunca embutidas neste número. **Drift** = comparar `ati_custo_unit` com o preço atual da
+  fonte na edição do contexto (sinaliza no "i" da linha + tela "Conferir preço-base"). Decisão Renan
+  2026-06-22 (ver §8; substitui o "preço nunca gravado").
 
 ### 6.4 `orcamento_parametros` — contexto de preço
 - Por fonte, **rotacionável**: `opa_fonte`, `opa_edicao_id` (→ `catalogo.edicoes`), `opa_uf`,
@@ -148,8 +165,11 @@ audit  logs · api_logs · login_logs
   risco, despesas financeiras, tributos…) e **MÚLTIPLO por obra**. `abd_tipo ∈
   ONERADO|DESONERADO|REDUZIDO` (normal + reduzido p/ equipamento). **Default por obra**
   (`abd_default`). Cada linha aponta um BDI via `ati_bdi_id`.
-- **Leis Sociais** — `ativo_ls` (+ `ativo_ls_composicao`): **composta** e **ÚNICA por obra**
-  (`UNIQUE(atv_id)`). `als_tipo ∈ ONERADA|DESONERADA`; % horista/mensalista.
+- **Leis Sociais** — `ativo_ls` (+ `ativo_ls_item`): **composta** e **ÚNICA por obra**
+  (`UNIQUE(atv_id)`). `als_tipo ∈ ONERADA|DESONERADA`; % horista/mensalista. **Nasce semeada** do
+  catálogo (`catalogo.edicoes_leis_sociais` + `_itens`, por edição×UF×modalidade) e é **editável por
+  ativo** (cada obra pode ter a sua). Catálogo é **canônico**: total no header manda; itens são
+  fidelidade.
 
 ### 6.7 Cronograma físico-financeiro
 - `cronograma` (+ `cronograma_itens`): fasiamento do valor por **período**. Feito por **NÍVEL, até
@@ -210,15 +230,25 @@ indentar, mover, deletar — recalculam `path` do subtree). São o **maior risco
 Três camadas, nunca colapsadas:
 
 ```
-preço_catálogo  = resolve(composição, EDIÇÃO, UF)         ← catalogo/tenant_catalogo, base "SE/pelado"
-preço_base      = preço_catálogo + LS (ativo_ls da obra)  ← LS é ÚNICA por obra
-preço_venda     = preço_base × (1 + BDI da linha)         ← BDI por linha (ati_bdi_id)
-preço_ajustado  = ± ajuste manual (ati_ajuste_json)       ← reversível: descartar = volta à base
+preço_catálogo  = ati_custo_unit (GRAVADO na entrada)     ← base da fonte capturada; NÃO recalcula sozinho
+preço_base      = preço_catálogo + LS (ativo_ls da obra)  ← camada AO VIVO; LS é ÚNICA por obra
+preço_venda     = preço_base × (1 + BDI da linha)         ← camada AO VIVO; BDI por linha (ati_bdi_id)
+preço_ajustado  = ± ajuste manual (ati_ajuste_json)       ← camada AO VIVO; reversível: descartar = volta à base
 ```
 
-- **Rascunho** resolve **ao vivo** (edição publicada é imutável → estável). **Emitido** vira
-  **snapshot** (`rev_snapshot_json`).
-- **LS muda preço; BDI é margem acima do custo.** Base SE separa pelado de encargo.
+- **Custo base GRAVADO, não vivo (decisão Renan 2026-06-22).** "Orçamento pega de lá e grava cá":
+  `ati_custo_unit` é capturado quando a linha entra e **não muda se a fonte mudar/reimportar**. As
+  camadas acima dele (LS, BDI, ajuste) **são calculadas ao vivo** — repreçar nelas é intenção do
+  usuário, não exposição à fonte.
+- **Rotação = comando explícito**: re-resolve a base na edição do contexto e **regrava**
+  `ati_custo_unit` (nunca silencioso, nunca automático). Cadência por fonte (ex.: SINAPI mensal, CDHU
+  quadrimestral) entra como aviso de "edição nova", também sob comando.
+- **Drift** = `ati_custo_unit` ≠ preço atual da fonte (mesma edição) → sinaliza no **"i" da linha** e
+  na tela **"Conferir preço-base"** (reconciliação em lote: base gravada × base da fonte × Δ →
+  rotacionar selecionados). Não se guarda "o porquê": como LS/BDI são camadas explícitas, a única
+  causa de divergência base×fonte é drift.
+- **L.S. horista→mensalista**: adequação **adiada para o fechamento** (afino global ofertado), não na
+  construção. **Emitido** vira **snapshot** (`rev_snapshot_json`).
 - Item descontinuado na edição-alvo é **skipado/sinalizado**, não quebra.
 
 ## 9. Catálogo de Ativos / Drivers (gerador automatizado)
@@ -256,7 +286,9 @@ FinControl (`ativo_fin`), LicitPlan (`ativo_licit`), Repositório (`ativo_repo`)
 
 Persistir `1.2.3` como chave · limitar a GRUPO>SUBGRUPO>ITEM · tabela por nível · formularizar a
 montagem · contaminar o catálogo · recalcular a árvore inteira · IA sobre texto sem entidade ·
-**persistir preço/`custo_base` no item** (preço é resolvido; só snapshot congela) · **FK polimórfica
+**embutir LS/BDI/ajuste no `ati_custo_unit`** (a base é gravada; as camadas ficam ao vivo — gravar a
+base é certo, gravar o preço final não) · **mudar o custo gravado sem ser por rotação/comando** (a
+fonte nunca altera o orçamento sozinha) · **FK polimórfica
 sem discriminador** (exige origem+tipo) · **tabelas-gêmeas de snapshot** (usar JSON + resumo) ·
 **entidades CAD/overlays como tabelas relacionais** · **criar tabela de microapp futuro vazia** ·
 **fatiar entidades manualmente no import** · **`meta_json` como registro de documento** (usar tabela).
@@ -293,3 +325,11 @@ idempotente). **Já aplicado** em dev (localhost/axys_easy_db) em 2026-06-14.
   plugin|MANUAL, tenant_catalogo polimórfico, arquivamento, limpezas.
 - **v1.0** (2026-06-14) — **consolidação** de tudo acima num documento único (este). Reflete o
   `schema.sql` aplicado. Substitui os anteriores.
+- **v1.1** (2026-06-22) — ficha técnica **congelada**: modelo `ficha_tec*` (etapa-árvore + parâmetros
+  em cascata + gatilho + opções + DECK `ficha_tec_itens`) substitui o esboço `ativo_ficha_tecnica`/
+  `ficha_parametros`/`ficha_atributos` (§5 e §6.2 reescritas). Seed canônico no `schema.sql`.
+- **v1.2** (2026-06-22) — **custo base GRAVADO na linha** (`ati_custo_unit`), invertendo o "preço
+  nunca gravado": orçamento captura a base da fonte na entrada e fica imune a edição/reimport; LS/BDI/
+  ajuste seguem camadas ao vivo; rotação é comando explícito que regrava; drift = comparação
+  base×fonte ("i" da linha + tela "Conferir preço-base"); L.S. horista→mensalista adiada ao fechamento
+  (§6.3, §8 e §13 reescritas). Decisão Renan.
