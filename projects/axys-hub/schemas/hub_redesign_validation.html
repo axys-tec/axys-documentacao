@@ -1,0 +1,2208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AxysHub Validacao do Redesign</title>
+  <style>
+    :root {
+      --bg: #f7f3ec;
+      --panel: #fffdf9;
+      --ink: #211a13;
+      --muted: #70665a;
+      --line: #ddd2c3;
+      --accent: #8b5c2e;
+      --accent-soft: #f4e6d6;
+      --good: #2c6b3f;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+    .wrap {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 28px 18px 56px;
+    }
+    .hero, .section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: 0 16px 40px rgba(33, 26, 19, 0.06);
+    }
+    .hero { padding: 24px; }
+    .section { margin-top: 24px; padding: 22px; }
+    h1, h2, h3, h4 { margin: 0; line-height: 1.1; }
+    h1 { font-size: 36px; }
+    h2 { font-size: 26px; margin-bottom: 12px; }
+    h3 { font-size: 22px; }
+    h4 { font-size: 18px; }
+    p { margin: 0; line-height: 1.55; }
+    .muted { color: var(--muted); }
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .pill, .tag {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 5px 10px;
+      border: 1px solid var(--line);
+      background: #fff8ef;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .tag {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-color: #ead7c0;
+    }
+    .index-list {
+      columns: 3 260px;
+      column-gap: 22px;
+      margin-top: 16px;
+      padding-left: 18px;
+    }
+    .index-list li { margin-bottom: 8px; }
+    .index-list a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .product-section {
+      margin-top: 26px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+    }
+    .product-header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .product-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .table-wrap {
+      overflow-x: auto;
+      margin-top: 12px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 980px;
+      font-size: 14px;
+    }
+    th, td {
+      text-align: left;
+      vertical-align: top;
+      padding: 10px 10px;
+      border-top: 1px solid #ece2d6;
+    }
+    th {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      background: #fff9f1;
+      position: sticky;
+      top: 0;
+    }
+    .subsection {
+      margin-top: 18px;
+    }
+    .subsection h4 { margin-bottom: 8px; }
+    .builder-layout {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 18px;
+      margin-top: 14px;
+    }
+    .builder-panel, .cart-panel {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+      background: #fffaf3;
+    }
+    .step-label {
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .product-picker {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .product-pill {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: white;
+      color: var(--ink);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .product-pill.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+    .package-grid, .suggestion-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .package-card, .suggestion-card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+      background: #fffdf9;
+    }
+    .package-card.selected {
+      border-color: var(--accent);
+      box-shadow: 0 10px 26px rgba(139, 92, 46, 0.12);
+      background: #fff7eb;
+    }
+    .package-card h4, .suggestion-card h4, .cart-panel h4 { margin-bottom: 6px; }
+    .catalog-meta, .package-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 8px 0 10px;
+    }
+    .package-card button, .suggestion-card button, .cart-actions button {
+      border: 0;
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: var(--accent);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .package-card button.secondary, .suggestion-card button.secondary, .cart-actions button.secondary, .builder-action.secondary {
+      background: #d7c0a4;
+      color: var(--ink);
+    }
+    .builder-action {
+      border: 0;
+      border-radius: 999px;
+      padding: 11px 16px;
+      background: var(--accent);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .selection-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 12px;
+      padding: 12px 14px;
+      border: 1px dashed var(--line);
+      border-radius: 16px;
+      background: #fff;
+    }
+    .selection-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .builder-empty {
+      color: var(--muted);
+      font-style: italic;
+      padding: 16px 0 4px;
+    }
+    .cart-layout {
+      display: grid;
+      grid-template-columns: 1.4fr 0.9fr;
+      gap: 18px;
+      margin-top: 14px;
+    }
+    .cart-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 12px;
+    }
+    .cart-toolbar select {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 8px 10px;
+      background: white;
+      font: inherit;
+    }
+    .qty-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .qty-box input {
+      width: 68px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 6px 8px;
+      font: inherit;
+      background: white;
+    }
+    .cart-summary {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding-top: 8px;
+      border-top: 1px solid #eadfce;
+    }
+    .summary-row strong {
+      font-size: 18px;
+    }
+    .cart-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .cart-empty {
+      color: var(--muted);
+      font-style: italic;
+      padding: 18px 0;
+    }
+    .empty {
+      margin-top: 8px;
+      color: var(--muted);
+      font-style: italic;
+    }
+    code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      background: #f5eee4;
+      padding: 1px 5px;
+      border-radius: 6px;
+      font-size: 0.95em;
+    }
+    .yes { color: var(--good); font-weight: 700; }
+    @media (max-width: 780px) {
+      .wrap { padding: 16px 10px 36px; }
+      .hero, .section { padding: 16px; border-radius: 16px; }
+      h1 { font-size: 28px; }
+      .index-list { columns: 1; }
+      .builder-layout, .cart-layout { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>AxysHub Validacao do Redesign</h1>
+      <p class="muted">Leitura orientada a decisao: escolher um produto, ver as opcoes de billing e entender as condicoes de fornecimento.</p>
+      <div class="meta">
+        <span class="pill">Banco: hub_redesign_db</span>
+        <span class="pill">Fonte SQL: docs/projects/axys-hub/schemas/schema_redesign_pre-foto.sql</span>
+        <span class="pill">Produtos: 11</span>
+        <span class="pill">Ofertas: 41</span>
+        <span class="pill">Adicionais: 1</span>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Simulador de Compra</h2>
+      <p class="muted">Fluxo comercial guiado: escolha o produto, selecione o pacote, veja sugestoes compatíveis e monte o fechamento com 1 ou mais itens.</p>
+
+      <div class="builder-layout">
+        <div class="builder-panel">
+          <div class="step-label">Passo 1</div>
+          <h4>Escolha o produto</h4>
+          <div class="product-picker" id="product-picker"></div>
+
+          <div class="subsection">
+            <div class="step-label">Passo 2</div>
+            <h4>Escolha o pacote</h4>
+            <div id="package-grid" class="package-grid"></div>
+          </div>
+
+          <div class="selection-bar">
+            <div>
+              <strong id="selection-title">Nenhum pacote selecionado</strong>
+              <p class="muted" id="selection-summary">Selecione um produto e um pacote para incluir no carrinho.</p>
+            </div>
+            <div class="selection-actions">
+              <button type="button" class="builder-action secondary" id="reset-selection">Limpar seleção</button>
+              <button type="button" class="builder-action" id="add-selected-item">Incluir no carrinho</button>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <div class="step-label">Passo 3</div>
+            <h4>Sugestões automáticas</h4>
+            <div id="suggestion-grid" class="suggestion-grid"></div>
+          </div>
+        </div>
+
+        <div class="cart-panel">
+          <h4>Carrinho</h4>
+          <div class="cart-toolbar">
+            <label for="checkout-period"><strong>Fechamento:</strong></label>
+            <select id="checkout-period">
+              <option value="mensal">Mensal</option>
+              <option value="semestral">Semestral</option>
+              <option value="anual">Anual</option>
+            </select>
+          </div>
+          <div id="cart-table-wrap" class="table-wrap"></div>
+        </div>
+
+        <div class="cart-panel">
+          <h4>Resumo do Fechamento</h4>
+          <div id="cart-summary" class="cart-summary"></div>
+          <div class="cart-actions">
+            <button type="button" class="secondary" id="clear-cart">Limpar carrinho</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Montagens de Combo</h2>
+      <p class="muted">Combinados comerciais inferidos a partir do seed atual. Aqui mostramos a composicao e a soma base mensal dos itens. Desconto adicional de combo ainda nao esta seedado.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Combo inferido</th>
+              <th>Categoria</th>
+              <th>Montagem</th>
+              <th>Base mensal somada</th>
+              <th>Observacao</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            <tr>
+              <td><strong>Price + CPU</strong></td>
+              <td>Single</td>
+              <td>PR1-SIN + CPU-SIN</td>
+              <td>R$ 34,80</td>
+              <td>Mesmo plano/categoria; desconto extra de combo ainda nao seedado.</td>
+            </tr>
+            
+            <tr>
+              <td><strong>Price + CPU</strong></td>
+              <td>Starter</td>
+              <td>PR1-STA + CPU-STA</td>
+              <td>R$ 54,80</td>
+              <td>Mesmo plano/categoria; desconto extra de combo ainda nao seedado.</td>
+            </tr>
+            
+            <tr>
+              <td><strong>Price + CPU</strong></td>
+              <td>Advanced</td>
+              <td>PR1-ADV + CPU-ADV</td>
+              <td>R$ 79,80</td>
+              <td>Mesmo plano/categoria; desconto extra de combo ainda nao seedado.</td>
+            </tr>
+            
+            <tr>
+              <td><strong>Price + CPU</strong></td>
+              <td>Pro</td>
+              <td>PR1-PRO + CPU-PRO</td>
+              <td>R$ 129,80</td>
+              <td>Mesmo plano/categoria; desconto extra de combo ainda nao seedado.</td>
+            </tr>
+            
+            <tr>
+              <td><strong>Price + CPU</strong></td>
+              <td>Unlimited</td>
+              <td>PR1-UNL + CPU-UNL</td>
+              <td>R$ 199,80</td>
+              <td>Mesmo plano/categoria; desconto extra de combo ainda nao seedado.</td>
+            </tr>
+            
+            <tr>
+              <td><strong>Price + CPU + Orca</strong></td>
+              <td>Advanced</td>
+              <td>PR1-ADV + CPU-ADV + ORC-ADV</td>
+              <td>R$ 279,70</td>
+              <td>Trinca comercial inferida; apta para futura regra de desconto de combo.</td>
+            </tr>
+            
+            <tr>
+              <td><strong>Price + CPU + Orca</strong></td>
+              <td>Pro</td>
+              <td>PR1-PRO + CPU-PRO + ORC-PRO</td>
+              <td>R$ 429,70</td>
+              <td>Trinca comercial inferida; apta para futura regra de desconto de combo.</td>
+            </tr>
+            
+            <tr>
+              <td><strong>Price + CPU + Orca</strong></td>
+              <td>Unlimited</td>
+              <td>PR1-UNL + CPU-UNL + ORC-UNL</td>
+              <td>R$ 599,70</td>
+              <td>Trinca comercial inferida; apta para futura regra de desconto de combo.</td>
+            </tr>
+            
+            <tr>
+              <td><strong>Easy-One</strong></td>
+              <td>Unlimited</td>
+              <td>BDR + FIN + PM + LIC + ORC (bundle interno do FIS-UNL)</td>
+              <td>R$ 1.999,90</td>
+              <td>Bundle comercial consolidado no seed como produto/agregador unico.</td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Axys — Tabela de Precos</h2>
+      <p class="muted">Tabela comercial derivada do seed do banco local `hub_redesign_db`.</p>
+      <p class="muted">Valores base em R$/mes. Desconto de recorrencia: semestral = -R$ 5/mes e anual = -R$ 10/mes sobre base + cadeira. Excecao: Price2 segue cheio, sem desconto.</p>
+
+      <div class="subsection">
+        <h4>EIXO 1 — Escada single -> unlimited (unidade = uso/mês)</h4>
+        <p>Todos os produtos deste eixo sao cobrados por uso/mês.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                
+                <th>Categoria</th>
+                
+                <th>Price</th>
+                
+                <th>CPU</th>
+                
+                <th>Docs</th>
+                
+                <th>PM</th>
+                
+                <th>LicitPlan</th>
+                
+                <th>Orca</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              
+              <tr>
+                
+                <td>Single (1 uso/mês)</td>
+                
+                <td>14,90</td>
+                
+                <td>19,90</td>
+                
+                <td>19,90</td>
+                
+                <td>14,90</td>
+                
+                <td>129,90</td>
+                
+                <td>99,90</td>
+                
+              </tr>
+              
+              <tr>
+                
+                <td>Starter (2 usos/mês)</td>
+                
+                <td>19,90</td>
+                
+                <td>34,90</td>
+                
+                <td>34,90</td>
+                
+                <td>19,90</td>
+                
+                <td>199,90</td>
+                
+                <td>149,90</td>
+                
+              </tr>
+              
+              <tr>
+                
+                <td>Advanced (3 usos/mês)</td>
+                
+                <td>29,90</td>
+                
+                <td>49,90</td>
+                
+                <td>49,90</td>
+                
+                <td>29,90</td>
+                
+                <td>299,90</td>
+                
+                <td>199,90</td>
+                
+              </tr>
+              
+              <tr>
+                
+                <td>Pro (6 usos/mês)</td>
+                
+                <td>59,90</td>
+                
+                <td>69,90</td>
+                
+                <td>69,90</td>
+                
+                <td>59,90</td>
+                
+                <td>399,90</td>
+                
+                <td>299,90</td>
+                
+              </tr>
+              
+              <tr>
+                
+                <td>Unlimited (inf)</td>
+                
+                <td>99,90</td>
+                
+                <td>99,90</td>
+                
+                <td>99,90</td>
+                
+                <td>99,90</td>
+                
+                <td>499,90</td>
+                
+                <td>399,90</td>
+                
+              </tr>
+              
+              <tr>
+                
+                <td>add-ON Price2*1*</td>
+                
+                <td>+9,90</td>
+                
+                <td>-</td>
+                
+                <td>-</td>
+                
+                <td>-</td>
+                
+                <td>-</td>
+                
+                <td>—</td>
+                
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+        
+        <p class="muted">*1* Plug-in do Price. Liga/desliga, evolui v2->v3->v4 como capacidade. Excecao de recorrencia: cobrado cheio sempre, sem desconto semestral/anual.</p>
+        
+        <p class="muted">*2* Regra geral de recorrencia: semestral = -R$ 5 por mes e anual = -R$ 10 por mes, aplicados sobre BASE + CADEIRA em todos os produtos deste eixo.</p>
+        
+      </div>
+
+      <div class="subsection">
+        <h4>EIXO 2 — Obra/contrato ativo (unidade = obra/mês)</h4>
+        <p>Todos os produtos deste eixo sao cobrados por obra/mês.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                
+                <th>Categoria</th>
+                
+                <th>BuildDiary</th>
+                
+                <th>FinControl</th>
+                
+                <th>Easy-One</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              
+              <tr>
+                
+                <td>Single (1 obra/mês)</td>
+                
+                <td>39,90</td>
+                
+                <td>39,90</td>
+                
+                <td>—</td>
+                
+              </tr>
+              
+              <tr>
+                
+                <td>Starter (2 obras/mês)</td>
+                
+                <td>59,90</td>
+                
+                <td>59,90</td>
+                
+                <td>—</td>
+                
+              </tr>
+              
+              <tr>
+                
+                <td>Advanced (3 obras/mês)</td>
+                
+                <td>99,90</td>
+                
+                <td>99,90</td>
+                
+                <td>—</td>
+                
+              </tr>
+              
+              <tr>
+                
+                <td>Pro (6 obras/mês)</td>
+                
+                <td>199,90</td>
+                
+                <td>199,90</td>
+                
+                <td>—</td>
+                
+              </tr>
+              
+              <tr>
+                
+                <td>Unlimited (inf)</td>
+                
+                <td>299,90</td>
+                
+                <td>299,90</td>
+                
+                <td>1.999,90</td>
+                
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+        
+        <p class="muted">Easy-One = Unlimited de governanca: BuildDiary + FinControl + PM + LicitPlan + Orca, obras ilimitadas, 5 cadeiras inclusas, conexao do ativo.</p>
+        
+        <p class="muted">Escala de referencia: 5 users = 2k | 15 users = ~4k.</p>
+        
+        <p class="muted">*1* Regra geral de recorrencia: semestral = -R$ 5 por mes e anual = -R$ 10 por mes, aplicados sobre BASE + CADEIRA em todos os produtos deste eixo.</p>
+        
+      </div>
+
+      <div class="subsection">
+        <h4>Regra de Recorrencia</h4>
+        
+        <p>Aplica sobre BASE + CADEIRA em todos os produtos/licenciamentos desta tabela. Nao aplica ao plug-in Price2.</p>
+        
+        <p class="muted">- Mensal: valor cheio</p>
+        
+        <p class="muted">- Semestral: base - R$ 5 por mes</p>
+        
+        <p class="muted">- Anual: base - R$ 10 por mes</p>
+        
+        <p class="muted">- Compra: valor total do periodo, com parcelamento em ate 12x no cartao; o limite comprometido e o maior do total da compra.</p>
+        
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Indice de Produtos</h2>
+      <p class="muted">Escolha o produto e desca ate a secao correspondente.</p>
+      <ol class="index-list">
+        
+        <li><a href="#product-bdr">BDR — Easy BuildDiary</a> <span class="muted">(EASY)</span></li>
+        
+        <li><a href="#product-cpu">CPU — Easy CPU</a> <span class="muted">(EASY)</span></li>
+        
+        <li><a href="#product-doc">DOC — Easy Docs</a> <span class="muted">(EASY)</span></li>
+        
+        <li><a href="#product-fin">FIN — Easy FinControl</a> <span class="muted">(EASY)</span></li>
+        
+        <li><a href="#product-fis">FIS — Easy One</a> <span class="muted">(EASY)</span></li>
+        
+        <li><a href="#product-lic">LIC — Easy LicitPlan</a> <span class="muted">(EASY)</span></li>
+        
+        <li><a href="#product-orc">ORC — Easy Orça</a> <span class="muted">(EASY)</span></li>
+        
+        <li><a href="#product-pm">PM — Easy ProjectManager</a> <span class="muted">(EASY)</span></li>
+        
+        <li><a href="#product-pr1">PR1 — Easy Price</a> <span class="muted">(EASY)</span></li>
+        
+        <li><a href="#product-axysgestor">AXYSGESTOR — AxysGestor</a> <span class="muted">(GESTOR)</span></li>
+        
+        <li><a href="#product-axyspro">AXYSPRO — AxysPro</a> <span class="muted">(PRO)</span></li>
+        
+      </ol>
+    </section>
+
+    <section class="section">
+      <h2>Matriz de Validacao por Produto</h2>
+      <p class="muted">O foco aqui e validar comercialmente o que cada produto oferece, como cobra e em que condicoes entrega.</p>
+
+      
+      <div class="product-section" id="product-bdr">
+        <div class="product-header">
+          <div>
+            <h3>BDR — Easy BuildDiary</h3>
+            <div class="product-meta">
+              <span class="tag">EASY</span>
+              <span class="pill">ativo</span>
+              <span class="pill">5 ofertas</span>
+              <span class="pill">0 adicionais</span>
+            </div>
+          </div>
+        </div>
+        <p class="muted">Produto Easy BuildDiary</p>
+
+        <div class="subsection">
+          <h4>Opcoes de Billing</h4>
+          
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Oferta</th>
+                  <th>Categoria</th>
+                  <th>Modelo</th>
+                  <th>Precos</th>
+                  <th>O que libera</th>
+                  <th>Condicoes operacionais</th>
+                  <th>Override / comissao / fiscal</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                <tr>
+                  <td>
+                    <strong>BDR-ADV</strong><br>
+                    <span class="muted">Easy BuildDiary Advanced</span>
+                  </td>
+                  <td>Advanced</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 99,90</td>
+                  <td>limite_recurso_ativo=3 obra_ativa/mes | limite_usuario=1 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>BDR-PRO</strong><br>
+                    <span class="muted">Easy BuildDiary Pro</span>
+                  </td>
+                  <td>Pro</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 199,90</td>
+                  <td>limite_recurso_ativo=6 obra_ativa/mes | limite_usuario=2 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>BDR-SIN</strong><br>
+                    <span class="muted">Easy BuildDiary Single</span>
+                  </td>
+                  <td>Single</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 39,90</td>
+                  <td>limite_recurso_ativo=1 obra_ativa/mes | limite_usuario=1 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>BDR-STA</strong><br>
+                    <span class="muted">Easy BuildDiary Starter</span>
+                  </td>
+                  <td>Starter</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 59,90</td>
+                  <td>limite_recurso_ativo=2 obra_ativa/mes | limite_usuario=1 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>BDR-UNL</strong><br>
+                    <span class="muted">Easy BuildDiary Unlimited</span>
+                  </td>
+                  <td>Unlimited</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 299,90</td>
+                  <td>ilimitado obra_ativa/mes | limite_usuario=5 usuario/mes</td>
+                  <td>grace 5d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
+
+        <div class="subsection">
+          <h4>Adicionais / Complementos</h4>
+          
+          <p class="empty">Sem adicionais seedados para este produto.</p>
+          
+        </div>
+
+        <div class="subsection">
+          <h4>Modulos e estrutura</h4>
+          
+          <p class="empty">Sem modulos seedados nesta pre-foto.</p>
+          
+        </div>
+      </div>
+      
+      <div class="product-section" id="product-cpu">
+        <div class="product-header">
+          <div>
+            <h3>CPU — Easy CPU</h3>
+            <div class="product-meta">
+              <span class="tag">EASY</span>
+              <span class="pill">ativo</span>
+              <span class="pill">5 ofertas</span>
+              <span class="pill">0 adicionais</span>
+            </div>
+          </div>
+        </div>
+        <p class="muted">Produto Easy CPU</p>
+
+        <div class="subsection">
+          <h4>Opcoes de Billing</h4>
+          
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Oferta</th>
+                  <th>Categoria</th>
+                  <th>Modelo</th>
+                  <th>Precos</th>
+                  <th>O que libera</th>
+                  <th>Condicoes operacionais</th>
+                  <th>Override / comissao / fiscal</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                <tr>
+                  <td>
+                    <strong>CPU-ADV</strong><br>
+                    <span class="muted">Easy CPU Advanced</span>
+                  </td>
+                  <td>Advanced</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 49,90</td>
+                  <td>contador_uso=3 artefato/mes | limite_usuario=1 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>CPU-PRO</strong><br>
+                    <span class="muted">Easy CPU Pro</span>
+                  </td>
+                  <td>Pro</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 69,90</td>
+                  <td>contador_uso=6 artefato/mes | limite_usuario=2 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>CPU-SIN</strong><br>
+                    <span class="muted">Easy CPU Single</span>
+                  </td>
+                  <td>Single</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 19,90</td>
+                  <td>contador_uso=1 artefato/mes | limite_usuario=1 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>CPU-STA</strong><br>
+                    <span class="muted">Easy CPU Starter</span>
+                  </td>
+                  <td>Starter</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 34,90</td>
+                  <td>contador_uso=2 artefato/mes | limite_usuario=1 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>CPU-UNL</strong><br>
+                    <span class="muted">Easy CPU Unlimited</span>
+                  </td>
+                  <td>Unlimited</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 99,90</td>
+                  <td>ilimitado artefato/mes | limite_usuario=5 usuario/mes</td>
+                  <td>grace 5d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
+
+        <div class="subsection">
+          <h4>Adicionais / Complementos</h4>
+          
+          <p class="empty">Sem adicionais seedados para este produto.</p>
+          
+        </div>
+
+        <div class="subsection">
+          <h4>Modulos e estrutura</h4>
+          
+          <p class="empty">Sem modulos seedados nesta pre-foto.</p>
+          
+        </div>
+      </div>
+      
+      <div class="product-section" id="product-doc">
+        <div class="product-header">
+          <div>
+            <h3>DOC — Easy Docs</h3>
+            <div class="product-meta">
+              <span class="tag">EASY</span>
+              <span class="pill">ativo</span>
+              <span class="pill">5 ofertas</span>
+              <span class="pill">0 adicionais</span>
+            </div>
+          </div>
+        </div>
+        <p class="muted">Produto Easy Docs</p>
+
+        <div class="subsection">
+          <h4>Opcoes de Billing</h4>
+          
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Oferta</th>
+                  <th>Categoria</th>
+                  <th>Modelo</th>
+                  <th>Precos</th>
+                  <th>O que libera</th>
+                  <th>Condicoes operacionais</th>
+                  <th>Override / comissao / fiscal</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                <tr>
+                  <td>
+                    <strong>DOC-ADV</strong><br>
+                    <span class="muted">Easy Docs Advanced</span>
+                  </td>
+                  <td>Advanced</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 49,90</td>
+                  <td>contador_uso=3 artefato/mes | limite_usuario=1 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>DOC-PRO</strong><br>
+                    <span class="muted">Easy Docs Pro</span>
+                  </td>
+                  <td>Pro</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 69,90</td>
+                  <td>contador_uso=6 artefato/mes | limite_usuario=2 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>DOC-SIN</strong><br>
+                    <span class="muted">Easy Docs Single</span>
+                  </td>
+                  <td>Single</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 19,90</td>
+                  <td>contador_uso=1 artefato/mes | limite_usuario=1 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>DOC-STA</strong><br>
+                    <span class="muted">Easy Docs Starter</span>
+                  </td>
+                  <td>Starter</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 34,90</td>
+                  <td>contador_uso=2 artefato/mes | limite_usuario=1 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>DOC-UNL</strong><br>
+                    <span class="muted">Easy Docs Unlimited</span>
+                  </td>
+                  <td>Unlimited</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 99,90</td>
+                  <td>ilimitado artefato/mes | limite_usuario=5 usuario/mes</td>
+                  <td>grace 5d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
+
+        <div class="subsection">
+          <h4>Adicionais / Complementos</h4>
+          
+          <p class="empty">Sem adicionais seedados para este produto.</p>
+          
+        </div>
+
+        <div class="subsection">
+          <h4>Modulos e estrutura</h4>
+          
+          <p class="empty">Sem modulos seedados nesta pre-foto.</p>
+          
+        </div>
+      </div>
+      
+      <div class="product-section" id="product-fin">
+        <div class="product-header">
+          <div>
+            <h3>FIN — Easy FinControl</h3>
+            <div class="product-meta">
+              <span class="tag">EASY</span>
+              <span class="pill">ativo</span>
+              <span class="pill">5 ofertas</span>
+              <span class="pill">0 adicionais</span>
+            </div>
+          </div>
+        </div>
+        <p class="muted">Produto Easy FinControl</p>
+
+        <div class="subsection">
+          <h4>Opcoes de Billing</h4>
+          
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Oferta</th>
+                  <th>Categoria</th>
+                  <th>Modelo</th>
+                  <th>Precos</th>
+                  <th>O que libera</th>
+                  <th>Condicoes operacionais</th>
+                  <th>Override / comissao / fiscal</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                <tr>
+                  <td>
+                    <strong>FIN-ADV</strong><br>
+                    <span class="muted">Easy FinControl Advanced</span>
+                  </td>
+                  <td>Advanced</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 99,90</td>
+                  <td>limite_recurso_ativo=3 obra_ativa/mes | limite_usuario=1 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>FIN-PRO</strong><br>
+                    <span class="muted">Easy FinControl Pro</span>
+                  </td>
+                  <td>Pro</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 199,90</td>
+                  <td>limite_recurso_ativo=6 obra_ativa/mes | limite_usuario=2 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>FIN-SIN</strong><br>
+                    <span class="muted">Easy FinControl Single</span>
+                  </td>
+                  <td>Single</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 39,90</td>
+                  <td>limite_recurso_ativo=1 obra_ativa/mes | limite_usuario=1 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>FIN-STA</strong><br>
+                    <span class="muted">Easy FinControl Starter</span>
+                  </td>
+                  <td>Starter</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 59,90</td>
+                  <td>limite_recurso_ativo=2 obra_ativa/mes | limite_usuario=1 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>FIN-UNL</strong><br>
+                    <span class="muted">Easy FinControl Unlimited</span>
+                  </td>
+                  <td>Unlimited</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 299,90</td>
+                  <td>ilimitado obra_ativa/mes | limite_usuario=5 usuario/mes</td>
+                  <td>grace 5d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
+
+        <div class="subsection">
+          <h4>Adicionais / Complementos</h4>
+          
+          <p class="empty">Sem adicionais seedados para este produto.</p>
+          
+        </div>
+
+        <div class="subsection">
+          <h4>Modulos e estrutura</h4>
+          
+          <p class="empty">Sem modulos seedados nesta pre-foto.</p>
+          
+        </div>
+      </div>
+      
+      <div class="product-section" id="product-fis">
+        <div class="product-header">
+          <div>
+            <h3>FIS — Easy One</h3>
+            <div class="product-meta">
+              <span class="tag">EASY</span>
+              <span class="pill">ativo</span>
+              <span class="pill">1 ofertas</span>
+              <span class="pill">0 adicionais</span>
+            </div>
+          </div>
+        </div>
+        <p class="muted">Produto premium que aglutina todas as funcoes do ecossistema</p>
+
+        <div class="subsection">
+          <h4>Opcoes de Billing</h4>
+          
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Oferta</th>
+                  <th>Categoria</th>
+                  <th>Modelo</th>
+                  <th>Precos</th>
+                  <th>O que libera</th>
+                  <th>Condicoes operacionais</th>
+                  <th>Override / comissao / fiscal</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                <tr>
+                  <td>
+                    <strong>FIS-UNL</strong><br>
+                    <span class="muted">Easy One Unlimited</span>
+                  </td>
+                  <td>Unlimited</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 1.999,90</td>
+                  <td>ilimitado obra_ativa/mes | limite_usuario=5 usuario/mes | personalizado=1 pacote_governanca/mes</td>
+                  <td>grace 5d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
+
+        <div class="subsection">
+          <h4>Adicionais / Complementos</h4>
+          
+          <p class="empty">Sem adicionais seedados para este produto.</p>
+          
+        </div>
+
+        <div class="subsection">
+          <h4>Modulos e estrutura</h4>
+          
+          <p class="empty">Sem modulos seedados nesta pre-foto.</p>
+          
+        </div>
+      </div>
+      
+      <div class="product-section" id="product-lic">
+        <div class="product-header">
+          <div>
+            <h3>LIC — Easy LicitPlan</h3>
+            <div class="product-meta">
+              <span class="tag">EASY</span>
+              <span class="pill">ativo</span>
+              <span class="pill">5 ofertas</span>
+              <span class="pill">0 adicionais</span>
+            </div>
+          </div>
+        </div>
+        <p class="muted">Produto Easy LicitPlan</p>
+
+        <div class="subsection">
+          <h4>Opcoes de Billing</h4>
+          
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Oferta</th>
+                  <th>Categoria</th>
+                  <th>Modelo</th>
+                  <th>Precos</th>
+                  <th>O que libera</th>
+                  <th>Condicoes operacionais</th>
+                  <th>Override / comissao / fiscal</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                <tr>
+                  <td>
+                    <strong>LIC-ADV</strong><br>
+                    <span class="muted">Easy LicitPlan Advanced</span>
+                  </td>
+                  <td>Advanced</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 299,90</td>
+                  <td>contador_uso=3 artefato/mes | limite_usuario=1 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>LIC-PRO</strong><br>
+                    <span class="muted">Easy LicitPlan Pro</span>
+                  </td>
+                  <td>Pro</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 399,90</td>
+                  <td>contador_uso=6 artefato/mes | limite_usuario=2 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>LIC-SIN</strong><br>
+                    <span class="muted">Easy LicitPlan Single</span>
+                  </td>
+                  <td>Single</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 129,90</td>
+                  <td>contador_uso=1 artefato/mes | limite_usuario=1 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>LIC-STA</strong><br>
+                    <span class="muted">Easy LicitPlan Starter</span>
+                  </td>
+                  <td>Starter</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 199,90</td>
+                  <td>contador_uso=2 artefato/mes | limite_usuario=1 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>LIC-UNL</strong><br>
+                    <span class="muted">Easy LicitPlan Unlimited</span>
+                  </td>
+                  <td>Unlimited</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 499,90</td>
+                  <td>ilimitado artefato/mes | limite_usuario=5 usuario/mes</td>
+                  <td>grace 5d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
+
+        <div class="subsection">
+          <h4>Adicionais / Complementos</h4>
+          
+          <p class="empty">Sem adicionais seedados para este produto.</p>
+          
+        </div>
+
+        <div class="subsection">
+          <h4>Modulos e estrutura</h4>
+          
+          <p class="empty">Sem modulos seedados nesta pre-foto.</p>
+          
+        </div>
+      </div>
+      
+      <div class="product-section" id="product-orc">
+        <div class="product-header">
+          <div>
+            <h3>ORC — Easy Orça</h3>
+            <div class="product-meta">
+              <span class="tag">EASY</span>
+              <span class="pill">ativo</span>
+              <span class="pill">5 ofertas</span>
+              <span class="pill">0 adicionais</span>
+            </div>
+          </div>
+        </div>
+        <p class="muted">Produto Easy Orça</p>
+
+        <div class="subsection">
+          <h4>Opcoes de Billing</h4>
+          
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Oferta</th>
+                  <th>Categoria</th>
+                  <th>Modelo</th>
+                  <th>Precos</th>
+                  <th>O que libera</th>
+                  <th>Condicoes operacionais</th>
+                  <th>Override / comissao / fiscal</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                <tr>
+                  <td>
+                    <strong>ORC-ADV</strong><br>
+                    <span class="muted">Easy Orça Advanced</span>
+                  </td>
+                  <td>Advanced</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 199,90</td>
+                  <td>limite_recurso_ativo=3 obra_ativa/mes | limite_usuario=1 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>ORC-PRO</strong><br>
+                    <span class="muted">Easy Orça Pro</span>
+                  </td>
+                  <td>Pro</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 299,90</td>
+                  <td>limite_recurso_ativo=6 obra_ativa/mes | limite_usuario=2 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>ORC-SIN</strong><br>
+                    <span class="muted">Easy Orça Single</span>
+                  </td>
+                  <td>Single</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 99,90</td>
+                  <td>limite_recurso_ativo=1 obra_ativa/mes | limite_usuario=1 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>ORC-STA</strong><br>
+                    <span class="muted">Easy Orça Starter</span>
+                  </td>
+                  <td>Starter</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 149,90</td>
+                  <td>limite_recurso_ativo=2 obra_ativa/mes | limite_usuario=1 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>ORC-UNL</strong><br>
+                    <span class="muted">Easy Orça Unlimited</span>
+                  </td>
+                  <td>Unlimited</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 399,90</td>
+                  <td>ilimitado obra_ativa/mes | limite_usuario=5 usuario/mes</td>
+                  <td>grace 5d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
+
+        <div class="subsection">
+          <h4>Adicionais / Complementos</h4>
+          
+          <p class="empty">Sem adicionais seedados para este produto.</p>
+          
+        </div>
+
+        <div class="subsection">
+          <h4>Modulos e estrutura</h4>
+          
+          <p class="empty">Sem modulos seedados nesta pre-foto.</p>
+          
+        </div>
+      </div>
+      
+      <div class="product-section" id="product-pm">
+        <div class="product-header">
+          <div>
+            <h3>PM — Easy ProjectManager</h3>
+            <div class="product-meta">
+              <span class="tag">EASY</span>
+              <span class="pill">ativo</span>
+              <span class="pill">5 ofertas</span>
+              <span class="pill">0 adicionais</span>
+            </div>
+          </div>
+        </div>
+        <p class="muted">Produto Easy ProjectManager</p>
+
+        <div class="subsection">
+          <h4>Opcoes de Billing</h4>
+          
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Oferta</th>
+                  <th>Categoria</th>
+                  <th>Modelo</th>
+                  <th>Precos</th>
+                  <th>O que libera</th>
+                  <th>Condicoes operacionais</th>
+                  <th>Override / comissao / fiscal</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                <tr>
+                  <td>
+                    <strong>PM-ADV</strong><br>
+                    <span class="muted">Easy ProjectManager Advanced</span>
+                  </td>
+                  <td>Advanced</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 29,90</td>
+                  <td>limite_recurso_ativo=3 obra_ativa/mes | limite_usuario=1 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>PM-PRO</strong><br>
+                    <span class="muted">Easy ProjectManager Pro</span>
+                  </td>
+                  <td>Pro</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 59,90</td>
+                  <td>limite_recurso_ativo=6 obra_ativa/mes | limite_usuario=2 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>PM-SIN</strong><br>
+                    <span class="muted">Easy ProjectManager Single</span>
+                  </td>
+                  <td>Single</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 14,90</td>
+                  <td>limite_recurso_ativo=1 obra_ativa/mes | limite_usuario=1 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>PM-STA</strong><br>
+                    <span class="muted">Easy ProjectManager Starter</span>
+                  </td>
+                  <td>Starter</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 19,90</td>
+                  <td>limite_recurso_ativo=2 obra_ativa/mes | limite_usuario=1 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>PM-UNL</strong><br>
+                    <span class="muted">Easy ProjectManager Unlimited</span>
+                  </td>
+                  <td>Unlimited</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 99,90</td>
+                  <td>ilimitado obra_ativa/mes | limite_usuario=5 usuario/mes</td>
+                  <td>grace 5d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
+
+        <div class="subsection">
+          <h4>Adicionais / Complementos</h4>
+          
+          <p class="empty">Sem adicionais seedados para este produto.</p>
+          
+        </div>
+
+        <div class="subsection">
+          <h4>Modulos e estrutura</h4>
+          
+          <p class="empty">Sem modulos seedados nesta pre-foto.</p>
+          
+        </div>
+      </div>
+      
+      <div class="product-section" id="product-pr1">
+        <div class="product-header">
+          <div>
+            <h3>PR1 — Easy Price</h3>
+            <div class="product-meta">
+              <span class="tag">EASY</span>
+              <span class="pill">ativo</span>
+              <span class="pill">5 ofertas</span>
+              <span class="pill">1 adicionais</span>
+            </div>
+          </div>
+        </div>
+        <p class="muted">Motor paramétrico base do Easy Price</p>
+
+        <div class="subsection">
+          <h4>Opcoes de Billing</h4>
+          
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Oferta</th>
+                  <th>Categoria</th>
+                  <th>Modelo</th>
+                  <th>Precos</th>
+                  <th>O que libera</th>
+                  <th>Condicoes operacionais</th>
+                  <th>Override / comissao / fiscal</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                <tr>
+                  <td>
+                    <strong>PR1-ADV</strong><br>
+                    <span class="muted">Easy Price Advanced</span>
+                  </td>
+                  <td>Advanced</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 29,90</td>
+                  <td>contador_uso=3 artefato/mes | limite_usuario=1 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>PR1-PRO</strong><br>
+                    <span class="muted">Easy Price Pro</span>
+                  </td>
+                  <td>Pro</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 59,90</td>
+                  <td>contador_uso=6 artefato/mes | limite_usuario=2 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>PR1-SIN</strong><br>
+                    <span class="muted">Easy Price Single</span>
+                  </td>
+                  <td>Single</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 14,90</td>
+                  <td>contador_uso=1 artefato/mes | limite_usuario=1 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>PR1-STA</strong><br>
+                    <span class="muted">Easy Price Starter</span>
+                  </td>
+                  <td>Starter</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 19,90</td>
+                  <td>contador_uso=2 artefato/mes | limite_usuario=1 usuario/mes</td>
+                  <td>grace 0d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+                <tr>
+                  <td>
+                    <strong>PR1-UNL</strong><br>
+                    <span class="muted">Easy Price Unlimited</span>
+                  </td>
+                  <td>Unlimited</td>
+                  <td>mensal</td>
+                  <td>mensal: R$ 99,90</td>
+                  <td>ilimitado artefato/mes | limite_usuario=5 usuario/mes</td>
+                  <td>grace 5d | suspende em 5d | cancela em 30d | renova automaticamente | retry 3</td>
+                  <td>override manual permitido | override max 15d | comissionavel | emite fiscal auto</td>
+                </tr>
+                
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
+
+        <div class="subsection">
+          <h4>Adicionais / Complementos</h4>
+          
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Adicional</th>
+                  <th>Descricao</th>
+                  <th>Preco</th>
+                  <th>O que libera</th>
+                  <th>Observacao comercial</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                <tr>
+                  <td><strong>PRICE2</strong><br><span class="muted">Adicional Price2</span></td>
+                  <td>Capacidade adicional do Easy Price, cobrada cheia sem desconto de recorrência</td>
+                  <td>anual: R$ 9,90 | mensal: R$ 9,90 | semestral: R$ 9,90</td>
+                  <td>acesso_capacidade=1 motor_precificacao/mes</td>
+                  <td>Cobranca propria do adicional; sem desconto automatico de recorrencia.</td>
+                </tr>
+                
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
+
+        <div class="subsection">
+          <h4>Modulos e estrutura</h4>
+          
+          <p class="empty">Sem modulos seedados nesta pre-foto.</p>
+          
+        </div>
+      </div>
+      
+      <div class="product-section" id="product-axysgestor">
+        <div class="product-header">
+          <div>
+            <h3>AXYSGESTOR — AxysGestor</h3>
+            <div class="product-meta">
+              <span class="tag">GESTOR</span>
+              <span class="pill">ativo</span>
+              <span class="pill">0 ofertas</span>
+              <span class="pill">0 adicionais</span>
+            </div>
+          </div>
+        </div>
+        <p class="muted">Produto principal do ecossistema AxysGestor</p>
+
+        <div class="subsection">
+          <h4>Opcoes de Billing</h4>
+          
+          <p class="empty">Sem ofertas seedadas para este produto.</p>
+          
+        </div>
+
+        <div class="subsection">
+          <h4>Adicionais / Complementos</h4>
+          
+          <p class="empty">Sem adicionais seedados para este produto.</p>
+          
+        </div>
+
+        <div class="subsection">
+          <h4>Modulos e estrutura</h4>
+          
+          <p class="empty">Sem modulos seedados nesta pre-foto.</p>
+          
+        </div>
+      </div>
+      
+      <div class="product-section" id="product-axyspro">
+        <div class="product-header">
+          <div>
+            <h3>AXYSPRO — AxysPro</h3>
+            <div class="product-meta">
+              <span class="tag">PRO</span>
+              <span class="pill">ativo</span>
+              <span class="pill">0 ofertas</span>
+              <span class="pill">0 adicionais</span>
+            </div>
+          </div>
+        </div>
+        <p class="muted">Produto principal do ecossistema AxysPro</p>
+
+        <div class="subsection">
+          <h4>Opcoes de Billing</h4>
+          
+          <p class="empty">Sem ofertas seedadas para este produto.</p>
+          
+        </div>
+
+        <div class="subsection">
+          <h4>Adicionais / Complementos</h4>
+          
+          <p class="empty">Sem adicionais seedados para este produto.</p>
+          
+        </div>
+
+        <div class="subsection">
+          <h4>Modulos e estrutura</h4>
+          
+          <p class="empty">Sem modulos seedados nesta pre-foto.</p>
+          
+        </div>
+      </div>
+      
+    </section>
+
+    <section class="section">
+      <h2>Combos</h2>
+      
+      <p class="empty">Nenhum combo seedado nesta pre-foto.</p>
+      
+    </section>
+  </div>
+  <script>
+    const simulatorCatalog = [{"item_code": "CPU-SIN", "product_code": "CPU", "product_label": "Easy CPU", "item_label": "Single — Easy CPU Single", "category_label": "Single", "axis_label": "Eixo 1", "summary": "contador_uso=1 artefato/mes | limite_usuario=1 usuario/mes", "base_monthly_cents": 1990, "base_monthly_label": "R$ 19,90", "discount_exempt": false}, {"item_code": "CPU-STA", "product_code": "CPU", "product_label": "Easy CPU", "item_label": "Starter — Easy CPU Starter", "category_label": "Starter", "axis_label": "Eixo 1", "summary": "contador_uso=2 artefato/mes | limite_usuario=1 usuario/mes", "base_monthly_cents": 3490, "base_monthly_label": "R$ 34,90", "discount_exempt": false}, {"item_code": "CPU-ADV", "product_code": "CPU", "product_label": "Easy CPU", "item_label": "Advanced — Easy CPU Advanced", "category_label": "Advanced", "axis_label": "Eixo 1", "summary": "contador_uso=3 artefato/mes | limite_usuario=1 usuario/mes", "base_monthly_cents": 4990, "base_monthly_label": "R$ 49,90", "discount_exempt": false}, {"item_code": "CPU-PRO", "product_code": "CPU", "product_label": "Easy CPU", "item_label": "Pro — Easy CPU Pro", "category_label": "Pro", "axis_label": "Eixo 1", "summary": "contador_uso=6 artefato/mes | limite_usuario=2 usuario/mes", "base_monthly_cents": 6990, "base_monthly_label": "R$ 69,90", "discount_exempt": false}, {"item_code": "CPU-UNL", "product_code": "CPU", "product_label": "Easy CPU", "item_label": "Unlimited — Easy CPU Unlimited", "category_label": "Unlimited", "axis_label": "Eixo 1", "summary": "ilimitado artefato/mes | limite_usuario=5 usuario/mes", "base_monthly_cents": 9990, "base_monthly_label": "R$ 99,90", "discount_exempt": false}, {"item_code": "DOC-SIN", "product_code": "DOC", "product_label": "Easy Docs", "item_label": "Single — Easy Docs Single", "category_label": "Single", "axis_label": "Eixo 1", "summary": "contador_uso=1 artefato/mes | limite_usuario=1 usuario/mes", "base_monthly_cents": 1990, "base_monthly_label": "R$ 19,90", "discount_exempt": false}, {"item_code": "DOC-STA", "product_code": "DOC", "product_label": "Easy Docs", "item_label": "Starter — Easy Docs Starter", "category_label": "Starter", "axis_label": "Eixo 1", "summary": "contador_uso=2 artefato/mes | limite_usuario=1 usuario/mes", "base_monthly_cents": 3490, "base_monthly_label": "R$ 34,90", "discount_exempt": false}, {"item_code": "DOC-ADV", "product_code": "DOC", "product_label": "Easy Docs", "item_label": "Advanced — Easy Docs Advanced", "category_label": "Advanced", "axis_label": "Eixo 1", "summary": "contador_uso=3 artefato/mes | limite_usuario=1 usuario/mes", "base_monthly_cents": 4990, "base_monthly_label": "R$ 49,90", "discount_exempt": false}, {"item_code": "DOC-PRO", "product_code": "DOC", "product_label": "Easy Docs", "item_label": "Pro — Easy Docs Pro", "category_label": "Pro", "axis_label": "Eixo 1", "summary": "contador_uso=6 artefato/mes | limite_usuario=2 usuario/mes", "base_monthly_cents": 6990, "base_monthly_label": "R$ 69,90", "discount_exempt": false}, {"item_code": "DOC-UNL", "product_code": "DOC", "product_label": "Easy Docs", "item_label": "Unlimited — Easy Docs Unlimited", "category_label": "Unlimited", "axis_label": "Eixo 1", "summary": "ilimitado artefato/mes | limite_usuario=5 usuario/mes", "base_monthly_cents": 9990, "base_monthly_label": "R$ 99,90", "discount_exempt": false}, {"item_code": "LIC-SIN", "product_code": "LIC", "product_label": "Easy LicitPlan", "item_label": "Single — Easy LicitPlan Single", "category_label": "Single", "axis_label": "Eixo 1", "summary": "contador_uso=1 artefato/mes | limite_usuario=1 usuario/mes", "base_monthly_cents": 12990, "base_monthly_label": "R$ 129,90", "discount_exempt": false}, {"item_code": "LIC-STA", "product_code": "LIC", "product_label": "Easy LicitPlan", "item_label": "Starter — Easy LicitPlan Starter", "category_label": "Starter", "axis_label": "Eixo 1", "summary": "contador_uso=2 artefato/mes | limite_usuario=1 usuario/mes", "base_monthly_cents": 19990, "base_monthly_label": "R$ 199,90", "discount_exempt": false}, {"item_code": "LIC-ADV", "product_code": "LIC", "product_label": "Easy LicitPlan", "item_label": "Advanced — Easy LicitPlan Advanced", "category_label": "Advanced", "axis_label": "Eixo 1", "summary": "contador_uso=3 artefato/mes | limite_usuario=1 usuario/mes", "base_monthly_cents": 29990, "base_monthly_label": "R$ 299,90", "discount_exempt": false}, {"item_code": "LIC-PRO", "product_code": "LIC", "product_label": "Easy LicitPlan", "item_label": "Pro — Easy LicitPlan Pro", "category_label": "Pro", "axis_label": "Eixo 1", "summary": "contador_uso=6 artefato/mes | limite_usuario=2 usuario/mes", "base_monthly_cents": 39990, "base_monthly_label": "R$ 399,90", "discount_exempt": false}, {"item_code": "LIC-UNL", "product_code": "LIC", "product_label": "Easy LicitPlan", "item_label": "Unlimited — Easy LicitPlan Unlimited", "category_label": "Unlimited", "axis_label": "Eixo 1", "summary": "ilimitado artefato/mes | limite_usuario=5 usuario/mes", "base_monthly_cents": 49990, "base_monthly_label": "R$ 499,90", "discount_exempt": false}, {"item_code": "ORC-SIN", "product_code": "ORC", "product_label": "Easy Orça", "item_label": "Single — Easy Orça Single", "category_label": "Single", "axis_label": "Eixo 1", "summary": "limite_recurso_ativo=1 obra_ativa/mes | limite_usuario=1 usuario/mes", "base_monthly_cents": 9990, "base_monthly_label": "R$ 99,90", "discount_exempt": false}, {"item_code": "ORC-STA", "product_code": "ORC", "product_label": "Easy Orça", "item_label": "Starter — Easy Orça Starter", "category_label": "Starter", "axis_label": "Eixo 1", "summary": "limite_recurso_ativo=2 obra_ativa/mes | limite_usuario=1 usuario/mes", "base_monthly_cents": 14990, "base_monthly_label": "R$ 149,90", "discount_exempt": false}, {"item_code": "ORC-ADV", "product_code": "ORC", "product_label": "Easy Orça", "item_label": "Advanced — Easy Orça Advanced", "category_label": "Advanced", "axis_label": "Eixo 1", "summary": "limite_recurso_ativo=3 obra_ativa/mes | limite_usuario=1 usuario/mes", "base_monthly_cents": 19990, "base_monthly_label": "R$ 199,90", "discount_exempt": false}, {"item_code": "ORC-PRO", "product_code": "ORC", "product_label": "Easy Orça", "item_label": "Pro — Easy Orça Pro", "category_label": "Pro", "axis_label": "Eixo 1", "summary": "limite_recurso_ativo=6 obra_ativa/mes | limite_usuario=2 usuario/mes", "base_monthly_cents": 29990, "base_monthly_label": "R$ 299,90", "discount_exempt": false}, {"item_code": "ORC-UNL", "product_code": "ORC", "product_label": "Easy Orça", "item_label": "Unlimited — Easy Orça Unlimited", "category_label": "Unlimited", "axis_label": "Eixo 1", "summary": "ilimitado obra_ativa/mes | limite_usuario=5 usuario/mes", "base_monthly_cents": 39990, "base_monthly_label": "R$ 399,90", "discount_exempt": false}, {"item_code": "PR1-SIN", "product_code": "PR1", "product_label": "Easy Price", "item_label": "Single — Easy Price Single", "category_label": "Single", "axis_label": "Eixo 1", "summary": "contador_uso=1 artefato/mes | limite_usuario=1 usuario/mes", "base_monthly_cents": 1490, "base_monthly_label": "R$ 14,90", "discount_exempt": false}, {"item_code": "PR1-STA", "product_code": "PR1", "product_label": "Easy Price", "item_label": "Starter — Easy Price Starter", "category_label": "Starter", "axis_label": "Eixo 1", "summary": "contador_uso=2 artefato/mes | limite_usuario=1 usuario/mes", "base_monthly_cents": 1990, "base_monthly_label": "R$ 19,90", "discount_exempt": false}, {"item_code": "PR1-ADV", "product_code": "PR1", "product_label": "Easy Price", "item_label": "Advanced — Easy Price Advanced", "category_label": "Advanced", "axis_label": "Eixo 1", "summary": "contador_uso=3 artefato/mes | limite_usuario=1 usuario/mes", "base_monthly_cents": 2990, "base_monthly_label": "R$ 29,90", "discount_exempt": false}, {"item_code": "PR1-PRO", "product_code": "PR1", "product_label": "Easy Price", "item_label": "Pro — Easy Price Pro", "category_label": "Pro", "axis_label": "Eixo 1", "summary": "contador_uso=6 artefato/mes | limite_usuario=2 usuario/mes", "base_monthly_cents": 5990, "base_monthly_label": "R$ 59,90", "discount_exempt": false}, {"item_code": "PR1-UNL", "product_code": "PR1", "product_label": "Easy Price", "item_label": "Unlimited — Easy Price Unlimited", "category_label": "Unlimited", "axis_label": "Eixo 1", "summary": "ilimitado artefato/mes | limite_usuario=5 usuario/mes", "base_monthly_cents": 9990, "base_monthly_label": "R$ 99,90", "discount_exempt": false}, {"item_code": "PRICE2", "product_code": "PR1", "product_label": "Easy Price", "item_label": "Adicional Price2", "category_label": "Adicional", "axis_label": "Eixo 1", "summary": "acesso_capacidade=1 motor_precificacao/mes", "base_monthly_cents": 990, "base_monthly_label": "R$ 9,90", "discount_exempt": true}, {"item_code": "PM-SIN", "product_code": "PM", "product_label": "Easy ProjectManager", "item_label": "Single — Easy ProjectManager Single", "category_label": "Single", "axis_label": "Eixo 1", "summary": "limite_recurso_ativo=1 obra_ativa/mes | limite_usuario=1 usuario/mes", "base_monthly_cents": 1490, "base_monthly_label": "R$ 14,90", "discount_exempt": false}, {"item_code": "PM-STA", "product_code": "PM", "product_label": "Easy ProjectManager", "item_label": "Starter — Easy ProjectManager Starter", "category_label": "Starter", "axis_label": "Eixo 1", "summary": "limite_recurso_ativo=2 obra_ativa/mes | limite_usuario=1 usuario/mes", "base_monthly_cents": 1990, "base_monthly_label": "R$ 19,90", "discount_exempt": false}, {"item_code": "PM-ADV", "product_code": "PM", "product_label": "Easy ProjectManager", "item_label": "Advanced — Easy ProjectManager Advanced", "category_label": "Advanced", "axis_label": "Eixo 1", "summary": "limite_recurso_ativo=3 obra_ativa/mes | limite_usuario=1 usuario/mes", "base_monthly_cents": 2990, "base_monthly_label": "R$ 29,90", "discount_exempt": false}, {"item_code": "PM-PRO", "product_code": "PM", "product_label": "Easy ProjectManager", "item_label": "Pro — Easy ProjectManager Pro", "category_label": "Pro", "axis_label": "Eixo 1", "summary": "limite_recurso_ativo=6 obra_ativa/mes | limite_usuario=2 usuario/mes", "base_monthly_cents": 5990, "base_monthly_label": "R$ 59,90", "discount_exempt": false}, {"item_code": "PM-UNL", "product_code": "PM", "product_label": "Easy ProjectManager", "item_label": "Unlimited — Easy ProjectManager Unlimited", "category_label": "Unlimited", "axis_label": "Eixo 1", "summary": "ilimitado obra_ativa/mes | limite_usuario=5 usuario/mes", "base_monthly_cents": 9990, "base_monthly_label": "R$ 99,90", "discount_exempt": false}, {"item_code": "BDR-SIN", "product_code": "BDR", "product_label": "Easy BuildDiary", "item_label": "Single — Easy BuildDiary Single", "category_label": "Single", "axis_label": "Eixo 2", "summary": "limite_recurso_ativo=1 obra_ativa/mes | limite_usuario=1 usuario/mes", "base_monthly_cents": 3990, "base_monthly_label": "R$ 39,90", "discount_exempt": false}, {"item_code": "BDR-STA", "product_code": "BDR", "product_label": "Easy BuildDiary", "item_label": "Starter — Easy BuildDiary Starter", "category_label": "Starter", "axis_label": "Eixo 2", "summary": "limite_recurso_ativo=2 obra_ativa/mes | limite_usuario=1 usuario/mes", "base_monthly_cents": 5990, "base_monthly_label": "R$ 59,90", "discount_exempt": false}, {"item_code": "BDR-ADV", "product_code": "BDR", "product_label": "Easy BuildDiary", "item_label": "Advanced — Easy BuildDiary Advanced", "category_label": "Advanced", "axis_label": "Eixo 2", "summary": "limite_recurso_ativo=3 obra_ativa/mes | limite_usuario=1 usuario/mes", "base_monthly_cents": 9990, "base_monthly_label": "R$ 99,90", "discount_exempt": false}, {"item_code": "BDR-PRO", "product_code": "BDR", "product_label": "Easy BuildDiary", "item_label": "Pro — Easy BuildDiary Pro", "category_label": "Pro", "axis_label": "Eixo 2", "summary": "limite_recurso_ativo=6 obra_ativa/mes | limite_usuario=2 usuario/mes", "base_monthly_cents": 19990, "base_monthly_label": "R$ 199,90", "discount_exempt": false}, {"item_code": "BDR-UNL", "product_code": "BDR", "product_label": "Easy BuildDiary", "item_label": "Unlimited — Easy BuildDiary Unlimited", "category_label": "Unlimited", "axis_label": "Eixo 2", "summary": "ilimitado obra_ativa/mes | limite_usuario=5 usuario/mes", "base_monthly_cents": 29990, "base_monthly_label": "R$ 299,90", "discount_exempt": false}, {"item_code": "FIN-SIN", "product_code": "FIN", "product_label": "Easy FinControl", "item_label": "Single — Easy FinControl Single", "category_label": "Single", "axis_label": "Eixo 2", "summary": "limite_recurso_ativo=1 obra_ativa/mes | limite_usuario=1 usuario/mes", "base_monthly_cents": 3990, "base_monthly_label": "R$ 39,90", "discount_exempt": false}, {"item_code": "FIN-STA", "product_code": "FIN", "product_label": "Easy FinControl", "item_label": "Starter — Easy FinControl Starter", "category_label": "Starter", "axis_label": "Eixo 2", "summary": "limite_recurso_ativo=2 obra_ativa/mes | limite_usuario=1 usuario/mes", "base_monthly_cents": 5990, "base_monthly_label": "R$ 59,90", "discount_exempt": false}, {"item_code": "FIN-ADV", "product_code": "FIN", "product_label": "Easy FinControl", "item_label": "Advanced — Easy FinControl Advanced", "category_label": "Advanced", "axis_label": "Eixo 2", "summary": "limite_recurso_ativo=3 obra_ativa/mes | limite_usuario=1 usuario/mes", "base_monthly_cents": 9990, "base_monthly_label": "R$ 99,90", "discount_exempt": false}, {"item_code": "FIN-PRO", "product_code": "FIN", "product_label": "Easy FinControl", "item_label": "Pro — Easy FinControl Pro", "category_label": "Pro", "axis_label": "Eixo 2", "summary": "limite_recurso_ativo=6 obra_ativa/mes | limite_usuario=2 usuario/mes", "base_monthly_cents": 19990, "base_monthly_label": "R$ 199,90", "discount_exempt": false}, {"item_code": "FIN-UNL", "product_code": "FIN", "product_label": "Easy FinControl", "item_label": "Unlimited — Easy FinControl Unlimited", "category_label": "Unlimited", "axis_label": "Eixo 2", "summary": "ilimitado obra_ativa/mes | limite_usuario=5 usuario/mes", "base_monthly_cents": 29990, "base_monthly_label": "R$ 299,90", "discount_exempt": false}, {"item_code": "FIS-UNL", "product_code": "FIS", "product_label": "Easy One", "item_label": "Unlimited — Easy One Unlimited", "category_label": "Unlimited", "axis_label": "Eixo 2", "summary": "ilimitado obra_ativa/mes | limite_usuario=5 usuario/mes | personalizado=1 pacote_governanca/mes", "base_monthly_cents": 199990, "base_monthly_label": "R$ 1.999,90", "discount_exempt": false}];
+    const comboView = {"rows": [{"combo_name": "Price + CPU", "category_label": "Single", "composition_label": "PR1-SIN + CPU-SIN", "base_monthly_label": "R$ 34,80", "note": "Mesmo plano/categoria; desconto extra de combo ainda nao seedado.", "product_codes": ["PR1", "CPU"], "item_codes": ["PR1-SIN", "CPU-SIN"]}, {"combo_name": "Price + CPU", "category_label": "Starter", "composition_label": "PR1-STA + CPU-STA", "base_monthly_label": "R$ 54,80", "note": "Mesmo plano/categoria; desconto extra de combo ainda nao seedado.", "product_codes": ["PR1", "CPU"], "item_codes": ["PR1-STA", "CPU-STA"]}, {"combo_name": "Price + CPU", "category_label": "Advanced", "composition_label": "PR1-ADV + CPU-ADV", "base_monthly_label": "R$ 79,80", "note": "Mesmo plano/categoria; desconto extra de combo ainda nao seedado.", "product_codes": ["PR1", "CPU"], "item_codes": ["PR1-ADV", "CPU-ADV"]}, {"combo_name": "Price + CPU", "category_label": "Pro", "composition_label": "PR1-PRO + CPU-PRO", "base_monthly_label": "R$ 129,80", "note": "Mesmo plano/categoria; desconto extra de combo ainda nao seedado.", "product_codes": ["PR1", "CPU"], "item_codes": ["PR1-PRO", "CPU-PRO"]}, {"combo_name": "Price + CPU", "category_label": "Unlimited", "composition_label": "PR1-UNL + CPU-UNL", "base_monthly_label": "R$ 199,80", "note": "Mesmo plano/categoria; desconto extra de combo ainda nao seedado.", "product_codes": ["PR1", "CPU"], "item_codes": ["PR1-UNL", "CPU-UNL"]}, {"combo_name": "Price + CPU + Orca", "category_label": "Advanced", "composition_label": "PR1-ADV + CPU-ADV + ORC-ADV", "base_monthly_label": "R$ 279,70", "note": "Trinca comercial inferida; apta para futura regra de desconto de combo.", "product_codes": ["PR1", "CPU", "ORC"], "item_codes": ["PR1-ADV", "CPU-ADV", "ORC-ADV"]}, {"combo_name": "Price + CPU + Orca", "category_label": "Pro", "composition_label": "PR1-PRO + CPU-PRO + ORC-PRO", "base_monthly_label": "R$ 429,70", "note": "Trinca comercial inferida; apta para futura regra de desconto de combo.", "product_codes": ["PR1", "CPU", "ORC"], "item_codes": ["PR1-PRO", "CPU-PRO", "ORC-PRO"]}, {"combo_name": "Price + CPU + Orca", "category_label": "Unlimited", "composition_label": "PR1-UNL + CPU-UNL + ORC-UNL", "base_monthly_label": "R$ 599,70", "note": "Trinca comercial inferida; apta para futura regra de desconto de combo.", "product_codes": ["PR1", "CPU", "ORC"], "item_codes": ["PR1-UNL", "CPU-UNL", "ORC-UNL"]}, {"combo_name": "Easy-One", "category_label": "Unlimited", "composition_label": "BDR + FIN + PM + LIC + ORC (bundle interno do FIS-UNL)", "base_monthly_label": "R$ 1.999,90", "note": "Bundle comercial consolidado no seed como produto/agregador unico.", "product_codes": ["FIS"], "item_codes": ["FIS-UNL"]}]};
+    let selectedProductCode = null;
+    let selectedItemCode = null;
+
+    function moneyBr(valueCents) {
+      const value = (Number(valueCents || 0) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+      return value;
+    }
+
+    function getTermConfig(period) {
+      if (period === 'anual') return { months: 12, discountPerMonth: 1000 };
+      if (period === 'semestral') return { months: 6, discountPerMonth: 500 };
+      return { months: 1, discountPerMonth: 0 };
+    }
+
+    let cart = [];
+
+    function getProducts() {
+      const map = new Map();
+      simulatorCatalog.forEach((item) => {
+        if (!map.has(item.product_code)) {
+          map.set(item.product_code, {
+            product_code: item.product_code,
+            product_label: item.product_label,
+            axis_label: item.axis_label,
+          });
+        }
+      });
+      return Array.from(map.values()).sort((a, b) => a.product_label.localeCompare(b.product_label, 'pt-BR'));
+    }
+
+    function getItemsByProduct(productCode) {
+      return simulatorCatalog.filter((item) => item.product_code === productCode && item.category_label !== 'Adicional');
+    }
+
+    function getAddonsByProduct(productCode) {
+      return simulatorCatalog.filter((item) => item.product_code === productCode && item.category_label === 'Adicional');
+    }
+
+    function getSelectedItem() {
+      return simulatorCatalog.find((item) => item.item_code === selectedItemCode) || null;
+    }
+
+    function renderProductPicker() {
+      const wrap = document.getElementById('product-picker');
+      wrap.innerHTML = getProducts().map((product) => `
+        <button
+          type="button"
+          class="product-pill ${product.product_code === selectedProductCode ? 'active' : ''}"
+          data-product-code="${product.product_code}">
+          ${product.product_label}
+        </button>
+      `).join('');
+      wrap.querySelectorAll('[data-product-code]').forEach((button) => {
+        button.addEventListener('click', (event) => {
+          selectedProductCode = event.target.dataset.productCode;
+          selectedItemCode = null;
+          renderBuilder();
+        });
+      });
+    }
+
+    function renderPackageGrid() {
+      const wrap = document.getElementById('package-grid');
+      if (!selectedProductCode) {
+        wrap.innerHTML = '<div class="builder-empty">Escolha um produto para visualizar os pacotes vendidos.</div>';
+        return;
+      }
+      const items = getItemsByProduct(selectedProductCode);
+      wrap.innerHTML = items.map((item) => `
+        <div class="package-card ${item.item_code === selectedItemCode ? 'selected' : ''}">
+          <h4>${item.category_label}</h4>
+          <p><strong>${item.product_label}</strong></p>
+          <div class="package-meta">
+            <span class="tag">${item.axis_label}</span>
+            <span class="pill">Base ${item.base_monthly_label}/mês</span>
+          </div>
+          <p class="muted">${item.summary}</p>
+          <div class="cart-actions">
+            <button type="button" data-select-item="${item.item_code}">Selecionar pacote</button>
+          </div>
+        </div>
+      `).join('');
+      wrap.querySelectorAll('[data-select-item]').forEach((button) => {
+        button.addEventListener('click', (event) => {
+          selectedItemCode = event.target.dataset.selectItem;
+          renderBuilder();
+        });
+      });
+    }
+
+    function buildSuggestionEntries() {
+      const suggestions = [];
+      if (!selectedProductCode) return suggestions;
+
+      getAddonsByProduct(selectedProductCode).forEach((item) => {
+        suggestions.push({
+          type: 'Adicional',
+          title: item.item_label,
+          subtitle: item.product_label,
+          body: `${item.summary} | Base ${item.base_monthly_label}/mês`,
+          itemCode: item.item_code,
+        });
+      });
+
+      comboView.rows.forEach((row) => {
+        if (row.product_codes.includes(selectedProductCode)) {
+          suggestions.push({
+            type: 'Combo sugerido',
+            title: row.combo_name,
+            subtitle: row.category_label,
+            body: `${row.composition_label} | Base ${row.base_monthly_label}`,
+            itemCodes: row.item_codes,
+          });
+        }
+      });
+
+      return suggestions;
+    }
+
+    function renderSuggestionGrid() {
+      const wrap = document.getElementById('suggestion-grid');
+      const suggestions = buildSuggestionEntries();
+      if (!selectedProductCode) {
+        wrap.innerHTML = '<div class="builder-empty">As sugestões aparecem depois que você escolhe um produto.</div>';
+        return;
+      }
+      if (!suggestions.length) {
+        wrap.innerHTML = '<div class="builder-empty">Nenhuma sugestão automática para este produto no seed atual.</div>';
+        return;
+      }
+      wrap.innerHTML = suggestions.map((item) => `
+        <div class="suggestion-card">
+          <h4>${item.title}</h4>
+          <div class="package-meta">
+            <span class="tag">${item.type}</span>
+            <span class="pill">${item.subtitle}</span>
+          </div>
+          <p class="muted">${item.body}</p>
+          <div class="cart-actions">
+            ${item.itemCode ? `<button type="button" data-add-item="${item.itemCode}">Adicionar</button>` : ''}
+            ${item.itemCodes ? `<button type="button" data-add-combo="${item.itemCodes.join(',')}">Adicionar combinado</button>` : ''}
+          </div>
+        </div>
+      `).join('');
+      wrap.querySelectorAll('[data-add-item]').forEach((button) => {
+        button.addEventListener('click', (event) => addToCart(event.target.dataset.addItem));
+      });
+      wrap.querySelectorAll('[data-add-combo]').forEach((button) => {
+        button.addEventListener('click', (event) => {
+          event.target.dataset.addCombo.split(',').forEach((itemCode) => addToCart(itemCode));
+        });
+      });
+    }
+
+    function renderSelectionBar() {
+      const title = document.getElementById('selection-title');
+      const summary = document.getElementById('selection-summary');
+      const selected = getSelectedItem();
+      if (!selected) {
+        title.textContent = 'Nenhum pacote selecionado';
+        summary.textContent = 'Selecione um produto e um pacote para incluir no carrinho.';
+        return;
+      }
+      title.textContent = `${selected.product_label} · ${selected.category_label}`;
+      summary.textContent = `${selected.summary} | Base ${selected.base_monthly_label}/mês`;
+    }
+
+    function renderBuilder() {
+      renderProductPicker();
+      renderPackageGrid();
+      renderSelectionBar();
+      renderSuggestionGrid();
+    }
+
+    function addToCart(itemCode) {
+      const existing = cart.find((item) => item.item_code === itemCode);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        const found = simulatorCatalog.find((item) => item.item_code === itemCode);
+        if (!found) return;
+        cart.push({ ...found, quantity: 1 });
+      }
+      renderCart();
+    }
+
+    function updateQty(itemCode, quantity) {
+      const parsed = Math.max(1, Number(quantity || 1));
+      const item = cart.find((entry) => entry.item_code === itemCode);
+      if (!item) return;
+      item.quantity = parsed;
+      renderCart();
+    }
+
+    function removeItem(itemCode) {
+      cart = cart.filter((item) => item.item_code !== itemCode);
+      renderCart();
+    }
+
+    function calculateCart() {
+      const period = document.getElementById('checkout-period').value;
+      const term = getTermConfig(period);
+      const rows = cart.map((item) => {
+        const monthlyBase = Number(item.base_monthly_cents || 0);
+        const monthlyDiscount = item.discount_exempt ? 0 : term.discountPerMonth;
+        const adjustedMonthly = Math.max(0, monthlyBase - monthlyDiscount);
+        const unitContract = adjustedMonthly * term.months;
+        const totalContract = unitContract * item.quantity;
+        return {
+          ...item,
+          period,
+          months: term.months,
+          monthlyDiscount,
+          adjustedMonthly,
+          unitContract,
+          totalContract,
+        };
+      });
+
+      const baseMonthlyTotal = rows.reduce((sum, row) => sum + (row.base_monthly_cents * row.quantity), 0);
+      const adjustedMonthlyTotal = rows.reduce((sum, row) => sum + (row.adjustedMonthly * row.quantity), 0);
+      const contractTotal = rows.reduce((sum, row) => sum + row.totalContract, 0);
+      const installments12 = contractTotal / 12;
+      const totalDiscount = baseMonthlyTotal - adjustedMonthlyTotal;
+
+      return {
+        period,
+        months: term.months,
+        rows,
+        baseMonthlyTotal,
+        adjustedMonthlyTotal,
+        contractTotal,
+        installments12,
+        totalDiscount,
+      };
+    }
+
+    function renderCart() {
+      const wrap = document.getElementById('cart-table-wrap');
+      const summary = document.getElementById('cart-summary');
+      const calc = calculateCart();
+
+      if (!calc.rows.length) {
+        wrap.innerHTML = '<div class="cart-empty">Carrinho vazio. Adicione 1 ou mais itens do catalogo acima.</div>';
+        summary.innerHTML = '<div class="cart-empty">Sem itens para fechar.</div>';
+        return;
+      }
+
+      wrap.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Base/mês</th>
+              <th>Desconto</th>
+              <th>Qtd</th>
+              <th>Total contrato</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${calc.rows.map((row) => `
+              <tr>
+                <td><strong>${row.product_label}</strong><br><span class="muted">${row.item_label}</span></td>
+                <td>${moneyBr(row.base_monthly_cents)}</td>
+                <td>${row.discount_exempt ? 'sem desconto' : moneyBr(row.monthlyDiscount) + '/mês'}</td>
+                <td>
+                  <span class="qty-box">
+                    <input type="number" min="1" value="${row.quantity}" data-qty-item="${row.item_code}">
+                  </span>
+                </td>
+                <td>${moneyBr(row.totalContract)}</td>
+                <td><button type="button" class="secondary" data-remove-item="${row.item_code}">Remover</button></td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+
+      const periodLabel = calc.period === 'anual' ? 'Anual' : calc.period === 'semestral' ? 'Semestral' : 'Mensal';
+      summary.innerHTML = `
+        <div class="summary-row"><span>Fechamento</span><span>${periodLabel} (${calc.months} mês${calc.months > 1 ? 'es' : ''})</span></div>
+        <div class="summary-row"><span>Base total/mês</span><span>${moneyBr(calc.baseMonthlyTotal)}</span></div>
+        <div class="summary-row"><span>Desconto aplicado/mês</span><span>${moneyBr(calc.totalDiscount)}</span></div>
+        <div class="summary-row"><span>Mensal equivalente</span><span>${moneyBr(calc.adjustedMonthlyTotal)}</span></div>
+        <div class="summary-row"><span>Total do contrato</span><strong>${moneyBr(calc.contractTotal)}</strong></div>
+        <div class="summary-row"><span>Estimativa 12x no cartão</span><span>${moneyBr(calc.installments12)}</span></div>
+      `;
+
+      wrap.querySelectorAll('[data-qty-item]').forEach((input) => {
+        input.addEventListener('input', (event) => updateQty(event.target.dataset.qtyItem, event.target.value));
+      });
+      wrap.querySelectorAll('[data-remove-item]').forEach((button) => {
+        button.addEventListener('click', (event) => removeItem(event.target.dataset.removeItem));
+      });
+    }
+
+    document.querySelectorAll('[data-add-item]').forEach((button) => {
+      button.addEventListener('click', (event) => addToCart(event.target.dataset.addItem));
+    });
+    document.getElementById('checkout-period').addEventListener('change', renderCart);
+    document.getElementById('clear-cart').addEventListener('click', () => {
+      cart = [];
+      renderCart();
+    });
+    document.getElementById('add-selected-item').addEventListener('click', () => {
+      if (!selectedItemCode) return;
+      addToCart(selectedItemCode);
+    });
+    document.getElementById('reset-selection').addEventListener('click', () => {
+      selectedProductCode = null;
+      selectedItemCode = null;
+      renderBuilder();
+    });
+    selectedProductCode = getProducts()[0]?.product_code || null;
+    renderBuilder();
+    renderCart();
+  </script>
+</body>
+</html>

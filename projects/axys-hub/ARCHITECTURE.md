@@ -88,6 +88,36 @@ Depois da autenticação, ele desvia o usuário para o contexto correto:
 - `client` → `Client Portal`
 - `internal` → `Internal Console`
 
+No `Client Portal`, o login inicial é contextual por tenant.
+
+Fluxo canônico:
+
+```text
+email + senha + CPF/CNPJ do tenant
+↓
+Hub resolve user + tenant
+↓
+entra diretamente naquele contexto
+```
+
+Na área logada, deve existir opção de `Trocar conta` ou `Trocar empresa` no header.
+
+Essa ação:
+
+- abre modal com a lista de tenants/empresas vinculadas ao usuário;
+- exige escolha explícita da empresa de destino;
+- exige confirmação com senha;
+- encerra o contexto/sessão atual;
+- cria nova sessão/JWT para o novo tenant;
+- não mantém duas sessões de tenant abertas ao mesmo tempo no mesmo browser/contexto;
+- deve ser auditável.
+
+Texto conceitual:
+
+> Trocar conta não é multi-sessão. É reautenticação contextual assistida.
+
+Isso é natural para usuários vinculados a múltiplas empresas e não invalida o tenant como unidade canônica de isolamento e contexto.
+
 ### 2.5 Domínio antes de tela
 
 Antes de crescer UI, o Hub precisa ter claro:
@@ -260,6 +290,8 @@ cria user_tenant owner
 entra no Client Portal
 ```
 
+No estado atual do contrato, esse acesso já nasce contextualizado no tenant resolvido pelo Hub, sem seletor interno adicional.
+
 ### 5.2 Conta e dados cadastrais
 
 O cliente pode editar dados pessoais e dados cadastrais do tenant.
@@ -306,12 +338,31 @@ Regras:
 - o convidado não cria tenant;
 - owner ou admin não preenche cadastro completo de terceiro;
 - convite pode expirar, ser reenviado e ser cancelado;
+- convite pendente não consome cota;
+- o tenant pode enviar convites acima da cota contratada;
+- a trava de cota ocorre na ativação ou no aceite do convite, não no envio;
+- usuário ativo consome cota;
+- usuário bloqueado, removido ou inativado não consome cota;
 - usuário pode ser removido do tenant sem ser apagado de `hub_user`;
 - usuário removido pode cair em zona neutra se não tiver outro tenant.
 
+Exemplo contratual:
+
+- plano com 5 usuários pode ter 10 convites pendentes;
+- os 5 primeiros aceites ativam normalmente;
+- o 6º aceite deve ser bloqueado até haver vaga ou upgrade de plano.
+
+Regra antiabuso:
+
+- bloqueio ou inativação libera cota;
+- o tenant só pode fazer 1 swap de usuário por mês, por vaga/licença;
+- swap adicional no mês exige upgrade, liberação interna ou procedimento comercial.
+
+O critério técnico exato de contagem do swap pode ser implementado depois, mas o princípio de antirodízio já fica contratado.
+
 Permissões canônicas:
 
-- `owner` pode convidar usuários, alterar roles, remover usuários, reenviar convite, bloquear vínculo, solicitar troca de owner e ver usuários do tenant;
+- `owner` pode convidar usuários, alterar roles, remover usuários, reenviar convite, bloquear vínculo e ver usuários do tenant;
 - `admin` pode convidar usuários se o plano permitir, alterar usuários abaixo do seu nível e remover usuários abaixo do seu nível;
 - `admin` não remove owner e não troca owner;
 - `user` acessa apps licenciados conforme permissão e edita apenas o próprio perfil.
@@ -320,10 +371,14 @@ Troca de `owner` não é self-service direto.
 
 Direção atual:
 
-- solicitação formal;
-- validação por e-mail e/ou fluxo assistido;
-- registro formal da troca;
-- efetivação pela camada interna do Hub.
+- não cabe botão simples no Client Portal;
+- pode existir, no máximo, uma solicitação formal de suporte;
+- cenários como owner indisponível, saída da empresa, perda de acesso, falecimento ou conflito societário exigem procedimento formal assistido pela Axys;
+- validação documental, por e-mail e/ou por fluxo assistido conforme política futura;
+- registro formal e auditável da troca;
+- efetivação pela `Internal Console` ou por intervenção técnica controlada;
+- no primeiro momento, pode nem haver tela dedicada para isso;
+- se houver tela futura, ela deve ficar em camada alta de privilégio: `internal_admin` ou `internal_owner`.
 
 ### 5.4 Assinatura, billing e licenças
 
@@ -341,9 +396,10 @@ O Client Portal deve permitir ao cliente consultar:
 - pagamentos;
 - eventos comerciais relevantes.
 
-Ações esperadas:
+Ações comerciais previstas:
 
 - contratar app;
+- contratar plano;
 - solicitar upgrade;
 - solicitar downgrade;
 - cancelar assinatura, conforme regra comercial;
@@ -353,6 +409,11 @@ Ações esperadas:
 
 Regras:
 
+- cliente não altera billing em sentido administrativo pelo `Client Portal`;
+- `owner` e `admin` podem visualizar informações de assinatura, plano, faturas, apps licenciados e histórico de pedidos;
+- apenas `owner` pode iniciar fluxos comerciais previstos, como contratação, upgrade, downgrade ou cancelamento, conforme regras futuras de billing;
+- alteração manual de cobrança, suspensão, renegociação, provisão, exclusão ou modificação de algo em curso não pertence ao `Client Portal`;
+- essas ações pertencem à `Internal Console`;
 - billing é responsabilidade do Hub;
 - apps operacionais não calculam billing;
 - apps operacionais apenas recebem contexto resolvido;
@@ -362,7 +423,7 @@ Regras:
 
 ### 5.5 Zona neutra
 
-Zona neutra é a área do usuário autenticado sem tenant ativo ou sem contexto selecionado.
+Zona neutra é a área do usuário autenticado sem tenant ativo ou sem contexto resolvido para entrada.
 
 Cenários:
 
@@ -371,7 +432,7 @@ Cenários:
 - convite expirado;
 - usuário foi removido;
 - usuário tem conta global, mas nenhum tenant;
-- usuário tem múltiplos tenants e precisa selecionar contexto;
+- usuário tem múltiplos tenants e precisa trocar para outro contexto de empresa;
 - tenant suspenso ou bloqueado.
 
 Zona neutra deve permitir:
@@ -379,10 +440,11 @@ Zona neutra deve permitir:
 - aceitar convite pendente;
 - solicitar reenvio de convite;
 - criar novo tenant próprio;
-- selecionar tenant, se houver mais de um;
 - visualizar status da conta;
 - solicitar suporte;
 - fazer logout.
+
+Quando o usuário já estiver autenticado e possuir múltiplos vínculos, a troca de empresa deve ocorrer preferencialmente pela ação `Trocar conta` ou `Trocar empresa` na área logada, e não pela zona neutra.
 
 Regras:
 
@@ -410,24 +472,50 @@ O domínio interno ainda será aprofundado depois, principalmente em recursos, v
 
 ### 7.1 Papéis do tenant cliente
 
-| Papel | Descrição | Pode conceder admin? | Pode afetar billing? |
-|---|---|---|---|
-| `owner` | Dono da conta/tenant. Nível máximo do cliente. | Sim | Sim |
-| `admin` | Administrador operacional do tenant. | Não | Sim |
-| `user` | Usuário operacional. | Não | Não |
+| Papel | Descrição | Pode conceder admin? | Pode visualizar billing? | Pode iniciar fluxos comerciais previstos? |
+|---|---|---|---|---|
+| `owner` | Dono da conta/tenant. Nível máximo do cliente. | Sim | Sim | Sim |
+| `admin` | Administrador operacional do tenant. | Não | Sim | Não |
+| `user` | Usuário operacional. | Não | Não | Não |
 
 ### 7.2 Papéis internos Axys
 
 | Papel | Descrição |
 |---|---|
-| `internal_owner` | Nível máximo interno |
-| `internal_admin` | Administração interna |
-| `internal_user` | Uso interno comum |
+| `internal_user` | Operador interno; executa rotina operacional e inspeções permitidas |
+| `internal_financeiro` | Supervisor financeiro/operacional; trata renegociações, provisões, ajustes ordinários de cobrança e rotinas de cobrança |
+| `internal_admin` | Gerente; executa ações administrativas sensíveis, reversões, suspensões, correções de estado e procedimentos internos de maior impacto |
+| `internal_owner` | Diretor/dono; reservado para decisões acima da alçada gerencial, com impacto em margem, markup, perdão de dívida, perdas relevantes e exceções comerciais máximas |
+
+Cadeia alvo para escala futura de billing/operação interna:
+
+- `internal_user`: operação interna comum; pode inspecionar e executar liberações simples conforme política;
+- `internal_financeiro`: supervisor financeiro/operacional; pode tratar renegociações, provisões, ajustes ordinários de cobrança e rotinas de cobrança;
+- `internal_admin`: gerente; pode executar ações administrativas sensíveis, reversões, suspensões, correções de estado e procedimentos internos de maior impacto;
+- `internal_owner`: diretor/dono; reservado para decisões que impactam markup, perdão de dívida, perdas financeiras relevantes, exceções comerciais máximas e matérias acima da alçada gerencial.
+
+Decisões de negócio já contratadas:
+
+- atividades de gerente pertencem a `internal_admin`;
+- atividades acima de gerente/diretoria pertencem a `internal_owner`;
+- renegociar cobrança pode ser `internal_financeiro`;
+- perdoar dívida, conceder perda relevante ou impactar markup pertence a `internal_owner`;
+- suspender, excluir ou modificar algo em curso com impacto operacional relevante pertence a `internal_admin` ou superior;
+- a app deve ser preparada para colaboradores executarem o dia a dia sem receber decisões que afetem margem, markup ou exceções comerciais máximas.
+
+No primeiro momento, o projeto pode operar apenas com:
+
+- `internal_user`;
+- `internal_financeiro`;
+- `internal_owner`.
+
+Para o Easy, por enquanto, `internal_user` e `internal_financeiro` podem cair na mesma regra prática de acesso interno. A distinção já fica documentada para governança futura do Hub/Billing.
 
 ### 7.3 Regras sensíveis
 
 - apenas `owner` pode conceder/remover privilégio administrativo no tenant cliente;
 - `admin` não promove alguém a `admin` ou `owner`;
+- `admin` não executa alteração administrativa de billing em curso;
 - `user` não afeta billing;
 - regras funcionais finas dentro das apps não pertencem ao Hub;
 - o Hub define o papel macro, a app define a matriz funcional interna dela.
@@ -438,7 +526,7 @@ O domínio interno ainda será aprofundado depois, principalmente em recursos, v
 
 ### 8.1 Quem afeta billing
 
-Somente `owner` e `admin`.
+No `Client Portal`, apenas `owner` inicia fluxos comerciais previstos.
 
 Isso inclui:
 
@@ -446,7 +534,11 @@ Isso inclui:
 - renovar;
 - trocar plano;
 - comprar expansão;
-- executar ações com impacto comercial.
+- executar ações com impacto comercial previsto no portal.
+
+`admin` pode visualizar billing, mas não executa alteração administrativa nem inicia fluxo comercial sensível no contrato atual.
+
+Na camada interna, ações fora do fluxo comercial previsto pertencem à `Internal Console`, conforme segregação entre `internal_user`, `internal_financeiro`, `internal_admin` e `internal_owner`.
 
 ### 8.2 O que o `user` ainda pode fazer
 
@@ -475,6 +567,23 @@ Para mais de 5 usuários:
 
 - apenas sobre `unlimited`;
 - com billing específico de expansão.
+
+Regra contratual de consumo de cota:
+
+- a cota de usuários do tenant considera apenas usuários ativos;
+- convite pendente não consome cota;
+- usuário bloqueado, removido ou inativado deixa de consumir cota;
+- o tenant pode enviar convites acima da cota contratada;
+- a trava ocorre na ativação/aceite do convite, não no envio;
+- quando a cota estiver cheia, novos aceites devem ser bloqueados até haver vaga, upgrade de plano ou liberação interna;
+- não haverá excedente implícito no `Client Portal`.
+
+Princípio antiabuso:
+
+- bloquear ou inativar um usuário libera cota;
+- cada vaga/licença admite apenas 1 swap de usuário por mês;
+- swap adicional no mês exige upgrade, liberação interna ou procedimento comercial;
+- a fórmula exata de contagem do swap pode ser definida depois, mas o princípio contratual de impedir rodízio artificial já está fixado.
 
 ---
 
@@ -555,6 +664,18 @@ Não devem aparecer como produto comercial:
 O Hub trabalhará com **integração de recebimentos via Asaas**.
 
 O desenho comercial do Hub deve considerar o Asaas como canal principal de cobrança.
+
+Nesta etapa, o documento não entra no desenho detalhado do Asaas.
+
+Billing/Asaas deve ser tratado como frente própria posterior, pois conecta:
+
+- `Client Portal`;
+- `Internal Console`;
+- cobrança;
+- webhooks;
+- assinaturas;
+- licenças;
+- liberações.
 
 ### 11.2 Pontos ainda em aberto
 
