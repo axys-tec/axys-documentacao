@@ -1,0 +1,9 @@
+# Gerador de backup com credenciais hardcoded — NÃO versionar enquanto não for env-based.
+# Quando as credenciais virarem variáveis de ambiente, remova esta linha e versione o script.
+gerar_backup_render.py
+
+# Dumps do banco (DADOS) — nunca vão pro git.
+*.dump
+*.sql
+*.sql.gz
+*.backup
