@@ -3,6 +3,8 @@
 gerar_backup_render.py
 restaurar_local.py
 
+__pycache__/
+
 # Dumps do banco (DADOS) — nunca vão pro git.
 *.dump
 *.sql
