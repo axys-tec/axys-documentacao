@@ -531,6 +531,21 @@ O JS da listagem lê os params no `DOMContentLoaded` e chama `showPageAlert`.
 | Código duplicado | `danger` | `"Já existe uma fonte com o código 'CODIGO'."` |
 | Dependências ativas | `danger` | `"Essa fonte-base não pode ser inativada em razão de haver dependências ativas. ..."` |
 
+### Feedback OTIMISTA de ações assíncronas (CANÔNICO)
+
+**Regra:** toda ação que dispara trabalho assíncrono (import, geração de PDF/caderno, upload longo, job de fila) DEVE dar feedback **no instante do clique** — **antes** da resposta do servidor. Nunca esperar o POST/job confirmar para só então acender o indicador.
+
+No clique, e nesta ordem:
+
+1. **Trava o gatilho** — `btn.disabled = true` + rótulo de transição (`"Enviando…"` / `"Processando…"`).
+2. **Acende o indicador JÁ** — torna visível o painel/badge de progresso com um estágio otimista (ex.: `"subindo arquivos…"`, dot piscando) **antes** do `fetch` resolver.
+3. **Guarda contra double-submit** — `if (btn.disabled) return;` no início do handler de `submit` (cobre Enter e clique rápido), porque botão desabilitado não impede submit por teclado.
+4. **No retorno:** sucesso → o poll real assume o indicador; erro/rede → esconde o indicador otimista, reabilita o gatilho, alerta `danger`.
+
+**Por quê:** sem isso, ações com POST demorado (ex.: upload de vários MB no import) deixam a tela "muda" entre o clique e a resposta — o usuário acha que não pegou e **clica de novo**, enfileirando trabalho **duplicado** (ex.: imports repetidos na fila Celery). O indicador otimista + a trava matam o double-submit.
+
+Referência de implementação: `enviarImport()` em `easy_import.js` (acende `#imp-status` no clique). Padrão complementar ao [anti-zumbi de jobs](#) (status preso quando o worker morre) e ao micro-feedback inline de ações pequenas.
+
 ---
 
 ## 9. Padrões de Backend
