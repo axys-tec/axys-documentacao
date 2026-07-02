@@ -1431,6 +1431,12 @@ CREATE TABLE IF NOT EXISTS catalogo.composicoes_custo (
 CREATE INDEX ix_cc_cmp
     ON catalogo.composicoes_custo (cc_cmp_id, cc_uf, cc_modalidade);
 
+-- Lidera por cc_uf p/ o LOOSE INDEX SCAN das UFs no filtro (get_filtros). Sem isto, o
+-- DISTINCT cc_uf varria os ~18M de linhas (~21s a cada abertura de tela/busca).
+-- Em prod aplicar com CREATE INDEX CONCURRENTLY (tabela grande — leva ~1-2 min, sem travar).
+CREATE INDEX ix_composicoes_custo_uf
+    ON catalogo.composicoes_custo (cc_uf);
+
 
 -- ############################################################
 -- §EQUIVALÊNCIAS E CONVERSÕES DE CATÁLOGO  (família — 3 tabelas, papéis distintos)
