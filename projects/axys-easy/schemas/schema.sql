@@ -927,6 +927,12 @@ CREATE INDEX ix_insumos_fte_ativo
 CREATE INDEX ix_insumos_ti
     ON catalogo.insumos (ins_ti_id);
 
+-- Listagem ordenada por descrição (sort default da tela): sem isto o Postgres faz
+-- Seq Scan + Sort dos ~10k insumos a cada página. Com o índice a página sai ordenada
+-- direto (LIMIT 50). Em prod aplicar com CREATE INDEX CONCURRENTLY (sem travar).
+CREATE INDEX ix_insumos_ativo_descricao
+    ON catalogo.insumos (ins_ativo, ins_descricao);
+
 
 -- ============================================================
 -- TABELA: catalogo.insumos_preco
@@ -1244,6 +1250,12 @@ CREATE INDEX ix_composicoes_grp
 CREATE INDEX ix_composicoes_situacao
     ON catalogo.composicoes (cmp_situacao)
     WHERE cmp_situacao IS NOT NULL;
+
+-- Listagem ordenada por descrição (sort default da tela; filtra cmp_ativa=true): sem isto,
+-- Seq Scan + Sort de TODAS as composições (muito mais que insumos). Escala. Em prod aplicar
+-- com CREATE INDEX CONCURRENTLY (sem travar).
+CREATE INDEX ix_composicoes_ativa_descricao
+    ON catalogo.composicoes (cmp_ativa, cmp_descricao);
 
 
 -- ============================================================
