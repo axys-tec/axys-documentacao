@@ -28,25 +28,31 @@ verdade da carga** — o parser do app lê deles e insere; não reparseia PDF de
 - Publica também **Leis Sociais** e **BDI** em PDF (ver §3 e §4).
 - Edição atual: **abril/2026**.
 
-## 2. BDI — A REGRA QUE DIFERENCIA A FDE (decisão Renan 2026-06-30)
+## 2. BDI — A REGRA QUE DIFERENCIA A FDE (decisão Renan 2026-06-30, **REVISTA 2026-07-03**)
 
-O catálogo guarda **CUSTO (sem BDI)**; o BDI é aplicado no orçamento, **por ativo**. A FDE
-publica COM BDI, então o import **TEM que remover o BDI** antes de gravar.
+> ⚠️ **REVISÃO 2026-07-03** — o modelo mudou. A v0.1 mandava *limpar* o `cc_custo_fonte` no
+> import (strip). **NÃO é mais assim.** A regra canônica agora é [CATALOGO_BUSINESS_RULES.md](CATALOGO_BUSINESS_RULES.md)
+> **§4.3** — `cc_custo_fonte` guarda SEMPRE o publicado cru; a app **exibe o calculado**; a
+> des-BDInização é só no MOMENTO de comparar/exibir. O que segue reflete o modelo novo.
 
-- **STRIP do BDI no import** → `composicoes_custo.cc_custo_fonte` **E** `cc_custo_calculado`
-  ficam **LIMPOS** (sem BDI), exatamente como SINAPI/CDHU.
-- **Por que `cc_custo_fonte` precisa ser limpo:** a consulta exibe
-  `COALESCE(cc_custo_fonte, cc_custo_calculado)` (`composicoes_service.py`) → mostra o **fonte**.
-  Se o fonte fosse com-BDI, a busca exibiria com-BDI, e ao aplicar o BDI do ativo daria
-  **BDI-sobre-BDI**. Por isso **fonte = limpo**. (Inverter a consulta p/ exibir `calculado`
-  mudaria o display de SINAPI/CDHU → regressão. PROIBIDO.)
+O catálogo **exibe** CUSTO limpo (sem BDI) — mas via `cc_custo_calculado`, não limpando o fonte.
+O BDI é aplicado no orçamento, **por ativo**. A FDE publica COM BDI; o import grava:
+
+- **`cc_custo_fonte` = o publicado CRU (COM BDI)** — é o que a fonte registrou (auditoria ao
+  centavo). **NÃO** se limpa essa coluna. (SINAPI/CDHU guardam limpo só porque publicam limpo.)
+- **`cc_custo_calculado` = Σ itens×coef + LS = custo LIMPO** (montagem normal da app, como as
+  outras fontes). É o que a app **exibe** e o que o orçamento usa (sem risco de BDI-sobre-BDI,
+  porque a precificação parte do calculado, não do fonte).
 - **O BDI da FDE é UNIFORME** (um BDI para a família toda; pode haver NORMAL + REDUZIDO) →
-  grava em **`catalogo.edicoes_bdi`** (ver §4). Não vai em coluna de custo.
-- **O valor original COM BDI NÃO é armazenado** — é **derivável**: `limpo × (1 + BDI%)`, com o
-  BDI% vindo de `edicoes_bdi`. Não criar campo/JSON de proveniência para isso.
-- **Conferência:** com o strip correto, `cc_custo_calculado` (Σ itens) deve **bater** com
-  `cc_custo_fonte` (publicado-limpo) → `cc_status_conferencia` limpo. Divergência expressiva =
-  erro de strip → PARAR.
+  grava em **`catalogo.edicoes_bdi`** (ver §4). A **presença** dessa linha é o sinal de que o
+  `cc_custo_fonte` da edição está com BDI.
+- **O valor limpo do fonte é DERIVADO na hora de comparar/exibir:** `cc_custo_fonte ÷ (1 + ebd_percent/100)`.
+  Não criar campo/JSON de proveniência para isso.
+- **Conferência (des-BDInizada):** o import compara `cc_custo_calculado` (Σ itens, limpo) contra
+  `cc_custo_fonte ÷ (1 + BDI%)` (fonte des-BDInizado) → grava `cc_diferenca_valor`/`cc_status_conferencia`.
+  Se comparar contra o fonte cru, **toda linha marca DIVERGENTE pelo BDI** (errado). Divergência
+  expressiva **após** des-BDInizar = erro de parse/strip de fato → PARAR. (É a mesma conta que o
+  `fde_precifica_composicoes_diff.py` já faz: `base × (1+BDI) ≈ publicado`.)
 
 ## 3. Preço / custo (regras globais valem)
 
@@ -85,8 +91,8 @@ da carga das outras fontes (`pg_advisory_xact_lock(fte_id)`).
 ## 7. Definição de pronto (verificação anti-regressão OBRIGATÓRIA)
 
 - Contagens batendo: nº de insumos/composições inseridos == nº dos CSVs de `find_fde`.
-- **`cc_custo_fonte` e `cc_custo_calculado` LIMPOS** (sem BDI); `edicoes_bdi` populado com o %.
-- Reconstrução: `limpo × (1 + ebd_percent/100)` ≈ valor publicado original (amostral).
+- **`cc_custo_fonte` = publicado CRU (com BDI)**; **`cc_custo_calculado` = LIMPO** (Σ itens); `edicoes_bdi` populado com o %.
+- Conferência **des-BDInizada** grava status limpo: `cc_custo_calculado` ≈ `cc_custo_fonte ÷ (1+ebd_percent/100)` (amostral).
 - **SINAPI e CDHU inalterados**: rodar os imports/telas deles e confirmar zero diff de
   comportamento. Qualquer alteração neles = erro → reverter.
 - Trabalho em **branch** (`feat/import-fde`), **PR para revisão humana**, nunca main/deploy.
