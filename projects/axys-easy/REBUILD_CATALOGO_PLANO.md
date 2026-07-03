@@ -38,19 +38,26 @@
 - `insumos_preco`, `composicoes_custo`, `composicoes_itens` (delete já feito no fix), `insumos_familia`,
   `edicoes_leis_sociais`, `search_document`, `documentos`. get-or-create linha-a-linha aqui = lento demais.
 
-## 5. Reuso de cadernos/fichas (o "seed controlado") — PONTO DE DESIGN ABERTO
-O caro é o parse de PDF (fichas/cadernos/textos) → gera **HTML "patheado" no R2**. Já está construído no
-**R2 de prod**. Precisamos **preservar esses artefatos e seus paths**, e o DB rebuildado deve **apontar
-pros mesmos paths** (sem reparsear). `parse_caderno`/`parse_fichas` **não escrevem `composicoes_itens`**
-(só publicam doc) → pular o parse **não afeta o dado**, só a publicação do doc.
-- **Desafio:** dev = storage local, prod = R2 (separados). O rebuild em dev geraria paths locais.
-- **Opções (a decidir):**
-  - (a) A trava `EASY_SKIP_CADERNOS_PDF` pula o parse MAS ainda registra a referência do doc apontando
-    pro path R2 canônico já existente (determinístico via `storage_paths`/`sp.derivado`).
-  - (b) Rebuild em dev sem cadernos; após migrar o DB p/ prod, um passo re-registra os docs a partir do
-    que já está no bucket R2 de prod (varre o bucket / usa os paths determinísticos).
-  - Como os paths são **determinísticos** (`sp.derivado(fonte, versao, tipo, cod)`), o DB consegue
-    reconstruir a referência sem ter o arquivo em mãos. **Preferência: (a).**
+## 5. Reuso de cadernos/fichas (o "seed controlado") — DECIDIDO: opção (c)
+O caro é o parse de PDF (fichas/cadernos/textos) → gera **HTML "patheado" no R2**, já construído no
+**R2 de prod**. `parse_caderno`/`parse_fichas` **não escrevem `composicoes_itens`** (só publicam doc) →
+pular o parse **não afeta o dado**, só a publicação do doc.
+
+**FATO do código (import_service:515-518, 674-676, fichas/LS):** o path é gravado no banco **SÓ APÓS o
+`save_public_file`** — `cmp_external_path`/`documentos` são **acoplados ao arquivo real**. Comp/insumo sem
+caderno tem path **NULL**. Então **NÃO** dá pra "gerar path determinístico e popular cego" — criaria
+ponteiro morto pra tudo que não tem caderno. (Descartadas: (a) popular path determinístico sem save;
+(b) varrer o bucket.)
+
+**DECISÃO — (c) preservar as referências REAIS de prod (por chave natural):**
+1. **Antes do wipe:** exporta de prod as referências de doc por chave natural
+   (`fte_codigo, cmp_codigo, edi_mes_ref → cmp_external_path`; `documentos` por fonte+edi+tipo+cod).
+2. **Rebuild em dev** do Excel, com **caderno totalmente pulado** (`EASY_SKIP_CADERNOS_PDF` como está — nem registra).
+3. **Overlay** das referências no banco rebuildado, casando por **chave natural** (id novo achado pelo código).
+4. **Migra** dev→prod. R2 de prod nunca foi tocado → arquivos seguem nos mesmos paths → referências
+   acendem, **e só as que existem de verdade** (zero ponteiro morto, zero varredura, zero geração cega).
+O `puxar_edicao.py` já copia `cmp_external_path`/`documentos` → mecanismo existe. A trava de caderno
+**não muda** (continua "pula o stage inteiro").
 
 ## 6. Migração DEV → PROD
 - `pg_dump` dos schemas `catalogo` + `audit` do dev → restore em prod (substitui). Sequences vão limpos.
