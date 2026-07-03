@@ -42,7 +42,8 @@ Botão **"Ver Diff"** na listagem `/edicoes` (por linha de edição), abrindo es
    UF ativa = a `?uf=` (default `SP`).
 4. **Badges** (abaixo das tabs): **Leis Sociais** (label da LS da edição/UF) **+ BDI padrão da fonte**
    (de `edicoes_bdi.ebd_percent`; **se a edição não tem BDI publicado → não renderiza o badge**).
-5. **Listagem** (tabela padrão `catalogo_work_pages.md`: `ae-table-wrap` rola, `thead` sticky,
+5. **Filtro — Modo de exibição** (barra `.cpu-filter-bar`, ANTES da listagem) — ver seção "Filtro" abaixo.
+6. **Listagem** (tabela padrão `catalogo_work_pages.md`: `ae-table-wrap` rola, `thead` sticky,
    `AXYS.makeSortable`):
 
 | Código | Descrição | Unid | Custo Easy | Custo Fonte | Custo Fte c/ BDI ⁽¹⁾ | Diferença |
@@ -50,6 +51,30 @@ Botão **"Ver Diff"** na listagem `/edicoes` (por linha de edição), abrindo es
 
 ⁽¹⁾ **A coluna "Custo Fte c/ BDI" só existe (é renderizada) quando a edição tem BDI publicado.**
 Sem BDI (SINAPI/CDHU), a tabela tem 6 colunas.
+
+## Filtro — Modo de exibição (listbox, na `.cpu-filter-bar`, antes da listagem)
+
+`<select>` simples **"Modo de exibição"** que filtra por `cc_status_conferencia`. **Usar a
+terminologia PERSISTIDA no banco + os rótulos canônicos da app** — dict **`_CONF_LABEL`** em
+[composicoes_service.py:806](../../../../backend/modules/catalogo/composicoes_service.py) (NÃO
+inventar rótulo novo). **Default = "Com diferença".**
+
+| Opção (rótulo exibido) | `modo` (querystring) | Filtra `cc_status_conferencia` IN |
+|---|---|---|
+| **Com diferença** ⟵ DEFAULT | `com_diff` | `DIVERGENTE_RELEVANTE`, `DIVERGENTE_ARREDONDAMENTO` |
+| Todas | `todas` | (sem filtro) |
+| Divergência relevante | `relevante` | `DIVERGENTE_RELEVANTE` |
+| Divergência de arredondamento | `arredondamento` | `DIVERGENTE_ARREDONDAMENTO` |
+| Sem custo (calculado) | `sem_custo_calc` | `SEM_CUSTO_CALCULADO` |
+| Sem custo (fonte) | `sem_custo_fonte` | `SEM_CUSTO_FONTE` |
+| Igual | `igual` | `IGUAL` |
+| Derivado | `derivado` | `DERIVADO` |
+
+- O default **`com_diff`** já abre a tela mostrando só o que NÃO reconcilia (o caso de uso real:
+  achar divergência). "Todas" traz tudo (pode ser dezenas de milhares → paginar).
+- Trocar o select **re-consulta** (querystring `?modo=`, junto com `?uf=`). Sem restrição de perfil.
+- Backend mapeia `modo → lista de status` (não confiar em string crua do cliente; validar contra o
+  conjunto conhecido, cair no default se inválido). Reaproveitar `_CONF_LABEL` p/ os rótulos.
 
 ## Mapeamento das colunas (uma query, `LEFT JOIN edicoes_bdi`)
 - **Código** → `cmp_codigo` (`.ae-tag-id`, monospace)
@@ -73,7 +98,8 @@ de arredondamento do limpo derivado. A coluna "Custo Fte c/ BDI" **não** entra 
 Cores novas → registrar em `config_ui_ux_easy.md` (usar tokens de sucesso/erro com alpha; não inventar hex solto).
 
 ## Ações
-Nenhuma de escrita. Apenas: trocar UF (tabs), ordenar colunas, (opcional) filtrar "só divergentes".
+Nenhuma de escrita. Apenas: trocar UF (tabs), trocar **Modo de exibição** (listbox — default
+"Com diferença"), ordenar colunas.
 
 ## Regras de negócio específicas
 - **Des-BDInização só quando `edicoes_bdi` existe** para a edição — senão fonte cru vira o "limpo".
@@ -86,12 +112,15 @@ Nenhuma de escrita. Apenas: trocar UF (tabs), ordenar colunas, (opcional) filtra
 - Não há escrita → sem `exige_internal_admin`.
 
 ## Backend
-- Rota `GET /edicoes/{edi_id}/diff-fonte-app` → `Depends(exige_internal_user)`; `_user_ctx(claims)`;
+- Rota `GET /edicoes/{edi_id}/diff-fonte-app` → `Depends(exige_internal_user)`; params
+  `uf: str = Query("SP")`, `modo: str = Query("com_diff")`, (opc.) `modalidade`; `_user_ctx(claims)`;
   `active_section` = catálogo/edições; contexto: edição (identidade), UFs disponíveis, uf atual,
-  badges (LS, BDI), linhas.
-- Serviço novo: **`get_diff_fonte_app(edi_id: int, uf: str = "SP", modalidade: str = "SD") -> dict`**
-  em `composicoes_service.py` — devolve `{edicao:{...}, ufs:[...], ls:{...}, bdi:{...}|None, linhas:[...]}`
-  com a query única (`LEFT JOIN edicoes_bdi`). **Não** recomputa custo (lê de `composicoes_custo`).
+  `modo` atual + opções (rótulos de `_CONF_LABEL`), badges (LS, BDI), linhas.
+- Serviço novo: **`get_diff_fonte_app(edi_id: int, uf: str = "SP", modo: str = "com_diff", modalidade: str = "SD") -> dict`**
+  em `composicoes_service.py` — devolve `{edicao:{...}, ufs:[...], ls:{...}, bdi:{...}|None, modo, linhas:[...]}`
+  com a query única (`LEFT JOIN edicoes_bdi`) + o filtro de `cc_status_conferencia` conforme `modo`
+  (mapear `modo → [status]`, validar contra o conjunto conhecido, default `com_diff` se inválido).
+  **Não** recomputa custo (lê de `composicoes_custo`).
 - Sem `conn.commit()` (leitura). Sem auditoria (nenhuma escrita).
 
 ## Observações
