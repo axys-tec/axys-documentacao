@@ -26,13 +26,19 @@
 - **Convergidos pulam o pesado:** o que já bate (diff≈0) não passa pelo processamento maior (reparse etc.).
 - Ordem cronológica das edições (o histórico `*_historico` depende de `edi_prior`).
 
-## 4. get-or-create — escopo (da auditoria 2026-07-03)
-**🔴 Identidade estável → GET-OR-CREATE (SELECT natural key → UPDATE mutáveis se achou; senão INSERT):**
-- `catalogo.insumos` — (fte, codigo) [sinapi:172,432 · cdhu:293] ← o caso principal
-- `catalogo.composicoes` — (fte, codigo, edi) [sinapi:376 · cdhu:486]
-- `catalogo.unidades` — (un_codigo) [insumos_service:482] (DO NOTHING também queima)
-- `catalogo.indices` — (idc_codigo) [indices_service:100,172]
-- ⚠️ o UPDATE do insumo tem precedência `ins_ti_origem` (FONTE>MANUAL>NC) → preservar no branch de update.
+## 4. get-or-create — escopo (auditoria 2026-07-03; FASE 1 FEITA nos parsers, commit 0babc9d)
+**🔴 Identidade estável + surrogate IDENTITY → GET-OR-CREATE (mapa natural-key→id pré-carregado; UPDATE por id se achou, senão INSERT):**
+- ✅ `catalogo.insumos` — (fte, codigo) [sinapi parse_insumos + órfão · cdhu parse_insumos] ← o caso principal (9623→194715). Precedência `ins_ti_origem` (FONTE>MANUAL>REGRA) preservada no UPDATE.
+- ✅ `catalogo.composicoes` — (fte, codigo, edi) [sinapi · cdhu]. `cmp_ativa` intocado no update.
+- ✅ `catalogo.composicoes_subgrupos` — já era get-or-create (parser_sinapi).
+
+**⚪ PK NATURAL (TEXT, sem surrogate) → NÃO queimam, NÃO mexidas:**
+- `catalogo.unidades` (`un_codigo` PK) · `catalogo.indices` (`idc_codigo` PK). O ON CONFLICT delas é inofensivo.
+- Resta só `indices_historico` (surrogate `idh_id`, per-mês, baixo volume, serviço) — categoria 🟡, adiar.
+
+**🟡 Por-edição / alto volume → DELETE escopo + BATCH INSERT (não get-or-create; id interno descartável):**
+- `insumos_preco` (600k), `composicoes_custo` (800k), `composicoes_itens` (500k, delete já feito no fix),
+  `insumos_familia`, `edicoes_leis_sociais`, `search_document`, `documentos`. get-or-create linha-a-linha aqui = lento demais.
 
 **🟡 Por-edição / alto volume → DELETE escopo + BATCH INSERT (não get-or-create; id interno descartável):**
 - `insumos_preco`, `composicoes_custo`, `composicoes_itens` (delete já feito no fix), `insumos_familia`,
