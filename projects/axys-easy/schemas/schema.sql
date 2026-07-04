@@ -383,24 +383,28 @@ CREATE INDEX ix_fontes_ativa
     ON catalogo.fontes (fte_ativa, fte_codigo);
 
 -- Seed inline — fontes de preços do tenant.
+-- IDs canônicos do catálogo base:
+--   AXYS=1 · SINAPI=2 · CDHU=3 · FDE=4
 --   fte_ordem_edicao: 'DATA' = mais recente é maior edi_mes_ref;
 --                     'VERSAO' = mais recente é maior edi_codigo_versao.
---   fte_tem_catalogo_insumos: SINAPI publica fichas de insumo; CDHU/AXYS não.
---   fte_tem_caderno_metodologia: SINAPI e CDHU publicam livro/caderno de metodologia; AXYS não.
---   fte_catalogos_continuos:  SINAPI traz data de atualização (skip por data); CDHU reemite
+--   fte_tem_catalogo_insumos: SINAPI publica fichas de insumo; CDHU/FDE/AXYS não.
+--   fte_tem_caderno_metodologia: SINAPI, CDHU e FDE publicam cadernos/livros técnicos; AXYS não.
+--   fte_catalogos_continuos:  SINAPI traz data de atualização (skip por data); CDHU/FDE reemitem
 --                             por edição; AXYS é app-own (contínuo).
 --   fte_permite_manipular_dados: SÓ AXYS (fonte própria) = TRUE; terceiros = FALSE (imutáveis).
-INSERT INTO catalogo.fontes (fte_codigo, fte_nome, fte_ordem_edicao,
+INSERT INTO catalogo.fontes (fte_id, fte_codigo, fte_nome, fte_ordem_edicao,
                              fte_tem_catalogo_insumos, fte_tem_caderno_metodologia,
                              fte_catalogos_continuos, fte_permite_manipular_dados, fte_criado_por)
-SELECT v.codigo, v.nome, v.ordem, v.tem_ins, v.tem_met, v.continuos, v.manipula, 'Axys — seed inicial'
+SELECT v.id, v.codigo, v.nome, v.ordem, v.tem_ins, v.tem_met, v.continuos, v.manipula, 'Axys — seed inicial'
 FROM (VALUES
-    ('SINAPI', 'Sistema Nacional de Pesquisa de Custos e Índices da Construção Civil',                          'DATA',   TRUE,  TRUE,  TRUE,  FALSE),
-    ('CDHU',   'Companhia de Desenvolvimento Habitacional e Urbano', 'VERSAO', FALSE, TRUE, FALSE, FALSE),
-    ('AXYS',   'Composições Próprias',                               'DATA',   FALSE, FALSE, TRUE,  TRUE)
-) AS v(codigo, nome, ordem, tem_ins, tem_met, continuos, manipula)
+    (1, 'AXYS',   'Composições Próprias',                               'DATA',   FALSE, FALSE, TRUE,  TRUE),
+    (2, 'SINAPI', 'Sistema Nacional de Pesquisa de Custos e Índices da Construção Civil', 'DATA', TRUE, TRUE, TRUE, FALSE),
+    (3, 'CDHU',   'Companhia de Desenvolvimento Habitacional e Urbano', 'VERSAO', FALSE, TRUE, FALSE, FALSE),
+    (4, 'FDE',    'Fundação para o Desenvolvimento da Educação',        'DATA',   FALSE, TRUE, FALSE, FALSE)
+) AS v(id, codigo, nome, ordem, tem_ins, tem_met, continuos, manipula)
 ON CONFLICT (fte_codigo) DO UPDATE
-    SET fte_nome           = EXCLUDED.fte_nome,
+    SET fte_id             = EXCLUDED.fte_id,
+        fte_nome           = EXCLUDED.fte_nome,
         fte_ordem_edicao   = EXCLUDED.fte_ordem_edicao,
         fte_tem_catalogo_insumos = EXCLUDED.fte_tem_catalogo_insumos,
         fte_tem_caderno_metodologia = EXCLUDED.fte_tem_caderno_metodologia,
@@ -408,6 +412,11 @@ ON CONFLICT (fte_codigo) DO UPDATE
         fte_permite_manipular_dados = EXCLUDED.fte_permite_manipular_dados,
         fte_atualizado_em  = CURRENT_TIMESTAMP,
         fte_atualizado_por = 'Axys — seed inicial';
+SELECT setval(
+    pg_get_serial_sequence('catalogo.fontes', 'fte_id'),
+    (SELECT COALESCE(MAX(fte_id), 1) FROM catalogo.fontes),
+    true
+);
 
 
 -- ============================================================
@@ -423,6 +432,7 @@ ON CONFLICT (fte_codigo) DO UPDATE
 -- edi_uf_padrao:     UF exibida por padrão na consulta.
 --   SINAPI: 'SP' — todas 27 UFs estão importadas na edição.
 --   CDHU:   'SP' — fonte estadual, apenas SP.
+--   FDE:    'SP' — fonte estadual, apenas SP.
 -- edi_situacao_ciclo: estado único da edição (BUSINESS_RULES §10) — substitui o antigo
 --   par ciclo+edi_ativa (que se sobrepunham). Enum:
 --     'RASCUNHO'   = em construção/import; indisponível (nada usa ainda); editável.
@@ -503,6 +513,7 @@ CREATE INDEX ix_edicoes_disponiveis
 -- daquele mês). O ORDER BY abaixo é o que garante essa ordem de edi_id. Depende
 -- do seed de catalogo.fontes acima.
 --   CDHU:   fonte VERSAO → edi_codigo_versao = nº do boletim ('184'..'201'); mono-UF SP.
+--   FDE:    fonte DATA   → rótulo MM-YY das edições trimestrais ('07-22'..'04-26'); mono-UF SP.
 --   SINAPI: fonte DATA   → edi_codigo_versao = rótulo MM-YY do boletim mensal ('08-24'..'04-26').
 DELETE FROM catalogo.edicoes;
 ALTER TABLE catalogo.edicoes ALTER COLUMN edi_id RESTART WITH 1;
@@ -516,19 +527,36 @@ FROM (VALUES
     ('CDHU',   '2022-05-01', '186'),
     ('CDHU',   '2022-08-01', '187'),
     ('CDHU',   '2022-11-01', '188'),
+    -- FDE 07/2022→04/2026 (edições trimestrais; janeiro/abril/julho/outubro)
+    ('FDE',    '2022-07-01', '07-22'),
+    ('FDE',    '2022-10-01', '10-22'),
     ('CDHU',   '2023-03-01', '189'),
+    ('FDE',    '2023-01-01', '01-23'),
+    ('FDE',    '2023-04-01', '04-23'),
     ('CDHU',   '2023-05-01', '190'),
+    ('FDE',    '2023-07-01', '07-23'),
     ('CDHU',   '2023-08-01', '191'),
+    ('FDE',    '2023-10-01', '10-23'),
     ('CDHU',   '2023-11-01', '192'),
+    ('FDE',    '2024-01-01', '01-24'),
     ('CDHU',   '2024-02-01', '193'),
+    ('FDE',    '2024-04-01', '04-24'),
     ('CDHU',   '2024-05-01', '194'),
+    ('FDE',    '2024-07-01', '07-24'),
     ('CDHU',   '2024-08-01', '195'),
+    ('FDE',    '2024-10-01', '10-24'),
     ('CDHU',   '2024-11-01', '196'),
+    ('FDE',    '2025-01-01', '01-25'),
     ('CDHU',   '2025-02-01', '197'),
+    ('FDE',    '2025-04-01', '04-25'),
     ('CDHU',   '2025-05-01', '198'),
+    ('FDE',    '2025-07-01', '07-25'),
     ('CDHU',   '2025-08-01', '199'),
+    ('FDE',    '2025-10-01', '10-25'),
     ('CDHU',   '2025-11-01', '200'),
+    ('FDE',    '2026-01-01', '01-26'),
     ('CDHU',   '2026-02-01', '201'),
+    ('FDE',    '2026-04-01', '04-26'),
     -- SINAPI 08/2024→04/2026 (boletim mensal, uma edição por mês)
     ('SINAPI', '2024-08-01', '08-24'),
     ('SINAPI', '2024-09-01', '09-24'),
