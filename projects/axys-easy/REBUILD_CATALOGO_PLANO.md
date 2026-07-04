@@ -31,6 +31,14 @@ dev→prod que produz a "versão 0" da app. **Supersede** a versão anterior des
 
 ## 2. FDE — o que falta (nesta ordem)
 
+> ⚠️ **RESSALVA (Renan, 2026-07-04): os `dist` históricos (1…n-1) foram STAGED/"maqueados" pelo Codex** —
+> não são a saída crua do pipeline real (que parseia PDF direto + pega insumos/cadernos via curl
+> autenticado). O terreno foi pavimentado de propósito (import histórico parse-free). Isso **vai pra
+> prod** assim. **Implicação:** o **gate de conferência é a GARANTIA de fidelidade** — valida cada `dist`
+> comparando o `calc` (Σ itens da composição) contra o `fonte` publicado (des-BDInizado). Artefato de
+> staging (coef/preço/BDI inferido torto) = `DIVERGENTE_RELEVANTE` → o loader para (como pegou CDHU
+> 195/196). O **pipeline real (PDF+curl) é a fase PREP** (§2.3), para a edição vigente **n** em prod.
+
 **2.1. Loader FDE** (`carregar_edicoes_fde.py`, espelha o do CDHU) — **PRIMEIRO.**
 - Consome os `dist` do sandbox (`manifest.json` + `csv/` + `originais/`), importa **parse-free**,
   `pg_advisory_xact_lock(fte_id)`, idempotente por edição, **gate de conferência** ao fim.
