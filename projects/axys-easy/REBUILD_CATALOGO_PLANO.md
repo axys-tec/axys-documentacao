@@ -1,92 +1,113 @@
-# Plano — Rebuild Limpo do Catálogo (construir em DEV → migrar p/ PROD)
+# Plano — Rebuild do Catálogo → Migração para PROD (versão 0)
 
-**Status:** RASCUNHO p/ revisão do Renan (2026-07-03). Não executar antes de aprovar.
-**Motivação:** prod contaminada — órfãos de item (reimport sem delete, já corrigido), **ids queimados**
-(9623 insumos → `ins_id` 194.715), fonte 2025-10 inconsistente (+56 de mismatch de preço). Produto
-**sem cliente / app não pronta** → rebuild do zero é seguro e dá slate limpo.
+**Status:** RASCUNHO p/ aprovação do Renan (2026-07-04). **Não executar antes de aprovar.**
+**Escopo:** master do rebuild — inclui SINAPI/CDHU (feitos em dev), FDE (a fazer) e a migração
+dev→prod que produz a "versão 0" da app. **Supersede** a versão anterior deste doc.
 
-## 1. Estratégia macro
-- **Construir tudo em DEV** (storage = pasta local via `storage_provider`), validando com a **tela de diff**.
-- **Migrar o banco DEV → PROD** (`pg_dump` do que importa), **sem importar em prod**.
-- Assim: sequences resetados (ids limpos), zero risco de import em prod, e a fonte inconsistente
-  nunca entra.
+---
 
-## 2. Decisões travadas
-- **Reset = schemas `catalogo` + `audit`.** Audit depende do que entra na app → também refaz. Demais
-  schemas (ativo/orçamento/…) foram criados no `CREATE DATABASE` mas estão **vazios** em prod. SSO/Hub
-  = ENV + banco separado do Hub → **intactos**.
-- **Fonte:** Renan TEM os Excel completos e consistentes de todas as edições. É o insumo do rebuild.
-- **get-or-create canônico** p/ tabelas de **identidade estável** (ver §4). Ver [[feedback_get_or_create_ids]].
-- **Reusar cadernos/fichas** já parseados (o caro) — não reparsear (ver §5).
+## 0. Estado atual (2026-07-04)
 
-## 3. Pipeline por edição (dev)
-`Excel (fonte) → CSV canônico → carga no banco → DIFF da tabela inteira (revisão) → aceita`
-- **Diff por import (tela de rolagem):** a cada carga, subir o diff da tabela toda (fonte × app) pra
-  revisão humana ANTES de aceitar. Estende a tela `/edicoes/{id}/diff-fonte-app` p/ rodar no import.
-- **Convergidos pulam o pesado:** o que já bate (diff≈0) não passa pelo processamento maior (reparse etc.).
-- Ordem cronológica das edições (o histórico `*_historico` depende de `edi_prior`).
+- **SINAPI (22 edições, 08/2024→05/2026)** e **CDHU (18 boletins, 184→201)** construídos e validados
+  em **DEV** via loaders automáticos (`carregar_edicoes_sinapi.py` / `carregar_edicoes_cdhu.py`), com
+  **gate de conferência** (para no 1º `DIVERGENTE_RELEVANTE ≥ tol`), publicados em dev.
+  - Já feitos (commits desta sessão): **trava de edição por fonte** (SINAPI mês-ref `B3` / CDHU versão
+    `A5` — aborta arquivo trocado antes do parse), **get-or-create** (não queima id), **delete-then-insert**
+    de itens, **fix RESTRICT** do reimport CDHU (limpa alertas antes do delete), `client_min_messages` no schema.
+  - CDHU **195/196**: a fonte-serviço da própria CDHU é inconsistente com a composição dela — **aceito**
+    (o valor é a soma do publicado = calc; o Custo Total do serviço é secundário/auditoria). Ver
+    [[project_conferencia_divergencia]].
+- **PROD** ainda roda os catálogos ANTIGOS (SINAPI/CDHU), com os **documentos publicados no R2** e os
+  **paths persistidos no banco** (`ins_external_path`, `cmp_external_path`, `documentos`, `edi_capa_path`).
+- **FDE:** pendente. Sandbox `z_search_repos/find_fde/` tem os parsers + os `dist` de várias edições prontos.
 
-## 4. get-or-create — escopo (auditoria 2026-07-03; FASE 1 FEITA nos parsers, commit 0babc9d)
-**🔴 Identidade estável + surrogate IDENTITY → GET-OR-CREATE (mapa natural-key→id pré-carregado; UPDATE por id se achou, senão INSERT):**
-- ✅ `catalogo.insumos` — (fte, codigo) [sinapi parse_insumos + órfão · cdhu parse_insumos] ← o caso principal (9623→194715). Precedência `ins_ti_origem` (FONTE>MANUAL>REGRA) preservada no UPDATE.
-- ✅ `catalogo.composicoes` — (fte, codigo, edi) [sinapi · cdhu]. `cmp_ativa` intocado no update.
-- ✅ `catalogo.composicoes_subgrupos` — já era get-or-create (parser_sinapi).
+## 1. Princípios
 
-**⚪ PK NATURAL (TEXT, sem surrogate) → NÃO queimam, NÃO mexidas:**
-- `catalogo.unidades` (`un_codigo` PK) · `catalogo.indices` (`idc_codigo` PK). O ON CONFLICT delas é inofensivo.
-- Resta só `indices_historico` (surrogate `idh_id`, per-mês, baixo volume, serviço) — categoria 🟡, adiar.
+- Construir o **histórico (1…n-1)** em **DEV**, validar com o gate, **migrar `catalogo`+`audit` dev→prod**.
+- A **edição vigente (n) de cada fonte entra pela ROTA de import da app, em PROD** (operação normal). A
+  feature FDE é **forward-only** — **não** há fork/tela para "boletim antigo" (histórico é só script).
+- **R2 nunca é reprocessado.** SINAPI/CDHU já têm tudo lá → **preservar** os paths. **FDE não tem NADA
+  no R2 → subir novo** (passo-extra, ver §3).
 
-**🟡 Por-edição / alto volume → DELETE escopo + BATCH INSERT (não get-or-create; id interno descartável):**
-- `insumos_preco` (600k), `composicoes_custo` (800k), `composicoes_itens` (500k, delete já feito no fix),
-  `insumos_familia`, `edicoes_leis_sociais`, `search_document`, `documentos`. get-or-create linha-a-linha aqui = lento demais.
+## 2. FDE — o que falta (nesta ordem)
 
-**🟡 Por-edição / alto volume → DELETE escopo + BATCH INSERT (não get-or-create; id interno descartável):**
-- `insumos_preco`, `composicoes_custo`, `composicoes_itens` (delete já feito no fix), `insumos_familia`,
-  `edicoes_leis_sociais`, `search_document`, `documentos`. get-or-create linha-a-linha aqui = lento demais.
+**2.1. Loader FDE** (`carregar_edicoes_fde.py`, espelha o do CDHU) — **PRIMEIRO.**
+- Consome os `dist` do sandbox (`manifest.json` + `csv/` + `originais/`), importa **parse-free**,
+  `pg_advisory_xact_lock(fte_id)`, idempotente por edição, **gate de conferência** ao fim.
+- **BDI (a particularidade da FDE — publica CRU com BDI):** `cc_custo_fonte` = publicado CRU **com BDI**
+  (auditoria, não se limpa); `cc_custo_calculado` = Σ itens×coef + LS **(limpo)** = o que a app exibe/usa;
+  BDI% → `catalogo.edicoes_bdi` (a **presença** da linha sinaliza "fonte com BDI"); a conferência
+  **des-BDIniza** o fonte pra comparar: `calc` vs `fonte ÷ (1 + ebd_percent/100)` (BUSINESS_RULES §4.3,
+  FDE_IMPORT_CONTRACT §2/§7).
+- **PASSO-EXTRA FDE (R2) — diferente de SINAPI/CDHU:** a FDE **não tem NADA no R2 hoje**. O loader FDE
+  **sobe os originais/docs da FDE pro R2** (bucket público, layout `CATALOGO_STORAGE_LAYOUT`) **e grava
+  os paths no banco** (`ins/cmp_external_path`, `documentos`, `edi_capa_path`). Não há o que preservar — é
+  carga nova. (Nas outras fontes o loader não sobe nada; só os dados.)
+- **Trava de versão FDE** (análoga a SINAPI/CDHU): validar a edição carimbada no `dist`/`manifest` contra
+  a edição informada, antes de gravar.
+- **Testar em DEV** (SINAPI/CDHU já validados; só a FDE falta).
 
-## 5. Reuso de cadernos/fichas (o "seed controlado") — DECIDIDO: opção (c)
-O caro é o parse de PDF (fichas/cadernos/textos) → gera **HTML "patheado" no R2**, já construído no
-**R2 de prod**. `parse_caderno`/`parse_fichas` **não escrevem `composicoes_itens`** (só publicam doc) →
-pular o parse **não afeta o dado**, só a publicação do doc.
+**2.2. Tela de import FDE em DEV** (rota in-app IMPORT) — **DEPOIS do loader.**
+- Consome um `dist` do **R2 por referência** (edição+versão), parse-free, mesmo status/feedback otimista
+  das outras fontes. É a "funcionalidade a partir da edição vigente".
+- **REMOVER do `PLANO_UPLOAD_EDICOES_FDE.md` o fork de FRONT histórico** (§5.1 Boletim Antigo / §5.2
+  Boletim Atual): não se cria tela de "boletim antigo". (§20 já matava o fork A/B; formalizar a remoção.)
 
-**FATO do código (import_service:515-518, 674-676, fichas/LS):** o path é gravado no banco **SÓ APÓS o
-`save_public_file`** — `cmp_external_path`/`documentos` são **acoplados ao arquivo real**. Comp/insumo sem
-caderno tem path **NULL**. Então **NÃO** dá pra "gerar path determinístico e popular cego" — criaria
-ponteiro morto pra tudo que não tem caderno. (Descartadas: (a) popular path determinístico sem save;
-(b) varrer o bucket.)
+**2.3. PREP (gerador automático do `dist`)** — **por último.** Pros `dist` que já existem, o loader
+resolve; a PREP (scraper+parse no worker → `dist` → R2) entra quando for automatizar a edição vigente.
 
-**DECISÃO — (c) preservar as referências REAIS de prod (por chave natural):**
-1. **Antes do wipe:** exporta de prod as referências de doc por chave natural
-   (`fte_codigo, cmp_codigo, edi_mes_ref → cmp_external_path`; `documentos` por fonte+edi+tipo+cod).
-2. **Rebuild em dev** do Excel, com **caderno totalmente pulado** (`EASY_SKIP_CADERNOS_PDF` como está — nem registra).
-3. **Overlay** das referências no banco rebuildado, casando por **chave natural** (id novo achado pelo código).
-4. **Migra** dev→prod. R2 de prod nunca foi tocado → arquivos seguem nos mesmos paths → referências
-   acendem, **e só as que existem de verdade** (zero ponteiro morto, zero varredura, zero geração cega).
-O `puxar_edicao.py` já copia `cmp_external_path`/`documentos` → mecanismo existe. A trava de caderno
-**não muda** (continua "pula o stage inteiro").
+## 3. Preservação / criação dos mapeamentos de doc no R2
 
-## 6. Migração DEV → PROD
-- `pg_dump` dos schemas `catalogo` + `audit` do dev → restore em prod (substitui). Sequences vão limpos.
-- **Preservar em prod:** nada de cliente (vazio). Conferir que ativo/orçamento seguem vazios; SSO/Hub são
-  externos. Fazer **backup do prod antes** (o worker/`gerar_backup_render.py`).
-- Validar pós-migração: contagens, distribuição de `cc_status_conferencia`, e a tela de diff limpa.
+- **SINAPI/CDHU — PRESERVAR (já existem em prod):** **antes** do drop de prod, exportar um **CSV** por
+  **chave natural** — `(fte_codigo, codigo|cmp_codigo, edi_mes_ref/versao, tipo) → path/url` — cobrindo
+  `insumos.ins_external_path`, `composicoes.cmp_external_path`, `catalogo.documentos`, `edicoes.edi_capa_path`.
+  **Baixar o CSV pro local.** Após o rebuild em dev, **overlay** desses paths por chave natural (id novo
+  resolvido pelo código). O R2 **nunca é tocado** → os paths reacendem sozinhos. Mecanismo já existe em
+  `puxar_edicao.py` (copia `cmp_external_path`/`documentos`).
+- **FDE — SUBIR NOVO (não existe em prod):** resolvido no próprio loader FDE (§2.1) — sobe pro R2 + patheia.
 
-## 7. Fases de execução
-1. **Parsers → get-or-create** (insumos/composições/unidades/indices) + reset de sequence no rebuild. Testar em dev.
-2. **Reuso de caderno** (decidir 5a/5b) — registrar doc sem reparsear.
-3. **Diff-por-import** (estender a tela) + **skip de convergidos**.
-4. **Rebuild completo em dev** (todas as edições, ordem cronológica, com os Excel completos).
-5. **Migração dev → prod** (`pg_dump` catalogo+audit) + validação.
+## 4. Sequência de execução (ordem canônica)
 
-## 8. Pendências correlatas (já mapeadas)
-- **Trava de sanidade edição×arquivo em TODAS as fontes (PENDENTE — CDHU/FDE/futuras).** Já perdemos
-  edições por importar o arquivo de outro período no slot errado (ex.: SINAPI 2025-09 gravado como 2024-09,
-  contaminando a edição inteira). **FEITO no SINAPI** (2026-07-04): `import_service._mes_ref_sinapi` lê o
-  `B3` ("Mês de Referência: MM/YYYY") do Excel e, no stage `preparar` ANTES de qualquer parse, aborta se não
-  bater com `edi_mes_ref` da edição informada (nada é gravado). **Falta replicar a mesma trava em `importar_cdhu`
-  e nas demais fontes** — cada fonte carimba a própria identidade de edição de um jeito (CDHU = nº do boletim/
-  versão, não mês; FDE = a definir), então a leitura muda por fonte, mas a REGRA é a mesma: ler a identidade de
-  edição DO ARQUIVO e travar se divergir do informado, antes de tocar no banco. **CDHU FEITO (2026-07-04):** `_versao_cdhu` lê 'Versão NNN' (A5) e aborta no `preparar` se ≠ boletim informado; loader `carregar_edicoes_cdhu.py` (191/197 só têm Tabela consolidada → pulados). **Falta só FDE.** [[project_conferencia_divergencia]]
-- CDHU sarrafo (drop 2024-08) — ver se some no rebuild com fonte completa. [[project_conferencia_divergencia]]
-- Follow-up `calc=0` de composição vazia → tratar como SEM_CUSTO (fallback p/ fonte na exibição). BUSINESS_RULES §4.3.
-- FDE entra DEPOIS do rebuild estabilizar. [[project_fde_catalogo]]
+1. **Loader FDE em dev** (com upload R2 + path + gate des-BDI + trava de versão). **Testar.**
+2. **Tela de import FDE em dev.** **Testar.**
+3. **Exportar o CSV de paths** SINAPI/CDHU de **PROD** (+ baixar pro local). [read-only em prod]
+4. **Backup de PROD** (estado atual, antes de qualquer drop) — `gerar_backup_render.py`. **Inegociável.**
+5. **DROP local E prod** completos (schemas `catalogo` + `audit`). `ativo`/`tenant_catalogo`/… ficam
+   vazios/intactos; SSO/Hub são bancos externos (intocados).
+6. **Local — rebuild 1…n-1:** subir todas as edições **HISTÓRICAS** de SINAPI+CDHU+FDE (loaders, gate),
+   + **overlay dos paths** SINAPI/CDHU do CSV; FDE já sobe/patheia no próprio loader. (1…n-1 = **todas
+   menos a vigente de cada fonte** — os loaders aceitam `--end` p/ excluir a última.)
+7. **Migrar `catalogo` + `audit`** dev→prod (`pg_dump` dos 2 schemas → restore em prod; sequences limpos).
+8. **Rotacionar o audit:** `criado_por`/`atualizado_por` e o email do rebuild → **"seed inicial" /
+   `dev@axys-tec.com.br`** (não "Dev Local").
+9. **Backup do prod = "versão 0"** (catalogo + audit) — estado da app ao subir para uso em escala.
+10. **Em PROD, pela rota de import da app:** subir a edição **vigente (n) de cada fonte** (SINAPI/CDHU/FDE)
+    — valida a operação normal e liga a feature FDE forward-only.
+11. **Depois, ISOLADO:** migrar `ativo` (os orçamentos-paradigma do gerador de orçamento paramétrico).
+
+## 5. Riscos / cuidados
+
+- **Backup de prod ANTES do drop** (passo 4) — inegociável.
+- **Não deployar durante import** (mata o worker). **Reiniciar o worker após mudar parser** (Celery sem
+  hot-reload — a lição recorrente).
+- **Segredos FDE em ENV/secret** (nunca `login_data.env` no repo). `restaurar_local.py` (senha) segue gitignored.
+- **Conferência pós-carga obrigatória** — o gate dos loaders já faz (para no 1º relevante).
+- Migração = **catalogo + audit apenas** (ativo isolado, passo 11).
+
+## 6. Referências
+
+- Loaders: `docs/projects/axys-easy/schemas/backup/carregar_edicoes_{sinapi,cdhu}.py` (FDE a criar).
+- FDE: `z_search_repos/find_fde/PLANO_UPLOAD_EDICOES_FDE.md` (§20 vale; front fork a remover — §2.2 acima),
+  `docs/.../contracts/catalogo/CATALOGO_FDE_IMPORT_CONTRACT.md`, `CATALOGO_BUSINESS_RULES.md §4.3`.
+- Storage R2: `CATALOGO_STORAGE_LAYOUT.md`. Preservação de paths: `puxar_edicao.py`.
+- Memórias: [[project_rebuild_catalogo]], [[project_conferencia_divergencia]], [[project_fde_catalogo]],
+  [[project_catalogo_docs_r2]], [[project_easy_render_deploy]].
+
+## 7. Decisões travadas (Renan, 2026-07-04)
+
+- **"n" (edição vigente que entra em PROD pela rota) por fonte:**
+  - **CDHU = 202 (mai/26)** → dev/migração carrega **184…201**; 202 entra em prod pela rota.
+  - **FDE = 04/2026** → dev/migração até a **penúltima**; 04/26 em prod pela rota.
+  - **SINAPI = 05/2026** _(Renan escreveu "05/25"; assumido 05/26 pois o dev já tem até 05/26 limpo —
+    **confirmar de leve**)_ → dev/migração até **04/2026**; 05/26 em prod pela rota.
+- **Ativo: 100% FORA da versão 0** — migra isolado (passo 11). Só `catalogo`+`audit` na versão 0.
