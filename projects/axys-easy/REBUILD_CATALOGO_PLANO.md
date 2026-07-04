@@ -79,6 +79,14 @@ O `puxar_edicao.py` já copia `cmp_external_path`/`documentos` → mecanismo exi
 5. **Migração dev → prod** (`pg_dump` catalogo+audit) + validação.
 
 ## 8. Pendências correlatas (já mapeadas)
+- **Trava de sanidade edição×arquivo em TODAS as fontes (PENDENTE — CDHU/FDE/futuras).** Já perdemos
+  edições por importar o arquivo de outro período no slot errado (ex.: SINAPI 2025-09 gravado como 2024-09,
+  contaminando a edição inteira). **FEITO no SINAPI** (2026-07-04): `import_service._mes_ref_sinapi` lê o
+  `B3` ("Mês de Referência: MM/YYYY") do Excel e, no stage `preparar` ANTES de qualquer parse, aborta se não
+  bater com `edi_mes_ref` da edição informada (nada é gravado). **Falta replicar a mesma trava em `importar_cdhu`
+  e nas demais fontes** — cada fonte carimba a própria identidade de edição de um jeito (CDHU = nº do boletim/
+  versão, não mês; FDE = a definir), então a leitura muda por fonte, mas a REGRA é a mesma: ler a identidade de
+  edição DO ARQUIVO e travar se divergir do informado, antes de tocar no banco. **CDHU FEITO (2026-07-04):** `_versao_cdhu` lê 'Versão NNN' (A5) e aborta no `preparar` se ≠ boletim informado; loader `carregar_edicoes_cdhu.py` (191/197 só têm Tabela consolidada → pulados). **Falta só FDE.** [[project_conferencia_divergencia]]
 - CDHU sarrafo (drop 2024-08) — ver se some no rebuild com fonte completa. [[project_conferencia_divergencia]]
 - Follow-up `calc=0` de composição vazia → tratar como SEM_CUSTO (fallback p/ fonte na exibição). BUSINESS_RULES §4.3.
 - FDE entra DEPOIS do rebuild estabilizar. [[project_fde_catalogo]]
