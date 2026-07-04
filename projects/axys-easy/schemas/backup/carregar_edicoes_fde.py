@@ -70,6 +70,69 @@ def importar(conn, edi_id, fte_id, csv_dir):
     return res
 
 
+# tipo de doc por chave do manifest.originais_alvo
+_TIPO_DOC = {
+    "sintetica_pdf": "referencia_sintetica", "analitica_pdf": "referencia_analitica",
+    "insumos_xlsx": "insumos", "ls_pdf": "leis_sociais", "bdi_pdf": "bdi", "honor_pdf": "honorarios",
+}
+
+
+def subir_r2_fde(conn, edi_id, fte_id, dist_dir: Path) -> int:
+    """Passo-extra da FDE: sobe os `originais/` pro storage público (R2 em prod / local em dev,
+    via STORAGE_DRIVER) sob {fonte}/{edicao}/originais/, e registra em catalogo.documentos
+    (edição-level). Idempotente (mesma key sobrescreve; upsert por doc_path). Commita."""
+    import json, mimetypes
+    from backend.modules.catalogo import storage_paths as sp
+    from backend.storage import get_storage
+
+    store = get_storage()
+    cur = conn.cursor()
+    manifest = json.loads((dist_dir.parent / "manifest.json").read_text(encoding="utf-8"))
+    edicao = manifest["edicao"]
+    orig_dir = dist_dir.parent / "originais"
+    alvo = manifest.get("originais_alvo", {}) or {}
+
+    itens: list[tuple[str, str]] = []   # (tipo_doc, nome_arquivo)
+    for chave, val in alvo.items():
+        if not val:
+            continue
+        tipo = _TIPO_DOC.get(chave, chave)
+        if isinstance(val, list):
+            for it in val:
+                nome = Path(it["arquivo"] if isinstance(it, dict) else it).name
+                itens.append((tipo, nome))
+        else:
+            itens.append((tipo, Path(val).name))
+
+    n = 0
+    for tipo, nome in itens:
+        f = orig_dir / nome
+        if not f.exists():
+            cand = next((p for p in orig_dir.iterdir() if p.name == nome), None)
+            if cand is None:
+                continue
+            f = cand
+        key = sp.originais("fde", edicao, nome)
+        mime = mimetypes.guess_type(nome)[0] or "application/octet-stream"
+        with open(f, "rb") as fh:
+            store.save_public_file(key, fh, mime)
+        url = store.get_public_url(key)
+        cur.execute(
+            """
+            INSERT INTO catalogo.documentos
+                (doc_fte_id, doc_tipo, doc_edi_id, doc_path, doc_url, doc_titulo, doc_mime, doc_vigente)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, true)
+            ON CONFLICT (doc_path) DO UPDATE SET
+                doc_url=EXCLUDED.doc_url, doc_titulo=EXCLUDED.doc_titulo,
+                doc_mime=EXCLUDED.doc_mime, doc_vigente=true
+            """,
+            (fte_id, tipo, edi_id, key, url, nome, mime),
+        )
+        n += 1
+    conn.commit()
+    return n
+
+
 def conferencia(conn, edi_id, tol):
     cur = conn.cursor()
     cur.execute("""
@@ -104,6 +167,7 @@ def main():
     ap.add_argument("--end", default=None, help="mês-fim YYYY-MM")
     ap.add_argument("--tol", type=float, default=1.00, help="tolerância R$ p/ DIVERGENTE_RELEVANTE")
     ap.add_argument("--skip-on-fail", action="store_true")
+    ap.add_argument("--r2", action="store_true", help="após o gate, sobe os originais/ pro storage (STORAGE_DRIVER) + documentos")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
@@ -135,6 +199,9 @@ def main():
                     print(f"      {mod} MAIOR_DIVERGENCIA=R${dif}  cmp {cod}")
             if cf["ofensores"]:
                 raise RuntimeError(f"{len(cf['ofensores'])}+ DIVERGENTE_RELEVANTE ≥ R${args.tol:.2f} (top {cf['ofensores'][0][2]} Δ={cf['ofensores'][0][5]})")
+            if args.r2:
+                nd = subir_r2_fde(conn, e["edi_id"], fte_id, e["csv"])
+                print(f"      R2: {nd} originais subidos ({e['csv'].parent.name}/originais/) + registrados em documentos")
             print(f"{tag} ✓ passou\n")
         except Exception as ex:
             conn.rollback()
