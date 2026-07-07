@@ -5,6 +5,25 @@ real. Decisão de fundo em [ADR-006](../adrs/EASY-ADR-006-arquitetura-de-jobs-e-
 
 > Preços Render (USD/mês, por instância): 512MB=$7 · 2GB=$25 · 4GB=$85 · 8GB=$175 · 16GB=$225 · 32GB=$450.
 
+## Runbook rápido — quando apertar, faça na ordem
+
+**Regra de ouro:** **PgBouncer (transaction mode) ANTES de qualquer autoscale.** Mais instâncias
+sem pooler = mais conexões = banco quebra.
+
+| # | Gatilho | Ação |
+|---|---|---|
+| 1 | Worker import dá **OOM** | subir 1 degrau de RAM **só** do worker-imports (512→2→4→8GB) |
+| 2 | App web lenta / **"too many connections"** | ligar pooler → depois +instâncias web (autoscale) |
+| 3 | **Fila de cliente** atrasando | separar worker-clients (`-Q clients`) + autoscale horizontal |
+| 4 | **Query lenta** em catálogo (edição antiga) | particionar tabelas versionadas por `edi_id` → `DETACH` + arquivar edições frias no R2 |
+| 5 | **Leitura de cliente** pesada | read replica (escrita no primary, consulta na réplica) |
+| 6 | **`core.jobs`** grande | task de purge na fila `maint` (apaga/arquiva jobs terminados > N dias) |
+
+**Topologia de worker (evoluir por config, sem refatorar código):**
+- Hoje: 1 worker `-Q imports,clients,maint -B`, concurrency=1.
+- Escalar: quebrar em `worker-imports` (gordo/serial) + `worker-clients,maint` (autoscale) +
+  **beat dedicado** (tira o `-B`). `task_routes` já fixa a fila de cada task.
+
 ## Dois eixos de escala
 
 - **App web + `worker-clients`** → crescem com **demanda de cliente** (horizontal/autoscale).

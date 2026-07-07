@@ -168,8 +168,37 @@ Arquivo: `backend/core/security.py`
 
 ## TODO
 
-- [ ] Refresh token automático (antes de expirar)
-- [ ] Webhook do Hub para "tenant deactivated"
+- [ ] Refresh token automático (antes de expirar) → ver **Design de referência** abaixo
+- [ ] Webhook do Hub para "tenant deactivated" → coberto pelo **revoke-on-cancel** abaixo
 - [ ] Cache de permissões (JTI blacklist)
 - [ ] Multi-tenant switching UI
+
+## Design de referência — lifecycle de token (resgatado do ADR-029, 2026-05-23)
+
+> O handshake de SSO **já evoluiu no prod** para `code → exchange` (Fernet), mais avançado que
+> o token-in-URL do ADR-029 original. Aproveite deste design **apenas o ciclo de vida do token**
+> (refresh/revoke) — não o fluxo de handshake, que está superado. Ver [[reference_sso_hub_prod]].
+
+**Vidas de token:**
+- **Access token**: vida máxima **1h** (assinado RS256/ES256, validado localmente via JWKS, sem
+  chamar o Hub). A janela curta é o trade-off aceito entre segurança (revogação) e disponibilidade.
+- **Refresh token**: vida máxima **30 dias**, renovação por uso (**sliding window**).
+
+**Revogação amarrada ao cancelamento de assinatura** (resolve o TODO "tenant deactivated" sem
+depender de webhook): no cancelamento, o **Hub invalida o refresh token imediatamente**; o access
+token **expira naturalmente** (janela ≤ 1h de acesso residual). Sem necessidade de blacklist
+distribuída para o caso comum.
+
+**Pré-condição no AxysHub** (refatoração — não urgente, executar quando o Easy for integrar o
+refresh; o mecanismo de token opaco atual pode coexistir na transição):
+
+| Componente (Hub) | Mudança |
+|---|---|
+| `service_auth.py` | emitir JWT assinado (RS256) em vez de token opaco |
+| `security.py` | validar JWT além do hash atual |
+| `POST /auth/token` | emissão de access + refresh token |
+| `POST /auth/refresh` | renovação de access via refresh token |
+| `POST /auth/revoke` | revogação de refresh token (acionada no cancelamento) |
+| `GET /.well-known/jwks.json` | expor chave pública p/ o Easy validar sem redeploy |
+| Banco do Hub | tabela de refresh tokens com flag de revogação |
 

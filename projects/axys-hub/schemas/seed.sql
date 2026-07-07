@@ -88,7 +88,7 @@ VALUES
         '279ae6ae-52e1-52e0-ad90-df80cbf5cd1b',
         'Thaís',
         'thays_hernandes@hotmail.com',
-        crypt('axys@seed2026', gen_salt('bf', 10)),
+        crypt('Rt-16071506', gen_salt('bf', 10)),
         '00000000003',  -- placeholder — substituir
         '{}',
         'user',
@@ -100,7 +100,7 @@ VALUES
         '733fa25d-157e-596f-9f86-4ad8db423881',
         'Dias e Cardozo',
         'diasecardozo@diasecardozo.com.br',
-        crypt('axys@seed2026', gen_salt('bf', 10)),
+        crypt('Rt-16071506', gen_salt('bf', 10)),
         '00000000002',  -- placeholder — substituir
         '{}',
         'user',
@@ -112,7 +112,7 @@ VALUES
         '83557f7e-e3f4-4002-a543-f09cc681f9ae',
         'Lunalô Calcados',
         'lunalocalcados@hotmail.com',
-        crypt('axys@seed2026', gen_salt('bf', 10)),
+        crypt('Rt-16071506', gen_salt('bf', 10)),
         '00000000004',  -- placeholder — substituir
         '{}',
         'user',

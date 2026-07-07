@@ -367,6 +367,11 @@ CREATE TABLE IF NOT EXISTS catalogo.fontes (
     -- Catálogos de terceiros (SINAPI/CDHU) = FALSE → imutáveis por qualquer usuário
     -- (risco alto). Esta flag é o GATE consumido pelas telas de insumos/composições.
     fte_permite_manipular_dados BOOLEAN NOT NULL DEFAULT FALSE,
+    -- EXIBIÇÃO dos arquivos originais no caderno técnico da edição (seção "Arquivos originais",
+    -- entre Dados e Encargos Sociais). É SÓ flag de VITRINE — NÃO define bucket público nem
+    -- libera o blob: o armazenamento (public/private) é decidido no import, independente disto.
+    -- TRUE só p/ fontes cujos originais são de divulgação: AXYS (própria) e SINAPI (público oficial).
+    fte_public         BOOLEAN NOT NULL DEFAULT FALSE,
     fte_criado_em      TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     fte_atualizado_em  TIMESTAMPTZ,
     fte_criado_por     TEXT,
@@ -400,14 +405,14 @@ CREATE INDEX ix_fontes_ativa
 --   fte_permite_manipular_dados: SÓ AXYS (fonte própria) = TRUE; terceiros = FALSE (imutáveis).
 INSERT INTO catalogo.fontes (fte_id, fte_codigo, fte_nome, fte_ordem_edicao,
                              fte_tem_catalogo_insumos, fte_tem_caderno_metodologia,
-                             fte_catalogos_continuos, fte_permite_manipular_dados, fte_criado_por)
-SELECT v.id, v.codigo, v.nome, v.ordem, v.tem_ins, v.tem_met, v.continuos, v.manipula, 'Axys — seed inicial'
+                             fte_catalogos_continuos, fte_permite_manipular_dados, fte_public, fte_criado_por)
+SELECT v.id, v.codigo, v.nome, v.ordem, v.tem_ins, v.tem_met, v.continuos, v.manipula, v.publico, 'Axys — seed inicial'
 FROM (VALUES
-    (1, 'AXYS',   'Composições Próprias',                               'DATA',   FALSE, FALSE, TRUE,  TRUE),
-    (2, 'SINAPI', 'Sistema Nacional de Pesquisa de Custos e Índices da Construção Civil', 'DATA', TRUE, TRUE, TRUE, FALSE),
-    (3, 'CDHU',   'Companhia de Desenvolvimento Habitacional e Urbano', 'VERSAO', FALSE, TRUE, FALSE, FALSE),
-    (4, 'FDE',    'Fundação para o Desenvolvimento da Educação',        'DATA',   FALSE, TRUE, FALSE, FALSE)
-) AS v(id, codigo, nome, ordem, tem_ins, tem_met, continuos, manipula)
+    (1, 'AXYS',   'Composições Próprias',                               'DATA',   FALSE, FALSE, TRUE,  TRUE,  TRUE),
+    (2, 'SINAPI', 'Sistema Nacional de Pesquisa de Custos e Índices da Construção Civil', 'DATA', TRUE, TRUE, TRUE, FALSE, TRUE),
+    (3, 'CDHU',   'Companhia de Desenvolvimento Habitacional e Urbano', 'VERSAO', FALSE, TRUE, FALSE, FALSE, FALSE),
+    (4, 'FDE',    'Fundação para o Desenvolvimento da Educação',        'DATA',   FALSE, TRUE, FALSE, FALSE, FALSE)
+) AS v(id, codigo, nome, ordem, tem_ins, tem_met, continuos, manipula, publico)
 ON CONFLICT (fte_codigo) DO UPDATE
     SET fte_id             = EXCLUDED.fte_id,
         fte_nome           = EXCLUDED.fte_nome,
@@ -416,6 +421,7 @@ ON CONFLICT (fte_codigo) DO UPDATE
         fte_tem_caderno_metodologia = EXCLUDED.fte_tem_caderno_metodologia,
         fte_catalogos_continuos  = EXCLUDED.fte_catalogos_continuos,
         fte_permite_manipular_dados = EXCLUDED.fte_permite_manipular_dados,
+        fte_public         = EXCLUDED.fte_public,
         fte_atualizado_em  = CURRENT_TIMESTAMP,
         fte_atualizado_por = 'Axys — seed inicial';
 SELECT setval(
@@ -477,6 +483,15 @@ CREATE TABLE IF NOT EXISTS catalogo.edicoes (
     --   dados importados E todo tipo EXIGIDO pela fonte resolvido (ok|indisponivel). Publicar
     --   avisa+permite quando há 'indisponivel'. Ver CONTRATO IMPORT §8 / BUSINESS_RULES §10.
     edi_docs_status      JSONB,
+    -- Pipeline de IMPORT desmembrado em 4 estágios (Preparar→Preços→Dados→Documentos). NÃO confundir
+    -- com edi_docs_status (resolução de docs por tipo, acima). Shape por estágio:
+    --   { "<nome>": { "estado": <e>, "job_id": <str?>, "em": <iso8601?>, "detalhe": <obj?> } }
+    --   nomes: preparar | precos | dados | documentos (nesta ordem).
+    --   estados: locked (travado) | pronto (destravado, pode rodar) | rodando | ok | erro |
+    --            pendente_user (só 'precos' — modal Informar dado / Publicar sem preço).
+    --   Cascata: estágio N vira locked→pronto quando N-1 == ok; 'documentos'==ok → edição disponível
+    --   p/ publicar. Ver CONTRATO catalogo/IMPORT_ESTAGIOS.md. NULL = ainda não iniciado (default no back).
+    edi_estagios         JSONB,
     -- edi_capa_path: apresentação dos cadernos SINAPI por subgrupo (capa+histórico+
     -- normas+bibliografia → HTML no R2). JSONB {subgrupo_slug: {url, path, ...}}.
     -- A edição é dona da apresentação (não há composição-capa); ver BUSINESS_RULES §11.
@@ -849,9 +864,13 @@ CREATE INDEX ix_composicoes_grupos_fte
 --
 -- sub_codigo: NULLABLE. A SINAPI NÃO publica código de subgrupo nos arquivos
 --   importados (só existe nos cadernos, fora do escopo de import) → grava-se
---   NULL (honesto: não há código). CDHU traz código real ('XX.XX'). Por isso
---   a IDENTIDADE/dedup do subgrupo é por (sub_fte_id, sub_descricao) — o nome é
---   o que ambas as fontes têm e é único por fonte (validado: 0 colisões).
+--   NULL/'' (honesto: não há código). CDHU/FDE trazem código real ('XX.XX').
+--
+-- IDENTIDADE/dedup do subgrupo = (sub_fte_id, sub_grp_id, sub_codigo) — fonte › grupo ›
+--   código do subgrupo. A DESCRIÇÃO é só ATRIBUTO (pode repetir): a FDE tem subgrupos de
+--   mesmo nome com códigos distintos (ex.: 09.82 e 09.83 = "CONSERVACAO - BAIXA TENSAO"),
+--   que devem permanecer SEPARADOS. Fontes sem código (SINAPI, sub_grp_id NULL) não são
+--   enforçadas por esta unique (NULLS DISTINCT) — o dedup delas é por nome no back.
 -- ============================================================
 CREATE TABLE IF NOT EXISTS catalogo.composicoes_subgrupos (
     sub_id             INTEGER GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
@@ -874,10 +893,10 @@ CREATE TABLE IF NOT EXISTS catalogo.composicoes_subgrupos (
         REFERENCES catalogo.composicoes_grupos (grp_id)
         ON UPDATE CASCADE ON DELETE RESTRICT,
 
-    -- Identidade/dedup por NOME (chave do ON CONFLICT dos parsers): o código pode
-    -- ser nulo (SINAPI), então não serve de chave; a descrição é única por fonte.
-    CONSTRAINT uq_composicoes_subgrupos_fte_descricao
-        UNIQUE (sub_fte_id, sub_descricao),
+    -- Identidade/dedup = fonte › grupo › código do subgrupo (a descrição é só atributo e
+    -- pode repetir; ver bloco acima). SINAPI (sub_grp_id NULL) fica fora do enforce.
+    CONSTRAINT uq_composicoes_subgrupos_fte_grp_cod
+        UNIQUE (sub_fte_id, sub_grp_id, sub_codigo),
 
     CONSTRAINT ck_composicoes_subgrupos_codigo_vazio
         CHECK (sub_codigo IS NULL OR btrim(sub_codigo) <> '')
@@ -1229,6 +1248,9 @@ CREATE TABLE IF NOT EXISTS catalogo.composicoes (
     cmp_ultima_pub      DATE,
     cmp_ultima_alteracao DATE,
     cmp_external_path   JSONB,
+    cmp_descritivo      JSONB,                            -- axys_desc: {medicao, remunera} p/ a AXYS Screen.
+                                                          -- CDHU/SINAPI do parse · FDE da IA. NULL = "em elaboração".
+                                                          -- Preenchido pelo passo de COMPLEMENTO (desacoplado do import).
     cmp_criado_em       TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     cmp_atualizado_em   TIMESTAMPTZ,
     cmp_criado_por      TEXT,
@@ -2112,6 +2134,11 @@ CREATE TABLE IF NOT EXISTS catalogo.documentos (
     doc_mime      TEXT,
     doc_vigente   BOOLEAN NOT NULL DEFAULT TRUE,
     doc_orfao     BOOLEAN NOT NULL DEFAULT FALSE,
+    doc_is_public BOOLEAN NOT NULL DEFAULT FALSE,  -- BLINDAGEM AUTORAL: default RESTRITO. FALSE = não sobe
+                                                   -- no caderno de user CLIENTE (perfil ≠ internal vê
+                                                   -- "<acesso restrito>"); p/ user AXYS sobe. A flag do
+                                                   -- import (por edição, default desmarcado) marca TRUE
+                                                   -- só o que é de fonte pública (ex.: fichas FDE).
     doc_criado_em TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT uq_documentos_path UNIQUE (doc_path)
 );
@@ -2119,6 +2146,25 @@ CREATE INDEX IF NOT EXISTS ix_documentos_ins ON catalogo.documentos(doc_ins_id) 
 CREATE INDEX IF NOT EXISTS ix_documentos_cmp ON catalogo.documentos(doc_cmp_id) WHERE doc_vigente;
 CREATE INDEX IF NOT EXISTS ix_documentos_sub ON catalogo.documentos(doc_sub_id);
 CREATE INDEX IF NOT EXISTS ix_documentos_fte_tipo ON catalogo.documentos(doc_fte_id, doc_tipo, doc_vigente);
+
+-- ────────────────────────────────────────────────────────────────────────────
+-- composicao_documento: vínculo N:N composição ↔ documento (substitui o 1:1 doc_cmp_id
+--   como MECANISMO de vínculo). SINAPI/CDHU geram 1-N linhas; FDE gera N (cataloga por
+--   grupo/tipo, uma ficha vale p/ vários serviços). Delete-then-insert por edição no
+--   import (idempotente). O modal "Catálogo de Serviço / Componente" da AXYS Screen lê daqui.
+--   Ver contrato CADERNO_TECNICO_AXYS.md.
+-- ────────────────────────────────────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS catalogo.composicao_documento (
+    cd_id        INTEGER GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+    cd_cmp_id    BIGINT  NOT NULL REFERENCES catalogo.composicoes(cmp_id) ON DELETE CASCADE,
+    cd_doc_id    INTEGER NOT NULL REFERENCES catalogo.documentos(doc_id) ON DELETE CASCADE,
+    cd_papel     TEXT NOT NULL,   -- criterio|ficha|componente|catalogo|caderno_cpu|livro_metodologia|livro_calculos
+    cd_ordem     INTEGER NOT NULL DEFAULT 0,
+    cd_criado_em TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT uq_composicao_documento UNIQUE (cd_cmp_id, cd_doc_id)
+);
+CREATE INDEX IF NOT EXISTS ix_composicao_documento_cmp ON catalogo.composicao_documento(cd_cmp_id, cd_ordem);
+CREATE INDEX IF NOT EXISTS ix_composicao_documento_doc ON catalogo.composicao_documento(cd_doc_id);
 
 
 -- ============================================================
@@ -2862,6 +2908,61 @@ CREATE INDEX ix_ativos_emp
 CREATE INDEX ix_ativos_catalog_source
     ON ativo.ativos (atv_is_catalog_source)
     WHERE atv_is_catalog_source;
+
+-- ============================================================
+-- SEED: MODELOS AXYS (catálogo de ativos p/ o Easy Price — gerador por drivers).
+-- Cada modelo = 1 empreendimento PÚBLICO (emp_is_public=TRUE) com 1 ativo "Edificação"
+-- marcado como fonte do catálogo (atv_is_catalog_source=TRUE). Consultados GLOBALMENTE
+-- pela flag (não entram na lista /empreendimentos de um tenant, que filtra por tenant).
+-- Tenant: tenant Axys ATUAL ('7847231a-…' — PROVISÓRIO, VAI MUDAR).
+--   [VALIDAR] atualizar quando o tenant definitivo da Axys existir no Hub
+--   (trocar o UUID abaixo + UPDATE nas linhas já seedadas).
+-- Idempotente (DO block: só insere o que falta, por nome). Rodar de novo não duplica.
+-- ============================================================
+DO $$
+DECLARE
+    v_axys uuid := '7847231a-4ba3-5138-b2d6-6943beb8e3f9';
+    v_emp  int;
+    r      record;
+BEGIN
+    FOR r IN
+        SELECT * FROM (VALUES
+            ('Construção Residencial AXYS | padrão popular',                                 'RESIDENCIAL'),
+            ('Construção Residencial AXYS | padrão médio',                                   'RESIDENCIAL'),
+            ('Construção Residencial AXYS | padrão alto',                                    'RESIDENCIAL'),
+            ('Construção Comercial AXYS | Galeria Comercial',                                'COMERCIAL'),
+            ('Construção Comercial AXYS | Lajes Corporativas',                               'LAJES_CORPORATIVAS'),
+            ('Construção Escolar AXYS | Pré-Escola',                                         'EDUCACIONAL'),
+            ('Construção Escolar AXYS | Ensino Médio',                                       'EDUCACIONAL'),
+            ('Construção Escolar AXYS | Ensino Superior',                                    'EDUCACIONAL'),
+            ('Construção Escolar AXYS | Quadras Poliesportivas',                             'ESPORTIVO'),
+            ('Construção Institucional AXYS | Ginásio Poliesportivo',                        'ESPORTIVO'),
+            ('Construção Institucional AXYS | Auditório',                                    'INSTITUCIONAL'),
+            ('Construção Institucional AXYS | Térrea',                                       'INSTITUCIONAL'),
+            ('Construção Institucional AXYS | Múltiplos Pavimentos',                         'INSTITUCIONAL'),
+            ('Construção Hospitalar AXYS | Atendimento Ambulatorial',                        'HOSPITALAR_AMBULATORIAL'),
+            ('Construção Hospitalar AXYS | Atendimento Ambulatorial, Urgência e Emergência', 'HOSPITALAR_AMBULATORIAL'),
+            ('Construção Hospitalar AXYS | Alta Complexidade',                               'HOSPITALAR_COMPLEXO'),
+            ('Construção Fábrica AXYS | Galpão-Edificação',                                  'INDUSTRIAL')
+        ) AS t(nome, tipo_cod)
+    LOOP
+        SELECT emp_id INTO v_emp FROM ativo.empreendimentos
+            WHERE emp_tenant_uuid = v_axys AND emp_nome = r.nome;
+        IF v_emp IS NULL THEN
+            INSERT INTO ativo.empreendimentos (emp_tenant_uuid, emp_nome, emp_is_public, emp_criado_por)
+                VALUES (v_axys, r.nome, TRUE, 'Axys — seed modelos')
+                RETURNING emp_id INTO v_emp;
+        END IF;
+        IF NOT EXISTS (SELECT 1 FROM ativo.ativos
+                       WHERE atv_emp_id = v_emp AND atv_nome = 'Edificação') THEN
+            INSERT INTO ativo.ativos (atv_tenant_uuid, atv_emp_id, atv_nome,
+                                      atv_is_catalog_source, atv_tipo_id, atv_status, atv_criado_por)
+                VALUES (v_axys, v_emp, 'Edificação', TRUE,
+                        (SELECT atp_id FROM ativo.ativo_tipos WHERE atp_codigo = r.tipo_cod),
+                        'RASCUNHO', 'Axys — seed modelos');
+        END IF;
+    END LOOP;
+END $$;
 
 
 -- ############################################################

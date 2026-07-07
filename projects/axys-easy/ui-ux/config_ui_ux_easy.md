@@ -91,6 +91,8 @@ catalogo/fonte_base_form.html   ← extends base/base_sidebar.html
 --ae-border        /* cor padrão de bordas */
 --ae-bg-soft       /* fundo levemente destacado */
 --ae-muted         /* texto desabilitado */
+--ae-success-soft  /* sucesso com alpha, usado em conciliação / realce leve */
+--ae-danger-soft   /* erro com alpha, usado em conciliação / realce leve */
 ```
 
 ### Tipografia

@@ -31,14 +31,22 @@
 Gera um orçamento estimativo completo com poucos cliques, usando parâmetros simples e **modelos por
 tipologia de projeto**.
 
-- **5 tipologias:** escolar, hospitalar, residencial médio padrão, residencial alto padrão e fabril.
+- **17 modelos AXYS** organizados por tipologia (o operador escolhe um como ponto de partida):
+  - **Residencial:** padrão popular · padrão médio · padrão alto
+  - **Comercial:** Galeria Comercial · Lajes Corporativas
+  - **Escolar:** Pré-Escola · Ensino Médio · Ensino Superior · Quadras Poliesportivas
+  - **Institucional:** Ginásio Poliesportivo · Auditório · Térrea · Múltiplos Pavimentos
+  - **Hospitalar:** Atendimento Ambulatorial · Ambulatorial + Urgência e Emergência · Alta Complexidade
+  - **Fábrica:** Galpão-Edificação
 - Entrega **planilha itemizada + cronograma de serviços**.
 - **Easy Price 2 (avançado):** o usuário sobe **o próprio orçamento parametrizado** (modelo do tenant).
 - Regras com parâmetros **simples (single)** ou **compostos (complex)** para maior refinamento.
 - Automação apoiada por **IA**, mantendo flexibilidade e controle do usuário.
 
-**Mapa técnico:** é o **gerador por DRIVERS**. As 5 tipologias = **modelos Axys** (`ativos` com
-`atv_is_catalog_source=TRUE`); Price 2 = **modelos do próprio tenant**. Parâmetros = `ficha_parametros`
+**Mapa técnico:** é o **gerador por DRIVERS**. Os 17 modelos = **modelos Axys** (`ativos` com
+`atv_is_catalog_source=TRUE`) — cada um é um **empreendimento público** (sob o tenant-sistema Axys)
+com um único ativo **"Edificação"**; seedados no `schema.sql`. Price 2 = **modelos do próprio tenant**.
+Parâmetros = `ficha_parametros`
 (single) e composição de drivers (complex) via `drivers` + `ativo_itens_drivers`. Saída = `ativo_itens`
 (+ `cronograma`).
 **Price vs Price 2:** Price = modelos prontos da Axys; **Price 2 = o tenant cria/sobe o próprio modelo.**
@@ -257,7 +265,7 @@ main-client monta os cards a partir do que o Hub libera. Ver `next-steps/PLANO_C
 ### Easy Price — gerador por parâmetros (wizard)
 - **Sidebar:** `1. Escolher modelo` · `2. Ficha de parâmetros` · `3. Gerar` · `4. Resultado` · `Meus modelos (Price 2)`.
 - **Área principal (passo a passo):**
-  - **1 Modelo:** galeria das 5 tipologias (escolar/hospitalar/resid. médio/alto/fabril) = modelos Axys (`is_catalog_source`) + "Meus modelos" (Price 2).
+  - **1 Modelo:** galeria dos 17 modelos AXYS por tipologia (Residencial/Comercial/Escolar/Institucional/Hospitalar/Fábrica) = modelos Axys (`is_catalog_source`) + "Meus modelos" (Price 2).
   - **2 Ficha:** parâmetros agrupados por `par_grupo`, tipados (número/bool/lista) — single; "refinamento" expõe os compostos (complex).
   - **3 Gerar:** roda os **drivers** contra a ficha → barra de progresso.
   - **4 Resultado:** **planilha itemizada** (preview da grade) + **cronograma** + "abrir no Orça para refinar".
