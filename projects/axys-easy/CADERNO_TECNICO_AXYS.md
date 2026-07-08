@@ -144,6 +144,33 @@ Uma tela por composição, renderizada pela app (não é o PDF da fonte):
 - **Complemento** (desacoplado): codex-local roda sobre os `.md` → grava `cmp_descritivo={status:"ok",
   medicao, remunera}`. (Ou, no futuro, `IA_auto` preenche via token.)
 
+### 6b.1 Fluxo fechado no pipeline (R5, 2026-07-07) — DADOS suspende + get_md/put_md FORA da app
+
+O estágio **DADOS** (uniforme nas 4 fontes, helper `import_service._suspender_dados`) faz, **depois** do
+parse pesado: (1) monta o request a/b/c/d (`gerar_requests_edicao`); (2) **GERA os `.md` no storage** —
+`_materializar_prompts` → `construcao/prompts/cpu_<cod>_prompt.md` (visíveis, privados). Cada `.md` traz
+seções **3)/4) prontas** (composição + docs) e um bloco delimitado **«✍️ RESPOSTA»** com placeholders p/
+**1)/2)** — a IA edita só isso, **in-place** (menos token). O marcador evita casar os `1)/2)` do template.
+
+Aí bifurca por `AXYS_CPU_DESC_MODO`:
+
+- **`IA_local`** (auto OFF, default): DADOS **suspende** (`edi_estagios.dados = "pendente_user"`). O
+  preenchimento é **FORA da app** — scripts de apoio `z_scripts_apoio/`:
+  - **`get_md <edi_id>`**: baixa os `.md` do storage p/ um dir local. **Necessário em produção** (storage =
+    R2); em dev o storage é disco local. É ferramenta de apoio, **não** endpoint.
+  - operador roda o **codex-local**, edita o bloco «✍️ RESPOSTA» de cada `.md`.
+  - **`put_md <edi_id>`**: lê os editados (`importar_descritivos_md`, pattern `*_prompt.md`), **substitui o
+    gerado**, grava `cmp_descritivo={status:ok, medicao, remunera}` e **fecha `dados = "ok"`** → destrava
+    DOCUMENTOS. A app **publica depois** (estágio Documentos → caderno/AxysDoc lê `medicao/remunera` via
+    `montar_axys_desc`).
+- **`IA_auto`** (auto ON): a **própria app** roda o ciclo (front → request → get → edita o bloco → fecha),
+  chamando o **conector de IA (serviço EXTERNO, via token)**. Ponto de chamada na app =
+  `import_service._ia_auto_preencher` — **PLACEHOLDER, `NotImplementedError`** (a implementação é externa).
+  Enquanto não ligado, IA_auto **cai no mesmo suspend** do local. Ver [[feedback_sem_apis_pagas]].
+
+**Estado:** IA_local pronto ponta-a-ponta (gera → get_md → codex → put_md → publica). IA_auto = placeholder
+documentado (não conectado).
+
 ## 7. Passos de execução
 
 1. **Documentar** (este doc). ✅
