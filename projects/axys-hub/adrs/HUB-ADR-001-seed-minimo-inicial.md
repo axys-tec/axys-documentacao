@@ -1,5 +1,9 @@
 # ADR-011 — AxysHub: Seed Mínimo Inicial
 
+> Nota histórica: este ADR registra a estratégia inicial de seed. A fonte canônica
+> atual do banco consolidado do Hub é `docs/projects/axys-hub/schemas/schema.sql`,
+> com estrutura e seed contratual no mesmo arquivo.
+
 **Status:** Aprovado — Atualizado em 2026-05-25
 **Data original:** 2026-02-03
 **Contexto:** AxysHub
@@ -18,13 +22,13 @@ O AxysHub é o núcleo de governança do ecossistema Axys, responsável por:
 - Auditoria central
 - Integração com sistemas externos (AxysGestor, AxysPro, etc.)
 
-Este ADR define o **Seed Mínimo Inicial** como referência canônica do projeto, servindo como:
+Este ADR define o **Seed Mínimo Inicial** como referência histórica do projeto, servindo como:
 
 - Base para onboarding de ambientes novos
 - Contrato técnico entre backend, dados e mobile
 - Proteção contra decisões improvisadas no setup inicial
 
-O arquivo de execução é: `db/hub_seed.sql`
+O arquivo canônico atual de execução é: `docs/projects/axys-hub/schemas/schema.sql`
 
 ---
 
@@ -121,10 +125,10 @@ Campos obrigatórios preenchidos no seed:
 ## 4. Arquivo de execução
 
 ```
-db/hub_seed.sql
+docs/projects/axys-hub/schemas/schema.sql
 ```
 
-Executar após `db/hub_schema.sql`. Idempotente — pode ser re-executado a qualquer momento.
+Executar o contrato consolidado. Estrutura e seed vigente já convivem no mesmo arquivo.
 
 Pós-execução obrigatória em ambientes reais:
 ```sql
@@ -144,6 +148,6 @@ WHERE email = '<email>';
 ## 5. Versionamento
 
 Alterações estruturais no seed (novos tenants, usuários ou sistemas canônicos) exigem:
-1. Atualização de `db/hub_seed.sql`
+1. Atualização de `docs/projects/axys-hub/schemas/schema.sql`
 2. Atualização deste ADR (seção 2)
 3. Migration em `db/migration/` se o banco já existir em produção

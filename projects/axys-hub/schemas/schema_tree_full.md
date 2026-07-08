@@ -1,6 +1,6 @@
-# AxysHub — Tree do Banco (Pre-Foto)
+# AxysHub — Tree do Banco
 
-Fonte: `schema_redesign_pre-foto.sql`
+Fonte: `schema.sql`
 
 ```text
 axys-hub
@@ -17,16 +17,16 @@ axys-hub
 │   ├── hub_api_client (credencial oauth/app por tenant)
 │   └── hub_api_token (token emitido para api client)
 ├── product
-│   ├── ecossistema (agrupador estrategico dos ecossistemas Axys)
-│   ├── produto (produto/solucao comercial vendavel)
-│   ├── modulo (modulo funcional licenciavel dentro do produto)
-│   ├── oferta (forma comercial de vender o produto ou modulo)
-│   ├── oferta_concessao (o que a oferta libera em uso, usuario, modulo ou capacidade)
-│   ├── oferta_politica (politica operacional/comercial vinculada a oferta)
-│   ├── oferta_preco (historico de preco e vigencia da oferta)
-│   ├── adicional (capacidade adicional/complemento vendavel do produto)
-│   ├── adicional_concessao (o que o adicional libera sobre a oferta/produto base)
-│   ├── adicional_preco (historico de preco e vigencia do adicional)
+│   ├── ecosystem (agrupador estrategico dos ecossistemas Axys)
+│   ├── product (produto/solucao comercial vendavel)
+│   ├── module (modulo funcional licenciavel dentro do produto)
+│   ├── offer (forma comercial de vender o produto ou modulo)
+│   ├── offer_entitlement (o que a oferta libera em uso, usuario, modulo ou capacidade)
+│   ├── offer_policy (politica operacional/comercial vinculada a oferta)
+│   ├── offer_price (historico de preco e vigencia da oferta)
+│   ├── addon (capacidade adicional/complemento vendavel do produto)
+│   ├── addon_entitlement (o que o adicional libera sobre a oferta/produto base)
+│   ├── addon_price (historico de preco e vigencia do adicional)
 │   ├── combo (agrupamento comercial de ofertas com condicao propria)
 │   └── combo_item (item/oferta integrante do combo)
 ├── commercial
