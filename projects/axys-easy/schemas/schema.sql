@@ -329,7 +329,36 @@ INSERT INTO catalogo.unidades (un_codigo, un_descricao, un_categoria, un_criado_
     ('CJ',  'Conjunto',       'unidade',     'Axys — seed inicial'),
     ('JG',  'Jogo',           'unidade',     'Axys — seed inicial'),
     ('CENTO','Cento',         'unidade',     'Axys — seed inicial'),
-    ('MIL', 'Milheiro',       'unidade',     'Axys — seed inicial')
+    ('MIL', 'Milheiro',       'unidade',     'Axys — seed inicial'),
+    ('VB',  'Verba',          'outro',       'Axys — seed inicial'),
+    ('TX',  'Taxa',           'outro',       'Axys — seed inicial'),
+    -- Unidades SINAPI (varredura da metodologia): equipamento, transporte composto, embalagem.
+    ('CHP',    'Custo horário produtivo (equipamento)',   'tempo',       'Axys — seed inicial'),
+    ('CHI',    'Custo horário improdutivo (equipamento)', 'tempo',       'Axys — seed inicial'),
+    ('KWH',    'Quilowatt-hora',                          'outro',       'Axys — seed inicial'),
+    ('SC25KG', 'Saco de 25 kg',                           'massa',       'Axys — seed inicial'),
+    ('310ML',  'Bisnaga de 310 mL',                       'volume',      'Axys — seed inicial'),
+    ('100M',   'Cento de metros',                         'comprimento', 'Axys — seed inicial'),
+    ('M3XKM',  'Metro cúbico × quilômetro',               'composta',    'Axys — seed inicial'),
+    ('TXKM',   'Tonelada × quilômetro',                   'composta',    'Axys — seed inicial'),
+    ('MXKM',   'Metro × quilômetro',                      'composta',    'Axys — seed inicial'),
+    ('KGXKM',  'Quilograma × quilômetro',                 'composta',    'Axys — seed inicial'),
+    ('M2XKM',  'Metro quadrado × quilômetro',             'composta',    'Axys — seed inicial'),
+    ('UNXKM',  'Unidade × quilômetro',                    'composta',    'Axys — seed inicial'),
+    ('LXKM',   'Litro × quilômetro',                      'composta',    'Axys — seed inicial'),
+    ('UNXMES', 'Unidade × mês',                           'composta',    'Axys — seed inicial'),
+    ('M2XMES', 'Metro quadrado × mês',                    'composta',    'Axys — seed inicial'),
+    ('MXMES',  'Metro × mês',                             'composta',    'Axys — seed inicial'),
+    -- variantes com separador '/' (SINAPI mistura X e /); normalização p/ 'X' fica p/ a Fase 2.
+    ('M2/MES', 'Metro quadrado por mês',                  'composta',    'Axys — seed inicial'),
+    ('M/MES',  'Metro por mês',                           'composta',    'Axys — seed inicial'),
+    -- Unidades CDHU (tabela da metodologia boletim_202) que ainda não estavam acima.
+    ('CM3',    'Centímetro cúbico',                       'volume',      'Axys — seed inicial'),
+    ('DM3',    'Decímetro cúbico',                        'volume',      'Axys — seed inicial'),
+    ('M3XMES', 'Metro cúbico × mês',                      'composta',    'Axys — seed inicial'),
+    ('CJXDIA', 'Conjunto × dia',                          'composta',    'Axys — seed inicial'),
+    ('HPXH',   'Horsepower × hora',                       'composta',    'Axys — seed inicial'),
+    ('AXM',    'Ampere × metro',                          'composta',    'Axys — seed inicial')
 ON CONFLICT (un_codigo) DO NOTHING;
 
 
