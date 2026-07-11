@@ -525,6 +525,17 @@ CREATE TABLE IF NOT EXISTS catalogo.edicoes (
     -- normas+bibliografia → HTML no R2). JSONB {subgrupo_slug: {url, path, ...}}.
     -- A edição é dona da apresentação (não há composição-capa); ver BUSINESS_RULES §11.
     edi_capa_path        JSONB,
+    -- edi_paths: ÍNDICE dos artefatos de estado da edição — fronteira de governança do ESTADO
+    -- (como catalogo.documentos é a fronteira dos DOCS). Mapa tipo→{path, resumo} dos JSONs no storage:
+    --   { "status_estagios": {"path": "_state/estagios.json"},
+    --     "links_edicao":    {"path": "_state/links.json"},
+    --     "pendencias": { "<amarra>": {"path": "...", "abertas": <int>, "resumo": <str?>} } }
+    --   amarras: unidades | mdo_h_mes | mo_fte_sinapi | subst_ins | subst_cmp (Vinculações Intra-Fontes).
+    --   GATE GENÉRICO de publicação/caderno: exige TODA pendencias.<amarra>.abertas == 0
+    --   ("revisado ≠ vinculado": 'sem_equivalente' fecha; só delta pendente trava). Substitui o gate
+    --   hardcoded de unidades. Escrito SEMPRE via helper registrar_artefato (grava o JSON + indexa aqui
+    --   na MESMA transação → nunca dessincroniza). Contrato: CATALOGO_VINCULACOES_INTRA_FONTES.md.
+    edi_paths            JSONB,
     edi_criado_em      TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     edi_atualizado_em  TIMESTAMPTZ,
     edi_criado_por     TEXT,
@@ -1562,7 +1573,7 @@ CREATE TABLE IF NOT EXISTS catalogo.composicoes_mapeamento_mdo (
     cmm_edi_id         INTEGER NOT NULL,
     cmm_cmp_id_h       BIGINT NOT NULL,
     cmm_cmp_id_mes     BIGINT NOT NULL,
-    cmm_fator_unidade  NUMERIC(14,10),                    -- (2026-06-16) conversão de UNIDADE H→MÊS no nó pai (1/220 hoje; 1/200 pós-reforma). AS-OF edição: cada edição carrega o fator vigente.
+    cmm_qtd_h_mes      NUMERIC(14,4),                     -- (2026-07-10) QTD de HORAS por MÊS do ofício (ex.: 220). Guarda o INTEIRO EXATO; o fator de conversão H→MÊS = 1/cmm_qtd_h_mes é operado na hora (mais prudente que gravar a dízima 0,004545…). 220 hoje; ~200 pós-reforma. AS-OF edição.
     cmm_criado_em      TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     cmm_atualizado_em  TIMESTAMPTZ,
     cmm_criado_por     TEXT,
