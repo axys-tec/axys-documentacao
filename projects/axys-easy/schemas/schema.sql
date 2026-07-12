@@ -1547,7 +1547,7 @@ CREATE INDEX ix_composicoes_custo_uf
 -- única geraria colunas-nulas e FK polimórfica nos dois lados — dívida estilo
 -- ins_external_path). Mantidas separadas por CLAREZA DE PAPEL:
 --
---   • composicoes_mapeamento_mdo   comp↔comp · DETERMINÍSTICA 1:1 · POR EDIÇÃO · tem fator_unidade
+--   • composicoes_mapeamento_mdo   comp↔comp · DETERMINÍSTICA N:1 (via insumo MO) · POR EDIÇÃO · qtd_h_mes
 --       swap exato horista→mensalista (88316→101452, ×1/220).
 --   • conversao_mo_fte_to_sinapi   insumo-fonte→comp-SINAPI · DETERMINÍSTICA N:1 · POR EDIÇÃO
 --       normaliza MO de outra fonte (CDHU) para a língua MO-SINAPI.
@@ -1594,15 +1594,18 @@ CREATE TABLE IF NOT EXISTS catalogo.composicoes_mapeamento_mdo (
         REFERENCES catalogo.composicoes (cmp_id)
         ON UPDATE CASCADE ON DELETE CASCADE,
 
+    -- N:1 permitido: N CPUs-H podem apontar p/ a MESMA CPU-MÊS (ex.: CALCETEIRO + RASTELEIRO → 1 MÊS
+    -- CALCETEIRO; SINAPI tem 1 insumo/CPU-MÊS p/ 2 ofícios-H, mesmo preço). Cada H tem 1 MÊS (uq_h); o
+    -- MÊS NÃO é único (2026-07-12: removida uq_cmm_mes; era 1:1). Pareamento pelo INSUMO MO (a verdade).
     CONSTRAINT uq_composicoes_mapeamento_mdo_h
-        UNIQUE (cmm_cmp_id_h),
-
-    CONSTRAINT uq_composicoes_mapeamento_mdo_mes
-        UNIQUE (cmm_cmp_id_mes)
+        UNIQUE (cmm_cmp_id_h)
 );
 
 CREATE INDEX ix_composicoes_mapeamento_mdo_edi
     ON catalogo.composicoes_mapeamento_mdo (cmm_edi_id);
+
+CREATE INDEX ix_composicoes_mapeamento_mdo_mes
+    ON catalogo.composicoes_mapeamento_mdo (cmm_cmp_id_mes);
 
 
 -- ============================================================
