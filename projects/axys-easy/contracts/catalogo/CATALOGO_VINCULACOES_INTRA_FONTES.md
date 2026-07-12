@@ -18,7 +18,7 @@ conferência. Cobre **três amarras**:
 
 | Amarra | Origem → Destino | Natureza |
 |---|---|---|
-| **H↔MÊS** (SINAPI interno) | CPU SINAPI MDO **[H]** → CPU SINAPI MDO **[MÊS]** | intra-SINAPI, 1:1, + fator de conversão |
+| **H↔MÊS** (SINAPI interno) | CPU SINAPI MDO **[H]** → CPU SINAPI MDO **[MÊS]** | intra-SINAPI, **N:1** (pelo insumo MO), + fator · **determinístico, sem IA** (§3.1) |
 | **MDO fonte→SINAPI** | insumo MDO **[H]** da fonte → composição SINAPI MDO **[H]** | assimétrica (insumo→composição), 1:1, cross-fonte |
 | **Substituições** | item header (SINAPI/SICRO) → alternativa(s) | 1:1 insumo · **1:N** composição, cross-fonte, cross-edição |
 
@@ -71,12 +71,30 @@ Estados do vínculo: `pendente` → `ia_ok` → `confirmado` | `sem_equivalente`
 
 ## 3. Especificidade de cada amarra
 
-### 3.1. H↔MÊS (a mais fácil — prova o trilho)
-- Universo pequeno: **só CPUs MDO**, unidade origem **H**, destino **MÊS**. Descrições quase batem → match ≈1.
-  Ex.: `88316 SERVENTE COM ENCARGOS COMPLEMENTARES [H]` ↔ `101452 SERVENTE DE OBRAS ... [MÊS]`.
-- **Fator** de conversão explícito e **editável** (ex.: `1/220`), **não** embutido em código (reforma
-  trabalhista muda). Modal de confirmação informa edição · nº de pares · fator · caráter provisório.
-- Prompt p/ IA enriquecido com: **lista de todas as CPUs de MDO + matches prováveis**.
+> **PRINCÍPIO — determinístico antes de IA (aula do H↔MÊS, 2026-07-12).** Buscar SEMPRE o sinal
+> *ground-truth* no dado (estrutura / insumo / preço físico) antes de recorrer à IA. O H↔MÊS parecia
+> caso-de-IA e virou **100% determinístico** (insumo + preço pelado). A IA fica reservada ao **resíduo
+> genuinamente ambíguo**, nunca ao que já tem verdade no dado. **Aplicar análogo às outras 2 amarras**
+> (MDO fonte→SINAPI já tem função+preço/h; substituições tem estrutura+descritivo-fonte).
+
+### 3.1. H↔MÊS — RESOLVIDA DETERMINISTICAMENTE (2026-07-12, sem IA · commits 41f5dad+)
+O que o desenho mandava pra IA, o **insumo + preço** resolvem com precisão total. **NÃO é fuzzy na descrição
+da CPU** (engana: TELHADISTA↔TELHADOR, ASSENTADOR DE TUBOS↔MANILHAS, OPERADOR DE MÁQUINAS≈TRATORISTA).
+- **Pareamento pelo INSUMO MO (a verdade):** a CPU `{FUNÇÃO} COM ENCARGOS COMPLEMENTARES` contém 1 insumo MO
+  (`ti_codigo='MO'`) = a função horista/mensalista. H-CPU→insumo-H→(mesmo nome de função)→insumo-MÊS→MÊS-CPU.
+  Nome do insumo bate exato na quase totalidade; nome divergente → **override curado por código de insumo**
+  (`backend/modules/catalogo/data/mdo_insumo_override.json`, ex.: 4243↔41031, 1213↔40914). 94/94 na edi 5/22.
+- **N:1** (não 1:1): 1 insumo/CPU-MÊS serve 2 ofícios-H (calceteiro+rasteleiro→1 MÊS; tratorista+operador→1
+  MÊS, mesmo preço). Schema **sem** `uq_cmm_mes`; cada H tem 1 MÊS (`uq_cmm_h`).
+- **Validador = preço PELADO** (modalidade SE; **não** o custo-CPU com encargos — encargos H≠MÊS não
+  convergem): `TRUNC(preço_mês/220, 2) = preço_hora` → **ratio EXATO 1,0** (94/94). "Preço de barata → é barata."
+- **Auto-confirma** os confiáveis (insumo/override + preço bate) → **sem IA, sem pausa**. Horista-only (sem
+  CPU-MÊS: instalador de piso elevado, montador de fôrmas de parede) → **`sem_par`** (terminal válido). Só
+  resíduo fuzzy fraco → pendência (IA/user). MDO é **estático** (códigos idênticos entre edições).
+- **Guarda de import (CATALOGO_SINAPI_IMPORT_CONTRACT):** MDO NUNCA entra como **NC** — o parser do Analítico
+  reclassifica insumo órfão MDO (`(HORISTA)/(MENSALISTA)`) p/ **MO** (`_classificar_orfao_mdo`), senão vira
+  invisível pro matcher/preço/LS.
+- **Fator** explícito/editável (`1/220`, `cmm_qtd_h_mes`=220 exato), não hard-coded (reforma trabalhista muda).
 
 ### 3.2. MDO fonte→SINAPI
 - Origem: **insumo** MDO [H]; destino: **composição** SINAPI MDO [H]. Match pela **função** (não a descrição

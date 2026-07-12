@@ -59,7 +59,13 @@ Regra canônica em [CATALOGO_BUSINESS_RULES.md §3.1–3.3](CATALOGO_BUSINESS_RU
 - Estratégia: durante o import, casar a descrição+unidade do órfão contra **insumos já classificados na mesma edição** (fuzzy matching).
 - Match suficientemente confiável → herda o `ins_ti_id`; `ins_ti_origem='REGRA'`.
 - Sem confiança mínima → **fallback `NC`**, `ins_ti_origem='REGRA'`. **Não gravar `ins_ti_id NULL`.**
-- Premissa aceita: **não há mão de obra órfã** no SINAPI (MO segue sindicatos/CCT, anual) — erro de classificação aqui não quebra a app.
+- **EXCEÇÃO — MDO NUNCA pode ficar NC (2026-07-12).** A premissa antiga ("não há MO órfã") caiu: funções
+  novas (ex.: `44016 INSTALADOR DE PISO ELEVADO (HORISTA)`, `45188 MONTADOR DE FORMAS… (HORISTA)`) entram
+  pelo **Analítico** sem estar na lista-mestre → cairiam como `NC`. Um insumo MDO como NC fica **invisível**
+  pro matcher H↔MÊS, pro preço e pra LS — inadmissível (material/serviço/etc como NC, tudo bem; MDO, não).
+  O parser roda um **classificador estritamente restrito a MDO** no órfão do Analítico
+  (`parser_sinapi._classificar_orfao_mdo`): descrição com `(HORISTA)`/`(MENSALISTA)` → reclassifica **`MO`**
+  (+`aviso` de auditoria). Ver [VINCULACOES §3.1](CATALOGO_VINCULACOES_INTRA_FONTES.md).
 - Curadoria posterior (tela) pode promover `REGRA`/`NC` → `MANUAL`.
 - Precedência de reimport: **FONTE > MANUAL > REGRA** (ver regras globais §2.2).
 
