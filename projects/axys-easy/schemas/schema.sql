@@ -372,8 +372,10 @@ INSERT INTO catalogo.unidades (un_codigo, un_descricao, un_categoria, un_criado_
     ('ROLO',   'Rolo',                                    'unidade',     'Axys — seed CDHU'),
     ('UNDIA',  'Unidade × dia',                           'composta',    'Axys — seed CDHU'),
     ('UNMES',  'Unidade × mês',                           'composta',    'Axys — seed CDHU'),
-    -- FDE: unidades próprias (tabela_composicoes/insumos/servicos). NÃO inclui erros de parser do PDF
-    -- (CONEX M, 10CMUN, C3) nem M3X KM (= M3XKM com espaço) — corrigir em fde_analitica_pdf_parser.py.
+    -- FDE: unidades próprias. FDE padroniza siglas curtas → C3=CM3 e D3=DM3 (cúbico truncado).
+    -- NÃO inclui ERROS do parser do PDF: 'CONEX M' (serviço 09.04.072 = M, grudou "INCL CONEX") e
+    -- '10CMUN' (insumo 4.51.73 = UN, grudou "ESPAÇADOR DE 10CM"); nem 'M3X KM' (= M3XKM com espaço).
+    -- Corrigir a leitura da coluna em fde_analitica_pdf_parser.py (descrição longa desloca a unidade).
     ('FL',     'Folha',                                   'unidade',     'Axys — seed FDE'),
     ('VG',     'Viagem',                                  'unidade',     'Axys — seed FDE'),
     ('ML',     'Metro linear',                            'comprimento', 'Axys — seed FDE'),
@@ -381,6 +383,7 @@ INSERT INTO catalogo.unidades (un_codigo, un_descricao, un_categoria, un_criado_
     ('P',      'Peça',                                    'unidade',     'Axys — seed FDE'),
     ('PR',     'Par',                                     'unidade',     'Axys — seed FDE'),
     ('GR',     'Grama',                                   'massa',       'Axys — seed FDE'),
+    ('C3',     'Centímetro cúbico',                       'volume',      'Axys — seed FDE'),
     ('D3',     'Decímetro cúbico',                        'volume',      'Axys — seed FDE'),
     ('MV',     'Módulo de verba',                         'outro',       'Axys — seed FDE'),
     ('LT',     'Lata',                                    'unidade',     'Axys — seed FDE')
