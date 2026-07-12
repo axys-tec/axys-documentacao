@@ -358,8 +358,24 @@ INSERT INTO catalogo.unidades (un_codigo, un_descricao, un_categoria, un_criado_
     ('M3XMES', 'Metro cúbico × mês',                      'composta',    'Axys — seed inicial'),
     ('CJXDIA', 'Conjunto × dia',                          'composta',    'Axys — seed inicial'),
     ('HPXH',   'Horsepower × hora',                       'composta',    'Axys — seed inicial'),
-    ('AXM',    'Ampere × metro',                          'composta',    'Axys — seed inicial')
+    ('AXM',    'Ampere × metro',                          'composta',    'Axys — seed inicial'),
+    -- CDHU: variantes de formatação (sem 'X') + unidades próprias — mapeadas do metodologia CDHU
+    -- (seção UNIDADES PADRÃO), boletins 184–202. Descrições em pt-BR correto (fonte às vezes trunca).
+    ('BG',     'Big bag',                                 'unidade',     'Axys — seed CDHU'),
+    ('CJDIA',  'Conjunto × dia',                          'composta',    'Axys — seed CDHU'),
+    ('CJXDI',  'Conjunto × dia',                          'composta',    'Axys — seed CDHU'),
+    ('EQDIA',  'Equipamento × dia',                       'composta',    'Axys — seed CDHU'),
+    ('KGMES',  'Quilograma × mês',                        'composta',    'Axys — seed CDHU'),
+    ('M2MES',  'Metro quadrado × mês',                    'composta',    'Axys — seed CDHU'),
+    ('M2XME',  'Metro quadrado × mês',                    'composta',    'Axys — seed CDHU'),
+    ('M3MES',  'Metro cúbico × mês',                      'composta',    'Axys — seed CDHU'),
+    ('ROLO',   'Rolo',                                    'unidade',     'Axys — seed CDHU'),
+    ('UNDIA',  'Unidade × dia',                           'composta',    'Axys — seed CDHU'),
+    ('UNMES',  'Unidade × mês',                           'composta',    'Axys — seed CDHU')
 ON CONFLICT (un_codigo) DO NOTHING;
+
+-- CAIXA ALTA em TODAS as descrições de unidade (padrão de identidade do catálogo — feedback Renan).
+UPDATE catalogo.unidades SET un_descricao = upper(un_descricao) WHERE un_descricao <> upper(un_descricao);
 
 
 -- ============================================================
