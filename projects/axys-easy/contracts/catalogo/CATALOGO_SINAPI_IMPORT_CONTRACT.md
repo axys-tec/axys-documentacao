@@ -105,8 +105,17 @@ Regra de vigência e trilha de auditoria:
   substitui); **divergiu** (ou inexistente) ⇒ arquiva a anterior em `_old` + grava a nova vigente.
 - **Notas**: seguem a edição do catálogo (`doc_path = notas_{versao}.pdf`, por edição → não
   sobrescreve; a anterior só passa a `doc_vigente=false`).
-- **Fichas/cadernos**: seguem a edição do catálogo, sobrescrevem path fixo → arquivam a anterior
+- **Fichas**: seguem a edição do catálogo, sobrescrevem path fixo → arquivam a anterior
   em `_old` quando o **conteúdo muda** (comparação por `doc_sha1`); conteúdo igual ⇒ skip.
+- **Cadernos técnicos**: são da **FONTE** (como os livros), **NÃO por edição** (2026-07-11) —
+  versionados por data ("Última Atualização" do PDF), registrados com `doc_fte_id`/`doc_versao`/
+  `doc_vigente`. A edição só **referencia o vigente**. **Dedup por HTTP condicional (ETag)**: o import
+  manda `If-None-Match` → **304 = não mudou ⇒ pula download E parse**; `200` ⇒ confere a "Última
+  Atualização" do corpo p/ decidir o parse. Índice fonte-level `cadernos/_versoes.json`
+  (`slug`→{data,etag,doc_id,keys}) governa o dedup; versão superada vai p/ `cadernos/inativos/`. **Sem
+  listagem/HTML** — a página da Caixa é SharePoint/JS (GET volta vazio); o ETag do PDF é o oráculo vivo.
+  Link morto ⇒ **reusa o arquivado** (não quebra o lote). Reimport de edição já vista = 170×304.
+  Ver [STORAGE_LAYOUT](CATALOGO_STORAGE_LAYOUT.md) §2. CDHU não usa (parse rápido, 1 doc, sem download).
 - **Indisponível na fonte** (download falha): faz **skip** — mantém o vigente anterior (se houver).
 - **Disponibilidade declarada no form** (checkbox "Disponível", **marcado por padrão**, para
   metodologia/cálculos/notas/cadernos): desmarcar bloqueia os campos e marca o doc como

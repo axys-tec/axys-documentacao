@@ -39,9 +39,16 @@ axys-public/easy/
 │   │   │   ├── leis_sociais_{edicao}_{n}.pdf ← CDHU (1+ PDFs de encargos)
 │   │   │   └── notas_{edicao}.pdf            ← release da edição (quando houver)
 │   │   ├── fichas/{cod}.html                 ← derivado per-insumo
-│   │   ├── cadernos/{cod}.html               ← derivado per-composição (SINAPI/CDHU/OUTRO — UNIFICADO)
-│   │   ├── cadernos/_apresentacao/{slug}.html← apresentação de subgrupo (SINAPI)
+│   │   ├── cadernos/{cod}.html               ← derivado per-composição (CDHU/FDE). SINAPI migrou p/ fonte-level ↓
+│   │   ├── cadernos/_apresentacao/{slug}.html← apresentação de subgrupo (LEGADO; SINAPI usa fonte-level ↓)
 │   │   └── caderno_tecnico_{edicao}.html     ← CADERNO COMPLETO gerado (cache; 1 por edição)
+│   │
+│   ├── cadernos/{slug}/                      ← CADERNOS TÉCNICOS da FONTE (SINAPI) — fonte-level, versionados
+│   │     ├── {arquivo}.pdf                     por ETag/data (NÃO por edição); a edição referencia o vigente
+│   │     ├── apresentacao.html
+│   │     └── cpu/{cod}.html
+│   ├── cadernos/_versoes.json                ← índice do dedup (slug→{data,etag,doc_id,keys}) — governa reuso
+│   ├── cadernos/inativos/{slug}/{versao}/    ← versões superadas (histórico p/ retroagir pesquisas)
 │   │
 │   └── livros/                               ← docs com EDIÇÃO PRÓPRIA (não mudam a cada edição de preço)
 │         {livro}_{ed_livro}.pdf              metodologia · calculos_e_parametros · catálogos de

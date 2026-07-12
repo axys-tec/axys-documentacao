@@ -37,8 +37,11 @@ Não parseia preço. `estagio='preparar'` para aqui e destrava o Preços.
   Não bate (ou não leu) → **aborta antes de tocar no banco**.
 - **Manifesto** = NoSQL do estado dos docs (origem/status/key por doc); é o *driver* dos estágios seguintes
   (que leem os `pendente` e preenchem `key`+`status:ok`) e da tela **[ver manifesto]**.
-- **"Tudo que se lê da Referência vira doc"**: no SINAPI, fichas-fonte (`ISE!A9`) e cadernos (hyperlinks da
-  aba CCD) são baixados p/ ORIGINAIS e registrados já aqui; o parse deles é no Dados.
+- **Fichas-fonte** (`ISE!A9`, SINAPI): baixadas p/ ORIGINAIS e registradas aqui; o parse é no Dados.
+- **Cadernos** (hyperlinks da aba CCD, SINAPI): são da **FONTE** (não por edição). O Preparar decide por
+  **HTTP condicional (ETag)** o que mudou — `If-None-Match` → **304 ⇒ reusa (não baixa)**; só a versão
+  nova é estacionada em `fontes/sinapi/cadernos/{slug}/`. O índice `cadernos/_versoes.json` governa o
+  dedup; o parse (só das novas) é no Dados. Link morto ⇒ reusa o arquivado (não quebra o lote).
 - **FDE-novo**: a **captura de preço** (scrape do portal) vive AQUI — a senha é efêmera (Redis `setex/getdel`)
   e só existe no Preparar; produz os CSVs que o Preços relê.
 
@@ -62,8 +65,12 @@ Documentos **derivados** (HTML por insumo/CPU), **parse do detalhamento de LS** 
 - **LS detalhamento**: SINAPI lê o *Caderno de LS* vigente (flag marcada) ou o apêndice do *Cálculos e
   Parâmetros*; CDHU auto-identifica SD/CD nos PDFs. Doutrina: **header é canônico**, os itens são
   **fidelidade** do PDF → gravam mesmo com total divergente (aviso só p/ auditoria).
+- **Cadernos** (SINAPI): parseia **só as versões novas** (as reusadas só re-ligam a edição — só DB);
+  grava HTML/CPU fonte-level (`fontes/sinapi/cadernos/{slug}/`), registra doc de fonte (`doc_fte_id`/
+  `doc_versao`/`doc_vigente`, arquiva anterior→`inativos`). **Commit + registro incrementais** (memória
+  plana no worker 512MB + retomável).
 - **Vínculo composição→caderno-fonte** (SINAPI): `composicao_documento` papel `caderno_fonte`,
-  casando subgrupo (=grupo do caderno) por `unaccent(upper(...))`. N:N (escala p/ FDE).
+  casando `doc_fte_id + doc_vigente` (não mais por edição) ao subgrupo por `unaccent(upper(...))`. N:N (escala p/ FDE).
 
 ## Estágio 4 — DOCUMENTOS  *(task `gerar_caderno_edicao`)*
 
