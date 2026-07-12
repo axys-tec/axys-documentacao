@@ -371,7 +371,19 @@ INSERT INTO catalogo.unidades (un_codigo, un_descricao, un_categoria, un_criado_
     ('M3MES',  'Metro cúbico × mês',                      'composta',    'Axys — seed CDHU'),
     ('ROLO',   'Rolo',                                    'unidade',     'Axys — seed CDHU'),
     ('UNDIA',  'Unidade × dia',                           'composta',    'Axys — seed CDHU'),
-    ('UNMES',  'Unidade × mês',                           'composta',    'Axys — seed CDHU')
+    ('UNMES',  'Unidade × mês',                           'composta',    'Axys — seed CDHU'),
+    -- FDE: unidades próprias (tabela_composicoes/insumos/servicos). NÃO inclui erros de parser do PDF
+    -- (CONEX M, 10CMUN, C3) nem M3X KM (= M3XKM com espaço) — corrigir em fde_analitica_pdf_parser.py.
+    ('FL',     'Folha',                                   'unidade',     'Axys — seed FDE'),
+    ('VG',     'Viagem',                                  'unidade',     'Axys — seed FDE'),
+    ('ML',     'Metro linear',                            'comprimento', 'Axys — seed FDE'),
+    ('TN',     'Tonelada',                                'massa',       'Axys — seed FDE'),
+    ('P',      'Peça',                                    'unidade',     'Axys — seed FDE'),
+    ('PR',     'Par',                                     'unidade',     'Axys — seed FDE'),
+    ('GR',     'Grama',                                   'massa',       'Axys — seed FDE'),
+    ('D3',     'Decímetro cúbico',                        'volume',      'Axys — seed FDE'),
+    ('MV',     'Módulo de verba',                         'outro',       'Axys — seed FDE'),
+    ('LT',     'Lata',                                    'unidade',     'Axys — seed FDE')
 ON CONFLICT (un_codigo) DO NOTHING;
 
 -- CAIXA ALTA em TODAS as descrições de unidade (padrão de identidade do catálogo — feedback Renan).
