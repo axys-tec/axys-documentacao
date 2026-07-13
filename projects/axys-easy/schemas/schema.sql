@@ -373,9 +373,11 @@ INSERT INTO catalogo.unidades (un_codigo, un_descricao, un_categoria, un_criado_
     ('UNDIA',  'Unidade × dia',                           'composta',    'Axys — seed CDHU'),
     ('UNMES',  'Unidade × mês',                           'composta',    'Axys — seed CDHU'),
     -- FDE: unidades próprias. FDE padroniza siglas curtas → C3=CM3 e D3=DM3 (cúbico truncado).
-    -- NÃO inclui ERROS do parser do PDF: 'CONEX M' (serviço 09.04.072 = M, grudou "INCL CONEX") e
-    -- '10CMUN' (insumo 4.51.73 = UN, grudou "ESPAÇADOR DE 10CM"); nem 'M3X KM' (= M3XKM com espaço).
-    -- Corrigir a leitura da coluna em fde_analitica_pdf_parser.py (descrição longa desloca a unidade).
+    -- Os antigos erros de parser já foram CORRIGIDOS na origem (dists regenerados 2026-07): a camada de
+    -- texto do PDF colava a última palavra da descrição na unidade — '10CMUN' (4.51.73 = UN + "10CM"),
+    -- 'ELETROSTATICAUN' (3.10.91 = UN) → split por sufixo em fde_analitica_pdf_parser.py; 'CONEX M'
+    -- (serviço 09.04.072 = M) vinha de normalize_row greedy no sintético; 'M3X KM' → 'M3XKM' (sem espaço).
+    -- Vocabulário completo dos 16 dists = as 22 unidades semeadas aqui (nenhuma sobra/inválida).
     ('FL',     'Folha',                                   'unidade',     'Axys — seed FDE'),
     ('VG',     'Viagem',                                  'unidade',     'Axys — seed FDE'),
     ('ML',     'Metro linear',                            'comprimento', 'Axys — seed FDE'),

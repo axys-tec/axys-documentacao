@@ -69,14 +69,18 @@ axys-private/easy/fontes/{fonte}/{edicao}/
 ├── _state/estagios.json           ← snapshot de edi_estagios (auditoria/retomada)
 ├── precos/insumos.csv             ← AxysDocs — Docs de Preço
 ├── precos/composicoes.csv
-├── construcao/prompts/{cod}.md    ← CONSTRUÇÃO (WIP, não-final): prompt por CPU
-├── construcao/retornos/{cod}.md   ← retorno da IA (Codex-local)
-├── construcao/cpus_md/{cod}.md    ← markdown que gera o .html
-├── ctcs/{cmp_id}.html             ← CTC FINAL (só o pronto; o que a app serve)
-└── caderno_tecnico_{edicao}.html  ← caderno completo (migra p/ privado)
+├── construcao/prompts/{cat}/{cod}.md ← prompts POR-EDIÇÃO das análises NÃO-CTC (mdo_h_mes, unidades)
+└── caderno_tecnico_{edicao}.html  ← caderno completo gerado (cache; 1 por edição)
+
+axys-private/easy/fontes/{fonte}/ctc/    ← CTC AxysDoc: FONTE-LEVEL (estático por cmp_codigo)
+├── _index.json                    ← cod → req_hash vigente (governa o delta:hash)
+├── doc/{cod}.md                   ← MD-fonte do CTC (editável; fill da IA via get_md/put_md)
+├── prompt/{cod}.md                ← prompt do CTC (PERSISTE, pareado ao doc — não é andaime)
+├── {cod}.html                     ← CTC renderizado (o que a app serve)
+└── _old/{cod}_{ref}.md + {cod}_{ref}.prompt.md ← versões SUPERADAS (MD+prompt pareados, 1 par por revisão)
 ```
 
-Princípio: **`construcao/` = linha de montagem (WIP)**, **`ctcs/` = só os finais**. `originais` mantém o nome (millions de blobs já usam; não renomear).
+Princípio: **TUDO que é CTC vive sob `ctc/` FONTE-LEVEL** (estático por `cmp_codigo`; doc+prompt só (re)geram em VERSÃO NOVA REAL — quando o texto-fonte muda via delta:hash — nunca 1 por edição; o anterior vai pro `_old` pareado). O **vínculo durável do descritivo por-edição é `cmp_descritivo` no banco**, não o MD. O `{edicao}/construcao/prompts/` guarda só prompts de análise POR-EDIÇÃO (não-CTC). `originais` mantém o nome (não renomear).
 
 ### Regras de nomenclatura
 - **`{arquivo}_{edicao}`** em todo original → cada edição é uma **foto** identificável; o
