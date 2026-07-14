@@ -43,6 +43,7 @@
 | **AXYS-ADR-019** | [Atualização e Deploy (Cloud/On-Prem)](foundation/adrs/AXYS-ADR-019-atualizacao-e-deploy-cloud-onprem.md) | ✅ Aceito | Todos |
 | **AXYS-ADR-020** | [Ferramentas (Excel, AutoLISP, API)](foundation/adrs/AXYS-ADR-020-ferramentas-excel-autolisp-api.md) | ✅ Aceito | Todos |
 | **AXYS-ADR-021** | [SSO via JWT entre Hub e Aplicações](foundation/adrs/AXYS-ADR-021-sso-jwt-hub-easy.md) | ✅ Aceito | Hub, Easy, Pro |
+| **AXYS-ADR-022** | [Princípios de Design Minimalista e Sustentável](foundation/adrs/AXYS-ADR-022-principios-de-design-minimalista-e-sustentavel.md) | ✅ Aceito | Todos |
 
 ---
 

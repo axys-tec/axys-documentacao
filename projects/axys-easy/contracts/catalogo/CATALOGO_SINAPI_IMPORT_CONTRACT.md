@@ -100,10 +100,15 @@ Os documentos da fonte (livros, notas, fichas, cadernos) chegam por **link da ma
 que **pode sumir**; os **livros têm edição própria** (não mudam a cada edição do catálogo).
 Regra de vigência e trilha de auditoria:
 
-- **Registro (`catalogo.documentos`) guarda só o VIGENTE** por fonte/tipo (`doc_vigente=true`,
-  1 por fonte/tipo; fichas/cadernos: 1 por identidade ins/cmp). Na substituição, a linha
-  anterior é **mantida como histórico** (`doc_vigente=false`) com o `doc_path` **re-apontado
-  para `_old/`**. `UNIQUE(doc_path)` preservado (cada linha tem path distinto).
+> ⚠️ **REVISTO 2026-07-13 (repense doc/path — `CATALOGO_BUSINESS_RULES.md §11.9/§11.10`).** A vigência
+> de **ficha / caderno_cpu / CTC** saiu do registro `documentos` e foi p/ a **identidade**
+> (`external_path.versoes:[{desde_edi, path}]`, §11.10). O `documentos` guarda **só** docs de
+> **edição/fonte** (livros, notas, cadernos-fonte PDF, originais, apresentação). Os bullets abaixo
+> valem para esses — a ficha tem bullet próprio.
+
+- **Registro (`catalogo.documentos`) guarda só o VIGENTE** por fonte/tipo (`doc_vigente=true`, 1 por
+  fonte/tipo). Na substituição, a linha anterior é **mantida como histórico** (`doc_vigente=false`)
+  com o `doc_path` **re-apontado para `_old/`**. `UNIQUE(doc_path)` preservado (cada linha tem path distinto).
 - **Storage**: ao sobrescrever um path canônico, o arquivo anterior é **movido para `_old/`**
   (trilha de auditoria controlada). Nada some — o `_old` persiste mesmo se o link da matriz morrer.
 - **Livros** (`metodologia`, `livro`): têm **edição própria** (`doc_versao`) → o import **pede a
@@ -111,8 +116,11 @@ Regra de vigência e trilha de auditoria:
   substitui); **divergiu** (ou inexistente) ⇒ arquiva a anterior em `_old` + grava a nova vigente.
 - **Notas**: seguem a edição do catálogo (`doc_path = notas_{versao}.pdf`, por edição → não
   sobrescreve; a anterior só passa a `doc_vigente=false`).
-- **Fichas**: seguem a edição do catálogo, sobrescrevem path fixo → arquivam a anterior
-  em `_old` quando o **conteúdo muda** (comparação por `doc_sha1`); conteúdo igual ⇒ skip.
+- **Fichas / caderno_cpu / CTC** (na **identidade**, **não** no registro): path canônico fixo
+  (`{cod}.html`). Quando o **conteúdo muda** (sha) → arquiva a anterior em `_old/{cod}_<sha>.html`,
+  **reaponta** a última versão de `external_path.versoes` pro `_old` e **anexa** `{desde_edi:E, path:{cod}.html}`
+  (§11.10); conteúdo igual ⇒ skip. O `_index.json` de `ctc/`/`fichas/` é o **manifesto** de "mudou?"
+  (`{cod:sha}`), **não** a vigência. Prompt/MD do CTC vivem só no storage (§11.11), nunca em `cmp_descritivo`.
 - **Cadernos técnicos**: são da **FONTE** (como os livros), **NÃO por edição** (2026-07-11) —
   versionados por data ("Última Atualização" do PDF), registrados com `doc_fte_id`/`doc_versao`/
   `doc_vigente`. A edição só **referencia o vigente**. **Dedup por HTTP condicional (ETag)**: o import

@@ -2,8 +2,11 @@
 
 > **Status:** contrato vigente (decidido). Padronização aprovada para aplicar **agora**, em dev,
 > **sem repopular** (tudo é teste; nada subiu para homologação — regenera no próximo import).
-> Governança: o **import escreve**, o **app/livros leem** via registro `catalogo.documentos`
-> (`doc_url`/`doc_path`). O app **sempre** linka pro storage (nunca pra fonte matriz).
+> **Revisto 2026-07-13** (repense doc/path — `CATALOGO_BUSINESS_RULES.md §11.9/§11.10/§11.11`):
+> ficha/caderno_cpu/CTC resolvem pela **identidade** (`external_path.versoes`, vigência por versão),
+> **não** por `catalogo.documentos` — que fica só p/ docs de **edição/fonte** sem dono 1:1.
+> Governança: o **import escreve**; o **app** lê ficha/CTC do `external_path` e os **livros/originais**
+> do registro `documentos`. O app **sempre** linka pro storage (nunca pra fonte matriz).
 
 ---
 
@@ -73,14 +76,14 @@ axys-private/easy/fontes/{fonte}/{edicao}/
 └── caderno_tecnico_{edicao}.html  ← caderno completo gerado (cache; 1 por edição)
 
 axys-private/easy/fontes/{fonte}/ctc/    ← CTC AxysDoc: FONTE-LEVEL (estático por cmp_codigo)
-├── _index.json                    ← cod → req_hash vigente (governa o delta:hash)
+├── _index.json                    ← cod → req_hash (MANIFESTO de import: governa o delta:hash; NÃO é vigência — §11.10)
 ├── doc/{cod}.md                   ← MD-fonte do CTC (editável; fill da IA via get_md/put_md)
 ├── prompt/{cod}.md                ← prompt do CTC (PERSISTE, pareado ao doc — não é andaime)
 ├── {cod}.html                     ← CTC renderizado (o que a app serve)
 └── _old/{cod}_{ref}.md + {cod}_{ref}.prompt.md ← versões SUPERADAS (MD+prompt pareados, 1 par por revisão)
 ```
 
-Princípio: **TUDO que é CTC vive sob `ctc/` FONTE-LEVEL** (estático por `cmp_codigo`; doc+prompt só (re)geram em VERSÃO NOVA REAL — quando o texto-fonte muda via delta:hash — nunca 1 por edição; o anterior vai pro `_old` pareado). O **vínculo durável do descritivo por-edição é `cmp_descritivo` no banco**, não o MD. O `{edicao}/construcao/prompts/` guarda só prompts de análise POR-EDIÇÃO (não-CTC). `originais` mantém o nome (não renomear).
+Princípio: **TUDO que é CTC vive sob `ctc/` FONTE-LEVEL** (estático por `cmp_codigo`; doc+prompt só (re)geram em VERSÃO NOVA REAL — quando o texto-fonte muda via delta:hash — nunca 1 por edição; o anterior vai pro `_old` pareado). ⚠️ **REVISTO 2026-07-13 (§11.11):** o **prompt e o MD do CTC NÃO ficam no banco** — vivem **só aqui no storage** (`prompt/{cod}.md` + `doc/{cod}.md`). `cmp_descritivo` guarda **só** `{modo, status, req_hash}` (~40 bytes); o **vínculo durável** é o `req_hash` + o path em `cmp_external_path.ctc` (com vigência §11.10), não o texto no banco. O `{edicao}/construcao/prompts/` guarda só prompts de análise POR-EDIÇÃO (não-CTC). `originais` mantém o nome (não renomear).
 
 ### Regras de nomenclatura
 - **`{arquivo}_{edicao}`** em todo original → cada edição é uma **foto** identificável; o
@@ -100,8 +103,10 @@ Princípio: **TUDO que é CTC vive sob `ctc/` FONTE-LEVEL** (estático por `cmp_
 - Despublicar/arquivar a fonte **não apaga** `fontes/{fonte}/{edicao}/` → a **cópia vigente
   permanece** (o app continua servindo do storage).
 - Reimport de uma edição **sobrescreve** sua pasta (mesmo `key`) — idempotente.
-- O registro `catalogo.documentos` é a **fronteira**: guarda `doc_path` (key) + `doc_url` + (livros)
-  `doc_versao`/`doc_data`. O app e o gerador de caderno leem **só** do registro (agnósticos ao layout).
+- O registro `catalogo.documentos` é a **fronteira** dos docs de **edição/fonte** (livros/notas/
+  originais/cadernos-fonte/critérios/apresentações — §11.9): guarda `doc_path` (key) + `doc_url` +
+  `doc_versao`/`doc_data`. **Ficha/caderno_cpu/CTC não passam por aqui** — a app os resolve pela
+  identidade (`external_path.versoes`, §11.10). Vigência (as-of edição) = `external_path`, não registro.
 
 ---
 
@@ -129,5 +134,6 @@ Princípio: **TUDO que é CTC vive sob `ctc/` FONTE-LEVEL** (estático por `cmp_
   enfileira job, acompanha pelo sino, abre ao concluir. Edição publicada nova = chave nova = regenera.
 - **Conteúdo:** header (tarja+logo, Tenant→"Catálogo Técnico", user→"{FTE} — {nome} | {edição}")
   + **originais** (Ver/Baixar, incl. **Excel** dos imports **e os livros da fonte**) + **listagem da
-  edição** (fichas/cadernos no formato aberto, com hierarquia CDHU e título SINAPI). Lê tudo do
-  registro `documentos`.
+  edição** (fichas/cadernos no formato aberto, com hierarquia CDHU e título SINAPI). Originais/livros
+  vêm do registro `documentos`; a **listagem de fichas/cadernos_cpu/CTC** vem do `external_path`
+  (as-of a edição do caderno, §11.10).

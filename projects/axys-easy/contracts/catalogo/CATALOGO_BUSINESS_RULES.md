@@ -1,9 +1,11 @@
 # Catálogo — Regras de Negócio (Contrato Canônico)
 
-**Status:** Contrato Canônico (v0.1)
-**Data:** 2026-06-02
+**Status:** Contrato Canônico (v0.2)
+**Data:** 2026-06-02 · **Revisto:** 2026-07-13
 **Escopo:** schema `catalogo` (insumos, preços, composições, custos, situações, tipos).
 **Princípio de governança:** Contrato governa · Schema suporta · Código implementa · Tela opera.
+
+> **Changelog** — v0.2 (2026-07-13): **repense doc/path** (§11.9/§11.10/§11.11). A identidade (`external_path`) volta a ser a **fonte única** de ficha/caderno_cpu/CTC e passa a guardar a **vigência por versão**; `catalogo.documentos` encolhe p/ docs de edição/fonte sem dono 1:1; `composicao_documento` dropada; `cmp_descritivo` perde o prompt (fica só no storage). Reverte o rumo de v0.1 (documentos unificado / external_path deprecado).
 
 > Nenhuma regra de negócio relevante pode existir apenas em parser, schema, controller, service ou tela. Este documento é a fonte canônica. Código e SQL referenciam-no no topo.
 
@@ -331,7 +333,7 @@ Camada **documental** (especificação de insumo, critério de medição, cadern
 **11.1 Conteúdo puro + identidade.**
 - O HTML no R2 é **conteúdo puro** (semântico, editável): a ficha/critério **sem** o chrome da app. O **header** (tarja, logo, tenant) é montado **no render da app**, não gravado no R2.
 - Todo HTML carrega o **favicon** oficial (`assets/favicon.png`, 64px — gerado por downscale Lanczos do app icon; o PNG grande original dava halo no tab) via URL pública do R2.
-- O documento vive na **IDENTIDADE**: insumo → `insumos.ins_external_path`; composição → `composicoes.cmp_external_path` (JSONB). A **edição** apenas **exige a existência** do doc (gate §10), não é dona do arquivo.
+- O documento vive na **IDENTIDADE** e ela é a **FONTE ÚNICA** (não cache): insumo → `insumos.ins_external_path`; composição → `composicoes.cmp_external_path` (JSONB). Guarda a **vigência por versão** (§11.10); a app resolve ficha/caderno_cpu/CTC **daqui**, sem passar por `catalogo.documentos`. A **edição** apenas **exige a existência** do doc (gate §10), não é dona do arquivo.
 - **Responsivo obrigatório:** todo HTML publicado é mobile-friendly **E** desktop — sem overflow horizontal. O CSS embutido é responsivo por si (não depende da render da app): tabelas largas rolam na horizontal (wrapper `overflow-x:auto`), só colunas de descrição quebram, demais ficam `nowrap`.
 
 **11.2 Organização de diretórios no R2 (bucket público `axys-public`).** O layout **reflete a natureza da fonte** (contínua × por edição):
@@ -359,7 +361,7 @@ Regra estrutural: **fonte contínua** (`fte_catalogos_continuos=true`, SINAPI) *
 
 **11.3 Fonte `fte_catalogos_continuos=false` (ex.: CDHU) — sobe tudo a cada versão.** A CDHU reemite o catálogo de critérios a cada edição (repete textos, sem controle de mudança). Como é leve (texto), **sobe tudo por versão**:
 - `fontes/cdhu/<versão>/criterios/<cmp_codigo>.html` + originais em `fontes/cdhu/<versão>/audit/`.
-- `cmp_external_path` mantém o **path mais atual** + um **histórico** dos paths anteriores (auditoria).
+- `cmp_external_path` mantém a **vigência por versão** (`versoes:[{desde_edi, path}]`, §11.10) — a última aponta pro path atual da versão, as anteriores pro `_old/`.
 
 **11.4 Fonte `fte_catalogos_continuos=true` (ex.: SINAPI) — skip por data de atualização.** Fichas (`Atualizado em:`) e cadernos (`Atualização`) trazem a data da última revisão. Path **sem edição** (`fontes/sinapi/fichas/`, `fontes/sinapi/cadernos/`). Regra **idempotente**: se a data do doc **≤** a edição **E** o item **já existe no R2** → **não sobe (skip)**. Evita re-subir docs idênticos a cada boletim (o conteúdo é contínuo na identidade).
 
@@ -386,36 +388,26 @@ ORIGINAL** (link do PDF), no R2 sempre a **versão mais recente**, em `fontes/si
 
 **11.7 Metodologia do boletim (CDHU).** Algumas versões trazem `metodologia_boletim_<v>.pdf` (METODOLOGIA DE CONSULTA + tabela UNIDADES PADRÃO) — é a **"apresentação" do CDHU** (análoga à do caderno SINAPI). Vai pro `audit/` **e** vira `fontes/cdhu/<v>/metodologia.html` (gravado em `edicoes.edi_capa_path.metodologia`); no livro CDHU aparece **antes das composições** da versão.
 
-**11.9 REGISTRO central de documentos (`catalogo.documentos` + `documentos_origem`).** É a
-**fronteira de governança**: "não misturar governanças" — o **import** (SINAPI/CDHU, cada um com
-sua própria governança de época/histórico/links que somem) **ESCREVE** o registro; a **app** e os
-**livros** **LÊEM** dele. Unifica num só modelo o que estava espalhado em colunas JSONB
-(`ins_external_path`, `cmp_external_path`, `edi_capa_path`) e evita criar novas colunas nullable
-por tipo de doc.
-- **`documentos_origem`** = proveniência: arquivo da **matriz (Caixa)** — guardado p/ governança,
-  pois pode sumir — **+** cópia no **R2/audit**. Dedup por arquivo (muitos docs compartilham origem).
-- **`documentos`** = 1 linha por doc, FK p/ **identidade** (`doc_ins_id`/`doc_cmp_id`/`doc_sub_id`/
-  `doc_edi_id`), p/ **origem** (`doc_org_id`), `doc_tipo`, `doc_path`/`url`, `doc_titulo` (docs sem
-  identidade), `doc_sha1`, `doc_data`, **`doc_vigente`** (atual × histórico), **`doc_orfao`** (no R2
-  sem identidade vigente). Tipos: ficha(ins) · caderno_cpu(cmp) · apresentacao(sub,edi) ·
-  criterio(cmp,edi) · metodologia(fte,edi) · referencia(fte/sub,edi: planilhas e cadernos de equipamento).
-- **Desempenho:** point-lookup por FK com índice parcial `WHERE doc_vigente` = um seek (≈ ler coluna);
-  listas até mais rápidas (não varrem insumos/composicoes). Índices: `(doc_ins_id)`, `(doc_cmp_id)`,
-  `(doc_sub_id)`, `(doc_fte_id,doc_tipo,doc_vigente)`.
-- **Governança de links:** os livros e o registro referenciam **sempre o R2**, nunca a matriz.
-- **Admissível:** doc no R2 sem item no banco (`doc_orfao=true` / sem FK) — "o que tá lá a gente sabe".
-  O inverso (item sem doc) é tratado na tela de verificação.
-- **Fase 1 (feita):** tabelas + **backfill** do estado atual (`backfill_documentos.py`) + livros lendo
-  do registro. **Fase 2:** runners gravam direto no registro e os JSONB `*_external_path`/`edi_capa_path`
-  são deprecados (hoje mantidos como cache; não quebrar o validado).
+**11.9 REGISTRO central de documentos (`catalogo.documentos` + `documentos_origem`) — só docs SEM dono 1:1.** ⚠️ **REVISTO 2026-07-13 (repense doc/path).** O registro central **NÃO** cataloga **ficha / caderno_cpu / CTC** — esses vivem **só na identidade** (§11.1, `external_path`, que é a fonte única e guarda a vigência §11.10). `documentos` fica com os docs de **edição/fonte que não têm dono 1:1** e por isso precisam de um catálogo central p/ governança R2 / órfãos / livros:
+- **Tipos que ficam** (~140 linhas, não ~12 mil): `livro` · `metodologia` · `nota` · `caderno` (PDF-fonte) · `original` (xlsx do import + critério-fonte) · `leis_sociais` · `apresentacao` (sub,edi) · `criterio` (CDHU, edi-level) · `caderno_tecnico` (índice gerado) · `referencia`.
+- **Motivo da revisão:** catalogar ficha (6k) + caderno_cpu (6k) aqui era **tripla escrita** (`external_path` + `documentos` + `composicao_documento`) de um path **determinístico** (`storage_paths.py`) que a identidade já guarda — sobretensiona o banco sem ganho. A fronteira de governança segue válida **só** p/ o que não tem dono na identidade. (Reverte o "unifica os JSONB / external_path deprecado" de v0.1.)
+- **`composicao_documento` (N:N cmp↔doc) — DEPRECADA / DROPADA:** existia só p/ religar `caderno_cpu`→composição, que já está em `cmp_external_path`. Volta apenas se surgir **cross-ref real** (uma composição citando doc de **outra** identidade).
+- **`documentos_origem`** = proveniência (arquivo da **matriz Caixa** — pode sumir — + cópia no R2/audit). Dedup por arquivo. Mantida p/ os docs que restam.
+- **`documentos`** = 1 linha por doc de edição/fonte: FK `doc_edi_id`/`doc_fte_id` (+ `doc_sub_id` p/ apresentação), `doc_org_id`, `doc_tipo`, `doc_path`/`url`, `doc_titulo`, `doc_sha1`, `doc_data`, `doc_versao`, **`doc_vigente`**, **`doc_orfao`**. `doc_ins_id`/`doc_cmp_id` deixam de ser populados (a identidade não passa mais por aqui).
+- **Leitura:** livros (§11.5), seção "Originais" do caderno, árvore `/documentos`. A app **não** usa `documentos` p/ abrir ficha/CTC — usa `external_path` (§11.1/§11.10).
+- **Governança de links:** livros e registro referenciam **sempre o R2**, nunca a matriz. **Admissível:** doc no R2 sem item no banco (`doc_orfao=true`); o inverso (item sem doc) é tela de verificação.
 
-**11.10 Vigência + auditoria de docs (substituição + `_old`).** Ver detalhe em
-`CATALOGO_SINAPI_IMPORT_CONTRACT.md §8`. Resumo:
-- **Registro guarda só o VIGENTE**; ao substituir, a linha anterior fica **histórico** (`doc_vigente=false`)
-  com `doc_path` re-apontado pro **`_old/`**. `UNIQUE(doc_path)` preservado.
-- **Storage:** sobrescrever path canônico **move o anterior pra `_old/`** (auditoria; nada some).
-- **`doc_versao`** (coluna nova, TEXT): rótulo da **edição própria** do doc. **Livros** (metodologia/livro)
-  têm edição própria → o import **pede a edição**; igual ⇒ **skip**, divergiu ⇒ arquiva+substitui.
-  Notas/fichas/cadernos seguem a edição do catálogo (notas por path; fichas/cadernos comparam `doc_sha1`).
-- **Publicar NUNCA trava** por doc: vigente presente ⇒ ok; ausente ⇒ publica com **aviso/confirmação**
-  (suaviza o gate `fte_tem_catalogo_insumos`/§10 — hook do pipeline de publicar, a construir).
+**11.10 Vigência por versão — vive no `external_path` (não em tabela, não no `_index.json`).** ⚠️ **REVISTO 2026-07-13.** O que vincula um insumo/composição à sua ficha/caderno_cpu/CTC **atual ou `_old`** é o próprio `external_path`, que passa a guardar a **linha do tempo de versões**. Sem ledger de banco; o `_index.json` de `ctc/`/`fichas/` é **só manifesto de import** (`{cod:sha}` p/ decidir "mudou?") — **não** é vigência.
+- **Forma:** cada doc vira `{fonte, versoes:[{desde_edi, path}]}`. A **última** versão aponta pro path canônico (`{cod}.html`); as anteriores pro `_old/{cod}_<sha>.html`. `url` = `/doc-file/` + `path` (derivado).
+  ```jsonc
+  ins_external_path = { "ficha_tecnica": { "fonte":"SINAPI", "versoes":[
+      {"desde_edi": 1,  "path": ".../fichas/_old/1_<shaA>.html"},
+      {"desde_edi": 10, "path": ".../fichas/1.html"} ]}}          // última = vigente
+  cmp_external_path = { "caderno_tecnico": {"fonte":"SINAPI","versoes":[…]},
+                        "ctc":            {"fonte":"SINAPI","versoes":[…]} }
+  ```
+- **Import (quando o `sha` muda na edição E):** (1) arquiva `{cod}.html` → `_old/{cod}_<shaAntigo>.html`; (2) **reescreve o `path` da última versão** de `{cod}.html` p/ esse `_old`; (3) **anexa** `{desde_edi:E, path:{cod}.html}`. Primeira vez → 1 versão `{desde_edi:E, path:{cod}.html}`. Sem mudança → não toca. Requer import **sequencial por `edi_mes_ref`** (o rebuild já é) p/ a linha do tempo nascer certa.
+- **Resolução (viewer/listagem) as-of edição-alvo E:** escolhe a `versoes` de **maior `desde_edi`** cujo `edi_mes_ref` ≤ o de E (ordena por `edi_mes_ref`, robusto a `edi_id` fora de ordem). **Sem** filtro de edição → **última** (vigente). Ex.: código 1010 com entrada@1 e revisão@10 → ver edição 1–9 abre `_old`, 10+ abre atual.
+- **Storage:** nada some — `_old/` é o histórico auditável. **Publicar NUNCA trava** por doc: vigente presente ⇒ ok; ausente ⇒ publica com **aviso/confirmação** (suaviza o gate §10).
+
+**11.11 CTC / descritivo (`cmp_descritivo`) — prompt NÃO fica no banco.** ⚠️ **REVISTO 2026-07-13.** `composicoes.cmp_descritivo` guarda **só estado leve** `{modo, status, req_hash}`. O **prompt/documento** do CTC (o `request`, ~6 KB/CPU) vive **só no storage** (`ctc/prompt/{cod}.md` + `ctc/doc/{cod}.md`); mantê-lo em `cmp_descritivo` eram **~56 MB duplicados** no banco. `req_hash` versiona (delta:hash); o path do CTC entra em `cmp_external_path.ctc` (§11.10).
