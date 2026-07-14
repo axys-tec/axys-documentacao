@@ -51,6 +51,37 @@
 
 ---
 
+## 🟡 Leitura — pendência do módulo ATIVO (próximo fluxo)
+
+A migração Fase-2 da leitura do Catálogo está feita e verificada (commits `49bb16d` composicoes_service · `6649397` doc as-of/viewer · `92f1be5` _docs_vinculados). **Falta só o `ativo/routes.py`** — herdado, **não migrado ainda** porque o módulo está em obra e **não quebra** (query retorna None → detalhe sem link, gracioso):
+- **~L794** (detalhe de insumo): ficha vem de `catalogo.documentos` → migrar p/ `ins_external_path.ficha_tecnica.versoes` as-of (`resolver_versao`), devolver `doc_url`.
+- **~L924** (detalhe de CPU): caderno_cpu → `cmp_external_path.caderno_tecnico`; critério (CDHU) segue em `documentos.doc_cmp_id`.
+- **Templates do ativo** (`ativos/consulta_insumo_detalhe.html` + o de CPU): passar de `doc_id` → `doc_url`/`url` (padrão já aplicado em insumos/composicoes/_docs_vinculados).
+> **Registrado como o 1º item ao ABRIR o módulo Ativos** (decisão Renan 2026-07-14).
+
+> **Nota R1:** o `DROP` das `ci_*_fonte_original` toca também `descritivo_request._itens` (ainda lê o COALESCE do verbatim) — migrar junto do parser, senão o CTC quebra ao dropar as colunas.
+
+## 🔴 CDHU / FDE — migração Fase-2 dos PARSERS (ciclo focado, testável)
+
+Revisão 2026-07-14 (a pedido). Os parsers CDHU/FDE ficaram **Fase-1** (o SINAPI foi migrado) e agora
+também batem nos drops do R1/R3. **Estado:** import de CDHU/FDE **quebrado** contra o schema atual.
+É um ciclo próprio — **precisa ser validado importando edições CDHU/FDE** (não dá pra fazer no escuro).
+
+**Mecânico (forçado pelos drops — espelha SINAPI, baixo risco):**
+- `ci_*_fonte_original` nos INSERTs de item: `parser_cdhu.parse_composicoes` (✔ feito, item INSERT), `parser_fde` (L244). R1.
+- `pri_sit_id` → `pri_situacao TEXT`: `parser_cdhu` (L255/354/359 + load de `situacoes`), `parser_fde` (2×). R3.
+- `composicao_documento` (tabela dropada): `fichas_fde` (L90/156 — grava fichas FDE N:N) → migrar p/ external_path ou registro alternativo.
+
+**Estrutural (Fase-2, como o SINAPI — o grosso):**
+- `parse_composicoes` (CDHU L433/518/523; FDE): `_cmp_exist`/INSERT deixam de usar `cmp_edi_id`
+  (identidade `WHERE cmp_fte_id`); a receita vira **delete-then-insert por identidade** (não por edição).
+- `parse_custos`: `cc_edi_id` (série densa), como o SINAPI.
+- Diff/historico: já usa o `aplicar_diff_edicao` source-agnostic (migrado); **R2** (alinhar `insumos_historico`
+  inicio/fim × `composicoes_historico` origem/nova) entra AQUI, pois o CDHU é o único escritor.
+
+> **Recomendação:** encarar como **um ciclo CDHU/FDE** (parser + R2 + rebuild de amostra CDHU/FDE + valida),
+> depois de fechar o SINAPI. Fazer no escuro (sem import CDHU/FDE) é o risco de regressão que evitamos.
+
 ## Precedente e referências
 - `foundation/adrs/AXYS-ADR-022` — princípios (minimalista/não-generalista/diferenciado/sustentável; "simples sem sofrimento").
 - `CATALOGO_BUSINESS_RULES.md §9.6` (modelo contínuo Fase-2) · **§11.9/§11.10/§11.11** (repense doc/path — precedente canônico de aplicação da ADR-22).
