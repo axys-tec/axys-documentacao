@@ -1,6 +1,13 @@
 # Catálogo — Próximos passos (orientação)
 
-> ⚠️ **ATUALIZAÇÃO 2026-06-14 — Fase 2 (drop+recriar banco) CANCELADA (Renan).**
+> 🔁 **CORREÇÃO 2026-07-14 — a Fase 2 FOI aplicada** (o aviso 2026-06-14 abaixo ficou **stale**).
+> O banco hoje **É** Fase 2: composição = identidade vigente (`cmp_edi_id` **removido**), série
+> densa por `cc_edi_id`, snapshot em `*_historico`. O que resta de Fase 2 **não** foi cancelado —
+> virou **dívida de aderência rastreada** em [`CATALOGO_DIVIDA_ADERENCIA.md`](CATALOGO_DIVIDA_ADERENCIA.md)
+> (situacoes→CHECK, `ci_*_fonte_original`, alinhar historico). As seções "Fase 2" abaixo são
+> **histórico de planejamento** — a verdade corrente está no schema + BUSINESS_RULES §9.6 + o doc de dívida.
+
+> ⚠️ **ATUALIZAÇÃO 2026-06-14 — Fase 2 (drop+recriar banco) CANCELADA (Renan).** *(supersedida pela correção acima)*
 > O Catálogo é usado **COMO ESTÁ** (módulo fechado em dev — ver `CATALOGO_FECHAMENTO.md`).
 > As mudanças de schema descritas abaixo como "Fase 2 / recriação" (dropar `*_external_path`,
 > `catalogo.situacoes`→CHECK-text, `cmp_edi_id`, `cc_edi_id`, FK `unidades` etc.) **não serão
