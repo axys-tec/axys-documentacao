@@ -75,7 +75,7 @@
 --
 -- DOCUMENTAÇÃO EXTERNA (JSONB) — `ins_external_path` / `cmp_external_path`.
 --   Guardam SÓ paths, na IDENTIDADE, com VIGÊNCIA POR VERSÃO. Spec canônica nos
---   comentários das próprias colunas + CATALOGO_BUSINESS_RULES §11.10:
+--   comentários das próprias colunas + publicacao.md §11.10:
 --     { <tipo>: { "fonte":..., "versoes":[ {"desde_edi":E, "path":...} ] } }
 --   ficha_tecnica (insumo) · caderno_tecnico/ctc (composição). url derivada = /doc-file/ + path.
 --
@@ -120,7 +120,7 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA catalogo
 ALTER DEFAULT PRIVILEGES IN SCHEMA catalogo
     GRANT USAGE, SELECT ON SEQUENCES TO "axys_tec";
 
--- Extensões de busca textual (catalogo.search_document, ver §SEARCH / CATALOGO_SEARCH.md).
+-- Extensões de busca textual (catalogo.search_document, ver §SEARCH / listagem.md).
 -- Instaladas NO schema catalogo (este banco não tem 'public'); por isso os usos são
 -- qualificados: catalogo.unaccent(...), catalogo.gin_trgm_ops, catalogo.similarity(...).
 -- unaccent: remove acentos p/ normalização; pg_trgm: similaridade/fuzzy + GIN.
@@ -131,7 +131,7 @@ CREATE EXTENSION IF NOT EXISTS pg_trgm  SCHEMA catalogo;
 -- ============================================================
 -- TABELA: catalogo.insumos_tipo
 -- Contrato de regra de negócio (canônico):
---   docs/projects/axys-easy/contracts/catalogo/CATALOGO_BUSINESS_RULES.md
+--   docs/projects/axys-easy/contracts/catalogo/imports/estagios.md
 -- Grupos de insumos para histogramas e relatórios.
 -- Domínio estrutural — seed inline logo abaixo (todos os seeds vivem no schema).
 --
@@ -301,7 +301,7 @@ UPDATE catalogo.unidades SET un_descricao = upper(un_descricao) WHERE un_descric
 -- ============================================================
 -- TABELA: catalogo.fontes
 -- Contrato funcional (canônico):
---   docs/projects/axys-easy/contracts/catalogo/CATALOGO_FONTES.md
+--   docs/projects/axys-easy/contracts/catalogo/fontes.md
 -- Catálogo das fontes de preços (SINAPI, CDHU, AXYS). A importação de outras
 -- fontes será doutrinada via template (fora do escopo atual).
 --
@@ -399,7 +399,7 @@ SELECT setval(
 -- ============================================================
 -- TABELA: catalogo.edicoes
 -- Contrato funcional (canônico):
---   docs/projects/axys-easy/contracts/catalogo/CATALOGO_EDICOES.md
+--   docs/projects/axys-easy/contracts/catalogo/edicoes.md
 -- Cada publicação de uma fonte de preços.
 --
 -- edi_mes_ref:       1º dia do mês de referência (DATE).
@@ -455,7 +455,7 @@ CREATE TABLE IF NOT EXISTS catalogo.edicoes (
     --   estados: locked (travado) | pronto (destravado, pode rodar) | rodando | ok | erro |
     --            pendente_user (só 'precos' — modal Informar dado / Publicar sem preço).
     --   Cascata: estágio N vira locked→pronto quando N-1 == ok; 'documentos'==ok → edição disponível
-    --   p/ publicar. Ver CONTRATO catalogo/IMPORT_ESTAGIOS.md. NULL = ainda não iniciado (default no back).
+    --   p/ publicar. Ver CONTRATO catalogo/imports/estagios.md. NULL = ainda não iniciado (default no back).
     edi_estagios         JSONB,
     -- edi_capa_path: apresentação dos cadernos SINAPI por subgrupo (capa+histórico+
     -- normas+bibliografia → HTML no R2). JSONB {subgrupo_slug: {url, path, ...}}.
@@ -470,7 +470,7 @@ CREATE TABLE IF NOT EXISTS catalogo.edicoes (
     --   GATE GENÉRICO de publicação/caderno: exige TODA pendencias.<amarra>.abertas == 0
     --   ("revisado ≠ vinculado": 'sem_equivalente' fecha; só delta pendente trava). Substitui o gate
     --   hardcoded de unidades. Escrito SEMPRE via helper registrar_artefato (grava o JSON + indexa aqui
-    --   na MESMA transação → nunca dessincroniza). Contrato: CATALOGO_VINCULACOES_INTRA_FONTES.md.
+    --   na MESMA transação → nunca dessincroniza). Contrato: vinculacoes.md.
     edi_paths            JSONB,
     edi_criado_em      TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     edi_atualizado_em  TIMESTAMPTZ,
@@ -591,7 +591,7 @@ ORDER BY
 -- ============================================================
 -- TABELA: catalogo.edicoes_leis_sociais
 -- Contrato de regra de negócio (canônico):
---   docs/projects/axys-easy/contracts/catalogo/CATALOGO_BUSINESS_RULES.md  (§3.3 Leis sociais)
+--   docs/projects/axys-easy/contracts/catalogo/imports/estagios.md  (§3.3 Leis sociais)
 -- Leis sociais (encargos sobre MO) por edição / UF / modalidade — base da
 -- derivação SD/CD: preco_modalidade = trunc(pelado*(1+LS/100), 2).
 -- NÃO grava 'SE' (SE = 0% implícito). Fonte das LS: SINAPI = cabeçalhos das
@@ -889,7 +889,7 @@ CREATE INDEX ix_composicoes_subgrupos_grp
 -- ============================================================
 -- TABELA: catalogo.insumos
 -- Contrato de regra de negócio (canônico):
---   docs/projects/axys-easy/contracts/catalogo/CATALOGO_BUSINESS_RULES.md
+--   docs/projects/axys-easy/contracts/catalogo/listagem.md
 --   (classificação/origem/NC: CDHU e SINAPI nos contratos de import)
 -- Identidade dos insumos — o que o insumo É, sem preço.
 --
@@ -971,7 +971,7 @@ CREATE INDEX ix_insumos_ativo_descricao
 -- ============================================================
 -- TABELA: catalogo.insumos_preco
 -- Contrato de regra de negócio (canônico):
---   docs/projects/axys-easy/contracts/catalogo/CATALOGO_BUSINESS_RULES.md  (§3 Preço)
+--   docs/projects/axys-easy/contracts/catalogo/listagem.md  (§3 Preço)
 -- Preços dos insumos por edição / UF / modalidade.
 -- Cada linha é imutável. Re-import da mesma
 -- (insumo, edição, uf, modalidade) é upsert idempotente.
@@ -1137,7 +1137,7 @@ CREATE INDEX ix_insumos_familia_familia
 -- ============================================================
 -- TABELA: catalogo.composicoes
 -- Contrato de regra de negócio (canônico):
---   docs/projects/axys-easy/contracts/catalogo/CATALOGO_BUSINESS_RULES.md  (§4 Composição)
+--   docs/projects/axys-easy/contracts/catalogo/listagem.md  (§4 Composição)
 -- Cabeçalho das CPUs — FASE 2: IDENTIDADE VIGENTE (1 linha por (cmp_fte_id, cmp_codigo)).
 -- Campos = estado vigente (última edição). A série por edição vive em composicoes_custo
 -- (cc_edi_id) e a evolução cadastral/estrutural em composicoes_historico (snapshot na mudança).
@@ -1154,7 +1154,7 @@ CREATE INDEX ix_insumos_familia_familia
 -- Histórico cadastral/estrutural fica na tabela LATERAL
 --   catalogo.composicoes_historico — NÃO em coluna JSON nesta tabela.
 -- cmp_external_path: FONTE ÚNICA (não cache) do doc PRÓPRIO da composição —
---   caderno_cpu e CTC (CATALOGO_BUSINESS_RULES.md §11.1/§11.10). Guarda a
+--   caderno_cpu e CTC (publicacao.md §11.1/§11.10). Guarda a
 --   VIGÊNCIA POR VERSÃO na identidade:
 --     { <tipo>: { "fonte":..., "versoes":[ {"desde_edi":E, "path":...} ] } }
 --   Última versão = vigente ({cod}.html); anteriores apontam pro _old/{cod}_<sha>.html.
@@ -1169,7 +1169,7 @@ CREATE INDEX ix_insumos_familia_familia
 --   • composicoes_itens = RECEITA VIGENTE (ci_cmp_id → identidade).
 --   • composicoes_custo = SÉRIE DENSA por cc_edi_id (simétrico a insumos_preco).
 --   • composicoes_historico = SNAPSHOT-NA-MUDANÇA (retroação; custo nunca entra).
---   Regra canônica: CATALOGO_BUSINESS_RULES.md §9.6.
+--   Regra canônica: listagem.md §9.6.
 --   Nota: insumos_historico usa faixa (inicio/fim) e composicoes_historico usa evento
 --   (origem/nova) — convenções diferentes p/ o mesmo papel; divergência ACEITA (ambas funcionam,
 --   as-of resolve nos dois). Alinhar é opcional, sem gatilho.
@@ -1260,7 +1260,7 @@ CREATE INDEX ix_composicoes_ativa_descricao
 -- ============================================================
 -- TABELA: catalogo.composicoes_itens
 -- Contrato de regra de negócio (canônico):
---   docs/projects/axys-easy/contracts/catalogo/CATALOGO_BUSINESS_RULES.md  (§4-§5)
+--   docs/projects/axys-easy/contracts/catalogo/listagem.md  (§4-§5)
 -- Itens = RECEITA VIGENTE da composição (Fase 2): ci_cmp_id → IDENTIDADE (SEM edição).
 -- Filho = insumo ('INSUMO') XOR sub-composição ('COMPOSICAO'). Ciclos proibidos (camada de app).
 --
@@ -1353,7 +1353,7 @@ CREATE INDEX ix_ci_cmp_filho
 -- ============================================================
 -- TABELA: catalogo.composicoes_custo
 -- Contrato de regra de negócio (canônico):
---   docs/projects/axys-easy/contracts/catalogo/CATALOGO_BUSINESS_RULES.md  (§4-§5, %AS)
+--   docs/projects/axys-easy/contracts/catalogo/imports/sinapi.md  (§4-§5, %AS)
 -- Custos pré-calculados por composição / edição / UF / modalidade.
 -- SINAPI fornece os valores direto nas abas CSD/CCD.
 -- Imutável — mesmo regime de insumos_preco.
@@ -1464,7 +1464,7 @@ CREATE INDEX ix_composicoes_custo_uf
 -- ============================================================
 -- TABELA: catalogo.composicoes_mapeamento_mdo
 -- Contrato de regra de negócio (canônico):
---   docs/projects/axys-easy/contracts/catalogo/CATALOGO_BUSINESS_RULES.md  (§3.4)
+--   docs/projects/axys-easy/contracts/catalogo/listagem.md  (§3.4)
 -- Mapa horista <-> mensalista de CPUs de mão de obra, por edição. A conversão
 --   H<->MES NÃO é linear (a CPU mensalista tem itens próprios, não é horista*220)
 --   → guarda-se o PAR. Populado por fuzzy pós-import (PLANO Fase 3.5). Consumido
@@ -1565,7 +1565,7 @@ CREATE INDEX ix_conversao_mo_fte_sinapi
 -- ============================================================
 -- TABELA: catalogo.sinapi_manutencoes
 -- Contrato de regra de negócio (canônico):
---   docs/projects/axys-easy/contracts/catalogo/CATALOGO_SINAPI_IMPORT_CONTRACT.md
+--   docs/projects/axys-easy/contracts/catalogo/imports/sinapi.md
 -- Log de alterações do SINAPI por boletim mensal.
 -- Referência para rastrear o que mudou entre edições.
 -- Imutável após import.
@@ -1989,7 +1989,7 @@ CREATE INDEX ix_composicoes_historico_cmp_novo
 -- ============================================================
 -- TABELA: catalogo.composicoes_custo_alerta
 -- Contrato de regra de negócio (canônico):
---   docs/projects/axys-easy/contracts/catalogo/CATALOGO_BUSINESS_RULES.md  (§4.2)
+--   docs/projects/axys-easy/contracts/catalogo/listagem.md  (§4.2)
 -- Alerta ENXUTO: só a CAUSA de um problema de custo/situação (item sem preço,
 --   subcomposição sem custo, divergência relevante). NÃO repete custo — os
 --   números (fonte/calculado/diferença/status) vivem em composicoes_custo, a um
@@ -2140,7 +2140,7 @@ CREATE INDEX IF NOT EXISTS ix_indices_historico_codigo_mes
 -- ============================================================
 -- TABELA: catalogo.search_document   (prefixo sd_)   — decisão Renan 2026-06-11
 -- ÍNDICE DE BUSCA TEXTUAL (1×1 por entidade ATIVA: insumo ou composição/CPU).
--- Contrato canônico: docs/.../contracts/catalogo/CATALOGO_SEARCH.md.
+-- Contrato canônico: docs/.../contracts/catalogo/listagem.md.
 --
 -- Doutrina: PostgreSQL é a FONTE DA VERDADE. Esta tabela é um ÍNDICE — duplica
 -- só TEXTO PESQUISÁVEL + FACETAS de filtro; NUNCA preço, composição analítica,
