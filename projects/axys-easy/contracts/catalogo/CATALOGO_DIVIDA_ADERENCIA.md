@@ -61,26 +61,36 @@ A migração Fase-2 da leitura do Catálogo está feita e verificada (commits `4
 
 > **Nota R1:** o `DROP` das `ci_*_fonte_original` toca também `descritivo_request._itens` (ainda lê o COALESCE do verbatim) — migrar junto do parser, senão o CTC quebra ao dropar as colunas.
 
-## 🔴 CDHU / FDE — migração Fase-2 dos PARSERS (ciclo focado, testável)
+## ✅ CDHU / FDE — migração Fase-2 dos PARSERS (FEITA 2026-07-14, validada)
 
-Revisão 2026-07-14 (a pedido). Os parsers CDHU/FDE ficaram **Fase-1** (o SINAPI foi migrado) e agora
-também batem nos drops do R1/R3. **Estado:** import de CDHU/FDE **quebrado** contra o schema atual.
-É um ciclo próprio — **precisa ser validado importando edições CDHU/FDE** (não dá pra fazer no escuro).
+Os parsers CDHU/FDE estavam **Fase-1** (só o SINAPI fora migrado) e batiam nos drops R1/R3.
+Fechado como **um ciclo próprio**, validado importando edições reais + validador independente.
 
-**Mecânico (forçado pelos drops — espelha SINAPI, baixo risco):**
-- `ci_*_fonte_original` nos INSERTs de item: `parser_cdhu.parse_composicoes` (✔ feito, item INSERT), `parser_fde` (L244). R1.
-- `pri_sit_id` → `pri_situacao TEXT`: `parser_cdhu` (L255/354/359 + load de `situacoes`), `parser_fde` (2×). R3.
-- `composicao_documento` (tabela dropada): `fichas_fde` (L90/156 — grava fichas FDE N:N) → migrar p/ external_path ou registro alternativo.
+**CDHU** (commit `e0fddfa` · **cuidado deliberado**: import já funcionava, mono-UF SP — só ajuste de
+schema/storage, ZERO mudança de lógica; 34 ins/47 del, net menor):
+- R1: item INSERT sem `ci_*_fonte_original`. R3: `pri_sit_id`→`pri_situacao TEXT` (fim do `situacoes`).
+- Fase-2: `parse_composicoes` get-or-create por identidade (`WHERE cmp_fte_id`, sem `cmp_edi_id`);
+  receita = **delete-then-insert por composição** no header. `parse_servicos`/`calcular_custos` = `cc_edi_id`
+  (série densa) + alertas por `cc_edi_id`.
+- **Validado:** boletim 184 (edi 23) — conferência IGUAL + `valida_amostra_cdhu` FULL **0 divergências**
+  (insumos 3228 · SD 3562 · CD 3562, banco == XLSX-fonte).
 
-**Estrutural (Fase-2, como o SINAPI — o grosso):**
-- `parse_composicoes` (CDHU L433/518/523; FDE): `_cmp_exist`/INSERT deixam de usar `cmp_edi_id`
-  (identidade `WHERE cmp_fte_id`); a receita vira **delete-then-insert por identidade** (não por edição).
-- `parse_custos`: `cc_edi_id` (série densa), como o SINAPI.
-- Diff/historico: já usa o `aplicar_diff_edicao` source-agnostic (migrado); **R2** (alinhar `insumos_historico`
-  inicio/fim × `composicoes_historico` origem/nova) entra AQUI, pois o CDHU é o único escritor.
+**FDE** (commit `9492cd6`): mesmas mudanças (R1/R3 + Fase-2 identidade/`cc_edi_id`), receita delete-then-insert
+por `cmp_ids_import`. **Validado:** edi 41 (07-22, `estagio=precos`) — conferência SD todos IGUAL +
+`valida_amostra_fde` FULL **0 divergências** (insumos 2243 · SD 3170, banco == CSV-fonte).
 
-> **Recomendação:** encarar como **um ciclo CDHU/FDE** (parser + R2 + rebuild de amostra CDHU/FDE + valida),
-> depois de fechar o SINAPI. Fazer no escuro (sem import CDHU/FDE) é o risco de regressão que evitamos.
+**Validadores independentes** (commits `7b36497`/`ef0ee2b`): `valida_amostra_cdhu.py` (Excel×DB) e
+`valida_amostra_fde.py` (CSV×DB dentro do dist.zip), análogos ao `valida_amostra` do SINAPI. Pegam a
+classe de bug que a conferência interna não vê (parse do próprio fonte).
+
+**Pendências deferidas (não bloqueiam):**
+- **fichas_fde** (`composicao_documento` dropada + `cmp_edi_id`): a ficha FDE é **N:N** (componente serve N
+  CPUs) — o §11.9 reserva o `composicao_documento` p/ esse "cross-ref real". Decisão de modelagem **adiada**
+  (Renan: "depois discutimos"). `fichas_fde.py` fica intocado; só quebra se o import rodar com HTMLs (passo
+  opcional do operador; o rebuild dist é CSV-only).
+- **R2** (alinhar `insumos_historico` inicio/fim × `composicoes_historico` origem/nova): baixo valor, ambos
+  funcionam; CDHU é o único escritor. Entra quando/se tocarmos o historico.
+- **ativo/routes.py** ficha/caderno → `external_path`: 1º item ao abrir o módulo Ativos (não quebra hoje).
 
 ## Precedente e referências
 - `foundation/adrs/AXYS-ADR-022` — princípios (minimalista/não-generalista/diferenciado/sustentável; "simples sem sofrimento").
