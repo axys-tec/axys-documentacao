@@ -74,7 +74,7 @@ Como uma ficha serve ~4,5 CPUs, **NÃO se expandem os paths de ficha dentro de c
 ### 7.5 G — Generalidades / Sustentabilidade (o outlier → `documentos`)
 A letra **G** é o guarda-chuva **ambiental/sustentabilidade** (todo doc marcado "eco"), **não** spec-de-CPU:
 - **G1 (Gestão de Madeira):** legislação de madeira legal (CADMADEIRA, Decreto Estadual 53.047/2008) + fichas botânicas de espécies (nome científico, ocorrência, densidade). É **referência-standalone** → `catalogo.documentos` (`doc_tipo='referencia'`, fonte/edição-level).
-  - **Associação a CPU = regra DERIVADA, não stored:** qualquer CPU cuja descrição contenha **"madeira"** (exceto grupo **Demolições**) → exibe G1. Text-match no read (ADR-022: nada guardado).
+  - **Associação a CPU = materializada no MAPEAMENTO PRELIMINAR** (não derivada a cada read): a regra "CPU cuja descrição contenha **madeira** (exceto grupo **Demolições**) → G1" roda **junto do mapeamento de fichas** (§7.2, o passo que gera o `fichas_vinculo`/agrupamento, preliminar aos estágios/paths) e entra no `fichas_agrupamento.json` como as demais. Assim é determinística e pronta antes do import — não um text-match em runtime. (ADR-022: computado uma vez, mora na grouping em storage, não no banco.)
   - **Incompletude de origem (registrar como AVISO, não erro):** o doc G1 promete 40 espécies (G1.01–G1.40), mas o **portal público só publica 9** (Açacu…Bacuri, alfabético até "B"). Não é falha de download — as G1-10…G1-40 **não existem** no `fde_catalogo.html`. O import pega as que existem; **não** espera 40 nem marca erro. (Import aditivo captura naturalmente se a FDE publicar mais.)
 - **G2 (Retrofit de lâmpadas/luminárias):** tem serviços que **mapeiam CPU** → tratado como serviço normal (§7.3, `descritivo_tecnico`), **não** vai pra documentos.
 
@@ -86,7 +86,25 @@ A letra **G** é o guarda-chuva **ambiental/sustentabilidade** (todo doc marcado
 
 ---
 
-## 8. Definição de pronto (anti-regressão)
+## 8. Dois caminhos de import — `old-fde` (dist) × `4-26+` (UI)
+
+**Singularidade da FDE:** todas as edições **exceto a última** entram no banco **sem doc técnico** (só dados) — por isso os `dist`. Só a **última (a partir de 04/2026)** recebe o processamento completo de docs (2 HTMLs → CSVs → fichas → agrupamento → CTC).
+
+**O pipeline é `TRANSFORMAR → PROCESSAR`** (dois estágios lógicos); os 2 caminhos diferem só em **onde entram**:
+
+| Caminho | Entrada | UI? | Estágios | Docs |
+|---|---|---|---|---|
+| **`old-fde`** (histórico/seed) | **`dist.zip`** (já transformado) | não (script) | **recebe transformado → PROCESSA** | dados-only (sem fichas/agrupamento) |
+| **`4-26+`** (edição vigente) | **conjunto de arquivos** (2 HTMLs + PDFs + CSVs) | **sim** | **recebe cru → TRANSFORMA → PROCESSA** | completos (fichas + agrupamento + CTC) |
+
+- **TRANSFORMAR** (só o `4-26+`, na app): HTML→CSV, PDF→mapeamento/agrupamento (§7.2/§7.4, incl. cascata madeira §7.5), pareamento de md (§7.6). É o que hoje vive no sandbox `find_fde/` — migra pra dentro da app **só p/ a vigente**.
+- **PROCESSAR** (ambos, **idêntico**): consome os dados-transformados (CSVs + `fichas_agrupamento.json`) → banco/storage/`external_path`/`documentos`. **A única diferença é a disponibilidade de docs** — o `old-fde` chega sem eles (data-only), o `4-26+` chega com eles.
+
+> Mapeia os 2 tasks existentes: `importar_fde` (dist, `old-fde`) e `importar_fde_novo` (portal, `4-26+`). O contrato formaliza o **corte transform/process** — o `PROCESSAR` não sabe de onde veio; só consome dado-transformado.
+
+---
+
+## 9. Definição de pronto (anti-regressão)
 - Contagens batendo (insumos/composições == CSVs de `find_fde`).
 - `cc_custo_fonte` cru (com BDI) · `cc_custo_calculado` limpo · `edicoes_bdi` populado · conferência des-BDInizada (amostral) → `valida_amostra_fde.py` 0 divergências.
 - Docs: `fichas_agrupamento.json` gerado do `fichas_vinculo.csv`; fichas únicas no storage (por código, `_old` no versionamento); `descritivo_tecnico`/`detalhe_tecnico` resolvem via agrupamento; G1 em `documentos` + regra "madeira"; CTC do md deduplicado; PDF nativo no display.
