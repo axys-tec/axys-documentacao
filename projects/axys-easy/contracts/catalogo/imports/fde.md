@@ -46,7 +46,7 @@ Idempotente por edição (`pg_advisory_xact_lock(fte_id)`); reimportar substitui
 Não se recalcula no import — lê-se deste CSV: colunas `ficha_codigo, ficha_tipo (SERVICO|COMPONENTE), item_id, version, filename, pdf_url, cpu_codigo, origem`.
 - **Cardinalidade:** ficha→CPU é **1:N** (média ~4,5 CPU/ficha, máx 78); CPU→ficha é **quase 1:1** (média ~1,1; só ~6% das CPUs têm >1 ficha). **Não é N:N fundamental** — é 1:N com cauda de N:N. A cardinalidade **não decide o lugar** (o domínio decide, §7.3).
 - **Comportamento DIVERGE por catálogo:**
-  - **Serviço** casa **só por token** `NN.NN.NNN` no texto do PDF → **PODE orfanar** (as etapas nível-1, que são cabeçalho sem token; + alguns nível-2 não-mapeados).
+  - **Serviço** nível-2 (folha) casa **por token** `NN.NN.NNN`. O **cabeçalho de etapa (nível-1) NÃO é sobra** — **cascateia COMUNITÁRIO** p/ a **união dos CPUs dos seus filhos** (materializado no mapeamento, `origem=cascata`); igual a G1-família cascateia por regra (§7.5). **Órfão real = só folha sem match** (fica *pendente de vínculo* — curadoria/transitivo, não vai pra documentos).
   - **Componente** casa por token **OU text-match** (o código `AC-04`… procurado na descrição da CPU) → **NUNCA orfana** (100% vinculados; é peça física intrínseca a alguma CPU). `origem ∈ {ficha, textmatch}`.
 
 ### 7.3 Onde cada doc mora (dominialidade)
@@ -83,6 +83,16 @@ A letra **G** é o guarda-chuva **ambiental/sustentabilidade** (todo doc marcado
 - **O parse do PDF é EXCLUSIVO para o prompt de IA** (gerar o CTC), nunca para display.
 - **Pareamento (dedup) obrigatório:** como uma ficha serve ~4,5 CPUs, montar o request por-CPU repetiria a mesma ficha. Estratégia: **parseia cada ficha ÚNICA uma vez → md** (`.../fichas/_md/{cod}.md`, cache dedup **por código**); o request do CTC de cada CPU **monta a partir do md** já pronto (pardear inteira, chamar o md depois). Zero re-parse da ficha compartilhada.
 - O CTC resultante vive em `cmp_external_path.ctc` (autoral AXYS, versionado por `delta:hash`; prompt/doc só em storage — [../publicacao.md](../publicacao.md)).
+
+### 7.7 Resolução de vínculo ficha→CPU e CURADORIA de órfãs
+Separar **ficha-header** (etapa, cascata §7.2) da **ficha-serviço efetiva** (folha). Para a folha, o vínculo é uma **cascata de tentativas**:
+1. **Token** `NN.NN.NNN` no texto do PDF — resolve o grosso (serviço folha + componente).
+2. **Text-match** — componente: código do componente (`AE-21`) na descrição da CPU.
+3. **Cascata comunitária** — cabeçalho de etapa → união dos CPUs dos filhos; G1-família → regra madeira (§7.5).
+4. **Órfã → CURADORIA MANUAL** (nem silêncio, nem auto-match ruidoso). Princípio: **o item EXISTE** — a fonte é que está defeituosa (descrição diverge: "DISPENSER" na ficha × "SABONETEIRA DE LOUÇA" na CPU; ou PDF-fonte quebrado/placeholder). **Não existe "erro propositivo"** — é vínculo humano.
+   - **Mecânica (= capability [../vinculacoes.md](../vinculacoes.md)) — carry-forward IDEMPOTENTE com change-check:** o user associa a(s) CPU(s) pós-import. Em **novo import**: se o **doc não mudou** (sha da ficha) **E a descrição não mudou** (ficha + CPU) → a associação manual **persiste sozinha, SEM incomodar o user**. Se **mudou qualquer coisinha** (sha do doc ou descrição) → o vínculo entra no **MANIFESTO** — *"não deu match · última associação = X · confira"* — pra re-confirmação (e2e/user). Mesmo espírito do ETag/sha dos cadernos: o vínculo humano é **durável e re-conferido só quando algo muda**, nunca recomputado do zero.
+   - Descrição-match automática de **serviço** é **RUÍDO** (74 falsos p/ "corrugado", 17 p/ "elevador") → **não** se auto-associa serviço por descrição; vai pra curadoria.
+- **Motivo da órfã (registrar — alimenta a curadoria):** `fonte_pdf_quebrado` (S16/H1: filename "-" no HTML FDE) · `fonte_imagem` (S8: prancha sem camada de texto) · `placeholder_XX` (H6-01: códigos não preenchidos) · `prosa_sem_codigo` (descreve, não cita CPU). **Nenhum é erro nosso** — é defeito da fonte, resolvido por curadoria.
 
 ---
 
