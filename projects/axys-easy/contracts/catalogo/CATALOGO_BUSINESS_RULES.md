@@ -279,7 +279,7 @@ Espelha insumos (§9.5): **identidade vigente + custo denso por edição + hist�
   - **Receita@E** = `ch_dados_novos` do evento cuja validade cobre E (ou a vigente em `composicoes_itens` se E é o período atual).
   - **Analítico (explosão da árvore)@E** = recursivo: cada filho resolvido **as-of-E** — insumo via trinca §9.5; CPU-filha via receita@E + custo@E. Mais memória, mas limitado; análise sem explosão usa `composicoes_custo@E` direto.
   - Conversão de unidade segue §9.5 (app detecta divergência, usuário define o fator, vira observação — nunca auto-converte).
-- **Status/implementação:** modelo **documentado**; aplicar no **schema.sql** (CREATE TABLE) e **parsers** na **Fase 2** (drop+recriar + re-import do audit) — ver `CATALOGO_NEXT_STEPS.md`. Banco vivo e parsers seguem no modelo §9.3 até lá.
+- **Status/implementação:** **APLICADO** (2026-07-14) — schema (identidade vigente + série densa `cc_edi_id` + snapshot `*_historico`) e os parsers SINAPI/CDHU/FDE já operam neste modelo; validado por `valida_amostra*` (0 divergências).
 
 ---
 
@@ -328,7 +328,7 @@ Camada **documental** (especificação de insumo, critério de medição, cadern
 >
 > **Caderno técnico** (botão Fontes-Base): a app gera um **HTML estático** (header + originais
 > Ver/Baixar + índice grupo›subgrupo com links hardcoded `/doc/{id}`), sobe ao R2, async + cache
-> (1 por edição). Ver `CATALOGO_STORAGE_LAYOUT.md §4` e `CATALOGO_FECHAMENTO.md`.
+> (1 por edição). Ver `CATALOGO_STORAGE_LAYOUT.md §4`.
 
 **11.1 Conteúdo puro + identidade.**
 - O HTML no R2 é **conteúdo puro** (semântico, editável): a ficha/critério **sem** o chrome da app. O **header** (tarja, logo, tenant) é montado **no render da app**, não gravado no R2.

@@ -7,9 +7,10 @@
 **Espelhos de referência:** [CATALOGO_CDHU_IMPORT_CONTRACT.md](CATALOGO_CDHU_IMPORT_CONTRACT.md) e
 [CATALOGO_SINAPI_IMPORT_CONTRACT.md](CATALOGO_SINAPI_IMPORT_CONTRACT.md).
 
-> Implementação derivada deste contrato: `backend/core/import_cpu/parser_fde.py` (a criar).
-> Princípio: **import ADITIVO** — não cria formato novo, não altera comportamento existente,
-> schema CONGELADO. Em qualquer ambiguidade de regra → **PARAR e perguntar**, não improvisar.
+> Implementação derivada deste contrato: `backend/core/import_cpu/parser_fde.py` (migrado Fase-2 +
+> R1/R3 em 2026-07-14, validado — ver `valida_amostra_fde.py`).
+> Princípio: **import ADITIVO** — não cria formato novo, não altera comportamento existente.
+> Em qualquer ambiguidade de regra → **PARAR e perguntar**, não improvisar.
 
 ---
 
