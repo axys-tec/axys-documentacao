@@ -108,6 +108,28 @@ Princípio: **TUDO que é CTC vive sob `ctc/` FONTE-LEVEL** (estático por `cmp_
   `doc_versao`/`doc_data`. **Ficha/caderno_cpu/CTC não passam por aqui** — a app os resolve pela
   identidade (`external_path.versoes`, §11.10). Vigência (as-of edição) = `external_path`, não registro.
 
+### Dominialidade — 3 domínios, 3 lugares (o princípio) — 2026-07-15
+O que decide ONDE um doc mora **não é a cardinalidade** (1:1 × N:N) nem o catálogo de origem — é o **domínio** a que ele pertence:
+
+| Domínio | Lugar | Exemplos |
+|---|---|---|
+| **Composição (CPU)** — spec da CPU | `composicoes.cmp_external_path` | caderno SINAPI · critério CDHU · fichas serviço/componente FDE · CTC |
+| **Insumo** — ficha do insumo | `insumos.ins_external_path` | ficha SINAPI |
+| **Fonte/edição — catalogação genérica** | `catalogo.documentos` | livros, notas, LS, BDI, apresentação, critério-fonte, **referência** (G FDE) |
+
+**O doc por-CPU sob `cmp_external_path.caderno_tecnico`** tem **2 sub-tipos, iguais p/ todas as fontes:**
+- `descritivo_tecnico` = a spec textual (caderno SINAPI · critério CDHU · serviços FDE). **NOT NULL** (o back garante presença).
+- `detalhe_tecnico` = componente físico (**só FDE**; null nas outras).
+
+`caderno_tecnico`/`criterio_medicao` de hoje **colapsam** em `descritivo_tecnico` (unificação multifonte; CDHU sai de FLAT → `versoes`).
+
+**Guarda-se no JSON só o NÃO-derivável:**
+- **`versoes`** (linha do tempo as-of: qual `_old`, `desde_edi`) — para o 1:1 SINAPI/CDHU. Non-derivável → mora aqui.
+- **`fonte` NÃO se guarda** — deriva de `cmp_fte_id`/`ins_fte_id` (o doc é sempre da fonte da identidade; cross-fonte é a exceção "cross-ref real" §11.9).
+- **FDE não popula path por-CPU** — resolve por dedução (`cmp_fte_id=FDE` + edição → `fichas_agrupamento.json` determinístico → códigos → paths). Ver [imports/fde.md §7.4](imports/fde.md).
+
+**`edicoes.edi_capa_path` — DÉBITO: remover** (coluna morta, 0 read/write no código; o caderno da edição vive em `documentos` `doc_tipo='caderno_tecnico'`). Sai do schema no próximo toque.
+
 ---
 
 ## 3. Migração do layout atual (aplicar agora, sem repopular)
