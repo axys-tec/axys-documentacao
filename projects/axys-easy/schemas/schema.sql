@@ -457,10 +457,9 @@ CREATE TABLE IF NOT EXISTS catalogo.edicoes (
     --   Cascata: estágio N vira locked→pronto quando N-1 == ok; 'documentos'==ok → edição disponível
     --   p/ publicar. Ver CONTRATO catalogo/imports/estagios.md. NULL = ainda não iniciado (default no back).
     edi_estagios         JSONB,
-    -- edi_capa_path: apresentação dos cadernos SINAPI por subgrupo (capa+histórico+
-    -- normas+bibliografia → HTML no R2). JSONB {subgrupo_slug: {url, path, ...}}.
-    -- A edição é dona da apresentação (não há composição-capa); ver BUSINESS_RULES §11.
-    edi_capa_path        JSONB,
+    -- edi_capa_path — ⚠️ REMOVIDA 2026-07-15 (coluna MORTA: 0 read/write no código). A apresentação
+    --   e o caderno da edição vivem em catalogo.documentos (doc_tipo='apresentacao'/'caderno_tecnico',
+    --   por edição). O rebuild recria SEM ela; no banco vivo é dead-column inócua até o próximo rebuild.
     -- edi_paths: ÍNDICE dos artefatos de estado da edição — fronteira de governança do ESTADO
     -- (como catalogo.documentos é a fronteira dos DOCS). Mapa tipo→{path, resumo} dos JSONs no storage:
     --   { "status_estagios": {"path": "_state/estagios.json"},
