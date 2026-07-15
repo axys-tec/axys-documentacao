@@ -3,7 +3,7 @@
 **Status:** Contrato Funcional (v0.2)
 **Data:** 2026-06-03
 **Tabela:** `catalogo.edicoes`
-**Regras globais:** ver [CATALOGO_BUSINESS_RULES.md](CATALOGO_BUSINESS_RULES.md).
+**Índice das capabilities:** [README.md](README.md).
 **Comportamento/UX da tela:** `backend/frontend/templates/catalogo/catalogo_work_pages.md` (seção "Tela: Listagem de Edições").
 **Acesso:** módulo interno (`is_staff=True`).
 
@@ -37,16 +37,16 @@ Unicidade: `(edi_fte_id, edi_mes_ref)` (`uq_edicoes_fte_mes`).
 - **Não há mais `edi_ativa`** — o estado é único (`edi_situacao_ciclo`). Não existe "inativar/reativar" edição; o que se faz é **publicar**, abrir **revisão** (recall) e, no caso raro, **arquivar** (§5).
 
 ## 4. Importação / Reimportação
-- A importação roda o parser da fonte (ver [CATALOGO_SINAPI_IMPORT_CONTRACT.md](CATALOGO_SINAPI_IMPORT_CONTRACT.md) / [CATALOGO_CDHU_IMPORT_CONTRACT.md](CATALOGO_CDHU_IMPORT_CONTRACT.md)) **para aquela edição**.
-- **Entrada (CDHU):** tela `/edicoes` → seleciona caderno → botão **"importar composições"** → modal com **3 excels obrigatórios** (insumos, composições, serviços). Botão **"importar caderno"** (PDFs/R2) é fase própria. (UI = Fase 5 do `PLANO_IMPORT_CATALOGO.md`.)
-- **Leis sociais por edição:** cada edição carrega `catalogo.edicoes_leis_sociais` (LS por UF/modalidade SD/CD; horista/mensalista). Origem: cabeçalhos ISD/ICD (SINAPI) ou cabeçalho de serviços (CDHU). Base da derivação SD/CD ([CATALOGO_BUSINESS_RULES.md §3.2–3.3](CATALOGO_BUSINESS_RULES.md)).
+- A importação roda o parser da fonte (ver [imports/sinapi.md](imports/sinapi.md) / [imports/cdhu.md](imports/cdhu.md)) **para aquela edição**.
+- **Entrada (CDHU):** tela `/edicoes` → seleciona caderno → botão **"importar composições"** → modal com **3 excels obrigatórios** (insumos, composições, serviços). Botão **"importar caderno"** (PDFs/R2) é fase própria. (UI = Fase 5 do `o pipeline de import (imports/estagios.md)`.)
+- **Leis sociais por edição:** cada edição carrega `catalogo.edicoes_leis_sociais` (LS por UF/modalidade SD/CD; horista/mensalista). Origem: cabeçalhos ISD/ICD (SINAPI) ou cabeçalho de serviços (CDHU). Base da derivação SD/CD ([imports/estagios.md §A.2–A.3](imports/estagios.md)).
 - **Hierarquia de import** (SINAPI): identidade (ISE) → órfãos (Analítico/fuzzy) → preços (ISE + LS de ISD/ICD) → composições + conferência. Não seguir sem insumos materializados.
 - **Reimport idempotente**:
   - insumos = identidade vigente (upsert, precedência FONTE>MANUAL>REGRA);
   - preços/composições/custos = **imutáveis por edição** (regravados iguais).
 - **Contrato de cobertura**: toda UF da edição tem linha de preço por insumo; ausência de linha = falha/não-processado (não "sem preço").
 
-## 5. Ciclo de vida / Bloqueios (BUSINESS_RULES §10)
+## 5. Ciclo de vida / Bloqueios (regras: edicoes §5)
 Estado **único** em `edi_situacao_ciclo` (não há mais `edi_ativa`):
 - **`RASCUNHO`** (default) = em construção/import; **indisponível** (nada usa ainda); **editável**.
 - **`PUBLICADA`** = liberada (gates ok); **disponível p/ uso novo E histórico**; **travada/imutável**.
@@ -80,7 +80,7 @@ A tela `/edicoes/{id}/editar` traz, abaixo do form (só modo Edição), **27 aba
 
 - **Leis Sociais por UF** → `edicoes_leis_sociais` (`internal_admin`, auditado). A aba ativa mostra **uma linha** de LS (texto corrido: Horista SD/CD · Mensalista SD/CD) com **Editar/Salvar/×** por linha. Cada `(edi, uf, modalidade SD/CD)` = registro próprio; CHECK exige horista OU mensalista. **Salvar por linha**, audita só se mudou (`registro_id = f"{edi}/{uf}"`). `get_leis_sociais_all()` (carrega as 27 UFs de uma vez) · `salvar_ls_uf()`/`remover_ls_uf()`.
 - **Listagem de insumos** = **estática / somente leitura** — deduplicada (insumos com preço na edição, qualquer UF), **paginada**, com filtro elástico por descrição. **Sem preço e sem CRUD aqui**; o código é **link → `/insumos/{ins_id}/editar`**. `get_insumos_edicao()`.
-- **O registro manual de preço migrou para a tela de Insumos** (preço SE por UF/edição) — ver [CATALOGO_INSUMOS.md §7](CATALOGO_INSUMOS.md). Os scripts de preço em lote no backend (`salvar_precos_edicao`/`get_precos_edicao`/`get_leis_sociais_grid`) ficam **preservados** para o caminho de import/migração.
+- **O registro manual de preço migrou para a tela de Insumos** (preço SE por UF/edição) — ver [listagem.md §7](listagem.md). Os scripts de preço em lote no backend (`salvar_precos_edicao`/`get_precos_edicao`/`get_leis_sociais_grid`) ficam **preservados** para o caminho de import/migração.
 
 ## 8. Pontos abertos (a revisar)
 - ~~Estado de "edição fechada/publicada" e política de reprocesso.~~ **Resolvido (§5):** `edi_situacao_ciclo` RASCUNHO→PUBLICADA + lock.
@@ -102,7 +102,7 @@ concluído**. A disponibilidade dos docs do form vem de **checkboxes "Disponíve
 padrão; desmarcar = indisponível/skip consciente). A listagem de Edições exibe **"Disponível para
 publicação"** quando a edição é `RASCUNHO` **e** tem `edi_docs_status` preenchido (⇒ dados
 importados E todos os docs resolvidos). Docs `indisponivel` viram aviso (⚠) — **publicar avisa e
-permite**. Ver `CATALOGO_SINAPI_IMPORT_CONTRACT.md §8`.
+permite**. Ver `imports/sinapi.md §8`.
 
 **Botão Publicar (implementado 2026-06-13):** `service.publicar_edicao` + `POST /api/edicoes/{id}/publicar`
 (`internal_admin`). Gate = RASCUNHO + `edi_docs_status` preenchido (consome o JSONB, não os booleanos

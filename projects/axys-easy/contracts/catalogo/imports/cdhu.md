@@ -3,7 +3,7 @@
 **Status:** Contrato Canônico (v0.1)
 **Data:** 2026-06-02
 **Fonte-base:** CDHU — Companhia de Desenvolvimento Habitacional e Urbano (SP).
-**Regras globais:** ver [CATALOGO_BUSINESS_RULES.md](CATALOGO_BUSINESS_RULES.md).
+**Índice das capabilities:** [../README.md](../README.md).
 
 > Implementação derivada deste contrato: `backend/core/import_cpu/parser_cdhu.py`
 > (inclui a regra de classificação `classificar_insumo_cdhu`).
@@ -41,7 +41,7 @@ A CDHU divulga **4 arquivos**: `insumos`, `composicao` (analítico), `servicos`,
 - A mesma regra é reaplicável a registros já gravados (reclassificação) — mesma função, sem duplicar lógica.
 
 ### 2.1 Precedência no reimport
-Segue a regra global **FONTE > MANUAL > REGRA** ([CATALOGO_BUSINESS_RULES.md §2.2](CATALOGO_BUSINESS_RULES.md)):
+Segue a regra global **FONTE > MANUAL > REGRA** ([estagios.md §A.1](estagios.md)):
 - CDHU não tem classificação de fonte → entra como `REGRA`;
 - no reimport, **respeita `MANUAL`** (não sobrescreve curadoria humana);
 - reaplica sobre `REGRA`/`NC`.
@@ -78,11 +78,11 @@ O analítico é lido sequencialmente pela **coluna A**, discriminando **primeiro
 
 ## 5. Serviços, custo e leis sociais
 
-- O arquivo **serviços** traz o **custo de referência** de cada CPU → `composicoes_custo.cc_custo_fonte` (custo `0`/vazio = **SEM CUSTO** → `NULL`, ver BUSINESS_RULES §4).
+- O arquivo **serviços** traz o **custo de referência** de cada CPU → `composicoes_custo.cc_custo_fonte` (custo `0`/vazio = **SEM CUSTO** → `NULL`, ver regras: listagem §2.2).
 - O **cabeçalho** traz **modalidade** (COM/SEM DESONERAÇÃO = `CD`/`SD`), versão, data-base e **LS%** (um único %, **horista**) → `edicoes_leis_sociais` (`els_horista`; `els_mensalista` NULL na CDHU). Importa-se **cada regime presente** (`servicos_sd_*` / `servicos_cd_*`); a modalidade ausente fica sem custo. **Sanidade:** LS é alta (ex.: v184 SD=128,23%, CD=97,78%); valor que chegue como fração (~1,28) normaliza/aborta.
 - **LS = parser + manual reconciliados (decisão Renan 2026-06-13).** O form de import permite **informar a LS% (SD/CD)** manualmente. Regra de precedência: o **parser do cabeçalho PREVALECE**; se o manual divergir do parser → vale o parser (o manual serve de conferência). **Se o parser NÃO tiver a LS** daquela modalidade (ex.: SD/CD ausente) → vale o **valor manual** do usuário. A LS afeta só o **custo carregado da composição** (SD/CD) — **não altera o "pelado" `SE`** do insumo, que entra cru no banco.
-- **Conferência** calculado×fonte (BUSINESS_RULES §4.1): método CDHU = **round half-up**, duas passagens — `unit_mo = round(pelado×(1+LS/100),2)`; `custo_cpu = Σ round(unit_carregado×coef,2)`. **CDHU 201 converge 100% ao centavo** (3560/3560). Truncar gerava viés negativo sistemático — a CDHU arredonda.
-- **`SE` sempre calculado** (custo nunca zera) — ver BUSINESS_RULES §3.2-bis. Edição só-SD → SD conferido + **SE DERIVADO**.
+- **Conferência** calculado×fonte (regras: listagem §2.2): método CDHU = **round half-up**, duas passagens — `unit_mo = round(pelado×(1+LS/100),2)`; `custo_cpu = Σ round(unit_carregado×coef,2)`. **CDHU 201 converge 100% ao centavo** (3560/3560). Truncar gerava viés negativo sistemático — a CDHU arredonda.
+- **`SE` sempre calculado** (custo nunca zera) — ver regras: listagem §2.1 Edição só-SD → SD conferido + **SE DERIVADO**.
 
 ### 5.1 PDF(s) de Leis Sociais (documento inteiro, não parseado) — 2026-06
 - Além da LS lida do cabeçalho do serviço (para o cálculo), a CDHU publica o(s) **PDF(s) de encargos sociais** (ex.: `encargos sociais 128.23.pdf` / `97.78.pdf`). São guardados **inteiros** (não parseados), como livros/notas.
@@ -95,7 +95,7 @@ O analítico é lido sequencialmente pela **coluna A**, discriminando **primeiro
 
 - Insumos: upsert por `(ins_fte_id, ins_codigo)` — identidade vigente. Classificação segue precedência (§2.1).
 - Preços: imutáveis por edição; reimport da mesma (insumo, edição, UF, modalidade) é idempotente.
-- Composições: versionadas por edição (imutáveis); diff cadastral entre edições → `composicoes_historico` (BUSINESS_RULES §9).
+- Composições: versionadas por edição (imutáveis); diff cadastral entre edições → `composicoes_historico` (regras: estagios §A.7).
 
 ---
 

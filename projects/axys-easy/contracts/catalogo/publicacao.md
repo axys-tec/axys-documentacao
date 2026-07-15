@@ -2,7 +2,7 @@
 
 > **Status:** contrato vigente (decidido). Padronização aprovada para aplicar **agora**, em dev,
 > **sem repopular** (tudo é teste; nada subiu para homologação — regenera no próximo import).
-> **Revisto 2026-07-13** (repense doc/path — `CATALOGO_BUSINESS_RULES.md §11.9/§11.10/§11.11`):
+> **Revisto 2026-07-13** (repense doc/path — `as capabilities (README) §11.9/§11.10/§11.11`):
 > ficha/caderno_cpu/CTC resolvem pela **identidade** (`external_path.versoes`, vigência por versão),
 > **não** por `catalogo.documentos` — que fica só p/ docs de **edição/fonte** sem dono 1:1.
 > Governança: o **import escreve**; o **app** lê ficha/CTC do `external_path` e os **livros/originais**
@@ -63,7 +63,7 @@ axys-public/easy/
 
 ### 2-bis. Pipeline de import (bucket PRIVADO) — `axys-private/easy/`
 
-Introduzido no plano de reimport (R1). Servidos **só pela app** (nunca URL de R2); acesso `exige_internal_user` + rate-limit. Builders em `storage_paths.py`; estados em `IMPORT_ESTAGIOS.md`.
+Introduzido no plano de reimport (R1). Servidos **só pela app** (nunca URL de R2); acesso `exige_internal_user` + rate-limit. Builders em `storage_paths.py`; estados em `imports/estagios.md`.
 
 ```
 axys-private/easy/fontes/{fonte}/{edicao}/

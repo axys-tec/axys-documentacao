@@ -3,9 +3,9 @@
 **Status:** Contrato Canônico (v0.1)
 **Data:** 2026-06-30
 **Fonte-base:** FDE — Fundação para o Desenvolvimento da Educação (SP).
-**Regras globais:** ver [CATALOGO_BUSINESS_RULES.md](CATALOGO_BUSINESS_RULES.md).
-**Espelhos de referência:** [CATALOGO_CDHU_IMPORT_CONTRACT.md](CATALOGO_CDHU_IMPORT_CONTRACT.md) e
-[CATALOGO_SINAPI_IMPORT_CONTRACT.md](CATALOGO_SINAPI_IMPORT_CONTRACT.md).
+**Índice das capabilities:** [../README.md](../README.md).
+**Espelhos de referência:** [imports/cdhu.md](cdhu.md) e
+[imports/sinapi.md](sinapi.md).
 
 > Implementação derivada deste contrato: `backend/core/import_cpu/parser_fde.py` (migrado Fase-2 +
 > R1/R3 em 2026-07-14, validado — ver `valida_amostra_fde.py`).
@@ -32,7 +32,7 @@ verdade da carga** — o parser do app lê deles e insere; não reparseia PDF de
 ## 2. BDI — A REGRA QUE DIFERENCIA A FDE (decisão Renan 2026-06-30, **REVISTA 2026-07-03**)
 
 > ⚠️ **REVISÃO 2026-07-03** — o modelo mudou. A v0.1 mandava *limpar* o `cc_custo_fonte` no
-> import (strip). **NÃO é mais assim.** A regra canônica agora é [CATALOGO_BUSINESS_RULES.md](CATALOGO_BUSINESS_RULES.md)
+> import (strip). **NÃO é mais assim.** A regra canônica agora é [estagios.md §A.4](estagios.md)
 > **§4.3** — `cc_custo_fonte` guarda SEMPRE o publicado cru; a app **exibe o calculado**; a
 > des-BDInização é só no MOMENTO de comparar/exibir. O que segue reflete o modelo novo.
 
