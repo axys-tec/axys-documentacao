@@ -93,6 +93,13 @@ Separar **ficha-header** (etapa, cascata §7.2) da **ficha-serviço efetiva** (f
    - **Mecânica (= capability [../vinculacoes.md](../vinculacoes.md)) — carry-forward IDEMPOTENTE com change-check:** o user associa a(s) CPU(s) pós-import. Em **novo import**: se o **doc não mudou** (sha da ficha) **E a descrição não mudou** (ficha + CPU) → a associação manual **persiste sozinha, SEM incomodar o user**. Se **mudou qualquer coisinha** (sha do doc ou descrição) → o vínculo entra no **MANIFESTO** — *"não deu match · última associação = X · confira"* — pra re-confirmação (e2e/user). Mesmo espírito do ETag/sha dos cadernos: o vínculo humano é **durável e re-conferido só quando algo muda**, nunca recomputado do zero.
    - Descrição-match automática de **serviço** é **RUÍDO** (74 falsos p/ "corrugado", 17 p/ "elevador") → **não** se auto-associa serviço por descrição; vai pra curadoria.
 - **Motivo da órfã (registrar — alimenta a curadoria):** `fonte_pdf_quebrado` (S16/H1: filename "-" no HTML FDE) · `fonte_imagem` (S8: prancha sem camada de texto) · `placeholder_XX` (H6-01: códigos não preenchidos) · `prosa_sem_codigo` (descreve, não cita CPU). **Nenhum é erro nosso** — é defeito da fonte, resolvido por curadoria.
+- **Curadoria CODIFICADA (regras duráveis — `fde_transform._CURADORIA_ORFAS`):** as órfãs recorrentes cujo vínculo JÁ foi curado (Renan, lido da Sintética) viram **REGRA por ficha** — aplicadas após as cascatas (§7.2), `origem=curadoria`, **não recuram a cada import nem voltam como órfã**. As 7 conhecidas → **0 órfã**:
+  - **S16 / S16-01** (elevador) → CPUs `ELEVADOR%` ou `MANUTENCAO…ELEVADOR%` (instalação **e** manutenção; subgrupo 16.20).
+  - **S5-03 / S5-06** (revestimento contra fogo) → CPUs `%CORTA-FOGO%` (porta corta-fogo).
+  - **E2-07** (eletroduto corrugado) → `ELETRODUTO…CORRUGADO` / `ELETRODUTO EM POLIETILENO`.
+  - **S17-01** (ferragens p/ portas) → CPUs com código de componente `PF-`/`PM-` (portas de ferro/madeira).
+  - **H6-01** (acessórios de louça) → subgrupos `08.15`/`08.16` (louça sanitária).
+  Órfã NOVA (fora dessas 7) segue o fluxo normal: curadoria manual + carry-forward change-check.
 
 ---
 
