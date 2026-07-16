@@ -109,6 +109,12 @@ Separar **ficha-header** (etapa, cascata §7.2) da **ficha-serviço efetiva** (f
 
 > **É UM pipeline só, ambos DENTRO da app.** `old-fde` não é mecanismo diferente — é o **mesmo `PROCESSA`** alimentado com dado já-transformado (o `dist.zip` pula as 2 primeiras fases). Roda **via E2E** (não `.apply()` eager num script fora da app): os HTMLs **não servem por edição antiga** (o portal só expõe a estrutura da mais nova), por isso as antigas não transformam — entram no process direto. **Mesmos paths (hífen), mesmo _old/versionamento, mesmo `PROCESSA`** que a vigente.
 
+> **Sem viagem no tempo (regra das antigas):** a FDE não expõe o histórico de estrutura/catálogos — só a edição **mais nova**. Logo:
+> - **Catálogos de serviço/componente (fichas + agrupamento) SÓ entram na edição VIGENTE** (2026/4+, via UI). Edições antigas via `dist` são **data-only** — nunca ganham ficha/agrupamento (o portal não tem o histórico das fichas).
+> - **CTC (AxysDoc) é autoral AXYS → SEMPRE montado, em TODA edição** (vive em `cmp_external_path.ctc`; ver §7.6). Não depende dos catálogos do portal — a Axys monta o CTC de cada CPU com o que há (composição + fichas quando houver). Data-only NÃO significa "sem CTC".
+> - **Grupo/subgrupo das antigas = REPLICADO da vigente:** a estrutura é **fonte-level** (get-or-create em `composicoes_grupos/subgrupos`), populada pela vigente a partir da listagem do portal. O `dist` não traz `catalogo_estrutura.csv`; **herda** a estrutura já persistida (`parser_fde._upsert_estrutura` faz o fallback no banco). Assim a antiga ganha a MESMA hierarquia da 2026/4, sem precisar do dado de época.
+> - **Compatibilidade dos dist antigos:** os `dist.zip` gerados antes da regra nova devem processar sem quebrar — a referência é a **2026/4 recém-feita**; o `PROCESSA` é o mesmo e o grupo/subgrupo vem do fallback, não do pacote.
+
 - **TRANSFORMAR** (só o `4-26+`, na app): HTML→CSV, PDF→mapeamento/agrupamento (§7.2/§7.4, incl. cascata madeira §7.5), pareamento de md (§7.6). É o que hoje vive no sandbox `find_fde/` — migra pra dentro da app **só p/ a vigente**.
 - **PROCESSAR** (ambos, **idêntico**): consome os dados-transformados (CSVs + `fichas_agrupamento.json`) → banco/storage/`external_path`/`documentos`. **A única diferença é a disponibilidade de docs** — o `old-fde` chega sem eles (data-only), o `4-26+` chega com eles.
 
