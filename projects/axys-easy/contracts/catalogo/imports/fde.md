@@ -104,13 +104,15 @@ Separar **ficha-header** (etapa, cascata §7.2) da **ficha-serviço efetiva** (f
 
 | Caminho | Entrada | UI? | Estágios | Docs |
 |---|---|---|---|---|
-| **`old-fde`** (histórico/seed) | **`dist.zip`** (já transformado) | não (script) | **recebe transformado → PROCESSA** | dados-only (sem fichas/agrupamento) |
-| **`4-26+`** (edição vigente) | **conjunto de arquivos** (2 HTMLs + PDFs + CSVs) | **sim** | **recebe cru → TRANSFORMA → PROCESSA** | completos (fichas + agrupamento + CTC) |
+| **`old-fde`** (histórico/seed) | **`dist.zip`** (já transformado) | **E2E** (in-app, sem tela) | **pula lê+transforma → PROCESSA direto** | dados-only (sem fichas/agrupamento) |
+| **`4-26+`** (edição vigente) | **conjunto de arquivos** (2 HTMLs + PDFs + CSVs) | **sim** (tela) | **lê → TRANSFORMA → PROCESSA** | completos (fichas + agrupamento + CTC) |
+
+> **É UM pipeline só, ambos DENTRO da app.** `old-fde` não é mecanismo diferente — é o **mesmo `PROCESSA`** alimentado com dado já-transformado (o `dist.zip` pula as 2 primeiras fases). Roda **via E2E** (não `.apply()` eager num script fora da app): os HTMLs **não servem por edição antiga** (o portal só expõe a estrutura da mais nova), por isso as antigas não transformam — entram no process direto. **Mesmos paths (hífen), mesmo _old/versionamento, mesmo `PROCESSA`** que a vigente.
 
 - **TRANSFORMAR** (só o `4-26+`, na app): HTML→CSV, PDF→mapeamento/agrupamento (§7.2/§7.4, incl. cascata madeira §7.5), pareamento de md (§7.6). É o que hoje vive no sandbox `find_fde/` — migra pra dentro da app **só p/ a vigente**.
 - **PROCESSAR** (ambos, **idêntico**): consome os dados-transformados (CSVs + `fichas_agrupamento.json`) → banco/storage/`external_path`/`documentos`. **A única diferença é a disponibilidade de docs** — o `old-fde` chega sem eles (data-only), o `4-26+` chega com eles.
 
-> Mapeia os 2 tasks existentes: `importar_fde` (dist, `old-fde`) e `importar_fde_novo` (portal, `4-26+`). O contrato formaliza o **corte transform/process** — o `PROCESSAR` não sabe de onde veio; só consome dado-transformado.
+> Mapeia os 2 tasks `importar_fde` (dist, `old-fde`) e `importar_fde_novo` (portal, `4-26+`) — **ambos tasks in-app**. O contrato formaliza o **corte transform/process** — o `PROCESSAR` não sabe de onde veio; só consome dado-transformado. O `old-fde` é disparado pelo **E2E** (seed histórico), não por script eager fora da app; e o `PROCESSAR` dele é o **mesmo código** do `4-26+` (paths hífen, `_old` por sha, agrupamento quando houver docs) — sem caminho paralelo.
 
 ---
 
