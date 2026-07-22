@@ -1,7 +1,7 @@
 -- ============================================================
 -- AxysHub — Schema Alvo Consolidado
 -- Banco: PostgreSQL 14+
--- Schemas: identity · auth · product · orders · billing · gateway · fiscal · commercial · audit
+-- Schemas: identity · auth · product · orders · billing · gateway · fiscal · analytics · commercial · audit
 --
 -- Status: CONTRATO CANÔNICO EM EVOLUÇÃO
 -- Data: 2026-06-18
@@ -81,6 +81,7 @@ CREATE SCHEMA IF NOT EXISTS orders;
 CREATE SCHEMA IF NOT EXISTS billing;
 CREATE SCHEMA IF NOT EXISTS gateway;
 CREATE SCHEMA IF NOT EXISTS fiscal;
+CREATE SCHEMA IF NOT EXISTS analytics;
 CREATE SCHEMA IF NOT EXISTS commercial;
 CREATE SCHEMA IF NOT EXISTS audit;
 
@@ -290,6 +291,15 @@ CREATE TABLE IF NOT EXISTS auth.hub_api_registry (
     CONSTRAINT ck_hub_api_registry_status CHECK (status IN ('active', 'inactive', 'deprecated'))
 );
 
+INSERT INTO auth.hub_api_registry (api_code, name, description, base_path, status)
+VALUES
+    ('AXYSGESTOR', 'AxysGestor API', 'API administrativa e operacional do AxysGestor.', '/api/v1/gestor', 'active')
+ON CONFLICT (api_code) DO UPDATE SET
+    name = EXCLUDED.name,
+    description = EXCLUDED.description,
+    base_path = EXCLUDED.base_path,
+    status = EXCLUDED.status;
+
 -- ------------------------------------------------------------
 -- auth.hub_api_key
 -- Função:
@@ -433,6 +443,8 @@ SELECT e.ecosystem_id, v.code, v.name, v.description
 FROM product.ecosystem e
 JOIN (
     VALUES
+        ('PRO', 'AXYSPRO', 'AxysPro', 'Suite AxysPro'),
+        ('GESTOR', 'AXYSGESTOR', 'AxysGestor', 'Produto AxysGestor'),
         ('EASY', 'PRI', 'Easy Price', 'Motor paramétrico base do Easy Price'),
         ('EASY', 'CPU', 'Easy CPU', 'Produto Easy CPU'),
         ('EASY', 'DOC', 'Easy Docs', 'Produto Easy Docs'),
@@ -662,10 +674,7 @@ CREATE TABLE IF NOT EXISTS product.offer_policy (
 
 );
 
-CREATE INDEX idx_offer_policy_offer
-    ON product.offer_policy (offer_id);
-
-CREATE INDEX idx_offer_policy_active
+CREATE INDEX IF NOT EXISTS idx_offer_policy_active
     ON product.offer_policy (is_active)
     WHERE is_active = TRUE;
 
@@ -1133,6 +1142,315 @@ CREATE TABLE IF NOT EXISTS product.combo_item (
 );
 
 -- ============================================================
+-- SCHEMA: analytics
+-- Função:
+--   Coleta canônica de analytics do site público da Axys.
+--   Mantém contexto de visitor/session, fatos brutos de page_view/event
+--   e catálogo semântico de eventos, deixando score e interpretações
+--   para camadas posteriores.
+-- ============================================================
+
+-- ------------------------------------------------------------
+-- analytics.provider_config
+-- Função:
+--   Configuração de integrações externas de analytics/marketing.
+-- Motivo:
+--   Centralizar conectores de terceiros por propriedade digital.
+-- Nível de controle:
+--   Alto. A Axys liga, desliga e versiona providers externamente.
+-- Como funciona:
+--   Cada provider fica registrado por site_code com seus parâmetros
+--   operacionais e segredos referenciados.
+-- Como ler/usar:
+--   Ler para saber o que pode ser carregado no frontend/backend em cada
+--   propriedade digital pública.
+-- ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS analytics.provider_config (
+    provider_config_id INT         GENERATED ALWAYS AS IDENTITY,
+    site_code          TEXT        NOT NULL,
+    provider_code      TEXT        NOT NULL,
+    provider_name      TEXT        NOT NULL,
+    provider_type      TEXT        NOT NULL,
+    status             TEXT        NOT NULL DEFAULT 'active',
+    measurement_id     TEXT,
+    secret_ref         TEXT,
+    config_json        JSONB       NOT NULL DEFAULT '{}',
+    created_at         TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at         TIMESTAMPTZ NOT NULL DEFAULT now(),
+
+    CONSTRAINT provider_config_pkey PRIMARY KEY (provider_config_id),
+    CONSTRAINT uq_provider_config_site_provider UNIQUE (site_code, provider_code),
+    CONSTRAINT ck_provider_config_site_code CHECK (site_code ~ '^[A-Z][A-Z0-9_]{2,49}$'),
+    CONSTRAINT ck_provider_config_provider_code CHECK (provider_code ~ '^[A-Z][A-Z0-9_]{2,49}$'),
+    CONSTRAINT ck_provider_config_status CHECK (status IN ('active', 'inactive', 'testing', 'deprecated')),
+    CONSTRAINT ck_provider_config_provider_type CHECK (provider_type IN ('analytics', 'tag_manager', 'pixel', 'session_replay', 'other')),
+    CONSTRAINT ck_provider_config_name_notempty CHECK (btrim(provider_name) <> ''),
+    CONSTRAINT ck_provider_config_json_object CHECK (jsonb_typeof(config_json) = 'object')
+);
+
+CREATE INDEX IF NOT EXISTS idx_provider_config_site ON analytics.provider_config (site_code);
+
+-- ------------------------------------------------------------
+-- analytics.visitor
+-- Função:
+--   Continuidade anônima de navegação em uma propriedade digital.
+-- Motivo:
+--   Permitir rastrear retorno e jornada sem depender de identidade real.
+-- Nível de controle:
+--   Altíssimo. É a raiz contextual da captura pública.
+-- Como funciona:
+--   O visitor nasce com UUID e fica escopado por site_code.
+--   Reuso do mesmo visitor atualiza last_seen_at sem duplicar entidade.
+-- Como ler/usar:
+--   Ler para coortes de visitantes únicos, recorrência e futura ligação
+--   com lead/user/tenant.
+-- ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS analytics.visitor (
+    visitor_id          UUID        NOT NULL DEFAULT gen_random_uuid(),
+    site_code           TEXT        NOT NULL,
+    first_seen_at       TIMESTAMPTZ NOT NULL DEFAULT now(),
+    last_seen_at        TIMESTAMPTZ NOT NULL DEFAULT now(),
+    first_referrer_url  TEXT,
+    first_landing_path  TEXT,
+    first_country_code  TEXT,
+    first_region_code   TEXT,
+    first_city          TEXT,
+    preferred_language  TEXT,
+    created_at          TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at          TIMESTAMPTZ NOT NULL DEFAULT now(),
+
+    CONSTRAINT analytics_visitor_pkey PRIMARY KEY (visitor_id),
+    CONSTRAINT ck_analytics_visitor_site_code CHECK (site_code ~ '^[A-Z][A-Z0-9_]{2,49}$'),
+    CONSTRAINT ck_analytics_visitor_seen_order CHECK (last_seen_at >= first_seen_at),
+    CONSTRAINT ck_analytics_visitor_landing_path CHECK (
+        first_landing_path IS NULL OR first_landing_path = '' OR first_landing_path LIKE '/%'
+    ),
+    CONSTRAINT ck_analytics_visitor_country_code CHECK (
+        first_country_code IS NULL OR first_country_code ~ '^[A-Z]{2,3}$'
+    ),
+    CONSTRAINT ck_analytics_visitor_language_notempty CHECK (
+        preferred_language IS NULL OR btrim(preferred_language) <> ''
+    )
+);
+
+CREATE INDEX IF NOT EXISTS idx_analytics_visitor_site ON analytics.visitor (site_code);
+CREATE INDEX IF NOT EXISTS idx_analytics_visitor_last_seen ON analytics.visitor (last_seen_at);
+
+-- ------------------------------------------------------------
+-- analytics.session
+-- Função:
+--   Contexto técnico de uma visita do início até o fechamento canônico.
+-- Motivo:
+--   Organizar aquisição imediata, device e janela temporal da jornada.
+-- Nível de controle:
+--   Alto. É contexto, não substitui os fatos detalhados.
+-- Como funciona:
+--   A sessão nasce com started_at e last_activity_at. O worker fecha a
+--   sessão após 30 minutos de inatividade, consolidando ended_at.
+-- Como ler/usar:
+--   Ler para jornada por visitor, contexto de origem e janela de sessão.
+-- ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS analytics.session (
+    session_id       UUID        NOT NULL DEFAULT gen_random_uuid(),
+    visitor_id       UUID        NOT NULL,
+    started_at       TIMESTAMPTZ NOT NULL DEFAULT now(),
+    last_activity_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    ended_at         TIMESTAMPTZ,
+    duration_ms      BIGINT,
+    exit_path        TEXT,
+    device_type      TEXT,
+    browser_family   TEXT,
+    os_family        TEXT,
+    screen_width     INTEGER,
+    screen_height    INTEGER,
+    timezone         TEXT,
+    country_code     TEXT,
+    region_code      TEXT,
+    city             TEXT,
+    referrer_url     TEXT,
+    utm_source       TEXT,
+    utm_medium       TEXT,
+    utm_campaign     TEXT,
+    utm_term         TEXT,
+    utm_content      TEXT,
+    landing_path     TEXT,
+    created_at       TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at       TIMESTAMPTZ NOT NULL DEFAULT now(),
+
+    CONSTRAINT analytics_session_pkey PRIMARY KEY (session_id),
+    CONSTRAINT fk_analytics_session_visitor FOREIGN KEY (visitor_id)
+        REFERENCES analytics.visitor (visitor_id) ON DELETE CASCADE,
+    CONSTRAINT ck_analytics_session_activity_order CHECK (last_activity_at >= started_at),
+    CONSTRAINT ck_analytics_session_end_order CHECK (ended_at IS NULL OR ended_at >= started_at),
+    CONSTRAINT ck_analytics_session_end_activity CHECK (ended_at IS NULL OR ended_at = last_activity_at),
+    CONSTRAINT ck_analytics_session_duration CHECK (duration_ms IS NULL OR duration_ms >= 0),
+    CONSTRAINT ck_analytics_session_duration_end CHECK (duration_ms IS NULL OR ended_at IS NOT NULL),
+    CONSTRAINT ck_analytics_session_exit_path CHECK (exit_path IS NULL OR exit_path = '' OR exit_path LIKE '/%'),
+    CONSTRAINT ck_analytics_session_landing_path CHECK (landing_path IS NULL OR landing_path = '' OR landing_path LIKE '/%'),
+    CONSTRAINT ck_analytics_session_country_code CHECK (country_code IS NULL OR country_code ~ '^[A-Z]{2,3}$'),
+    CONSTRAINT ck_analytics_session_screen_width CHECK (screen_width IS NULL OR screen_width >= 1),
+    CONSTRAINT ck_analytics_session_screen_height CHECK (screen_height IS NULL OR screen_height >= 1),
+    CONSTRAINT ck_analytics_session_device_type CHECK (
+        device_type IS NULL OR device_type IN ('desktop', 'mobile', 'tablet', 'bot', 'other')
+    )
+);
+
+CREATE INDEX IF NOT EXISTS idx_analytics_session_visitor_started
+    ON analytics.session (visitor_id, started_at);
+CREATE INDEX IF NOT EXISTS idx_analytics_session_started
+    ON analytics.session (started_at);
+CREATE INDEX IF NOT EXISTS idx_analytics_session_last_activity
+    ON analytics.session (last_activity_at);
+
+-- ------------------------------------------------------------
+-- analytics.page_view
+-- Função:
+--   Fato bruto de visualização de página lógica.
+-- Motivo:
+--   Registrar a jornada navegacional sem confundir página com clique ou modal.
+-- Nível de controle:
+--   Altíssimo. É fato primário de funil e sequência.
+-- Como funciona:
+--   Cada mudança de página lógica gera um page_view com sequence_no e
+--   ingestion_key para deduplicação.
+-- Como ler/usar:
+--   Ler para funis, sequência por sessão, páginas mais vistas e tempo por página.
+-- ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS analytics.page_view (
+    page_view_id   UUID        NOT NULL DEFAULT gen_random_uuid(),
+    session_id     UUID        NOT NULL,
+    ingestion_key  UUID        NOT NULL,
+    sequence_no    INTEGER     NOT NULL,
+    page_path      TEXT        NOT NULL,
+    page_title     TEXT,
+    page_type      TEXT,
+    product_id     INT,
+    dwell_ms       BIGINT,
+    referrer_path  TEXT,
+    viewed_at      TIMESTAMPTZ NOT NULL DEFAULT now(),
+    created_at     TIMESTAMPTZ NOT NULL DEFAULT now(),
+
+    CONSTRAINT analytics_page_view_pkey PRIMARY KEY (page_view_id),
+    CONSTRAINT uq_analytics_page_view_ingestion UNIQUE (ingestion_key),
+    CONSTRAINT uq_analytics_page_view_session_sequence UNIQUE (session_id, sequence_no),
+    CONSTRAINT uq_analytics_page_view_id_session UNIQUE (page_view_id, session_id),
+    CONSTRAINT fk_analytics_page_view_session FOREIGN KEY (session_id)
+        REFERENCES analytics.session (session_id) ON DELETE CASCADE,
+    CONSTRAINT fk_analytics_page_view_product FOREIGN KEY (product_id)
+        REFERENCES product.product (product_id) ON DELETE SET NULL,
+    CONSTRAINT ck_analytics_page_view_sequence CHECK (sequence_no >= 1),
+    CONSTRAINT ck_analytics_page_view_page_path CHECK (page_path LIKE '/%'),
+    CONSTRAINT ck_analytics_page_view_referrer_path CHECK (
+        referrer_path IS NULL OR referrer_path = '' OR referrer_path LIKE '/%'
+    ),
+    CONSTRAINT ck_analytics_page_view_dwell CHECK (dwell_ms IS NULL OR dwell_ms >= 0)
+);
+
+CREATE INDEX IF NOT EXISTS idx_analytics_page_view_session_viewed
+    ON analytics.page_view (session_id, viewed_at);
+CREATE INDEX IF NOT EXISTS idx_analytics_page_view_path
+    ON analytics.page_view (page_path);
+
+-- ------------------------------------------------------------
+-- analytics.event_type
+-- Função:
+--   Catálogo semântico versionado dos eventos rastreáveis.
+-- Motivo:
+--   Evitar typo, versionar significado e governar o payload aceito.
+-- Nível de controle:
+--   Altíssimo. É a dimensão semântica do domínio.
+-- Como funciona:
+--   O backend registra event_code + event_version e documenta o payload em
+--   payload_schema_json. O fato analytics.event só referencia esse catálogo.
+-- Como ler/usar:
+--   Ler para documentação, governança de eventos ativos e interpretação histórica.
+-- ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS analytics.event_type (
+    event_type_id       BIGINT      GENERATED ALWAYS AS IDENTITY,
+    event_code          TEXT        NOT NULL,
+    event_version       INTEGER     NOT NULL DEFAULT 1,
+    event_name          TEXT,
+    category            TEXT        NOT NULL,
+    scope               TEXT        NOT NULL DEFAULT 'site_public',
+    description         TEXT        NOT NULL,
+    is_public           BOOLEAN     NOT NULL DEFAULT TRUE,
+    is_enabled          BOOLEAN     NOT NULL DEFAULT TRUE,
+    is_scoreable        BOOLEAN     NOT NULL DEFAULT FALSE,
+    payload_schema_json JSONB       NOT NULL DEFAULT '{}',
+    valid_from          TIMESTAMPTZ NOT NULL DEFAULT now(),
+    valid_until         TIMESTAMPTZ,
+    created_at          TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at          TIMESTAMPTZ NOT NULL DEFAULT now(),
+
+    CONSTRAINT analytics_event_type_pkey PRIMARY KEY (event_type_id),
+    CONSTRAINT uq_analytics_event_type_code_version UNIQUE (event_code, event_version),
+    CONSTRAINT ck_analytics_event_type_code CHECK (event_code ~ '^[a-z][a-z0-9_]{2,99}$'),
+    CONSTRAINT ck_analytics_event_type_version CHECK (event_version >= 1),
+    CONSTRAINT ck_analytics_event_type_category CHECK (
+        category IN ('navigation', 'discovery', 'conversion', 'engagement', 'system')
+    ),
+    CONSTRAINT ck_analytics_event_type_scope CHECK (
+        scope IN ('site_public', 'landing', 'campaign', 'other')
+    ),
+    CONSTRAINT ck_analytics_event_type_valid_range CHECK (
+        valid_until IS NULL OR valid_until >= valid_from
+    ),
+    CONSTRAINT ck_analytics_event_type_description_notempty CHECK (btrim(description) <> ''),
+    CONSTRAINT ck_analytics_event_type_payload_json_object CHECK (jsonb_typeof(payload_schema_json) = 'object')
+);
+
+CREATE INDEX IF NOT EXISTS idx_analytics_event_type_category_enabled
+    ON analytics.event_type (category, is_enabled);
+
+-- ------------------------------------------------------------
+-- analytics.event
+-- Função:
+--   Fato bruto de interação ou comportamento dentro de uma sessão.
+-- Motivo:
+--   Registrar intenção e interação fina sem embutir interpretação comercial.
+-- Nível de controle:
+--   Altíssimo. É o fato mais granular do domínio.
+-- Como funciona:
+--   Cada ocorrência relevante é gravada com event_type_id e ingestion_key.
+--   Quando houver vínculo com página, page_view_id precisa pertencer à mesma sessão.
+-- Como ler/usar:
+--   Ler para intenção por produto, etapas de conversão e sinais para camadas derivadas.
+-- ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS analytics.event (
+    event_id        UUID          NOT NULL DEFAULT gen_random_uuid(),
+    session_id      UUID          NOT NULL,
+    page_view_id    UUID,
+    ingestion_key   UUID          NOT NULL,
+    event_type_id   BIGINT        NOT NULL,
+    component       TEXT,
+    product_id      INT,
+    feature_code    TEXT,
+    value_numeric   NUMERIC(18,6),
+    metadata_json   JSONB         NOT NULL DEFAULT '{}',
+    occurred_at     TIMESTAMPTZ   NOT NULL DEFAULT now(),
+    created_at      TIMESTAMPTZ   NOT NULL DEFAULT now(),
+
+    CONSTRAINT analytics_event_pkey PRIMARY KEY (event_id),
+    CONSTRAINT uq_analytics_event_ingestion UNIQUE (ingestion_key),
+    CONSTRAINT fk_analytics_event_session FOREIGN KEY (session_id)
+        REFERENCES analytics.session (session_id) ON DELETE CASCADE,
+    CONSTRAINT fk_analytics_event_page_view_session FOREIGN KEY (page_view_id, session_id)
+        REFERENCES analytics.page_view (page_view_id, session_id) ON DELETE RESTRICT,
+    CONSTRAINT fk_analytics_event_type FOREIGN KEY (event_type_id)
+        REFERENCES analytics.event_type (event_type_id) ON DELETE RESTRICT,
+    CONSTRAINT fk_analytics_event_product FOREIGN KEY (product_id)
+        REFERENCES product.product (product_id) ON DELETE SET NULL,
+    CONSTRAINT ck_analytics_event_metadata_json_object CHECK (jsonb_typeof(metadata_json) = 'object')
+);
+
+CREATE INDEX IF NOT EXISTS idx_analytics_event_session_occurred
+    ON analytics.event (session_id, occurred_at);
+CREATE INDEX IF NOT EXISTS idx_analytics_event_type_occurred
+    ON analytics.event (event_type_id, occurred_at);
+CREATE INDEX IF NOT EXISTS idx_analytics_event_page_view
+    ON analytics.event (page_view_id);
+
+-- ============================================================
 -- SCHEMA: commercial
 -- Função:
 --   Parceiros, leads, atribuição comercial e comissões.
@@ -1183,6 +1501,59 @@ CREATE TABLE IF NOT EXISTS commercial.lead (
         REFERENCES identity.hub_tenant (tenant_id) ON DELETE SET NULL,
     CONSTRAINT ck_lead_status CHECK (status IN ('new', 'registered', 'converted', 'discarded'))
 );
+
+-- ------------------------------------------------------------
+-- analytics.visitor_identity_link
+-- Função:
+--   Vínculo canônico entre visitor identificado e lead formal.
+-- Motivo:
+--   Marcar o instante em que a navegação deixa de ser apenas anônima
+--   e passa a representar uma pessoa identificável no contexto comercial.
+-- Nível de controle:
+--   Altíssimo. Une comportamento analítico e identificação explícita.
+-- Como funciona:
+--   Quando um formulário público identifica a pessoa, o Hub cria ou
+--   atualiza o vínculo visitor -> lead, preservando fonte e dados de
+--   identificação conhecidos naquele momento.
+-- Como ler/usar:
+--   Ler para reconciliar jornada anônima, momento de identificação e
+--   continuidade comercial da pessoa conhecida.
+-- ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS analytics.visitor_identity_link (
+    visitor_identity_link_id BIGINT      GENERATED ALWAYS AS IDENTITY,
+    visitor_id               UUID        NOT NULL,
+    lead_id                  INT         NOT NULL,
+    identified_name          TEXT,
+    identified_email         TEXT,
+    identified_phone         TEXT,
+    identification_source    TEXT        NOT NULL,
+    first_identified_at      TIMESTAMPTZ NOT NULL DEFAULT now(),
+    last_identified_at       TIMESTAMPTZ NOT NULL DEFAULT now(),
+    created_at               TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at               TIMESTAMPTZ NOT NULL DEFAULT now(),
+
+    CONSTRAINT analytics_visitor_identity_link_pkey PRIMARY KEY (visitor_identity_link_id),
+    CONSTRAINT uq_analytics_visitor_identity_link UNIQUE (visitor_id, lead_id),
+    CONSTRAINT fk_analytics_visitor_identity_link_visitor FOREIGN KEY (visitor_id)
+        REFERENCES analytics.visitor (visitor_id) ON DELETE CASCADE,
+    CONSTRAINT fk_analytics_visitor_identity_link_lead FOREIGN KEY (lead_id)
+        REFERENCES commercial.lead (lead_id) ON DELETE CASCADE,
+    CONSTRAINT ck_analytics_visitor_identity_link_source CHECK (
+        identification_source IN ('SITE_CONTACT', 'SITE_SIGNUP', 'SITE_CAPTURE_MODAL', 'MANUAL', 'OTHER')
+    ),
+    CONSTRAINT ck_analytics_visitor_identity_link_order CHECK (last_identified_at >= first_identified_at),
+    CONSTRAINT ck_analytics_visitor_identity_link_email_notempty CHECK (
+        identified_email IS NULL OR btrim(identified_email) <> ''
+    ),
+    CONSTRAINT ck_analytics_visitor_identity_link_name_notempty CHECK (
+        identified_name IS NULL OR btrim(identified_name) <> ''
+    )
+);
+
+CREATE INDEX IF NOT EXISTS idx_analytics_visitor_identity_link_visitor
+    ON analytics.visitor_identity_link (visitor_id, last_identified_at);
+CREATE INDEX IF NOT EXISTS idx_analytics_visitor_identity_link_lead
+    ON analytics.visitor_identity_link (lead_id, last_identified_at);
 
 -- ------------------------------------------------------------
 -- commercial.referral_visit
@@ -1608,6 +1979,221 @@ CREATE TABLE IF NOT EXISTS billing.hub_microapp_config (
 );
 
 -- ============================================================
+-- SEED CANÔNICO MÍNIMO
+-- Função:
+--   Bootstrap idempotente de tenants, usuários, vínculos, stores,
+--   assinaturas, licenças, apps por usuário e instâncias iniciais.
+--   Este bloco é a fonte canônica do seed inicial do AxysHub.
+-- ============================================================
+
+INSERT INTO identity.hub_tenant (tenant_id, tenant_code, tenant_name, document, status, is_active)
+VALUES
+    ('7847231a-4ba3-5138-b2d6-6943beb8e3f9', 'AXYS', 'Axys Engenharia e Tecnologia Ltda', '38060729810', 'active', TRUE),
+    ('9b1c7c20-2a4c-5b76-9f72-0e9a4f2d4c8f', 'LUNALO', 'Lunalô Calçados e Perfumaria Ltda', '45580611000194', 'active', TRUE),
+    ('d47aef9a-299d-5b8a-9fa2-b58a6050a4b0', 'DCENG', 'Dias & Cardozo Engenharia Ltda', '17695703000184', 'active', TRUE)
+ON CONFLICT (tenant_code) DO UPDATE SET
+    tenant_name = EXCLUDED.tenant_name,
+    document = EXCLUDED.document,
+    status = EXCLUDED.status,
+    is_active = EXCLUDED.is_active,
+    updated_at = now();
+
+INSERT INTO identity.hub_user (
+    user_id,
+    name,
+    email,
+    password_hash,
+    phone,
+    locale,
+    cpf,
+    address_json,
+    sys_role,
+    status,
+    is_active
+)
+VALUES
+    ('a40bdb6c-c47b-5ad0-bb36-8c89641005e7', 'Renan Dias', 'rdias07@live.com', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '00000000001', '{}'::jsonb, 'hub_admin', 'active', TRUE),
+    ('279ae6ae-52e1-52e0-ad90-df80cbf5cd1b', 'Thaís', 'thays_hernandes@hotmail.com', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '00000000003', '{}'::jsonb, 'user', 'active', TRUE),
+    ('733fa25d-157e-596f-9f86-4ad8db423881', 'Dias e Cardozo', 'diasecardozo@diasecardozo.com.br', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '00000000002', '{}'::jsonb, 'user', 'active', TRUE),
+    ('83557f7e-e3f4-4002-a543-f09cc681f9ae', 'Lunalô Calcados', 'lunalocalcados@hotmail.com', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '00000000004', '{}'::jsonb, 'user', 'active', TRUE)
+ON CONFLICT (email) DO NOTHING;
+
+INSERT INTO identity.hub_user_tenant (tenant_id, user_id, role, is_active)
+SELECT t.tenant_id, u.user_id, v.role, TRUE
+FROM (
+    VALUES
+        ('AXYS', 'rdias07@live.com', 'internal_owner'),
+        ('AXYS', 'thays_hernandes@hotmail.com', 'internal_user'),
+        ('LUNALO', 'thays_hernandes@hotmail.com', 'admin'),
+        ('LUNALO', 'lunalocalcados@hotmail.com', 'admin'),
+        ('DCENG', 'rdias07@live.com', 'owner'),
+        ('DCENG', 'thays_hernandes@hotmail.com', 'admin'),
+        ('DCENG', 'diasecardozo@diasecardozo.com.br', 'user')
+) AS v(tenant_code, email, role)
+JOIN identity.hub_tenant t ON t.tenant_code = v.tenant_code
+JOIN identity.hub_user u ON u.email = v.email
+ON CONFLICT (tenant_id, user_id) DO UPDATE SET
+    role = EXCLUDED.role,
+    is_active = EXCLUDED.is_active,
+    updated_at = now();
+
+INSERT INTO identity.hub_store (store_id, tenant_id, store_code, store_name, status, is_active)
+SELECT
+    v.store_id::uuid,
+    t.tenant_id,
+    v.store_code,
+    v.store_name,
+    'active',
+    TRUE
+FROM (
+    VALUES
+        ('4f64d633-a304-5fb2-ab3a-0fb92291f18d', 'AXYS', 'AXYSSYSTEM', 'AxysSystem'),
+        ('50d4970e-b91e-56a7-988f-d5ecf615f55a', 'LUNALO', 'OUROESTE', 'Lunalô Ouroeste'),
+        ('d6e937a1-47bd-5d3e-a4d3-11c210e3b22a', 'LUNALO', 'JALES', 'Lunalô Jales'),
+        ('b09ab7ef-3f97-4bad-8b28-1aee900c5d7a', 'LUNALO', 'LOC-JALES', 'L''Occitane Jales'),
+        ('74b34022-49ce-5366-8d7c-5d90526e9c85', 'DCENG', 'DCENG', 'Dias & Cardozo - Eng. e Arq.')
+) AS v(store_id, tenant_code, store_code, store_name)
+JOIN identity.hub_tenant t ON t.tenant_code = v.tenant_code
+ON CONFLICT (tenant_id, store_code) DO UPDATE SET
+    store_name = EXCLUDED.store_name,
+    status = EXCLUDED.status,
+    is_active = EXCLUDED.is_active,
+    updated_at = now();
+
+INSERT INTO identity.hub_user_store (tenant_id, user_id, store_id, role, is_active)
+SELECT
+    t.tenant_id,
+    u.user_id,
+    s.store_id,
+    'user',
+    TRUE
+FROM (
+    VALUES
+        ('AXYS', 'rdias07@live.com', 'AXYSSYSTEM'),
+        ('AXYS', 'thays_hernandes@hotmail.com', 'AXYSSYSTEM'),
+        ('LUNALO', 'thays_hernandes@hotmail.com', 'OUROESTE'),
+        ('LUNALO', 'thays_hernandes@hotmail.com', 'JALES'),
+        ('LUNALO', 'thays_hernandes@hotmail.com', 'LOC-JALES'),
+        ('LUNALO', 'lunalocalcados@hotmail.com', 'OUROESTE'),
+        ('LUNALO', 'lunalocalcados@hotmail.com', 'JALES'),
+        ('DCENG', 'rdias07@live.com', 'DCENG'),
+        ('DCENG', 'thays_hernandes@hotmail.com', 'DCENG'),
+        ('DCENG', 'diasecardozo@diasecardozo.com.br', 'DCENG')
+) AS v(tenant_code, email, store_code)
+JOIN identity.hub_tenant t ON t.tenant_code = v.tenant_code
+JOIN identity.hub_user u ON u.email = v.email
+JOIN identity.hub_store s
+  ON s.tenant_id = t.tenant_id
+ AND s.store_code = v.store_code
+ON CONFLICT (tenant_id, user_id, store_id) DO UPDATE SET
+    role = EXCLUDED.role,
+    is_active = EXCLUDED.is_active,
+    updated_at = now();
+
+INSERT INTO billing.hub_subscription (tenant_id, partner_id, status, billing_cycle, started_at)
+SELECT t.tenant_id, NULL, 'active', 'monthly', now()
+FROM identity.hub_tenant t
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM billing.hub_subscription s
+    WHERE s.tenant_id = t.tenant_id
+      AND s.status = 'active'
+);
+
+INSERT INTO billing.hub_license (subscription_id, tenant_id, product_id, status, valid_from, valid_until)
+SELECT
+    s.subscription_id,
+    t.tenant_id,
+    p.product_id,
+    'active',
+    s.started_at,
+    NULL
+FROM billing.hub_subscription s
+JOIN identity.hub_tenant t ON t.tenant_id = s.tenant_id
+JOIN product.product p
+  ON (
+      t.tenant_code = 'AXYS'
+      AND p.code IN ('AXYSPRO', 'AXYSGESTOR', 'PRI', 'CPU', 'DOC', 'PM', 'LIC', 'ORC', 'BDR', 'FIN', 'ONE')
+  )
+  OR (
+      t.tenant_code = 'LUNALO'
+      AND p.code IN ('AXYSGESTOR')
+  )
+  OR (
+      t.tenant_code = 'DCENG'
+      AND p.code IN ('PRI', 'CPU', 'DOC', 'PM', 'LIC', 'ORC', 'BDR', 'FIN')
+  )
+WHERE s.status = 'active'
+ON CONFLICT (tenant_id, product_id) DO UPDATE SET
+    subscription_id = EXCLUDED.subscription_id,
+    status = EXCLUDED.status,
+    valid_from = EXCLUDED.valid_from,
+    valid_until = EXCLUDED.valid_until;
+
+INSERT INTO billing.hub_user_app (tenant_id, user_id, product_id, status, granted_at)
+SELECT
+    t.tenant_id,
+    u.user_id,
+    p.product_id,
+    'active',
+    now()
+FROM (
+    VALUES
+        ('AXYS', 'rdias07@live.com'),
+        ('AXYS', 'thays_hernandes@hotmail.com'),
+        ('LUNALO', 'thays_hernandes@hotmail.com'),
+        ('LUNALO', 'lunalocalcados@hotmail.com'),
+        ('DCENG', 'rdias07@live.com'),
+        ('DCENG', 'thays_hernandes@hotmail.com'),
+        ('DCENG', 'diasecardozo@diasecardozo.com.br')
+) AS v(tenant_code, email)
+JOIN identity.hub_tenant t ON t.tenant_code = v.tenant_code
+JOIN identity.hub_user u ON u.email = v.email
+JOIN product.product p
+  ON (
+      t.tenant_code = 'AXYS'
+      AND p.code IN ('AXYSPRO', 'AXYSGESTOR', 'PRI', 'CPU', 'DOC', 'PM', 'LIC', 'ORC', 'BDR', 'FIN', 'ONE')
+  )
+  OR (
+      t.tenant_code = 'LUNALO'
+      AND p.code IN ('AXYSGESTOR')
+  )
+  OR (
+      t.tenant_code = 'DCENG'
+      AND p.code IN ('PRI', 'CPU', 'DOC', 'PM', 'LIC', 'ORC', 'BDR', 'FIN')
+  )
+ON CONFLICT (tenant_id, user_id, product_id) DO UPDATE SET
+    status = EXCLUDED.status,
+    granted_at = EXCLUDED.granted_at;
+
+INSERT INTO billing.hub_microapp_instance (tenant_id, product_id, slug, status)
+SELECT
+    t.tenant_id,
+    p.product_id,
+    v.slug,
+    'active'
+FROM (
+    VALUES
+        ('AXYSPRO', 'axyspro'),
+        ('AXYSGESTOR', 'axysgestor'),
+        ('PRI', 'easyprice'),
+        ('CPU', 'easycpu'),
+        ('DOC', 'easydocs'),
+        ('PM', 'easyprojectmanager'),
+        ('LIC', 'easylicitplan'),
+        ('ORC', 'easyorca'),
+        ('BDR', 'easybuilddiary'),
+        ('FIN', 'easyfincontrol'),
+        ('ONE', 'easyone')
+) AS v(product_code, slug)
+JOIN product.product p ON p.code = v.product_code
+JOIN billing.hub_license l ON l.product_id = p.product_id AND l.status = 'active'
+JOIN identity.hub_tenant t ON t.tenant_id = l.tenant_id
+ON CONFLICT (tenant_id, product_id) DO UPDATE SET
+    slug = EXCLUDED.slug,
+    status = EXCLUDED.status;
+
+-- ============================================================
 -- SCHEMA: gateway
 -- Função:
 --   Provedores de pagamento, transações, eventos e webhooks brutos.
@@ -1663,11 +2249,22 @@ CREATE TABLE IF NOT EXISTS gateway.payment (
 );
 
 -- adiciona FK opcional commercial.commission_event.payment_id após gateway.payment existir
-ALTER TABLE commercial.commission_event
-    ADD CONSTRAINT fk_commission_event_payment
-    FOREIGN KEY (payment_id)
-    REFERENCES gateway.payment (payment_id)
-    ON DELETE SET NULL;
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1
+        FROM pg_constraint
+        WHERE conname = 'fk_commission_event_payment'
+          AND conrelid = 'commercial.commission_event'::regclass
+    ) THEN
+        ALTER TABLE commercial.commission_event
+            ADD CONSTRAINT fk_commission_event_payment
+            FOREIGN KEY (payment_id)
+            REFERENCES gateway.payment (payment_id)
+            ON DELETE SET NULL;
+    END IF;
+END
+$$;
 
 -- ------------------------------------------------------------
 -- gateway.payment_event

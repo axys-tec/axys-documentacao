@@ -34,8 +34,7 @@ Hub Database
 ```
 
 **Acessar schema:**
-- [schema.sql](schemas/schema.sql) — DDL completo
-- [seed.sql](schemas/seed.sql) — dados iniciais
+- [schema.sql](schemas/schema.sql) — DDL completo + seed canônico inicial
 - [migrations/](schemas/migrations/) — histórico de mudanças
 
 ---

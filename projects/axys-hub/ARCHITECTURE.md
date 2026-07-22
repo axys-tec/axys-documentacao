@@ -763,7 +763,6 @@ Estrutura principal do Hub:
 Referências:
 
 - [schemas/schema.sql](schemas/schema.sql)
-- [schemas/seed.sql](schemas/seed.sql)
 - [adrs/HUB-ADR-001-seed-minimo-inicial.md](adrs/HUB-ADR-001-seed-minimo-inicial.md)
 
 ---
@@ -788,7 +787,7 @@ Papel dos diretórios do projeto:
 
 - `adrs/` → decisões pontuais e imutáveis
 - `integrations/` → handshake técnico entre sistemas
-- `schemas/` → banco, seed e migração
+- `schemas/` → banco, seed canônico e migração
 - `operations/` → deploy, restore, runbooks
 - `api/` → endpoints do Hub
 - `ARCHITECTURE.md` → visão canônica consolidada do produto Hub
@@ -814,4 +813,3 @@ Enquanto o Hub mantiver contrato consolidado, `ARCHITECTURE.md` permanece como p
 - [integrations/with-easy.md](integrations/with-easy.md)
 - [adrs/](adrs/)
 - [schemas/schema.sql](schemas/schema.sql)
-- [schemas/seed.sql](schemas/seed.sql)
