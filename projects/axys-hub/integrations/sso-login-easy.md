@@ -116,24 +116,32 @@ Definem se o usuário **entra** ou cai em `/sem-contrato`:
 > O que cada `role`/`tenant_role` pode fazer **dentro do Easy** não pertence a este documento do Hub.
 > Essa matriz funcional deve morar no contrato e na implementação do próprio Easy.
 
-### 4.1 ⚠️ Inconsistência de slugs a reconciliar
+### 4.1 Lista canônica de slugs — fechada em 2026-07-24
 
-Há divergência **dentro do próprio Easy** entre dois pontos do código. O Hub precisa
-emitir os slugs canônicos, então é preciso fechar a lista oficial antes:
+A lista oficial Hub + Easy está definida com base no código vigente do `axys-easy`.
+O Hub deve emitir em produção exatamente estes slugs, sem formas curtas paralelas,
+tanto em `apps_licenciadas` quanto em `licencas[].app`:
 
-| Conceito | `_DEV_CLAIMS` (security.py) | `_APP_LABELS` (pages/routes.py) |
-|---|---|---|
-| CPU | `easy-cpu` | `easy-cpu` ✅ |
-| Price | `easy-price-1` | `easy-price-1` ✅ |
-| Price+ | `easy-price-2` | `easy-price-2` ✅ |
-| Orça | `easy-orca` | `easy-orca` ✅ |
-| Docs | `easy-docs` | `easy-docs` ✅ |
-| PM | `easy-pm` | `easy-pm` ✅ |
-| Diário | `easy-diary` | `easy-build-diary` ❌ |
-| Financeiro | `easy-fin` | `easy-fin-control` ❌ |
-| Licitação | `easy-licit` | `easy-licit-plan` ❌ |
+| Conceito | Slug canônico |
+|---|---|
+| CPU | `easy-cpu` |
+| Price | `easy-price-1` |
+| Price+ | `easy-price-2` |
+| Orça | `easy-orca` |
+| Docs | `easy-docs` |
+| PM | `easy-pm` |
+| Diário | `easy-build-diary` |
+| Financeiro | `easy-fin-control` |
+| Licitação | `easy-licit-plan` |
 
-**Ação:** definir a lista oficial de slugs (Hub + Easy) e o Hub emitir exatamente ela.
+Decisão registrada por Renan em `2026-07-24`.
+
+Regra prática:
+
+- não emitir `easy-diary`;
+- não emitir `easy-fin`;
+- não emitir `easy-licit`;
+- não manter apelidos paralelos no catálogo de licenças do Hub.
 
 ---
 
@@ -255,7 +263,7 @@ Definidas em `backend/core/runtime_config.py`:
 - [ ] Expor `GET /.well-known/jwks.json` (RS256, com `kid`; manter pública antiga ≥1h na rotação).
 - [ ] Assinar JWT em **RS256**, TTL **8h**, com **todas as claims** da seção 3 (nomes exatos).
 - [ ] (Recomendado) incluir `iss` e `aud`.
-- [ ] Emitir `apps_licenciadas` com os **slugs canônicos** (fechar a inconsistência da seção 4).
+- [ ] Emitir `apps_licenciadas` com os **slugs canônicos** da seção 4.1.
 - [ ] Garantir `is_staff` e/ou ≥1 app `easy-*` para quem deve entrar.
 - [x] ~~Definir o handshake~~ → **A2 (code + exchange)** decidido (seção 5).
 - [ ] **`GET /login`** aceitar `app`, `redirect_uri` (com allowlist) e `state`; redirecionar com `?code=`.
