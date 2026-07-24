@@ -104,6 +104,25 @@ da CPU** (engana: TELHADISTA↔TELHADOR, ASSENTADOR DE TUBOS↔MANILHAS, OPERADO
   CPU SINAPI (preço norteado por sindicato). → `ratio_desc(X)` + `ratio_preço(Y)` → `ratio_total = média(X,Y)`
   (enriquecível). Quando faltar preço p/ a UF, degrada p/ só `ratio_desc`.
 - Encadeia o 2º salto via H↔MÊS quando precisar do regime mensalista.
+- **MDO na ORIGEM (fonte) = `ins_ti_id = 1` (MO).** ENC_COMP (`ti=2`) é tipo do **lado SINAPI**, não existe nas
+  fontes-origem (CDHU/FDE) — por isso o filtro do não-MDO na origem (§3.4) `NOT IN (1,2)` = `<> 1` na prática.
+  O **destino** MDO no SINAPI são as composições "…COM ENCARGOS COMPLEMENTARES" [H].
+- **⚠️ EXCEÇÃO à âncora-SINAPI (2026-07-18):** no MDO a direção é **origem=FONTE → destino=SINAPI** (não
+  SINAPI-âncora). **Completude na FONTE:** toda função da fonte (45 CDHU / 36 FDE) **tem de resolver** (match
+  ou `sem_equivalente`); o SINAPI (192 [H]) **pode ter funções sem associação** — é muito maior. Lógica de
+  obra: **não há 2 pedreiros/serventes com preço diferente** → a função da fonte é única, tem par. Por isso o
+  manifesto MDO é **dirigido pela fonte** (lista completa da fonte à esquerda; SINAPI casado/‹a resolver› à
+  direita). **`mo_ref_item_id` NOT NULL — toda MDO TEM de equivaler** (senão encargos diferentes). O estado
+  `match | sem_equivalente` é **obrigatório p/ toda função da fonte** (nenhuma fica pendente); `sem_equivalente`
+  é **exceção rara** (função sem par real no SINAPI, ex.: engenheiro mecânica/elétrica) — representada pela
+  **ausência de linha** (fila vermelha do manifesto), não por linha de alvo nulo. Meta = **100% equivalido**.
+- **Matcher determinístico (implementado `equivalencias_service.propor_mo`):** strip "COM ENCARGOS
+  COMPLEMENTARES" → **nível** (auxiliar/ajudante→AUXILIAR ⟷ oficial) **tem de bater** + **containment do
+  ofício** fonte→SINAPI (≥0,67) + tie-break Jaccard. Dicionário `data/mdo_sinonimos.json`
+  (ajudante↔auxiliar, ferreiro↔armador, esgoteiro↔poceiro). Iterei overlap-min→Jaccard→containment→
+  **nível+containment** (overlap-min deixa o oficial ganhar; Jaccard puro derruba o genérico).
+- **Sequência de curadoria:** **MDO primeiro** (ti 1,2 — pequeno, determinístico), depois o não-MDO
+  (ti≠1,2 — o grosso). Tabelas separadas, passadas separadas.
 
 ### 3.3. Substituições (a cara — IA-pesada na 1ª)
 - Olha descrição **e a composição** (a **estrutura**, não os coeficientes — esses mudam). Header 1 → N subs
@@ -115,6 +134,34 @@ da CPU** (engana: TELHADISTA↔TELHADOR, ASSENTADOR DE TUBOS↔MANILHAS, OPERADO
   4. **itens da composição**
 - **Ratio 1 em quase nada.** 1ª vinculação cara (majoritariamente IA); carry-forward barateia as próximas.
 - Vale p/ **composições e insumos**.
+
+### 3.4. Equivalências fonte↔SINAPI — com conversão (F insumos / G composições) — 2026-07-18
+Direção travada sobre dado real (missmatch elástico das 3 fontes + manual SINAPI de metodologia). Origem: insumo/composição CDHU/FDE; destino: item SINAPI header. **1:1** (insumo) e **1:N** (composição — concretagem).
+
+- **PREMISSA 1 — UNIDADE = UNIDADE.** Só há equivalência entre itens de **mesma natureza física**. O dado prova: **88% (insumo) / 75% (composição)** dos matches fortes já têm unidade igual. Gate do auto-matcher: **mesmo `ti_codigo` + mesma unidade** → candidato; o resto vai a manifesto/curadoria manual, nunca auto.
+- **Elástico por TOKEN** (overlap de palavras), **não trigram de string-cheia** — SINAPI é verboso ("...CPVC, *75* G") e o trigram-cheio **subconta** (universo de 87 ins + 32 comp = artefato do método). Matcher devolve **top-N** candidatos; a curadoria **prefere o de mesma unidade** (colapsa divergências artificiais). Auto **nunca** commita cego — app propõe, IA valida, user confirma ou rejeita.
+- **COEFICIENTE — 3 estados (campo `classe` elimina a ambiguidade do NULL):**
+  - `1` — unidade igual → **direta**.
+  - `k > 0` — unidade diferente, **conversão CALCULADA** por **motor determinístico** (não a IA) com memória de cálculo: aço 7850 kg/m³ × área da bitola (cabo 3/8"≈9,5 mm), bisnaga "75 G" = 0,075 kg/un, rendimento tinta (m²/L). A IA **reconhece** a necessidade; o backend **calcula**.
+  - `NULL` — unidade diferente, **conversão ESPECIAL** dependente de **quantitativo da obra** que o catálogo não tem (ex.: serviço por **m²** × item por **un** — limpeza de pia). **Associa porque é o mesmo item**, mas coef `NULL`; o user **repassa o quantitativo na bancada** — a app **não assume** a conversão. `NULL`-especial ≠ `NULL`-erro (a `classe` distingue).
+- **EQUIPAMENTO (do `Livro_SINAPI_Metodologias_Conceitos.pdf`):** SINAPI guarda o equipamento como **insumo UN (aquisição)** e o custo-hora como **composição CHP/CHI (H)** — `CHP = D+J+M+CMAT+CMOB`, `CHI = D+J+CMOB`, derivados de aquisição×vida-útil×HTA×juros. **Não existe escalar UN→H.** Logo a locação **[H]** da fonte associa **H↔CHP** (mesma unidade, coef 1, **insumo-fonte → composição SINAPI**), **nunca** o insumo-UN de aquisição. O matcher acha o CHP por **descrição + unidade [H↔CHP]**. ⚠️ **Hipótese de código embutido REFUTADA (2026-07-18):** o número no código CDHU (`S.03.000.085678`) é **código interno do CDHU**, não SINAPI — testado em escala, 307 substrings coincidem com códigos SINAPI mas **0% concorda na descrição**. Não há atalho determinístico por código; o casamento é por descrição/unidade.
+- **EXCLUSÕES (nunca associar):** **parte-de** (eletroduto × luva de eletroduto — a luva compõe o eletroduto instalado); **locação × aquisição** sem base CHP/CHI; **naturezas distintas** (serviço × material, ex.: sinalização m² × tinta L) salvo substituição explícita de insumo dentro da composição; **equipamentos diferentes** com desc parecida (guindaste × martelete). Exclusão é tratada pelo **script** (regra) ou **removida pela IA**.
+- **Schema — 3 tabelas (isolamento + FK real + filtros limpos), sobre o item VIGENTE (identity), NÃO por edição:**
+  - **`catalogo.equivalencias_ins`** (INS↔INS) + **`catalogo.equivalencias_cpu`** (CPU↔CPU) — não-MDO, split (o `ins_cpu` unificado foi descartado). **FK real** dos dois lados (acabou o polimórfico). **A malandragem INS→CPU foi DESCARTADA** — é idempotente com CPU↔CPU quando a CPU-fonte espelha o insumo (a decomposição da CPU aglomera outros itens → associar insumo→CPU ocuparia uma CPU muito próxima da própria). `ei_/ec_fator_conversao NUMERIC(12,6)` NULLABLE + `classe` (direta|calculada|especial) + `hash_origem/equivalente` (§9) + `metodo` (TOKEN/ti|IA|MANUAL). N:N nativo (par único, âncora ref indexada).
+  - **`catalogo.equivalencias_mo`** (rename de `conversao_mo_fte_to_sinapi`) — só MDO (insumo-fonte→CPU header), **isolada**, determinística: **sem coef, sem hash, sem IA** (back resolve 100% via função+dicionário de sinônimos+preço).
+
+### 3.4.1. Ringue do matcher (restrito → IA → user) — REVISADO 2026-07-22 (prova empírica; substitui 2026-07-19)
+Estratégia validada sobre dado. **Léxico curável em JSON:** `data/discriminadores.json` (grupos de tokens mutuamente EXCLUDENTES — ex.: material_base CONCRETO×CERÂMICO×PVC×AÇO — vetam o par mesmo com overlap alto: bloco de concreto ⊄ bloco cerâmico) · `_STOP` (preposições fora — "DE" não pesa). Overlap coefficient + índice invertido.
+
+**DOUTRINA (2026-07-19) + PROVA (2026-07-22): script restrito e burro; IA dignifica o resíduo; homem cura. NADA de passe relaxado** (baixo threshold / 1×1 no universo todo) — o relaxado gera associação que a IA teria que desfazer (trabalho negativo). A cadeia `rodar_vinculacao` roda 4 passes: MDO (`propor_mo`) · atributo/fine-tuning (`propor_atributo`, deferido) · INS (`propor_ins`) · CPU (`propor_cpu`). Removidos da cadeia: `propor_ins_sanitizado` (floor 0,40) e `propor_cpu_1x1` (1×1 universo todo) — marcados DEPRECADO no código.
+
+- **INSUMOS = token puro, SEM funil de tipo** (`propor_ins`, `ti_gate=False`, over≥0,75/shared≥4 + `_vetado`). **REVERTE a posição de 2026-07-19** ("`ti=ti` PONTO"): medido no CDHU, o funil `ti=ti` **bloqueia match legítimo** (o alvo SINAPI está só como `NC`/`EQUIP_AQ↔LOC`, mas é o MESMO item — ex.: `DETECTOR DE FUMAÇA [MAT]→[NC]`, `RÉGUA VIBRADORA [LOC]→[AQ]`) e protege pouco (o token 0,75 + `_vetado` já barra o cross ruim tipo `FURO serviço→TAMPA material`). Dado: S2(sem funil)=213 assoc; dos 48 extras sobre S0(ti) 37 são bons (NC/EQUIP) e só 11 erro provável → o resíduo de erro é da IA+humano.
+- **CPUs = SÓ subgrupo análogo, RESTRITO** (`propor_cpu`), sem passe no universo todo. O **mapa de subgrupo é a TABELA `catalogo.equivalencias_subgrupos`** (id×id: `es_fonte_sub_id`→`es_sinapi_sub_id`, FK a `composicoes_subgrupos.sub_id`), **CURADA** (final 2026-07-22: CDHU 448/25 NULL, FDE 198/8; `LIMPEZA` 192→0). **Threshold afrouxado DENTRO do subgrupo = `over≥0,55/shared≥3`** (passe único; o funil garante 0% cross em qualquer overlap, então afrouxar só sobe recall): **434 CDHU / 133 FDE, 0% cross** (era 82/21 a 0,75/4). Prova (mod1×mod2, 2026-07-22): abrir o universo no resíduo = **100% cross** → é só IA. `un-igual`→classe `direta` (auto, ~86%); `un-dif`→`conversão` (IA, onde o ruído do 0,55 se concentra). Subgrupo novo/renomeado no import → `subgrupos_nao_mapeados` **trava (GATE)** → user cura em *Fontes › Associar subgrupos*.
+- **Prompt de IA das CPUs (2.4):** vai **a composição origem/alvo**, deixando explícito que **quantidade e composição NÃO são determinantes** (engenharia não é ciência exata, difere por metodologia) mas **evidenciam** que é o mesmo serviço-alvo.
+  - **Âncora generalizada `*_ref_fonte` ∈ {SINAPI, SICRO}** (headers da Lei 14.133) — uma tabela serve os dois, sem `_sicro_*` duplicado; bridge SINAPI↔SICRO = só uma linha (`ref=SICRO, fte_codigo=SINAPI`).
+  - `item_id` **polimórfico** (INS ou CPU por `*_tipo`) → integridade via app (o lado ref do MDO tem FK física a `composicoes`).
+  - **Sem tabela de conversores** — o "quadro" (tempo/densidade/CHP) é **sugestão no código**, o valor mora na linha.
+  - ⚠️ **`insumos_equivalencias` (legada)** = feature MANUAL bidirecional any↔any (viva, 0 linhas). **Será absorvida/redesenhada** na `equivalencias_ins_cpu` (`metodo=MANUAL`, ancorada no header — o any↔any cai, pelo 14.133 tudo passa pelo header) na fase da tela.
 
 ---
 
@@ -184,3 +231,49 @@ degradação graciosa do ratio_preço quando falta UF; pesos iniciais dos ratios
 Não substitui curadoria humana · não recalcula estrutura oficial das fontes · não cria equivalência geral
 entre todas as fontes · não elimina revisão quando a edição muda · não recria vínculos automaticamente no
 import (só **marca** impactados) · H↔MÊS não cria/mexe custo oficial (só registra o par + fator).
+
+---
+
+## 8. Arquitetura de IA — conector agnóstico + auto on/off (2026-07-18)
+
+Discussão fechada (ChatGPT propôs agente OpenAI pesado; adotamos o núcleo agêntico, recusamos a escala e a
+obrigatoriedade de API paga).
+
+- **Um conector `AIProvider`/gateway** serve **CTC descritivo E vinculações**. Provider por env
+  (Anthropic/OpenAI/Gemini/Ollama) — troca sem tocar o domínio. Centraliza key/timeout/retry/custo/redaction/
+  versão. **Nunca** key em log ou banco em texto puro. É a **materialização do `AXYS_CPU_DESC_MODO`**
+  (`CADERNO_TECNICO_AXYS §6b`), hoje `_ia_auto_preencher = NotImplementedError`.
+- **Toggle `auto on/off`:** **OFF (default)** = o request **para na borda**, o `.md` fica no **storage** →
+  **get_md/put_md, SEM API paga** (honra [[feedback_sem_apis_pagas]] como default, não como proibição).
+  **ON** = o conector chama o provider por token.
+- **DETERMINÍSTICO-PRIMEIRO (aula do H↔MÊS):** resolve o máximo no **dado** (tipo+unidade, código SINAPI
+  embutido, motor de conversão); a IA fica no **resíduo ambíguo**. O **loop agêntico multi-turn** (só útil
+  p/ investigação 1:N, tipo concretagem) **não é obrigatório** e só entra **se provar necessário**. API paga
+  = **upgrade opcional de conveniência**, jamais requisito. A IA **não** recebe SQL livre nem conexão —
+  **ferramentas estreitas e tipadas**; o backend controla dado/cálculo/integridade/autorização.
+- **Dataset de treino (parte do treinamento já começa na curadoria):** cada revisão humana
+  (proposta → decisão → correção → motivo, + prompt/modelo/versão) é **coletada desde o 1º ciclo** — barato,
+  é auditoria. **Fine-tuning fica EM ABERTO (provável descarte):** no volume real (curado 1×/edição +
+  carry-forward por ID estável), **prompt bom + guardas determinísticas + revisão humana** já entregam
+  consistência. Não treinar p/ memorizar catálogo/preço/edição.
+
+## 9. Revalidação na reimportação — hash + manutenções SINAPI
+
+A equivalência é **persistida sobre a foto atual** do banco. Importar nova edição (fonte X **ou** SINAPI
+header) **revalida** os vínculos afetados (não corrige sozinho — marca `revisar`).
+
+- **Gatilho universal = HASH da descrição** do item-base: mudou o hash → o vínculo que o referencia vai a
+  `revisar`.
+- **SINAPI vai ALÉM do hash:** a Caixa publica o **relatório de manutenções** (itens incluídos/alterados/
+  desativados por edição) — sinal **mais rico e barato** que o diff de hash, aponta exatamente os CPUs/insumos
+  tocados. Usar **manutenções quando existir + hash como fallback universal** (demais fontes).
+
+## 10. Disclaimer canônico (módulo ativo)
+
+Texto **literal** na tela de conversão entre-fontes do Ativo:
+
+> A conversão entre-fontes é algo que é persistido sobre o estado atual do banco de dados e representa
+> vínculos com as edições mais vigentes disponíveis da fonte-base para com a SINAPI da mesma época.
+> Recomendamos revisão cautelosa sobre as associações diretas e rigorosa sobre as associações com
+> necessidade de conversão. A Axys Engenharia e Tecnologia LTDA não se responsabiliza pelas planilhas
+> elaboradas, sendo que, atua pura e simplesmente como software/ferramenta de suporte.
