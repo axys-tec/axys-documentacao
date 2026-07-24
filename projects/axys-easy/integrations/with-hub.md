@@ -72,10 +72,14 @@ Nomes exatos que o Easy lê (contrato completo na seção 3 do `sso-login-easy.m
 
 Consumo: `backend/modules/pages/routes.py` (`_user_ctx`), validação em `backend/core/security.py` (`decode_token`).
 
-> **Slugs canônicos pendentes:** há divergência interna no Easy entre `_DEV_CLAIMS`
-> (security.py) e `_APP_LABELS` (pages/routes.py) — ex.: `easy-diary` vs `easy-build-diary`,
-> `easy-fin` vs `easy-fin-control`, `easy-licit` vs `easy-licit-plan`. Fechar a **lista oficial
-> Hub+Easy** antes de o Hub emitir (ver §4.1 do `sso-login-easy.md`). **Decisão humana pendente.**
+> **Slugs canônicos — DECIDIDO (Renan, 2026-07-24).** O código do Easy é a fonte canônica:
+> `_DEV_CLAIMS` (security.py:67-75) e `_APP_LABELS` (pages/routes.py:27-35) **já estão idênticos**,
+> nas **formas longas**. Não há divergência interna (a §4.1 do `sso-login-easy.md` que apontava
+> `easy-diary`/`easy-fin`/`easy-licit` está **stale**). Lista oficial (9):
+> `easy-cpu` · `easy-price-1` · `easy-price-2` · `easy-orca` · `easy-docs` · `easy-pm` ·
+> `easy-build-diary` · `easy-fin-control` · `easy-licit-plan`.
+> Ação restante é **do Hub**: emitir exatamente essas em prod e corrigir a §4.1 — ver
+> [`operations/prompt_hub_slugs_canonicos.md`](../operations/prompt_hub_slugs_canonicos.md).
 
 ---
 
@@ -159,7 +163,7 @@ o Easy responde **503** em rotas autenticadas (dependência dura).
 
 ## TODO
 
-- [ ] Fechar lista canônica de slugs Hub+Easy (decisão humana).
+- [x] ~~Fechar lista canônica de slugs Hub+Easy~~ → **DECIDIDO** (9 formas longas, 2026-07-24). Falta o Hub emitir/corrigir a §4.1 — ver `operations/prompt_hub_slugs_canonicos.md`.
 - [ ] Refresh token automático → ver **Design de referência** abaixo.
 - [ ] Endurecer validação com `iss`/`aud` (Hub emitir; Easy hoje decodifica com `verify_aud=False`).
 - [ ] (Futuro) revogação/blacklist se logout forçado virar requisito.
