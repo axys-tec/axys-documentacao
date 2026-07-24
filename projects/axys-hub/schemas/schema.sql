@@ -2196,14 +2196,14 @@ FROM (
     VALUES
         ('AXYSPRO', 'axyspro'),
         ('AXYSGESTOR', 'axysgestor'),
-        ('PRI', 'easyprice'),
-        ('CPU', 'easycpu'),
-        ('DOC', 'easydocs'),
-        ('PM', 'easyprojectmanager'),
-        ('LIC', 'easylicitplan'),
-        ('ORC', 'easyorca'),
-        ('BDR', 'easybuilddiary'),
-        ('FIN', 'easyfincontrol'),
+        ('PRI', 'easy-price-1'),
+        ('CPU', 'easy-cpu'),
+        ('DOC', 'easy-docs'),
+        ('PM', 'easy-pm'),
+        ('LIC', 'easy-licit-plan'),
+        ('ORC', 'easy-orca'),
+        ('BDR', 'easy-build-diary'),
+        ('FIN', 'easy-fin-control'),
         ('ONE', 'easyone')
 ) AS v(product_code, slug)
 JOIN product.product p ON p.code = v.product_code
