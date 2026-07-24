@@ -1,204 +1,188 @@
 # AxysEasy ← → AxysHub
 
-**Status:** 🟢 Ativa (via SSO/JWT)  
-**Padrão:** AXYS-ADR-021 (foundation)
+**Status:** 🟢 Ativa (SSO via JWT — handshake A2)
+**Padrão:** AXYS-ADR-021 (SSO) · ADR-029 (foundation)
+**Fonte de verdade do contrato SSO:** [`docs/projects/axys-hub/integrations/sso-login-easy.md`](../../axys-hub/integrations/sso-login-easy.md)
+**Fonte de verdade do domínio comercial/analytics:** [`docs/projects/axys-hub/contract/axys_mkt_analytics.md`](../../axys-hub/contract/axys_mkt_analytics.md)
+
+> Este documento descreve a integração **do lado Easy**. O contrato SSO em si vive no repo
+> do Hub (link acima) e vale sobre qualquer divergência. Aqui só refletimos o que o Easy
+> implementa de fato (validado contra o código em `backend/`).
 
 ---
 
-## Fluxo de Autenticação
+## Princípio (ADR-021)
 
-```
-1. Usuário clica "Login" em Easy
-   ↓
-2. Redireciona para Hub: https://axys-hub.com/login
-   ↓
-3. Hub autentica (email + senha)
-   ↓
-4. Hub emite JWT token
-   ↓
-5. Redireciona de volta: easy.axys-tec.com.br?token=...
-   ↓
-6. Easy armazena token em cookie httponly
-   ↓
-7. Requisições: Authorization: Bearer <token>
-```
+O **Easy NUNCA emite token.** Ele apenas **valida** JWTs assinados pelo Hub, **localmente**
+(assinatura + `exp` via chave pública do JWKS do Hub — sem chamar o Hub a cada request).
+Autenticação é centralizada no Hub; autorização é descentralizada e *offline-first*.
+
+Código: `backend/core/security.py` — *"O AxysEasy NUNCA emite tokens. Apenas valida JWTs assinados pelo AxysHub."*
 
 ---
 
-## JWT Claims Recebidos do Hub
+## Handshake A2 — authorization code + exchange (vigente)
 
-Quando Easy valida um token, recebe claims:
+O modelo antigo de **token na URL** (`easy...?token=...`) está **superado**. O fluxo real é
+*authorization code* (OIDC-like): o JWT **nunca** trafega pela URL/logs.
+
+```
+1. User → easy.axys-tec.com.br/<algo>   (sem cookie easy_token válido)
+   Easy 302 → {HUB_BASE_URL}/login?app=easy&redirect_uri=.../sso/callback&state=<state>
+
+2. Hub autentica o usuário (login próprio do Hub) e gera um CODE de uso único (TTL 60–120s)
+
+3. Hub 302 → easy.axys-tec.com.br/sso/callback?code=<code>&state=<state>
+
+4. Easy (server-to-server, sem browser):
+     POST {HUB_BASE_URL}/auth/exchange  (client credentials EASY_HUB_CLIENT_ID/SECRET)
+     → recebe o JWT (RS256), valida via JWKS, seta cookie easy_token (httpOnly,
+       secure em prod, samesite=lax, host-only), 302 → /main
+```
+
+Implementação no Easy:
+- `backend/modules/auth/routes_sso.py` — `GET /sso/login` (gera `state`, redireciona pro Hub)
+  e `GET /sso/callback` (valida `state`, faz o exchange, valida o JWT, seta o cookie).
+- `backend/core/runtime_config.py` — `hub_base_url()`, `hub_exchange_url()`,
+  `EASY_HUB_CLIENT_ID` / `EASY_HUB_CLIENT_SECRET`.
+- `backend/core/security.py` — validação JWT via **JWKS** (cache 1h), RS256 em prod.
+
+---
+
+## JWT Claims recebidos do Hub
+
+Nomes exatos que o Easy lê (contrato completo na seção 3 do `sso-login-easy.md`):
 
 ```json
 {
-  "sub": "user-uuid",
-  "email": "renan@axys.com",
+  "sub": "550e8400-e29b-41d4-a716-446655440000",
+  "email": "renan@axys-tec.com.br",
   "name": "Renan Dias",
-  "tenant_uuid": "550e8400-e29b-41d4-a716-446655440000",
+  "tenant_uuid": "9f1c...-uuid",
   "tenant_code": "AXYS",
   "tenant_name": "Axys Tecnologia",
+  "role": "owner",              // user | admin | owner (papel normalizado)
+  "tenant_role": "internal_owner", // papel exato do vínculo no Hub
   "is_staff": true,
-  "role": "owner",
-  "apps_licenciadas": ["easy-cpu", "easy-price", "easy-orca"],
-  "iat": 1622505600,
-  "exp": 1622534400  // 8 horas depois
+  "apps_licenciadas": ["easy-cpu", "easy-price-1", "easy-orca"],
+  "iat": 1748908800,
+  "exp": 1748937600             // TTL 8h
 }
 ```
 
----
+Consumo: `backend/modules/pages/routes.py` (`_user_ctx`), validação em `backend/core/security.py` (`decode_token`).
 
-## Implementação em Easy
-
-### Backend Validation
-
-Arquivo: `backend/core/security.py`
-
-```python
-def require_auth(request: Request) -> dict:
-    """Extrai e valida JWT do header Authorization"""
-    token = extract_token(request)
-    claims = decode_token(token)  # Valida assinatura + exp
-    return claims
-
-def decode_token(token: str) -> dict:
-    """Decodifica JWT com chave pública do Hub (produção)"""
-    return jwt.decode(token, HUB_PUBLIC_KEY, algorithms=["RS256"])
-```
-
-### Permissões Baseadas em Claims
-
-```python
-from backend.core.permissions import exige_internal_user
-
-@router.get("/fontes-base")
-def fontes_base(request: Request, claims: dict = Depends(exige_internal_user)):
-    # claims vem do Hub
-    is_staff = claims.get("is_staff")  # False = cliente, True = Axys
-    role = claims.get("role")           # user, admin, owner
-    tenant_uuid = claims.get("tenant_uuid")
-    
-    # Autorizar baseado em claims
-    if not is_staff and role not in ["admin", "owner"]:
-        raise PermissionDenied(...)
-```
+> **Slugs canônicos pendentes:** há divergência interna no Easy entre `_DEV_CLAIMS`
+> (security.py) e `_APP_LABELS` (pages/routes.py) — ex.: `easy-diary` vs `easy-build-diary`,
+> `easy-fin` vs `easy-fin-control`, `easy-licit` vs `easy-licit-plan`. Fechar a **lista oficial
+> Hub+Easy** antes de o Hub emitir (ver §4.1 do `sso-login-easy.md`). **Decisão humana pendente.**
 
 ---
 
-## Fluxo de Logout
+## Regras de acesso (entra ou cai em `/sem-contrato`)
 
-```
-1. Usuário clica "Logout" em Easy
-   ↓
-2. Easy → POST /auth/logout (Hub)
-   ↓
-3. Hub invalida token (blacklist/revoke)
-   ↓
-4. Easy limpa cookie
-   ↓
-5. Redireciona para /login
-```
+1. Só conta app cujo slug **começa com `easy`** (`backend/modules/pages/routes.py`).
+2. Acesso liberado se houver ≥1 app `easy-*` em `apps_licenciadas` (ou contexto `is_staff`);
+   caso contrário → `/sem-contrato`.
+3. Gate por app específico via `apps_licenciadas` (`backend/core/security.py`, `require_app`).
 
 ---
 
-## Tratamento de Erros
+## Logout
 
-### Token Expirado (401)
+Logout no Easy é **client-side** (descarta o cookie `easy_token`) —
+`backend/modules/auth/routes_sso.py` / `backend/modules/pages/routes.py`.
+Como o token é self-contained e válido até `exp`, **não há revogação imediata** (ADR-021 §6.2);
+logout forçado dependeria de blacklist no Hub (não existe hoje). Ver **Design de referência** abaixo.
 
-```
-Easy valida token
-  ↓
-Token expirado
-  ↓
-Easy redireciona para /login
-  ↓
-Usuário faz login novamente
-```
+---
 
-### Sem Licença para Easy (403)
+## Auditoria de login — `origem = 'SSO'`
 
-```
-Hub retorna: "apps_licenciadas" não contém "easy-cpu"
-  ↓
-Easy mostra: "Seu contrato não inclui Easy"
-  ↓
-Página: /sem-contrato
-```
+Cada login federado grava rastro **nos dois lados**, com origem explícita:
+- **Easy:** no aceite do token, `audit.login_logs` com `log_origem = 'SSO'`
+  (`backend/modules/auth/routes_sso.py` → `audit_service.registrar_login`).
+- **Hub:** `hub_login_log` com `origem = 'SSO'`.
+
+`'SSO'` é valor canônico — não reaproveitar `LOCAL`/`API_KEY`.
+
+---
+
+## Hub como porta pública / origem de jornada comercial
+
+O Hub (site público `www.axys-tec.com.br`) é a **porta de entrada comercial** do ecossistema:
+hero, CTAs (incl. **"Explorar AxysEasy"**), modais de produto, planos, form de contato e signup.
+
+**O Easy NÃO é uma superfície de aquisição isolada.** Consequências para o Easy:
+
+- **Analytics público, captura de interesse, `commercial.lead` e o vínculo
+  `analytics.identity_link` (visitor → lead → user → tenant) são domínio do HUB**, capturados na
+  landing pública e persistidos no **banco do Hub** (schema `analytics.*` / `commercial.*`).
+  Ver `contract/axys_mkt_analytics.md`.
+- O Easy **não coleta analytics de marketing nem cria/gerencia leads** (V1). Não criar modelo
+  paralelo no Easy — o "nascimento" do interesse comercial acontece no Hub.
+- Um visitante pode chegar ao Easy **já vindo de contexto comercial do Hub** (clicou "Explorar
+  AxysEasy"). Na prática isso é transparente para o Easy: sem cookie válido → redireciona pro SSO;
+  a continuidade visitor↔identidade é resolvida **no Hub, no momento da conversão** (SSO / criação
+  de conta), onde o Hub conhece tanto o `visitor_id` (cookie do site) quanto o `user`/`tenant`.
+- Qualquer propagação de `visitor_id`/contexto comercial para dentro do Easy só entraria se o
+  **contrato do Hub** passar a exigir — hoje **não exige**. **Não inferir/inventar.**
 
 ---
 
 ## Multitenancy
 
-Uma pessoa pode ter acesso a **múltiplos tenants**:
-
-```json
-Usuario: Renan Dias
-  ├─ Tenant 1: AXYS (is_staff=true, role=owner)
-  ├─ Tenant 2: ACME (is_staff=false, role=admin)
-  └─ Tenant 3: XYZ Corp (is_staff=false, role=user)
-```
-
-Na requisição, o token inclui **apenas um tenant_uuid**. Easy usa esse tenant para:
-- Filtrar dados: `WHERE tenant_uuid = ?`
-- Validar permissões
-- Segregar orçamentos
+Uma pessoa pode ter acesso a **múltiplos tenants**, mas o token carrega **um** `tenant_uuid`.
+O Easy usa esse tenant para filtrar dados, validar permissões e segregar orçamentos.
 
 ---
 
-## Configuração
+## Configuração (vars do Easy)
 
-### .env
+Definidas em `backend/core/runtime_config.py` — os nomes corretos são `EASY_*` / `HUB_BASE_URL`
+(**não** `HUB_URL`/`HUB_AUTH_URL`/`JWT_SECRET`/`HUB_PUBLIC_KEY`, que apareciam em docs antigos):
 
-```
-HUB_AUTH_URL=https://axys-hub.com
-HUB_PUBLIC_KEY=-----BEGIN PUBLIC KEY-----...
-JWT_ALGORITHM=RS256  (produção) ou HS256 (dev)
-COOKIE_DOMAIN=axys-tec.com.br
-```
+| Variável | Default | Função |
+|---|---|---|
+| `EASY_ENV` | `development` | `development` / `production` |
+| `EASY_JWT_ALGORITHM` | `RS256` | algoritmo de validação |
+| `EASY_JWT_SECRET` | `` | segredo HS256 (**dev only**) |
+| `HUB_BASE_URL` | `http://localhost:8000` | base do Hub p/ JWKS, `/login` e `/auth/exchange` |
+| `EASY_HUB_CLIENT_ID` | — | client id do Easy no exchange (A2) — emitido pelo Hub |
+| `EASY_HUB_CLIENT_SECRET` | — | client secret do Easy no exchange (A2) — emitido pelo Hub |
+| `EASY_AUTH_BYPASS` | `false` | bypass de auth (**dev only**; bloqueado em produção) |
 
-### Middleware de Autenticação
-
-Arquivo: `backend/core/security.py`
-
-- Extrai token do header `Authorization: Bearer`
-- Valida assinatura (RS256 com chave pública do Hub)
-- Valida expiração (exp claim)
-- Retorna claims para uso em permissões
+JWKS: `GET {HUB_BASE_URL}/.well-known/jwks.json` (RS256, cache 1h no Easy). Se o JWKS cair,
+o Easy responde **503** em rotas autenticadas (dependência dura).
 
 ---
 
 ## TODO
 
-- [ ] Refresh token automático (antes de expirar) → ver **Design de referência** abaixo
-- [ ] Webhook do Hub para "tenant deactivated" → coberto pelo **revoke-on-cancel** abaixo
-- [ ] Cache de permissões (JTI blacklist)
-- [ ] Multi-tenant switching UI
+- [ ] Fechar lista canônica de slugs Hub+Easy (decisão humana).
+- [ ] Refresh token automático → ver **Design de referência** abaixo.
+- [ ] Endurecer validação com `iss`/`aud` (Hub emitir; Easy hoje decodifica com `verify_aud=False`).
+- [ ] (Futuro) revogação/blacklist se logout forçado virar requisito.
 
 ## Design de referência — lifecycle de token (resgatado do ADR-029, 2026-05-23)
 
-> O handshake de SSO **já evoluiu no prod** para `code → exchange` (Fernet), mais avançado que
-> o token-in-URL do ADR-029 original. Aproveite deste design **apenas o ciclo de vida do token**
-> (refresh/revoke) — não o fluxo de handshake, que está superado. Ver [[reference_sso_hub_prod]].
+> O handshake **já é A2** (`code → exchange`) — o design abaixo aproveita **apenas o ciclo de
+> vida do token** (refresh/revoke), não o handshake. Ver [[reference_sso_hub_prod]].
 
 **Vidas de token:**
-- **Access token**: vida máxima **1h** (assinado RS256/ES256, validado localmente via JWKS, sem
-  chamar o Hub). A janela curta é o trade-off aceito entre segurança (revogação) e disponibilidade.
+- **Access token**: alvo de vida curta (o contrato atual usa **TTL 8h**; o design de refresh
+  miraria ~1h) — assinado RS256, validado localmente via JWKS, sem chamar o Hub.
 - **Refresh token**: vida máxima **30 dias**, renovação por uso (**sliding window**).
 
-**Revogação amarrada ao cancelamento de assinatura** (resolve o TODO "tenant deactivated" sem
-depender de webhook): no cancelamento, o **Hub invalida o refresh token imediatamente**; o access
-token **expira naturalmente** (janela ≤ 1h de acesso residual). Sem necessidade de blacklist
-distribuída para o caso comum.
+**Revogação amarrada ao cancelamento de assinatura** (resolve "tenant deactivated" sem webhook):
+no cancelamento, o **Hub invalida o refresh token imediatamente**; o access token **expira
+naturalmente**. Sem blacklist distribuída para o caso comum.
 
-**Pré-condição no AxysHub** (refatoração — não urgente, executar quando o Easy for integrar o
-refresh; o mecanismo de token opaco atual pode coexistir na transição):
+**Pré-condição no AxysHub** (refatoração — executar quando o Easy for integrar o refresh):
 
 | Componente (Hub) | Mudança |
 |---|---|
-| `service_auth.py` | emitir JWT assinado (RS256) em vez de token opaco |
-| `security.py` | validar JWT além do hash atual |
-| `POST /auth/token` | emissão de access + refresh token |
 | `POST /auth/refresh` | renovação de access via refresh token |
 | `POST /auth/revoke` | revogação de refresh token (acionada no cancelamento) |
 | `GET /.well-known/jwks.json` | expor chave pública p/ o Easy validar sem redeploy |
 | Banco do Hub | tabela de refresh tokens com flag de revogação |
-
