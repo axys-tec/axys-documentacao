@@ -68,7 +68,11 @@
 -- EXTENSÕES
 -- ============================================================
 
-CREATE EXTENSION IF NOT EXISTS pgcrypto;
+-- schema tecnico criado apenas para hospedar a extensao pgcrypto
+-- e expor funcoes utilitarias como gen_random_uuid(), crypt() e gen_salt()
+CREATE SCHEMA IF NOT EXISTS public;
+SET search_path TO public;
+CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
 
 -- ============================================================
 -- SCHEMAS
@@ -1990,7 +1994,7 @@ INSERT INTO identity.hub_tenant (tenant_id, tenant_code, tenant_name, document, 
 VALUES
     ('7847231a-4ba3-5138-b2d6-6943beb8e3f9', 'AXYS', 'Axys Engenharia e Tecnologia Ltda', '38060729810', 'active', TRUE),
     ('9b1c7c20-2a4c-5b76-9f72-0e9a4f2d4c8f', 'LUNALO', 'Lunalô Calçados e Perfumaria Ltda', '45580611000194', 'active', TRUE),
-    ('d47aef9a-299d-5b8a-9fa2-b58a6050a4b0', 'DCENG', 'Dias & Cardozo Engenharia Ltda', '17695703000184', 'active', TRUE)
+    ('d47aef9a-299d-5b8a-9fa2-b58a6050a4b0', 'DIASECARDOZO', 'Dias & Cardozo Engenharia Ltda', '17695703000184', 'active', TRUE)
 ON CONFLICT (tenant_code) DO UPDATE SET
     tenant_name = EXCLUDED.tenant_name,
     document = EXCLUDED.document,
@@ -2015,6 +2019,10 @@ VALUES
     ('a40bdb6c-c47b-5ad0-bb36-8c89641005e7', 'Renan Dias', 'rdias07@live.com', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '00000000001', '{}'::jsonb, 'hub_admin', 'active', TRUE),
     ('279ae6ae-52e1-52e0-ad90-df80cbf5cd1b', 'Thaís', 'thays_hernandes@hotmail.com', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '00000000003', '{}'::jsonb, 'user', 'active', TRUE),
     ('733fa25d-157e-596f-9f86-4ad8db423881', 'Dias e Cardozo', 'diasecardozo@diasecardozo.com.br', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '00000000002', '{}'::jsonb, 'user', 'active', TRUE),
+    ('993ef59d-1f49-4c7d-862e-b2bb8ddcb30f', 'Maicon Franzin', 'eng.maicon@diasecardozo.com.br', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '00000000005', '{}'::jsonb, 'user', 'active', TRUE),
+    ('3464c27d-d4b4-41ba-a847-192465b2d37e', 'Julia Santana', 'eng.julia@diasecardozo.com.br', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '00000000006', '{}'::jsonb, 'user', 'active', TRUE),
+    ('de059dca-0e0d-4690-9fb6-78ad4189f036', 'Vitoria', 'eng.vitoria@diasecardozo.com.br', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '00000000007', '{}'::jsonb, 'user', 'active', TRUE),
+    ('c26f90c5-96d7-431b-8140-90058d88f122', 'Washington Keneddy', 'eng.washington@diasecardozo.com.br', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '00000000008', '{}'::jsonb, 'user', 'active', TRUE),
     ('83557f7e-e3f4-4002-a543-f09cc681f9ae', 'Lunalô Calcados', 'lunalocalcados@hotmail.com', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '00000000004', '{}'::jsonb, 'user', 'active', TRUE)
 ON CONFLICT (email) DO NOTHING;
 
@@ -2026,9 +2034,13 @@ FROM (
         ('AXYS', 'thays_hernandes@hotmail.com', 'internal_user'),
         ('LUNALO', 'thays_hernandes@hotmail.com', 'admin'),
         ('LUNALO', 'lunalocalcados@hotmail.com', 'admin'),
-        ('DCENG', 'rdias07@live.com', 'owner'),
-        ('DCENG', 'thays_hernandes@hotmail.com', 'admin'),
-        ('DCENG', 'diasecardozo@diasecardozo.com.br', 'user')
+        ('DIASECARDOZO', 'rdias07@live.com', 'owner'),
+        ('DIASECARDOZO', 'thays_hernandes@hotmail.com', 'admin'),
+        ('DIASECARDOZO', 'diasecardozo@diasecardozo.com.br', 'user'),
+        ('DIASECARDOZO', 'eng.maicon@diasecardozo.com.br', 'admin'),
+        ('DIASECARDOZO', 'eng.julia@diasecardozo.com.br', 'user'),
+        ('DIASECARDOZO', 'eng.vitoria@diasecardozo.com.br', 'user'),
+        ('DIASECARDOZO', 'eng.washington@diasecardozo.com.br', 'user')
 ) AS v(tenant_code, email, role)
 JOIN identity.hub_tenant t ON t.tenant_code = v.tenant_code
 JOIN identity.hub_user u ON u.email = v.email
@@ -2047,11 +2059,11 @@ SELECT
     TRUE
 FROM (
     VALUES
-        ('4f64d633-a304-5fb2-ab3a-0fb92291f18d', 'AXYS', 'AXYSSYSTEM', 'AxysSystem'),
+        ('4f64d633-a304-5fb2-ab3a-0fb92291f18d', 'AXYS', 'AXYS-TEC', 'AXYS-TEC'),
         ('50d4970e-b91e-56a7-988f-d5ecf615f55a', 'LUNALO', 'OUROESTE', 'Lunalô Ouroeste'),
         ('d6e937a1-47bd-5d3e-a4d3-11c210e3b22a', 'LUNALO', 'JALES', 'Lunalô Jales'),
         ('b09ab7ef-3f97-4bad-8b28-1aee900c5d7a', 'LUNALO', 'LOC-JALES', 'L''Occitane Jales'),
-        ('74b34022-49ce-5366-8d7c-5d90526e9c85', 'DCENG', 'DCENG', 'Dias & Cardozo - Eng. e Arq.')
+        ('74b34022-49ce-5366-8d7c-5d90526e9c85', 'DIASECARDOZO', 'DIASECARDOZO', 'Dias & Cardozo - Eng. e Arq.')
 ) AS v(store_id, tenant_code, store_code, store_name)
 JOIN identity.hub_tenant t ON t.tenant_code = v.tenant_code
 ON CONFLICT (tenant_id, store_code) DO UPDATE SET
@@ -2069,16 +2081,20 @@ SELECT
     TRUE
 FROM (
     VALUES
-        ('AXYS', 'rdias07@live.com', 'AXYSSYSTEM'),
-        ('AXYS', 'thays_hernandes@hotmail.com', 'AXYSSYSTEM'),
+        ('AXYS', 'rdias07@live.com', 'AXYS-TEC'),
+        ('AXYS', 'thays_hernandes@hotmail.com', 'AXYS-TEC'),
         ('LUNALO', 'thays_hernandes@hotmail.com', 'OUROESTE'),
         ('LUNALO', 'thays_hernandes@hotmail.com', 'JALES'),
         ('LUNALO', 'thays_hernandes@hotmail.com', 'LOC-JALES'),
         ('LUNALO', 'lunalocalcados@hotmail.com', 'OUROESTE'),
         ('LUNALO', 'lunalocalcados@hotmail.com', 'JALES'),
-        ('DCENG', 'rdias07@live.com', 'DCENG'),
-        ('DCENG', 'thays_hernandes@hotmail.com', 'DCENG'),
-        ('DCENG', 'diasecardozo@diasecardozo.com.br', 'DCENG')
+        ('DIASECARDOZO', 'rdias07@live.com', 'DIASECARDOZO'),
+        ('DIASECARDOZO', 'thays_hernandes@hotmail.com', 'DIASECARDOZO'),
+        ('DIASECARDOZO', 'diasecardozo@diasecardozo.com.br', 'DIASECARDOZO'),
+        ('DIASECARDOZO', 'eng.maicon@diasecardozo.com.br', 'DIASECARDOZO'),
+        ('DIASECARDOZO', 'eng.julia@diasecardozo.com.br', 'DIASECARDOZO'),
+        ('DIASECARDOZO', 'eng.vitoria@diasecardozo.com.br', 'DIASECARDOZO'),
+        ('DIASECARDOZO', 'eng.washington@diasecardozo.com.br', 'DIASECARDOZO')
 ) AS v(tenant_code, email, store_code)
 JOIN identity.hub_tenant t ON t.tenant_code = v.tenant_code
 JOIN identity.hub_user u ON u.email = v.email
@@ -2120,7 +2136,7 @@ JOIN product.product p
       AND p.code IN ('AXYSGESTOR')
   )
   OR (
-      t.tenant_code = 'DCENG'
+      t.tenant_code = 'DIASECARDOZO'
       AND p.code IN ('PRI', 'CPU', 'DOC', 'PM', 'LIC', 'ORC', 'BDR', 'FIN')
   )
 WHERE s.status = 'active'
@@ -2143,9 +2159,13 @@ FROM (
         ('AXYS', 'thays_hernandes@hotmail.com'),
         ('LUNALO', 'thays_hernandes@hotmail.com'),
         ('LUNALO', 'lunalocalcados@hotmail.com'),
-        ('DCENG', 'rdias07@live.com'),
-        ('DCENG', 'thays_hernandes@hotmail.com'),
-        ('DCENG', 'diasecardozo@diasecardozo.com.br')
+        ('DIASECARDOZO', 'rdias07@live.com'),
+        ('DIASECARDOZO', 'thays_hernandes@hotmail.com'),
+        ('DIASECARDOZO', 'diasecardozo@diasecardozo.com.br'),
+        ('DIASECARDOZO', 'eng.maicon@diasecardozo.com.br'),
+        ('DIASECARDOZO', 'eng.julia@diasecardozo.com.br'),
+        ('DIASECARDOZO', 'eng.vitoria@diasecardozo.com.br'),
+        ('DIASECARDOZO', 'eng.washington@diasecardozo.com.br')
 ) AS v(tenant_code, email)
 JOIN identity.hub_tenant t ON t.tenant_code = v.tenant_code
 JOIN identity.hub_user u ON u.email = v.email
@@ -2159,7 +2179,7 @@ JOIN product.product p
       AND p.code IN ('AXYSGESTOR')
   )
   OR (
-      t.tenant_code = 'DCENG'
+      t.tenant_code = 'DIASECARDOZO'
       AND p.code IN ('PRI', 'CPU', 'DOC', 'PM', 'LIC', 'ORC', 'BDR', 'FIN')
   )
 ON CONFLICT (tenant_id, user_id, product_id) DO UPDATE SET
