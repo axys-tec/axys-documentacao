@@ -2140,7 +2140,10 @@ CREATE TABLE IF NOT EXISTS catalogo.composicoes (
     cmp_ultima_pub      DATE,
     cmp_ultima_alteracao DATE,
     cmp_external_path   JSONB,
-    cmp_descritivo      JSONB,                            -- CTC: SÓ estado leve {modo, status, req_hash} (§11.11).
+    cmp_descritivo      JSONB,                            -- CTC VERSIONADO (fonte de verdade do texto; a tela lê 100% do banco):
+                                                          -- {modo, versoes:[{desde_edi, req_hash, status, medicao, remunera, origem}]}.
+                                                          -- versoes[-1]=ATUAL; render por-edição = maior desde_edi<=edi. Mudança de fonte ANEXA versão
+                                                          -- (preserva texto antigo no banco). _old .md = só auditoria/edição, render NÃO depende dele (§11.11).
                                                           -- ⚠️ REVISTO 2026-07-13: o prompt/MD do CTC vivem SÓ no storage
                                                           -- (ctc/prompt|doc/{cod}.md); o 'request' NUNCA aqui (era ~56MB
                                                           -- duplicado). req_hash versiona (delta:hash). NULL = em elaboração.
