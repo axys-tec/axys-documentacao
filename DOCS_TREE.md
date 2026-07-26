@@ -1,160 +1,95 @@
 # Estrutura do Repositório docs — Ecossistema Axys
 
-**Status:** v1.0 — Finalizado (01/06/2026)  
-**Fases:** ✅ FASE 1-6 completas (ADRs reorganizadas, 5 projetos documentados, integrações mapeadas)
+**Status:** vivo — última reconciliação **26/07/2026**
+**Repo:** `axys-tec/axys-documentacao` (embutido em cada projeto Axys como **git submodule** em `docs/`)
 
 ---
 
 ## Visão Geral
 
-Este repositório centraliza documentação, decisões arquiteturais (ADRs), contratos técnicos, schemas de banco de dados e migrations para o **ecossistema completo Axys** (5 projetos principais).
+Repositório **centralizado** de documentação, decisões arquiteturais (ADRs), contratos técnicos, schemas de banco e runbooks do **ecossistema Axys**. É um repo **isolado**, consumido por todos os projetos via submodule — ver **[Fluxo de trabalho](README.md#-fluxo-de-trabalho-repo-é-submodule)** no README.
 
 **Princípios:**
-- ✅ **ADRs com prefixo de escopo:** `AXYS-ADR-*` (global), `HUB-ADR-*`, `EASY-ADR-*`, `PRO-ADR-*`
-- ✅ Cada projeto tem seus próprios ADRs, schemas, seeds, migrations
-- ✅ Foundation reservado para decisões **realmente ecosystem-wide** (21 ADRs)
-- ✅ Schemas/migrations sempre dentro de `projects/{project}/schemas/`
-- ✅ Integrações mapeadas em `projects/{project}/integrations/`
-- ✅ Cross-references claras entre projetos
+- ✅ **ADRs com prefixo de escopo:** `AXYS-ADR-*` (global, em `foundation/`), `HUB-ADR-*`, `EASY-ADR-*`, `PRO-ADR-*` (por projeto).
+- ✅ Cada projeto tem seus próprios ADRs, schemas, seeds, migrations, contratos.
+- ✅ `foundation/` reservado a decisões **realmente ecosystem-wide**.
+- ✅ Schemas/migrations sempre em `projects/{project}/schemas/`.
+- ✅ Doc **específico de um projeto vive dentro do projeto** — nada de projeto na raiz.
+- ✅ Cross-references por markdown link com caminho relativo.
 
 ---
 
-## Estrutura Atual (v1.0)
+## Estrutura Atual (reconciliada com a árvore real)
 
 ```
 docs/
-├── README.md                           # Hub de navegação
-├── DOCS_TREE.md                        # Este arquivo
-├── SKELETON_STATUS.md                  # Status da reorganização
+├── README.md                           # Hub de navegação + fluxo de trabalho (submodule)
+├── DOCS_TREE.md                        # Este arquivo — mapa do repo
+├── ADR_INDEX.md                        # Índice consolidado de ADRs
 │
-├── foundation/                         # Decisões globais (em construção)
-│   ├── adrs/                           # (vazio — por preencher)
-│   ├── contracts/
-│   ├── governance/
-│   ├── domain-models/
-│   ├── patterns/
-│   └── glossary.md
+├── foundation/                         # Decisões GLOBAIS do ecossistema
+│   ├── adrs/                           # 22 ADRs AXYS-ADR-* (global)
+│   ├── contracts/                      # contratos técnicos reutilizáveis
+│   ├── domain-models/                  # conceitos de negócio
+│   ├── governance/                     # padrões e convenções
+│   └── patterns/                       # padrões técnicos
 │
 ├── infrastructure/                     # Infraestrutura compartilhada
-│   ├── databases/
-│   │   ├── audit_schema.sql
-│   │   ├── hub_schema.sql
-│   │   └── migration-scripts/
-│   ├── deployment/
-│   ├── security/
-│   └── monitoring/
+│   ├── databases/                      # schemas compartilhados (audit, hub)
+│   ├── deployment/                     # deploy, CI/CD, Render
+│   ├── security/                       # auth, secrets, TLS
+│   └── monitoring/                     # logging, métricas, alertas
 │
-├── projects/                           # Cada projeto isolado
-│   │
-│   ├── axys-hub/                       # 🟢 Ativo
-│   │   ├── README.md
-│   │   ├── ARCHITECTURE.md (por criar)
-│   │   ├── adrs/                       # 32 ADRs
-│   │   ├── contracts/
-│   │   ├── schemas/
-│   │   │   ├── schema.sql
-│   │   │   ├── seed.sql
-│   │   │   └── migrations/
-│   │   └── ...
-│   │
-│   ├── axys-easy/                      # 🟢 Ativo
-│   │   ├── README.md
-│   │   ├── ARCHITECTURE.md (por criar)
-│   │   ├── adrs/                       # 5 ADRs
-│   │   ├── modules/
-│   │   ├── contracts/
-│   │   ├── schemas/
-│   │   │   ├── schema.sql
-│   │   │   ├── seed.sql
-│   │   │   └── migrations/
-│   │   ├── ui-ux/
-│   │   ├── next-steps/
-│   │   └── ...
-│   │
-│   ├── axys-pro/                       # 🟡 Planejado (ERP)
-│   │   ├── README.md                   # ✅ Atualizado
-│   │   ├── ARCHITECTURE.md             # ✅ Criado
-│   │   ├── adrs/                       # 5 ADRs específicas
-│   │   ├── contracts/
-│   │   │   └── contrato_geral_axyspro.md  # ✅ Normativo
-│   │   ├── schemas/
-│   │   │   ├── schema.sql              # 🔄 Por criar
-│   │   │   ├── seed.sql                # 🔄 Por criar
-│   │   │   └── migrations/
-│   │   ├── modules/                    # 🔄 Por documentar
-│   │   └── integrations/               # 🔄 Por criar
-│   │
-│   ├── axys-sync/                      # 🟢 Produção (Contabilidade)
-│   │   ├── README.md                   # ✅ Bridge criado
-│   │   ├── integrations/
-│   │   │   ├── with-hub.md             # ✅ Autenticação & tenants
-│   │   │   ├── with-easy.md            # ✅ Consumo de dados
-│   │   │   └── data-flows.md           # ✅ Fluxos completos
-│   │   └── docs-reference.md           # Link para docs remotas
-│   │
-│   ├── axys-sync-loccitane/            # 🟢 Produção (Especializado)
-│   │   ├── README.md                   # ✅ Bridge criado
-│   │   ├── integrations/
-│   │   │   └── with-easy.md            # ✅ Futuro: orçamentos
-│   │   └── docs-reference.md           # Link para docs remotas
-│   │
-│   ├── axys-lisp/                      # 🟡 Planejado
-│   │   ├── README.md
-│   │   ├── schemas/ (por criar)
-│   │   └── ...
-│   │
-│   ├── axys-rvt/                       # 🟡 Planejado
-│   │   ├── README.md
-│   │   └── ...
-│   │
-│   └── axys-ifc/                       # 🟡 Planejado
-│       ├── README.md
-│       └── ...
+├── projects/                           # Cada projeto isolado (doc específico mora AQUI)
+│   ├── axys-hub/                       # 🟢 Ativo — 5 ADRs
+│   ├── axys-easy/                      # 🟢 Ativo — 6 ADRs · hospeda STORAGE_TREE.md
+│   ├── axys-gestor/                    # 🟡 Concepção — ecossistema de micro-apps de varejo
+│   ├── axys-pro/                       # 🟡 Planejado — 2 ADRs (ERP)
+│   ├── axys-cad/                       # 🟡 Planejado — CAD/BIM (ex-"axys-lisp")
+│   ├── axys-rvt/                       # 🟡 Planejado — plugin Revit
+│   ├── axys-ifc/                       # 🟡 Planejado — processamento IFC
+│   ├── axys-sync/                      # 🟢 Produção — bridge Contabilidade
+│   └── axys-sync-loccitane/            # 🟢 Produção — especializado (L'Occitane)
 │
-├── runbooks/                           # Procedimentos operacionais
-│   └── (por preencher)
+├── integrations/                       # Mapas de fluxo entre projetos (por preencher)
 │
-├── integrations/                       # Mapas entre projetos
-│   └── (por preencher)
-│
-└── z_trash/old_docs_repo/             # Referência histórica
-    └── (estrutura antiga, preservada)
+└── archive/                            # Referência histórica
+    └── retired-code/                   # código/estruturas aposentadas
 ```
+
+> Doc específico de projeto **não** fica na raiz. Foi o caso do `STORAGE_TREE.md` (layout de storage do Easy) — **movido** para `projects/axys-easy/STORAGE_TREE.md` em 26/07/2026.
 
 ---
 
 ## Padrão: Schemas e Migrations
 
-**Regra obrigatória:** Cada projeto que tem banco de dados segue este padrão:
+Cada projeto com banco segue:
 
 ```
 projects/{project}/schemas/
-├── schema.sql           # DDL completo (idempotente, DROP IF EXISTS)
+├── schema.sql           # DDL completo (snapshot do estado atual — init do zero)
 ├── seed.sql             # dados essenciais (fontes de ref, usuários base)
 └── migrations/
     ├── README.md        # instruções de aplicação
     ├── 001-initial-schema.sql
-    ├── 002-add-feature.sql
-    └── ...              # em ordem numérica (incremental)
+    └── ...              # ordem numérica, incremental
 ```
 
-**Semântica:**
-- `schema.sql` = snapshot do estado atual (usar para init do zero)
-- `migrations/` = histórico incremental (evolução)
-- `seed.sql` = dados mínimos obrigatórios
+- `schema.sql` = foto do estado atual · `migrations/` = histórico incremental · `seed.sql` = mínimo obrigatório.
 
 ---
 
-## ADRs por Projeto
+## ADRs por Escopo (contagem real — 26/07/2026)
 
-| Projeto | Quantidade | Status |
-|---------|-----------|--------|
-| axys-hub | 32 | ✅ Reorganizadas (inclui 2 Dash para depois) |
-| axys-easy | 5 | ✅ Reorganizadas |
-| axys-pro | 14 | ✅ Reorganizadas |
-| foundation | 0 | ⏳ Por definir (global) |
+| Escopo | Quantidade | Observação |
+|--------|-----------|------------|
+| foundation (global) | 22 | `AXYS-ADR-*` — valem para todo o ecossistema |
+| axys-easy | 6 | `EASY-ADR-*` |
+| axys-hub | 5 | `HUB-ADR-*` |
+| axys-pro | 2 | `PRO-ADR-*` |
+| axys-cad / rvt / ifc / gestor | 0 | ainda sem ADRs próprias |
 
-**Próximo passo:** Avaliar qual ADR é realmente ecosystem-wide → `foundation/adrs/`
+Índice consolidado: **[ADR_INDEX.md](ADR_INDEX.md)**.
 
 ---
 
@@ -163,31 +98,23 @@ projects/{project}/schemas/
 ```
 Você quer...
 ├─ Entender a arquitetura do Easy?
-│  └─ Abra: projects/axys-easy/README.md → ARCHITECTURE.md
-├─ Ver decisões do Hub?
-│  └─ Abra: projects/axys-hub/adrs/
-├─ Saber o schema do Easy?
-│  └─ Abra: projects/axys-easy/schemas/schema.sql
-├─ Aprender padrões de UI?
-│  └─ Abra: projects/axys-easy/ui-ux/config_ui_ux_easy.md
-└─ Integração entre projetos?
-   └─ Abra: integrations/ (em construção)
+│  └─ projects/axys-easy/ARCHITECTURE.md
+├─ Ver o layout de storage do Easy?
+│  └─ projects/axys-easy/STORAGE_TREE.md
+├─ Ver decisões globais?
+│  └─ foundation/adrs/  (índice em ADR_INDEX.md)
+├─ Saber o schema de um projeto?
+│  └─ projects/{project}/schemas/schema.sql
+└─ Como editar estes docs (submodule)?
+   └─ README.md → "Fluxo de trabalho"
 ```
 
 ---
 
 ## Histórico de Mudanças
 
-| Data | Versão | Mudança |
-|---|---|---|
-| 31/05/2026 | 0.1 | Estrutura inicial aprovada |
-| 01/06/2026 | 0.2 | Limpeza de resíduos, READMEs por projeto, ADRs reorganizadas |
-
----
-
-## Notas Importantes
-
-- ✅ Estrutura antiga preservada em `z_trash/old_docs_repo/`
-- ✅ Schemas SQL movidos para `projects/{project}/schemas/`
-- ⚠️ `foundation/adrs/` vazio (aguardando classificação de ADRs globais)
-- ⏳ `runbooks/` e `integrations/` prontos mas vazios
+| Data | Mudança |
+|---|---|
+| 31/05/2026 | Estrutura inicial aprovada |
+| 01/06/2026 | Limpeza de resíduos, READMEs por projeto, ADRs reorganizadas |
+| 26/07/2026 | Reconciliação com a árvore real: +axys-gestor, +axys-sync/-loccitane, axys-lisp→axys-cad, `z_trash`→`archive/retired-code`, `STORAGE_TREE.md`→`projects/axys-easy/`, contagem de ADRs corrigida, fluxo de trabalho do submodule documentado |
