@@ -539,6 +539,7 @@ FROM (VALUES
     ('SINAPI', '2026-03-01', '03-26'),
     ('SINAPI', '2026-04-01', '04-26'),
     ('SINAPI', '2026-05-01', '05-26'),
+    ('SINAPI', '2026-06-01', '06-26'),
     -- CDHU 184→201 (boletins ~trimestrais; 189 = Mar/23 quebra o padrão Fev/Mai/Ago/Nov)
     ('CDHU',   '2021-11-01', '184'),
     ('CDHU',   '2022-02-01', '185'),
@@ -1982,8 +1983,8 @@ CREATE TABLE IF NOT EXISTS catalogo.insumos_preco (
         CHECK (pri_origem IS NULL OR pri_origem IN ('C', 'CR', 'CT'))
 );
 
-CREATE INDEX ix_insumos_preco_ins_edi
-    ON catalogo.insumos_preco (pri_ins_id, pri_edi_id, pri_uf, pri_modalidade);
+-- (ix_insumos_preco_ins_edi removido: era DUPLICATA EXATA da constraint UNIQUE
+--  uq_insumos_preco_ins_edi_uf_mod — mesmas colunas/ordem; o unique cobre 100% as leituras.)
 
 CREATE INDEX ix_insumos_preco_edi
     ON catalogo.insumos_preco (pri_edi_id);
@@ -2379,8 +2380,9 @@ CREATE TABLE IF NOT EXISTS catalogo.composicoes_custo (
         ))
 );
 
-CREATE INDEX ix_cc_cmp
-    ON catalogo.composicoes_custo (cc_cmp_id, cc_edi_id, cc_uf, cc_modalidade);
+-- (ix_cc_cmp removido: era DUPLICATA EXATA da constraint UNIQUE uq_cc_cmp_edi_uf_mod
+--  — mesmas colunas/ordem; o unique cobre 100% as leituras e o delete+insert por edição
+--  fica mais leve com 1 índice grande a menos p/ manter.)
 
 -- FASE 2: custo@edição (retroanálise + reimport delete-then-insert por edição).
 CREATE INDEX ix_cc_edi
