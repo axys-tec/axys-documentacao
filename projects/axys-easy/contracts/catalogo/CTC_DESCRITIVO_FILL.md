@@ -26,3 +26,28 @@ pela IA. Ferramenta: `z_scripts_apoio/ctc_fill.py`. Doutrina de estilo + dataset
 ## §1 (invariante nas duas)
 "Será medido por {unidade POR EXTENSO com sigla, ex. metro quadrado (M2)}, {critério da seção 5 do [b]}."
 Termina em ponto. Nunca só a sigla ("M2, METRO QUADRADO") nem só a unidade.
+
+## Coluna **Grupo** — classe CANÔNICA por item (Fase 2, "fine-tuning dentro da CPU")
+A tabela `[c]`/§3 ganha a coluna **Grupo** com a classificação canônica do banco (não a heurística por
+nome, que errava **6,4%** — MO/ENC_COMP viravam MAT):
+- **INSUMO** → `insumos.ins_ti_id` → `insumos_tipo.ti_nome` (Material · Mão de Obra · Encargos
+  Complementares · Equipamento — Aquisição/Locação · Serviço · Especiais · Não Classificado).
+- **COMPOSICAO** → `composicoes.cmp_sub_id` → `composicoes_subgrupos.sub_descricao` (VERBATIM). Semântica:
+  `LIVRO SINAPI: CÁLCULOS E PARÂMETROS` = **MDO ou indiretos de MDO** (encargos, EPI, DSR, capacitação);
+  `CUSTOS HORÁRIOS…` / `DEPRECIAÇÃO, JUROS…` = **equipamento**; demais (ARGAMASSAS, CONCRETO…) = sub-serviço.
+- Formato: `| Tipo | Código | Descrição | Grupo | Unid. | Coef. |`. Injeta em prompt `[c]` E doc §3 (publicado).
+- **`_montar_remunera` lê o Grupo** (`_classe_do_grupo`) em vez de adivinhar; sem Grupo → fallback heurístico.
+- **req_hash NÃO muda**: o hash (`_conteudo_req`) usa a tabela SEM Grupo — Grupo é metadado derivado, não
+  identidade. Ao mexer na app, materializar §3/[c] com `_tabela_grupo` e manter `_tabela` (5 col) p/ o hash.
+
+### Ferramental (fonte única de layout: `_ctc_paths.py` — repo local ESPELHA o R2 `ctc/{doc,prompt,_old}`)
+- `ctc_pull.py [fonte] [--force]` — universo = todas CPUs com CTC (vigente + `_old` versionados por
+  `req_hash[:12]`). Sem `--force` = só o que falta local (preserva reparos). CTC_DIR por fonte.
+- `ctc_enriquece.py <fonte> [--apply]` — injeta a coluna Grupo (one-off local). Idempotente.
+- `ctc_repara.py [--apply] [--em-revisao] [--familia]` — conserta §1/§2 (custo-horário determinístico +
+  vazamento `[b]` + pole). `--em-revisao` = só não-preenchidos (p/ `_old`).
+- `put_md.py <fonte>` — FONTE-LEVEL: grava na versão certa de `cmp_descritivo` por `req_hash`
+  (`{cod}.md`→atual, `{cod}_{ref}.md`→`_old`) e sobe pro path-espelho.
+
+### Diferido (~próximo import): app `montar_prompt`/doc materializa com Grupo (`_tabela_grupo`) + tela de
+curadoria + IA_auto. Até lá, o enriquecimento é one-off local (`ctc_enriquece`).
