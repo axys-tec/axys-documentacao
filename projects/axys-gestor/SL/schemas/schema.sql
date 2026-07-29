@@ -1,5 +1,5 @@
 -- ============================================================
--- AxysGestorSL — Schema SQL
+-- Axys-Gestor / SL — Schema SQL
 -- Banco: PostgreSQL 14+
 -- Schemas: organization · catalog · planning · orders · purchases · tickets · royalties · audit
 --
@@ -383,7 +383,7 @@ CREATE TABLE IF NOT EXISTS catalog.attachment_type (
 
 
 INSERT INTO catalog.product_group (description, created_by)
-SELECT v.description, 'AxysGestorSL — seed inicial'
+SELECT v.description, 'Axys-Gestor / SL — seed inicial'
 FROM (VALUES
     ('Calçados'),
     ('Bolsas'),
@@ -393,7 +393,7 @@ ON CONFLICT (description) DO NOTHING;
 
 
 INSERT INTO catalog.product_type (product_group_id, description, created_by)
-SELECT pg.product_group_id, v.description, 'AxysGestorSL — seed inicial'
+SELECT pg.product_group_id, v.description, 'Axys-Gestor / SL — seed inicial'
 FROM (VALUES
     ('Calçados', 'Anabela'),
     ('Bolsas', 'Bolsa'),
@@ -430,7 +430,7 @@ ON CONFLICT (product_group_id, description) DO NOTHING;
 
 
 INSERT INTO catalog.product_grade (description, created_by)
-SELECT v.description, 'AxysGestorSL — seed inicial'
+SELECT v.description, 'Axys-Gestor / SL — seed inicial'
 FROM (VALUES
     ('34'),
     ('35'),
@@ -453,7 +453,7 @@ ON CONFLICT (description) DO NOTHING;
 
 
 INSERT INTO catalog.attachment_type (name, code, created_by)
-SELECT v.name, v.code, 'AxysGestorSL — seed inicial'
+SELECT v.name, v.code, 'Axys-Gestor / SL — seed inicial'
 FROM (VALUES
     ('NFe', 'NFE'),
     ('NFSe', 'NFSE'),

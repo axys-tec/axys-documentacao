@@ -1,8 +1,8 @@
-# AxysGestorSL — Fluxo de Telas
+# Axys-Gestor / SL — Fluxo de Telas
 
 ## 1. Objetivo
 
-Este documento descreve o fluxo macro de telas do `AxysGestorSL`.
+Este documento descreve o fluxo macro de telas do `Axys-Gestor / SL`.
 
 A referência principal de estrutura é o `AxysEasy`, especialmente em:
 
@@ -31,7 +31,7 @@ Referências principais:
 
 ## 2. Princípio de navegação
 
-O `AxysGestorSL` deve seguir esta lógica:
+O `Axys-Gestor / SL` deve seguir esta lógica:
 
 1. entrada
 2. autenticação
@@ -662,7 +662,7 @@ Justificativa:
 
 ## 18. Conclusão
 
-O fluxo de telas do `AxysGestorSL` deve seguir esta lógica:
+O fluxo de telas do `Axys-Gestor / SL` deve seguir esta lógica:
 
 - entrar como `Easy`
 - navegar como `Easy`

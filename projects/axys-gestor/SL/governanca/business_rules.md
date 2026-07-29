@@ -1,8 +1,8 @@
-# AxysGestorSL — Business Rules / TRD
+# Axys-Gestor / SL — Business Rules / TRD
 
 ## 1. Status do documento
 
-Este documento define a regra de negócio, a diretriz técnica e o esqueleto operacional do `AxysGestorSL`.
+Este documento define a regra de negócio, a diretriz técnica e o esqueleto operacional do `Axys-Gestor / SL`.
 
 Ele consolida 3 bases:
 
@@ -81,13 +81,13 @@ Conclusão dos 10 loops:
 
 - `Lunalô` é a fonte principal do comportamento
 - `AxysEasy` é a fonte principal da forma de construir
-- `AxysGestorSL` não deve ser clone direto de nenhum dos dois
+- `Axys-Gestor / SL` não deve ser clone direto de nenhum dos dois
 
 ---
 
 ## 3. Decisão-mãe do projeto
 
-O `AxysGestorSL` deve ser tratado como:
+O `Axys-Gestor / SL` deve ser tratado como:
 
 - uma aplicação nova
 - `FastAPI` desde o início
@@ -108,7 +108,7 @@ Desdobramento direto dessa decisão:
 
 ## 4. Objetivo do produto
 
-O `AxysGestorSL` é um SaaS multitenant para operação de lojas e franquias ligadas à Santa Lolla.
+O `Axys-Gestor / SL` é um SaaS multitenant para operação de lojas e franquias ligadas à Santa Lolla.
 
 No MVP, ele precisa resolver de forma integrada:
 
@@ -1158,7 +1158,7 @@ Estas pendências não invalidam o TRD:
 
 ## 21. Conclusão executiva
 
-O `AxysGestorSL` deve nascer como síntese deliberada de duas forças:
+O `Axys-Gestor / SL` deve nascer como síntese deliberada de duas forças:
 
 - a força operacional do `Lunalô`
 - a força arquitetural do `AxysEasy`

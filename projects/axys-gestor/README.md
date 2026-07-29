@@ -21,7 +21,7 @@ autentica e coordena pelo Hub — [[axys-hub]].
 
 | Vertical | Foco |
 |---|---|
-| **AxysGestorSL** | Lojas que atuam com a marca **Santa Lolla**. |
+| **SL** | Operação da marca **Santa Lolla** dentro do ecossistema Axys-Gestor. |
 | **AxysGestorAscShop** | Integração com o **ERP da Ascont — com** esquema de **grade**. |
 | **AxysGestorAscShop2** | Integração com o **ERP da Ascont — sem** grade. |
 | **AxysGestorLoccitane** | Expansão para operações da **L'Occitane** + integração com **VO (VarejOnline)**. |
@@ -42,4 +42,9 @@ Plugáveis em qualquer ERP. Exemplos:
 
 ---
 
-_Registro inicial (2026-07-26). A detalhar conforme o ecossistema amadurece._
+## Estrutura atual desta pasta
+
+- `governanca/` reúne os contratos transversais do Axys-Gestor.
+- `SL/` concentra o material específico da vertical Santa Lolla.
+
+_Registro inicial (2026-07-29). A detalhar conforme o ecossistema amadurece._

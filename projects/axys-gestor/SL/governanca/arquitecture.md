@@ -628,12 +628,12 @@ audit
 
 # Premissas do Ecossistema, SaaS e Evolução
 
-A aplicação **AxysGestorSL** é uma solução **SaaS de Gestão Integrada** para lojas e franquias que operam em parceria com o grupo **Santa Lolla**. No escopo atual, a plataforma resolve de forma canônica e unificada o **controle de pedidos**, **controle de compras**, **controle de tickets (contestações)** e o **controle e conciliação de royalties**. 
+A aplicação **Axys-Gestor / SL** é uma solução **SaaS de Gestão Integrada** para lojas e franquias que operam em parceria com o grupo **Santa Lolla**. No escopo atual, a plataforma resolve de forma canônica e unificada o **controle de pedidos**, **controle de compras**, **controle de tickets (contestações)** e o **controle e conciliação de royalties**. 
 
 ### Planeamento de Evoluções (Provisionadas de Antemão)
 - **Planejamento de Compras/Coleções**: Mapeamento, projeção orçamentária e direcionamento estratégico de mix de compras focado.
-- **Integrações de API (ERP Stores > AxysGestorSL)**: Sink automático e robusto de entradas de NF, vendas e cadastros oriundos dos sistemas de frente diretamente para a plataforma de gestão.
-- **Integrações com Ferramentas do Ecossistema**: Provisionar a comunicação direta bidirecional via API entre `AxysGestorSL` e serviços satélites da franqueadora (Ex: MultiREP, QualidadeWEB, TECEO, entre outros).
+- **Integrações de API (ERP Stores > Axys-Gestor / SL)**: Sink automático e robusto de entradas de NF, vendas e cadastros oriundos dos sistemas de frente diretamente para a plataforma de gestão.
+- **Integrações com Ferramentas do Ecossistema**: Provisionar a comunicação direta bidirecional via API entre `Axys-Gestor / SL` e serviços satélites da franqueadora (Ex: MultiREP, QualidadeWEB, TECEO, entre outros).
 
 ### Grupos de Clientes (SaaS Clients)
 - **Grupo 1) Lojas que operam com a SL**: O lojista propriamente dito, que utiliza a plataforma de forma operacional para auditar faturamentos, enviar tíquetes de divergência, confrontar cobranças e visualizar a saúde de seus pedidos e notas recebidas.
