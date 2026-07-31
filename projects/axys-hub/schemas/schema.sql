@@ -157,6 +157,35 @@ CREATE TABLE IF NOT EXISTS identity.hub_tenant (
 );
 
 -- ------------------------------------------------------------
+-- identity.hub_tenant_profile
+-- Função:
+--   Perfil do tenant por app/produto consumidor.
+--   Não substitui tenant; classifica o papel macro daquele tenant
+--   em um contexto de produto, sem trazer permissões operacionais
+--   para dentro do Hub.
+-- ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS identity.hub_tenant_profile (
+    tenant_id  UUID        NOT NULL,
+    app_code   TEXT        NOT NULL,
+    actor_type TEXT        NOT NULL,
+    is_active  BOOLEAN     NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+
+    CONSTRAINT hub_tenant_profile_pkey PRIMARY KEY (tenant_id, app_code),
+    CONSTRAINT fk_hub_tenant_profile_tenant FOREIGN KEY (tenant_id)
+        REFERENCES identity.hub_tenant (tenant_id) ON DELETE CASCADE,
+    CONSTRAINT ck_hub_tenant_profile_app CHECK (app_code IN ('easy', 'gestor')),
+    CONSTRAINT ck_hub_tenant_profile_actor CHECK (
+        actor_type IN ('internal', 'client', 'partner', 'brand_representative')
+    )
+);
+
+CREATE INDEX IF NOT EXISTS idx_hub_tenant_profile_app_actor
+    ON identity.hub_tenant_profile (app_code, actor_type)
+    WHERE is_active = TRUE;
+
+-- ------------------------------------------------------------
 -- identity.hub_user_tenant
 -- Função:
 --   Vínculo global usuário ↔ tenant. Regra geral de acesso.
@@ -449,6 +478,12 @@ JOIN (
     VALUES
         ('PRO', 'AXYSPRO', 'AxysPro', 'Suite AxysPro'),
         ('GESTOR', 'AXYSGESTOR', 'AxysGestor', 'Produto AxysGestor'),
+        ('GESTOR', 'SL-COMPANY', 'Gestor SL Company', 'Produto AxysGestor para operacoes Santa Lolla'),
+        ('GESTOR', 'LOCCITANE', 'Gestor L''Occitane', 'Produto AxysGestor para operacoes L''Occitane'),
+        ('GESTOR', 'ANALISTA-VENDAS', 'Gestor Analista Vendas', 'Produto AxysGestor para analise de vendas'),
+        ('GESTOR', 'ANALISTA-COMPRAS', 'Gestor Analista Compras', 'Produto AxysGestor para analise de compras'),
+        ('GESTOR', 'NOTIFICADOR', 'Gestor Notificador', 'Produto AxysGestor para notificacoes operacionais'),
+        ('GESTOR', 'CONCILIADOR', 'Gestor Conciliador', 'Produto AxysGestor para conciliacao operacional'),
         ('EASY', 'PRI', 'Easy Price', 'Motor paramétrico base do Easy Price'),
         ('EASY', 'CPU', 'Easy CPU', 'Produto Easy CPU'),
         ('EASY', 'DOC', 'Easy Docs', 'Produto Easy Docs'),
@@ -2017,7 +2052,7 @@ INSERT INTO identity.hub_user (
 )
 VALUES
     ('a40bdb6c-c47b-5ad0-bb36-8c89641005e7', 'Renan Dias', 'rdias07@live.com', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '00000000001', '{}'::jsonb, 'hub_admin', 'active', TRUE),
-    ('279ae6ae-52e1-52e0-ad90-df80cbf5cd1b', 'Thaís', 'thays_hernandes@hotmail.com', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '00000000003', '{}'::jsonb, 'user', 'active', TRUE),
+    ('279ae6ae-52e1-52e0-ad90-df80cbf5cd1b', 'Thaís', 'thays_hernandes@hotmail.com', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '40716917866', '{}'::jsonb, 'user', 'active', TRUE),
     ('733fa25d-157e-596f-9f86-4ad8db423881', 'Dias e Cardozo', 'diasecardozo@diasecardozo.com.br', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '00000000002', '{}'::jsonb, 'user', 'active', TRUE),
     ('993ef59d-1f49-4c7d-862e-b2bb8ddcb30f', 'Maicon Franzin', 'eng.maicon@diasecardozo.com.br', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '00000000005', '{}'::jsonb, 'user', 'active', TRUE),
     ('3464c27d-d4b4-41ba-a847-192465b2d37e', 'Julia Santana', 'eng.julia@diasecardozo.com.br', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '00000000006', '{}'::jsonb, 'user', 'active', TRUE),
@@ -2025,6 +2060,12 @@ VALUES
     ('c26f90c5-96d7-431b-8140-90058d88f122', 'Washington Keneddy', 'eng.washington@diasecardozo.com.br', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '00000000008', '{}'::jsonb, 'user', 'active', TRUE),
     ('83557f7e-e3f4-4002-a543-f09cc681f9ae', 'Lunalô Calcados', 'lunalocalcados@hotmail.com', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '00000000004', '{}'::jsonb, 'user', 'active', TRUE)
 ON CONFLICT (email) DO NOTHING;
+
+UPDATE identity.hub_user
+SET name = 'Thais Hernandes',
+    cpf = '40716917866',
+    updated_at = now()
+WHERE email = 'thays_hernandes@hotmail.com';
 
 INSERT INTO identity.hub_user_tenant (tenant_id, user_id, role, is_active)
 SELECT t.tenant_id, u.user_id, v.role, TRUE
@@ -2146,6 +2187,25 @@ ON CONFLICT (tenant_id, product_id) DO UPDATE SET
     valid_from = EXCLUDED.valid_from,
     valid_until = EXCLUDED.valid_until;
 
+INSERT INTO identity.hub_tenant_profile (tenant_id, app_code, actor_type, is_active)
+SELECT DISTINCT
+    t.tenant_id,
+    'gestor',
+    CASE
+        WHEN t.tenant_code = 'AXYS' THEN 'internal'
+        ELSE 'client'
+    END,
+    TRUE
+FROM billing.hub_license l
+JOIN identity.hub_tenant t ON t.tenant_id = l.tenant_id
+JOIN product.product p ON p.product_id = l.product_id
+WHERE l.status = 'active'
+  AND p.code = 'AXYSGESTOR'
+ON CONFLICT (tenant_id, app_code) DO UPDATE SET
+    actor_type = EXCLUDED.actor_type,
+    is_active = EXCLUDED.is_active,
+    updated_at = now();
+
 INSERT INTO billing.hub_user_app (tenant_id, user_id, product_id, status, granted_at)
 SELECT
     t.tenant_id,
@@ -2209,6 +2269,205 @@ FROM (
 JOIN product.product p ON p.code = v.product_code
 JOIN billing.hub_license l ON l.product_id = p.product_id AND l.status = 'active'
 JOIN identity.hub_tenant t ON t.tenant_id = l.tenant_id
+ON CONFLICT (tenant_id, product_id) DO UPDATE SET
+    slug = EXCLUDED.slug,
+    status = EXCLUDED.status;
+
+-- ------------------------------------------------------------
+-- Seed adicional AxysGestor
+-- Função:
+--   Adiciona o guarda-chuva operacional da Thais, representante de marca,
+--   tenant de cliente e as licenças iniciais do ecossistema Gestor sem
+--   remover o seed legado.
+-- ------------------------------------------------------------
+
+INSERT INTO identity.hub_tenant (tenant_id, tenant_code, tenant_name, document, status, is_active)
+VALUES
+    ('279ae6ae-52e1-52e0-ad90-df80cbf5cd1b', 'THAIS', 'Thais Hernandes', '40716917866', 'active', TRUE),
+    ('5f1d9cf3-c79f-5c6d-92da-5e99d68f0e11', 'MENZANI', 'Menzani e Carvalho Representacoes', '11222333000144', 'active', TRUE),
+    ('61b97a83-9d3f-5f94-89d9-cfbe5b9d6721', 'CRISQUARESMA', 'Cris Quaresma Sapatos', '22333444000155', 'active', TRUE)
+ON CONFLICT (tenant_code) DO UPDATE SET
+    tenant_name = EXCLUDED.tenant_name,
+    document = EXCLUDED.document,
+    status = EXCLUDED.status,
+    is_active = EXCLUDED.is_active,
+    updated_at = now();
+
+INSERT INTO identity.hub_user (
+    user_id,
+    name,
+    email,
+    password_hash,
+    phone,
+    locale,
+    cpf,
+    address_json,
+    sys_role,
+    status,
+    is_active
+)
+VALUES
+    ('cb80f78b-153a-5faa-b2fb-c8e4c3edb7aa', 'Marcio Menzani', 'mr.menzani@gmail.com', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '11122233344', '{}'::jsonb, 'user', 'active', TRUE),
+    ('37bb4148-dc37-5683-8053-7f39488f2ef1', 'Amanda', 'amanda@crisquaresma.com.br', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '22233344455', '{}'::jsonb, 'user', 'active', TRUE)
+ON CONFLICT (email) DO UPDATE SET
+    name = EXCLUDED.name,
+    cpf = EXCLUDED.cpf,
+    status = EXCLUDED.status,
+    is_active = EXCLUDED.is_active,
+    updated_at = now();
+
+INSERT INTO identity.hub_user_tenant (tenant_id, user_id, role, is_active)
+SELECT t.tenant_id, u.user_id, v.role, TRUE
+FROM (
+    VALUES
+        ('THAIS', 'thays_hernandes@hotmail.com', 'owner'),
+        ('MENZANI', 'mr.menzani@gmail.com', 'owner'),
+        ('CRISQUARESMA', 'amanda@crisquaresma.com.br', 'owner'),
+        ('CRISQUARESMA', 'mr.menzani@gmail.com', 'viewer')
+) AS v(tenant_code, email, role)
+JOIN identity.hub_tenant t ON t.tenant_code = v.tenant_code
+JOIN identity.hub_user u ON u.email = v.email
+ON CONFLICT (tenant_id, user_id) DO UPDATE SET
+    role = EXCLUDED.role,
+    is_active = EXCLUDED.is_active,
+    updated_at = now();
+
+INSERT INTO identity.hub_store (store_id, tenant_id, store_code, store_name, document, status, is_active)
+SELECT
+    v.store_id::uuid,
+    t.tenant_id,
+    v.store_code,
+    v.store_name,
+    v.document,
+    'active',
+    TRUE
+FROM (
+    VALUES
+        ('ceeedf19-787d-49ee-8102-42cf5689b19b', 'THAIS', 'LUNALO-OUROESTE', 'Lunalo Ouroeste', '45580611000194'),
+        ('c665bd74-de9c-4ccd-a278-3aebe0977893', 'THAIS', 'LUNALO-JALES', 'Lunalo Jales', '45580611000275'),
+        ('2fdb67ef-41ff-4a18-a21d-50557e1880ed', 'CRISQUARESMA', 'CRISQUARESMA', 'Cris Quaresma Sapatos', NULL)
+) AS v(store_id, tenant_code, store_code, store_name, document)
+JOIN identity.hub_tenant t ON t.tenant_code = v.tenant_code
+ON CONFLICT (tenant_id, store_code) DO UPDATE SET
+    store_name = EXCLUDED.store_name,
+    document = EXCLUDED.document,
+    status = EXCLUDED.status,
+    is_active = EXCLUDED.is_active,
+    updated_at = now();
+
+INSERT INTO identity.hub_user_store (tenant_id, user_id, store_id, role, is_active)
+SELECT
+    t.tenant_id,
+    u.user_id,
+    s.store_id,
+    v.role,
+    TRUE
+FROM (
+    VALUES
+        ('THAIS', 'thays_hernandes@hotmail.com', 'LUNALO-OUROESTE', 'admin'),
+        ('THAIS', 'thays_hernandes@hotmail.com', 'LUNALO-JALES', 'admin'),
+        ('CRISQUARESMA', 'amanda@crisquaresma.com.br', 'CRISQUARESMA', 'admin'),
+        ('CRISQUARESMA', 'mr.menzani@gmail.com', 'CRISQUARESMA', 'viewer')
+) AS v(tenant_code, email, store_code, role)
+JOIN identity.hub_tenant t ON t.tenant_code = v.tenant_code
+JOIN identity.hub_user u ON u.email = v.email
+JOIN identity.hub_store s
+  ON s.tenant_id = t.tenant_id
+ AND s.store_code = v.store_code
+ON CONFLICT (tenant_id, user_id, store_id) DO UPDATE SET
+    role = EXCLUDED.role,
+    is_active = EXCLUDED.is_active,
+    updated_at = now();
+
+INSERT INTO billing.hub_subscription (tenant_id, partner_id, status, billing_cycle, started_at)
+SELECT t.tenant_id, NULL, 'active', 'monthly', now()
+FROM identity.hub_tenant t
+WHERE t.tenant_code IN ('THAIS', 'MENZANI', 'CRISQUARESMA')
+  AND NOT EXISTS (
+      SELECT 1
+      FROM billing.hub_subscription s
+      WHERE s.tenant_id = t.tenant_id
+        AND s.status = 'active'
+  );
+
+INSERT INTO billing.hub_license (subscription_id, tenant_id, product_id, status, valid_from, valid_until)
+SELECT
+    s.subscription_id,
+    t.tenant_id,
+    p.product_id,
+    'active',
+    s.started_at,
+    NULL
+FROM billing.hub_subscription s
+JOIN identity.hub_tenant t ON t.tenant_id = s.tenant_id
+JOIN product.ecosystem e ON e.code = 'GESTOR'
+JOIN product.product p
+  ON p.ecosystem_id = e.ecosystem_id
+ AND p.code IN ('SL-COMPANY', 'LOCCITANE', 'ANALISTA-VENDAS', 'ANALISTA-COMPRAS', 'NOTIFICADOR', 'CONCILIADOR')
+WHERE s.status = 'active'
+  AND t.tenant_code IN ('THAIS', 'MENZANI', 'CRISQUARESMA')
+ON CONFLICT (tenant_id, product_id) DO UPDATE SET
+    subscription_id = EXCLUDED.subscription_id,
+    status = EXCLUDED.status,
+    valid_from = EXCLUDED.valid_from,
+    valid_until = EXCLUDED.valid_until;
+
+INSERT INTO identity.hub_tenant_profile (tenant_id, app_code, actor_type, is_active)
+SELECT t.tenant_id, 'gestor', v.actor_type, TRUE
+FROM (
+    VALUES
+        ('THAIS', 'client'),
+        ('MENZANI', 'brand_representative'),
+        ('CRISQUARESMA', 'client')
+) AS v(tenant_code, actor_type)
+JOIN identity.hub_tenant t ON t.tenant_code = v.tenant_code
+ON CONFLICT (tenant_id, app_code) DO UPDATE SET
+    actor_type = EXCLUDED.actor_type,
+    is_active = EXCLUDED.is_active,
+    updated_at = now();
+
+INSERT INTO billing.hub_user_app (tenant_id, user_id, product_id, status, granted_at)
+SELECT
+    t.tenant_id,
+    u.user_id,
+    p.product_id,
+    'active',
+    now()
+FROM (
+    VALUES
+        ('THAIS', 'thays_hernandes@hotmail.com'),
+        ('MENZANI', 'mr.menzani@gmail.com'),
+        ('CRISQUARESMA', 'amanda@crisquaresma.com.br')
+) AS v(tenant_code, email)
+JOIN identity.hub_tenant t ON t.tenant_code = v.tenant_code
+JOIN identity.hub_user u ON u.email = v.email
+JOIN product.ecosystem e ON e.code = 'GESTOR'
+JOIN product.product p
+  ON p.ecosystem_id = e.ecosystem_id
+ AND p.code IN ('SL-COMPANY', 'LOCCITANE', 'ANALISTA-VENDAS', 'ANALISTA-COMPRAS', 'NOTIFICADOR', 'CONCILIADOR')
+ON CONFLICT (tenant_id, user_id, product_id) DO UPDATE SET
+    status = EXCLUDED.status,
+    granted_at = EXCLUDED.granted_at;
+
+INSERT INTO billing.hub_microapp_instance (tenant_id, product_id, slug, status)
+SELECT
+    t.tenant_id,
+    p.product_id,
+    CASE p.code
+        WHEN 'SL-COMPANY' THEN 'gestor-sl-company'
+        WHEN 'LOCCITANE' THEN 'gestor-loccitane'
+        WHEN 'ANALISTA-VENDAS' THEN 'gestor-analista-vendas'
+        WHEN 'ANALISTA-COMPRAS' THEN 'gestor-analista-compras'
+        WHEN 'NOTIFICADOR' THEN 'gestor-notificador'
+        WHEN 'CONCILIADOR' THEN 'gestor-conciliador'
+    END,
+    'active'
+FROM identity.hub_tenant t
+JOIN billing.hub_license l ON l.tenant_id = t.tenant_id AND l.status = 'active'
+JOIN product.product p ON p.product_id = l.product_id
+JOIN product.ecosystem e ON e.ecosystem_id = p.ecosystem_id AND e.code = 'GESTOR'
+WHERE t.tenant_code IN ('THAIS', 'MENZANI', 'CRISQUARESMA')
+  AND p.code IN ('SL-COMPANY', 'LOCCITANE', 'ANALISTA-VENDAS', 'ANALISTA-COMPRAS', 'NOTIFICADOR', 'CONCILIADOR')
 ON CONFLICT (tenant_id, product_id) DO UPDATE SET
     slug = EXCLUDED.slug,
     status = EXCLUDED.status;

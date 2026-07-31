@@ -9,24 +9,59 @@
 
 ### POST /auth/login
 ```
-Autentica um usuário e retorna JWT token.
+SSO password login para aplicações externas do ecossistema Axys.
+
+Headers:
+  Authorization: Basic base64(client_id:client_secret)
 
 Body:
   email: string
   password: string
-  tenant_id?: string (opcional, descobre automaticamente)
+  document: string (somente dígitos; tenant por padrão, tenant/store para apps store-aware)
+  app: string ("easy" | "gestor")
 
 Response (200):
   {
-    "access_token": "eyJhbGc...",
-    "token_type": "Bearer",
-    "expires_in": 28800,
-    "user": { ... },
-    "tenant": { ... }
+    "token": "eyJhbGc...",
+    "access_token": "eyJhbGc..."
   }
 
-Error (401):
-  { "detail": "Invalid credentials" }
+Erros:
+  400 -> payload inválido / app não suportada
+  401 -> client credentials inválidas ou credenciais do usuário inválidas
+```
+
+### POST /auth/exchange
+```
+Troca um authorization code de uso único por um JWT assinado pelo Hub.
+
+Headers:
+  Authorization: Basic base64(client_id:client_secret)
+
+Body:
+  code: string
+  app: string ("easy" | "gestor")
+
+Response (200):
+  {
+    "token": "eyJhbGc...",
+    "access_token": "eyJhbGc..."
+  }
+
+Erros:
+  400 -> code inválido, expirado, reutilizado ou emitido para outra app
+  401 -> client credentials inválidas
+```
+
+Observação:
+  Para o AxysGestor, o Hub aceita somente a app macro "gestor".
+  Produtos internos como "sl", "loccitane" e "gestor" são resolvidos pelo próprio AxysGestor.
+  O contrato do Gestor prevê `login_scope` tenant/store, com campos de store nulos quando o documento resolver tenant.
+
+### GET /.well-known/jwks.json
+```
+Publica as chaves públicas RS256 do Hub para validação offline dos JWTs
+emitidos para as aplicações integradas.
 ```
 
 ### POST /auth/logout
@@ -106,4 +141,3 @@ Response (200):
 - [ ] Documentar admin endpoints
 - [ ] Adicionar exemplos de erro
 - [ ] Versioning strategy
-
