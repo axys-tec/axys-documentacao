@@ -3844,10 +3844,16 @@ CREATE INDEX IF NOT EXISTS ix_documentos_fte_tipo ON catalogo.documentos(doc_fte
 -- na data inicial; aqui guardamos o número-índice acumulado (e a variação % opcional).
 -- `indices` = catálogo (PK natural = código legível, como catalogo.unidades);
 -- `indices_historico` = série mensal (1 linha por índice × mês-ref).
--- SEMEADO via `z_scripts_apoio/import_indices.py` (fonte: BCB SGS, gratuito/sem chave —
--- retorna variação % mensal; guardamos número-índice acumulado base 100 + a variação).
--- Set atual (construção): INCC-DI(192), IGP-M(189), IGP-DI(190), IPCA(433), INPC(188).
--- Não há regra de negócio aqui — é dado de referência (re-rodar o script atualiza).
+-- FONTE ÚNICA da semente = o próprio serviço (não há script de seed): o botão "Atualizar
+-- índices" da tela /indices e o beat noturno `catalogo.atualizar_indices` fazem bootstrap
+-- quando a série está vazia e delta quando já há histórico. Duas famílias, em direções opostas:
+--   • BCB/SGS (indices_service.INDICES) — a fonte dá a VARIAÇÃO % mensal e nós ACUMULAMOS o
+--     número-índice base 100. Set: INCC-DI(192), IGP-M(189), IGP-DI(190), IPCA(433), INPC(188).
+--     + a meta Selic (SGS 432) por caminho próprio: é TAXA (nível), não índice acumulável.
+--   • IPOP/Fazenda-SP (indices_ipop.AGRUPAMENTOS) — 22 séries de obra pública (índice OFICIAL
+--     de reajuste no Estado, Decreto 27.133). A fonte dá o NÚMERO-ÍNDICE publicado e a variação
+--     é DERIVADA por LAG após gravar. Sem API: raspagem por postback ASP.NET.
+-- Não há regra de negócio aqui — é dado de referência (re-rodar a atualização é idempotente).
 -- ============================================================
 CREATE TABLE IF NOT EXISTS catalogo.indices (
     idc_codigo     TEXT PRIMARY KEY,            -- IGPM, IPCA, INCC, INPC, SELIC… (PK natural)
@@ -3856,6 +3862,41 @@ CREATE TABLE IF NOT EXISTS catalogo.indices (
     idc_ativo      BOOLEAN NOT NULL DEFAULT TRUE,
     idc_criado_em  TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Seed do CATÁLOGO de índices (get-or-create). O HISTÓRICO NÃO se semeia aqui: vem por api/curl
+-- (BCB-SGS p/ INCC/IGP/IPCA/INPC/SELIC · IPOP FIPE/SEFAZ-SP p/ os IPOP-*), idempotente.
+INSERT INTO catalogo.indices (idc_codigo, idc_nome, idc_fonte) VALUES
+    ('SELIC', 'Taxa Selic — meta Copom (% a.a.)', 'BCB'),
+    ('IGP-DI', 'Índice Geral de Preços – Disponib. Interna', 'FGV'),
+    ('IGP-M', 'Índice Geral de Preços – Mercado', 'FGV'),
+    ('INCC-DI', 'Índice Nacional de Custo da Construção (DI)', 'FGV'),
+    ('INCC-M', 'Índice Nacional de Custo da Construção – Mercado', 'FGV'),
+    ('INPC', 'Índice Nacional de Preços ao Consumidor', 'IBGE'),
+    ('IPCA', 'Índice de Preços ao Consumidor Amplo', 'IBGE'),
+    ('IPOP-EOAC', 'IPOP — Estruturas/OA em Concreto Geral', 'FIPE/SEFAZ-SP'),
+    ('IPOP-EOAC-AGUA', 'IPOP — Estruturas/OA em Concreto: Rede de Água', 'FIPE/SEFAZ-SP'),
+    ('IPOP-EOAC-ESGOTO', 'IPOP — Estruturas/OA em Concreto: Rede de Esgoto', 'FIPE/SEFAZ-SP'),
+    ('IPOP-EOAC-PONTES', 'IPOP — Estruturas/OA em Concreto: Pontes e Viadutos', 'FIPE/SEFAZ-SP'),
+    ('IPOP-EOAC-RESERV', 'IPOP — Estruturas/OA em Concreto: Reservatórios', 'FIPE/SEFAZ-SP'),
+    ('IPOP-EOAM-ADUTORA', 'IPOP — Estruturas/OA Metálicas: Assentamento de Tubulações Adutoras', 'FIPE/SEFAZ-SP'),
+    ('IPOP-EOAM-ENERGIA', 'IPOP — Estruturas/OA Metálicas: Linhas e Redes de Distribuição de Energia Elétrica', 'FIPE/SEFAZ-SP'),
+    ('IPOP-IGE', 'IPOP — Edificações Geral (IGE)', 'FIPE/SEFAZ-SP'),
+    ('IPOP-IGE-DELEG', 'IPOP — Edificações: Delegacias e Cadeias', 'FIPE/SEFAZ-SP'),
+    ('IPOP-IGE-ESCOLA', 'IPOP — Edificações: Escolas', 'FIPE/SEFAZ-SP'),
+    ('IPOP-IGE-FORUM', 'IPOP — Edificações: Fóruns', 'FIPE/SEFAZ-SP'),
+    ('IPOP-IGE-SAUDE', 'IPOP — Edificações: Centros de Saúde', 'FIPE/SEFAZ-SP'),
+    ('IPOP-PAV', 'IPOP — Pavimentação Geral (PAV)', 'FIPE/SEFAZ-SP'),
+    ('IPOP-PAV-CBU', 'IPOP — Pavimentação: Camada Betuminosa Usinada (m³)', 'FIPE/SEFAZ-SP'),
+    ('IPOP-PAV-IMPRIM', 'IPOP — Pavimentação: Imprimadura Betuminosa (m²)', 'FIPE/SEFAZ-SP'),
+    ('IPOP-PAV-LEITO', 'IPOP — Pavimentação: Melhorias e Reformas sobre Leito, Sub-Base ou Base com Material in natura (m³)', 'FIPE/SEFAZ-SP'),
+    ('IPOP-PAV-MACADAME', 'IPOP — Pavimentação: Macadame Betuminoso e Tratamentos Superficiais (duplo e triplo, m³)', 'FIPE/SEFAZ-SP'),
+    ('IPOP-PAV-SOLOBRITA', 'IPOP — Pavimentação: Sub-Base ou Base de Solo-Brita Graduada e Macadame Hidráulico (m³)', 'FIPE/SEFAZ-SP'),
+    ('IPOP-PAV-SOLOCIM', 'IPOP — Pavimentação: Sub-Base ou Base de Solo Cimento (m³)', 'FIPE/SEFAZ-SP'),
+    ('IPOP-PAV-TRANSP', 'IPOP — Pavimentação: Transporte de Material para Reforço ou Base (m³ por km)', 'FIPE/SEFAZ-SP'),
+    ('IPOP-SGPMO', 'IPOP — Serviços Gerais com Predominância de Mão de Obra (SGPMO)', 'FIPE/SEFAZ-SP'),
+    ('IPOP-TER', 'IPOP — Terraplenagem (TER)', 'FIPE/SEFAZ-SP')
+ON CONFLICT (idc_codigo) DO NOTHING;
+
 
 CREATE TABLE IF NOT EXISTS catalogo.indices_historico (
     idh_id            INTEGER GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
@@ -3868,7 +3909,6 @@ CREATE TABLE IF NOT EXISTS catalogo.indices_historico (
 );
 CREATE INDEX IF NOT EXISTS ix_indices_historico_codigo_mes
     ON catalogo.indices_historico(idh_idc_codigo, idh_mes_ref);
-
 
 -- ============================================================
 -- TABELA: catalogo.search_document   (prefixo sd_)   — decisão Renan 2026-06-11
@@ -5729,6 +5769,7 @@ CREATE TABLE IF NOT EXISTS ativo.ativo_itens (
     ati_bdi_id          INTEGER,                           -- BDI da linha (FK ativo_bdi; NULL em título/não-precificável). FK via ALTER (ver §BDI)
     ati_ajuste_json     JSONB,                             -- camada de ajuste REVERSÍVEL sobre o preço resolvido (§10)
     ati_have_memory_calc BOOLEAN NOT NULL DEFAULT FALSE,   -- qtd vem de memória (true) ou digitação (false)
+    ati_preco_fixado     BOOLEAN NOT NULL DEFAULT FALSE,   -- preço FIXADO manualmente (override): _capturar_custo_unit e rotação PULAM esta linha; desafixar re-rastreia a fonte. Espelha desc_fixada, mas explícito (ati_custo_unit é sempre gravado).
     ati_regras_json     JSONB,                             -- metadados por tipo de linha
     ati_meta_json       JSONB,
     ati_criado_em       TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -5898,7 +5939,7 @@ CREATE TABLE IF NOT EXISTS ativo.orcamento_insumos_preco (
     oip_id              INTEGER GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
     oip_oin_id          INTEGER NOT NULL,
     oip_uf              CHAR(2) NOT NULL DEFAULT 'SP',
-    oip_preco           NUMERIC(14,4),                     -- null = sem preço
+    oip_preco           NUMERIC(14,2),                     -- null = sem preço (2 casas TRUNC — padrão obra)
     oip_situacao        TEXT,                              -- 'COM PREÇO' | 'SEM PREÇO' (null = sem preço)
     oip_criado_em       TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     oip_atualizado_em   TIMESTAMPTZ,
@@ -5988,7 +6029,7 @@ CREATE TABLE IF NOT EXISTS ativo.memo_calc_item (
     mci_quantity_type   TEXT,                              -- UNIT | LENGTH | AREA | VOLUME | TEXT_VALUE (1:1 c/ collector)
     mci_metodo          TEXT,                              -- method do coletor (selection_count, entity_area_sum…)
     mci_unidade         TEXT,
-    mci_qtd_calculada   NUMERIC(18,6) NOT NULL,            -- AUTORIDADE sobre o número (não recalcula das entidades)
+    mci_qtd_calculada   NUMERIC(14,2) NOT NULL,            -- AUTORIDADE sobre o número (quantidade → 2 casas TRUNC, casa com ati_quantidade)
     mci_coeficiente_json JSONB,                            -- coefficient {type,value,unit} (só AXVOL hoje; forma evolui sem ALTER)
     -- (entidades[] NÃO ficam no banco: a evidência vive no payload axys-cad-v1 CRU no R2, por levantamento — drill-down lê de lá por capture_id)
     mci_status          TEXT    NOT NULL DEFAULT 'SYNCED', -- SYNCED | SUPERSEDED (re-levantamento preserva histórico — axysCAD §9)
@@ -6166,9 +6207,9 @@ CREATE TABLE IF NOT EXISTS ativo.ativo_bdi (
     abd_regime          TEXT    NOT NULL DEFAULT 'ONERADO', -- ONERADO | DESONERADO (governa CPRB + LS recomendada)
     abd_tipo_obra       TEXT,                               -- chave em catalogo.bdi_tcu_param (EDIFICIOS…; REDUZIDO ⇒ FORNECIMENTO_EQUIP)
     abd_nome            TEXT,
-    abd_iss_base        NUMERIC(8,4) NOT NULL DEFAULT 100,  -- % da base de cálculo do ISS sujeita à alíquota
-    abd_iss_aliquota    NUMERIC(8,4),                       -- alíquota municipal do ISS (%)
-    abd_percent         NUMERIC(8,4),                      -- BDI resultante (%), calculado das parcelas pela fórmula
+    abd_iss_base        NUMERIC(14,2) NOT NULL DEFAULT 100, -- % da base de cálculo do ISS sujeita à alíquota
+    abd_iss_aliquota    NUMERIC(14,2),                      -- alíquota municipal do ISS (%)
+    abd_percent         NUMERIC(14,2),                     -- BDI resultante (%), TRUNC(2) — nunca ROUND (contrato §6)
     abd_default         BOOLEAN NOT NULL DEFAULT FALSE,    -- BDI padrão da obra (aplicado por default às linhas)
     abd_criado_em       TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     abd_atualizado_em   TIMESTAMPTZ,
@@ -6197,7 +6238,7 @@ CREATE TABLE IF NOT EXISTS ativo.ativo_bdi_composicao (
     abdc_abd_id         INTEGER NOT NULL,
     abdc_parcela        TEXT    NOT NULL,                  -- siglas Acórdão 2622/2013: AC | SG | R | DF | L | CP | ISS | CPRB
     abdc_descricao      TEXT,
-    abdc_percent        NUMERIC(8,4) NOT NULL,
+    abdc_percent        NUMERIC(14,2) NOT NULL,
     abdc_criado_em      TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     abdc_atualizado_em  TIMESTAMPTZ,
     abdc_criado_por     TEXT,
@@ -6232,8 +6273,8 @@ CREATE TABLE IF NOT EXISTS ativo.ativo_ls (
     als_atv_id          INTEGER NOT NULL,
     als_tipo            TEXT    NOT NULL,                  -- ONERADA | DESONERADA (desoneração da folha)
     als_mdo             TEXT    NOT NULL DEFAULT 'HORISTA', -- regime de contratação da MDO: HORISTA | MENSALISTA (qual coluna de LS é aplicada ao preço)
-    als_percent_horista     NUMERIC(8,4),                  -- LS resultante (%) p/ horista
-    als_percent_mensalista  NUMERIC(8,4),                  -- LS resultante (%) p/ mensalista
+    als_percent_horista     NUMERIC(14,2),                 -- LS resultante (%) p/ horista (2 casas TRUNC)
+    als_percent_mensalista  NUMERIC(14,2),                 -- LS resultante (%) p/ mensalista (2 casas TRUNC)
     als_criado_em       TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     als_atualizado_em   TIMESTAMPTZ,
     als_criado_por      TEXT,
@@ -6260,8 +6301,8 @@ CREATE TABLE IF NOT EXISTS ativo.ativo_ls_item (
     alsi_grupo          CHAR(1),                           -- A | B | C | D (grupos da planilha de LS)
     alsi_codigo         TEXT,                              -- A1, A2, B1… (INSS, SESI…)
     alsi_descricao      TEXT,
-    alsi_percent_horista     NUMERIC(8,4),
-    alsi_percent_mensalista  NUMERIC(8,4),
+    alsi_percent_horista     NUMERIC(14,2),
+    alsi_percent_mensalista  NUMERIC(14,2),
     alsi_ordem          INTEGER NOT NULL DEFAULT 0,
     alsi_criado_em      TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     alsi_atualizado_em  TIMESTAMPTZ,
