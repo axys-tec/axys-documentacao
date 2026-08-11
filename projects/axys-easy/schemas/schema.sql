@@ -5770,6 +5770,7 @@ CREATE TABLE IF NOT EXISTS ativo.ativo_itens (
     ati_ajuste_json     JSONB,                             -- camada de ajuste REVERSÍVEL sobre o preço resolvido (§10)
     ati_have_memory_calc BOOLEAN NOT NULL DEFAULT FALSE,   -- qtd vem de memória (true) ou digitação (false)
     ati_preco_fixado     BOOLEAN NOT NULL DEFAULT FALSE,   -- preço FIXADO manualmente (override): _capturar_custo_unit e rotação PULAM esta linha; desafixar re-rastreia a fonte. Espelha desc_fixada, mas explícito (ati_custo_unit é sempre gravado).
+    ati_is_alo           BOOLEAN NOT NULL DEFAULT FALSE,   -- marcador ALO (Administração Local da Obra): SÓ em nó de nível 1; a subárvore inteira segue o %ALO derivado no cronograma. Y = total desta subárvore. Marcador durável (não a descrição). 1 por orçamento (garantido no serviço; índice parcial opcional).
     ati_regras_json     JSONB,                             -- metadados por tipo de linha
     ati_meta_json       JSONB,
     ati_criado_em       TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
