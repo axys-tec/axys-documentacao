@@ -87,7 +87,12 @@ Observação:
 
 ### POST /auth/refresh
 ```
-Obtém novo access_token usando refresh_token.
+Não implementado no código atual do Hub.
+
+O bloco abaixo descreve uma intenção/roadmap de API, não um endpoint disponível hoje.
+
+Fluxo pretendido:
+  Obtém novo access_token usando refresh_token.
 
 Body:
   refresh_token: string
