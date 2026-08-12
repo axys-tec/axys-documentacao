@@ -81,14 +81,22 @@ fetch("/api/fontes-base", {
 ## Fluxo de Logout
 
 ```
-Easy → POST /auth/logout (Hub)
+Easy → GET /logout?app=easy&redirect_uri=<callback-do-easy>[&state=...]
     ↓
-Hub invalida token
+Hub encerra a sessão web
     ↓
-Easy limpa cookie
+Hub audita LOGOUT
     ↓
-Redireciona para /login
+Hub redireciona para /login?msg=logout&app=easy&redirect_uri=...
+    ↓
+Usuário reloga e volta para a app correta
 ```
+
+Observações:
+
+- o Hub **não** faz revogação server-side do JWT já emitido;
+- o `redirect_uri` do logout é validado contra a mesma allowlist do SSO de login;
+- sem `app`/`redirect_uri`, o Hub mantém o comportamento genérico: `303 -> /login?msg=logout`.
 
 ---
 

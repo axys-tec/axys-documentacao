@@ -64,15 +64,25 @@ Publica as chaves públicas RS256 do Hub para validação offline dos JWTs
 emitidos para as aplicações integradas.
 ```
 
-### POST /auth/logout
+### GET /logout
 ```
-Revoga o token atual (invalidar no redis/blacklist).
+Encerra a sessão web do Hub, registra LOGOUT em hub_login_log e
+redireciona para a tela de login.
 
-Headers:
-  Authorization: Bearer <token>
+Query params opcionais:
+  app: string           # ex: "easy" | "gestor"
+  redirect_uri: string  # validada contra allowlist da app
+  state: string         # devolvido ao login para reiniciar o fluxo SSO
 
-Response (200):
-  { "detail": "Logged out successfully" }
+Comportamento:
+  - sem query params:
+      303 -> /login?msg=logout
+  - com app + redirect_uri válidos:
+      303 -> /login?msg=logout&app=...&redirect_uri=...[&state=...]
+
+Observação:
+  Este endpoint encerra a sessão browser do Hub.
+  Ele não faz revogação server-side de JWT já emitido.
 ```
 
 ### POST /auth/refresh

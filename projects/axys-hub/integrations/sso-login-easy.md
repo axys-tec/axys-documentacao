@@ -212,13 +212,25 @@ dono do próprio cookie, e o **JWT nunca trafega pela URL/logs**.
 
 ## 6. Logout e revogação
 
-- Logout no Easy é **client-side** (descarta cookie `easy_token`):
-  `backend/modules/auth/routes_auth.py` (`/auth/logout`) e
-  `backend/modules/pages/routes.py` (`/login/logout`).
+- O logout efetivo do ecossistema passa pelo **Hub**:
+  `GET /logout[?app=easy&redirect_uri=...&state=...]`.
+- Quando o Easy quer encerrar a experiência SSO sem perder o contexto da app, ele deve
+  mandar o browser para:
+  `GET {HUB_BASE_URL}/logout?app=easy&redirect_uri=https://easy.axys-tec.com.br/sso/callback[&state=...]`
+- O Hub:
+  - registra `LOGOUT` em `hub_login_log`;
+  - executa `request.session.clear()`;
+  - redireciona para `/login?msg=logout&app=easy&redirect_uri=...`.
+- Sem os parâmetros de contexto, o Hub mantém o fallback genérico:
+  `303 -> /login?msg=logout`.
+
+Isso resolve o problema de **re-login silencioso**: a sessão do Hub é encerrada de fato,
+mas o próximo login ainda volta para a app correta.
+
 - Como o token é self-contained e válido até `exp` (8h), **não há revogação imediata**
-  (ADR-021 §6.2). Para logout forçado / bloqueio, o Hub precisaria de uma **blacklist**
-  e de um endpoint que o Easy consulte — isso **não existe hoje** no Easy e seria
-  trabalho adicional dos dois lados.
+  do JWT já emitido. Para logout forçado / bloqueio, o Hub precisaria de uma
+  **blacklist** e de um mecanismo de consulta/negação adicional — isso continua como
+  trabalho futuro dos dois lados.
 
 ### 6.1 Auditoria de login — `'SSO'` como origem canônica
 
@@ -266,8 +278,9 @@ Definidas em `backend/core/runtime_config.py`:
 - [ ] Emitir `apps_licenciadas` com os **slugs canônicos** da seção 4.1.
 - [ ] Garantir `is_staff` e/ou ≥1 app `easy-*` para quem deve entrar.
 - [x] ~~Definir o handshake~~ → **A2 (code + exchange)** decidido (seção 5).
-- [ ] **`GET /login`** aceitar `app`, `redirect_uri` (com allowlist) e `state`; redirecionar com `?code=`.
-- [ ] **`POST /auth/exchange`** trocar `code` (uso único, TTL 60–120s) pelo JWT, autenticando o client.
+- [x] **`GET /login`** aceita `app`, `redirect_uri` (com allowlist) e `state`; redireciona com `?code=`.
+- [x] **`POST /auth/exchange`** troca `code` (uso único, TTL 60–120s) pelo JWT, autenticando o client.
 - [ ] **Emitir `client_id`/`client_secret`** para o Easy usar no exchange.
-- [ ] **Registrar login/logout em `hub_login_log`** com `origem = 'SSO'` (seção 6.1).
+- [x] **Registrar login/logout em `hub_login_log`** com `origem = 'SSO'` (seção 6.1).
+- [x] **`GET /logout`** aceita `app`, `redirect_uri` (com allowlist) e `state` para preservar o retorno à app correta após logout.
 - [ ] (Futuro) revogação/blacklist se logout forçado for requisito.
