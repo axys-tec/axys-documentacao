@@ -5867,8 +5867,11 @@ CREATE TABLE IF NOT EXISTS ativo.orcamento_parametros (
     opa_edicao_id       INTEGER,                           -- edição-base (catalogo.edicoes). NULL p/ fonte TENANT.
     opa_uf              CHAR(2) NOT NULL DEFAULT 'SP',
     opa_modalidade      TEXT    NOT NULL DEFAULT 'SD',      -- "LS da edição" da fonte: SD=sem desoneração (ONERADO) | CD=com desoneração (DESONERADO) | SE=sem encargos
-    opa_converter_ls   BOOLEAN NOT NULL DEFAULT FALSE,     -- aplica a LS DA OBRA (ativo_ls) sobre os insumos da fonte (preço pode diferir da fonte/edição)
-    opa_default         BOOLEAN NOT NULL DEFAULT FALSE,    -- contexto inicial herdado na criação
+    opa_converter_ls   BOOLEAN NOT NULL DEFAULT FALSE,     -- LS: aplica a LS DA OBRA (ativo_ls) sobre os insumos da fonte (preço pode diferir da fonte/edição)
+    opa_converter_mdo  BOOLEAN NOT NULL DEFAULT FALSE,     -- MDO: substitui a mão-de-obra pelos equivalentes da fonte FAVORITA (inter-fonte, pivô SINAPI via equivalencias_mo)
+    opa_converter_ins  BOOLEAN NOT NULL DEFAULT FALSE,     -- INS: substitui os insumos (material) pelos equivalentes da fonte FAVORITA (equivalencias_ins)
+    opa_converter_reg  BOOLEAN NOT NULL DEFAULT FALSE,     -- REG: regime MENSALISTA (SINAPI-exclusivo: FONTE_H→SINAPI_H→SINAPI_MÊS); auto pelo ativo_ls, força SINAPI favorito
+    opa_default         BOOLEAN NOT NULL DEFAULT FALSE,    -- FONTE FAVORITA: origem das substituições MDO/INS (contexto inicial herdado na criação)
     opa_criado_em       TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     opa_atualizado_em   TIMESTAMPTZ,
     opa_criado_por      TEXT,
@@ -5908,8 +5911,11 @@ CREATE TABLE IF NOT EXISTS ativo.empreendimento_parametros (
     epa_edicao_id       INTEGER,                           -- edição-base (catalogo.edicoes). NULL p/ fonte TENANT.
     epa_uf              CHAR(2) NOT NULL DEFAULT 'SP',
     epa_modalidade      TEXT    NOT NULL DEFAULT 'SD',      -- "LS da edição" da fonte: SD=sem desoneração (ONERADO) | CD=com desoneração (DESONERADO) | SE=sem encargos
-    epa_converter_ls   BOOLEAN NOT NULL DEFAULT FALSE,     -- aplica a LS DA OBRA sobre os insumos da fonte (preço difere da fonte/edição)
-    epa_default         BOOLEAN NOT NULL DEFAULT FALSE,     -- fonte-base primária do empreendimento
+    epa_converter_ls   BOOLEAN NOT NULL DEFAULT FALSE,     -- LS: aplica a LS DA OBRA sobre os insumos da fonte (preço difere da fonte/edição)
+    epa_converter_mdo  BOOLEAN NOT NULL DEFAULT FALSE,     -- MDO: substitui a mão-de-obra pela da fonte FAVORITA (inter-fonte, pivô SINAPI)
+    epa_converter_ins  BOOLEAN NOT NULL DEFAULT FALSE,     -- INS: substitui os insumos pela da fonte FAVORITA
+    epa_converter_reg  BOOLEAN NOT NULL DEFAULT FALSE,     -- REG: regime MENSALISTA (SINAPI-exclusivo); auto pelo ativo_ls
+    epa_default         BOOLEAN NOT NULL DEFAULT FALSE,     -- FONTE FAVORITA (fonte-base primária do empreendimento)
     epa_criado_em       TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     epa_atualizado_em   TIMESTAMPTZ,
     epa_criado_por      TEXT,
