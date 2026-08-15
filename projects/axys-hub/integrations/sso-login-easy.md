@@ -213,26 +213,64 @@ dono do próprio cookie, e o **JWT nunca trafega pela URL/logs**.
 ## 6. Logout e revogação
 
 - O logout efetivo do ecossistema passa pelo **Hub**:
-  `GET /logout[?app=easy&redirect_uri=...&state=...]`.
+  `GET /logout?app=easy&redirect_uri=...&state=...`.
 - Quando o Easy quer encerrar a experiência SSO sem perder o contexto da app, ele deve
   mandar o browser para:
-  `GET {HUB_BASE_URL}/logout?app=easy&redirect_uri=https://easy.axys-tec.com.br/sso/callback[&state=...]`
+  `GET {HUB_BASE_URL}/logout?app=easy&redirect_uri=https://easy.axys-tec.com.br/sso/callback&state=...`
 - O Hub:
   - registra `LOGOUT` em `hub_login_log`;
   - executa `request.session.clear()`;
-  - redireciona para `/login?msg=logout&app=easy&redirect_uri=...`.
+  - redireciona para `/login?msg=logout&app=easy&redirect_uri=...[&state=...]`.
 - Sem os parâmetros de contexto, o Hub mantém o fallback genérico:
   `303 -> /login?msg=logout`.
+- **Fail-safe** (Hub, 2026-08-12): se `app`/`redirect_uri`/`state` vierem inválidos, o Hub
+  **ainda assim** encerra a sessão e cai no fallback genérico. Logout nunca falha em aberto:
+  perde-se o retorno contextual, não a saída.
 
 Isso resolve o problema de **re-login silencioso**: a sessão do Hub é encerrada de fato,
 mas o próximo login ainda volta para a app correta.
+
+### 6.1 `state` é OBRIGATÓRIO para o Easy
+
+O Hub trata `state` como opcional — ele não usa o valor, apenas devolve o que recebeu.
+**Para o Easy, é obrigatório**, e a razão não é o logout em si, é o login seguinte:
+
+- depois do logout, o próximo login nasce na **tela do Hub**, não em `/sso/login` — logo
+  ninguém plantou `sso_state` na sessão do Easy;
+- o Hub só reenvia o `state` que recebeu (`_build_sso_redirect`: `if sso_request.get("state")`),
+  e o template de login só emite o campo oculto sob `{% if sso_state %}`;
+- o `/sso/callback` do Easy **recusa `state` vazio ou divergente** (anti-CSRF).
+
+Omitir o `state` no logout, portanto, produz um sintoma deslocado da causa: o logout funciona,
+e é o **login seguinte** que morre em *"state inválido"*. Vale para qualquer app cujo callback
+valide `state` — não é particularidade do Easy.
+
+### 6.2 Ordem de operações no Easy
+
+`GET /login/logout` (`backend/modules/pages/routes.py`) faz, **nesta ordem**:
+
+1. registra `LOGOUT` em `audit.login_logs`;
+2. `request.session.clear()` — mata `auth_doc` (documento do usuário) e o `sso_state` antigo;
+3. `routes_sso.logout_redirect()` — gera um `state` **novo**, grava na sessão e monta a URL;
+4. responde **303** para o Hub, expirando o cookie `easy_token` na mesma resposta.
+
+Os passos 2 e 3 não podem trocar de lugar: invertidos, o `clear()` apaga o `state` recém-criado.
+
+O `redirect_uri` sai do mesmo `_callback_url()` usado no login — fonte única. É esta a URL que a
+allowlist do Hub conhece; montar a string em dois lugares é o caminho curto para um logout que
+cai no fallback genérico no dia em que uma das duas mudar.
+
+> `POST /auth/logout` (`routes_auth.py`) não participa disso — devolve JSON e ninguém o chama.
+
+### 6.3 O que isto **não** resolve
 
 - Como o token é self-contained e válido até `exp` (8h), **não há revogação imediata**
   do JWT já emitido. Para logout forçado / bloqueio, o Hub precisaria de uma
   **blacklist** e de um mecanismo de consulta/negação adicional — isso continua como
   trabalho futuro dos dois lados.
+- O que foi resolvido aqui é **sessão web do Hub** + **retorno contextual correto** para a app.
 
-### 6.1 Auditoria de login — `'SSO'` como origem canônica
+### 6.4 Auditoria de login — `'SSO'` como origem canônica
 
 Cada login federado deixa rastro **nos dois lados**, com a origem explícita:
 
