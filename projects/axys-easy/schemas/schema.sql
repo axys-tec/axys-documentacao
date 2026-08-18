@@ -4459,6 +4459,7 @@ CREATE TABLE IF NOT EXISTS tenant_catalogo.insumos (
     ins_descricao      TEXT    NOT NULL,
     ins_unidade        TEXT    NOT NULL,                  -- texto livre (sem FK unidades)
     ins_uf             CHAR(2) NOT NULL DEFAULT 'SP',     -- UF do insumo (o preço herda daqui)
+    ins_busca          TEXT,                              -- normalizado p/ busca (trigger set_busca): upper(unaccent(código||' '||descrição))
     ins_criado_em      TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     ins_atualizado_em  TIMESTAMPTZ,
     ins_criado_por     TEXT,
@@ -4477,6 +4478,7 @@ CREATE TABLE IF NOT EXISTS tenant_catalogo.insumos (
 );
 
 CREATE INDEX ix_tci_tenant ON tenant_catalogo.insumos (ins_tenant_uuid, ins_codigo);
+CREATE INDEX ix_tci_busca_trgm ON tenant_catalogo.insumos USING GIN (ins_busca catalogo.gin_trgm_ops);
 
 -- ── 4) PREÇO do insumo (UF herda do insumo; MO = pelado; cotação inline em JSONB) ──
 CREATE TABLE IF NOT EXISTS tenant_catalogo.insumos_preco (
@@ -4515,6 +4517,7 @@ CREATE TABLE IF NOT EXISTS tenant_catalogo.composicoes (
     cmp_codigo         TEXT    NOT NULL,
     cmp_descricao      TEXT    NOT NULL,
     cmp_unidade        TEXT    NOT NULL,
+    cmp_busca          TEXT,                              -- normalizado p/ busca (trigger set_busca)
     cmp_criado_em      TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     cmp_atualizado_em  TIMESTAMPTZ,
     cmp_criado_por     TEXT,
@@ -4529,6 +4532,7 @@ CREATE TABLE IF NOT EXISTS tenant_catalogo.composicoes (
 );
 
 CREATE INDEX ix_tcc_tenant ON tenant_catalogo.composicoes (cmp_tenant_uuid, cmp_codigo);
+CREATE INDEX ix_tcc_busca_trgm ON tenant_catalogo.composicoes USING GIN (cmp_busca catalogo.gin_trgm_ops);
 
 -- ── 6) ITENS da composição (ref polimórfica a.3: global OU tenant, insumo OU composição) ──
 CREATE TABLE IF NOT EXISTS tenant_catalogo.composicoes_itens (
@@ -4577,6 +4581,26 @@ CREATE TABLE IF NOT EXISTS tenant_catalogo.composicoes_custo (
 );
 
 CREATE INDEX ix_tccu_cmp_edi ON tenant_catalogo.composicoes_custo (cc_cmp_id, cc_edi_id);
+
+-- ── Busca: coluna normalizada mantida por trigger (upper+unaccent do código+descrição) ──
+-- Fuzzy = pg_trgm word_similarity sobre ins_busca/cmp_busca (índices GIN acima); exata = ILIKE unaccent.
+-- Sem search_document/indexer (isso é do catálogo global, milhões de linhas). Extensões unaccent/pg_trgm
+-- vivem no schema catalogo (uso qualificado). unaccent é STABLE → ok em trigger, não em coluna GENERATED.
+CREATE OR REPLACE FUNCTION tenant_catalogo.set_busca() RETURNS trigger AS $$
+BEGIN
+    IF TG_TABLE_NAME = 'insumos' THEN
+        NEW.ins_busca := upper(catalogo.unaccent(coalesce(NEW.ins_codigo, '') || ' ' || coalesce(NEW.ins_descricao, '')));
+    ELSIF TG_TABLE_NAME = 'composicoes' THEN
+        NEW.cmp_busca := upper(catalogo.unaccent(coalesce(NEW.cmp_codigo, '') || ' ' || coalesce(NEW.cmp_descricao, '')));
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_tci_busca BEFORE INSERT OR UPDATE ON tenant_catalogo.insumos
+    FOR EACH ROW EXECUTE FUNCTION tenant_catalogo.set_busca();
+CREATE TRIGGER trg_tcc_busca BEFORE INSERT OR UPDATE ON tenant_catalogo.composicoes
+    FOR EACH ROW EXECUTE FUNCTION tenant_catalogo.set_busca();
 
 
 -- ============================================================
