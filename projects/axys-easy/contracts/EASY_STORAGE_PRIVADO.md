@@ -43,3 +43,27 @@ O **catálogo** (fontes/edições: xlsx, critérios, LS, fichas, cadernos, CTC) 
 
 - Helper único (hoje em `backend/modules/ativo/memoria_service.py`): `_priv_ativo(tenant, emp, atv, *parts)` → `easy/{tenant}/{emp}/{ativo}/<parts>`. Ex.: `_priv_ativo(t, e, a, "orca", "memo-calc", mc_id, "midias", nome)`.
 - **Pendência:** quando um 2º produto precisar do layout, promover o helper a um módulo de paths privado (espelho do `sp` público), e este contrato passa a ser o ponto único citado por ambos.
+
+## 5. Ramo por-tenant NÃO ligado a empreendimento/ativo — Catálogo próprio (`tenant_catalogo`)
+
+Dado por-tenant que **não** pertence a um empreendimento/ativo (a **biblioteca própria** do tenant: fontes/insumos/composições próprios e suas propostas de cotação). Não confundir com o catálogo **global** de §3 (SINAPI/CDHU).
+
+```
+easy/tenants/{tenant_uuid}/catalogo/insumo/{fonte_id}/{ins_id}/{edi_id}/{arquivo}   ← proposta (PDF) de cotação
+```
+
+- Helper: `cotacao_r2_key(...)` em `backend/modules/ativo/dados_proprios_service.py`. Nome do arquivo = `{uuid8}_{original}`. Sobe via `save_private_file`; serve via `get_private_url` (rota valida o prefixo do próprio tenant).
+
+## 6. Hierarquia canônica ÚNICA (decidida 2026-08-19) e convenção `_old`
+
+Ao entrar no bucket privado, a estrutura diz na hora **compartilhado vs por-tenant**:
+
+```
+easy / (global | tenants/{tenant_uuid}) / {domínio} / {aplicação}
+```
+- **`global`** — dado compartilhado entre tenants (docs privados do catálogo global: `easy/fontes/…` — mantido onde está; mover 77k objetos não compensa, `fontes/` já é namespace global inequívoco).
+- **`tenants/{uuid}`** — dado por-tenant. Domínios: `empreendimentos/{emp}/{ativo}/{produto}/…` (orça/docs/build-diary) e `catalogo/…` (biblioteca própria, §5). Ancorar no DONO (§2).
+
+**`_old` (arquivamento):** fica **ANINHADO na pasta do próprio arquivo**, com o tag (edição/versão) como **subpasta** — nunca na raiz do bucket, nunca como sufixo. Ex.: `easy/fontes/sinapi/notas/notas_06-26.pdf` (tag `06-26`) → `easy/fontes/sinapi/notas/_old/06-26/notas_06-26.pdf`. Implementado em `_old_cand` (`storage_provider.py`); corrige o bug antigo `_old/{fullpath}.{tag}` na raiz.
+
+**Pendência (migração aprovada, ainda NÃO aplicada):** `_priv_ativo` do orça ainda emite `easy/{tenant}/{emp}/{ativo}/…` (layout antigo, sem `tenants/`). Migrar o helper para `easy/tenants/{tenant}/empreendimentos/{emp}/{ativo}/…` **e** fazer backfill dos arquivos existentes (mover R2 + atualizar `ativo.memo_calc_arquivo.mca_r2_key` — acoplamento R2↔banco, dado de homologação). O `cotacao_r2_key` já nasce no layout novo.
