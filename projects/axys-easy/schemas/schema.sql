@@ -4014,9 +4014,12 @@ CREATE INDEX IF NOT EXISTS ix_search_document_codigo
 -- um schema de views obrigaria a forkar todas elas. O recorte de linha (edição
 -- publicada, item ativo) já vive nas funções; o de coluna, no serializer da API.
 --
--- SENHA: definida POR AMBIENTE, fora deste arquivo —
---     ALTER ROLE easy_mobile_reader PASSWORD '…';
--- Role com LOGIN e sem senha não autentica (md5/scram falham). Nunca commitar senha.
+-- SENHA: definida POR AMBIENTE, fora deste arquivo. Use o meta-comando do psql:
+--     \password easy_mobile_reader
+-- e NÃO `ALTER ROLE ... PASSWORD '…'`. O \password pergunta a senha, escapa sozinho e
+-- não grava no histórico do terminal. O ALTER exige aspa RETA ('), e senha colada de
+-- editor costuma vir com aspa curva (' '), que o Postgres rejeita — já aconteceu em prod
+-- (21/08/2026). Role com LOGIN e sem senha não autentica: estado intermediário seguro.
 -- ------------------------------------------------------------
 DO $$
 BEGIN
@@ -4027,7 +4030,10 @@ END $$;
 
 -- Teto de conexões: é o que impede o app GRATUITO de consumir as conexões de que o
 -- Easy Web (pago) precisa. O limite mora na role, não na boa vontade do código.
-ALTER ROLE easy_mobile_reader CONNECTION LIMIT 8;
+-- 20 de 103 (max_connections de prod, medido em 21/08/2026) = ~19% do banco. É TETO,
+-- não reserva: só consome o que usar. Com pool de 5 por instância, cabem 4 instâncias
+-- antes de encostar. Ajustar é ALTER ROLE — sem deploy, sem downtime.
+ALTER ROLE easy_mobile_reader CONNECTION LIMIT 20;
 
 -- Cinto de segurança: nem transação de escrita, nem query eterna, nem transação
 -- pendurada segurando conexão.
