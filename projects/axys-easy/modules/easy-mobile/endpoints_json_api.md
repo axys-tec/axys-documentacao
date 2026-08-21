@@ -193,12 +193,19 @@ sem o original ao lado, o simulado não diz nada.
 
 `ls` sobrescreve a LS da fonte e vale para **toda** a mão de obra da composição.
 
-> **Alavancas ainda ausentes, e o motivo:**
-> **preço de insumo** — o motor não aceita override de preço; a extensão é pequena mas mexe
-> em código que a bancada usa em produção, então merece commit e regressão próprios.
-> **fonte-destino** — depende das tabelas de equivalência, que continuam fora do GRANT.
-> **regime dentro do `/simular`** — usar `/conversao`, que faz a conversão de verdade;
-> trocar o percentual de LS **não** converte regime.
+> **Alavancas que NÃO existem, e por quê — nenhuma é pendência:**
+>
+> **preço de insumo** — fora de escopo por decisão de 21/08/2026: não teria uso em escala.
+> Seria viável tecnicamente, mas mexeria no motor que a bancada usa em produção para
+> atender caso raro.
+>
+> **fonte-destino** — depende das tabelas de equivalência, que continuam fora do GRANT
+> (§5.1). Habilitar é decisão comercial, não técnica.
+>
+> **regime dentro do `/simular`** — use `/conversao`, que converte de verdade. Trocar o
+> percentual de LS **não** converte regime: o motor aplica `ls_h` aos horistas e `ls_m` aos
+> mensalistas, então mexer só num deles devolveria o mesmo total — número plausível e
+> errado, que é pior que ausência.
 
 ---
 
