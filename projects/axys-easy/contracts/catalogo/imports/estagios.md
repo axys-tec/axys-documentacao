@@ -2,7 +2,7 @@
 
 **Status:** Contrato Canônico (v1.0 · 2026-07-14 — funde `IMPORT_ESTAGIOS` + `edicoes_import_estagios` + as regras de import do ex-`CATALOGO_BUSINESS_RULES` §2/§3.2/§3.3/§4.1/§6/§7/§9)
 **Implementa:** `backend/modules/catalogo/estagios.py` (máquina de estados) · `backend/modules/catalogo/import_service.py` (tasks) · `backend/core/import_cpu/parser_*.py`. Coluna: `catalogo.edicoes.edi_estagios` (JSONB).
-**Por fonte:** [sinapi.md](sinapi.md) · [cdhu.md](cdhu.md) · [fde.md](fde.md). **Modelo do dado importado:** [../listagem.md](../listagem.md).
+**Por fonte:** [sinapi.md](sinapi.md) · [cdhu.md](cdhu.md) · [fde.md](fde.md) · [sbc.md](sbc.md). **Modelo do dado importado:** [../listagem.md](../listagem.md).
 
 > Governa **como cada fonte importa**: a máquina de estados dos 4 estágios (com cascata) e as regras de negócio do import (classificação, derivação de preço, conferência, situação, reimport, diff). Validado por `z_scripts_apoio/valida_amostra*.py` (Excel/CSV × banco, 0 divergências).
 
@@ -23,6 +23,9 @@ Insumo de **mão de obra**: `preco = ARRED( pelado × (1 + LS%/100), 2 )`, com `
 - **SINAPI — preço de insumo SD/CD e custo de composição: `trunc(2)`** em todas as etapas. (Ver [sinapi.md](sinapi.md).)
 - **CDHU — custo de composição: `round half-up (2)` em duas passagens.** (Ver [cdhu.md](cdhu.md).)
 - **FDE — custo publicado COM BDI**, base limpa `MO×(1+LS)+materiais`, trunc só no total. (Ver [fde.md](fde.md).)
+- **SBC — catálogo emula a fonte:** linhas peladas arredondadas, LS aplicada
+  sobre a soma das linhas MO e convergência auditável por centavos no modelo D.
+  A bancada transformada continua no perfil uniforme TRUNC. Ver [sbc.md](sbc.md).
 
 **A LS incide SÓ no salário-base (`ti=MO`).** `ENC_COMP`, `MAT`, `EQUIP_*`, `SERV`, `ESP` entram a **valor de face** (sem LS). **%AS** (montagem por UF de insumo sem preço na UF) = artefato de composição SINAPI (ver [sinapi.md](sinapi.md)).
 

@@ -4066,13 +4066,25 @@ GRANT SELECT ON
     catalogo.edicoes_leis_sociais,
     catalogo.search_document,
     catalogo.indices,
-    catalogo.indices_historico
+    catalogo.indices_historico,
+    -- ── conversão de regime horista→mensalista (21/08/2026) ──
+    -- CPRB e JORNADA_H_MES: constantes LEGAIS versionadas no tempo, públicas por
+    -- natureza. Conceder não entrega nada da Axys.
+    catalogo.parametros_normativos,
+    -- EXCEÇÃO CONSCIENTE ao §5.1, que manteve a normalização fora do alcance: sem esta
+    -- tabela não existe conversão de regime, e conversão é a função mais diferenciada
+    -- do app. Decisão do dono do produto em 21/08/2026 — o mapeamento MO horista↔
+    -- mensalista passa a ser legível pelo mobile. As DEMAIS tabelas de normalização
+    -- (equivalencias_cpu, equivalencias_ins, equivalencias_subgrupos,
+    -- insumos_equivalencias) CONTINUAM FORA.
+    catalogo.composicoes_mapeamento_mdo
 TO easy_mobile_reader;
 
 -- FORA do alcance, deliberadamente — é aqui que mora o ativo da Axys. O coeficiente
 -- já é público na origem (as fontes o publicam); o que é PRÓPRIO é a NORMALIZAÇÃO:
 --   equivalencias_cpu · equivalencias_ins · equivalencias_subgrupos
---   insumos_equivalencias · composicoes_mapeamento_mdo · composicoes_custo_alerta
+--   insumos_equivalencias · composicoes_custo_alerta
+-- (composicoes_mapeamento_mdo SAIU desta lista em 21/08/2026 — ver o GRANT acima)
 -- E os schemas ativo, tenant_catalogo, audit e core NUNCA são concedidos: mesmo com a
 -- API mobile inteiramente comprometida, não há caminho até orçamento de cliente pagante.
 
