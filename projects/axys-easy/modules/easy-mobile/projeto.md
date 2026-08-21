@@ -426,7 +426,7 @@ No `render.yaml`, o serviço mobile recebe `EASY_MOBILE_DB_URL` própria (role `
 
 ---
 
-#### 5. Decisões — todas fechadas em 16/08/2026
+#### 5. Decisões — fechadas em 16 e 21/08/2026
 
 **5.1 — DECIDIDO (16/08/2026): a analítica completa é servida.**
 `catalogo.composicoes_itens` entra no `GRANT`. O app exibe a árvore de itens com coeficientes e valores unitários — que é, afinal, o que responde *"o que essa composição remunera"*, o caso de uso principal do módulo. Segurar a analítica seria entregar um app que não responde à pergunta para a qual foi feito.
@@ -456,9 +456,19 @@ E a regra de produto que sustenta o teto: **quem chegou à terceira página não
 
 Descartado cachear no Redis: o `render.yaml` roda `maxmemoryPolicy: noeviction` de propósito, para não perder job de import. Cache quer o oposto (`allkeys-lru`). Misturar os dois faz a fila de import quebrar quando a memória enche — seria preciso outra instância, e ainda assim o alcance seria muito menor que o da borda.
 
-**Rotas de leitura do catálogo são públicas.** Depois do §5.1, exigir token para ler dado que se decidiu servir não protege nada e custa o cache inteiro. O login do app continua obrigatório — ele existe para **identificar o usuário**, não para **trancar o dado**. São coisas distintas.
-
-O que **permanece autenticado e nunca é cacheado**: telemetria, `Minha conta` e qualquer rota cuja resposta varie por pessoa.
+> **REVISTO em 21/08/2026 — as rotas NÃO são públicas.** A versão anterior deste item as
+> abria para que a borda pudesse cachear entre usuários. Isso foi revertido, e o motivo é o
+> §5.6: **cota por IP quase não protege** (IP é barato — operadora rotaciona, VPS custa
+> centavos), e **`cmp_id` é inteiro sequencial**, então detalhe público significa dump por
+> iteração de 1 a 20.000, sem nem precisar buscar. Token obrigatório é o que permite cota
+> **por pessoa**, onde abusar custa uma conta com MFA verificado.
+>
+> O que se perde: o cache **compartilhado** na borda. O que se mantém: o cache do próprio
+> aparelho, que era a maior parte do ganho — por isso os cabeçalhos agora saem como
+> `private`, e não `public`: com token, cache compartilhado poderia entregar a resposta de
+> um usuário a outro.
+>
+> Quando o volume justificar borda de verdade, revisita-se **com número na mão**.
 
 **A telemetria não é afetada.** O evento é chamada própria (`POST` do app → API do Easy → banco do Hub) e nunca dependeu do `GET` de leitura chegar à origem.
 
@@ -514,6 +524,44 @@ Notas de implementação:
  - A rota `/doc-file` do Easy Web (que carrega o arquivo em memória e faz streaming) **não** é replicada no mobile.
  - Consequência prática do TTL: a assinatura é verificada no início da requisição, então download já iniciado costuma concluir mesmo se o prazo virar. Mas **retomar** um download interrompido depois de expirado exige nova assinatura — o app deve pedir a URL de novo em vez de guardá-la.
  - URL assinada muda a cada emissão, logo **não cacheia em CDN**. É o custo aceito por manter o material controlado.
+
+**5.6 — DECIDIDO (21/08/2026): cota por usuário.**
+
+| Limite | Valor |
+|---|---|
+| Requisições / minuto | **60** |
+| Requisições / dia | **3600** |
+| Buscas / minuto | **30** |
+| Buscas / dia | **400** |
+
+**Por usuário (`sub`), nunca por IP.** O teto define o *preço por conta*; o MFA do cadastro
+define *quantas contas* o sujeito consegue ter. Só as duas coisas juntas encarecem a varredura
+— sozinho, nenhum dos dois resolve.
+
+**A cota de busca é separada e bem mais apertada no dia** porque a busca é o vetor de
+**descoberta**: sem ela, quem quer o acervo precisa adivinhar ids. Limitar requisição total
+incomoda pouco o raspador; limitar busca/dia é o que trava a varredura. E quem faz 400 buscas
+num dia não está consultando preço.
+
+Dimensionamento contra uso real: uma sessão de consulta gasta 15 a 30 requisições; dez sessões
+num dia dão ~300. O teto diário é ~10× um dia pesado — ninguém encosta.
+
+**Honestidade sobre o alcance:** isto **não torna a raspagem impossível**. O acervo tem ~17 mil
+composições e ~11 mil insumos; a 3600/dia, uma conta leva ~8 dias. O que encarece de verdade é
+precisar de N contas com e-mail ou WhatsApp verificado, rastreáveis.
+
+Implementação: `backend/api/mobile/rate_limit.py` — janela fixa no Redis, **fail-open** (cota é
+defesa, não portão: Redis fora do ar não derruba acesso legítimo). Espelha
+`backend/core/rate_limit.py`, que já existia com a mesma motivação para documentos. O contador
+é minúsculo e expira sozinho, então convive com o `maxmemoryPolicy: noeviction` do Redis de
+produção, onde a fila de import continua sendo a prioridade.
+
+**Claims que sustentam tudo isso**, entregues pelo Hub: `sub` (uuid), **`subject_type`**
+(`hub_user` | `mobile_client` — as duas bases de cadastro) e `client_hub_uuid` (o vínculo,
+quando o cadastro mobile vira cliente). O `subject_type` não é enfeite: é o que faz a métrica
+sair certa desde o primeiro evento.
+
+---
 
 ## 2. BASE DE CONHECIMENTO AXYS
 
