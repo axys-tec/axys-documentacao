@@ -4001,6 +4001,77 @@ CREATE INDEX IF NOT EXISTS ix_search_document_codigo
 
 
 -- ============================================================
+-- ROLE: easy_mobile_reader   (consumidor da Easy Mobile API)
+-- Contrato: docs/projects/axys-easy/modules/easy-mobile/projeto.md §4
+-- ============================================================
+-- A Easy Mobile API é um SERVIÇO INDEPENDENTE que apenas COMPARTILHA CÓDIGO com o
+-- Easy Web. Compartilhar código não pode significar compartilhar permissão: a
+-- fronteira é o PROCESSO. Aquele processo recebe EASY_DB_URL apontando para este
+-- role, e então TODA função de serviço reusada (get_cpu_precificada, SearchService,
+-- get_historico_custos…) passa a conectar em modo leitura — sem alterar uma linha.
+--
+-- DECISÃO: sem camada de views. As funções reusadas têm `catalogo.*` escrito no SQL;
+-- um schema de views obrigaria a forkar todas elas. O recorte de linha (edição
+-- publicada, item ativo) já vive nas funções; o de coluna, no serializer da API.
+--
+-- SENHA: definida POR AMBIENTE, fora deste arquivo —
+--     ALTER ROLE easy_mobile_reader PASSWORD '…';
+-- Role com LOGIN e sem senha não autentica (md5/scram falham). Nunca commitar senha.
+-- ------------------------------------------------------------
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'easy_mobile_reader') THEN
+        CREATE ROLE easy_mobile_reader LOGIN;
+    END IF;
+END $$;
+
+-- Teto de conexões: é o que impede o app GRATUITO de consumir as conexões de que o
+-- Easy Web (pago) precisa. O limite mora na role, não na boa vontade do código.
+ALTER ROLE easy_mobile_reader CONNECTION LIMIT 8;
+
+-- Cinto de segurança: nem transação de escrita, nem query eterna, nem transação
+-- pendurada segurando conexão.
+ALTER ROLE easy_mobile_reader SET default_transaction_read_only = on;
+ALTER ROLE easy_mobile_reader SET statement_timeout = '5s';
+ALTER ROLE easy_mobile_reader SET idle_in_transaction_session_timeout = '10s';
+
+-- USAGE no schema: necessário para RESOLVER NOMES — inclusive os das extensões, que
+-- vivem aqui (catalogo.unaccent, catalogo.word_similarity, operador catalogo.<%).
+-- Sem isto a busca elástica quebra. Conceder é seguro: USAGE não dá acesso a dado.
+GRANT USAGE ON SCHEMA catalogo TO easy_mobile_reader;
+
+-- Lista EXPLÍCITA. Nada de "ON ALL TABLES", e nenhum ALTER DEFAULT PRIVILEGES: assim
+-- tabela nova nasce FORA do alcance do mobile, e incluí-la é ato consciente. O inverso
+-- faria toda tabela futura vazar por omissão — a pior forma de vazar.
+GRANT SELECT ON
+    catalogo.fontes,
+    catalogo.edicoes,
+    catalogo.composicoes,
+    catalogo.composicoes_custo,
+    catalogo.composicoes_itens,      -- analítica SERVIDA (decisão 16/08/2026, §5.1)
+    catalogo.composicoes_grupos,
+    catalogo.composicoes_subgrupos,
+    catalogo.composicoes_historico,
+    catalogo.insumos,
+    catalogo.insumos_tipo,
+    catalogo.insumos_preco,
+    catalogo.insumos_familia,
+    catalogo.insumos_historico,
+    catalogo.edicoes_leis_sociais,
+    catalogo.search_document,
+    catalogo.indices,
+    catalogo.indices_historico
+TO easy_mobile_reader;
+
+-- FORA do alcance, deliberadamente — é aqui que mora o ativo da Axys. O coeficiente
+-- já é público na origem (as fontes o publicam); o que é PRÓPRIO é a NORMALIZAÇÃO:
+--   equivalencias_cpu · equivalencias_ins · equivalencias_subgrupos
+--   insumos_equivalencias · composicoes_mapeamento_mdo · composicoes_custo_alerta
+-- E os schemas ativo, tenant_catalogo, audit e core NUNCA são concedidos: mesmo com a
+-- API mobile inteiramente comprometida, não há caminho até orçamento de cliente pagante.
+
+
+-- ============================================================
 -- SCHEMA: audit
 -- Trilha de auditoria. Append-only — sem UPDATE nem DELETE via app.
 --
