@@ -47,7 +47,7 @@ versionada. Na v0, somente a logo é consumida:
     "versao": 1,
     "revisao": 1,
     "logo": {
-      "url": "https://public.axys-tec.com.br/assets/tenants/<sha256>.png",
+      "url": "https://public.axys-tec.com.br/assets/tenants/<prefixo-sha256>.png",
       "sha256": "<sha256>",
       "mime_type": "image/png"
     }
