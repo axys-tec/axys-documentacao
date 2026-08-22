@@ -567,7 +567,7 @@ PDF oficial qualquer um acha.
 conceito deve usar o **id do verbete** da terminologia. Sem essa disciplina o vocabulário
 racha: na primeira leva de 30 acórdãos apareceram `limite` e `limites` como etiquetas
 distintas, e `aditivo` convivendo com o verbete `aditivo-contratual`. Etiqueta rachada
-quebra o agrupamento no app e esvazia o `vinculados`.
+quebra o agrupamento no app e esvazia as `referencias`.
 
 **`referencias` é o que transforma três listas em uma teia.** Um acórdão sobre BDI aponta
 para o verbete BDI; o verbete pode listar os acórdãos que o citam. Preencher é mecânico

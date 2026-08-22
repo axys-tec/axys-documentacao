@@ -221,15 +221,15 @@ sem o original ao lado, o simulado não diz nada.
 
 ```json
 { "disponivel": true,
-  "url": "https://<conta>.r2.cloudflarestorage.com/…?X-Amz-Expires=300&X-Amz-Signature=…",
-  "expira_em": 300 }
+  "conteudo": "1) Forma de medição\\n...",
+  "formato": "markdown" }
 ```
 
 Sem CTC: `{"disponivel": false, "motivo": "Não existe caderno técnico para este serviço."}`
 
-**Rota separada do detalhe e nunca cacheada** (`no-store`): a URL vive 5 minutos e a resposta
-do detalhe vive 30 dias — juntas, entregariam link morto. O app deve **pedir a URL na hora de
-abrir**, não guardar.
+**Rota separada do detalhe e nunca cacheada** (`no-store`). O Markdown privado é entregue na
+resposta autenticada para que o mesmo fluxo funcione no Flutter Web, iOS e Android, sem depender
+de CORS do bucket. O app deve pedi-lo na hora de abrir e não o guardar.
 
 O documento é o **CTC** — Caderno Técnico de Composição, produção da Axys, em Markdown:
 

@@ -72,10 +72,12 @@ O CORE/Núcleo principal que ditará as telas do app/funcionalidades (módulos),
 3. SOLUÇÕES AXYS: detalhamento das soluções do ecossistema Axys
 4. SOBRE A AXYS: apresentação da empresa (Por que Axys / Missão & Valores)
 5. ROADMAP: apresentação da expectativa de disponibilidade das soluções
-6. DÚVIDAS & PERGUNTAS: comunicação / proximidade com os usuários
+6. CANAL AXYS: acesso aos materiais publicados no YouTube — **fora da V0**, não haverá vídeo publicado
 7. MINHA CONTA: governança individual, atualização do nome, rotação de senhas, etc.
 
 **Vocabulário:** os nomes acima são os canônicos e valem em todo lugar — menu, telas, contrato de API e analytics. Não usar sinônimos ("Pesquisa de Preços", "Central de Perguntas", "Central do Usuário") em nenhum outro documento.
+
+**Dúvidas & Perguntas deixou de ser módulo** (22/08/2026): virou **pilar da Base de Conhecimento**, junto de Terminologia, Casos práticos e Acórdãos. O usuário não distingue "dúvida que eu leio" de "dúvida que eu envio" a ponto de justificar duas entradas no menu de um app cujo lema é abrir e resolver na hora. Enviar a própria pergunta continua previsto, como funcionalidade V1 dentro da Base de Conhecimento.
 
 Essa estrutura, colocada em tela/menu, ficaria organizado conforme abaixo.
 
@@ -86,8 +88,13 @@ HOME
 ├── CENTRAL DE CUSTOS
 │
 ├── BASE DE CONHECIMENTO AXYS
-│
-├── DÚVIDAS & PERGUNTAS
+│      ├── Terminologia
+│      ├── Dúvidas rápidas
+│      ├── Casos práticos
+│      ├── Acórdãos e jurisprudência
+│      ├── Easy Newsletter
+│      ├── Artigos & Matérias
+│      └── Downloads & Utilitários
 │
 └── MAIS
      ├── Soluções Axys
@@ -111,7 +118,7 @@ Composição, de cima para baixo:
 
 5. **Últimas publicações** (3 itens), no mesmo formato da Base de Conhecimento. É o que traz o usuário de volta nos dias em que ele não tem dúvida nenhuma para tirar.
 
-6. **Atalho para Dúvidas & Perguntas**, em uma linha.
+6. **Atalho para a Base de Conhecimento**, em uma linha.
 
 **Não entra na HOME:** carrossel de soluções, banner comercial, roadmap ou qualquer chamada de venda. Essa camada mora em MAIS e é acessada por quem quiser — nunca empurrada a quem veio trabalhar.
 
@@ -232,9 +239,9 @@ Nada aqui precisa ser inventado. O Easy Web já resolve todas estas telas; a API
 | Custo em todas as UFs | `composicoes_service.get_cpu_custos_por_uf()` | `composicoes_custo` |
 | Ver Caderno | `cmp_external_path` → `storage_paths.resolver_versao()/doc_url()` | — (path de bucket **privado**, servido por rota gated) |
 
-**Nota de arquitetura sobre o Caderno — atenção, aqui há uma dependência a mais.** O caderno técnico é **privado**. `cmp_external_path` resolve um *path* de bucket privado, e `storage_paths.doc_url()` devolve `/doc-file/{path}` — rota **gated** da app (exige sessão e passa por rate limit), que lê do R2 privado e faz o streaming. **Não existe URL pública para o caderno**, e portanto ele **passa pela API**, ao contrário do que vale para o conteúdo estático dos módulos 3 e 4.
+**Nota de arquitetura sobre o Caderno — atenção, aqui há uma dependência a mais.** O caderno técnico é **privado**. `cmp_external_path` resolve um *path* de bucket privado. **Não existe URL pública para o caderno**: o Markdown pequeno é lido pela API autenticada e entregue na própria resposta, funcionando igualmente no Flutter Web, iOS e Android sem depender de CORS do bucket. Isso difere do conteúdo estático dos módulos 3 e 4.
 
-Consequência prática: a Easy Mobile API precisa de uma rota própria (`GET /v0/documentos/{path}`) e de uma **segunda credencial** — leitura do bucket privado do R2 — além da credencial de banco. O isolamento do §4 cobre o Postgres; **não cobre o storage**. O caminho recomendado é a rota devolver uma **URL assinada de TTL curto** em vez do arquivo, tirando os bytes do caminho do serviço — ver §5.5.
+Consequência prática: a Easy Mobile API precisa de uma rota própria e de uma **segunda credencial** — leitura do bucket privado do R2 — além da credencial de banco. O isolamento do §4 cobre o Postgres; **não cobre o storage**. Para o CTC, a rota devolve o Markdown pequeno na resposta autenticada; arquivos privados maiores continuam por URL assinada — ver §5.5.
 
 **Atenção — dependência escondida da V0:** como o detalhamento analítico chama o motor de custo, o acesso a `edicoes_leis_sociais`, `insumos_familia` e `insumos_tipo` é necessário **já na V0**, mesmo o Simulador sendo V1. São ingredientes do motor, não do Simulador.
 
@@ -480,7 +487,7 @@ Descartado cachear no Redis: o `render.yaml` roda `maxmemoryPolicy: noeviction` 
 | `/v0/…/historico` · `/v0/…/ufs` | **7 dias** | muda só quando entra edição nova |
 | `/v0/busca` | **1 h** | query livre, mas as buscas populares se repetem muito |
 | `/v0/catalogo/filtros` | **5 min** | é a única que responde "qual é a edição vigente" |
-| `/v0/documentos/*` | **`no-store`** | é URL assinada de 5 min — cachear serviria link morto |
+| `/v0/composicoes/{id}/ctc` | **`no-store`** | conteúdo privado solicitado apenas na abertura |
 | telemetria e `Minha conta` | **`no-store`** | variam por pessoa |
 
 Dois complementos:
@@ -509,19 +516,19 @@ Ordem — e a ordem importa:
 
 Nada a contratar: *Cache Rules* está disponível no plano gratuito. *Cache Analytics* é pago e não é necessário — o painel de visão geral já mostra percentual de cache.
 
-**5.5 — DECIDIDO (16/08/2026): bucket privado só por URL assinada de TTL curto.**
+**5.5 — DECIDIDO (16/08/2026), revisto em 22/08/2026: acesso ao bucket privado.**
 
-**Regra, válida para o app inteiro e não só para a Central de Custos:** todo e qualquer acesso do Easy Mobile ao bucket **privado** se dá por **URL assinada de curta duração — TTL de 5 minutos**. A API autentica, autoriza, aplica rate limit e devolve a URL assinada; o download vai direto R2 → aparelho, sem que os bytes atravessem o serviço. **O arquivo cru nunca é entregue por outra via.**
+Arquivos privados grandes usam **URL assinada de curta duração — TTL de 5 minutos**. O CTC é a exceção: por ser um Markdown pequeno renderizado nativamente, a API autentica, autoriza, lê o objeto e entrega seu conteúdo na resposta `no-store`. Assim, Flutter Web, iOS e Android usam o mesmo fluxo sem depender do CORS do bucket. O path interno e as credenciais nunca chegam ao cliente.
 
 Por que o bucket privado continua sendo privado, mesmo com a analítica servida (§5.1): os originais de **CDHU e FDE são material de terceiros** — republicá-los em bucket público é questão de **direito autoral**, não de estratégia comercial. O que é produção própria da Axys é o **CTC**, e mesmo ele é servido como documento, nunca como arquivo-fonte. Isso encerra em definitivo a hipótese de publicar cadernos no bucket público.
 
-Aplica-se às duas portas do caderno — o botão *Ver Caderno* do módulo 1 e o grupo *Cadernos Técnicos* do módulo 2 — e a qualquer material privado que os demais módulos venham a servir.
+Aplica-se às duas portas do caderno — o botão *Ver Caderno* do módulo 1 e o grupo *Cadernos Técnicos* do módulo 2. Outros materiais privados continuam usando URL assinada.
 
 Notas de implementação:
 
  - `get_private_presigned_url()` **já existe** em `backend/storage/r2_storage.py`, mas seu default é `expires_in=3600` (uma hora). O serviço mobile deve **passar o TTL explicitamente**; melhor ainda, criar um wrapper próprio com 300s fixo, para que ninguém herde a hora por esquecimento.
  - Credencial: token R2 **somente leitura**, escopado ao bucket privado — mesma lógica do `easy_mobile_reader` no §4.
- - A rota `/doc-file` do Easy Web (que carrega o arquivo em memória e faz streaming) **não** é replicada no mobile.
+ - O mobile não expõe uma rota genérica `/doc-file/{path}`; somente o endpoint específico do CTC pode ler o Markdown autorizado.
  - Consequência prática do TTL: a assinatura é verificada no início da requisição, então download já iniciado costuma concluir mesmo se o prazo virar. Mas **retomar** um download interrompido depois de expirado exige nova assinatura — o app deve pedir a URL de novo em vez de guardá-la.
  - URL assinada muda a cada emissão, logo **não cacheia em CDN**. É o custo aceito por manter o material controlado.
 
@@ -572,35 +579,104 @@ A BASE DE CONHECIMENTO AXYS será uma seção do aplicativo mobile composta por 
  - SUB-MAIN GRUPO
  - MATÉRIA
 
+> **Formato de cada conteúdo:** `conteudos_json_r2.md`. **Rotas de dado:**
+> `endpoints_json_api.md`. Este documento decide **o que o app faz**; aqueles descrevem
+> **como o dado chega**.
+
 
 ### MAIN
 
 A tela dita main da base de conhecimento terá logo após o logo de topo o texto BASE DE CONHECIMENTO AXYS, seguida de uma seção Últimas Publicações (mínimo 3, máximo 5, hiperlinkadas), seguido de hiperlinks personalizados de grupo de informacoes. Os grupos serão:
- - *Easy Newsletter*: Texto com análise e indicativos de cada edição de fonte-base publicadas. Entra já na V0.
- - *Cadernos Técnicos*: Cadernos técnicos parseados pela Axys, completo, de cada edição. Entra já na V0.
- - *Canal AXYS*: Acesso aos materiais postados no canal do Youtube. Na V0 do aplicativo o canal não será disponibilizado porque não terá nenhum vídeo publicado.
- - *Artigos e matérias*: Na V0 contará apenas com alguma listagem de acórdãos do TCU, categorizados por assunto. Na V1+ começará a entrar artigos mesmo, informações, conteúdo enriquecido tal como análise do comportamento orçamentário, as tipologias mais orçadas no mês, etc.
- - *Calculadora de CUB*: Evolução. Quando tiver base de dados sólida. Entrará em conjunto com os artigos.
- - *Terminologia*: Relação de algumas terminologias do meio da engenharia de custos explicando o que é cada coisa e o que ela indica.  Entra já na V0.
- - *Índices Inflacionários*: Lista de índices/série histórica. Entra já na V0. 
- - *Downloads & Utilitários*: Relação de utilitários e/ou download de materiais AXYS, tal como planilha orçamentária inteligente, auto-lisps/coletores CAD e afins. Na V0 vai entrar apenas a planilha inteligente. As demais funcionalidades vem para dar mais poder de fogo ao orçamentista.
+A Base de Conhecimento tem **quatro pilares**, e cada um responde a uma pergunta
+diferente — é isso que justifica formatos editoriais distintos:
+
+ - *Terminologia* — **"O que significa?"** Verbete com conceito, função prática e, sobretudo,
+   a **distinção dos termos vizinhos**, que é o que tira a dúvida real. V0: **82 verbetes**.
+ - *Dúvidas rápidas* — **"Como funciona ou como faço?"** Resposta direta primeiro, explicação
+   curta, exemplo e ressalva. De 150 a 350 palavras. V0: **30 dúvidas em 5 assuntos**.
+ - *Casos práticos* — **"O que fazer nesta situação?"** Parte de situação concreta e **não
+   responde só sim ou não**: regime de execução, matriz de riscos, edital, contrato e
+   documentação mudam a conclusão. V0: **16 casos**.
+ - *Acórdãos e jurisprudência* — **"Qual é o entendimento e seu fundamento?"** Ficha técnica
+   com tese em linguagem simples, aplicação prática e **limites do entendimento** — não é
+   pasta de PDF; o valor da Axys está na tradução. V0: **30 fichas**.
+
+Além dos quatro pilares:
+
+ - *Easy Newsletter*: análise e indicadores de cada edição de fonte-base publicada. Entra na V0.
+ - *Artigos & Matérias*: análise do comportamento orçamentário, tipologias mais orçadas no mês,
+   conteúdo enriquecido. **V1+** — na V0 fica vazio, porque os acórdãos, que eram seu conteúdo
+   inicial, ganharam pilar próprio.
+ - *Downloads & Utilitários*: planilha orçamentária inteligente, auto-lisps e coletores CAD.
+   Na V0 entra apenas a planilha.
+
+**O que NÃO é grupo da Base de Conhecimento**, e por quê:
+
+ - *Cadernos Técnicos* — o mobile enxerga o **CTC**, produção da Axys em Markdown, e o acessa
+   **pela Central de Custos**, no botão da composição. O caderno HTML **da fonte** é material
+   de terceiros e não é exposto ao aplicativo (§5.5).
+ - *Índices Inflacionários* — é **dado**, não conteúdo editorial: vem da API (`/v0/indices`),
+   não de manifesto no R2. Aparece no menu, mas não segue o desenho de conteúdo.
+ - *Calculadora de CUB* — é **funcionalidade**, não conteúdo. **Fora da V0**; entra quando
+   houver base de dados sólida.
+ - *Canal Axys* — módulo próprio (6), **fora da V0**: não haverá vídeo publicado.
 
 Nota: A descrição acima é genérica mas a ordem de exibição no app mobile deverá respeitar a ordem abaixo:
 
 Últimas publicações
 
 Easy Newsletter · SINAPI Agosto/2026
-Caderno Técnico · Estaca Hélice Contínua
-Acórdão TCU · BDI diferenciado
+Caso prático · Andaime não previsto na planilha
+Acórdão TCU 2622/2013 · BDI e administração local
 
 Explore
- - Easy Newsletter
- - Cadernos Técnicos
- - Artigos & Matérias
  - Terminologia
+ - Dúvidas rápidas
+ - Casos práticos
+ - Acórdãos e jurisprudência
+ - Easy Newsletter
  - Índices
  - Downloads & Utilitários
- - Canal Axys
+
+### Dúvidas rápidas — origem e regra editorial
+
+O conteúdo inicial vem de casos reais: participo de uma comunidade sobre auditoria e obras
+públicas, e os primeiros vieram de lá. Depois, os próprios usuários perguntam e o acervo
+cresce. Sempre separado por assunto.
+
+**Recorte.** O pilar nasce partido em dois:
+ - **Ler** as perguntas já respondidas, navegando por assunto: **V0** — 30 dúvidas em 5 assuntos.
+ - **Perguntar** — usuário enviar a própria dúvida: **V1**. Não é limitação técnica, é
+   operação: cada pergunta recebida vira compromisso de resposta com o nome da Axys em cima.
+   Abrir esse canal antes de existir rotina de triagem e prazo é criar dívida pública.
+
+**Regra editorial dos quatro pilares.** Quando existir fonte normativa, **cite-a**. A
+resposta sobre BDI diferenciado, por exemplo, tem respaldo no Acórdão TCU 2622/2013 — que já
+é ficha nossa, então o vínculo aponta para **dentro do aplicativo**, não para o site do TCU.
+Citar é o que transforma "opinião de um engenheiro experiente" em conhecimento Axys
+verificável, e é exatamente a *confiança irrefutável* do objetivo secundário.
+
+**Exemplos** (formato final em `conteudos_json_r2.md`):
+
+**BDI** — *Posso aplicar BDI diferenciado sobre fornecimento de equipamentos?*
+Sim, e é a melhor prática. Na composição do BDI entram parâmetros ligados à dificuldade de
+execução e ao valor agregado da solução. Equipamentos costumam ter valor agregado elevado, e
+a gestão da aquisição e instalação é mais simples e menos onerosa do que a execução das obras.
+
+**SINAPI** — *Uma composição remunera perda de concreto em estaca hélice?*
+Sim. Nas composições SINAPI de estacas hélice, as perdas decorrentes do sobreconsumo estão
+presentes — na maior parte das composições, aliás. A recomendação prática é conferir o
+caderno técnico e a analítica do item.
+
+**Orçamento** — *Quando devo converter mão de obra horista para mensalista?*
+Em obras de médio e longo prazo, a prática é a mão de obra do construtor não ser
+terceirizada. Sabendo a Administração que o particular empregará mensalista, porque custos
+indiretos e encargos pesam menos nesse regime, indica-se converter as composições.
+
+**Aditivos** — *Como incluir serviço sem correspondente na planilha contratual?*
+É imperativo consultar o contrato, os documentos vinculados, a matriz de riscos e a
+legislação vigente. A depender do regime de execução, de quem deu causa e do que a matriz
+aloca, o aditivo é possível.
 
 ### SUBMAIN GRUPO
 
@@ -709,37 +785,14 @@ A ideia é mostrar duas linhas do tempo.
  - AxysPRO: ERP, a base da operação
 
 
-## 6. DÚVIDAS & PERGUNTAS
+## 6. CANAL AXYS — **fora da V0**
 
-Aqui será produzida uma base de conhecimento com dados reais. Participo de uma comunidade sobre auditoria & obras públicas. Vou pegar ao menos 10 casos reais de lá como instrução inicial/V0.
+Acesso aos materiais publicados no canal do YouTube. **Não entra na V0** porque não haverá
+vídeo publicado — módulo que abre vazio ensina o usuário a não voltar nele.
 
-Depois, demais users começam a perguntar e vamos produzindo conteúdo. Ideal separar por assunto.
-
-**Recorte.** O módulo nasce partido em dois:
- - **Ler** as perguntas já respondidas, navegando por assunto: **V0**.
- - **Perguntar** — usuário enviar a própria dúvida: **V1**. Não é limitação técnica, é operação: cada pergunta recebida vira compromisso de resposta com nome da Axys em cima. Abrir esse canal antes de existir rotina de triagem e prazo é criar dívida pública.
-
-**Regra editorial.** Quando existir fonte normativa, cite-a. A resposta sobre BDI diferenciado, por exemplo, tem respaldo no Acórdão TCU 2622/2013 — que já está no catálogo. Citar é o que transforma "opinião de um engenheiro experiente" em conhecimento Axys verificável, e é exatamente a *confiança irrefutável* do objetivo secundário. Amarra também com o grupo de acórdãos em Artigos & Matérias.
-
-Exemplos:
-
-
-**BDI**
-Posso aplicar BDI diferenciado sobre fornecimento de equipamentos?
- - Sim e é a melhor prática. Na composição do BDI entram parâmetros que se relacionam com a dificuldade de execução e o valor agregado da solução. Com isso, muitas vezes equipamentos tem valor agregado elevado e a gestão do processo de aquisição e instalação é mais simples e menos onerosa do que a execução das obras, por exemplo.
-
-**SINAPI**
-Uma composição remunera perda de concreto em estaca hélice?
- - Sim. Nas composições SINAPI de estacas hélice (e outras), as perdas decorrentes do sobreconsumo estão presentes. Inclusive, se não em todas, na maior parte das composições as perdas estão presentes. A recomendação prática é analisar o caderno técnico e composição do item para verificação (ver <link caderno técnico estaca hélice>).
-
-**Orçamento**
-Quando devo converter mão de obra horista para mensalista?
- - Em caso de obras de construção de longo/médio prazo, a prática comum é que a mão de obra contratada pelo construtor não seja terceirizada. Nesse cenário, sabendo a Administração Pública que o particular empregará mão de obra mensalista porque os custos indiretos e encargos sociais são menos impactantes, é indicado a conversão do regime das composições de horista para mensalista.
-
-**Aditivos**
-Como atualizar serviço sem correspondente na planilha contratual?
- - Para realização de aditivos é imperativo consultar o contrato, documentos vinculados, a matriz de risco e legislação em vigor. A depender do tipo de contratação (mais comum em Empreitada de Preços Unitários - EPU), quem deu caso e o especificado na matriz de riscos é possível promover o aditivo.
-
+Quando entrar, é apenas lista de links externos: o vídeo mora no YouTube, não no R2. O
+grupo aparece no manifesto de raiz com `disponivel: false` até lá, então ligá-lo **não
+exige versão nova do aplicativo**.
 
 ## 7. MINHA CONTA — **V0**
 
@@ -774,7 +827,7 @@ Conteúdo editorial é **estático depois de publicado**. Não faz sentido a Eas
 
 O app baixa **direto do R2/CDN**. A API não é proxy de arquivo.
 
-**Exceção única: o caderno técnico.** Ele é material de terceiros em bucket privado e segue a regra do §5.5 da Central de Custos — URL assinada de 5 minutos. Tudo o mais que este capítulo descreve é público.
+**Exceção única: o caderno técnico.** Ele fica no bucket privado e segue a regra específica do §5.5 da Central de Custos — conteúdo Markdown pela resposta autenticada `no-store`. Tudo o mais que este capítulo descreve é público.
 
 ## 2. Onde o conteúdo mora
 
@@ -1056,7 +1109,7 @@ Sem *keyword stuffing*: descrição de loja é lida por gente, e texto empilhado
 - autenticação central no **Hub**; app carrega o JWT do Hub, isolado por `aud=easy-mobile`;
 - rotas de leitura do catálogo **públicas** — login identifica, não tranca;
 - conteúdo estático distribuído por **R2/CDN**, com a API fora do caminho do arquivo;
-- bucket privado **somente por URL assinada de 5 minutos**;
+- CTC privado pela resposta autenticada `no-store`; demais arquivos privados por URL assinada de 5 minutos;
 - **cache é cabeçalho**, não subsistema; borda ligada antes do Flutter;
 - telemetria escrita direto no banco do Hub, com credencial restrita e *best-effort*;
 - **notificação só quando houver valor real**;
@@ -1111,8 +1164,6 @@ O ativo de longo prazo não é o aplicativo. É a combinação de **base histór
 ---
 
 *Documento único e canônico do Easy Mobile. Compila e substitui o rascunho `easy_mobile_projeto.md` (13/08/2026) e o ADR `easy_mobile_adr_newsletter_r2.md`. Alterações futuras devem preservar as premissas congeladas ou registrar explicitamente a decisão que as substituiu.*
-
-
 
 
 
