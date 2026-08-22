@@ -1,0 +1,1499 @@
+{
+  "grupo": "TERMINOLOGIA",
+  "gerado_em": "2026-08-22T00:00:00Z",
+  "itens": [
+    {
+      "id": "acordao",
+      "termo": "Acórdão",
+      "expansao": null,
+      "conceito_md": "Decisão colegiada proferida por um tribunal judicial ou de contas.",
+      "funcao_pratica_md": "Em obras públicas, registra entendimentos aplicados ao controle de licitações, orçamentos e contratos.",
+      "distincoes": [
+        {
+          "termo": "Jurisprudência",
+          "diferenca_md": "Acórdão é uma decisão. Jurisprudência é o que se forma quando várias decisões apontam para o mesmo lado."
+        }
+      ],
+      "ver_tambem": [
+        "jurisprudencia",
+        "fiscalizacao"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "acrescimo-contratual",
+      "termo": "Acréscimo contratual",
+      "expansao": null,
+      "conceito_md": "Aumento de quantidade ou inclusão de serviço em contrato vigente, dentro dos limites que a lei admite.",
+      "funcao_pratica_md": "É o caminho para absorver o que o projeto não previu sem precisar de nova licitação. O limite legal se conta sobre o valor inicial atualizado do contrato.",
+      "distincoes": [
+        {
+          "termo": "Supressão contratual",
+          "diferenca_md": "O acréscimo aumenta o objeto, já a supressão o reduz. Os dois consomem o mesmo limite legal, mas não se compensam entre si."
+        }
+      ],
+      "ver_tambem": [
+        "supressao-contratual",
+        "aditivo-contratual",
+        "servico-novo",
+        "limite-de-alteracao"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ]
+    },
+    {
+      "id": "aditivo-contratual",
+      "termo": "Aditivo contratual",
+      "expansao": null,
+      "conceito_md": "Instrumento formal utilizado para alterar condições de um contrato vigente, nos limites admitidos pela legislação.",
+      "funcao_pratica_md": "Pode registrar mudanças de valor, quantidade, projeto, prazo ou outras condições contratuais devidamente justificadas.",
+      "distincoes": [
+        {
+          "termo": "Apostilamento",
+          "diferenca_md": "O aditivo altera o contrato. O apostilamento apenas registra variações que não chegam a alterá-lo."
+        }
+      ],
+      "ver_tambem": [
+        "matriz-de-riscos",
+        "reequilibrio-economico-financeiro",
+        "reajuste"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ]
+    },
+    {
+      "id": "administracao-local",
+      "termo": "Administração local",
+      "expansao": null,
+      "conceito_md": "Estrutura de gestão mantida no local da obra, como engenharia, supervisão, apoio administrativo e segurança do trabalho.",
+      "funcao_pratica_md": "É normalmente apresentada como item específico da planilha e medida de forma proporcional ao andamento da obra.",
+      "distincoes": [
+        {
+          "termo": "Canteiro de obras",
+          "diferenca_md": "Canteiro é instalação física. Administração local é gente: engenharia, supervisão, apoio."
+        }
+      ],
+      "ver_tambem": [
+        "custo-direto",
+        "medicao",
+        "cronograma-fisico-financeiro"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "alteracao-qualitativa",
+      "termo": "Alteração qualitativa",
+      "expansao": null,
+      "conceito_md": "Mudança na natureza, na solução técnica ou nas especificações do objeto contratado, e não apenas na quantidade.",
+      "funcao_pratica_md": "Exige justificativa técnica e motivação no processo. É onde a fiscalização costuma olhar com mais atenção, porque é por aí que um contrato se descaracteriza.",
+      "distincoes": [
+        {
+          "termo": "Alteração quantitativa",
+          "diferenca_md": "A quantitativa mexe em quanto se executa. A qualitativa mexe no que se executa, e por isso não se resolve só verificando percentual."
+        }
+      ],
+      "ver_tambem": [
+        "limite-de-alteracao",
+        "aditivo-contratual",
+        "projeto-basico"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ]
+    },
+    {
+      "id": "anteprojeto",
+      "termo": "Anteprojeto",
+      "expansao": null,
+      "conceito_md": "Peça técnica que define necessidades, desempenho esperado e elementos suficientes para caracterizar uma obra antes do projeto completo.",
+      "funcao_pratica_md": "Serve de base especialmente para contratações integradas, nas quais parte do desenvolvimento dos projetos cabe à contratada.",
+      "distincoes": [
+        {
+          "termo": "Projeto básico",
+          "diferenca_md": "O anteprojeto diz o resultado que se espera, já o projeto básico caracteriza a solução escolhida."
+        }
+      ],
+      "ver_tambem": [
+        "projeto-basico",
+        "contratacao-integrada"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "bdi",
+      "termo": "BDI",
+      "expansao": "Benefícios e Despesas Indiretas",
+      "conceito_md": "Percentual aplicado ao custo direto para formar o preço do serviço ou da obra. Reúne despesas indiretas, riscos, tributos e lucro.",
+      "funcao_pratica_md": "É o que transforma **custo** em **preço de venda** dentro da planilha orçamentária.",
+      "distincoes": [
+        {
+          "termo": "Custo direto",
+          "diferenca_md": "Custo direto é o que se gasta executando; o BDI é o que se soma para chegar ao preço."
+        },
+        {
+          "termo": "Encargos sociais",
+          "diferenca_md": "Encargos incidem sobre a mão de obra, dentro da composição. O BDI incide sobre o custo direto inteiro."
+        }
+      ],
+      "ver_tambem": [
+        "bdi-diferenciado",
+        "custo-direto",
+        "lucro",
+        "preco-unitario"
+      ],
+      "referencias": [
+        {
+          "tipo": "acordao",
+          "rotulo": "Acórdão TCU 2622/2013",
+          "url": "https://pesquisa.apps.tcu.gov.br/resultado/portal/Acord%C3%A3o%202622%2F2013?elb=1"
+        }
+      ]
+    },
+    {
+      "id": "bdi-diferenciado",
+      "termo": "BDI diferenciado",
+      "expansao": "Benefícios e Despesas Indiretas diferenciado",
+      "conceito_md": "Taxa de BDI reduzida aplicada a parcelas de mero fornecimento de materiais ou equipamentos com características específicas.",
+      "funcao_pratica_md": "Evita remunerar um fornecimento relevante como se ele possuísse a mesma estrutura de riscos e despesas da execução da obra.",
+      "distincoes": [
+        {
+          "termo": "BDI",
+          "diferenca_md": "O BDI geral remunera a execução da obra. O diferenciado se aplica a parcelas de fornecimento, de complexidade menor."
+        }
+      ],
+      "ver_tambem": [
+        "bdi",
+        "equipamento"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "caderno-tecnico-de-composicao",
+      "termo": "Caderno técnico de composição",
+      "expansao": "CTC",
+      "conceito_md": "Documento que descreve os critérios, etapas, insumos, equipamentos, produtividade e condições considerados em uma composição de serviço.",
+      "funcao_pratica_md": "Permite compreender o que está incluído no preço e verificar se a composição representa a execução real pretendida.",
+      "distincoes": [
+        {
+          "termo": "Composição de custo unitário",
+          "diferenca_md": "A composição mostra coeficientes e custos. O caderno explica de onde eles vieram."
+        }
+      ],
+      "ver_tambem": [
+        "composicao-de-custo-unitario",
+        "coeficiente",
+        "produtividade"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "canteiro-de-obras",
+      "termo": "Canteiro de obras",
+      "expansao": null,
+      "conceito_md": "Conjunto de instalações provisórias que dão suporte físico à execução: escritório, almoxarifado, refeitório, vestiário, cercamento.",
+      "funcao_pratica_md": "Costuma ser item próprio da planilha, com implantação no início e desmontagem no fim. Não se confunde com o custo de manter a obra rodando.",
+      "distincoes": [
+        {
+          "termo": "Administração local",
+          "diferenca_md": "Canteiro é estrutura física, já administração local é a equipe que gerencia a execução. Um se monta, a outra se mantém."
+        }
+      ],
+      "ver_tambem": [
+        "administracao-local",
+        "mobilizacao-e-desmobilizacao",
+        "custo-indireto"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "coeficiente",
+      "termo": "Coeficiente",
+      "expansao": null,
+      "conceito_md": "Quantidade de determinado insumo necessária para produzir uma unidade do serviço.",
+      "funcao_pratica_md": "Multiplicado pelo preço do insumo, determina sua participação no custo unitário da composição.",
+      "distincoes": [
+        {
+          "termo": "Quantidade do serviço",
+          "diferenca_md": "O coeficiente vive dentro da composição unitária, já a quantidade diz quanto daquele serviço a obra tem."
+        }
+      ],
+      "ver_tambem": [
+        "composicao-de-custo-unitario",
+        "insumo",
+        "produtividade"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "composicao-de-custo-unitario",
+      "termo": "Composição de custo unitário",
+      "expansao": "CPU",
+      "conceito_md": "Estrutura que reúne insumos, coeficientes e custos necessários para executar uma unidade de determinado serviço.",
+      "funcao_pratica_md": "Explica como se forma o custo de itens como 1 m² de alvenaria, 1 m³ de concreto ou 1 m de tubulação.",
+      "distincoes": [
+        {
+          "termo": "Insumo",
+          "diferenca_md": "Insumo é um recurso sozinho. Composição é o arranjo de recursos que entrega um serviço."
+        }
+      ],
+      "ver_tambem": [
+        "caderno-tecnico-de-composicao",
+        "coeficiente",
+        "insumo",
+        "subcomposicao"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "contratacao-integrada",
+      "termo": "Contratação integrada",
+      "expansao": null,
+      "conceito_md": "Regime em que a contratada desenvolve os projetos básico e executivo e também executa a obra, a partir de anteprojeto fornecido pela Administração.",
+      "funcao_pratica_md": "Concentra na contratada maior responsabilidade pelo desenvolvimento da solução e pela entrega do objeto.",
+      "distincoes": [
+        {
+          "termo": "Contratação semi-integrada",
+          "diferenca_md": "Na integrada, a contratada desenvolve projeto básico e executivo. Na semi-integrada, recebe o básico pronto e faz só o executivo."
+        }
+      ],
+      "ver_tambem": [
+        "anteprojeto",
+        "contratacao-semi-integrada",
+        "matriz-de-riscos"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "contratacao-semi-integrada",
+      "termo": "Contratação semi-integrada",
+      "expansao": null,
+      "conceito_md": "Regime em que a Administração fornece o projeto básico e a contratada desenvolve o projeto executivo e executa a obra.",
+      "funcao_pratica_md": "Permite que a contratada detalhe a solução e, quando autorizado, proponha melhorias técnicas ou econômicas.",
+      "distincoes": [
+        {
+          "termo": "Contratação integrada",
+          "diferenca_md": "Na semi-integrada, o projeto básico já vai na licitação; na integrada, a licitação parte de um anteprojeto."
+        }
+      ],
+      "ver_tambem": [
+        "contratacao-integrada",
+        "projeto-basico",
+        "matriz-de-riscos"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "cotacao-de-mercado",
+      "termo": "Cotação de mercado",
+      "expansao": null,
+      "conceito_md": "Pesquisa de preços realizada junto a fornecedores ou outras fontes para estimar o valor de um insumo, serviço ou equipamento.",
+      "funcao_pratica_md": "Complementa sistemas referenciais quando o item não existe na base, não possui preço ou exige condição específica de fornecimento.",
+      "distincoes": [
+        {
+          "termo": "Preço de referência",
+          "diferenca_md": "Cotação é evidência coletada. Preço de referência é o valor que se adota depois de tratar e analisar essas evidências."
+        }
+      ],
+      "ver_tambem": [
+        "fonte-de-precos",
+        "preco-de-referencia"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "cronograma-fisico-financeiro",
+      "termo": "Cronograma físico-financeiro",
+      "expansao": null,
+      "conceito_md": "Representação da execução prevista da obra ao longo do tempo, relacionando avanço físico e desembolso financeiro.",
+      "funcao_pratica_md": "Orienta planejamento, medições, pagamentos e acompanhamento de atrasos ou desvios.",
+      "distincoes": [
+        {
+          "termo": "Cronograma físico",
+          "diferenca_md": "O cronograma físico mostra atividades e prazos, já o físico-financeiro distribui também o dinheiro."
+        }
+      ],
+      "ver_tambem": [
+        "medicao",
+        "jogo-de-cronograma"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "curva-abc",
+      "termo": "Curva ABC",
+      "expansao": null,
+      "conceito_md": "Classificação dos itens do orçamento conforme sua participação acumulada no valor total.",
+      "funcao_pratica_md": "Destaca os itens financeiramente mais relevantes, permitindo concentrar análise e controle onde o impacto é maior.",
+      "distincoes": [
+        {
+          "termo": "Orçamento sintético",
+          "diferenca_md": "Enquanto o orçamento sintético lista os serviços na ordem da obra, a curva ABC reordena os mesmos itens por peso financeiro."
+        }
+      ],
+      "ver_tambem": [
+        "orcamento-sintetico",
+        "preco-unitario"
+      ],
+      "referencias": [
+        {
+          "tipo": "acordao",
+          "rotulo": "Acórdão TCU 2622/2013",
+          "url": "https://pesquisa.apps.tcu.gov.br/documento/acordao-completo/*/NUMACORDAO%253A2622%2520ANOACORDAO%253A2013/DTRELEVANCIA%2520desc/0"
+        }
+      ]
+    },
+    {
+      "id": "custo-de-referencia",
+      "termo": "Custo de referência",
+      "expansao": null,
+      "conceito_md": "Custo obtido de sistema oficial, pesquisa de mercado ou metodologia aceita para representar determinado serviço ou obra.",
+      "funcao_pratica_md": "É utilizado pela Administração para estimar valores, comparar propostas e analisar alterações contratuais.",
+      "distincoes": [
+        {
+          "termo": "Preço de referência",
+          "diferenca_md": "O custo de referência pode não incluir BDI. O preço de referência é o valor final adotado para contratar."
+        }
+      ],
+      "ver_tambem": [
+        "preco-de-referencia",
+        "sinapi",
+        "sicro"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "custo-direto",
+      "termo": "Custo direto",
+      "expansao": null,
+      "conceito_md": "Soma dos custos diretamente associados à execução dos serviços da obra.",
+      "funcao_pratica_md": "Reúne materiais, mão de obra, equipamentos e demais recursos necessários para produzir cada serviço.",
+      "distincoes": [
+        {
+          "termo": "Preço",
+          "diferenca_md": "Custo direto é execução. Preço é execução mais BDI e o que mais entra na formação da proposta."
+        }
+      ],
+      "ver_tambem": [
+        "bdi",
+        "composicao-de-custo-unitario",
+        "custo-indireto"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "custo-indireto",
+      "termo": "Custo indireto",
+      "expansao": null,
+      "conceito_md": "Custo necessário à obra que não pode ser atribuído de forma simples a uma unidade específica de serviço.",
+      "funcao_pratica_md": "Pode envolver estrutura de apoio, gestão, seguros ou outras parcelas, conforme a metodologia orçamentária adotada.",
+      "distincoes": [
+        {
+          "termo": "Custo direto",
+          "diferenca_md": "O direto se apropria a cada serviço, já o indireto atende a obra ou a empresa como um todo."
+        }
+      ],
+      "ver_tambem": [
+        "administracao-local",
+        "bdi",
+        "custo-direto"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "custo-unitario",
+      "termo": "Custo unitário",
+      "expansao": null,
+      "conceito_md": "Valor dos recursos consumidos para executar uma unidade de serviço, sem BDI.",
+      "funcao_pratica_md": "É o número que sai da composição de custo unitário e alimenta a planilha antes da formação do preço.",
+      "distincoes": [
+        {
+          "termo": "Preço unitário",
+          "diferenca_md": "O custo unitário para na execução, já o preço unitário incorpora BDI e o que mais for necessário para contratar."
+        }
+      ],
+      "ver_tambem": [
+        "preco-unitario",
+        "composicao-de-custo-unitario",
+        "custo-direto",
+        "bdi"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "data-base",
+      "termo": "Data-base",
+      "expansao": null,
+      "conceito_md": "Marco temporal ao qual os preços de um orçamento ou contrato estão referidos.",
+      "funcao_pratica_md": "Serve como referência para reajustes, comparações de preços e atualização de valores.",
+      "distincoes": [
+        {
+          "termo": "Data da proposta",
+          "diferenca_md": "A data da proposta é quando ela foi entregue. A data-base é o momento econômico a que os preços se referem."
+        }
+      ],
+      "ver_tambem": [
+        "reajuste",
+        "orcamento-estimado"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ]
+    },
+    {
+      "id": "desconto-contratual",
+      "termo": "Desconto contratual",
+      "expansao": null,
+      "conceito_md": "Diferença percentual entre o orçamento estimado pela Administração e o valor da proposta vencedora.",
+      "funcao_pratica_md": "Precisa ser preservado nos aditivos. Aplicar preço cheio de tabela em serviço novo, num contrato que foi vencido com 20% de desconto, devolve à contratada uma vantagem que a licitação tinha retirado.",
+      "distincoes": [
+        {
+          "termo": "Jogo de planilha",
+          "diferenca_md": "O desconto é legítimo e nasce da disputa. O jogo de planilha é a manobra que corrói esse desconto depois, item a item."
+        }
+      ],
+      "ver_tambem": [
+        "preco-novo",
+        "jogo-de-planilha",
+        "orcamento-estimado",
+        "aditivo-contratual"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "desoneracao-da-folha",
+      "termo": "Desoneração da folha",
+      "expansao": null,
+      "conceito_md": "Regime tributário que substitui, nos casos previstos em lei, parte da contribuição previdenciária incidente sobre a folha por contribuição sobre a receita.",
+      "funcao_pratica_md": "Altera encargos sociais e tributos considerados no orçamento, exigindo compatibilidade entre planilha e regime aplicável.",
+      "distincoes": [
+        {
+          "termo": "Regime desonerado",
+          "diferenca_md": "A desoneração é o mecanismo tributário; regime desonerado é o jeito de orçar que incorpora o efeito dele."
+        }
+      ],
+      "ver_tambem": [
+        "encargos-sociais",
+        "regime-desonerado",
+        "regime-nao-desonerado"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "efeito-cotacao",
+      "termo": "Efeito cotação",
+      "expansao": null,
+      "conceito_md": "Variação entre o preço coletado no mercado e o preço efetivamente negociado ou contratado.",
+      "funcao_pratica_md": "Ajuda a compreender por que cotações isoladas podem ficar acima do valor obtido em uma compra competitiva.",
+      "distincoes": [
+        {
+          "termo": "Economia de escala",
+          "diferenca_md": "Economia de escala vem do volume. O efeito cotação vem também de negociação, concorrência e condições comerciais."
+        }
+      ],
+      "ver_tambem": [
+        "cotacao-de-mercado",
+        "preco-de-referencia"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "empreitada-por-preco-global",
+      "termo": "Empreitada por preço global",
+      "expansao": "EPG",
+      "conceito_md": "Regime em que a obra ou serviço é contratado por preço certo e total.",
+      "funcao_pratica_md": "Serve quando o objeto e os quantitativos podem ser definidos com precisão antes de contratar.",
+      "distincoes": [
+        {
+          "termo": "Empreitada por preço unitário",
+          "diferenca_md": "Na global, contrata-se o conjunto por um preço total. Na unitária, paga-se pelo que foi efetivamente executado."
+        }
+      ],
+      "ver_tambem": [
+        "empreitada-por-preco-unitario",
+        "medicao",
+        "projeto-basico"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "empreitada-por-preco-unitario",
+      "termo": "Empreitada por preço unitário",
+      "expansao": "EPU",
+      "conceito_md": "Regime em que a execução é contratada por preços definidos para unidades determinadas de serviço.",
+      "funcao_pratica_md": "O pagamento resulta da multiplicação dos preços unitários pelas quantidades efetivamente executadas e aceitas.",
+      "distincoes": [
+        {
+          "termo": "Empreitada por preço global",
+          "diferenca_md": "Na unitária, a medição determina o valor pago, já na global o preço está preso ao objeto completo ou às etapas definidas."
+        }
+      ],
+      "ver_tambem": [
+        "empreitada-por-preco-global",
+        "medicao",
+        "preco-unitario"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ]
+    },
+    {
+      "id": "encargos-complementares",
+      "termo": "Encargos complementares",
+      "expansao": null,
+      "conceito_md": "Custos associados ao trabalhador que não integram os encargos sociais tradicionais, como alimentação, transporte, equipamentos de proteção, ferramentas e exames.",
+      "funcao_pratica_md": "São apropriados à mão de obra para representar o custo completo de sua utilização no serviço.",
+      "distincoes": [
+        {
+          "termo": "Encargos sociais",
+          "diferenca_md": "Os sociais vêm de obrigações trabalhistas e previdenciárias. Os complementares cobrem o que o trabalhador precisa para trabalhar: EPI, ferramenta, transporte."
+        }
+      ],
+      "ver_tambem": [
+        "encargos-sociais",
+        "mao-de-obra"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "encargos-sociais",
+      "termo": "Encargos sociais",
+      "expansao": null,
+      "conceito_md": "Percentuais que representam obrigações trabalhistas, previdenciárias e sociais incidentes sobre a mão de obra.",
+      "funcao_pratica_md": "São incorporados ao custo da mão de obra horista ou mensalista utilizado nas composições.",
+      "distincoes": [
+        {
+          "termo": "BDI",
+          "diferenca_md": "Os encargos entram no custo da mão de obra. O BDI entra depois, na formação do preço."
+        }
+      ],
+      "ver_tambem": [
+        "encargos-complementares",
+        "horista",
+        "mensalista",
+        "regime-desonerado"
+      ],
+      "referencias": [
+        {
+          "tipo": "acordao",
+          "rotulo": "Acórdão TCU 2622/2013",
+          "url": "https://pesquisa.apps.tcu.gov.br/documento/acordao-completo/*/NUMACORDAO%253A2622%2520ANOACORDAO%253A2013/DTRELEVANCIA%2520desc/0"
+        }
+      ]
+    },
+    {
+      "id": "equipamento",
+      "termo": "Equipamento",
+      "expansao": null,
+      "conceito_md": "Máquina, veículo ou recurso mecanizado empregado na execução de um serviço.",
+      "funcao_pratica_md": "Seu custo pode considerar aquisição ou locação, operação, manutenção, depreciação e tempos produtivo e improdutivo.",
+      "distincoes": [
+        {
+          "termo": "Material",
+          "diferenca_md": "Material se incorpora ou se consome na obra, já o equipamento produz o serviço e depois vai embora."
+        }
+      ],
+      "ver_tambem": [
+        "hora-produtiva",
+        "hora-improdutiva",
+        "insumo"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "fiscalizacao",
+      "termo": "Fiscalização",
+      "expansao": null,
+      "conceito_md": "Atividade de acompanhamento e verificação do cumprimento das obrigações técnicas e contratuais.",
+      "funcao_pratica_md": "Confere serviços, quantidades, qualidade, prazos, documentação e condições para medição e pagamento.",
+      "distincoes": [
+        {
+          "termo": "Gestão do contrato",
+          "diferenca_md": "A fiscalização acompanha a execução. A gestão cuida do contrato inteiro, inclusive do lado administrativo."
+        }
+      ],
+      "ver_tambem": [
+        "medicao",
+        "memoria-de-calculo"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "fonte-de-precos",
+      "termo": "Fonte de preços",
+      "expansao": null,
+      "conceito_md": "Origem utilizada para obter preços ou custos de referência, como SINAPI, SICRO, bases estaduais e pesquisas de mercado.",
+      "funcao_pratica_md": "Identifica de onde veio o valor e permite verificar sua data, localidade, metodologia e compatibilidade com o objeto.",
+      "distincoes": [
+        {
+          "termo": "Edição",
+          "diferenca_md": "A fonte é o sistema; a edição é o período daquela publicação."
+        }
+      ],
+      "ver_tambem": [
+        "cotacao-de-mercado",
+        "sinapi",
+        "sicro"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "hora-improdutiva",
+      "termo": "Hora improdutiva",
+      "expansao": "HI",
+      "conceito_md": "Tempo em que o equipamento permanece disponível para o serviço, mas não executa produção efetiva.",
+      "funcao_pratica_md": "Representa custos que continuam existindo durante esperas, paralisações operacionais ou dependências do ciclo produtivo.",
+      "distincoes": [
+        {
+          "termo": "Hora produtiva",
+          "diferenca_md": "Na hora produtiva o equipamento está executando; na improdutiva, mobilizado e parado."
+        }
+      ],
+      "ver_tambem": [
+        "equipamento",
+        "hora-produtiva",
+        "produtividade"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "hora-produtiva",
+      "termo": "Hora produtiva",
+      "expansao": "HP",
+      "conceito_md": "Tempo em que o equipamento está efetivamente operando e produzindo o serviço previsto.",
+      "funcao_pratica_md": "É utilizada para calcular o custo operacional durante a produção e relacioná-lo à produtividade do equipamento.",
+      "distincoes": [
+        {
+          "termo": "Hora improdutiva",
+          "diferenca_md": "A produtiva conta o equipamento operando, já a improdutiva conta a disponibilidade dele sem produção."
+        }
+      ],
+      "ver_tambem": [
+        "equipamento",
+        "hora-improdutiva",
+        "produtividade"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "horista",
+      "termo": "Horista",
+      "expansao": null,
+      "conceito_md": "Forma de apropriação da mão de obra cujo custo é expresso por hora trabalhada.",
+      "funcao_pratica_md": "É comum em composições unitárias, nas quais o coeficiente indica quantas horas são necessárias por unidade de serviço.",
+      "distincoes": [
+        {
+          "termo": "Mensalista",
+          "diferenca_md": "O horista é apropriado por hora trabalhada. O mensalista, por mês de disponibilidade."
+        }
+      ],
+      "ver_tambem": [
+        "encargos-sociais",
+        "mao-de-obra",
+        "mensalista"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "insumo",
+      "termo": "Insumo",
+      "expansao": null,
+      "conceito_md": "Recurso utilizado para executar um serviço, como material, mão de obra, equipamento ou serviço auxiliar.",
+      "funcao_pratica_md": "É a unidade básica que, combinada com um coeficiente e um preço, forma o custo de uma composição.",
+      "distincoes": [
+        {
+          "termo": "Composição",
+          "diferenca_md": "Insumo é um recurso. Composição é o arranjo de recursos que entrega um serviço."
+        }
+      ],
+      "ver_tambem": [
+        "coeficiente",
+        "composicao-de-custo-unitario",
+        "preco-unitario"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "jogo-de-cronograma",
+      "termo": "Jogo de cronograma",
+      "expansao": null,
+      "conceito_md": "Distribuição distorcida dos valores ao longo do cronograma, para antecipar pagamentos ou transferir vantagem financeira à contratada.",
+      "funcao_pratica_md": "Pode ocorrer quando etapas iniciais recebem valores desproporcionais ao que efetivamente entregam.",
+      "distincoes": [
+        {
+          "termo": "Jogo de planilha",
+          "diferenca_md": "O jogo de cronograma mexe na distribuição no tempo, já o de planilha mexe em preços e quantidades."
+        }
+      ],
+      "ver_tambem": [
+        "cronograma-fisico-financeiro",
+        "jogo-de-planilha",
+        "medicao"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "jogo-de-planilha",
+      "termo": "Jogo de planilha",
+      "expansao": null,
+      "conceito_md": "Desequilíbrio provocado por preços unitários distorcidos somados a alterações de quantidades, que corroem a vantagem econômica original do contrato.",
+      "funcao_pratica_md": "É verificado comparando a planilha antes e depois das alterações e controlando a manutenção do desconto global.",
+      "distincoes": [
+        {
+          "termo": "Sobrepreço",
+          "diferenca_md": "Sobrepreço pode nascer junto com o contrato. O jogo de planilha aparece depois, nas alterações que favorecem os itens mais rentáveis."
+        }
+      ],
+      "ver_tambem": [
+        "jogo-de-cronograma",
+        "parcela-compensatoria",
+        "preco-de-referencia"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Decreto 7.983/2013",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/decreto/d7983.htm"
+        }
+      ]
+    },
+    {
+      "id": "jurisprudencia",
+      "termo": "Jurisprudência",
+      "expansao": null,
+      "conceito_md": "Conjunto de decisões que revela como tribunais vêm interpretando e aplicando determinada matéria.",
+      "funcao_pratica_md": "Ajuda a fundamentar decisões e a identificar entendimentos recorrentes sobre licitações, contratos e obras públicas.",
+      "distincoes": [
+        {
+          "termo": "Lei",
+          "diferenca_md": "A lei diz a norma. A jurisprudência mostra como ela vem sendo lida nos casos julgados."
+        }
+      ],
+      "ver_tambem": [
+        "acordao",
+        "fiscalizacao"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "leis-sociais",
+      "termo": "Leis sociais",
+      "expansao": null,
+      "conceito_md": "Expressão tradicionalmente usada em orçamentos para designar os encargos incidentes sobre a mão de obra.",
+      "funcao_pratica_md": "Nas planilhas, a sigla **LS** identifica o percentual de encargos aplicado ao custo salarial, embora **encargos sociais** seja a denominação mais precisa.",
+      "distincoes": [
+        {
+          "termo": "Encargos sociais",
+          "diferenca_md": "Na prática orçamentária os dois termos se confundem. \"Encargos sociais\" descreve melhor o conjunto de parcelas que se calcula."
+        }
+      ],
+      "ver_tambem": [
+        "encargos-sociais",
+        "horista",
+        "mensalista"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "limite-de-alteracao",
+      "termo": "Limite de alteração",
+      "expansao": null,
+      "conceito_md": "Percentual máximo de acréscimo ou supressão que se pode fazer em um contrato sem nova licitação.",
+      "funcao_pratica_md": "É a régua que separa o aditivo legítimo do contrato que virou outro. Conta-se sobre o valor inicial atualizado, e não sobre o valor já aditado.",
+      "distincoes": [
+        {
+          "termo": "Alteração qualitativa",
+          "diferenca_md": "O limite trata de quanto; a alteração qualitativa trata de o quê. Mudar a natureza do objeto não fica legítimo só por caber no percentual."
+        }
+      ],
+      "ver_tambem": [
+        "acrescimo-contratual",
+        "supressao-contratual",
+        "alteracao-qualitativa"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ]
+    },
+    {
+      "id": "lucro",
+      "termo": "Lucro",
+      "expansao": null,
+      "conceito_md": "Parcela de remuneração empresarial prevista na formação do preço.",
+      "funcao_pratica_md": "Integra o BDI e remunera a atividade econômica, depois de considerados os custos e demais parcelas do preço.",
+      "distincoes": [
+        {
+          "termo": "Administração central",
+          "diferenca_md": "Administração central paga a estrutura da empresa. Lucro remunera o capital e o risco de tocar a obra."
+        }
+      ],
+      "ver_tambem": [
+        "bdi",
+        "preco-unitario"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "mao-de-obra",
+      "termo": "Mão de obra",
+      "expansao": null,
+      "conceito_md": "Trabalho humano empregado na execução de serviços, apropriado por categoria profissional e unidade de tempo.",
+      "funcao_pratica_md": "Seu custo considera salário, encargos sociais e, conforme a base, encargos complementares.",
+      "distincoes": [
+        {
+          "termo": "Produtividade",
+          "diferenca_md": "Mão de obra é o recurso; produtividade é quanto esse recurso entrega em determinado tempo."
+        }
+      ],
+      "ver_tambem": [
+        "encargos-complementares",
+        "encargos-sociais",
+        "horista",
+        "mensalista"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "matriz-de-riscos",
+      "termo": "Matriz de riscos",
+      "expansao": null,
+      "conceito_md": "Cláusula que identifica riscos contratuais e define qual parte assume seus efeitos.",
+      "funcao_pratica_md": "Orienta a análise de aditivos e reequilíbrios, evitando transferir à outra parte um risco previamente alocado.",
+      "distincoes": [
+        {
+          "termo": "Mapa de riscos",
+          "diferenca_md": "A matriz aloca contratualmente os riscos e tem efeito jurídico, já o mapa pode ser apenas instrumento interno de identificação."
+        }
+      ],
+      "ver_tambem": [
+        "aditivo-contratual",
+        "reequilibrio-economico-financeiro"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ]
+    },
+    {
+      "id": "medicao",
+      "termo": "Medição",
+      "expansao": null,
+      "conceito_md": "Apuração dos serviços, etapas ou resultados executados em determinado período.",
+      "funcao_pratica_md": "Fundamenta o aceite e o pagamento, com base nos critérios do contrato e na comprovação da execução.",
+      "distincoes": [
+        {
+          "termo": "Memória de cálculo",
+          "diferenca_md": "A medição é o número apurado. A memória de cálculo mostra como se chegou nele."
+        }
+      ],
+      "ver_tambem": [
+        "cronograma-fisico-financeiro",
+        "fiscalizacao",
+        "memoria-de-calculo"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ]
+    },
+    {
+      "id": "memoria-de-calculo",
+      "termo": "Memória de cálculo",
+      "expansao": null,
+      "conceito_md": "Registro organizado das premissas, fórmulas, dimensões e operações utilizadas para obter uma quantidade ou valor.",
+      "funcao_pratica_md": "Permite conferir e reproduzir quantitativos, medições, reajustes e outros cálculos do orçamento ou contrato.",
+      "distincoes": [
+        {
+          "termo": "Planilha orçamentária",
+          "diferenca_md": "A planilha traz quantidades e preços, já a memória mostra de onde esses números saíram."
+        }
+      ],
+      "ver_tambem": [
+        "medicao",
+        "orcamento-analitico"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "mensalista",
+      "termo": "Mensalista",
+      "expansao": null,
+      "conceito_md": "Forma de apropriação da mão de obra cujo custo é expresso por mês de trabalho ou disponibilidade.",
+      "funcao_pratica_md": "É comum para equipes permanentes de administração, supervisão e apoio durante a execução da obra.",
+      "distincoes": [
+        {
+          "termo": "Horista",
+          "diferenca_md": "O mensalista é apropriado por mês. O horista, pelas horas necessárias para produzir cada unidade."
+        }
+      ],
+      "ver_tambem": [
+        "administracao-local",
+        "encargos-sociais",
+        "horista"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "mobilizacao-e-desmobilizacao",
+      "termo": "Mobilização e desmobilização",
+      "expansao": null,
+      "conceito_md": "Atividades necessárias para levar recursos ao local da obra, iniciar sua operação e retirá-los ao final.",
+      "funcao_pratica_md": "Podem incluir transporte de equipamentos, instalação inicial, retirada de estruturas e encerramento operacional.",
+      "distincoes": [
+        {
+          "termo": "Administração local",
+          "diferenca_md": "Mobilização e desmobilização acontecem no começo e no fim; a administração local fica o tempo todo."
+        }
+      ],
+      "ver_tambem": [
+        "administracao-local",
+        "equipamento",
+        "medicao"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "orcamento-analitico",
+      "termo": "Orçamento analítico",
+      "expansao": null,
+      "conceito_md": "Orçamento detalhado que apresenta as composições, insumos, coeficientes e custos utilizados na formação de cada serviço.",
+      "funcao_pratica_md": "Permite auditar a origem dos preços e avaliar produtividade, consumo e compatibilidade das premissas.",
+      "distincoes": [
+        {
+          "termo": "Orçamento sintético",
+          "diferenca_md": "O analítico abre a formação de cada custo. O sintético mostra só serviço, unidade, quantidade e preço."
+        }
+      ],
+      "ver_tambem": [
+        "composicao-de-custo-unitario",
+        "orcamento-sintetico"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "orcamento-estimado",
+      "termo": "Orçamento estimado",
+      "expansao": null,
+      "conceito_md": "Estimativa elaborada pela Administração para representar o valor esperado de uma contratação.",
+      "funcao_pratica_md": "Apoia planejamento, disponibilidade orçamentária, julgamento de preços e avaliação da proposta.",
+      "distincoes": [
+        {
+          "termo": "Orçamento contratado",
+          "diferenca_md": "O estimado é a referência da Administração, já o contratado é o que saiu da proposta aceita."
+        }
+      ],
+      "ver_tambem": [
+        "custo-de-referencia",
+        "data-base",
+        "preco-de-referencia"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ]
+    },
+    {
+      "id": "orcamento-parametrico",
+      "termo": "Orçamento paramétrico",
+      "expansao": null,
+      "conceito_md": "Estimativa baseada em indicadores e relações históricas, como custo por metro quadrado, leito, unidade ou capacidade.",
+      "funcao_pratica_md": "É útil nas fases iniciais, quando ainda não há detalhamento suficiente para um orçamento analítico.",
+      "distincoes": [
+        {
+          "termo": "Orçamento analítico",
+          "diferenca_md": "O paramétrico estima por indicadores, sem detalhar. O analítico calcula serviço a serviço."
+        }
+      ],
+      "ver_tambem": [
+        "orcamento-analitico",
+        "orcamento-estimado"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "orcamento-sintetico",
+      "termo": "Orçamento sintético",
+      "expansao": null,
+      "conceito_md": "Planilha que relaciona serviços, unidades, quantidades, preços unitários e valores totais.",
+      "funcao_pratica_md": "Oferece visão consolidada do orçamento sem abrir todos os insumos de cada composição.",
+      "distincoes": [
+        {
+          "termo": "Orçamento analítico",
+          "diferenca_md": "O sintético resume os serviços; o analítico mostra como cada custo unitário se formou."
+        }
+      ],
+      "ver_tambem": [
+        "curva-abc",
+        "orcamento-analitico",
+        "preco-unitario"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "parcela-compensatoria",
+      "termo": "Parcela compensatória",
+      "expansao": null,
+      "conceito_md": "Ajuste utilizado para impedir que alterações da planilha reduzam indevidamente o desconto global originalmente contratado.",
+      "funcao_pratica_md": "Compensa a diferença quando a configuração posterior ao aditivo passa a favorecer economicamente a contratada.",
+      "distincoes": [
+        {
+          "termo": "Glosa",
+          "diferenca_md": "A glosa recusa valor indevido ou não comprovado, já a parcela compensatória repõe o equilíbrio depois de uma alteração."
+        }
+      ],
+      "ver_tambem": [
+        "jogo-de-planilha",
+        "preco-de-referencia"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "pesquisa-de-precos",
+      "termo": "Pesquisa de preços",
+      "expansao": null,
+      "conceito_md": "Levantamento de valores praticados no mercado ou em contratações públicas, feito para estimar o preço de referência.",
+      "funcao_pratica_md": "Não é coletar três orçamentos: é reunir fontes de origens diferentes, tratar os valores e descartar o que destoa, deixando registrado o critério.",
+      "distincoes": [
+        {
+          "termo": "Cotação de mercado",
+          "diferenca_md": "A cotação é uma das evidências. A pesquisa é o processo que reúne várias e chega a um valor defensável."
+        }
+      ],
+      "ver_tambem": [
+        "cotacao-de-mercado",
+        "preco-de-referencia",
+        "orcamento-estimado"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ]
+    },
+    {
+      "id": "preco-de-referencia",
+      "termo": "Preço de referência",
+      "expansao": null,
+      "conceito_md": "Valor adotado pela Administração como parâmetro para determinado item, serviço ou contratação.",
+      "funcao_pratica_md": "Serve para elaborar o orçamento estimado e avaliar a aceitabilidade dos preços propostos ou adicionados ao contrato.",
+      "distincoes": [
+        {
+          "termo": "Preço contratado",
+          "diferenca_md": "O de referência é o parâmetro público. O contratado é o que a proposta aceita fixou."
+        }
+      ],
+      "ver_tambem": [
+        "cotacao-de-mercado",
+        "custo-de-referencia",
+        "orcamento-estimado"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ]
+    },
+    {
+      "id": "preco-novo",
+      "termo": "Preço novo",
+      "expansao": null,
+      "conceito_md": "Preço formado para serviço que não tinha valor previsto no contrato.",
+      "funcao_pratica_md": "Deve seguir a mesma fonte, a mesma data-base e o mesmo desconto do orçamento contratado. É o ponto onde o jogo de planilha costuma entrar.",
+      "distincoes": [
+        {
+          "termo": "Reajuste",
+          "diferenca_md": "O reajuste atualiza preço que já existe; o preço novo cria valor para item que não existia."
+        }
+      ],
+      "ver_tambem": [
+        "servico-novo",
+        "desconto-contratual",
+        "reajuste",
+        "jogo-de-planilha"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ]
+    },
+    {
+      "id": "preco-unitario",
+      "termo": "Preço unitário",
+      "expansao": null,
+      "conceito_md": "Preço atribuído a uma unidade de serviço, como metro, metro quadrado, metro cúbico ou unidade.",
+      "funcao_pratica_md": "Multiplicado pela quantidade prevista ou medida, determina o valor total do item.",
+      "distincoes": [
+        {
+          "termo": "Custo unitário",
+          "diferenca_md": "O custo unitário é o que se consome. O preço unitário é o custo mais o que se precisa para vender ou contratar."
+        }
+      ],
+      "ver_tambem": [
+        "bdi",
+        "composicao-de-custo-unitario",
+        "orcamento-sintetico"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "produtividade",
+      "termo": "Produtividade",
+      "expansao": null,
+      "conceito_md": "Relação entre a quantidade produzida e os recursos ou o tempo empregados.",
+      "funcao_pratica_md": "Define os coeficientes de mão de obra e equipamentos e influencia diretamente o custo unitário do serviço.",
+      "distincoes": [
+        {
+          "termo": "Produção",
+          "diferenca_md": "Produção é a quantidade executada; produtividade relaciona essa quantidade ao recurso e ao tempo gastos."
+        }
+      ],
+      "ver_tambem": [
+        "coeficiente",
+        "equipamento",
+        "mao-de-obra"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "projeto-basico",
+      "termo": "Projeto básico",
+      "expansao": null,
+      "conceito_md": "Conjunto de elementos necessários e suficientes para definir e dimensionar a obra ou serviço e permitir a avaliação de seu custo e prazo.",
+      "funcao_pratica_md": "Dá suporte à licitação, aos quantitativos, ao orçamento e à definição do método e das condições de execução.",
+      "distincoes": [
+        {
+          "termo": "Projeto executivo",
+          "diferenca_md": "O básico define e dimensiona a solução. O executivo traz o detalhe necessário para construir."
+        }
+      ],
+      "ver_tambem": [
+        "anteprojeto",
+        "contratacao-semi-integrada",
+        "orcamento-estimado"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "quantitativo",
+      "termo": "Quantitativo",
+      "expansao": null,
+      "conceito_md": "Quantidade de cada serviço levantada a partir do projeto e registrada na planilha orçamentária.",
+      "funcao_pratica_md": "É metade do orçamento: o preço unitário responde por quanto custa cada unidade, o quantitativo por quantas unidades a obra tem.",
+      "distincoes": [
+        {
+          "termo": "Coeficiente",
+          "diferenca_md": "O coeficiente é interno à composição e diz quanto de recurso cada unidade consome. O quantitativo é externo e diz quantas unidades serão executadas."
+        }
+      ],
+      "ver_tambem": [
+        "coeficiente",
+        "memoria-de-calculo",
+        "orcamento-sintetico",
+        "medicao"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "reajuste",
+      "termo": "Reajuste",
+      "expansao": null,
+      "conceito_md": "Atualização periódica do valor contratual por índice previsto, destinada a recompor a variação ordinária dos custos.",
+      "funcao_pratica_md": "Preserva o valor econômico da proposta ao longo do tempo, observando a data-base e o intervalo legal aplicável.",
+      "distincoes": [
+        {
+          "termo": "Reequilíbrio econômico-financeiro",
+          "diferenca_md": "Enquanto o reajuste trata da variação ordinária por índice, o reequilíbrio enfrenta evento extraordinário que rompe a equação do contrato."
+        }
+      ],
+      "ver_tambem": [
+        "data-base",
+        "reequilibrio-economico-financeiro"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ]
+    },
+    {
+      "id": "reequilibrio-economico-financeiro",
+      "termo": "Reequilíbrio econômico-financeiro",
+      "expansao": null,
+      "conceito_md": "Recomposição da relação original entre encargos e remuneração quando evento extraordinário altera de forma relevante a equação do contrato.",
+      "funcao_pratica_md": "Exige demonstração do evento, de seu impacto e do nexo com os custos efetivamente afetados.",
+      "distincoes": [
+        {
+          "termo": "Reajuste",
+          "diferenca_md": "O reajuste é periódico e indexado. O reequilíbrio exige fato específico, impacto comprovado e olhar na alocação contratual do risco."
+        }
+      ],
+      "ver_tambem": [
+        "matriz-de-riscos",
+        "reajuste"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ]
+    },
+    {
+      "id": "regime-desonerado",
+      "termo": "Regime desonerado",
+      "expansao": null,
+      "conceito_md": "Forma de orçamento que incorpora os efeitos da desoneração da folha conforme a legislação aplicável ao período e à atividade.",
+      "funcao_pratica_md": "Utiliza encargos e tributos compatíveis com esse regime, produzindo custos e BDI próprios.",
+      "distincoes": [
+        {
+          "termo": "Regime não desonerado",
+          "diferenca_md": "O desonerado aplica a substituição tributária prevista em lei, já o não desonerado mantém a contribuição sobre a folha."
+        }
+      ],
+      "ver_tambem": [
+        "desoneracao-da-folha",
+        "encargos-sociais",
+        "regime-nao-desonerado"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "regime-nao-desonerado",
+      "termo": "Regime não desonerado",
+      "expansao": null,
+      "conceito_md": "Forma de orçamento que considera a incidência previdenciária sobre a folha de pagamento segundo o regime comum aplicável.",
+      "funcao_pratica_md": "Utiliza encargos sociais e BDI compatíveis com a tributação não desonerada.",
+      "distincoes": [
+        {
+          "termo": "Regime desonerado",
+          "diferenca_md": "No não desonerado a contribuição continua na folha; no desonerado, entra a substituição prevista em lei."
+        }
+      ],
+      "ver_tambem": [
+        "desoneracao-da-folha",
+        "encargos-sociais",
+        "regime-desonerado"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "servico-novo",
+      "termo": "Serviço novo",
+      "expansao": null,
+      "conceito_md": "Serviço que não constava da planilha contratual e passa a ser necessário durante a execução.",
+      "funcao_pratica_md": "Entra por aditivo, com preço formado segundo os mesmos critérios do orçamento original, e não pela conveniência do momento.",
+      "distincoes": [
+        {
+          "termo": "Serviço extracontratual",
+          "diferenca_md": "Serviço novo é formalizado antes de executar, já o extracontratual é o que se executou sem cobertura contratual e depois se tenta regularizar."
+        }
+      ],
+      "ver_tambem": [
+        "preco-novo",
+        "aditivo-contratual",
+        "acrescimo-contratual",
+        "jogo-de-planilha"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ]
+    },
+    {
+      "id": "sicro",
+      "termo": "SICRO",
+      "expansao": "Sistema de Custos Referenciais de Obras",
+      "conceito_md": "Sistema mantido pelo DNIT para referência de custos de obras de infraestrutura de transportes.",
+      "funcao_pratica_md": "Fornece insumos, composições e metodologias especialmente voltados a rodovias e outros empreendimentos de transporte.",
+      "distincoes": [
+        {
+          "termo": "SINAPI",
+          "diferenca_md": "O SICRO é de infraestrutura de transportes. O SINAPI cobre construção civil e edificações."
+        }
+      ],
+      "ver_tambem": [
+        "composicao-de-custo-unitario",
+        "fonte-de-precos",
+        "sinapi"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "simples-nacional",
+      "termo": "Simples Nacional",
+      "expansao": "Regime Especial Unificado de Arrecadação de Tributos e Contribuições",
+      "conceito_md": "Regime tributário simplificado para micro e pequenas empresas, com recolhimento unificado e alíquotas próprias.",
+      "funcao_pratica_md": "Muda a composição tributária do BDI: a licitante optante deve declarar ISS, PIS e Cofins compatíveis com o que efetivamente recolhe, e não as alíquotas do regime comum.",
+      "distincoes": [
+        {
+          "termo": "Lucro presumido",
+          "diferenca_md": "No presumido os tributos são apurados separadamente, com alíquotas próprias. No Simples, o recolhimento é unificado e a carga varia por faixa de receita."
+        }
+      ],
+      "ver_tambem": [
+        "bdi",
+        "encargos-sociais"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei Complementar 123/2006",
+          "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm"
+        }
+      ]
+    },
+    {
+      "id": "sinapi",
+      "termo": "SINAPI",
+      "expansao": "Sistema Nacional de Pesquisa de Custos e Índices da Construção Civil",
+      "conceito_md": "Sistema de referência que reúne preços de insumos, custos de composições e índices para a construção civil nas unidades da Federação.",
+      "funcao_pratica_md": "É utilizado na elaboração e análise de orçamentos, especialmente em obras públicas e empreendimentos com recursos federais.",
+      "distincoes": [
+        {
+          "termo": "SICRO",
+          "diferenca_md": "O SINAPI cobre construção civil em geral, já o SICRO é voltado a infraestrutura de transportes."
+        }
+      ],
+      "ver_tambem": [
+        "caderno-tecnico-de-composicao",
+        "fonte-de-precos",
+        "insumo",
+        "sicro"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Portal SINAPI - CAIXA",
+          "url": "https://www.caixa.gov.br/poder-publico/modernizacao-gestao/sinapi/Paginas/default.aspx"
+        }
+      ]
+    },
+    {
+      "id": "sobrepreco",
+      "termo": "Sobrepreço",
+      "expansao": null,
+      "conceito_md": "Preço orçado ou contratado acima do valor de referência ou de mercado, sem justificativa suficiente.",
+      "funcao_pratica_md": "Pode ser identificado em itens isolados ou no valor global, considerando metodologia, especificações e condições da contratação.",
+      "distincoes": [
+        {
+          "termo": "Superfaturamento",
+          "diferenca_md": "Sobrepreço é a distorção no preço. Superfaturamento é o dano já consumado: pagamento a maior, serviço não executado, quantidade indevida."
+        }
+      ],
+      "ver_tambem": [
+        "preco-de-referencia",
+        "preco-unitario"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "subcomposicao",
+      "termo": "Subcomposição",
+      "expansao": null,
+      "conceito_md": "Composição auxiliar utilizada como insumo dentro de outra composição de serviço.",
+      "funcao_pratica_md": "Permite reutilizar custos intermediários, como argamassas, transportes ou preparações, sem repetir todos os insumos na composição principal.",
+      "distincoes": [
+        {
+          "termo": "Composição principal",
+          "diferenca_md": "A subcomposição calcula uma etapa auxiliar; a principal é o serviço que se mede no orçamento."
+        }
+      ],
+      "ver_tambem": [
+        "composicao-de-custo-unitario",
+        "insumo"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "superfaturamento",
+      "termo": "Superfaturamento",
+      "expansao": null,
+      "conceito_md": "Dano ao erário decorrente de pagamento indevido, preço excessivo, quantidade maior que a executada, baixa qualidade ou outras distorções com efeito financeiro.",
+      "funcao_pratica_md": "Sua apuração exige demonstrar o prejuízo efetivo e a forma como ele ocorreu.",
+      "distincoes": [
+        {
+          "termo": "Sobrepreço",
+          "diferenca_md": "O sobrepreço é distorção, potencial ou já contratada. O superfaturamento é o prejuízo concretizado."
+        }
+      ],
+      "ver_tambem": [
+        "fiscalizacao",
+        "medicao",
+        "sobrepreco"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "supressao-contratual",
+      "termo": "Supressão contratual",
+      "expansao": null,
+      "conceito_md": "Redução de quantidade ou exclusão de serviço em contrato vigente.",
+      "funcao_pratica_md": "Serve quando o projeto muda e parte do que foi contratado deixa de ser necessária. Acima do limite legal, só com acordo entre as partes.",
+      "distincoes": [
+        {
+          "termo": "Acréscimo contratual",
+          "diferenca_md": "Supressão tira, acréscimo põe. Somar uma com a outra para dizer que o contrato não mudou é erro comum: os limites se contam separadamente."
+        }
+      ],
+      "ver_tambem": [
+        "acrescimo-contratual",
+        "aditivo-contratual",
+        "limite-de-alteracao"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ]
+    }
+  ]
+}

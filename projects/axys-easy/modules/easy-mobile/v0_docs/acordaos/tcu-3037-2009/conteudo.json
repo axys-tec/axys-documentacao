@@ -1,0 +1,33 @@
+{
+  "id": "tcu-3037-2009",
+  "orgao": "TCU",
+  "numero": "3037/2009",
+  "data": null,
+  "assuntos": [
+    "bdi",
+    "simples-nacional",
+    "ressarcimento"
+  ],
+  "tese_md": "O julgado determinou a adoção de medidas para ressarcir valores de PIS, ISS e Cofins incluídos no BDI em percentuais superiores aos efetivamente devidos por empresa optante pelo Simples Nacional, além de encargos de Sesi, Senai e Sebrae dos quais ela estava dispensada.",
+  "aplicacao_pratica_md": "Compare a planilha contratual com o regime tributário e as alíquotas efetivas da contratada. Se houver cobrança indevida, quantifique a diferença, assegure contraditório e adote a providência administrativa cabível para recomposição do erário.",
+  "limites_md": "A conclusão depende do enquadramento tributário da empresa no período e da efetiva incidência de cada parcela. Não presuma ressarcimento sem apuração documental e processo administrativo.",
+  "dispositivos": [
+    "Lei Complementar 123/2006, art. 13, § 3º"
+  ],
+  "vinculados": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "BDI",
+      "grupo": "TERMINOLOGIA",
+      "id": "bdi"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Simples Nacional",
+      "grupo": "TERMINOLOGIA",
+      "id": "simples-nacional"
+    }
+  ],
+  "pdf": null,
+  "publicado_em": "2026-08-21"
+}

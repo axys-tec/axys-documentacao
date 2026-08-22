@@ -1,0 +1,33 @@
+{
+  "id": "tcu-43-2015",
+  "orgao": "TCU",
+  "numero": "43/2015",
+  "data": null,
+  "assuntos": [
+    "fiscalizacao",
+    "aditivo-contratual",
+    "servico-nao-previsto"
+  ],
+  "tese_md": "O fiscal do contrato deve conhecer os limites e as regras das alterações contratuais e comunicar aos superiores a necessidade de aditivo, evitando atestar itens não previstos no ajuste.",
+  "aplicacao_pratica_md": "Ao identificar item extracontratual, registre a ocorrência, informe a autoridade competente e não ateste a despesa como se estivesse coberta pelo contrato original.",
+  "limites_md": "O dever do fiscal não substitui a competência da autoridade para decidir sobre a alteração nem afasta a análise das circunstâncias concretas de responsabilização.",
+  "dispositivos": [
+    "Lei 8.443/1992, art. 58, II"
+  ],
+  "vinculados": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Fiscalização",
+      "grupo": "TERMINOLOGIA",
+      "id": "fiscalizacao"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Aditivo contratual",
+      "grupo": "TERMINOLOGIA",
+      "id": "aditivo-contratual"
+    }
+  ],
+  "pdf": null,
+  "publicado_em": "2026-08-22"
+}

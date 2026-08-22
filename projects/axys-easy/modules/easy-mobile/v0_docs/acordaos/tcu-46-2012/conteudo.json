@@ -1,0 +1,33 @@
+{
+  "id": "tcu-46-2012",
+  "orgao": "TCU",
+  "numero": "46/2012",
+  "data": null,
+  "assuntos": [
+    "orcamento",
+    "composicao-de-custo-unitario",
+    "preco-unitario"
+  ],
+  "tese_md": "O orçamento-base deve discriminar os serviços e apresentar composições que revelem seus custos unitários. Itens agregados sob rótulos como “verba”, “conjunto” ou similares prejudicam a transparência e a análise de preços.",
+  "aplicacao_pratica_md": "Desdobre itens genéricos em insumos, coeficientes, unidades, produtividades e preços. A composição deve permitir conferir de onde vem o custo e comparar a proposta com referências de mercado.",
+  "limites_md": "O nível de detalhamento deve ser compatível com o objeto. A agregação só é aceitável quando não elimina informação necessária para medir, precificar e fiscalizar o serviço.",
+  "dispositivos": [
+    "Lei 8.666/1993, art. 7º, § 2º, II"
+  ],
+  "vinculados": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Composição de custo unitário",
+      "grupo": "TERMINOLOGIA",
+      "id": "composicao-de-custo-unitario"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Preço unitário",
+      "grupo": "TERMINOLOGIA",
+      "id": "preco-unitario"
+    }
+  ],
+  "pdf": null,
+  "publicado_em": "2026-08-21"
+}

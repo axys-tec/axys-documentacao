@@ -1,0 +1,47 @@
+{
+  "id": "tcu-2699-2019",
+  "orgao": "TCU",
+  "numero": "2699/2019",
+  "data": "2019-11-06",
+  "assuntos": [
+    "aditivo-contratual",
+    "servico-novo",
+    "desconto-contratual",
+    "bdi"
+  ],
+  "tese_md": "Na inclusão de serviços novos em contrato de obra, o preço deve partir do custo e do BDI de referência do orçamento-base e preservar a diferença percentual obtida entre o orçamento da Administração e o valor contratado. Se o aditivo reduzir o desconto original, pode ser necessária parcela compensatória negativa.",
+  "aplicacao_pratica_md": "Monte planilhas comparativas antes e depois do aditivo. Para cada serviço novo, documente custo de referência, BDI de referência, desconto global da licitação e preço final proposto.",
+  "limites_md": "A análise é global e deve considerar as exceções justificadas previstas no Decreto 7.983/2013. Preservar o desconto não dispensa verificar a adequação de cada custo unitário.",
+  "dispositivos": [
+    "Constituição Federal, art. 37, XXI",
+    "Decreto 7.983/2013, arts. 14 e 15"
+  ],
+  "vinculados": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "BDI",
+      "grupo": "TERMINOLOGIA",
+      "id": "bdi"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Aditivo contratual",
+      "grupo": "TERMINOLOGIA",
+      "id": "aditivo-contratual"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Serviço novo",
+      "grupo": "TERMINOLOGIA",
+      "id": "servico-novo"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Desconto contratual",
+      "grupo": "TERMINOLOGIA",
+      "id": "desconto-contratual"
+    }
+  ],
+  "pdf": null,
+  "publicado_em": "2026-08-21"
+}

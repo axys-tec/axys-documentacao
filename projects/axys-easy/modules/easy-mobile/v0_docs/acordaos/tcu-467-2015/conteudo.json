@@ -1,0 +1,46 @@
+{
+  "id": "tcu-467-2015",
+  "orgao": "TCU",
+  "numero": "467/2015",
+  "data": null,
+  "assuntos": [
+    "servico-novo",
+    "preco-de-referencia",
+    "bdi",
+    "desconto-contratual"
+  ],
+  "tese_md": "Os preços de serviços novos acrescidos por aditivo devem ser parametrizados pelas referências da Administração vigentes à época da licitação, inclusive sistemas oficiais e BDI do orçamento-base, mantendo-se o desconto global original.",
+  "aplicacao_pratica_md": "Não use automaticamente o preço corrente na data do aditivo. Reconstrua a referência da licitação e documente a aplicação do desconto original.",
+  "limites_md": "A escolha da referência e da data-base deve respeitar o contexto do contrato e a regulamentação aplicável; a síntese não autoriza preço acima do mercado.",
+  "dispositivos": [
+    "Lei 8.666/1993, art. 65, § 3º (regime histórico)"
+  ],
+  "vinculados": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Preço de referência",
+      "grupo": "TERMINOLOGIA",
+      "id": "preco-de-referencia"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "BDI",
+      "grupo": "TERMINOLOGIA",
+      "id": "bdi"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Serviço novo",
+      "grupo": "TERMINOLOGIA",
+      "id": "servico-novo"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Desconto contratual",
+      "grupo": "TERMINOLOGIA",
+      "id": "desconto-contratual"
+    }
+  ],
+  "pdf": null,
+  "publicado_em": "2026-08-22"
+}

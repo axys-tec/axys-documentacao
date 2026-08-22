@@ -1,0 +1,28 @@
+{
+  "id": "tcu-3289-2014",
+  "orgao": "TCU",
+  "numero": "3289/2014",
+  "data": null,
+  "assuntos": [
+    "contratacao-direta",
+    "orcamento",
+    "custo-unitario",
+    "preco"
+  ],
+  "tese_md": "Mesmo em contratação direta por inexigibilidade, o gestor deve elaborar orçamento detalhado em planilhas com a composição dos custos unitários, como elemento necessário à avaliação dos preços propostos.",
+  "aplicacao_pratica_md": "Instrua a contratação com memória de cálculo e fontes de preço suficientes para reconstruir o valor estimado e avaliar a proposta, em vez de registrar apenas um valor global.",
+  "limites_md": "O dever de justificar o preço permanece sujeito às particularidades do objeto e às regras vigentes do regime de contratação aplicável.",
+  "dispositivos": [
+    "Lei 8.666/1993, arts. 7º, § 2º, II e § 9º, e 26, III (regime histórico)"
+  ],
+  "vinculados": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Custo unitário",
+      "grupo": "TERMINOLOGIA",
+      "id": "custo-unitario"
+    }
+  ],
+  "pdf": null,
+  "publicado_em": "2026-08-22"
+}

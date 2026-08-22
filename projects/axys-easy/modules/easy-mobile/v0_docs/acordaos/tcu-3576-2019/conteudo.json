@@ -1,0 +1,27 @@
+{
+  "id": "tcu-3576-2019",
+  "orgao": "TCU",
+  "numero": "3576/2019",
+  "data": null,
+  "assuntos": [
+    "aditivo-contratual",
+    "planilha-orcamentaria",
+    "fato-superveniente"
+  ],
+  "tese_md": "É irregular incluir por alteração contratual serviço já previsto no edital como obrigação da contratada, mas omitido da planilha orçamentária. A alteração deve decorrer de fato superveniente e atender ao interesse público.",
+  "aplicacao_pratica_md": "Antes de incluir serviço, confronte edital, projetos, especificações e planilha. Se a obrigação já integrava o escopo licitado, não a trate automaticamente como serviço novo remunerável.",
+  "limites_md": "A conclusão depende da configuração do escopo e da alocação contratual de responsabilidades. A simples ausência na planilha não resolve, isoladamente, toda controvérsia sobre remuneração.",
+  "dispositivos": [
+    "Lei 8.666/1993, art. 65 (regime histórico)"
+  ],
+  "vinculados": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Aditivo contratual",
+      "grupo": "TERMINOLOGIA",
+      "id": "aditivo-contratual"
+    }
+  ],
+  "pdf": null,
+  "publicado_em": "2026-08-22"
+}

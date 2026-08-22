@@ -1,0 +1,28 @@
+{
+  "id": "tcu-2341-2020",
+  "orgao": "TCU",
+  "numero": "2341/2020",
+  "data": null,
+  "assuntos": [
+    "orcamento",
+    "custo-unitario",
+    "edital",
+    "planilha"
+  ],
+  "tese_md": "O edital deve exigir dos licitantes planilhas que expressem a composição de todos os custos unitários.",
+  "aplicacao_pratica_md": "Inclua no instrumento convocatório modelo de planilha e regras de preenchimento que permitam identificar insumos, coeficientes, preços e parcelas que formam cada custo unitário.",
+  "limites_md": "A síntese foi formada no contexto da Lei 8.666/1993. A aplicação em contratações atuais deve observar o regime legal e regulamentar incidente.",
+  "dispositivos": [
+    "Lei 8.666/1993, art. 7º, § 2º, II (regime histórico)"
+  ],
+  "vinculados": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Custo unitário",
+      "grupo": "TERMINOLOGIA",
+      "id": "custo-unitario"
+    }
+  ],
+  "pdf": null,
+  "publicado_em": "2026-08-22"
+}

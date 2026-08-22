@@ -1,0 +1,34 @@
+{
+  "id": "tcu-1606-2008",
+  "orgao": "TCU",
+  "numero": "1606/2008",
+  "data": null,
+  "assuntos": [
+    "contrato-verbal",
+    "servico-novo",
+    "quimica",
+    "medicao"
+  ],
+  "tese_md": "O pagamento de serviços novos sem cobertura contratual, mediante o faturamento de itens previstos na planilha original mas não executados, prática conhecida como \"química\", constitui irregularidade grave.",
+  "aplicacao_pratica_md": "A medição deve retratar os serviços efetivamente executados. Se surgir serviço não previsto, interrompa seu faturamento por item diverso e providencie a análise técnica e a formalização cabível antes da execução ou do pagamento.",
+  "limites_md": "A síntese trata da substituição fictícia de itens para viabilizar pagamentos. Não se confunde com ajuste formal de quantitativos ou inclusão regular de serviço novo.",
+  "dispositivos": [
+    "Lei 8.666/1993, art. 60, parágrafo único (regime histórico)"
+  ],
+  "vinculados": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Medição",
+      "grupo": "TERMINOLOGIA",
+      "id": "medicao"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Serviço novo",
+      "grupo": "TERMINOLOGIA",
+      "id": "servico-novo"
+    }
+  ],
+  "pdf": null,
+  "publicado_em": "2026-08-22"
+}

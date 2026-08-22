@@ -1,0 +1,41 @@
+{
+  "id": "tcu-2622-2013",
+  "orgao": "TCU",
+  "numero": "2622/2013",
+  "data": "2013-10-02",
+  "assuntos": [
+    "bdi",
+    "simples-nacional",
+    "administracao-local"
+  ],
+  "tese_md": "O TCU consolidou parâmetros para o BDI de obras públicas e orientou que licitantes optantes pelo Simples Nacional apresentem ISS, PIS e Cofins compatíveis com as alíquotas efetivamente devidas. A composição de encargos sociais não deve incluir contribuições das quais a empresa esteja dispensada, como Sesi, Senai e Sebrae. Para administração local, o edital deve estabelecer medição objetiva e proporcional à execução financeira da obra, evitando pagamento mensal fixo.",
+  "aplicacao_pratica_md": "Na análise da proposta, confira o regime tributário do licitante, as alíquotas declaradas no BDI e os encargos sociais. No orçamento e no cronograma de medição, trate a administração local como item mensurável, vinculado ao avanço da obra.",
+  "limites_md": "As faixas de BDI são referências, não percentuais automáticos. A taxa compatível depende do objeto, dos riscos e da justificativa do orçamento. Canteiro e mobilização exigem critérios próprios quando não abrangidos expressamente pela orientação de medição da administração local.",
+  "dispositivos": [
+    "Constituição Federal, art. 37, XXI",
+    "Lei Complementar 123/2006, art. 13, § 3º",
+    "Lei 8.666/1993, arts. 55, III, e 92"
+  ],
+  "vinculados": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "BDI",
+      "grupo": "TERMINOLOGIA",
+      "id": "bdi"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Administração local",
+      "grupo": "TERMINOLOGIA",
+      "id": "administracao-local"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Simples Nacional",
+      "grupo": "TERMINOLOGIA",
+      "id": "simples-nacional"
+    }
+  ],
+  "pdf": null,
+  "publicado_em": "2026-08-21"
+}

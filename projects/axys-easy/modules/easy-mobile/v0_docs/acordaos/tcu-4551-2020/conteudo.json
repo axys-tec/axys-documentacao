@@ -1,0 +1,40 @@
+{
+  "id": "tcu-4551-2020",
+  "orgao": "TCU",
+  "numero": "4551/2020",
+  "data": null,
+  "assuntos": [
+    "matriz-de-riscos",
+    "estatal",
+    "reequilibrio-economico-financeiro",
+    "aditivo-contratual"
+  ],
+  "tese_md": "Nos contratos de obras e serviços de engenharia das empresas estatais, deve existir cláusula de matriz de riscos, independentemente do regime de execução, para definir responsabilidades e condições de eventual alteração contratual.",
+  "aplicacao_pratica_md": "Faça a matriz integrar expressamente o contrato e conecte cada risco às regras de reequilíbrio, alteração e comprovação do evento.",
+  "limites_md": "A síntese se refere ao regime da Lei 13.303/2016. A matriz deve ser específica e compatível com o edital, o projeto e o contrato.",
+  "dispositivos": [
+    "Lei 13.303/2016, art. 69, X"
+  ],
+  "vinculados": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Matriz de riscos",
+      "grupo": "TERMINOLOGIA",
+      "id": "matriz-de-riscos"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Reequilíbrio econômico-financeiro",
+      "grupo": "TERMINOLOGIA",
+      "id": "reequilibrio-economico-financeiro"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Aditivo contratual",
+      "grupo": "TERMINOLOGIA",
+      "id": "aditivo-contratual"
+    }
+  ],
+  "pdf": null,
+  "publicado_em": "2026-08-22"
+}

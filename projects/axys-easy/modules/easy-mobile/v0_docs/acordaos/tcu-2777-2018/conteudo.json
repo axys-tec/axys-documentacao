@@ -1,0 +1,33 @@
+{
+  "id": "tcu-2777-2018",
+  "orgao": "TCU",
+  "numero": "2777/2018",
+  "data": null,
+  "assuntos": [
+    "contratacao-integrada",
+    "anteprojeto",
+    "desempenho"
+  ],
+  "tese_md": "Na contratação integrada, as soluções desenvolvidas pela contratada nos projetos básico e executivo devem apresentar desempenho técnico igual ou superior, em termos qualitativos, ao previsto no anteprojeto da licitação.",
+  "aplicacao_pratica_md": "Transforme o anteprojeto em requisitos verificáveis de desempenho. Na aprovação dos projetos, compare solução por solução e registre as evidências de equivalência ou superioridade.",
+  "limites_md": "Liberdade de solução não permite reduzir qualidade, vida útil ou desempenho. Alterações devem respeitar os requisitos do edital e a alocação contratual de riscos.",
+  "dispositivos": [
+    "Lei 12.462/2011, regime de contratação integrada"
+  ],
+  "vinculados": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Contratação integrada",
+      "grupo": "TERMINOLOGIA",
+      "id": "contratacao-integrada"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Anteprojeto",
+      "grupo": "TERMINOLOGIA",
+      "id": "anteprojeto"
+    }
+  ],
+  "pdf": null,
+  "publicado_em": "2026-08-21"
+}

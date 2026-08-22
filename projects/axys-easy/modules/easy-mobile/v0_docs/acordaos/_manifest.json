@@ -1,0 +1,442 @@
+{
+  "grupo": "ACORDAOS",
+  "gerado_em": "2026-08-22T00:00:00-03:00",
+  "itens": [
+    {
+      "id": "tcu-2622-2013",
+      "orgao": "TCU",
+      "numero": "2622/2013",
+      "data": "2013-10-02",
+      "titulo": "Acórdão TCU 2622/2013 — BDI, Simples Nacional e administração local",
+      "assuntos": [
+        "bdi",
+        "simples-nacional",
+        "administracao-local"
+      ],
+      "tese_curta": "Consolida referências de BDI e orienta a composição tributária e a medição da administração local.",
+      "conteudo": "easy-mobile/acordaos/tcu-2622-2013/conteudo.json"
+    },
+    {
+      "id": "tcu-3037-2009",
+      "orgao": "TCU",
+      "numero": "3037/2009",
+      "data": null,
+      "titulo": "Acórdão TCU 3037/2009 — tributos e encargos de optante pelo Simples",
+      "assuntos": [
+        "bdi",
+        "simples-nacional",
+        "ressarcimento"
+      ],
+      "tese_curta": "Valores de tributos e contribuições indevidamente incluídos por optante pelo Simples devem ser apurados e ressarcidos.",
+      "conteudo": "easy-mobile/acordaos/tcu-3037-2009/conteudo.json"
+    },
+    {
+      "id": "tcu-2699-2019",
+      "orgao": "TCU",
+      "numero": "2699/2019",
+      "data": "2019-11-06",
+      "titulo": "Acórdão TCU 2699/2019 — serviços novos e manutenção do desconto",
+      "assuntos": [
+        "aditivo-contratual",
+        "servico-novo",
+        "desconto-contratual",
+        "bdi"
+      ],
+      "tese_curta": "O preço de serviço novo deve preservar o desconto global obtido na licitação.",
+      "conteudo": "easy-mobile/acordaos/tcu-2699-2019/conteudo.json"
+    },
+    {
+      "id": "tcu-1977-2013",
+      "orgao": "TCU",
+      "numero": "1977/2013",
+      "data": null,
+      "titulo": "Acórdão TCU 1977/2013 — erros de quantitativos no preço global",
+      "assuntos": [
+        "preco-global",
+        "quantitativo",
+        "matriz-de-riscos"
+      ],
+      "tese_curta": "O edital deve definir critérios objetivos para tratar erros relevantes de quantitativos em empreitada por preço global.",
+      "conteudo": "easy-mobile/acordaos/tcu-1977-2013/conteudo.json"
+    },
+    {
+      "id": "tcu-2348-2011",
+      "orgao": "TCU",
+      "numero": "2348/2011",
+      "data": null,
+      "titulo": "Acórdão TCU 2348/2011 — formalização das alterações contratuais",
+      "assuntos": [
+        "aditivo-contratual",
+        "formalizacao",
+        "contrato-verbal"
+      ],
+      "tese_curta": "Alterações do contrato e serviços não previstos devem ser formalizados; a execução sem aditivo pode caracterizar contrato verbal.",
+      "conteudo": "easy-mobile/acordaos/tcu-2348-2011/conteudo.json"
+    },
+    {
+      "id": "tcu-3053-2016",
+      "orgao": "TCU",
+      "numero": "3053/2016",
+      "data": null,
+      "titulo": "Acórdão TCU 3053/2016 — motivação e instrução do aditivo",
+      "assuntos": [
+        "aditivo-contratual",
+        "motivacao",
+        "pesquisa-de-precos"
+      ],
+      "tese_curta": "O aditivo exige processo instruído com justificativa técnica, quantidades, valores e demonstração de economicidade.",
+      "conteudo": "easy-mobile/acordaos/tcu-3053-2016/conteudo.json"
+    },
+    {
+      "id": "tcu-decisao-215-1999",
+      "orgao": "TCU",
+      "numero": "Decisão 215/1999",
+      "data": "1999-05-12",
+      "titulo": "Decisão TCU 215/1999 — alterações qualitativas excepcionais",
+      "assuntos": [
+        "aditivo-contratual",
+        "limite-de-alteracao",
+        "alteracao-qualitativa"
+      ],
+      "tese_curta": "Admite ultrapassar limites legais apenas em alterações qualitativas consensuais excepcionalíssimas e sob requisitos cumulativos.",
+      "conteudo": "easy-mobile/acordaos/tcu-decisao-215-1999/conteudo.json"
+    },
+    {
+      "id": "tcu-2203-2017",
+      "orgao": "TCU",
+      "numero": "2203/2017",
+      "data": null,
+      "titulo": "Acórdão TCU 2203/2017 — preços novos e manutenção do desconto",
+      "assuntos": [
+        "aditivo-contratual",
+        "preco-novo",
+        "desconto-contratual"
+      ],
+      "tese_curta": "Mesmo sem efeito financeiro, a alteração precisa justificar preços novos e demonstrar a manutenção do desconto.",
+      "conteudo": "easy-mobile/acordaos/tcu-2203-2017/conteudo.json"
+    },
+    {
+      "id": "tcu-46-2012",
+      "orgao": "TCU",
+      "numero": "46/2012",
+      "data": null,
+      "titulo": "Acórdão TCU 46/2012 — detalhamento dos custos unitários",
+      "assuntos": [
+        "orcamento",
+        "composicao-de-custo-unitario",
+        "preco-unitario"
+      ],
+      "tese_curta": "O orçamento-base deve detalhar os custos unitários e evitar itens agregados como verba, conjunto ou similares.",
+      "conteudo": "easy-mobile/acordaos/tcu-46-2012/conteudo.json"
+    },
+    {
+      "id": "tcu-3443-2012",
+      "orgao": "TCU",
+      "numero": "3443/2012",
+      "data": null,
+      "titulo": "Acórdão TCU 3443/2012 — atraso, prazo e custos indiretos",
+      "assuntos": [
+        "prazo",
+        "atraso",
+        "administracao-local",
+        "canteiro-de-obras"
+      ],
+      "tese_curta": "A causa do atraso define se há recomposição de prazo, sanção e eventual repercussão financeira.",
+      "conteudo": "easy-mobile/acordaos/tcu-3443-2012/conteudo.json"
+    },
+    {
+      "id": "tcu-2777-2018",
+      "orgao": "TCU",
+      "numero": "2777/2018",
+      "data": null,
+      "titulo": "Acórdão TCU 2777/2018 — desempenho na contratação integrada",
+      "assuntos": [
+        "contratacao-integrada",
+        "anteprojeto",
+        "desempenho"
+      ],
+      "tese_curta": "As soluções dos projetos básico e executivo devem alcançar desempenho igual ou superior ao previsto no anteprojeto.",
+      "conteudo": "easy-mobile/acordaos/tcu-2777-2018/conteudo.json"
+    },
+    {
+      "id": "tcu-2980-2015",
+      "orgao": "TCU",
+      "numero": "2980/2015",
+      "data": null,
+      "titulo": "Acórdão TCU 2980/2015 — matriz de riscos na contratação integrada",
+      "assuntos": [
+        "contratacao-integrada",
+        "matriz-de-riscos",
+        "edital"
+      ],
+      "tese_curta": "A contratação integrada exige matriz de riscos detalhada no instrumento convocatório.",
+      "conteudo": "easy-mobile/acordaos/tcu-2980-2015/conteudo.json"
+    },
+    {
+      "id": "tcu-1606-2008",
+      "orgao": "TCU",
+      "numero": "1606/2008",
+      "data": null,
+      "titulo": "Acórdão TCU 1606/2008 — química e serviços sem cobertura contratual",
+      "assuntos": [
+        "contrato-verbal",
+        "servico-novo",
+        "quimica",
+        "medicao"
+      ],
+      "tese_curta": "É irregular faturar serviço novo por item da planilha original que não foi executado.",
+      "conteudo": "easy-mobile/acordaos/tcu-1606-2008/conteudo.json"
+    },
+    {
+      "id": "tcu-43-2015",
+      "orgao": "TCU",
+      "numero": "43/2015",
+      "data": null,
+      "titulo": "Acórdão TCU 43/2015 — deveres do fiscal diante de serviço não previsto",
+      "assuntos": [
+        "fiscalizacao",
+        "aditivo-contratual",
+        "servico-nao-previsto"
+      ],
+      "tese_curta": "O fiscal deve comunicar a necessidade de aditivo e evitar atestar item sem cobertura contratual.",
+      "conteudo": "easy-mobile/acordaos/tcu-43-2015/conteudo.json"
+    },
+    {
+      "id": "tcu-1597-2010",
+      "orgao": "TCU",
+      "numero": "1597/2010",
+      "data": null,
+      "titulo": "Acórdão TCU 1597/2010 — justificativa das alterações quantitativas",
+      "assuntos": [
+        "aditivo-contratual",
+        "quantitativo",
+        "justificativa-tecnica"
+      ],
+      "tese_curta": "Cada modificação do objeto deve ser relacionada à correspondente alteração de quantitativos.",
+      "conteudo": "easy-mobile/acordaos/tcu-1597-2010/conteudo.json"
+    },
+    {
+      "id": "tcu-291-2016",
+      "orgao": "TCU",
+      "numero": "291/2016",
+      "data": null,
+      "titulo": "Acórdão TCU 291/2016 — erro relevante de quantitativos no preço global",
+      "assuntos": [
+        "preco-global",
+        "quantitativo",
+        "erro-da-administracao",
+        "aditivo-contratual"
+      ],
+      "tese_curta": "Erro relevante da Administração pode admitir, excepcionalmente, aditivo em empreitada global.",
+      "conteudo": "easy-mobile/acordaos/tcu-291-2016/conteudo.json"
+    },
+    {
+      "id": "tcu-3576-2019",
+      "orgao": "TCU",
+      "numero": "3576/2019",
+      "data": null,
+      "titulo": "Acórdão TCU 3576/2019 — serviço do edital omitido da planilha",
+      "assuntos": [
+        "aditivo-contratual",
+        "planilha-orcamentaria",
+        "fato-superveniente"
+      ],
+      "tese_curta": "Serviço já imposto pelo edital não se torna automaticamente serviço novo por ter sido omitido da planilha.",
+      "conteudo": "easy-mobile/acordaos/tcu-3576-2019/conteudo.json"
+    },
+    {
+      "id": "tcu-2341-2020",
+      "orgao": "TCU",
+      "numero": "2341/2020",
+      "data": null,
+      "titulo": "Acórdão TCU 2341/2020 — composição dos custos unitários",
+      "assuntos": [
+        "orcamento",
+        "custo-unitario",
+        "edital",
+        "planilha"
+      ],
+      "tese_curta": "O edital deve exigir planilhas que expressem a composição de todos os custos unitários.",
+      "conteudo": "easy-mobile/acordaos/tcu-2341-2020/conteudo.json"
+    },
+    {
+      "id": "tcu-3289-2014",
+      "orgao": "TCU",
+      "numero": "3289/2014",
+      "data": null,
+      "titulo": "Acórdão TCU 3289/2014 — orçamento detalhado na inexigibilidade",
+      "assuntos": [
+        "contratacao-direta",
+        "orcamento",
+        "custo-unitario",
+        "preco"
+      ],
+      "tese_curta": "A contratação direta também exige orçamento detalhado que permita avaliar os preços.",
+      "conteudo": "easy-mobile/acordaos/tcu-3289-2014/conteudo.json"
+    },
+    {
+      "id": "tcu-2172-2013",
+      "orgao": "TCU",
+      "numero": "2172/2013",
+      "data": null,
+      "titulo": "Acórdão TCU 2172/2013 — matriz de riscos no preço global",
+      "assuntos": [
+        "matriz-de-riscos",
+        "preco-global",
+        "projeto",
+        "incerteza"
+      ],
+      "tese_curta": "Incertezas relevantes em preço global recomendam matriz que aloque objetivamente os riscos.",
+      "conteudo": "easy-mobile/acordaos/tcu-2172-2013/conteudo.json"
+    },
+    {
+      "id": "tcu-2616-2020",
+      "orgao": "TCU",
+      "numero": "2616/2020",
+      "data": null,
+      "titulo": "Acórdão TCU 2616/2020 — matriz de riscos nas estatais",
+      "assuntos": [
+        "matriz-de-riscos",
+        "estatal",
+        "preco-global",
+        "incerteza"
+      ],
+      "tese_curta": "Incertezas significativas recomendam matriz de riscos nas contratações das estatais.",
+      "conteudo": "easy-mobile/acordaos/tcu-2616-2020/conteudo.json"
+    },
+    {
+      "id": "tcu-4551-2020",
+      "orgao": "TCU",
+      "numero": "4551/2020",
+      "data": null,
+      "titulo": "Acórdão TCU 4551/2020 — cláusula de matriz de riscos",
+      "assuntos": [
+        "matriz-de-riscos",
+        "estatal",
+        "reequilibrio-economico-financeiro",
+        "aditivo-contratual"
+      ],
+      "tese_curta": "Contratos de engenharia das estatais devem conter cláusula de matriz de riscos.",
+      "conteudo": "easy-mobile/acordaos/tcu-4551-2020/conteudo.json"
+    },
+    {
+      "id": "tcu-2440-2014",
+      "orgao": "TCU",
+      "numero": "2440/2014",
+      "data": null,
+      "titulo": "Acórdão TCU 2440/2014 — preço de serviço novo e desconto",
+      "assuntos": [
+        "servico-novo",
+        "aditivo-contratual",
+        "preco-de-referencia",
+        "desconto-contratual"
+      ],
+      "tese_curta": "O preço do serviço novo deve partir da referência do orçamento-base e preservar o desconto.",
+      "conteudo": "easy-mobile/acordaos/tcu-2440-2014/conteudo.json"
+    },
+    {
+      "id": "tcu-467-2015",
+      "orgao": "TCU",
+      "numero": "467/2015",
+      "data": null,
+      "titulo": "Acórdão TCU 467/2015 — referência temporal do serviço novo",
+      "assuntos": [
+        "servico-novo",
+        "preco-de-referencia",
+        "bdi",
+        "desconto-contratual"
+      ],
+      "tese_curta": "Serviços novos devem ser parametrizados pelas referências vigentes na época da licitação.",
+      "conteudo": "easy-mobile/acordaos/tcu-467-2015/conteudo.json"
+    },
+    {
+      "id": "tcu-749-2010",
+      "orgao": "TCU",
+      "numero": "749/2010",
+      "data": null,
+      "titulo": "Acórdão TCU 749/2010 — cálculo separado de acréscimos e supressões",
+      "assuntos": [
+        "aditivo-contratual",
+        "acrescimo-contratual",
+        "supressao-contratual",
+        "limite-de-alteracao"
+      ],
+      "tese_curta": "Acréscimos e supressões são calculados separadamente, sem compensação.",
+      "conteudo": "easy-mobile/acordaos/tcu-749-2010/conteudo.json"
+    },
+    {
+      "id": "tcu-1200-2010",
+      "orgao": "TCU",
+      "numero": "1200/2010",
+      "data": null,
+      "titulo": "Acórdão TCU 1200/2010 — vedação à compensação no aditivo",
+      "assuntos": [
+        "aditivo-contratual",
+        "acrescimo-contratual",
+        "supressao-contratual",
+        "compensacao"
+      ],
+      "tese_curta": "O saldo líquido não substitui a aferição isolada de acréscimos e supressões.",
+      "conteudo": "easy-mobile/acordaos/tcu-1200-2010/conteudo.json"
+    },
+    {
+      "id": "tcu-2714-2015",
+      "orgao": "TCU",
+      "numero": "2714/2015",
+      "data": null,
+      "titulo": "Acórdão TCU 2714/2015 — causa do atraso e responsabilização",
+      "assuntos": [
+        "atraso",
+        "obra-publica",
+        "responsabilizacao",
+        "penalidade"
+      ],
+      "tese_curta": "A consequência do atraso depende de sua causa: Administração ou mora da contratada.",
+      "conteudo": "easy-mobile/acordaos/tcu-2714-2015/conteudo.json"
+    },
+    {
+      "id": "tcu-178-2019",
+      "orgao": "TCU",
+      "numero": "178/2019",
+      "data": null,
+      "titulo": "Acórdão TCU 178/2019 — atraso da contratada e administração local",
+      "assuntos": [
+        "atraso",
+        "administracao-local",
+        "canteiro-de-obras",
+        "reequilibrio"
+      ],
+      "tese_curta": "Atraso por culpa exclusiva da contratada não justifica acréscimo de administração local e canteiro.",
+      "conteudo": "easy-mobile/acordaos/tcu-178-2019/conteudo.json"
+    },
+    {
+      "id": "tcu-1541-2014",
+      "orgao": "TCU",
+      "numero": "1541/2014",
+      "data": null,
+      "titulo": "Acórdão TCU 1541/2014 — aditivos na contratação integrada",
+      "assuntos": [
+        "contratacao-integrada",
+        "aditivo-contratual",
+        "risco"
+      ],
+      "tese_curta": "A vedação de aditivos não é absoluta, mas deve preservar os riscos assumidos pelo particular.",
+      "conteudo": "easy-mobile/acordaos/tcu-1541-2014/conteudo.json"
+    },
+    {
+      "id": "tcu-2433-2016",
+      "orgao": "TCU",
+      "numero": "2433/2016",
+      "data": null,
+      "titulo": "Acórdão TCU 2433/2016 — evolução do anteprojeto e aditivo",
+      "assuntos": [
+        "contratacao-integrada",
+        "anteprojeto",
+        "projeto-basico",
+        "aditivo-contratual"
+      ],
+      "tese_curta": "A evolução normal do anteprojeto não é, por si, hipótese de aditamento.",
+      "conteudo": "easy-mobile/acordaos/tcu-2433-2016/conteudo.json"
+    }
+  ]
+}

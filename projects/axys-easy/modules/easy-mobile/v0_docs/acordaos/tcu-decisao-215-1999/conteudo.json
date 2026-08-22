@@ -1,0 +1,39 @@
+{
+  "id": "tcu-decisao-215-1999",
+  "orgao": "TCU",
+  "numero": "Decisão 215/1999",
+  "data": "1999-05-12",
+  "assuntos": [
+    "aditivo-contratual",
+    "limite-de-alteracao",
+    "alteracao-qualitativa"
+  ],
+  "tese_md": "Alterações qualitativas consensuais que ultrapassem os limites ordinários somente são admitidas em situações excepcionalíssimas e mediante requisitos cumulativos: fato superveniente, preservação do objeto, necessidade para sua execução, capacidade do contratado, vantagem frente à rescisão e demonstração de grave prejuízo ao interesse público caso se licite novamente.",
+  "aplicacao_pratica_md": "Trate a exceção como decisão de alta criticidade. Monte uma matriz com cada requisito, a evidência correspondente e a conclusão motivada da autoridade competente.",
+  "limites_md": "A decisão não autoriza superar limites por conveniência, falha de planejamento ou simples economia de tempo. Alterações quantitativas permanecem submetidas aos limites legais; a exceção trata de modificações qualitativas consensuais e extraordinárias.",
+  "dispositivos": [
+    "Lei 8.666/1993, art. 65, §§ 1º e 2º"
+  ],
+  "vinculados": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Aditivo contratual",
+      "grupo": "TERMINOLOGIA",
+      "id": "aditivo-contratual"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Limite de alteração",
+      "grupo": "TERMINOLOGIA",
+      "id": "limite-de-alteracao"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Alteração qualitativa",
+      "grupo": "TERMINOLOGIA",
+      "id": "alteracao-qualitativa"
+    }
+  ],
+  "pdf": null,
+  "publicado_em": "2026-08-21"
+}

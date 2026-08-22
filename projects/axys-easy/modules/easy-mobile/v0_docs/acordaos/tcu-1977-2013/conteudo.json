@@ -1,0 +1,34 @@
+{
+  "id": "tcu-1977-2013",
+  "orgao": "TCU",
+  "numero": "1977/2013",
+  "data": null,
+  "assuntos": [
+    "preco-global",
+    "quantitativo",
+    "matriz-de-riscos"
+  ],
+  "tese_md": "Em empreitada por preço global, o edital deve estabelecer critérios objetivos para identificar erros relevantes de quantitativos e definir quando eles podem justificar aditivo. A materialidade pode ser avaliada pela curva ABC, e a alocação do risco deve ser conhecida desde a licitação.",
+  "aplicacao_pratica_md": "Antes de licitar, classifique os itens por materialidade, defina a faixa de variação considerada tolerável e registre quem assume o risco dos quantitativos. Na execução, confronte o caso concreto com essas regras.",
+  "limites_md": "Preço global não elimina toda possibilidade de aditivo, mas pequenas imprecisões inerentes ao regime não devem ser transferidas automaticamente à Administração. A solução depende do edital, do projeto e da relevância econômica do erro.",
+  "dispositivos": [
+    "Lei 8.666/1993, art. 6º, VIII, a",
+    "Lei 8.666/1993, art. 47"
+  ],
+  "vinculados": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Matriz de riscos",
+      "grupo": "TERMINOLOGIA",
+      "id": "matriz-de-riscos"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Quantitativo",
+      "grupo": "TERMINOLOGIA",
+      "id": "quantitativo"
+    }
+  ],
+  "pdf": null,
+  "publicado_em": "2026-08-21"
+}

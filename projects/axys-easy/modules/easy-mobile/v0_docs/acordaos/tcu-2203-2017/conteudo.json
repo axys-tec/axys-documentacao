@@ -1,0 +1,40 @@
+{
+  "id": "tcu-2203-2017",
+  "orgao": "TCU",
+  "numero": "2203/2017",
+  "data": null,
+  "assuntos": [
+    "aditivo-contratual",
+    "preco-novo",
+    "desconto-contratual"
+  ],
+  "tese_md": "Alterações contratuais, ainda que sem efeito financeiro líquido, precisam de justificativas técnicas e jurídicas para as composições de preços novos e de demonstração de que o desconto obtido na licitação foi mantido.",
+  "aplicacao_pratica_md": "Não avalie o aditivo apenas pelo saldo final. Examine itens acrescidos e suprimidos, preços novos, referências utilizadas e o desconto global antes e depois da mudança.",
+  "limites_md": "Efeito financeiro zero não significa ausência de risco: a troca de itens pode alterar a vantagem econômica do contrato. A análise deve alcançar composição, quantidade e desconto.",
+  "dispositivos": [
+    "Lei 8.666/1993, art. 65",
+    "Decreto 7.983/2013, arts. 3º, 14 e 15"
+  ],
+  "vinculados": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Aditivo contratual",
+      "grupo": "TERMINOLOGIA",
+      "id": "aditivo-contratual"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Preço novo",
+      "grupo": "TERMINOLOGIA",
+      "id": "preco-novo"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Desconto contratual",
+      "grupo": "TERMINOLOGIA",
+      "id": "desconto-contratual"
+    }
+  ],
+  "pdf": null,
+  "publicado_em": "2026-08-21"
+}

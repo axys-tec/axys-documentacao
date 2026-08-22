@@ -1,0 +1,26 @@
+{
+  "id": "tcu-2172-2013",
+  "orgao": "TCU",
+  "numero": "2172/2013",
+  "data": null,
+  "assuntos": [
+    "matriz-de-riscos",
+    "preco-global",
+    "projeto",
+    "incerteza"
+  ],
+  "tese_md": "Quando houver incertezas relevantes e ainda assim se optar por contratação a preço global, recomenda-se matriz de riscos que identifique eventos capazes de afetar o empreendimento e atribua contratualmente quem suportará suas consequências.",
+  "aplicacao_pratica_md": "Liste riscos como imprecisões de projeto, interferências e eventos de execução; para cada um, defina responsável, consequência financeira, procedimento de comunicação e evidência necessária.",
+  "limites_md": "A matriz não deve transferir genericamente todos os riscos ao contratado nem substituir projeto e orçamento compatívels. A alocação precisa ser coerente com a capacidade de gestão de cada parte.",
+  "dispositivos": [],
+  "vinculados": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Matriz de riscos",
+      "grupo": "TERMINOLOGIA",
+      "id": "matriz-de-riscos"
+    }
+  ],
+  "pdf": null,
+  "publicado_em": "2026-08-22"
+}

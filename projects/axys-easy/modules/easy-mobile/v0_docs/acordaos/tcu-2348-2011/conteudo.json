@@ -1,0 +1,28 @@
+{
+  "id": "tcu-2348-2011",
+  "orgao": "TCU",
+  "numero": "2348/2011",
+  "data": null,
+  "assuntos": [
+    "aditivo-contratual",
+    "formalizacao",
+    "contrato-verbal"
+  ],
+  "tese_md": "Acréscimos, supressões, prorrogações e demais modificações do contrato devem ser formalizados por termo aditivo quando cabível. Autorizar e pagar serviço não previsto sem a formalização necessária pode caracterizar contrato verbal.",
+  "aplicacao_pratica_md": "Interrompa o fluxo informal: registre a necessidade, obtenha justificativas técnica e jurídica, verifique preço e disponibilidade orçamentária e formalize a alteração antes da execução.",
+  "limites_md": "Nem toda ocorrência exige aditivo; situações legalmente tratadas por apostila seguem regime próprio. A classificação deve ser feita antes da execução, com base na natureza da alteração.",
+  "dispositivos": [
+    "Lei 8.666/1993, art. 60, parágrafo único",
+    "Lei 8.666/1993, art. 65"
+  ],
+  "vinculados": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Aditivo contratual",
+      "grupo": "TERMINOLOGIA",
+      "id": "aditivo-contratual"
+    }
+  ],
+  "pdf": null,
+  "publicado_em": "2026-08-21"
+}

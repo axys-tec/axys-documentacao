@@ -1,0 +1,46 @@
+{
+  "id": "tcu-1200-2010",
+  "orgao": "TCU",
+  "numero": "1200/2010",
+  "data": null,
+  "assuntos": [
+    "aditivo-contratual",
+    "acrescimo-contratual",
+    "supressao-contratual",
+    "compensacao"
+  ],
+  "tese_md": "Como regra geral, acréscimos e supressões devem ser considerados isoladamente e calculados sobre o valor original do contrato, vedada a compensação entre os dois conjuntos.",
+  "aplicacao_pratica_md": "O saldo líquido do aditivo não é o indicador do limite. Demonstre separadamente quanto foi acrescentado e quanto foi suprimido.",
+  "limites_md": "A síntese reproduz orientação do regime da Lei 8.666/1993. Casos com marco temporal ou regime jurídico distinto exigem análise própria.",
+  "dispositivos": [
+    "Lei 8.666/1993, art. 65, §§ 1º e 2º (regime histórico)"
+  ],
+  "vinculados": [
+    {
+      "tipo": "acordao",
+      "rotulo": "Acórdão TCU 749/2010",
+      "grupo": "ACORDAOS",
+      "id": "tcu-749-2010"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Aditivo contratual",
+      "grupo": "TERMINOLOGIA",
+      "id": "aditivo-contratual"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Acréscimo contratual",
+      "grupo": "TERMINOLOGIA",
+      "id": "acrescimo-contratual"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Supressão contratual",
+      "grupo": "TERMINOLOGIA",
+      "id": "supressao-contratual"
+    }
+  ],
+  "pdf": null,
+  "publicado_em": "2026-08-22"
+}

@@ -1,0 +1,40 @@
+{
+  "id": "tcu-291-2016",
+  "orgao": "TCU",
+  "numero": "291/2016",
+  "data": null,
+  "assuntos": [
+    "preco-global",
+    "quantitativo",
+    "erro-da-administracao",
+    "aditivo-contratual"
+  ],
+  "tese_md": "Em empreitada por preço global, admite-se excepcionalmente termo aditivo quando erro da Administração produzir subestimativa ou superestimativa relevante dos quantitativos do orçamento-base, observados os critérios do Acórdão 1977/2013-Plenário.",
+  "aplicacao_pratica_md": "Antes de propor o aditivo, demonstre a origem administrativa do erro, sua relevância material, o impacto no preço global e o atendimento aos critérios definidos para o tratamento de quantitativos.",
+  "limites_md": "A decisão não transforma toda divergência quantitativa em direito a aditivo. O caráter excepcional e a relevância do erro devem ser demonstrados no caso concreto.",
+  "dispositivos": [
+    "Lei 8.666/1993, art. 65 (regime histórico)"
+  ],
+  "vinculados": [
+    {
+      "tipo": "acordao",
+      "rotulo": "Acórdão TCU 1977/2013",
+      "grupo": "ACORDAOS",
+      "id": "tcu-1977-2013"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Aditivo contratual",
+      "grupo": "TERMINOLOGIA",
+      "id": "aditivo-contratual"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Quantitativo",
+      "grupo": "TERMINOLOGIA",
+      "id": "quantitativo"
+    }
+  ],
+  "pdf": null,
+  "publicado_em": "2026-08-22"
+}

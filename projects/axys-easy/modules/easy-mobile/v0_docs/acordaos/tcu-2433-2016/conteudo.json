@@ -1,0 +1,46 @@
+{
+  "id": "tcu-2433-2016",
+  "orgao": "TCU",
+  "numero": "2433/2016",
+  "data": null,
+  "assuntos": [
+    "contratacao-integrada",
+    "anteprojeto",
+    "projeto-basico",
+    "aditivo-contratual"
+  ],
+  "tese_md": "Na contratação integrada, a revisão de hipóteses, premissas e pré-dimensionamentos do anteprojeto pelos projetos básico e executivo não constitui, por si, hipótese de aditamento; este pode ser cabível quando o órgão solicitar alteração depois de aprovar os projetos.",
+  "aplicacao_pratica_md": "Diferencie evolução normal do anteprojeto, risco do contratado e mudança posterior solicitada pela Administração. Registre a aprovação dos projetos e a origem de cada alteração.",
+  "limites_md": "A análise deve considerar o regime jurídico, o edital, a matriz de riscos e as circunstâncias concretas. Anteprojeto deficiente não autoriza generalização automática sobre quem suporta todo erro.",
+  "dispositivos": [
+    "Lei 12.462/2011 (regime histórico do RDC)"
+  ],
+  "vinculados": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Contratação integrada",
+      "grupo": "TERMINOLOGIA",
+      "id": "contratacao-integrada"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Anteprojeto",
+      "grupo": "TERMINOLOGIA",
+      "id": "anteprojeto"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Projeto básico",
+      "grupo": "TERMINOLOGIA",
+      "id": "projeto-basico"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Aditivo contratual",
+      "grupo": "TERMINOLOGIA",
+      "id": "aditivo-contratual"
+    }
+  ],
+  "pdf": null,
+  "publicado_em": "2026-08-22"
+}

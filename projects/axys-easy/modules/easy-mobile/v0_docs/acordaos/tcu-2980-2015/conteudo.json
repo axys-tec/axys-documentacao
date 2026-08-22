@@ -1,0 +1,33 @@
+{
+  "id": "tcu-2980-2015",
+  "orgao": "TCU",
+  "numero": "2980/2015",
+  "data": null,
+  "assuntos": [
+    "contratacao-integrada",
+    "matriz-de-riscos",
+    "edital"
+  ],
+  "tese_md": "Nas contratações integradas, a matriz de riscos detalhada é elemento indispensável do instrumento convocatório, com distribuição objetiva dos eventos entre Administração e contratado.",
+  "aplicacao_pratica_md": "Liste eventos, causas, consequências, responsável, resposta e impacto esperado. Relacione a matriz ao anteprojeto, ao orçamento e às regras de recomposição do contrato.",
+  "limites_md": "Uma matriz genérica não cumpre a função de alocar riscos. Riscos mal definidos tendem a reaparecer como disputas de preço, prazo e responsabilidade durante a execução.",
+  "dispositivos": [
+    "Lei 12.462/2011, regime de contratação integrada"
+  ],
+  "vinculados": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Contratação integrada",
+      "grupo": "TERMINOLOGIA",
+      "id": "contratacao-integrada"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Matriz de riscos",
+      "grupo": "TERMINOLOGIA",
+      "id": "matriz-de-riscos"
+    }
+  ],
+  "pdf": null,
+  "publicado_em": "2026-08-21"
+}

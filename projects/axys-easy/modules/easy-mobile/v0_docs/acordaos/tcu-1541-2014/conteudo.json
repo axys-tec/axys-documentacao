@@ -1,0 +1,33 @@
+{
+  "id": "tcu-1541-2014",
+  "orgao": "TCU",
+  "numero": "1541/2014",
+  "data": null,
+  "assuntos": [
+    "contratacao-integrada",
+    "aditivo-contratual",
+    "risco"
+  ],
+  "tese_md": "Na contratação integrada do RDC, a vedação a termos aditivos não é absoluta, mas busca assegurar que os riscos assumidos pelo particular sejam efetivamente suportados por ele durante a execução.",
+  "aplicacao_pratica_md": "Antes de propor aditivo, confronte o evento com a matriz de riscos e com as hipóteses legais, demonstrando por que ele não integra o risco ordinariamente atribuído ao contratado.",
+  "limites_md": "A decisão não cria autorização genérica para aditivos. A alteração deve enquadrar-se nas hipóteses legais e respeitar a alocação contratual de riscos.",
+  "dispositivos": [
+    "Lei 12.462/2011 (regime histórico do RDC)"
+  ],
+  "vinculados": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Contratação integrada",
+      "grupo": "TERMINOLOGIA",
+      "id": "contratacao-integrada"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Aditivo contratual",
+      "grupo": "TERMINOLOGIA",
+      "id": "aditivo-contratual"
+    }
+  ],
+  "pdf": null,
+  "publicado_em": "2026-08-22"
+}

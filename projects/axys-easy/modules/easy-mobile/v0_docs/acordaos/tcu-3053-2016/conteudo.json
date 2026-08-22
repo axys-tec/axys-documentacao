@@ -1,0 +1,33 @@
+{
+  "id": "tcu-3053-2016",
+  "orgao": "TCU",
+  "numero": "3053/2016",
+  "data": null,
+  "assuntos": [
+    "aditivo-contratual",
+    "motivacao",
+    "pesquisa-de-precos"
+  ],
+  "tese_md": "A alteração contratual deve ser precedida de processo administrativo com justificativa técnica, caracterização da necessidade, avaliação das quantidades e dos valores e demonstração de que a solução é econômica para a Administração.",
+  "aplicacao_pratica_md": "Instrua o processo com memória de cálculo, desenhos ou estudos, causa superveniente, planilha comparativa, referências de mercado e manifestação sobre a manutenção das condições da contratação.",
+  "limites_md": "Uma justificativa genérica não substitui a demonstração do caso concreto. A existência de interesse público não afasta os limites legais nem a análise de preço.",
+  "dispositivos": [
+    "Lei 8.666/1993, art. 65"
+  ],
+  "vinculados": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Aditivo contratual",
+      "grupo": "TERMINOLOGIA",
+      "id": "aditivo-contratual"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Pesquisa de preços",
+      "grupo": "TERMINOLOGIA",
+      "id": "pesquisa-de-precos"
+    }
+  ],
+  "pdf": null,
+  "publicado_em": "2026-08-21"
+}

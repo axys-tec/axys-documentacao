@@ -1,0 +1,47 @@
+{
+  "id": "tcu-2440-2014",
+  "orgao": "TCU",
+  "numero": "2440/2014",
+  "data": null,
+  "assuntos": [
+    "servico-novo",
+    "aditivo-contratual",
+    "preco-de-referencia",
+    "desconto-contratual"
+  ],
+  "tese_md": "O preço de serviço novo incluído por aditivo deve considerar custo e BDI de referência do orçamento-base e preservar a diferença percentual entre o orçamento da Administração e o valor global contratado.",
+  "aplicacao_pratica_md": "Para formar o preço novo, registre custo de referência, BDI do orçamento-base e desconto global original; depois demonstre matematicamente sua preservação.",
+  "limites_md": "A regra não dispensa verificar a pertinência do serviço, a data-base compatível, a economicidade e os requisitos legais do aditamento.",
+  "dispositivos": [
+    "Constituição Federal, art. 37, XXI",
+    "Decreto 7.983/2013, arts. 14 e 15"
+  ],
+  "vinculados": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Aditivo contratual",
+      "grupo": "TERMINOLOGIA",
+      "id": "aditivo-contratual"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Preço de referência",
+      "grupo": "TERMINOLOGIA",
+      "id": "preco-de-referencia"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Serviço novo",
+      "grupo": "TERMINOLOGIA",
+      "id": "servico-novo"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Desconto contratual",
+      "grupo": "TERMINOLOGIA",
+      "id": "desconto-contratual"
+    }
+  ],
+  "pdf": null,
+  "publicado_em": "2026-08-22"
+}

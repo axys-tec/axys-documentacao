@@ -1,0 +1,33 @@
+{
+  "id": "tcu-1597-2010",
+  "orgao": "TCU",
+  "numero": "1597/2010",
+  "data": null,
+  "assuntos": [
+    "aditivo-contratual",
+    "quantitativo",
+    "justificativa-tecnica"
+  ],
+  "tese_md": "A modificação quantitativa do objeto contratual deve ser acompanhada de justificativas detalhadas que relacionem cada alteração do objeto à correspondente variação dos quantitativos de bens e serviços.",
+  "aplicacao_pratica_md": "Estruture a justificativa em quadro comparativo, indicando item, quantidade original, quantidade alterada, causa técnica, documento de suporte e reflexo financeiro.",
+  "limites_md": "A justificativa detalhada não torna a alteração automaticamente válida; permanecem necessários competência, interesse público, limites legais e demais requisitos aplicáveis.",
+  "dispositivos": [
+    "Lei 8.666/1993, art. 65 (regime histórico)"
+  ],
+  "vinculados": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Aditivo contratual",
+      "grupo": "TERMINOLOGIA",
+      "id": "aditivo-contratual"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Quantitativo",
+      "grupo": "TERMINOLOGIA",
+      "id": "quantitativo"
+    }
+  ],
+  "pdf": null,
+  "publicado_em": "2026-08-22"
+}

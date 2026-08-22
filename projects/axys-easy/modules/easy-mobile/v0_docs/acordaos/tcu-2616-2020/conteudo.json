@@ -1,0 +1,28 @@
+{
+  "id": "tcu-2616-2020",
+  "orgao": "TCU",
+  "numero": "2616/2020",
+  "data": null,
+  "assuntos": [
+    "matriz-de-riscos",
+    "estatal",
+    "preco-global",
+    "incerteza"
+  ],
+  "tese_md": "É recomendável utilizar matriz de riscos em contratações regidas pela Lei das Estatais que envolvam incertezas significativas, inclusive sob empreitada por preço global.",
+  "aplicacao_pratica_md": "Use a matriz como instrumento de decisão e gestão: descreva o evento, sua causa, a parte responsável, os efeitos previstos e o tratamento contratual.",
+  "limites_md": "A recomendação não dispensa as cláusulas obrigatórias da Lei 13.303/2016 nem corrige matriz genérica ou incompatível com o objeto.",
+  "dispositivos": [
+    "Lei 13.303/2016"
+  ],
+  "vinculados": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Matriz de riscos",
+      "grupo": "TERMINOLOGIA",
+      "id": "matriz-de-riscos"
+    }
+  ],
+  "pdf": null,
+  "publicado_em": "2026-08-22"
+}

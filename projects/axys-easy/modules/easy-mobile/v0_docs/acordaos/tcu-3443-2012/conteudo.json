@@ -1,0 +1,34 @@
+{
+  "id": "tcu-3443-2012",
+  "orgao": "TCU",
+  "numero": "3443/2012",
+  "data": null,
+  "assuntos": [
+    "prazo",
+    "atraso",
+    "administracao-local",
+    "canteiro-de-obras"
+  ],
+  "tese_md": "A repercussão do atraso depende de sua causa. Se a Administração concorre para a demora ou ocorre evento imprevisível, pode haver prorrogação e efeitos econômicos devidamente demonstrados. Se o atraso decorre apenas da incapacidade da contratada, não há direito automático à revisão por aumento de administração local e canteiro, e devem ser avaliadas sanções.",
+  "aplicacao_pratica_md": "Antes de aditar prazo ou valor, construa uma linha do tempo, identifique o caminho crítico, atribua responsabilidades e separe: extensão de prazo, aplicação de sanção e repercussão financeira.",
+  "limites_md": "A prorrogação do prazo não implica, por si, aumento de valor. Custos adicionais precisam de nexo causal, prova e quantificação; atrasos concorrentes exigem análise específica.",
+  "dispositivos": [
+    "Lei 8.666/1993, art. 57, § 1º"
+  ],
+  "vinculados": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Administração local",
+      "grupo": "TERMINOLOGIA",
+      "id": "administracao-local"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Canteiro de obras",
+      "grupo": "TERMINOLOGIA",
+      "id": "canteiro-de-obras"
+    }
+  ],
+  "pdf": null,
+  "publicado_em": "2026-08-21"
+}

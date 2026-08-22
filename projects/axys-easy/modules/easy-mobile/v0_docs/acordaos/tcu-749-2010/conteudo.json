@@ -1,0 +1,46 @@
+{
+  "id": "tcu-749-2010",
+  "orgao": "TCU",
+  "numero": "749/2010",
+  "data": null,
+  "assuntos": [
+    "aditivo-contratual",
+    "acrescimo-contratual",
+    "supressao-contratual",
+    "limite-de-alteracao"
+  ],
+  "tese_md": "Para verificar os limites de alteração contratual, o conjunto de acréscimos e o conjunto de supressões devem ser calculados separadamente sobre o valor original do contrato, sem compensação entre eles.",
+  "aplicacao_pratica_md": "Mantenha duas memórias de cálculo: uma para acréscimos e outra para supressões. Compare cada total, isoladamente, com o limite aplicável.",
+  "limites_md": "A tese foi formulada sob a Lei 8.666/1993 e admite contexto temporal específico tratado em decisões posteriores para determinados contratos antigos de infraestrutura.",
+  "dispositivos": [
+    "Lei 8.666/1993, art. 65, §§ 1º e 2º (regime histórico)"
+  ],
+  "vinculados": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Aditivo contratual",
+      "grupo": "TERMINOLOGIA",
+      "id": "aditivo-contratual"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Acréscimo contratual",
+      "grupo": "TERMINOLOGIA",
+      "id": "acrescimo-contratual"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Supressão contratual",
+      "grupo": "TERMINOLOGIA",
+      "id": "supressao-contratual"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Limite de alteração",
+      "grupo": "TERMINOLOGIA",
+      "id": "limite-de-alteracao"
+    }
+  ],
+  "pdf": null,
+  "publicado_em": "2026-08-22"
+}
