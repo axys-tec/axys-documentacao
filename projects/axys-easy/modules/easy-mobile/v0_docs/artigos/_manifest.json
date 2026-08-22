@@ -77,7 +77,9 @@
       "conteudo": "easy-mobile/artigos/como-nasce-o-preco-de-uma-obra-publica.md",
       "formato": "markdown",
       "palavras": 731,
-      "publicado_em": "2026-08-22"
+      "publicado_em": "2026-08-22",
+      "pdf": "easy-mobile/artigos/como-nasce-o-preco-de-uma-obra-publica.pdf",
+      "pdf_bytes": 30834
     },
     {
       "id": "bdi-sem-atalhos",
@@ -154,7 +156,9 @@
       "conteudo": "easy-mobile/artigos/bdi-sem-atalhos.md",
       "formato": "markdown",
       "palavras": 692,
-      "publicado_em": "2026-08-22"
+      "publicado_em": "2026-08-22",
+      "pdf": "easy-mobile/artigos/bdi-sem-atalhos.pdf",
+      "pdf_bytes": 30431
     },
     {
       "id": "encargos-sociais-horista-mensalista",
@@ -237,7 +241,9 @@
       "conteudo": "easy-mobile/artigos/encargos-sociais-horista-mensalista.md",
       "formato": "markdown",
       "palavras": 610,
-      "publicado_em": "2026-08-22"
+      "publicado_em": "2026-08-22",
+      "pdf": "easy-mobile/artigos/encargos-sociais-horista-mensalista.pdf",
+      "pdf_bytes": 30046
     },
     {
       "id": "sinapi-sicro-nao-sao-tabelas-prontas",
@@ -332,7 +338,9 @@
       "conteudo": "easy-mobile/artigos/sinapi-sicro-nao-sao-tabelas-prontas.md",
       "formato": "markdown",
       "palavras": 547,
-      "publicado_em": "2026-08-22"
+      "publicado_em": "2026-08-22",
+      "pdf": "easy-mobile/artigos/sinapi-sicro-nao-sao-tabelas-prontas.pdf",
+      "pdf_bytes": 30042
     },
     {
       "id": "sobrepreco-e-superfaturamento",
@@ -427,7 +435,9 @@
       "conteudo": "easy-mobile/artigos/sobrepreco-e-superfaturamento.md",
       "formato": "markdown",
       "palavras": 561,
-      "publicado_em": "2026-08-22"
+      "publicado_em": "2026-08-22",
+      "pdf": "easy-mobile/artigos/sobrepreco-e-superfaturamento.pdf",
+      "pdf_bytes": 30226
     },
     {
       "id": "aditivos-e-reequilibrio-economico-financeiro",
@@ -546,7 +556,9 @@
       "conteudo": "easy-mobile/artigos/aditivos-e-reequilibrio-economico-financeiro.md",
       "formato": "markdown",
       "palavras": 752,
-      "publicado_em": "2026-08-22"
+      "publicado_em": "2026-08-22",
+      "pdf": "easy-mobile/artigos/aditivos-e-reequilibrio-economico-financeiro.pdf",
+      "pdf_bytes": 31498
     }
   ]
 }

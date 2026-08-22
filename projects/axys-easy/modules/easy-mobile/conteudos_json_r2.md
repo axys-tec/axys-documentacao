@@ -721,6 +721,25 @@ navegação continua sendo uma só: leia o manifesto, siga `conteudo`, ramifique
 corpo — isso sujaria o Markdown com sintaxe de app e mataria a razão de ele ser puro. O
 artigo se conecta ao resto pelo `referencias`, a mesma convenção de acórdãos e casos.
 
+**O artigo também sobe em PDF, pré-gerado.** `pdf` traz o caminho e `pdf_bytes` o tamanho,
+para o app mostrar o peso do download antes de baixar:
+
+``` json
+{ "conteudo": "easy-mobile/artigos/bdi-sem-atalhos.md", "formato": "markdown",
+  "pdf": "easy-mobile/artigos/bdi-sem-atalhos.pdf", "pdf_bytes": 30462 }
+```
+
+O app **baixa**, não renderiza. São ~30 KB por artigo: mandar o aparelho (ou a API) montar
+o mesmo PDF a cada toque gastaria CPU e bateria para produzir sempre o mesmo byte. O PDF é
+conteúdo publicado como qualquer outro — nasce no gerador, sobe para o R2, e o manifesto
+diz onde está. O validador recusa manifesto que promete um PDF inexistente ou com tamanho
+divergente, porque essa mentira só apareceria na mão do usuário, ao tocar "baixar".
+
+A pele editorial vive em `backend/core/service_articles.py`, **separada** da de relatório
+(`service_report.py`): relatório prova um cálculo e leva o logo do TENANT; artigo é
+publicação da Axys e leva o logo da Axys. Uma pele só cresceria condicionais até não
+servir bem a nenhum dos dois.
+
 **Nome publicado sai do `id`, sem o prefixo numérico do arquivo local.** O `01-` ordena a
 pasta de quem edita; não é identidade. Artigo reordenado não pode mudar de URL.
 
