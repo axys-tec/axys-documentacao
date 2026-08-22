@@ -1,0 +1,51 @@
+{
+  "id": "reajuste-sem-indice-no-contrato",
+  "titulo": "Contrato sem índice ou data-base de reajuste",
+  "publicado_em": "2026-08-22",
+  "situacao_md": "Depois de um ano, a contratada pede reajuste. O contrato assinado, porém, não informa com clareza o índice nem a data-base aplicáveis.",
+  "resposta_curta": "A omissão não deve ser resolvida escolhendo um índice por preferência pessoal. É necessário reconstruir o critério a partir do edital, do orçamento estimado, da proposta, da legislação e dos atos do processo, e então sanear formalmente o instrumento.",
+  "condicionantes": [
+    "Edital",
+    "Orçamento estimado",
+    "Data-base",
+    "Índice setorial",
+    "Regime jurídico",
+    "Orientação jurídica"
+  ],
+  "verificar": [
+    "O edital ou seus anexos já definiram índice e data-base?",
+    "Qual é a data formal do orçamento estimado e como ela foi registrada?",
+    "O objeto possui índice específico ou setorial compatível?",
+    "A proposta adotou premissa expressa sobre reajuste?",
+    "Há regulamento do ente contratante?",
+    "A correção pode ser formalizada sem alterar a equação original da disputa?"
+  ],
+  "fundamento_md": "A Lei 14.133/2021 determina que o edital preveja índice de reajustamento, com data-base vinculada à data do orçamento estimado, e que o contrato contenha os critérios, a data-base e a periodicidade. A ausência dessas cláusulas é falha do instrumento; sua correção deve preservar a vinculação ao edital e o equilíbrio econômico-financeiro, com motivação técnica e jurídica.",
+  "procedimento": [
+    "Reunir edital, orçamento, proposta, contrato e regulamento aplicável.",
+    "Identificar o marco e o índice que já decorrem desses documentos, sem criar vantagem nova.",
+    "Produzir nota técnica com a cronologia e a metodologia.",
+    "Submeter a questão à assessoria jurídica e à autoridade competente.",
+    "Formalizar o saneamento e aplicar o critério de forma consistente."
+  ],
+  "riscos_md": "Negar automaticamente pode suprimir direito previsto em lei e na equação econômica. Escolher um índice conveniente depois da contratação pode alterar a competição. A decisão precisa mostrar por que o critério adotado já pertencia ao contexto original do contrato.",
+  "referencias": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Reajuste",
+      "grupo": "TERMINOLOGIA",
+      "id": "reajuste"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Data-base",
+      "grupo": "TERMINOLOGIA",
+      "id": "data-base"
+    }
+  ],
+  "assuntos": [
+    "reajuste",
+    "data-base",
+    "contrato"
+  ]
+}

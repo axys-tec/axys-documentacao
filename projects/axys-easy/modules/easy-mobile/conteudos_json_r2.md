@@ -415,7 +415,7 @@ PDF oficial qualquer um acha.
   "aplicacao_pratica_md": "Na prática, ao montar o BDI de uma obra de edificação você compara…",
   "limites_md": "O entendimento vale para obras públicas federais e é **referencial, não camisa de força**: BDI fora da faixa é admissível quando justificado…",
   "dispositivos": ["Lei 8.666/1993, art. 7º", "IN nº …"],
-  "vinculados": [
+  "referencias": [
     { "tipo": "publicacao", "rotulo": "BDI", "grupo": "TERMINOLOGIA", "id": "bdi" },
     { "tipo": "publicacao", "rotulo": "BDI diferenciado para equipamentos", "grupo": "DUVIDAS", "id": "bdi-diferenciado-equipamentos" }
   ],
@@ -430,7 +430,7 @@ racha: na primeira leva de 30 acórdãos apareceram `limite` e `limites` como et
 distintas, e `aditivo` convivendo com o verbete `aditivo-contratual`. Etiqueta rachada
 quebra o agrupamento no app e esvazia o `vinculados`.
 
-**`vinculados` é o que transforma três listas em uma teia.** Um acórdão sobre BDI aponta
+**`referencias` é o que transforma três listas em uma teia.** Um acórdão sobre BDI aponta
 para o verbete BDI; o verbete pode listar os acórdãos que o citam. Preencher é mecânico
 quando o vocabulário é controlado — e impossível quando não é.
 
@@ -466,6 +466,19 @@ dentro**, em vez de jogar o usuário no navegador:
 | `indice` | `codigo` | abre a série do índice |
 | `publicacao` | `grupo`, `id` | abre outro conteúdo (`TERMINOLOGIA`, `DUVIDAS`, `CASOS`, `ACORDAOS`, `NEWSLETTER`, `ARTIGOS`) |
 | `acordao` · `url` | `url` | abre fora do app |
+
+**O campo se chama `referencias` em TODA a Base de Conhecimento** — terminologia, dúvidas,
+casos e acórdãos. Houve uma versão em que os acórdãos usavam `vinculados`; foi unificado em
+22/08/2026. Dois nomes para a mesma coisa obrigariam o app a tratar dois campos idênticos.
+
+**Rótulo de acórdão é sempre `Acórdão {orgao} {numero}`**, sem cauda descritiva. O título e a
+tese o app busca na própria ficha — repetir no rótulo cria duas versões da mesma descrição,
+que divergem na primeira edição.
+
+**Vínculo automático não se soma a curadoria humana.** Quando o conteúdo já traz acórdãos
+escolhidos a dedo, o preenchimento automático não acrescenta: escolha de quem escreveu vale
+mais que sobreposição de etiqueta. Onde não há curadoria, o automático entra com **no máximo
+dois** e só com sobreposição real de assunto.
 
 Referência interna usa **fonte + código**, nunca `id` numérico: o id é interno e pode
 mudar num rebuild; o par fonte+código é a identidade estável.

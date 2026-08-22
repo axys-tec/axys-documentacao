@@ -1,0 +1,50 @@
+{
+  "id": "retencao-na-ultima-medicao",
+  "titulo": "Reter parte do contrato para a última medição",
+  "publicado_em": "2026-08-22",
+  "situacao_md": "A fiscalização pensa em deixar um percentual relevante do contrato para pagamento somente após a entrega final, como forma de garantir correções e documentação.",
+  "resposta_curta": "Não crie retenção durante a execução se ela não foi prevista. O pagamento deve acompanhar o que foi medido e recebido; eventuais parcelas finais precisam corresponder a entregas objetivas definidas no edital e no contrato.",
+  "condicionantes": [
+    "Previsão contratual",
+    "Cronograma",
+    "Critério de medição",
+    "Recebimento provisório",
+    "Recebimento definitivo",
+    "Garantia"
+  ],
+  "verificar": [
+    "O edital vinculou parcela final a serviços, testes ou documentos específicos?",
+    "O percentual corresponde a objeto ainda não executado ou apenas a retenção genérica?",
+    "Há garantia contratual que já cobre inadimplemento?",
+    "Os critérios de recebimento estão claros?",
+    "A retenção afetaria serviços já executados e aceitos?"
+  ],
+  "fundamento_md": "A Lei 14.133/2021 vincula pagamento à liquidação da despesa e disciplina o recebimento do objeto. Critérios de medição e pagamento devem ser previstos na contratação. Uma parcela final pode existir quando representa obrigações ainda pendentes; uma retenção genérica criada depois da licitação pode alterar as condições econômicas do contrato.",
+  "procedimento": [
+    "Mapear as entregas finais: testes, as built, manuais, limpeza, treinamento e correções.",
+    "Associar valores a essas entregas no orçamento e no cronograma.",
+    "Definir recebimento provisório e definitivo com prazos razoáveis.",
+    "Usar garantias e sanções previstas para tratar inadimplemento.",
+    "Pagar o que estiver executado, medido e aceito conforme o contrato."
+  ],
+  "riscos_md": "Reter pagamento de serviço já aceito pode gerar encargos e desequilíbrio. Pagar tudo antes de testes e documentos também reduz a proteção da Administração. A solução está em planejar parcelas verificáveis, não em reservar um percentual arbitrário.",
+  "referencias": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Medição",
+      "grupo": "TERMINOLOGIA",
+      "id": "medicao"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Acórdão TCU 1606/2008",
+      "grupo": "ACORDAOS",
+      "id": "tcu-1606-2008"
+    }
+  ],
+  "assuntos": [
+    "medicao",
+    "pagamento",
+    "recebimento"
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "id": "canteiro-e-administracao-local-na-medicao",
+  "titulo": "Canteiro e administração local na mesma lógica de medição",
+  "publicado_em": "2026-08-22",
+  "situacao_md": "Ao preparar o cronograma de medição, surge a ideia de pagar canteiro, mobilização e administração local todos de forma proporcional ao avanço financeiro da obra.",
+  "resposta_curta": "Não trate os três itens automaticamente da mesma forma. A administração local costuma acompanhar o avanço da obra; canteiro e mobilização devem seguir eventos ou entregas efetivamente verificáveis.",
+  "condicionantes": [
+    "Critério do edital",
+    "Cronograma",
+    "Estrutura do canteiro",
+    "Eventos de mobilização",
+    "Progresso físico-financeiro",
+    "Desmobilização"
+  ],
+  "verificar": [
+    "O edital definiu critérios objetivos para cada item?",
+    "Quais estruturas do canteiro são instaladas, mantidas e removidas?",
+    "Há marcos verificáveis de mobilização e desmobilização?",
+    "A administração local está vinculada ao avanço da obra e limitada ao valor contratado?",
+    "Existe risco de pagamento antecipado ou em duplicidade?"
+  ],
+  "fundamento_md": "O Acórdão TCU 2622/2013 orienta que a administração local seja destacada e medida de modo objetivo, em regra proporcional à execução financeira. Isso não transforma canteiro e mobilização em parcelas mensais automáticas. Para esses itens, o critério deve refletir o que foi implantado, mantido ou retirado.",
+  "procedimento": [
+    "Descrever separadamente o conteúdo de cada item.",
+    "Vincular canteiro e mobilização a marcos físicos comprováveis.",
+    "Vincular administração local ao avanço previsto no edital, evitando parcela mensal fixa desvinculada da execução.",
+    "Prever tratamento da desmobilização e do recebimento.",
+    "Registrar medições com evidências e memória de cálculo."
+  ],
+  "riscos_md": "Pagar toda a mobilização no início sem garantia de entrega pode antecipar recursos indevidamente. Medir administração local por valor fixo durante atrasos pode remunerar período sem avanço. Aplicar uma única fórmula a itens de naturezas diferentes reduz a transparência.",
+  "referencias": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Medição",
+      "grupo": "TERMINOLOGIA",
+      "id": "medicao"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Administração local",
+      "grupo": "TERMINOLOGIA",
+      "id": "administracao-local"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Canteiro de obras",
+      "grupo": "TERMINOLOGIA",
+      "id": "canteiro-de-obras"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Acórdão TCU 2622/2013",
+      "grupo": "ACORDAOS",
+      "id": "tcu-2622-2013"
+    }
+  ],
+  "assuntos": [
+    "medicao",
+    "administracao-local",
+    "canteiro-de-obras"
+  ]
+}

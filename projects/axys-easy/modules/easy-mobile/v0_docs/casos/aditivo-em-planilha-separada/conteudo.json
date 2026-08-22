@@ -1,0 +1,56 @@
+{
+  "id": "aditivo-em-planilha-separada",
+  "titulo": "Aditivo controlado em planilha separada",
+  "publicado_em": "2026-08-22",
+  "situacao_md": "A equipe monta cada aditivo em uma planilha própria. Depois de várias alterações, fica difícil enxergar os quantitativos vigentes, o desconto original e o valor consolidado do contrato.",
+  "resposta_curta": "A planilha separada pode ser um documento de trabalho, mas a decisão e a medição precisam conversar com uma planilha contratual consolidada e rastreável.",
+  "condicionantes": [
+    "Controle de versões",
+    "Planilha original",
+    "Acréscimos e supressões",
+    "Preços novos",
+    "Medição",
+    "Rastreabilidade"
+  ],
+  "verificar": [
+    "Existe uma linha-base imutável da contratação?",
+    "Cada alteração identifica o item original ou o novo item criado?",
+    "Quantidades anteriores, alteradas e vigentes são visíveis?",
+    "O desconto e os limites legais podem ser recalculados?",
+    "O sistema de medição usa a versão vigente?"
+  ],
+  "fundamento_md": "O processo deve permitir reconstruir a evolução do contrato. Alterações isoladas, sem reconciliação com a planilha original, dificultam verificar limites, desconto, sobrepreço e saldo de quantitativos. A boa governança exige trilha de auditoria e visão consolidada.",
+  "procedimento": [
+    "Preservar a planilha original como linha-base.",
+    "Registrar cada aditivo em aba ou arquivo identificado, sem apagar versões anteriores.",
+    "Gerar uma planilha consolidada após cada alteração.",
+    "Conciliar valores, quantidades, descontos e medições.",
+    "Vincular cada célula alterada ao documento que a autorizou."
+  ],
+  "riscos_md": "Planilhas paralelas podem medir duas vezes o mesmo serviço, ocultar saldo negativo ou perder o desconto original. A consolidação não elimina os documentos históricos; ela cria a visão operacional correta do contrato vigente.",
+  "referencias": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Aditivo contratual",
+      "grupo": "TERMINOLOGIA",
+      "id": "aditivo-contratual"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Acórdão TCU 3576/2019",
+      "grupo": "ACORDAOS",
+      "id": "tcu-3576-2019"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Acórdão TCU 2699/2019",
+      "grupo": "ACORDAOS",
+      "id": "tcu-2699-2019"
+    }
+  ],
+  "assuntos": [
+    "aditivo-contratual",
+    "planilha-orcamentaria",
+    "controle"
+  ]
+}

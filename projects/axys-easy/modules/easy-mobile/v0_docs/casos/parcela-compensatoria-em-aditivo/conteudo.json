@@ -1,0 +1,68 @@
+{
+  "id": "parcela-compensatoria-em-aditivo",
+  "titulo": "Parcela compensatória após alteração contratual",
+  "publicado_em": "2026-08-22",
+  "situacao_md": "Um aditivo acrescenta e suprime serviços. Ao recalcular a planilha, a relação entre o orçamento de referência e o preço contratado se altera, reduzindo o desconto originalmente obtido.",
+  "resposta_curta": "A alteração não deve apagar o desconto global nem produzir ganho indevido. É preciso recalcular a relação econômica do contrato e demonstrar, de forma transparente, como acréscimos, supressões e novos preços afetam essa relação.",
+  "condicionantes": [
+    "Desconto original",
+    "Preços novos",
+    "Acréscimos e supressões",
+    "Método de cálculo",
+    "Regime de execução",
+    "Limites do aditivo"
+  ],
+  "verificar": [
+    "Qual era a diferença percentual e nominal entre orçamento e proposta na contratação?",
+    "Os serviços novos possuem preços de referência e preços contratuais comparáveis?",
+    "As supressões retiraram itens com descontos diferentes da média?",
+    "O cálculo está consolidado na planilha original?",
+    "Há jogo de planilha ou concentração de ganho nos itens alterados?"
+  ],
+  "fundamento_md": "Alterações contratuais devem preservar o equilíbrio econômico-financeiro e não podem reduzir, sem justificativa, a vantagem econômica obtida na licitação. A análise precisa observar o conjunto do contrato e impedir que a seleção de itens acrescidos e suprimidos produza sobrepreço ou benefício indevido.",
+  "procedimento": [
+    "Reconstruir a planilha original com seus preços de referência e contratados.",
+    "Inserir acréscimos e supressões com memória de formação dos novos preços.",
+    "Comparar a relação econômica antes e depois da alteração.",
+    "Calcular eventual ajuste compensatório com método explícito e auditável.",
+    "Submeter a memória à revisão técnica e jurídica antes do aditivo."
+  ],
+  "riscos_md": "Uma fórmula isolada não substitui a análise do contrato. Aplicar compensação sem verificar preços e materialidade pode punir ou beneficiar indevidamente uma parte. O cálculo deve ser consequência da preservação da equação, não um percentual automático.",
+  "referencias": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Aditivo contratual",
+      "grupo": "TERMINOLOGIA",
+      "id": "aditivo-contratual"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Desconto contratual",
+      "grupo": "TERMINOLOGIA",
+      "id": "desconto-contratual"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Reequilíbrio econômico-financeiro",
+      "grupo": "TERMINOLOGIA",
+      "id": "reequilibrio-economico-financeiro"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Acórdão TCU 749/2010",
+      "grupo": "ACORDAOS",
+      "id": "tcu-749-2010"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Acórdão TCU 2714/2015",
+      "grupo": "ACORDAOS",
+      "id": "tcu-2714-2015"
+    }
+  ],
+  "assuntos": [
+    "aditivo-contratual",
+    "desconto-contratual",
+    "reequilibrio-economico-financeiro"
+  ]
+}

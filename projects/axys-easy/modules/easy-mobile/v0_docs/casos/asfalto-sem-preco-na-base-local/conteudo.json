@@ -1,0 +1,51 @@
+{
+  "id": "asfalto-sem-preco-na-base-local",
+  "titulo": "Insumo asfáltico sem preço na base local",
+  "publicado_em": "2026-08-22",
+  "situacao_md": "A base de referência não oferece preço local confiável para um ligante asfáltico. O material precisa vir de outro polo, com transporte rodoviário e possíveis custos de pedágio.",
+  "resposta_curta": "Use uma origem comercial tecnicamente viável e forme o custo posto na obra. Preço na origem, transporte, perdas, tributos e pedágios precisam aparecer separadamente na memória.",
+  "condicionantes": [
+    "Origem do material",
+    "Distância de transporte",
+    "Capacidade do veículo",
+    "Pedágio",
+    "Tributos",
+    "Data-base"
+  ],
+  "verificar": [
+    "Quais fornecedores ou polos conseguem atender a obra?",
+    "O preço informado é na origem ou entregue?",
+    "Qual rota e distância são tecnicamente viáveis?",
+    "A fórmula de transporte corresponde ao veículo e ao tipo de carga?",
+    "Pedágios, perdas, carga e descarga estão incluídos?",
+    "A fonte de preço é contemporânea à data-base?"
+  ],
+  "fundamento_md": "Na ausência de preço local, o orçamento pode combinar referência do material com custo de transporte até a obra, desde que não duplique parcelas já incluídas. Fontes setoriais e pesquisas de mercado devem ser compatibilizadas com a metodologia de transporte adotada pelo órgão.",
+  "procedimento": [
+    "Definir polos de fornecimento e confirmar disponibilidade.",
+    "Documentar o preço na origem e suas condições comerciais.",
+    "Calcular a rota e o transporte com metodologia reconhecida.",
+    "Adicionar somente custos não incluídos no preço de origem.",
+    "Validar o resultado com referências de mercado e análise de sensibilidade."
+  ],
+  "riscos_md": "Escolher apenas o fornecedor mais próximo pode ignorar indisponibilidade ou preço não praticado. Somar frete a um preço já entregue duplica custo. Uma rota sem memória de cálculo torna o orçamento difícil de auditar.",
+  "referencias": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Pesquisa de preços",
+      "grupo": "TERMINOLOGIA",
+      "id": "pesquisa-de-precos"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Acórdão TCU 3053/2016",
+      "grupo": "ACORDAOS",
+      "id": "tcu-3053-2016"
+    }
+  ],
+  "assuntos": [
+    "asfalto",
+    "pesquisa-de-precos",
+    "frete"
+  ]
+}

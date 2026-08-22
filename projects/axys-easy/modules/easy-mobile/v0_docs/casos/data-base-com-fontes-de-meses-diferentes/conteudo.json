@@ -1,0 +1,63 @@
+{
+  "id": "data-base-com-fontes-de-meses-diferentes",
+  "titulo": "Orçamento com bases de meses diferentes",
+  "publicado_em": "2026-08-22",
+  "situacao_md": "A planilha de referência combina preços de sistemas oficiais e cotações levantados em meses diferentes. Na execução, surge a dúvida se cada grupo deve ter seu próprio aniversário de reajuste.",
+  "resposta_curta": "Não existe resposta automática baseada apenas no mês de cada tabela. O processo deve definir qual data representa o orçamento estimado e, se necessário, quais índices específicos incidem sobre grupos distintos.",
+  "condicionantes": [
+    "Fechamento do orçamento",
+    "Datas das fontes",
+    "Edital",
+    "Índices aplicáveis",
+    "Regulamento local",
+    "Materialidade"
+  ],
+  "verificar": [
+    "Qual documento formalizou a conclusão do orçamento estimado?",
+    "As referências foram atualizadas para uma mesma data ou mantidas em seus meses originais?",
+    "O edital adotou uma data-base única?",
+    "Há mais de um índice específico ou setorial previsto?",
+    "As diferenças de meses são relevantes para o valor global?"
+  ],
+  "fundamento_md": "A Lei 14.133/2021 vincula a data-base do reajuste à data do orçamento estimado e admite mais de um índice específico ou setorial. Isso não significa que cada linha da planilha gere, por si só, uma data-base contratual. O critério precisa estar definido no edital e refletir a formação do orçamento como um todo.",
+  "procedimento": [
+    "Mapear cada fonte, competência e data de coleta.",
+    "Definir e justificar o marco formal do orçamento estimado.",
+    "Atualizar referências quando necessário para reduzir defasagens relevantes.",
+    "Registrar no edital a data-base e os índices aplicáveis.",
+    "Evitar múltiplos aniversários sem previsão clara e necessidade técnica."
+  ],
+  "riscos_md": "Adotar datas diferentes depois da contratação pode criar uma regra que não participou da disputa. Forçar uma data única sem examinar defasagens relevantes também pode distorcer a recomposição. O melhor critério é o que foi previamente documentado e pode ser reproduzido.",
+  "referencias": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Data-base",
+      "grupo": "TERMINOLOGIA",
+      "id": "data-base"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Reajuste",
+      "grupo": "TERMINOLOGIA",
+      "id": "reajuste"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "SINAPI",
+      "grupo": "TERMINOLOGIA",
+      "id": "sinapi"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "SICRO",
+      "grupo": "TERMINOLOGIA",
+      "id": "sicro"
+    }
+  ],
+  "assuntos": [
+    "data-base",
+    "reajuste",
+    "sinapi",
+    "sicro"
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "id": "comparacao-orcamento-onerado-desonerado",
+  "titulo": "Escolha entre orçamento onerado e desonerado",
+  "publicado_em": "2026-08-22",
+  "situacao_md": "Na montagem do orçamento, aparecem duas versões de encargos: uma onerada e outra desonerada. A equipe precisa decidir qual referência representa melhor o custo da contratação.",
+  "resposta_curta": "Compare os cenários com a legislação vigente na data-base e com premissas equivalentes. A alternativa adotada deve ser economicamente justificável para a Administração, sem presumir que toda empresa terá exatamente a mesma estrutura tributária.",
+  "condicionantes": [
+    "Data-base",
+    "Atividade econômica",
+    "Regime de transição",
+    "Encargos sociais",
+    "CPRB",
+    "Comparabilidade"
+  ],
+  "verificar": [
+    "Qual regra tributária vigora na data-base do orçamento?",
+    "A atividade e o tipo de obra estão abrangidos pelo regime aplicável?",
+    "As duas planilhas usam os mesmos salários, produtividades, tributos e BDI?",
+    "A transição prevista na Lei 14.973/2024 foi considerada?",
+    "O edital explica a premissa do orçamento de referência?"
+  ],
+  "fundamento_md": "A Lei 14.973/2024 estabeleceu transição para a contribuição substitutiva entre 2025 e 2027 e retorno ao regime integral em 2028 para as hipóteses alcançadas. Por isso, tabelas históricas não devem ser aplicadas sem conferir competência e enquadramento. O orçamento de referência deve buscar preço compatível com o mercado e registrar suas premissas.",
+  "procedimento": [
+    "Definir a data-base e o enquadramento legal do objeto.",
+    "Montar cenários comparáveis, sem misturar percentuais de competências diferentes.",
+    "Conferir encargos, CPRB e reflexos no BDI.",
+    "Escolher e justificar a referência adotada.",
+    "Prever no processo como mudanças legais posteriores serão tratadas, quando cabível."
+  ],
+  "riscos_md": "Selecionar simplesmente a menor planilha sem conferir se ela é juridicamente aplicável cria subpreço. Usar tabela desatualizada pode duplicar ou omitir contribuições. Como o regime está em transição, a verificação da competência é indispensável.",
+  "referencias": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Encargos sociais",
+      "grupo": "TERMINOLOGIA",
+      "id": "encargos-sociais"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Desoneração da folha",
+      "grupo": "TERMINOLOGIA",
+      "id": "desoneracao-da-folha"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Acórdão TCU 46/2012",
+      "grupo": "ACORDAOS",
+      "id": "tcu-46-2012"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Acórdão TCU 2341/2020",
+      "grupo": "ACORDAOS",
+      "id": "tcu-2341-2020"
+    }
+  ],
+  "assuntos": [
+    "encargos-sociais",
+    "desoneracao-da-folha",
+    "orcamento"
+  ]
+}

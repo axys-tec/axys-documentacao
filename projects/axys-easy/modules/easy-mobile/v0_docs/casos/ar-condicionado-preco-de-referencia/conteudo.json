@@ -1,0 +1,56 @@
+{
+  "id": "ar-condicionado-preco-de-referencia",
+  "titulo": "Como formar o preço de referência de ar-condicionado instalado",
+  "publicado_em": "2026-08-22",
+  "situacao_md": "O orçamento precisa prever fornecimento, instalação e funcionamento de equipamentos de climatização. Há preços em sistemas oficiais, mas também grande variação entre marcas, capacidades, acessórios e condições de instalação.",
+  "resposta_curta": "Sistemas oficiais podem ser usados quando seus itens representam o objeto. Quando não representam o conjunto completo, complemente a pesquisa com cotações e outras fontes confiáveis, sempre comparando soluções equivalentes.",
+  "condicionantes": [
+    "Especificação técnica",
+    "Escopo de instalação",
+    "Fonte de preço",
+    "Frete e tributos",
+    "Data-base",
+    "Garantia e comissionamento"
+  ],
+  "verificar": [
+    "O preço inclui somente o equipamento ou também instalação, tubulação, dreno, elétrica e partida?",
+    "Capacidade, eficiência energética e tecnologia são equivalentes entre as fontes?",
+    "A composição oficial está disponível e é adequada à localidade e à data-base?",
+    "As cotações são independentes, atuais e comparáveis?",
+    "Há custos de frete, içamento, testes, garantia ou assistência técnica?"
+  ],
+  "fundamento_md": "A referência deve reproduzir o objeto que será contratado. O art. 23 da Lei 14.133/2021 admite o uso de sistemas oficiais e outras fontes compatíveis, conforme o objeto. O ponto central não é o rótulo da fonte, mas a comparabilidade técnica e a memória de cálculo.",
+  "procedimento": [
+    "Separar equipamento, materiais acessórios, mão de obra e serviços complementares.",
+    "Definir uma especificação mínima sem direcionamento indevido de marca.",
+    "Pesquisar fontes oficiais e mercado para o mesmo escopo.",
+    "Tratar valores atípicos e registrar os critérios de seleção.",
+    "Consolidar o preço com data-base, encargos e BDI coerentes."
+  ],
+  "riscos_md": "Comparar equipamento avulso com solução instalada produz um preço artificialmente baixo. Usar uma cotação fechada sem decomposição pode esconder itens ausentes ou sobrepostos. Especificações vagas também dificultam a comparação e a fiscalização posterior.",
+  "referencias": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Pesquisa de preços",
+      "grupo": "TERMINOLOGIA",
+      "id": "pesquisa-de-precos"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Acórdão TCU 3053/2016",
+      "grupo": "ACORDAOS",
+      "id": "tcu-3053-2016"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Acórdão TCU 46/2012",
+      "grupo": "ACORDAOS",
+      "id": "tcu-46-2012"
+    }
+  ],
+  "assuntos": [
+    "pesquisa-de-precos",
+    "equipamentos",
+    "orcamento"
+  ]
+}

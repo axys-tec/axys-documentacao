@@ -1,0 +1,62 @@
+{
+  "id": "bdi-copiado-por-empresa-do-simples",
+  "titulo": "Empresa do Simples copiou o BDI de referência",
+  "publicado_em": "2026-08-22",
+  "situacao_md": "Na análise de uma proposta, a equipe percebe que uma empresa optante pelo Simples Nacional repetiu os percentuais tributários e os encargos do BDI de referência sem ajustá-los ao próprio regime.",
+  "resposta_curta": "A proposta deve refletir as alíquotas e dispensas efetivamente aplicáveis à empresa. Antes de excluir, avalie se a inconsistência pode ser esclarecida ou corrigida por diligência sem aumentar o preço nem alterar a substância da proposta.",
+  "condicionantes": [
+    "Simples Nacional",
+    "Anexo aplicável",
+    "PIS e Cofins",
+    "ISS",
+    "Encargos sociais",
+    "Diligência"
+  ],
+  "verificar": [
+    "A empresa comprovou seu enquadramento tributário?",
+    "Os percentuais de ISS, PIS e Cofins são compatíveis com o regime aplicável?",
+    "A planilha inclui Sesi, Senai ou Sebrae apesar de eventual dispensa?",
+    "A correção mantém o preço global ofertado?",
+    "O edital exigiu composição detalhada do BDI e encargos?"
+  ],
+  "fundamento_md": "O Acórdão TCU 2622/2013 orienta que licitantes do Simples apresentem tributos compatíveis com as alíquotas devidas e excluam encargos dos quais estejam dispensados. O saneamento por diligência depende de ser possível corrigir a composição sem majorar a proposta nem permitir reformulação competitiva.",
+  "procedimento": [
+    "Solicitar comprovação do regime e memória do BDI.",
+    "Recalcular os percentuais compatíveis com a situação tributária informada.",
+    "Verificar encargos sociais indevidamente incluídos.",
+    "Registrar se a correção preserva o preço ofertado e a isonomia.",
+    "Decidir a diligência ou a desclassificação com motivação específica."
+  ],
+  "riscos_md": "Aceitar a cópia sem análise pode remunerar tributos ou encargos não devidos. Permitir aumento do preço ou reconstrução ampla da proposta após a disputa fere a isonomia. A diligência serve para esclarecer e sanear o que é objetivamente corrigível.",
+  "referencias": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "BDI",
+      "grupo": "TERMINOLOGIA",
+      "id": "bdi"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Simples Nacional",
+      "grupo": "TERMINOLOGIA",
+      "id": "simples-nacional"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Acórdão TCU 2622/2013",
+      "grupo": "ACORDAOS",
+      "id": "tcu-2622-2013"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Acórdão TCU 3037/2009",
+      "grupo": "ACORDAOS",
+      "id": "tcu-3037-2009"
+    }
+  ],
+  "assuntos": [
+    "bdi",
+    "simples-nacional",
+    "licitacao"
+  ]
+}

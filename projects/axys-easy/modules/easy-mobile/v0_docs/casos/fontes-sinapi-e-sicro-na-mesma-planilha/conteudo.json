@@ -1,0 +1,62 @@
+{
+  "id": "fontes-sinapi-e-sicro-na-mesma-planilha",
+  "titulo": "SINAPI e SICRO na mesma planilha",
+  "publicado_em": "2026-08-22",
+  "situacao_md": "O orçamento utiliza composições do SINAPI e do SICRO. Alguns insumos semelhantes aparecem com preços, encargos ou premissas diferentes, e surge a ideia de padronizar tudo manualmente.",
+  "resposta_curta": "As bases podem coexistir, mas a compatibilização deve ser explícita. Não altere composições oficiais de forma silenciosa nem force igualdade entre itens que parecem iguais, mas têm especificações ou condições distintas.",
+  "condicionantes": [
+    "Hierarquia de fontes",
+    "Especificação do insumo",
+    "Encargos",
+    "Data-base",
+    "Localidade",
+    "Metodologia do órgão"
+  ],
+  "verificar": [
+    "Qual base é prioritária para cada natureza de serviço?",
+    "Os insumos possuem a mesma unidade, especificação e condição de fornecimento?",
+    "Encargos e salários pertencem à mesma competência e localidade?",
+    "A composição foi mantida oficial ou adaptada?",
+    "A adaptação está identificada na memória de cálculo?"
+  ],
+  "fundamento_md": "Sistemas oficiais possuem metodologias próprias. A composição do orçamento deve evitar duplicidade e inconsistência, mas precisa preservar a rastreabilidade da fonte. Quando houver adaptação, ela deve ser tecnicamente motivada e identificada como composição própria ou ajustada.",
+  "procedimento": [
+    "Definir a hierarquia de fontes antes de orçar.",
+    "Criar tabela de equivalência para insumos realmente comparáveis.",
+    "Uniformizar data-base e localidade quando metodologicamente possível.",
+    "Identificar toda composição adaptada e guardar a composição original.",
+    "Revisar impactos em mão de obra, equipamentos, transporte e encargos."
+  ],
+  "riscos_md": "Substituir preços apenas porque os nomes são parecidos pode trocar especificações. Manter duplicidades sem análise pode criar distorções dentro da mesma planilha. A compatibilização precisa ser reproduzível por outro orçamentista.",
+  "referencias": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "SINAPI",
+      "grupo": "TERMINOLOGIA",
+      "id": "sinapi"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "SICRO",
+      "grupo": "TERMINOLOGIA",
+      "id": "sicro"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Acórdão TCU 46/2012",
+      "grupo": "ACORDAOS",
+      "id": "tcu-46-2012"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Acórdão TCU 2341/2020",
+      "grupo": "ACORDAOS",
+      "id": "tcu-2341-2020"
+    }
+  ],
+  "assuntos": [
+    "sinapi",
+    "sicro",
+    "orcamento"
+  ]
+}

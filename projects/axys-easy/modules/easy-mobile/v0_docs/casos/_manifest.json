@@ -1,0 +1,199 @@
+{
+  "grupo": "CASOS",
+  "gerado_em": "2026-08-22T18:00:00Z",
+  "itens": [
+    {
+      "id": "aditivo-em-planilha-separada",
+      "titulo": "Aditivo controlado em planilha separada",
+      "chamada": "Separar pode facilitar a montagem, mas não pode romper a visão consolidada do contrato.",
+      "assuntos": [
+        "aditivo-contratual",
+        "planilha-orcamentaria",
+        "controle"
+      ],
+      "conteudo": "easy-mobile/casos/aditivo-em-planilha-separada/conteudo.json",
+      "publicado_em": "2026-08-22"
+    },
+    {
+      "id": "andaime-nao-previsto-na-planilha",
+      "titulo": "Andaime não previsto na planilha contratual",
+      "chamada": "A ausência do item não gera aditivo automático: primeiro é preciso identificar o que já estava contratado e quem assumiu o risco.",
+      "assuntos": [
+        "aditivo-contratual",
+        "regime-de-execucao",
+        "matriz-de-riscos"
+      ],
+      "conteudo": "easy-mobile/casos/andaime-nao-previsto-na-planilha/conteudo.json",
+      "publicado_em": "2026-08-22"
+    },
+    {
+      "id": "ar-condicionado-preco-de-referencia",
+      "titulo": "Como formar o preço de referência de ar-condicionado instalado",
+      "chamada": "A fonte deve representar o fornecimento e a instalação realmente contratados, com validação de mercado quando necessário.",
+      "assuntos": [
+        "pesquisa-de-precos",
+        "equipamentos",
+        "orcamento"
+      ],
+      "conteudo": "easy-mobile/casos/ar-condicionado-preco-de-referencia/conteudo.json",
+      "publicado_em": "2026-08-22"
+    },
+    {
+      "id": "asfalto-sem-preco-na-base-local",
+      "titulo": "Insumo asfáltico sem preço na base local",
+      "chamada": "É possível recorrer a outras referências, desde que origem, transporte, tributos e data-base sejam rastreáveis.",
+      "assuntos": [
+        "asfalto",
+        "pesquisa-de-precos",
+        "frete"
+      ],
+      "conteudo": "easy-mobile/casos/asfalto-sem-preco-na-base-local/conteudo.json",
+      "publicado_em": "2026-08-22"
+    },
+    {
+      "id": "bdi-copiado-por-empresa-do-simples",
+      "titulo": "Empresa do Simples copiou o BDI de referência",
+      "chamada": "O BDI da Administração é referência; a proposta precisa refletir o regime tributário efetivamente aplicável ao licitante.",
+      "assuntos": [
+        "bdi",
+        "simples-nacional",
+        "licitacao"
+      ],
+      "conteudo": "easy-mobile/casos/bdi-copiado-por-empresa-do-simples/conteudo.json",
+      "publicado_em": "2026-08-22"
+    },
+    {
+      "id": "canteiro-e-administracao-local-na-medicao",
+      "titulo": "Canteiro e administração local na mesma lógica de medição",
+      "chamada": "Os dois itens são mensuráveis, mas não necessariamente seguem o mesmo critério de pagamento.",
+      "assuntos": [
+        "medicao",
+        "administracao-local",
+        "canteiro-de-obras"
+      ],
+      "conteudo": "easy-mobile/casos/canteiro-e-administracao-local-na-medicao/conteudo.json",
+      "publicado_em": "2026-08-22"
+    },
+    {
+      "id": "comparacao-orcamento-onerado-desonerado",
+      "titulo": "Escolha entre orçamento onerado e desonerado",
+      "chamada": "A comparação precisa usar premissas equivalentes e considerar o regime vigente na data-base do orçamento.",
+      "assuntos": [
+        "encargos-sociais",
+        "desoneracao-da-folha",
+        "orcamento"
+      ],
+      "conteudo": "easy-mobile/casos/comparacao-orcamento-onerado-desonerado/conteudo.json",
+      "publicado_em": "2026-08-22"
+    },
+    {
+      "id": "data-base-com-fontes-de-meses-diferentes",
+      "titulo": "Orçamento com bases de meses diferentes",
+      "chamada": "A mistura de referências exige um critério único, documentado e coerente para definir a data-base contratual.",
+      "assuntos": [
+        "data-base",
+        "reajuste",
+        "sinapi",
+        "sicro"
+      ],
+      "conteudo": "easy-mobile/casos/data-base-com-fontes-de-meses-diferentes/conteudo.json",
+      "publicado_em": "2026-08-22"
+    },
+    {
+      "id": "data-base-sinapi-e-assinatura-do-orcamento",
+      "titulo": "Mês do SINAPI ou data de fechamento do orçamento?",
+      "chamada": "A resposta depende de como o orçamento estimado foi formado e de qual marco foi formalmente adotado no processo.",
+      "assuntos": [
+        "data-base",
+        "sinapi",
+        "reajuste"
+      ],
+      "conteudo": "easy-mobile/casos/data-base-sinapi-e-assinatura-do-orcamento/conteudo.json",
+      "publicado_em": "2026-08-22"
+    },
+    {
+      "id": "erro-de-quantitativo-em-preco-global",
+      "titulo": "Erro de quantitativo em contrato por preço global",
+      "chamada": "Preço global não significa risco ilimitado nem aditivo automático; materialidade e alocação de riscos são decisivas.",
+      "assuntos": [
+        "preco-global",
+        "quantitativo",
+        "aditivo-contratual"
+      ],
+      "conteudo": "easy-mobile/casos/erro-de-quantitativo-em-preco-global/conteudo.json",
+      "publicado_em": "2026-08-22"
+    },
+    {
+      "id": "fontes-sinapi-e-sicro-na-mesma-planilha",
+      "titulo": "SINAPI e SICRO na mesma planilha",
+      "chamada": "Combinar bases é possível, mas exige compatibilizar premissas sem alterar composições oficiais de forma silenciosa.",
+      "assuntos": [
+        "sinapi",
+        "sicro",
+        "orcamento"
+      ],
+      "conteudo": "easy-mobile/casos/fontes-sinapi-e-sicro-na-mesma-planilha/conteudo.json",
+      "publicado_em": "2026-08-22"
+    },
+    {
+      "id": "insalubridade-em-servico-com-asfalto",
+      "titulo": "Insalubridade em serviço com material asfáltico",
+      "chamada": "A presença de asfalto não define, sozinha, o adicional; a conclusão depende da exposição real e de avaliação ocupacional.",
+      "assuntos": [
+        "insalubridade",
+        "mao-de-obra",
+        "asfalto"
+      ],
+      "conteudo": "easy-mobile/casos/insalubridade-em-servico-com-asfalto/conteudo.json",
+      "publicado_em": "2026-08-22"
+    },
+    {
+      "id": "insumo-com-preco-zero-na-base",
+      "titulo": "Insumo aparece com preço zero na base oficial",
+      "chamada": "Preço zero não é preço de mercado: a lacuna deve ser tratada com fonte rastreável e metodologia documentada.",
+      "assuntos": [
+        "insumos",
+        "pesquisa-de-precos",
+        "sinapi"
+      ],
+      "conteudo": "easy-mobile/casos/insumo-com-preco-zero-na-base/conteudo.json",
+      "publicado_em": "2026-08-22"
+    },
+    {
+      "id": "parcela-compensatoria-em-aditivo",
+      "titulo": "Parcela compensatória após alteração contratual",
+      "chamada": "A alteração deve preservar a relação econômica da proposta sem criar ganho indevido nem apagar o desconto original.",
+      "assuntos": [
+        "aditivo-contratual",
+        "desconto-contratual",
+        "reequilibrio-economico-financeiro"
+      ],
+      "conteudo": "easy-mobile/casos/parcela-compensatoria-em-aditivo/conteudo.json",
+      "publicado_em": "2026-08-22"
+    },
+    {
+      "id": "reajuste-sem-indice-no-contrato",
+      "titulo": "Contrato sem índice ou data-base de reajuste",
+      "chamada": "A omissão precisa ser saneada com fundamento no edital, no orçamento estimado e na legislação; não se escolhe um índice por conveniência.",
+      "assuntos": [
+        "reajuste",
+        "data-base",
+        "contrato"
+      ],
+      "conteudo": "easy-mobile/casos/reajuste-sem-indice-no-contrato/conteudo.json",
+      "publicado_em": "2026-08-22"
+    },
+    {
+      "id": "retencao-na-ultima-medicao",
+      "titulo": "Reter parte do contrato para a última medição",
+      "chamada": "Uma retenção final só é segura quando prevista e ligada a obrigações objetivas de entrega e recebimento.",
+      "assuntos": [
+        "medicao",
+        "pagamento",
+        "recebimento"
+      ],
+      "conteudo": "easy-mobile/casos/retencao-na-ultima-medicao/conteudo.json",
+      "publicado_em": "2026-08-22"
+    }
+  ]
+}

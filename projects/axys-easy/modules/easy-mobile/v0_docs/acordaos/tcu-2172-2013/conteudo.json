@@ -13,7 +13,7 @@
   "aplicacao_pratica_md": "Liste riscos como imprecisões de projeto, interferências e eventos de execução; para cada um, defina responsável, consequência financeira, procedimento de comunicação e evidência necessária.",
   "limites_md": "A matriz não deve transferir genericamente todos os riscos ao contratado nem substituir projeto e orçamento compatívels. A alocação precisa ser coerente com a capacidade de gestão de cada parte.",
   "dispositivos": [],
-  "vinculados": [
+  "referencias": [
     {
       "tipo": "publicacao",
       "rotulo": "Matriz de riscos",

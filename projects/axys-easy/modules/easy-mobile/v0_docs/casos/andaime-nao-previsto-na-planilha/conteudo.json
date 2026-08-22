@@ -1,0 +1,62 @@
+{
+  "id": "andaime-nao-previsto-na-planilha",
+  "titulo": "Andaime não previsto na planilha contratual",
+  "publicado_em": "2026-08-22",
+  "situacao_md": "Durante a execução, a equipe percebe que será necessário usar andaime para realizar um serviço previsto no projeto. A planilha contratual, porém, não apresenta um item específico para esse equipamento ou estrutura provisória.",
+  "resposta_curta": "Pode haver espaço para alteração contratual, mas a simples ausência do item na planilha não basta. É preciso saber se o andaime já integra o custo de uma composição, se é apenas meio de execução e qual parte assumiu o risco da omissão.",
+  "condicionantes": [
+    "Regime de execução",
+    "Matriz de riscos",
+    "Projeto e memorial",
+    "Composições de custos",
+    "Origem da omissão",
+    "Formalização prévia"
+  ],
+  "verificar": [
+    "O serviço principal já estava claramente previsto no projeto e no escopo?",
+    "Alguma composição contempla mão de obra, equipamentos ou produtividade associados ao acesso?",
+    "O contrato é por preços unitários, preço global ou outro regime?",
+    "Edital, contrato ou matriz de riscos atribuem esse tipo de omissão a uma das partes?",
+    "A necessidade surgiu de alteração posterior ou já era identificável na licitação?"
+  ],
+  "fundamento_md": "Meios ordinários necessários para executar um serviço contratado podem estar absorvidos no preço desse serviço. Em outros casos, a omissão pode representar falha relevante do orçamento ou mudança do objeto. A distinção depende do regime de execução, da qualidade dos projetos e da alocação contratual de riscos. A Lei 14.133/2021 exige motivação e formalização das alterações, preservando o equilíbrio econômico-financeiro quando presentes seus pressupostos.",
+  "procedimento": [
+    "Abrir a composição do serviço principal e verificar o que já está remunerado.",
+    "Registrar tecnicamente por que o andaime é necessário e quando essa necessidade se tornou conhecida.",
+    "Confrontar o fato com edital, contrato, projetos e matriz de riscos.",
+    "Quantificar a solução sem duplicar custos já contidos em outros itens.",
+    "Formalizar a decisão antes da execução adicional, com análise jurídica quando cabível."
+  ],
+  "riscos_md": "Pagar um item que já está embutido em outra composição gera duplicidade. Negar sem examinar o regime e a origem da omissão pode transferir ao contratado um risco que ele não assumiu. Executar primeiro e discutir depois enfraquece a rastreabilidade e amplia o risco de glosa.",
+  "referencias": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Aditivo contratual",
+      "grupo": "TERMINOLOGIA",
+      "id": "aditivo-contratual"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Matriz de riscos",
+      "grupo": "TERMINOLOGIA",
+      "id": "matriz-de-riscos"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Acórdão TCU 1977/2013",
+      "grupo": "ACORDAOS",
+      "id": "tcu-1977-2013"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Acórdão TCU 2348/2011",
+      "grupo": "ACORDAOS",
+      "id": "tcu-2348-2011"
+    }
+  ],
+  "assuntos": [
+    "aditivo-contratual",
+    "regime-de-execucao",
+    "matriz-de-riscos"
+  ]
+}

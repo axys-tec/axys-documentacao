@@ -1,0 +1,56 @@
+{
+  "id": "data-base-sinapi-e-assinatura-do-orcamento",
+  "titulo": "Mês do SINAPI ou data de fechamento do orçamento?",
+  "publicado_em": "2026-08-22",
+  "situacao_md": "A planilha foi assinada em um mês, mas usa uma edição anterior do SINAPI. A contratada pede reajuste e as duas datas parecem possíveis.",
+  "resposta_curta": "Primeiro identifique qual data o edital e o processo reconheceram como data do orçamento estimado. O mês do SINAPI é uma evidência importante, mas pode não representar sozinho todo o orçamento.",
+  "condicionantes": [
+    "Competência do SINAPI",
+    "Fechamento da planilha",
+    "Outras fontes",
+    "Edital",
+    "Regulamento",
+    "Data da proposta"
+  ],
+  "verificar": [
+    "A planilha contém apenas SINAPI ou também cotações e outras bases?",
+    "O cabeçalho ou a memória de cálculo registra uma data-base?",
+    "Qual data consta no edital e no contrato?",
+    "Existe norma do órgão sobre o fechamento do orçamento?",
+    "Houve atualização ou tratamento de preços entre a publicação da base e a assinatura?"
+  ],
+  "fundamento_md": "A data-base deve estar vinculada ao orçamento estimado, conforme a Lei 14.133/2021. Quando a planilha reúne preços de períodos distintos, a competência de uma única base não resolve toda a questão. A resposta deve seguir o marco formalmente adotado e a metodologia efetiva do orçamento.",
+  "procedimento": [
+    "Reconstruir a linha do tempo das fontes e do fechamento da planilha.",
+    "Verificar o que foi divulgado aos licitantes.",
+    "Aplicar o regulamento do ente, se houver.",
+    "Registrar a interpretação técnica e submetê-la à análise jurídica quando a omissão for relevante.",
+    "Usar o mesmo critério em todas as medições e reajustes do contrato."
+  ],
+  "riscos_md": "Escolher retroativamente a data mais vantajosa a uma parte compromete a isonomia. Ignorar o mês real dos preços pode, em certos casos, prolongar artificialmente a defasagem. A cronologia precisa estar documentada antes do cálculo.",
+  "referencias": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Data-base",
+      "grupo": "TERMINOLOGIA",
+      "id": "data-base"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "SINAPI",
+      "grupo": "TERMINOLOGIA",
+      "id": "sinapi"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Reajuste",
+      "grupo": "TERMINOLOGIA",
+      "id": "reajuste"
+    }
+  ],
+  "assuntos": [
+    "data-base",
+    "sinapi",
+    "reajuste"
+  ]
+}

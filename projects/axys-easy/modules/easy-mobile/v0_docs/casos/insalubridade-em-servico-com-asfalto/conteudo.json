@@ -1,0 +1,45 @@
+{
+  "id": "insalubridade-em-servico-com-asfalto",
+  "titulo": "Insalubridade em serviço com material asfáltico",
+  "publicado_em": "2026-08-22",
+  "situacao_md": "Ao orçar um serviço com material asfáltico, surge a dúvida se toda a mão de obra deve receber adicional de insalubridade apenas porque o insumo está presente na composição.",
+  "resposta_curta": "Não conclua pelo nome do material. O adicional depende da atividade, do agente, da intensidade ou concentração, do tempo de exposição e das medidas de controle, conforme avaliação de segurança e saúde do trabalho.",
+  "condicionantes": [
+    "Atividade real",
+    "Agente de exposição",
+    "NR-15",
+    "Laudo técnico",
+    "EPC e EPI",
+    "Jornada de exposição"
+  ],
+  "verificar": [
+    "Qual trabalhador executa qual tarefa e por quanto tempo?",
+    "Há contato, vapores, fumos ou outro agente previsto em norma?",
+    "Existem medições ou avaliação qualitativa aplicável?",
+    "Medidas de proteção eliminam ou neutralizam a exposição?",
+    "Há laudo ocupacional compatível com o ambiente e o processo?",
+    "O orçamento separa categorias efetivamente expostas?"
+  ],
+  "fundamento_md": "O adicional de insalubridade é matéria trabalhista e ocupacional. Sua caracterização não decorre automaticamente da presença de um insumo na composição orçamentária; exige enquadramento normativo e avaliação das condições reais de trabalho. O orçamento deve refletir uma premissa técnica documentada, sem substituir o laudo competente.",
+  "procedimento": [
+    "Descrever o processo executivo e as funções envolvidas.",
+    "Submeter a exposição à avaliação de profissional legalmente habilitado.",
+    "Verificar a NR-15 e as medidas de proteção previstas.",
+    "Aplicar o adicional somente às funções e períodos tecnicamente caracterizados.",
+    "Guardar a premissa e prever revisão se o método executivo mudar."
+  ],
+  "riscos_md": "Incluir adicional para toda a equipe sem avaliação pode superestimar o preço. Omiti-lo quando a exposição está caracterizada pode gerar passivo e proposta inexequível. Este caso não substitui laudo de segurança e saúde do trabalho.",
+  "referencias": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Mão de obra",
+      "grupo": "TERMINOLOGIA",
+      "id": "mao-de-obra"
+    }
+  ],
+  "assuntos": [
+    "insalubridade",
+    "mao-de-obra",
+    "asfalto"
+  ]
+}

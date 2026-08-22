@@ -1,0 +1,56 @@
+{
+  "id": "insumo-com-preco-zero-na-base",
+  "titulo": "Insumo aparece com preço zero na base oficial",
+  "publicado_em": "2026-08-22",
+  "situacao_md": "Uma composição oficial usa determinado insumo, mas o relatório local apresenta preço zero ou ausência de coleta. A composição calculada fica incompleta.",
+  "resposta_curta": "Não trate zero como preço real. Pesquise uma referência substituta compatível, documente a origem e mantenha a rastreabilidade da composição ajustada.",
+  "condicionantes": [
+    "Coleta ausente",
+    "Especificação",
+    "Localidade",
+    "Data-base",
+    "Fonte substituta",
+    "Frete"
+  ],
+  "verificar": [
+    "O zero representa ausência de preço ou fornecimento gratuito?",
+    "Existe preço na mesma base para localidade próxima ou competência adjacente?",
+    "O insumo substituto possui especificação e unidade equivalentes?",
+    "A fonte escolhida inclui frete e tributos?",
+    "A composição ajustada será identificada como própria?"
+  ],
+  "fundamento_md": "Uma base oficial é referência, não autorização para usar valor sem significado econômico. Quando a coleta está ausente, o orçamento deve recorrer a metodologia complementar compatível com o art. 23 da Lei 14.133/2021, mantendo justificativa, data e fonte.",
+  "procedimento": [
+    "Confirmar nos relatórios da base o motivo do preço zero.",
+    "Buscar referência oficial alternativa ou pesquisa de mercado comparável.",
+    "Ajustar localidade, data-base, frete e tributos de forma demonstrada.",
+    "Substituir o valor na composição, preservando a versão original.",
+    "Registrar a composição como adaptada e revisar sua representatividade."
+  ],
+  "riscos_md": "Importar preço de outra localidade sem logística pode subestimar o custo. Copiar um valor antigo sem atualização perde a data-base. Manter zero reduz artificialmente o preço e pode comprometer a exequibilidade da contratação.",
+  "referencias": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Pesquisa de preços",
+      "grupo": "TERMINOLOGIA",
+      "id": "pesquisa-de-precos"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "SINAPI",
+      "grupo": "TERMINOLOGIA",
+      "id": "sinapi"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Acórdão TCU 3053/2016",
+      "grupo": "ACORDAOS",
+      "id": "tcu-3053-2016"
+    }
+  ],
+  "assuntos": [
+    "insumos",
+    "pesquisa-de-precos",
+    "sinapi"
+  ]
+}

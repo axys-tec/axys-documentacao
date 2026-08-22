@@ -1,0 +1,63 @@
+{
+  "id": "erro-de-quantitativo-em-preco-global",
+  "titulo": "Erro de quantitativo em contrato por preço global",
+  "publicado_em": "2026-08-22",
+  "situacao_md": "Em uma empreitada por preço global, a execução revela diferença entre o quantitativo da planilha e o necessário para concluir um serviço previsto no projeto.",
+  "resposta_curta": "Nem toda diferença gera aditivo, mas o preço global também não transfere risco ilimitado. A solução depende da relevância do erro, da qualidade do projeto e da alocação de riscos conhecida na licitação.",
+  "condicionantes": [
+    "Preço global",
+    "Materialidade",
+    "Curva ABC",
+    "Projeto",
+    "Matriz de riscos",
+    "Fato superveniente"
+  ],
+  "verificar": [
+    "O serviço estava definido no projeto e no escopo?",
+    "O erro era identificável por um licitante diligente?",
+    "Qual é o impacto econômico individual e acumulado?",
+    "O edital definiu faixa de variação ou critério de relevância?",
+    "A matriz de riscos atribuiu esse evento?",
+    "Houve alteração posterior solicitada pela Administração?"
+  ],
+  "fundamento_md": "O entendimento do TCU para empreitada por preço global distingue imprecisões ordinárias, inerentes ao regime, de erros relevantes ou alterações supervenientes. A curva ABC e a matriz de riscos ajudam a medir a materialidade, mas não funcionam como gatilho matemático isolado.",
+  "procedimento": [
+    "Comparar projeto, quantitativo licitado e condição encontrada.",
+    "Classificar o item na curva ABC e calcular o impacto global.",
+    "Investigar a causa e a previsibilidade do erro.",
+    "Aplicar a matriz de riscos e os critérios do edital.",
+    "Motivar a decisão, formalizando eventual alteração antes da execução correspondente."
+  ],
+  "riscos_md": "Usar apenas o percentual de risco do BDI pode simplificar demais a decisão. Aprovar qualquer diferença transforma preço global em preço unitário; negar qualquer diferença transforma o regime em risco absoluto. A conclusão deve combinar causa, materialidade e alocação contratual.",
+  "referencias": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Quantitativo",
+      "grupo": "TERMINOLOGIA",
+      "id": "quantitativo"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Aditivo contratual",
+      "grupo": "TERMINOLOGIA",
+      "id": "aditivo-contratual"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Acórdão TCU 1977/2013",
+      "grupo": "ACORDAOS",
+      "id": "tcu-1977-2013"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Acórdão TCU 2433/2016",
+      "grupo": "ACORDAOS",
+      "id": "tcu-2433-2016"
+    }
+  ],
+  "assuntos": [
+    "preco-global",
+    "quantitativo",
+    "aditivo-contratual"
+  ]
+}
