@@ -737,8 +737,16 @@ divergente, porque essa mentira só apareceria na mão do usuário, ao tocar "ba
 
 A pele editorial vive em `backend/core/service_articles.py`, **separada** da de relatório
 (`service_report.py`): relatório prova um cálculo e leva o logo do TENANT; artigo é
-publicação da Axys e leva o logo da Axys. Uma pele só cresceria condicionais até não
-servir bem a nenhum dos dois.
+publicação da Axys, tem capa, e leva o logo da Axys. Uma pele só cresceria condicionais
+até não servir bem a nenhum dos dois.
+
+**O artigo é gerado em HTML e impresso por um Chromium headless**, e não desenhado por
+código. A identidade institucional — capa escura, faixa com o logo, régua azul, versalete,
+rodapé corporativo — já existe escrita em CSS no material da apresentação; reimplementá-la
+em desenho programático seria copiar à mão um desenho pronto, e as duas cópias divergiriam
+no primeiro ajuste de marca. **A dependência do navegador é de TEMPO DE PUBLICAÇÃO**, na
+máquina de quem publica, igual ao resto deste pipeline: nenhum serviço em produção depende
+dela.
 
 **Nome publicado sai do `id`, sem o prefixo numérico do arquivo local.** O `01-` ordena a
 pasta de quem edita; não é identidade. Artigo reordenado não pode mudar de URL.
