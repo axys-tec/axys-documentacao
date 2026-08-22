@@ -38,6 +38,27 @@ fluxos SSO. O JWT possui `aud=easy-mobile`, `subject_type=easy_mobile_client` e
 O token tem vida útil de 30 dias (`2592000` segundos), sem refresh token nesta
 etapa. Após a expiração, o aplicativo inicia um novo handshake com o Hub.
 
+Para identidades vinculadas a tenant, o JWT também inclui uma personalização
+versionada. Na v0, somente a logo é consumida:
+
+```json
+{
+  "personalizacao": {
+    "versao": 1,
+    "revisao": 1,
+    "logo": {
+      "url": "https://public.axys-tec.com.br/assets/tenants/<sha256>.png",
+      "sha256": "<sha256>",
+      "mime_type": "image/png"
+    }
+  }
+}
+```
+
+Sem configuração ou sem tenant, `logo` é `null` e o consumidor usa a marca
+padrão Axys. `revision` permite invalidar cache; `settings_json` no banco fica
+reservado para versões posteriores do contrato.
+
 ## Z-API
 
 Variáveis:

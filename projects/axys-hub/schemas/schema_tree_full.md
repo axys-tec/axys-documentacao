@@ -9,6 +9,7 @@ axys-hub
 │   ├── hub_user (identidade global de usuários vinculáveis a produtos e tenants)
 │   ├── hub_tenant (unidade canônica de isolamento)
 │   ├── hub_tenant_profile (papel macro do tenant por aplicação)
+│   ├── hub_tenant_customization (personalização visual versionada do tenant)
 │   ├── hub_user_tenant (vínculo global usuário ↔ tenant)
 │   ├── hub_store (unidade operacional do tenant)
 │   ├── hub_user_store (escopo opcional usuário ↔ store)
