@@ -94,6 +94,61 @@ prefixo é aviso, não erro: quem decide é quem escreve.
 
 ---
 
+## `_manifest.json` da raiz — o único endereço fixo
+
+Sem banco, o índice precisa morar em algum lugar. Ele mora aqui: **`easy-mobile/_manifest.json`
+é a única URL que o aplicativo carrega embutida.** Todo o resto é descoberto a partir dela.
+
+```json
+{
+  "versao": 1,
+  "gerado_em": "2026-08-22T11:38:12Z",
+  "ultimas": "easy-mobile/_ultimas.json",
+  "grupos": [
+    { "id": "terminologia", "titulo": "Terminologia", "pergunta": "O que significa?",
+      "particao": "unico", "disponivel": true, "itens": 82,
+      "manifesto": "easy-mobile/terminologia/_manifest.json" },
+    { "id": "newsletter", "titulo": "Easy Newsletter", "pergunta": "O que mudou nas fontes",
+      "particao": "item", "disponivel": false, "itens": 0,
+      "manifesto": "easy-mobile/newsletter/_manifest.json" }
+  ]
+}
+```
+
+**`disponivel` é interruptor de seção.** Grupo sem conteúdo entra marcado, e não some. O app
+esconde a entrada e volta a mostrar quando o conteúdo chegar — **sem versão nova na loja**.
+É o mesmo princípio que faz o conteúdo ser dado e não binário, aplicado à navegação.
+
+**`particao` diz COMO navegar**, para o app não precisar conhecer o nome de cada grupo:
+
+| valor | o manifesto do grupo traz | quem usa |
+|---|---|---|
+| `unico` | os itens inteiros, dentro dele | terminologia, downloads |
+| `assunto` | arquivos por categoria | dúvidas |
+| `item` | itens, cada um com seu `conteudo.json` | casos, acórdãos, newsletter, artigos |
+
+Com isso, uma tela genérica atende os oito grupos. Sem isso, o app ganha um `if` por
+grupo — e cada grupo novo exige release.
+
+**`itens` é contado na publicação, nunca declarado.** Manifesto de raiz mantido à mão
+diverge na primeira semana.
+
+### Publicação
+
+```
+python3 z_scripts_apoio/publica_conteudo_mobile.py             # valida e simula
+python3 z_scripts_apoio/publica_conteudo_mobile.py --publicar  # valida, gera a raiz e sobe
+```
+
+Valida, gera a raiz a partir do que existe de fato, e sobe. **Erro de validação barra
+tudo** — não se publica pela metade: manifesto novo apontando para arquivo que não subiu é
+pior que não ter publicado.
+
+**A raiz sobe por último.** Se algo falhar no meio, o índice antigo continua íntegro e
+apontando só para o que realmente existe.
+
+---
+
 ## A regra de partição
 
 Como quebrar o conteúdo em arquivos não é gosto, é padrão de uso:
@@ -118,6 +173,7 @@ estruturados, e o usuário chega neles procurando **um** assunto específico.
 
 ``` text
 easy-mobile/
+├── _manifest.json                      RAIZ — o único endereço que o app conhece
 ├── _ultimas.json                       agregado da HOME
 ├── newsletter/
 │   ├── _manifest.json
