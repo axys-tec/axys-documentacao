@@ -182,9 +182,10 @@
       ],
       "referencias": [
         {
-          "tipo": "acordao",
-          "rotulo": "Acórdão TCU 2622/2013",
-          "url": "https://pesquisa.apps.tcu.gov.br/resultado/portal/Acord%C3%A3o%202622%2F2013?elb=1"
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2622/2013 — BDI, Simples Nacional e administração local",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2622-2013"
         }
       ]
     },
@@ -399,9 +400,10 @@
       ],
       "referencias": [
         {
-          "tipo": "acordao",
-          "rotulo": "Acórdão TCU 2622/2013",
-          "url": "https://pesquisa.apps.tcu.gov.br/documento/acordao-completo/*/NUMACORDAO%253A2622%2520ANOACORDAO%253A2013/DTRELEVANCIA%2520desc/0"
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2622/2013 — BDI, Simples Nacional e administração local",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2622-2013"
         }
       ]
     },
@@ -694,9 +696,10 @@
       ],
       "referencias": [
         {
-          "tipo": "acordao",
-          "rotulo": "Acórdão TCU 2622/2013",
-          "url": "https://pesquisa.apps.tcu.gov.br/documento/acordao-completo/*/NUMACORDAO%253A2622%2520ANOACORDAO%253A2013/DTRELEVANCIA%2520desc/0"
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2622/2013 — BDI, Simples Nacional e administração local",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2622-2013"
         }
       ]
     },

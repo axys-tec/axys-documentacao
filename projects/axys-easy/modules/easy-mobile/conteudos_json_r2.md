@@ -309,6 +309,12 @@ e o que evita WebView.
 **Tipos de bloco:** `resumo` · `titulo` · `texto` · `numeros` · `imagem` · `tabela` ·
 `ranking` · `grafico` · `referencias` · `cta` · `produtos` · `linha_do_tempo`.
 
+`tipo` de referência é vocabulário fechado: `composicao` · `ctc` · `insumo` · `indice` ·
+`publicacao` · `url`. **Publicação interna é sempre `publicacao` + `grupo` + `id`**, nunca
+um tipo próprio por grupo — existiu um `acordao` solto, e ele derivou em silêncio porque
+o checador de vínculos pulava tudo que não fosse `publicacao`, deixando três referências
+sem `grupo` e apontando para URLs do portal do TCU com codificação dupla.
+
 Os dois últimos existem porque **Soluções e Roadmap não são prosa** — são dado estruturado
 com desenho próprio. Escrevê-los como blocos de `texto` obrigaria o app a interpretar
 parágrafo para montar carrossel e linha do tempo, que é o caminho para o desenho quebrar
@@ -680,6 +686,43 @@ móvel: precisa saber se vai baixar 280 KB ou 40 MB **antes** de tocar. O format
 
 **`versao` e `requer`** existem porque utilitário envelhece — planilha e coletor CAD ganham
 versão nova, e o usuário precisa saber qual está levando.
+
+---
+
+## `artigos/` — corpo em Markdown ao lado
+
+**O artigo é a única exceção à regra de "tudo em bloco tipado", e ela é deliberada.** O
+manifesto descreve (`titulo`, `chamada`, `assuntos`, `referencias`, `palavras`) e o corpo
+vive num `.md` próprio, publicado como `text/markdown`:
+
+``` json
+{ "id": "bdi-sem-atalhos", "titulo": "BDI sem atalhos: …",
+  "chamada": "Um percentual sem memória de cálculo não se defende.",
+  "assuntos": ["bdi", "custo-indireto"],
+  "referencias": [ { "tipo": "publicacao", "grupo": "ACORDAOS", "id": "tcu-2622-2013",
+                     "rotulo": "Acórdão TCU 2622/2013 — …" } ],
+  "conteudo": "easy-mobile/artigos/bdi-sem-atalhos.md",
+  "formato": "markdown", "palavras": 692, "publicado_em": "2026-08-22" }
+```
+
+**Por quê:** artigo longo passa por revisão de texto, e revisar Markdown escapado dentro
+de string JSON é hostil para quem escreve. Isso NÃO reintroduz o problema de duas fontes
+que o institucional teve: lá o JSON *continha* uma cópia do texto; aqui o `.md` é a fonte
+**e** o arquivo publicado. Não existe segunda cópia para divergir.
+
+**A regra que sustenta isso: o manifesto nunca carrega o corpo.** O validador recusa
+qualquer campo de item com mais de 600 caracteres, justamente porque o dia em que o texto
+começar a viajar dentro do JSON, volta a duplicidade.
+
+**`formato`** (`blocos` | `markdown`) é o que diz ao app como ler o `conteudo`. Com ele a
+navegação continua sendo uma só: leia o manifesto, siga `conteudo`, ramifique no formato.
+
+**Os vínculos ficam no manifesto, não no texto.** Nenhum `[[link]]` ou esquema `axys:` no
+corpo — isso sujaria o Markdown com sintaxe de app e mataria a razão de ele ser puro. O
+artigo se conecta ao resto pelo `referencias`, a mesma convenção de acórdãos e casos.
+
+**Nome publicado sai do `id`, sem o prefixo numérico do arquivo local.** O `01-` ordena a
+pasta de quem edita; não é identidade. Artigo reordenado não pode mudar de URL.
 
 ---
 

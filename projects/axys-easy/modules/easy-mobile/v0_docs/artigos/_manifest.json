@@ -1,0 +1,552 @@
+{
+  "grupo": "ARTIGOS",
+  "gerado_em": null,
+  "itens": [
+    {
+      "id": "como-nasce-o-preco-de-uma-obra-publica",
+      "titulo": "Como nasce o preço de uma obra pública",
+      "chamada": "Projeto, quantidade, composição, produtividade e data-base. O total é a última coisa que aparece.",
+      "assuntos": [
+        "orcamento",
+        "composicao-de-custo-unitario",
+        "quantitativo",
+        "data-base"
+      ],
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "rotulo": "Orçamento analítico",
+          "grupo": "TERMINOLOGIA",
+          "id": "orcamento-analitico"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Composição de custo unitário",
+          "grupo": "TERMINOLOGIA",
+          "id": "composicao-de-custo-unitario"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Coeficiente",
+          "grupo": "TERMINOLOGIA",
+          "id": "coeficiente"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Quantitativo",
+          "grupo": "TERMINOLOGIA",
+          "id": "quantitativo"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Data-base",
+          "grupo": "TERMINOLOGIA",
+          "id": "data-base"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Memória de cálculo",
+          "grupo": "TERMINOLOGIA",
+          "id": "memoria-de-calculo"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Custo direto",
+          "grupo": "TERMINOLOGIA",
+          "id": "custo-direto"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 46/2012 — detalhamento dos custos unitários",
+          "grupo": "ACORDAOS",
+          "id": "tcu-46-2012"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Erro de quantitativo em contrato por preço global",
+          "grupo": "CASOS",
+          "id": "erro-de-quantitativo-em-preco-global"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Mês do SINAPI ou data de fechamento do orçamento?",
+          "grupo": "CASOS",
+          "id": "data-base-sinapi-e-assinatura-do-orcamento"
+        }
+      ],
+      "conteudo": "easy-mobile/artigos/como-nasce-o-preco-de-uma-obra-publica.md",
+      "formato": "markdown",
+      "palavras": 731,
+      "publicado_em": "2026-08-22"
+    },
+    {
+      "id": "bdi-sem-atalhos",
+      "titulo": "BDI sem atalhos: o que o percentual realmente representa",
+      "chamada": "Um percentual sem memória de cálculo não se defende. E BDI não é reserva para corrigir o custo direto.",
+      "assuntos": [
+        "bdi",
+        "custo-indireto",
+        "administracao-local",
+        "lucro"
+      ],
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "rotulo": "BDI",
+          "grupo": "TERMINOLOGIA",
+          "id": "bdi"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "BDI diferenciado",
+          "grupo": "TERMINOLOGIA",
+          "id": "bdi-diferenciado"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Custo indireto",
+          "grupo": "TERMINOLOGIA",
+          "id": "custo-indireto"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Administração local",
+          "grupo": "TERMINOLOGIA",
+          "id": "administracao-local"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Lucro",
+          "grupo": "TERMINOLOGIA",
+          "id": "lucro"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Simples Nacional",
+          "grupo": "TERMINOLOGIA",
+          "id": "simples-nacional"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2622/2013 — BDI, Simples Nacional e administração local",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2622-2013"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 3037/2009 — tributos e encargos de optante pelo Simples",
+          "grupo": "ACORDAOS",
+          "id": "tcu-3037-2009"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Empresa do Simples copiou o BDI de referência",
+          "grupo": "CASOS",
+          "id": "bdi-copiado-por-empresa-do-simples"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Canteiro e administração local na mesma lógica de medição",
+          "grupo": "CASOS",
+          "id": "canteiro-e-administracao-local-na-medicao"
+        }
+      ],
+      "conteudo": "easy-mobile/artigos/bdi-sem-atalhos.md",
+      "formato": "markdown",
+      "palavras": 692,
+      "publicado_em": "2026-08-22"
+    },
+    {
+      "id": "encargos-sociais-horista-mensalista",
+      "titulo": "Encargos sociais: por que horista e mensalista não se convertem por regra de três",
+      "chamada": "As duas taxas não são o mesmo número em bases diferentes. São modelos de cálculo distintos.",
+      "assuntos": [
+        "encargos-sociais",
+        "horista",
+        "mensalista",
+        "desoneracao-da-folha"
+      ],
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "rotulo": "Encargos sociais",
+          "grupo": "TERMINOLOGIA",
+          "id": "encargos-sociais"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Leis sociais",
+          "grupo": "TERMINOLOGIA",
+          "id": "leis-sociais"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Horista",
+          "grupo": "TERMINOLOGIA",
+          "id": "horista"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Mensalista",
+          "grupo": "TERMINOLOGIA",
+          "id": "mensalista"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Hora produtiva",
+          "grupo": "TERMINOLOGIA",
+          "id": "hora-produtiva"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Hora improdutiva",
+          "grupo": "TERMINOLOGIA",
+          "id": "hora-improdutiva"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Desoneração da folha",
+          "grupo": "TERMINOLOGIA",
+          "id": "desoneracao-da-folha"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Regime desonerado",
+          "grupo": "TERMINOLOGIA",
+          "id": "regime-desonerado"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Regime não desonerado",
+          "grupo": "TERMINOLOGIA",
+          "id": "regime-nao-desonerado"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Escolha entre orçamento onerado e desonerado",
+          "grupo": "CASOS",
+          "id": "comparacao-orcamento-onerado-desonerado"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Insalubridade em serviço com material asfáltico",
+          "grupo": "CASOS",
+          "id": "insalubridade-em-servico-com-asfalto"
+        }
+      ],
+      "conteudo": "easy-mobile/artigos/encargos-sociais-horista-mensalista.md",
+      "formato": "markdown",
+      "palavras": 610,
+      "publicado_em": "2026-08-22"
+    },
+    {
+      "id": "sinapi-sicro-nao-sao-tabelas-prontas",
+      "titulo": "SINAPI e SICRO não são tabelas prontas: como usar referências sem desligá-las da obra",
+      "chamada": "Escolher o código é o começo do trabalho, não o fim dele.",
+      "assuntos": [
+        "sinapi",
+        "sicro",
+        "fonte-de-precos",
+        "cotacao-de-mercado"
+      ],
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "rotulo": "SINAPI",
+          "grupo": "TERMINOLOGIA",
+          "id": "sinapi"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "SICRO",
+          "grupo": "TERMINOLOGIA",
+          "id": "sicro"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Fonte de preços",
+          "grupo": "TERMINOLOGIA",
+          "id": "fonte-de-precos"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Custo de referência",
+          "grupo": "TERMINOLOGIA",
+          "id": "custo-de-referencia"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Cotação de mercado",
+          "grupo": "TERMINOLOGIA",
+          "id": "cotacao-de-mercado"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Pesquisa de preços",
+          "grupo": "TERMINOLOGIA",
+          "id": "pesquisa-de-precos"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Composição de custo unitário",
+          "grupo": "TERMINOLOGIA",
+          "id": "composicao-de-custo-unitario"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Subcomposição",
+          "grupo": "TERMINOLOGIA",
+          "id": "subcomposicao"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2341/2020 — composição dos custos unitários",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2341-2020"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "SINAPI e SICRO na mesma planilha",
+          "grupo": "CASOS",
+          "id": "fontes-sinapi-e-sicro-na-mesma-planilha"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Insumo asfáltico sem preço na base local",
+          "grupo": "CASOS",
+          "id": "asfalto-sem-preco-na-base-local"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Insumo aparece com preço zero na base oficial",
+          "grupo": "CASOS",
+          "id": "insumo-com-preco-zero-na-base"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Orçamento com bases de meses diferentes",
+          "grupo": "CASOS",
+          "id": "data-base-com-fontes-de-meses-diferentes"
+        }
+      ],
+      "conteudo": "easy-mobile/artigos/sinapi-sicro-nao-sao-tabelas-prontas.md",
+      "formato": "markdown",
+      "palavras": 547,
+      "publicado_em": "2026-08-22"
+    },
+    {
+      "id": "sobrepreco-e-superfaturamento",
+      "titulo": "Sobrepreço e superfaturamento: diferenças que mudam a análise",
+      "chamada": "Preço questionável no orçamento não é pagamento indevido. E pode haver dano com preço unitário aceitável.",
+      "assuntos": [
+        "sobrepreco",
+        "superfaturamento",
+        "medicao",
+        "jogo-de-planilha"
+      ],
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "rotulo": "Sobrepreço",
+          "grupo": "TERMINOLOGIA",
+          "id": "sobrepreco"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Superfaturamento",
+          "grupo": "TERMINOLOGIA",
+          "id": "superfaturamento"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Jogo de planilha",
+          "grupo": "TERMINOLOGIA",
+          "id": "jogo-de-planilha"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Jogo de cronograma",
+          "grupo": "TERMINOLOGIA",
+          "id": "jogo-de-cronograma"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Medição",
+          "grupo": "TERMINOLOGIA",
+          "id": "medicao"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Preço de referência",
+          "grupo": "TERMINOLOGIA",
+          "id": "preco-de-referencia"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Curva ABC",
+          "grupo": "TERMINOLOGIA",
+          "id": "curva-abc"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2341/2020 — composição dos custos unitários",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2341-2020"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 3289/2014 — orçamento detalhado na inexigibilidade",
+          "grupo": "ACORDAOS",
+          "id": "tcu-3289-2014"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 291/2016 — erro relevante de quantitativos no preço global",
+          "grupo": "ACORDAOS",
+          "id": "tcu-291-2016"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Como formar o preço de referência de ar-condicionado instalado",
+          "grupo": "CASOS",
+          "id": "ar-condicionado-preco-de-referencia"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Erro de quantitativo em contrato por preço global",
+          "grupo": "CASOS",
+          "id": "erro-de-quantitativo-em-preco-global"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Reter parte do contrato para a última medição",
+          "grupo": "CASOS",
+          "id": "retencao-na-ultima-medicao"
+        }
+      ],
+      "conteudo": "easy-mobile/artigos/sobrepreco-e-superfaturamento.md",
+      "formato": "markdown",
+      "palavras": 561,
+      "publicado_em": "2026-08-22"
+    },
+    {
+      "id": "aditivos-e-reequilibrio-economico-financeiro",
+      "titulo": "Aditivos e reequilíbrio econômico-financeiro: mudanças diferentes pedem respostas diferentes",
+      "chamada": "Aditivo, reajuste e reequilíbrio respondem a causas diferentes e pedem provas diferentes.",
+      "assuntos": [
+        "aditivo-contratual",
+        "reajuste",
+        "reequilibrio-economico-financeiro",
+        "limite-de-alteracao"
+      ],
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "rotulo": "Aditivo contratual",
+          "grupo": "TERMINOLOGIA",
+          "id": "aditivo-contratual"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acréscimo contratual",
+          "grupo": "TERMINOLOGIA",
+          "id": "acrescimo-contratual"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Supressão contratual",
+          "grupo": "TERMINOLOGIA",
+          "id": "supressao-contratual"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Alteração qualitativa",
+          "grupo": "TERMINOLOGIA",
+          "id": "alteracao-qualitativa"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Limite de alteração",
+          "grupo": "TERMINOLOGIA",
+          "id": "limite-de-alteracao"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Reajuste",
+          "grupo": "TERMINOLOGIA",
+          "id": "reajuste"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Reequilíbrio econômico-financeiro",
+          "grupo": "TERMINOLOGIA",
+          "id": "reequilibrio-economico-financeiro"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Preço novo",
+          "grupo": "TERMINOLOGIA",
+          "id": "preco-novo"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Matriz de riscos",
+          "grupo": "TERMINOLOGIA",
+          "id": "matriz-de-riscos"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Decisão TCU 215/1999 — alterações qualitativas excepcionais",
+          "grupo": "ACORDAOS",
+          "id": "tcu-decisao-215-1999"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 749/2010 — cálculo separado de acréscimos e supressões",
+          "grupo": "ACORDAOS",
+          "id": "tcu-749-2010"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2203/2017 — preços novos e manutenção do desconto",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2203-2017"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 4551/2020 — cláusula de matriz de riscos",
+          "grupo": "ACORDAOS",
+          "id": "tcu-4551-2020"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 178/2019 — atraso da contratada e administração local",
+          "grupo": "ACORDAOS",
+          "id": "tcu-178-2019"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Aditivo controlado em planilha separada",
+          "grupo": "CASOS",
+          "id": "aditivo-em-planilha-separada"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Parcela compensatória após alteração contratual",
+          "grupo": "CASOS",
+          "id": "parcela-compensatoria-em-aditivo"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Contrato sem índice ou data-base de reajuste",
+          "grupo": "CASOS",
+          "id": "reajuste-sem-indice-no-contrato"
+        }
+      ],
+      "conteudo": "easy-mobile/artigos/aditivos-e-reequilibrio-economico-financeiro.md",
+      "formato": "markdown",
+      "palavras": 752,
+      "publicado_em": "2026-08-22"
+    }
+  ]
+}
