@@ -416,21 +416,36 @@ PDF oficial qualquer um acha.
   "limites_md": "O entendimento vale para obras públicas federais e é **referencial, não camisa de força**: BDI fora da faixa é admissível quando justificado…",
   "dispositivos": ["Lei 8.666/1993, art. 7º", "IN nº …"],
   "vinculados": [
-    { "tipo": "publicacao", "rotulo": "O que é BDI", "grupo": "TERMINOLOGIA", "id": "bdi" },
+    { "tipo": "publicacao", "rotulo": "BDI", "grupo": "TERMINOLOGIA", "id": "bdi" },
     { "tipo": "publicacao", "rotulo": "BDI diferenciado para equipamentos", "grupo": "DUVIDAS", "id": "bdi-diferenciado-equipamentos" }
   ],
-  "fonte_oficial": { "rotulo": "Acórdão no portal do TCU", "url": "https://…" },
   "pdf": null,
   "publicado_em": "2026-08-15"
 }
 ```
 
+**`assuntos` é VOCABULÁRIO CONTROLADO, não etiqueta livre.** Todo assunto que também for
+conceito deve usar o **id do verbete** da terminologia. Sem essa disciplina o vocabulário
+racha: na primeira leva de 30 acórdãos apareceram `limite` e `limites` como etiquetas
+distintas, e `aditivo` convivendo com o verbete `aditivo-contratual`. Etiqueta rachada
+quebra o agrupamento no app e esvazia o `vinculados`.
+
+**`vinculados` é o que transforma três listas em uma teia.** Um acórdão sobre BDI aponta
+para o verbete BDI; o verbete pode listar os acórdãos que o citam. Preencher é mecânico
+quando o vocabulário é controlado — e impossível quando não é.
+
 **`limites_md` é o campo que separa a ficha de um resumo qualquer.** Dizer o que o acórdão
 estabelece é metade; dizer **até onde ele vale** é o que evita que o leitor aplique um
 entendimento fora do escopo — que é como a maioria dos erros acontece.
 
-**`fonte_oficial` é obrigatória; `pdf` é opcional.** Acórdão é ato público e pode ser
-hospedado, mas o link oficial é sempre o mais atual e não vira cópia desatualizada.
+**Não se guarda link para a fonte oficial** (decisão de 22/08/2026). O TCU não expõe
+permalink construível, e o que sobra são URLs de dentro do app de busca deles, com
+codificação tripla, que apodrecem em meses — na primeira leva, 8 de 30 apontavam para
+*ata de sessão* ou *informativo*, não para o acórdão. Link errado é pior que link ausente.
+
+**`orgao` + `numero` já identificam o documento**, e é isso que basta: o aplicativo monta
+a busca no momento do toque, a partir de campos que já tem. Nada armazenado, nada a
+apodrecer. `pdf` continua opcional, para quando houver arquivo sob controle da Axys.
 
 **Regra editorial das quatro seções:** quando existir fonte normativa, **cite-a**. É o que
 separa "opinião de um engenheiro experiente" de conhecimento Axys verificável — e é a
