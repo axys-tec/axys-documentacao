@@ -203,9 +203,12 @@ easy-mobile/
 │   └── tcu-2622-2013/conteudo.json
 └── institucional/
     ├── _manifest.json
-    ├── solucoes.json
+    ├── manifesto.json
+    ├── missao-e-valores.json
     ├── sobre.json
-    └── roadmap.json
+    ├── roadmap.json
+    ├── principios-de-conteudo.json
+    └── solucoes.json        ← ainda não existe: depende da lista de produtos
 ```
 
 ---
@@ -318,11 +321,21 @@ na primeira edição do texto.
       "disponibilidade": "em_desenvolvimento", "destaque": true } ] }
 
 { "tipo": "linha_do_tempo", "escala": "ano",
-  "faixas": [ { "rotulo": "EASY", "de": "2026", "ate": "2026" },
-              { "rotulo": "EASY-EVOLUÇÃO", "de": "2027", "ate": "2027" } ],
-  "marcos": [ { "quando": "2026-10", "itens": ["EasyPrice", "EasyCPU", "EasyOrça"] },
-              { "quando": "2026-11", "itens": ["EasyProjectManager"] } ] }
+  "faixas": [ { "rotulo": "EASY", "de": "2026", "ate": "2026",
+                "peso": 1.25, "enfase": "plena" },
+              { "rotulo": "PRO", "de": "2028", "ate": "2028",
+                "peso": 0.72, "enfase": "apagada" } ],
+  "marcos": [ { "fase": "EASY", "quando": "2026-10", "rotulo": "Outubro",
+                "itens": ["Easy Price", "Easy CPU", "Easy Orça"] },
+              { "fase": "PRO",  "quando": "2028",    "rotulo": "2028",
+                "itens": ["AxysPRO — ERP, a base da operação"] } ] }
 ```
+
+**Na `linha_do_tempo`, `peso` e `enfase` são conteúdo, não estilo do app.** `peso` é a
+largura relativa da faixa e `enfase` (`plena` | `apagada`) diz se ela vai no azul ou no
+cinza. Existem porque a faixa mais distante vai deliberadamente apagada — 2028 é longe, e
+antecipação demais gera frustração; o tom precisa dizer "horizonte, não compromisso". Se
+isso morasse no app, uma decisão editorial só mudaria com release novo.
 
 `disponibilidade` é vocabulário fechado — `para_contratacao` | `em_desenvolvimento` |
 `planejado` —, e não texto livre: é ela que decide o rótulo e a cor na tela.
@@ -658,20 +671,30 @@ versão nova, e o usuário precisa saber qual está levando.
 
 ## `institucional/` — documento único
 
-`solucoes.json`, `sobre.json` e `roadmap.json`, cada um no formato `conteudo.json`
-(blocos tipados). São os textos que hoje moram no binário.
+Um arquivo por documento, **plano, sem pasta**: `institucional/sobre.json`, e não
+`institucional/sobre/conteudo.json`. São textos sem anexo e sem versão — pasta para cada
+um seria hierarquia sem conteúdo dentro. O formato do arquivo é o `conteudo.json` de
+sempre (`id`, `titulo`, `blocos`), e o `_manifest.json` do grupo aponta o caminho de cada
+um, então o app não deduz nome de arquivo.
 
-Os três usam blocos diferentes, e vale saber qual antes de escrever:
+**TTL é o de manifesto (300s), não o de item (30 dias).** Documento institucional não é
+imutável como um acórdão publicado: corrigir uma data do Roadmap não pode esperar um mês
+de cache.
 
 | Documento | Blocos que carregam o peso |
 |---|---|
-| **Sobre a Axys** | `titulo` + `texto` — é prosa, e prosa cabe em bloco de texto |
-| **Soluções Axys** | **`produtos`** — carrossel, não parágrafo |
-| **Roadmap** | **`linha_do_tempo`** — e é a tela onde data errada mais custa credibilidade, então tem de ser dado atualizável sem release |
+| **Manifesto** · **Missão e valores** · **Como a gente escreve** | `titulo` + `texto` — é prosa, e prosa cabe em bloco de texto |
+| **Sobre o AxysEasy Mobile** | `titulo` + `texto` + uma `tabela` (os quatro pilares e a pergunta que cada um responde) |
+| **Roadmap** | **`linha_do_tempo`** — um bloco só, com as três faixas |
+| **Soluções Axys** | **`produtos`** — carrossel, não parágrafo. *Ainda não existe: depende da lista de produtos com descrição e disponibilidade de cada um.* |
 
-Migrar para cá permite corrigir uma data do Roadmap **sem passar pela revisão da App
-Store**, que leva dias — e o Roadmap é justamente a tela onde data errada mais custa
-credibilidade.
+**A fonte é o `.md`, o JSON é gerado** — `z_scripts_apoio/converte_institucional.py` lê
+`v0_docs/institucional/*.md` e escreve os `.json` ao lado. Quem escreve mexe no Markdown;
+ninguém edita o JSON à mão. O validador recusa a publicação se algum `.md` estiver mais
+novo que o seu JSON, que é como se publica texto velho sem perceber.
+
+Estar aqui permite corrigir uma data do Roadmap **sem passar pela revisão da App Store**,
+que leva dias — e o Roadmap é justamente a tela onde data errada mais custa credibilidade.
 
 ---
 

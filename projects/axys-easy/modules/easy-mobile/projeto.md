@@ -239,9 +239,9 @@ Nada aqui precisa ser inventado. O Easy Web já resolve todas estas telas; a API
 | Custo em todas as UFs | `composicoes_service.get_cpu_custos_por_uf()` | `composicoes_custo` |
 | Ver Caderno | `cmp_external_path` → `storage_paths.resolver_versao()/doc_url()` | — (path de bucket **privado**, servido por rota gated) |
 
-**Nota de arquitetura sobre o Caderno — atenção, aqui há uma dependência a mais.** O caderno técnico é **privado**. `cmp_external_path` resolve um *path* de bucket privado. **Não existe URL pública para o caderno**: o Markdown pequeno é lido pela API autenticada e entregue na própria resposta, funcionando igualmente no Flutter Web, iOS e Android sem depender de CORS do bucket. Isso difere do conteúdo estático dos módulos 3 e 4.
+**Nota de arquitetura sobre o Caderno — atenção, aqui há uma dependência a mais.** O caderno técnico é **privado**. `cmp_external_path` resolve um *path* de bucket privado, e `storage_paths.doc_url()` devolve `/doc-file/{path}` — rota **gated** da app (exige sessão e passa por rate limit), que lê do R2 privado e faz o streaming. **Não existe URL pública para o caderno**, e portanto ele **passa pela API**, ao contrário do que vale para o conteúdo estático dos módulos 3 e 4.
 
-Consequência prática: a Easy Mobile API precisa de uma rota própria e de uma **segunda credencial** — leitura do bucket privado do R2 — além da credencial de banco. O isolamento do §4 cobre o Postgres; **não cobre o storage**. Para o CTC, a rota devolve o Markdown pequeno na resposta autenticada; arquivos privados maiores continuam por URL assinada — ver §5.5.
+Consequência prática: a Easy Mobile API precisa de uma rota própria (`GET /v0/documentos/{path}`) e de uma **segunda credencial** — leitura do bucket privado do R2 — além da credencial de banco. O isolamento do §4 cobre o Postgres; **não cobre o storage**. O caminho recomendado é a rota devolver uma **URL assinada de TTL curto** em vez do arquivo, tirando os bytes do caminho do serviço — ver §5.5.
 
 **Atenção — dependência escondida da V0:** como o detalhamento analítico chama o motor de custo, o acesso a `edicoes_leis_sociais`, `insumos_familia` e `insumos_tipo` é necessário **já na V0**, mesmo o Simulador sendo V1. São ingredientes do motor, não do Simulador.
 
@@ -487,7 +487,7 @@ Descartado cachear no Redis: o `render.yaml` roda `maxmemoryPolicy: noeviction` 
 | `/v0/…/historico` · `/v0/…/ufs` | **7 dias** | muda só quando entra edição nova |
 | `/v0/busca` | **1 h** | query livre, mas as buscas populares se repetem muito |
 | `/v0/catalogo/filtros` | **5 min** | é a única que responde "qual é a edição vigente" |
-| `/v0/composicoes/{id}/ctc` | **`no-store`** | conteúdo privado solicitado apenas na abertura |
+| `/v0/documentos/*` | **`no-store`** | é URL assinada de 5 min — cachear serviria link morto |
 | telemetria e `Minha conta` | **`no-store`** | variam por pessoa |
 
 Dois complementos:
@@ -516,19 +516,19 @@ Ordem — e a ordem importa:
 
 Nada a contratar: *Cache Rules* está disponível no plano gratuito. *Cache Analytics* é pago e não é necessário — o painel de visão geral já mostra percentual de cache.
 
-**5.5 — DECIDIDO (16/08/2026), revisto em 22/08/2026: acesso ao bucket privado.**
+**5.5 — DECIDIDO (16/08/2026): bucket privado só por URL assinada de TTL curto.**
 
-Arquivos privados grandes usam **URL assinada de curta duração — TTL de 5 minutos**. O CTC é a exceção: por ser um Markdown pequeno renderizado nativamente, a API autentica, autoriza, lê o objeto e entrega seu conteúdo na resposta `no-store`. Assim, Flutter Web, iOS e Android usam o mesmo fluxo sem depender do CORS do bucket. O path interno e as credenciais nunca chegam ao cliente.
+**Regra, válida para o app inteiro e não só para a Central de Custos:** todo e qualquer acesso do Easy Mobile ao bucket **privado** se dá por **URL assinada de curta duração — TTL de 5 minutos**. A API autentica, autoriza, aplica rate limit e devolve a URL assinada; o download vai direto R2 → aparelho, sem que os bytes atravessem o serviço. **O arquivo cru nunca é entregue por outra via.**
 
 Por que o bucket privado continua sendo privado, mesmo com a analítica servida (§5.1): os originais de **CDHU e FDE são material de terceiros** — republicá-los em bucket público é questão de **direito autoral**, não de estratégia comercial. O que é produção própria da Axys é o **CTC**, e mesmo ele é servido como documento, nunca como arquivo-fonte. Isso encerra em definitivo a hipótese de publicar cadernos no bucket público.
 
-Aplica-se às duas portas do caderno — o botão *Ver Caderno* do módulo 1 e o grupo *Cadernos Técnicos* do módulo 2. Outros materiais privados continuam usando URL assinada.
+Aplica-se às duas portas do caderno — o botão *Ver Caderno* do módulo 1 e o grupo *Cadernos Técnicos* do módulo 2 — e a qualquer material privado que os demais módulos venham a servir.
 
 Notas de implementação:
 
  - `get_private_presigned_url()` **já existe** em `backend/storage/r2_storage.py`, mas seu default é `expires_in=3600` (uma hora). O serviço mobile deve **passar o TTL explicitamente**; melhor ainda, criar um wrapper próprio com 300s fixo, para que ninguém herde a hora por esquecimento.
  - Credencial: token R2 **somente leitura**, escopado ao bucket privado — mesma lógica do `easy_mobile_reader` no §4.
- - O mobile não expõe uma rota genérica `/doc-file/{path}`; somente o endpoint específico do CTC pode ler o Markdown autorizado.
+ - A rota `/doc-file` do Easy Web (que carrega o arquivo em memória e faz streaming) **não** é replicada no mobile.
  - Consequência prática do TTL: a assinatura é verificada no início da requisição, então download já iniciado costuma concluir mesmo se o prazo virar. Mas **retomar** um download interrompido depois de expirado exige nova assinatura — o app deve pedir a URL de novo em vez de guardá-la.
  - URL assinada muda a cada emissão, logo **não cacheia em CDN**. É o custo aceito por manter o material controlado.
 
@@ -615,8 +615,9 @@ Além dos quatro pilares:
  - *Cadernos Técnicos* — o mobile enxerga o **CTC**, produção da Axys em Markdown, e o acessa
    **pela Central de Custos**, no botão da composição. O caderno HTML **da fonte** é material
    de terceiros e não é exposto ao aplicativo (§5.5).
- - *Índices Inflacionários* — é **dado**, não conteúdo editorial: vem da API (`/v0/indices`),
-   não de manifesto no R2. Aparece no menu, mas não segue o desenho de conteúdo.
+ - *Índices Inflacionários* — é **dado**, não conteúdo editorial: vem da API e aparece
+   somente nos fluxos de custos, análises e deep links internos; não é grupo nem entrada
+   do menu da Base de Conhecimento.
  - *Calculadora de CUB* — é **funcionalidade**, não conteúdo. **Fora da V0**; entra quando
    houver base de dados sólida.
  - *Canal Axys* — módulo próprio (6), **fora da V0**: não haverá vídeo publicado.
@@ -827,7 +828,7 @@ Conteúdo editorial é **estático depois de publicado**. Não faz sentido a Eas
 
 O app baixa **direto do R2/CDN**. A API não é proxy de arquivo.
 
-**Exceção única: o caderno técnico.** Ele fica no bucket privado e segue a regra específica do §5.5 da Central de Custos — conteúdo Markdown pela resposta autenticada `no-store`. Tudo o mais que este capítulo descreve é público.
+**Exceção única: o caderno técnico.** Ele é material de terceiros em bucket privado e segue a regra do §5.5 da Central de Custos — URL assinada de 5 minutos. Tudo o mais que este capítulo descreve é público.
 
 ## 2. Onde o conteúdo mora
 
@@ -1109,7 +1110,7 @@ Sem *keyword stuffing*: descrição de loja é lida por gente, e texto empilhado
 - autenticação central no **Hub**; app carrega o JWT do Hub, isolado por `aud=easy-mobile`;
 - rotas de leitura do catálogo **públicas** — login identifica, não tranca;
 - conteúdo estático distribuído por **R2/CDN**, com a API fora do caminho do arquivo;
-- CTC privado pela resposta autenticada `no-store`; demais arquivos privados por URL assinada de 5 minutos;
+- bucket privado **somente por URL assinada de 5 minutos**;
 - **cache é cabeçalho**, não subsistema; borda ligada antes do Flutter;
 - telemetria escrita direto no banco do Hub, com credencial restrita e *best-effort*;
 - **notificação só quando houver valor real**;
@@ -1164,7 +1165,5 @@ O ativo de longo prazo não é o aplicativo. É a combinação de **base histór
 ---
 
 *Documento único e canônico do Easy Mobile. Compila e substitui o rascunho `easy_mobile_projeto.md` (13/08/2026) e o ADR `easy_mobile_adr_newsletter_r2.md`. Alterações futuras devem preservar as premissas congeladas ou registrar explicitamente a decisão que as substituiu.*
-
-
 
 

@@ -1,0 +1,56 @@
+{
+  "id": "missao-e-valores",
+  "titulo": "Missão e valores",
+  "blocos": [
+    {
+      "tipo": "titulo",
+      "nivel": 2,
+      "texto": "Missão"
+    },
+    {
+      "tipo": "texto",
+      "texto_md": "**Tornar a gestão de processos, tarefas e atividades mais simples e eficiente, com segurança, rastreabilidade e previsibilidade.**\n\nVale para o produto e para o conteúdo: uma entrega precisa reduzir incerteza e apoiar o trabalho real. Acrescentar mais uma funcionalidade, ou mais um texto, não conta."
+    },
+    {
+      "tipo": "titulo",
+      "nivel": 2,
+      "texto": "Valores"
+    },
+    {
+      "tipo": "titulo",
+      "nivel": 3,
+      "texto": "Praticidade"
+    },
+    {
+      "tipo": "texto",
+      "texto_md": "**O sistema deve servir à rotina, não se transformar em obstáculo.**\n\nPriorizamos fluxos compreensíveis, linguagem direta e ações que tenham utilidade clara. Simplicidade, para nós, é retirar o que não ajuda sem remover o rigor necessário."
+    },
+    {
+      "tipo": "titulo",
+      "nivel": 3,
+      "texto": "Segurança"
+    },
+    {
+      "tipo": "texto",
+      "texto_md": "**Permissões e proteção de dados devem ser pensadas desde a origem.**\n\nSegurança é uma decisão de arquitetura e de produto. Abrange acesso adequado, tratamento responsável das informações e redução de exposições desnecessárias."
+    },
+    {
+      "tipo": "titulo",
+      "nivel": 3,
+      "texto": "Confiabilidade"
+    },
+    {
+      "tipo": "texto",
+      "texto_md": "**Decisões e informações precisam de histórico, contexto e critérios claros.**\n\nValorizamos rastreabilidade, registros de alteração, fontes identificáveis e contratos compreensíveis. Uma informação útil também precisa ser uma informação em que se possa confiar."
+    },
+    {
+      "tipo": "titulo",
+      "nivel": 2,
+      "texto": "Princípios que orientam decisões"
+    },
+    {
+      "tipo": "texto",
+      "texto_md": "- **Problema antes da funcionalidade:** começamos pela necessidade concreta.\n- **Resultado antes do volume:** quantidade de entregas não substitui impacto real.\n- **Contexto antes da automação:** automatizar um processo mal compreendido apenas acelera o erro.\n- **Clareza antes do jargão:** termos técnicos são usados quando acrescentam precisão.\n- **Evolução sem ruptura:** melhorias devem respeitar a continuidade do trabalho do usuário.\n\nSobre o conteúdo que publicamos, o critério está em *Como a gente escreve*."
+    }
+  ]
+}

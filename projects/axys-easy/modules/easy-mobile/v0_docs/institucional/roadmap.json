@@ -1,0 +1,94 @@
+{
+  "id": "roadmap",
+  "titulo": "Roadmap",
+  "blocos": [
+    {
+      "tipo": "linha_do_tempo",
+      "escala": "ano",
+      "faixas": [
+        {
+          "rotulo": "EASY",
+          "de": "2026",
+          "ate": "2026",
+          "peso": 1.25,
+          "enfase": "plena"
+        },
+        {
+          "rotulo": "EASY-EVOLUÇÃO",
+          "de": "2027",
+          "ate": "2027",
+          "peso": 1.0,
+          "enfase": "plena"
+        },
+        {
+          "rotulo": "PRO",
+          "de": "2028",
+          "ate": "2028",
+          "peso": 0.72,
+          "enfase": "apagada"
+        }
+      ],
+      "marcos": [
+        {
+          "fase": "EASY",
+          "quando": "2026-10",
+          "rotulo": "Outubro",
+          "itens": [
+            "Easy Price",
+            "Easy CPU",
+            "Easy Orça"
+          ]
+        },
+        {
+          "fase": "EASY",
+          "quando": "2026-11",
+          "rotulo": "Novembro",
+          "itens": [
+            "Easy ProjectManager"
+          ]
+        },
+        {
+          "fase": "EASY",
+          "quando": "2026-12",
+          "rotulo": "Dezembro",
+          "itens": [
+            "Easy BuildDiary",
+            "Easy FinControl"
+          ]
+        },
+        {
+          "fase": "EASY-EVOLUÇÃO",
+          "quando": "2027-01",
+          "rotulo": "Janeiro",
+          "itens": [
+            "Easy LicitPlan"
+          ]
+        },
+        {
+          "fase": "EASY-EVOLUÇÃO",
+          "quando": "2027-02",
+          "rotulo": "Fevereiro",
+          "itens": [
+            "EasyDocs"
+          ]
+        },
+        {
+          "fase": "EASY-EVOLUÇÃO",
+          "quando": "2027-03",
+          "rotulo": "Março a Junho",
+          "itens": [
+            "Evolução do Easy Orça: coletores CAD, BIM e RVT"
+          ]
+        },
+        {
+          "fase": "PRO",
+          "quando": "2028",
+          "rotulo": "2028",
+          "itens": [
+            "AxysPRO — ERP, a base da operação"
+          ]
+        }
+      ]
+    }
+  ]
+}

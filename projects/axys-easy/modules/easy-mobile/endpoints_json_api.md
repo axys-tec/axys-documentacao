@@ -221,15 +221,15 @@ sem o original ao lado, o simulado não diz nada.
 
 ```json
 { "disponivel": true,
-  "conteudo": "1) Forma de medição\\n...",
-  "formato": "markdown" }
+  "url": "https://<conta>.r2.cloudflarestorage.com/…?X-Amz-Expires=300&X-Amz-Signature=…",
+  "expira_em": 300 }
 ```
 
 Sem CTC: `{"disponivel": false, "motivo": "Não existe caderno técnico para este serviço."}`
 
-**Rota separada do detalhe e nunca cacheada** (`no-store`). O Markdown privado é entregue na
-resposta autenticada para que o mesmo fluxo funcione no Flutter Web, iOS e Android, sem depender
-de CORS do bucket. O app deve pedi-lo na hora de abrir e não o guardar.
+**Rota separada do detalhe e nunca cacheada** (`no-store`): a URL vive 5 minutos e a resposta
+do detalhe vive 30 dias — juntas, entregariam link morto. O app deve **pedir a URL na hora de
+abrir**, não guardar.
 
 O documento é o **CTC** — Caderno Técnico de Composição, produção da Axys, em Markdown:
 
@@ -246,9 +246,9 @@ O caderno e as fichas **da fonte** (HTML de CDHU/SINAPI/FDE) **não são exposto
 ## Índices
 
 ### `GET /v0/indices` · `GET /v0/indices/{codigo}`
-Lista (29 índices, código · nome · fonte) e série completa de um índice — tabela e arrays
-cronológicos para o gráfico. Alimenta o grupo "Índices Inflacionários" da Base de
-Conhecimento.
+Lista somente os índices autorizados para o Easy Mobile (código · nome · fonte) e entrega
+a série completa de um índice autorizado — tabela e arrays cronológicos para gráficos e
+deep links internos. Não alimenta um grupo da Base de Conhecimento.
 
 Índice é **dado**, não conteúdo editorial: vem do banco, não de manifesto no R2.
 
