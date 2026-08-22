@@ -304,7 +304,31 @@ e o que evita WebView.
 ```
 
 **Tipos de bloco:** `resumo` · `titulo` · `texto` · `numeros` · `imagem` · `tabela` ·
-`ranking` · `grafico` · `referencias` · `cta`.
+`ranking` · `grafico` · `referencias` · `cta` · `produtos` · `linha_do_tempo`.
+
+Os dois últimos existem porque **Soluções e Roadmap não são prosa** — são dado estruturado
+com desenho próprio. Escrevê-los como blocos de `texto` obrigaria o app a interpretar
+parágrafo para montar carrossel e linha do tempo, que é o caminho para o desenho quebrar
+na primeira edição do texto.
+
+``` json
+{ "tipo": "produtos", "itens": [
+    { "ecossistema": "AxysEasy", "produto": "EasyPrice",
+      "descricao": "Consulta e análise de preços de referência.",
+      "disponibilidade": "em_desenvolvimento", "destaque": true } ] }
+
+{ "tipo": "linha_do_tempo", "escala": "ano",
+  "faixas": [ { "rotulo": "EASY", "de": "2026", "ate": "2026" },
+              { "rotulo": "EASY-EVOLUÇÃO", "de": "2027", "ate": "2027" } ],
+  "marcos": [ { "quando": "2026-10", "itens": ["EasyPrice", "EasyCPU", "EasyOrça"] },
+              { "quando": "2026-11", "itens": ["EasyProjectManager"] } ] }
+```
+
+`disponibilidade` é vocabulário fechado — `para_contratacao` | `em_desenvolvimento` |
+`planejado` —, e não texto livre: é ela que decide o rótulo e a cor na tela.
+
+**`escala` permite as duas visões do Roadmap** (`ano` e `mes`) a partir dos mesmos marcos,
+sem duplicar o conteúdo.
 
 **Regra de ouro — nunca transformar texto em imagem.** Texto, número, ranking, tabela e
 gráfico vão como **dados**; imagem é só fotografia e ilustração. Texto em imagem não é
@@ -636,6 +660,14 @@ versão nova, e o usuário precisa saber qual está levando.
 
 `solucoes.json`, `sobre.json` e `roadmap.json`, cada um no formato `conteudo.json`
 (blocos tipados). São os textos que hoje moram no binário.
+
+Os três usam blocos diferentes, e vale saber qual antes de escrever:
+
+| Documento | Blocos que carregam o peso |
+|---|---|
+| **Sobre a Axys** | `titulo` + `texto` — é prosa, e prosa cabe em bloco de texto |
+| **Soluções Axys** | **`produtos`** — carrossel, não parágrafo |
+| **Roadmap** | **`linha_do_tempo`** — e é a tela onde data errada mais custa credibilidade, então tem de ser dado atualizável sem release |
 
 Migrar para cá permite corrigir uma data do Roadmap **sem passar pela revisão da App
 Store**, que leva dias — e o Roadmap é justamente a tela onde data errada mais custa
