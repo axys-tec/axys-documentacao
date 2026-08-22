@@ -2146,11 +2146,7 @@ FROM identity.hub_tenant
 WHERE tenant_code IN ('AXYS', 'DIASECARDOZO')
 ON CONFLICT (tenant_id) DO UPDATE
 SET logo_json = EXCLUDED.logo_json,
-    revision = CASE
-        WHEN hub_tenant_customization.logo_json IS DISTINCT FROM EXCLUDED.logo_json
-        THEN hub_tenant_customization.revision + 1
-        ELSE hub_tenant_customization.revision
-    END,
+    revision = 1,
     updated_at = CASE
         WHEN hub_tenant_customization.logo_json IS DISTINCT FROM EXCLUDED.logo_json
         THEN now()
