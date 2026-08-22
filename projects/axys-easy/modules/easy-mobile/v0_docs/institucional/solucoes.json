@@ -1,0 +1,174 @@
+{
+  "id": "solucoes",
+  "titulo": "Soluções Axys",
+  "blocos": [
+    {
+      "tipo": "texto",
+      "texto_md": "Um ecossistema de microapps, não um sistema único. Cada um resolve uma dor específica da rotina técnica e pode ser usado sozinho ou em conjunto."
+    },
+    {
+      "tipo": "produtos",
+      "frentes": [
+        {
+          "id": "orcamentacao",
+          "rotulo": "Orçamentação",
+          "descricao": "Da estimativa paramétrica ao orçamento analítico e à documentação completa."
+        },
+        {
+          "id": "documentacao",
+          "rotulo": "Documentação técnica",
+          "descricao": "Memoriais e especificações via IFC/OpenBIM ou preenchimento guiado."
+        },
+        {
+          "id": "projeto-e-obra",
+          "rotulo": "Projeto e obra",
+          "descricao": "Estrutura operacional, checklists, evidências e diário de obra profissional."
+        },
+        {
+          "id": "controle-e-contratacao",
+          "rotulo": "Controle e contratação",
+          "descricao": "Medições, evolução físico-financeira e engenharia da contratação pública."
+        }
+      ],
+      "itens": [
+        {
+          "id": "easy-price",
+          "ecossistema": "AxysEasy",
+          "produto": "Easy Price™",
+          "frente": "orcamentacao",
+          "frente_rotulo": "Orçamentação",
+          "descricao": "Orçamento estimativo por parâmetros, com planilha itemizada e cronograma.",
+          "pontos": [
+            "Modelos por tipologia",
+            "Parâmetros simples ou compostos",
+            "Base para análise e proposta"
+          ],
+          "disponibilidade": "em_desenvolvimento",
+          "previsto": "2026-10",
+          "destaque": true
+        },
+        {
+          "id": "easy-cpu",
+          "ecossistema": "AxysEasy",
+          "produto": "Easy CPU™",
+          "frente": "orcamentacao",
+          "frente_rotulo": "Orçamentação",
+          "descricao": "Do Excel ao orçamento analítico, preservando o fluxo existente.",
+          "pontos": [
+            "Importação de planilhas",
+            "Cronograma e histograma",
+            "Atualização e reaproveitamento de bases"
+          ],
+          "disponibilidade": "em_desenvolvimento",
+          "previsto": "2026-10",
+          "destaque": true
+        },
+        {
+          "id": "easy-orca",
+          "ecossistema": "AxysEasy",
+          "produto": "Easy Orça™",
+          "frente": "orcamentacao",
+          "frente_rotulo": "Orçamentação",
+          "descricao": "Price e CPU reunidos, com documentação técnica vinculada ao orçamento.",
+          "pontos": [
+            "Descritivo automatizado",
+            "Caderno de encargos",
+            "Critérios de medição e remuneração"
+          ],
+          "disponibilidade": "em_desenvolvimento",
+          "previsto": "2026-10",
+          "destaque": true
+        },
+        {
+          "id": "easydocs",
+          "ecossistema": "AxysEasy",
+          "produto": "EasyDocs™",
+          "frente": "documentacao",
+          "frente_rotulo": "Documentação técnica",
+          "descricao": "Memoriais descritivos e especificações técnicas com rigor e velocidade.",
+          "pontos": [
+            "Parâmetros via IFC/OpenBIM",
+            "Modo guiado com checklists",
+            "Redação técnica padronizada",
+            "Uso possível mesmo sem BIM"
+          ],
+          "disponibilidade": "planejado",
+          "previsto": "2027-02",
+          "destaque": false
+        },
+        {
+          "id": "easy-projectmanager",
+          "ecossistema": "AxysEasy",
+          "produto": "Easy ProjectManager™",
+          "frente": "projeto-e-obra",
+          "frente_rotulo": "Projeto e obra",
+          "descricao": "Estrutura de projetos com padrão ASBEA ou metodologia própria.",
+          "pontos": [
+            "Organização por programa e escopo",
+            "Pastas automáticas",
+            "Checklists por disciplina",
+            "Governança desde a abertura"
+          ],
+          "disponibilidade": "em_desenvolvimento",
+          "previsto": "2026-11",
+          "destaque": false
+        },
+        {
+          "id": "easy-builddiary",
+          "ecossistema": "AxysEasy",
+          "produto": "Easy BuildDiary™",
+          "frente": "projeto-e-obra",
+          "frente_rotulo": "Projeto e obra",
+          "descricao": "Diário de obra objetivo, sustentado por evidências e PDF profissional.",
+          "pontos": [
+            "Atividades, condições e ocorrências",
+            "Fotos, arquivos e comentários",
+            "Observações padronizadas",
+            "Respaldo para fiscalização"
+          ],
+          "disponibilidade": "em_desenvolvimento",
+          "previsto": "2026-12",
+          "destaque": false
+        },
+        {
+          "id": "easy-fincontrol",
+          "ecossistema": "AxysEasy",
+          "produto": "Easy FinControl™",
+          "frente": "controle-e-contratacao",
+          "frente_rotulo": "Controle e contratação",
+          "descricao": "Medições e evolução físico-financeira com histórico rastreável.",
+          "pontos": [
+            "Medição por período ou etapa",
+            "Avanço físico e impacto financeiro",
+            "Histórico de ajustes",
+            "Exportação para Excel e relatórios"
+          ],
+          "disponibilidade": "em_desenvolvimento",
+          "previsto": "2026-12",
+          "destaque": false
+        },
+        {
+          "id": "easy-licitplan",
+          "ecossistema": "AxysEasy",
+          "produto": "Easy LicitPlan™",
+          "frente": "controle-e-contratacao",
+          "frente_rotulo": "Controle e contratação",
+          "descricao": "ETP, TR e estruturação técnica de processos públicos, com rastreabilidade.",
+          "pontos": [
+            "Geração orientada de ETP e TR",
+            "Matrizes de risco e requisitos técnicos",
+            "Biblioteca de modelos",
+            "Rastreabilidade de versões"
+          ],
+          "disponibilidade": "planejado",
+          "previsto": "2027-01",
+          "destaque": false
+        }
+      ]
+    },
+    {
+      "tipo": "texto",
+      "texto_md": "**Princípio do portfólio:** adotar apenas o necessário agora, preservando a integração futura.\n\nEasy Price e Easy CPU formam a base do Easy Orça — começar por um deles não fecha porta nenhuma."
+    }
+  ]
+}

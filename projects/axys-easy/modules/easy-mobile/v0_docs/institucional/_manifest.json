@@ -2,30 +2,11 @@
   "grupo": "INSTITUCIONAL",
   "gerado_em": null,
   "itens": [
-    {
-      "id": "manifesto",
-      "titulo": "Manifesto Axys",
-      "conteudo": "easy-mobile/institucional/manifesto.json"
-    },
-    {
-      "id": "missao-e-valores",
-      "titulo": "Missão e valores",
-      "conteudo": "easy-mobile/institucional/missao-e-valores.json"
-    },
-    {
-      "id": "sobre",
-      "titulo": "Sobre o AxysEasy Mobile",
-      "conteudo": "easy-mobile/institucional/sobre.json"
-    },
-    {
-      "id": "roadmap",
-      "titulo": "Roadmap",
-      "conteudo": "easy-mobile/institucional/roadmap.json"
-    },
-    {
-      "id": "principios-de-conteudo",
-      "titulo": "Como a gente escreve",
-      "conteudo": "easy-mobile/institucional/principios-de-conteudo.json"
-    }
+    { "id": "manifesto",              "titulo": "Manifesto Axys",             "conteudo": "easy-mobile/institucional/manifesto.json" },
+    { "id": "missao-e-valores",       "titulo": "Missão e valores",           "conteudo": "easy-mobile/institucional/missao-e-valores.json" },
+    { "id": "sobre",                  "titulo": "Sobre o AxysEasy Mobile",    "conteudo": "easy-mobile/institucional/sobre.json" },
+    { "id": "solucoes",               "titulo": "Soluções Axys",              "conteudo": "easy-mobile/institucional/solucoes.json" },
+    { "id": "roadmap",                "titulo": "Roadmap",                    "conteudo": "easy-mobile/institucional/roadmap.json" },
+    { "id": "principios-de-conteudo", "titulo": "Como a gente escreve",       "conteudo": "easy-mobile/institucional/principios-de-conteudo.json" }
   ]
 }

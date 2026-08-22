@@ -206,9 +206,9 @@ easy-mobile/
     ├── manifesto.json
     ├── missao-e-valores.json
     ├── sobre.json
+    ├── solucoes.json
     ├── roadmap.json
-    ├── principios-de-conteudo.json
-    └── solucoes.json        ← ainda não existe: depende da lista de produtos
+    └── principios-de-conteudo.json
 ```
 
 ---
@@ -339,6 +339,20 @@ isso morasse no app, uma decisão editorial só mudaria com release novo.
 
 `disponibilidade` é vocabulário fechado — `para_contratacao` | `em_desenvolvimento` |
 `planejado` —, e não texto livre: é ela que decide o rótulo e a cor na tela.
+
+**O bloco `produtos` agrupa por FRENTE**, e é isso que faz a vitrine dizer "não é um
+sistema monolítico" sem precisar escrever a frase. `frentes[]` declara as quatro
+(Orçamentação · Documentação técnica · Projeto e obra · Controle e contratação) e cada
+item aponta a sua em `frente`. `pontos[]` são as três ou quatro capacidades curtas do
+card; `previsto` é o mês do Roadmap.
+
+**`previsto` é verificado contra o Roadmap na publicação.** Portfólio e Roadmap contam a
+mesma história em dois arquivos, então divergir era questão de tempo: o validador exige
+que o mês exista como marco e que o produto apareça naquele marco. Coerência que se pede
+por escrito não se cumpre; esta é recusada na porta.
+
+**AxysPRO fica fora do portfólio de propósito** — existe só no Roadmap. Produto a três
+anos de distância, num carrossel de contratação, gera frustração em vez de expectativa.
 
 **`escala` permite as duas visões do Roadmap** (`ano` e `mes`) a partir dos mesmos marcos,
 sem duplicar o conteúdo.
@@ -686,12 +700,17 @@ de cache.
 | **Manifesto** · **Missão e valores** · **Como a gente escreve** | `titulo` + `texto` — é prosa, e prosa cabe em bloco de texto |
 | **Sobre o AxysEasy Mobile** | `titulo` + `texto` + uma `tabela` (os quatro pilares e a pergunta que cada um responde) |
 | **Roadmap** | **`linha_do_tempo`** — um bloco só, com as três faixas |
-| **Soluções Axys** | **`produtos`** — carrossel, não parágrafo. *Ainda não existe: depende da lista de produtos com descrição e disponibilidade de cada um.* |
+| **Soluções Axys** | **`produtos`** — carrossel, não parágrafo |
 
-**A fonte é o `.md`, o JSON é gerado** — `z_scripts_apoio/converte_institucional.py` lê
-`v0_docs/institucional/*.md` e escreve os `.json` ao lado. Quem escreve mexe no Markdown;
-ninguém edita o JSON à mão. O validador recusa a publicação se algum `.md` estiver mais
-novo que o seu JSON, que é como se publica texto velho sem perceber.
+**O JSON é a fonte — não existe Markdown por trás.** Chegou-se a manter um `.md` por
+documento com um conversor no meio, e durou pouco: duas fontes para o mesmo texto divergem,
+e a única defesa era um carimbo de data comparando as duas. Fonte única elimina a classe
+inteira de "publiquei a versão velha". A prosa mora nos `texto_md` dos blocos, que são
+Markdown — só que dentro do arquivo que vai para o ar.
+
+Em troca, o validador cobre o que o gerador cobria de graça: bloco fora do vocabulário,
+documento sem blocos, `id` divergente do manifesto e **arquivo solto na pasta que ninguém
+listou** — este último some em silêncio, já que só o manifesto navega.
 
 Estar aqui permite corrigir uma data do Roadmap **sem passar pela revisão da App Store**,
 que leva dias — e o Roadmap é justamente a tela onde data errada mais custa credibilidade.
