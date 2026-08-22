@@ -4041,6 +4041,17 @@ ALTER ROLE easy_mobile_reader SET default_transaction_read_only = on;
 ALTER ROLE easy_mobile_reader SET statement_timeout = '5s';
 ALTER ROLE easy_mobile_reader SET idle_in_transaction_session_timeout = '10s';
 
+-- CONNECT no banco. Sem isto, a role só entra porque HERDA o privilégio que o PUBLIC tem
+-- por padrão — e revogar o PUBLIC é passo comum de endurecimento, que derrubaria o app
+-- gratuito sem ninguém relacionar as duas coisas. A fronteira do serviço não pode depender
+-- de um default que alguém pode fechar num dia de faxina. Nome do banco vem de
+-- current_database() porque muda entre ambientes.
+DO $$
+BEGIN
+    EXECUTE format('GRANT CONNECT ON DATABASE %I TO easy_mobile_reader',
+                   current_database());
+END $$;
+
 -- USAGE no schema: necessário para RESOLVER NOMES — inclusive os das extensões, que
 -- vivem aqui (catalogo.unaccent, catalogo.word_similarity, operador catalogo.<%).
 -- Sem isto a busca elástica quebra. Conceder é seguro: USAGE não dá acesso a dado.
