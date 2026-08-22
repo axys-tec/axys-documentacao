@@ -32,7 +32,7 @@
       "chamada": "A fonte deve representar o fornecimento e a instalação realmente contratados, com validação de mercado quando necessário.",
       "assuntos": [
         "pesquisa-de-precos",
-        "equipamentos",
+        "equipamento",
         "orcamento"
       ],
       "conteudo": "easy-mobile/casos/ar-condicionado-preco-de-referencia/conteudo.json",
@@ -152,7 +152,7 @@
       "titulo": "Insumo aparece com preço zero na base oficial",
       "chamada": "Preço zero não é preço de mercado: a lacuna deve ser tratada com fonte rastreável e metodologia documentada.",
       "assuntos": [
-        "insumos",
+        "insumo",
         "pesquisa-de-precos",
         "sinapi"
       ],

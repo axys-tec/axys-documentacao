@@ -342,6 +342,7 @@ sugira um "sim" que o texto não dá.
 {
   "id": "andaime-aditivo-fora-da-planilha",
   "titulo": "Andaime não previsto na planilha contratual",
+  "assuntos": ["aditivo-contratual", "empreitada-por-preco-unitario"],
   "publicado_em": "2026-08-15",
   "situacao_md": "A planilha contratual não previu andaime fachadeiro. A execução da fachada exige…",
   "resposta_curta": "Pode ser possível, mas depende do regime de execução e de a quem se atribui a omissão.",
