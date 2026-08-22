@@ -780,10 +780,13 @@ O app baixa **direto do R2/CDN**. A API não é proxy de arquivo.
 
 **Bucket público existente, domínio existente.** Nada de hostname novo: `public.axys-tec.com.br` já aponta para o `axys-public` e já é o único hostname **proxiado** na Cloudflare.
 
-Layout sob o namespace `easy/`, como todo o resto do Easy:
+Namespace próprio **`easy-mobile/`** — não `easy/`. O conteúdo existe só para o
+aplicativo, e o nome acompanha o produto, que já se chama assim no repositório
+(`axys-easy-mobile`), no hostname (`easy-mobile.axys-tec.com.br`) e na audience do token
+(`aud=easy-mobile`). Criado em 21/08/2026.
 
 ``` text
-easy/conteudo/
+easy-mobile/
 ├── _ultimas.json                    ← agregado, últimas N publicações de todos os grupos
 ├── newsletter/
 │   ├── _manifest.json
@@ -795,11 +798,19 @@ easy/conteudo/
 ├── artigos/
 │   ├── _manifest.json
 │   └── acordao-tcu-2622-2013/…
-├── terminologia/
-│   └── _manifest.json
-└── downloads/
-    └── _manifest.json
+├── terminologia/_manifest.json
+├── downloads/_manifest.json
+├── duvidas/_manifest.json
+└── institucional/_manifest.json     ← Soluções Axys · Sobre a Axys · Roadmap
 ```
+
+**Path em slug ASCII**, sempre: `duvidas/`, não `dúvidas/`. Acento em URL vira
+`d%C3%BAvidas`, quebra copiar-e-colar e cada cliente codifica de um jeito. O rótulo na
+tela continua "Dúvidas & Perguntas" — nome de pasta e nome de tela são coisas diferentes.
+
+**`institucional/`** guarda Soluções, Sobre e Roadmap, que hoje moram no binário. Migrar
+para o R2 permite corrigir uma data do Roadmap sem passar pela revisão da App Store — que
+leva dias, e é justamente a tela onde data errada mais custa credibilidade.
 
 **Os paths nascem em `backend/modules/catalogo/storage_paths.py`**, não escritos à mão. É a regra da casa: nada de path de storage solto pelo código, para o layout ficar num lugar só.
 
