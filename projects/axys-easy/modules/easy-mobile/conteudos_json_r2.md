@@ -36,6 +36,64 @@ para ninguém renderizar como texto puro por engano.
 
 ---
 
+## Fonte, validação e publicação
+
+**A fonte é versionada; o R2 é o resultado.**
+
+``` text
+docs/projects/axys-easy/modules/easy-mobile/v0_docs/   ← FONTE (git, com histórico)
+   ↓  valida_conteudo_mobile.py                        ← PORTÃO
+public.axys-tec.com.br/easy-mobile/                    ← PUBLICADO (sem histórico)
+```
+
+O bucket não versiona, e já houve exclusão acidental de bucket neste projeto. Editar
+direto no R2 é perder o trabalho na primeira distração.
+
+### O portão
+
+```
+python3 z_scripts_apoio/valida_conteudo_mobile.py
+```
+
+Roda sobre a **fonte**, antes de publicar — validar o R2 depois seria tarde, o conteúdo
+já estaria servindo. Sai com `1` se houver erro, então serve para travar a publicação.
+
+**ERRO bloqueia:** campo ausente ou não previsto, `id` diferente do slug do termo, `id`
+duplicado, item no manifesto sem pasta ou pasta sem item, vínculo apontando para id
+inexistente, campo `_md` vazio, uso de `vinculados` no lugar de `referencias`, assuntos
+divergindo entre manifesto e conteúdo, e **colisão inequívoca de vocabulário** — plural
+(`insumos` × `insumo`) ou grafia quase idêntica.
+
+**AVISO não bloqueia:** assunto sem verbete que não é colisão, assunto **vizinho** de um
+verbete, travessão no texto, expressão burocrática e monotonia de molde nas distinções.
+
+### Por que o portão existe
+
+O vocabulário rachou **duas vezes seguidas**, em lotes diferentes e do mesmo jeito:
+`aditivos` convivendo com o verbete `aditivo-contratual`, `canteiro` com
+`canteiro-de-obras`, `limite` com `limites`. Não é descuido de quem escreve — é que nada
+barrava antes de publicar. Etiqueta rachada quebra o agrupamento no aplicativo e esvazia
+as `referencias`, que são o que transforma três listas soltas numa teia.
+
+Na primeira execução ele pegou o que a revisão manual deixou passar (`equipamentos` ×
+`equipamento`, `insumos` × `insumo`) e, depois, dois erros de quem o escreveu: um verbete
+criado com `id` fora do slug e os vínculos que ficaram apontando para o id antigo.
+
+### Duas regras de vocabulário que só apareceram no uso
+
+**Assunto usado em dois ou mais documentos não é cauda longa — é conceito faltando no
+glossário.** Foi essa régua que gerou os verbetes de `orcamento`, `preco-global`,
+`edital`, `regime-de-execucao`, `contrato-verbal` e `atraso`: todos vieram do uso real,
+nenhum de brainstorm. Assunto usado uma vez só (`insalubridade`, `frete`, `quimica`) fica
+como está — forçar verbete para etiqueta ocasional incha o glossário sem servir ninguém.
+
+**Gênero e espécie não são colisão.** `orcamento` e `orcamento-analitico` compartilham o
+prefixo e **devem coexistir**; já `reequilibrio` e `reequilibrio-economico-financeiro` são
+o mesmo conceito abreviado. Máquina não separa os dois casos, e por isso vizinhança por
+prefixo é aviso, não erro: quem decide é quem escreve.
+
+---
+
 ## A regra de partição
 
 Como quebrar o conteúdo em arquivos não é gosto, é padrão de uso:

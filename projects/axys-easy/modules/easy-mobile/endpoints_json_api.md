@@ -3,6 +3,11 @@
 **Serviço:** `backend/app_mobile_api.py` · **Host (prod):** `easy-mobile.axys-tec.com.br`
 **Prefixo:** `/v0` · **Governado por:** `projeto.md` (este documento detalha; aquele decide)
 
+> **A API não serve conteúdo editorial.** Newsletter, artigos, terminologia, casos,
+> acórdãos e downloads vêm do **R2/CDN**, direto para o aplicativo, sem passar por aqui —
+> formato e layout em **`conteudos_json_r2.md`**. Esta API entrega **dados de custo**:
+> catálogo, busca, composições, insumos, índices, conversão e simulação.
+
 ---
 
 ## Regras que valem para TODAS as rotas
