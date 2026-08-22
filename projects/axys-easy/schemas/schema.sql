@@ -2395,6 +2395,15 @@ CREATE INDEX ix_cc_edi
 CREATE INDEX ix_composicoes_custo_uf
     ON catalogo.composicoes_custo (cc_uf);
 
+-- Recorte edição+UF. Sem ele o planejador cai na UNIQUE uq_cc_cmp_edi_uf_mod, que lidera
+-- por cc_cmp_id: como a consulta não filtra por composição, ele não consegue se posicionar
+-- e LÊ O ÍNDICE INTEIRO (1,6 GB em prod). Era por isso que somar o filtro de UF deixava a
+-- consulta MAIS LENTA devolvendo 27x menos linhas — sintoma clássico de coluna líder errada.
+-- Medido em dev (864k linhas): 63,8ms/646 buffers -> 1,5ms/30 buffers.
+-- Em prod aplicar com CREATE INDEX CONCURRENTLY, FORA de transação (leva alguns minutos).
+CREATE INDEX ix_cc_edi_uf
+    ON catalogo.composicoes_custo (cc_edi_id, cc_uf);
+
 
 -- ============================================================
 -- TABELA: catalogo.parametros_normativos   (2026-08-11)
