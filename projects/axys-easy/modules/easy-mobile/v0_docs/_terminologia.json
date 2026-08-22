@@ -1,6 +1,6 @@
 {
   "grupo": "TERMINOLOGIA",
-  "gerado_em": "2026-08-22T00:00:00Z",
+  "gerado_em": "2026-08-22T02:00:00Z",
   "itens": [
     {
       "id": "acordao",
@@ -132,6 +132,31 @@
         "contratacao-integrada"
       ],
       "referencias": []
+    },
+    {
+      "id": "atraso",
+      "termo": "Atraso",
+      "expansao": null,
+      "conceito_md": "Descompasso entre o prazo previsto no cronograma e o efetivamente realizado.",
+      "funcao_pratica_md": "A consequência depende da causa: atraso imputável ao contratado atrai sanção; o causado pela Administração ou por fato externo pode gerar prorrogação e reequilíbrio.",
+      "distincoes": [
+        {
+          "termo": "Prorrogação",
+          "diferenca_md": "Atraso é o fato. Prorrogação é a decisão formal que estende o prazo depois de examinar a causa."
+        }
+      ],
+      "ver_tambem": [
+        "cronograma-fisico-financeiro",
+        "reequilibrio-economico-financeiro",
+        "matriz-de-riscos"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ]
     },
     {
       "id": "bdi",
@@ -295,6 +320,30 @@
         "matriz-de-riscos"
       ],
       "referencias": []
+    },
+    {
+      "id": "contrato-verbal",
+      "termo": "Contrato verbal",
+      "expansao": null,
+      "conceito_md": "Ajuste sem instrumento escrito, vedado na contratação pública salvo hipótese estrita de pequena compra de pronto pagamento.",
+      "funcao_pratica_md": "Serviço executado sem cobertura contratual escrita não vira aditivo automático: cria discussão sobre indenização e sobre responsabilidade de quem autorizou.",
+      "distincoes": [
+        {
+          "termo": "Aditivo contratual",
+          "diferenca_md": "O aditivo formaliza antes de executar. O contrato verbal é a ausência dessa formalização, e o problema começa aí."
+        }
+      ],
+      "ver_tambem": [
+        "aditivo-contratual",
+        "servico-novo"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ]
     },
     {
       "id": "cotacao-de-mercado",
@@ -497,6 +546,31 @@
       "referencias": []
     },
     {
+      "id": "edital",
+      "termo": "Edital",
+      "expansao": null,
+      "conceito_md": "Documento que convoca a licitação e fixa as regras da disputa e da futura contratação.",
+      "funcao_pratica_md": "É onde se resolvem antecipadamente quase todas as dúvidas de execução: critério de medição, reajuste, matriz de riscos e tratamento de alterações.",
+      "distincoes": [
+        {
+          "termo": "Contrato",
+          "diferenca_md": "O edital rege a disputa e vincula quem participa. O contrato rege a execução e vincula quem venceu."
+        }
+      ],
+      "ver_tambem": [
+        "matriz-de-riscos",
+        "matriz-de-riscos",
+        "regime-de-execucao"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ]
+    },
+    {
       "id": "efeito-cotacao",
       "termo": "Efeito cotação",
       "expansao": null,
@@ -555,6 +629,30 @@
           "tipo": "url",
           "rotulo": "Lei 14.133/2021",
           "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ]
+    },
+    {
+      "id": "empresa-estatal",
+      "termo": "Empresa estatal",
+      "expansao": null,
+      "conceito_md": "Empresa pública ou sociedade de economia mista, que contrata sob regime jurídico próprio.",
+      "funcao_pratica_md": "Não segue a lei geral de licitações: tem estatuto próprio, com regras distintas de orçamento sigiloso, alteração contratual e regime de execução.",
+      "distincoes": [
+        {
+          "termo": "Administração direta",
+          "diferenca_md": "A administração direta contrata pela lei geral de licitações, já a estatal segue o estatuto das empresas públicas."
+        }
+      ],
+      "ver_tambem": [
+        "regime-de-execucao",
+        "edital"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 13.303/2016",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13303.htm"
         }
       ]
     },
@@ -984,6 +1082,32 @@
       "referencias": []
     },
     {
+      "id": "orcamento",
+      "termo": "Orçamento",
+      "expansao": null,
+      "conceito_md": "Estimativa organizada do custo de uma obra, formada por serviços, quantidades e preços unitários.",
+      "funcao_pratica_md": "É a base de tudo o que vem depois: define o valor de referência da licitação, o critério de medição e o parâmetro contra o qual os aditivos serão julgados.",
+      "distincoes": [
+        {
+          "termo": "Planilha orçamentária",
+          "diferenca_md": "O orçamento é o trabalho de estimar. A planilha é o documento onde ele se apresenta."
+        }
+      ],
+      "ver_tambem": [
+        "planilha-orcamentaria",
+        "orcamento-analitico",
+        "orcamento-sintetico",
+        "orcamento-estimado"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ]
+    },
+    {
       "id": "orcamento-analitico",
       "termo": "Orçamento analítico",
       "expansao": null,
@@ -1107,6 +1231,53 @@
       ]
     },
     {
+      "id": "planilha-orcamentaria",
+      "termo": "Planilha orçamentária",
+      "expansao": null,
+      "conceito_md": "Documento que lista os serviços da obra com unidade, quantidade, preço unitário e total.",
+      "funcao_pratica_md": "É por ela que se mede, se paga e se controla o contrato. Cada linha vira objeto de medição, e é onde o jogo de planilha se instala quando os preços saem do lugar.",
+      "distincoes": [
+        {
+          "termo": "Memória de cálculo",
+          "diferenca_md": "A planilha mostra o resultado, já a memória mostra como as quantidades foram obtidas."
+        }
+      ],
+      "ver_tambem": [
+        "orcamento",
+        "memoria-de-calculo",
+        "medicao",
+        "jogo-de-planilha",
+        "quantitativo"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ]
+    },
+    {
+      "id": "preco",
+      "termo": "Preço",
+      "expansao": null,
+      "conceito_md": "Valor pelo qual um serviço é contratado, formado pelo custo somado ao BDI.",
+      "funcao_pratica_md": "É o que aparece na planilha e no contrato. Confundir preço com custo é a origem de boa parte das divergências de análise.",
+      "distincoes": [
+        {
+          "termo": "Custo",
+          "diferenca_md": "Custo é o que se gasta para executar. Preço é o que se cobra por isso."
+        }
+      ],
+      "ver_tambem": [
+        "custo-direto",
+        "preco-unitario",
+        "bdi",
+        "preco-de-referencia"
+      ],
+      "referencias": []
+    },
+    {
       "id": "preco-de-referencia",
       "termo": "Preço de referência",
       "expansao": null,
@@ -1122,6 +1293,31 @@
         "cotacao-de-mercado",
         "custo-de-referencia",
         "orcamento-estimado"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ]
+    },
+    {
+      "id": "preco-global",
+      "termo": "Preço global",
+      "expansao": null,
+      "conceito_md": "Valor total do contrato, resultante da soma de todos os serviços e quantidades da planilha.",
+      "funcao_pratica_md": "É a referência para os limites de acréscimo e supressão, e o número que a fiscalização acompanha ao longo da execução.",
+      "distincoes": [
+        {
+          "termo": "Empreitada por preço global",
+          "diferenca_md": "Preço global é o valor. A empreitada por preço global é o regime que amarra o pagamento a esse valor em vez de à medição unitária."
+        }
+      ],
+      "ver_tambem": [
+        "empreitada-por-preco-global",
+        "limite-de-alteracao",
+        "orcamento"
       ],
       "referencias": [
         {
@@ -1194,6 +1390,31 @@
         "mao-de-obra"
       ],
       "referencias": []
+    },
+    {
+      "id": "projeto",
+      "termo": "Projeto",
+      "expansao": null,
+      "conceito_md": "Conjunto de elementos técnicos que define a obra a ser executada: desenhos, memoriais, especificações e cálculos.",
+      "funcao_pratica_md": "Orçamento só é confiável na medida em que o projeto é. Boa parte dos aditivos nasce de projeto incompleto, não de imprevisto.",
+      "distincoes": [
+        {
+          "termo": "Projeto básico",
+          "diferenca_md": "Projeto é o gênero, já o básico é o estágio que a lei exige para licitar."
+        }
+      ],
+      "ver_tambem": [
+        "projeto-basico",
+        "anteprojeto",
+        "orcamento"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ]
     },
     {
       "id": "projeto-basico",
@@ -1273,6 +1494,32 @@
       "ver_tambem": [
         "matriz-de-riscos",
         "reajuste"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ]
+    },
+    {
+      "id": "regime-de-execucao",
+      "termo": "Regime de execução",
+      "expansao": null,
+      "conceito_md": "Forma pela qual o objeto é contratado e pago: preço unitário, preço global, contratação integrada, semi-integrada e outras.",
+      "funcao_pratica_md": "Define quem assume o risco de quantitativo e como se mede. É a primeira coisa a verificar quando surge dúvida sobre aditivo.",
+      "distincoes": [
+        {
+          "termo": "Modalidade de licitação",
+          "diferenca_md": "O regime diz como se executa e se paga, já a modalidade diz como se escolhe o contratado."
+        }
+      ],
+      "ver_tambem": [
+        "empreitada-por-preco-unitario",
+        "empreitada-por-preco-global",
+        "contratacao-integrada",
+        "matriz-de-riscos"
       ],
       "referencias": [
         {

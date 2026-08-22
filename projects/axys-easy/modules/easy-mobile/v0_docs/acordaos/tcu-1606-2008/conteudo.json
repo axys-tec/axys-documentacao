@@ -27,6 +27,12 @@
       "rotulo": "Serviço novo",
       "grupo": "TERMINOLOGIA",
       "id": "servico-novo"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Contrato verbal",
+      "grupo": "TERMINOLOGIA",
+      "id": "contrato-verbal"
     }
   ],
   "pdf": null,

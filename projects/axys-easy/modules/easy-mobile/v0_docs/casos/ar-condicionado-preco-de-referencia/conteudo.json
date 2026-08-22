@@ -15,7 +15,7 @@
   "verificar": [
     "O preço inclui somente o equipamento ou também instalação, tubulação, dreno, elétrica e partida?",
     "Capacidade, eficiência energética e tecnologia são equivalentes entre as fontes?",
-    "A composição oficial está disponível e é adequada à localidade e à data-base?",
+    "A composição oficial está disponível e é compatível à localidade e à data-base?",
     "As cotações são independentes, atuais e comparáveis?",
     "Há custos de frete, içamento, testes, garantia ou assistência técnica?"
   ],
@@ -46,6 +46,18 @@
       "rotulo": "Acórdão TCU 46/2012",
       "grupo": "ACORDAOS",
       "id": "tcu-46-2012"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Equipamento",
+      "grupo": "TERMINOLOGIA",
+      "id": "equipamento"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Orçamento",
+      "grupo": "TERMINOLOGIA",
+      "id": "orcamento"
     }
   ],
   "assuntos": [

@@ -7,7 +7,7 @@
     "orcamento",
     "custo-unitario",
     "edital",
-    "planilha"
+    "planilha-orcamentaria"
   ],
   "tese_md": "O edital deve exigir dos licitantes planilhas que expressem a composição de todos os custos unitários.",
   "aplicacao_pratica_md": "Inclua no instrumento convocatório modelo de planilha e regras de preenchimento que permitam identificar insumos, coeficientes, preços e parcelas que formam cada custo unitário.",
@@ -21,6 +21,24 @@
       "rotulo": "Custo unitário",
       "grupo": "TERMINOLOGIA",
       "id": "custo-unitario"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Orçamento",
+      "grupo": "TERMINOLOGIA",
+      "id": "orcamento"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Edital",
+      "grupo": "TERMINOLOGIA",
+      "id": "edital"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Planilha orçamentária",
+      "grupo": "TERMINOLOGIA",
+      "id": "planilha-orcamentaria"
     }
   ],
   "pdf": null,

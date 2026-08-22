@@ -20,6 +20,12 @@
       "rotulo": "Aditivo contratual",
       "grupo": "TERMINOLOGIA",
       "id": "aditivo-contratual"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Planilha orçamentária",
+      "grupo": "TERMINOLOGIA",
+      "id": "planilha-orcamentaria"
     }
   ],
   "pdf": null,

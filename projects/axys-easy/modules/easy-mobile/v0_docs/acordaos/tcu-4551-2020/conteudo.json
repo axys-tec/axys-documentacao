@@ -5,7 +5,7 @@
   "data": null,
   "assuntos": [
     "matriz-de-riscos",
-    "estatal",
+    "empresa-estatal",
     "reequilibrio-economico-financeiro",
     "aditivo-contratual"
   ],
@@ -33,6 +33,18 @@
       "rotulo": "Aditivo contratual",
       "grupo": "TERMINOLOGIA",
       "id": "aditivo-contratual"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Empresa estatal",
+      "grupo": "TERMINOLOGIA",
+      "id": "empresa-estatal"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Empresa estatal",
+      "grupo": "TERMINOLOGIA",
+      "id": "empresa-estatal"
     }
   ],
   "pdf": null,

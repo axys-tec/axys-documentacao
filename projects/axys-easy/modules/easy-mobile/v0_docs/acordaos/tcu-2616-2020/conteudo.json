@@ -5,7 +5,7 @@
   "data": null,
   "assuntos": [
     "matriz-de-riscos",
-    "estatal",
+    "empresa-estatal",
     "preco-global",
     "incerteza"
   ],
@@ -21,6 +21,24 @@
       "rotulo": "Matriz de riscos",
       "grupo": "TERMINOLOGIA",
       "id": "matriz-de-riscos"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Empresa estatal",
+      "grupo": "TERMINOLOGIA",
+      "id": "empresa-estatal"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Preço global",
+      "grupo": "TERMINOLOGIA",
+      "id": "preco-global"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Empresa estatal",
+      "grupo": "TERMINOLOGIA",
+      "id": "empresa-estatal"
     }
   ],
   "pdf": null,

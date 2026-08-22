@@ -19,6 +19,18 @@
       "rotulo": "Matriz de riscos",
       "grupo": "TERMINOLOGIA",
       "id": "matriz-de-riscos"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Preço global",
+      "grupo": "TERMINOLOGIA",
+      "id": "preco-global"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Projeto",
+      "grupo": "TERMINOLOGIA",
+      "id": "projeto"
     }
   ],
   "pdf": null,

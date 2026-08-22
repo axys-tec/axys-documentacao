@@ -46,6 +46,12 @@
       "rotulo": "Acórdão TCU 2699/2019",
       "grupo": "ACORDAOS",
       "id": "tcu-2699-2019"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Planilha orçamentária",
+      "grupo": "TERMINOLOGIA",
+      "id": "planilha-orcamentaria"
     }
   ],
   "assuntos": [

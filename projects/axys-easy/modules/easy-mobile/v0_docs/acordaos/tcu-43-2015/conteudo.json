@@ -6,7 +6,7 @@
   "assuntos": [
     "fiscalizacao",
     "aditivo-contratual",
-    "servico-nao-previsto"
+    "servico-novo"
   ],
   "tese_md": "O fiscal do contrato deve conhecer os limites e as regras das alterações contratuais e comunicar aos superiores a necessidade de aditivo, evitando atestar itens não previstos no ajuste.",
   "aplicacao_pratica_md": "Ao identificar item extracontratual, registre a ocorrência, informe a autoridade competente e não ateste a despesa como se estivesse coberta pelo contrato original.",
@@ -26,6 +26,12 @@
       "rotulo": "Aditivo contratual",
       "grupo": "TERMINOLOGIA",
       "id": "aditivo-contratual"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Serviço novo",
+      "grupo": "TERMINOLOGIA",
+      "id": "servico-novo"
     }
   ],
   "pdf": null,

@@ -52,6 +52,12 @@
       "rotulo": "Acórdão TCU 2348/2011",
       "grupo": "ACORDAOS",
       "id": "tcu-2348-2011"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Regime de execução",
+      "grupo": "TERMINOLOGIA",
+      "id": "regime-de-execucao"
     }
   ],
   "assuntos": [

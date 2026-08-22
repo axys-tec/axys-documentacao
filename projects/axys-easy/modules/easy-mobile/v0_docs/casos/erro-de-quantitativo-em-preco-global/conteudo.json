@@ -53,6 +53,12 @@
       "rotulo": "Acórdão TCU 2433/2016",
       "grupo": "ACORDAOS",
       "id": "tcu-2433-2016"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Preço global",
+      "grupo": "TERMINOLOGIA",
+      "id": "preco-global"
     }
   ],
   "assuntos": [

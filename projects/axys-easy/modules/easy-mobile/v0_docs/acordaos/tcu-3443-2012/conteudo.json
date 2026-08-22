@@ -27,6 +27,12 @@
       "rotulo": "Canteiro de obras",
       "grupo": "TERMINOLOGIA",
       "id": "canteiro-de-obras"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Atraso",
+      "grupo": "TERMINOLOGIA",
+      "id": "atraso"
     }
   ],
   "pdf": null,

@@ -196,7 +196,7 @@
       "assuntos": [
         "fiscalizacao",
         "aditivo-contratual",
-        "servico-nao-previsto"
+        "servico-novo"
       ],
       "tese_curta": "O fiscal deve comunicar a necessidade de aditivo e evitar atestar item sem cobertura contratual.",
       "conteudo": "easy-mobile/acordaos/tcu-43-2015/conteudo.json"
@@ -254,7 +254,7 @@
         "orcamento",
         "custo-unitario",
         "edital",
-        "planilha"
+        "planilha-orcamentaria"
       ],
       "tese_curta": "O edital deve exigir planilhas que expressem a composição de todos os custos unitários.",
       "conteudo": "easy-mobile/acordaos/tcu-2341-2020/conteudo.json"
@@ -297,7 +297,7 @@
       "titulo": "Acórdão TCU 2616/2020 — matriz de riscos nas estatais",
       "assuntos": [
         "matriz-de-riscos",
-        "estatal",
+        "empresa-estatal",
         "preco-global",
         "incerteza"
       ],
@@ -312,7 +312,7 @@
       "titulo": "Acórdão TCU 4551/2020 — cláusula de matriz de riscos",
       "assuntos": [
         "matriz-de-riscos",
-        "estatal",
+        "empresa-estatal",
         "reequilibrio-economico-financeiro",
         "aditivo-contratual"
       ],
@@ -404,7 +404,7 @@
         "atraso",
         "administracao-local",
         "canteiro-de-obras",
-        "reequilibrio"
+        "reequilibrio-economico-financeiro"
       ],
       "tese_curta": "Atraso por culpa exclusiva da contratada não justifica acréscimo de administração local e canteiro.",
       "conteudo": "easy-mobile/acordaos/tcu-178-2019/conteudo.json"

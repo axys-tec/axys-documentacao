@@ -52,6 +52,12 @@
       "rotulo": "Acórdão TCU 2341/2020",
       "grupo": "ACORDAOS",
       "id": "tcu-2341-2020"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Orçamento",
+      "grupo": "TERMINOLOGIA",
+      "id": "orcamento"
     }
   ],
   "assuntos": [

@@ -33,6 +33,12 @@
       "rotulo": "Quantitativo",
       "grupo": "TERMINOLOGIA",
       "id": "quantitativo"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Preço global",
+      "grupo": "TERMINOLOGIA",
+      "id": "preco-global"
     }
   ],
   "pdf": null,

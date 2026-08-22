@@ -26,6 +26,12 @@
       "rotulo": "Matriz de riscos",
       "grupo": "TERMINOLOGIA",
       "id": "matriz-de-riscos"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Edital",
+      "grupo": "TERMINOLOGIA",
+      "id": "edital"
     }
   ],
   "pdf": null,

@@ -7,7 +7,7 @@
     "atraso",
     "administracao-local",
     "canteiro-de-obras",
-    "reequilibrio"
+    "reequilibrio-economico-financeiro"
   ],
   "tese_md": "É indevido acrescer, por aditivo, valores de administração local e de operação e manutenção do canteiro quando o atraso da obra decorrer de culpa exclusiva da contratada.",
   "aplicacao_pratica_md": "Antes de reconhecer custos decorrentes da prorrogação, apure a causa do atraso. Se a responsabilidade for exclusiva da contratada, não trate a ampliação de prazo como fundamento automático para aumentar esses itens.",
@@ -27,6 +27,18 @@
       "rotulo": "Canteiro de obras",
       "grupo": "TERMINOLOGIA",
       "id": "canteiro-de-obras"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Atraso",
+      "grupo": "TERMINOLOGIA",
+      "id": "atraso"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Reequilíbrio econômico-financeiro",
+      "grupo": "TERMINOLOGIA",
+      "id": "reequilibrio-economico-financeiro"
     }
   ],
   "pdf": null,

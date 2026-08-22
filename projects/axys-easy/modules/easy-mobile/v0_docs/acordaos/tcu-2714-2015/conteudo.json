@@ -13,7 +13,14 @@
   "aplicacao_pratica_md": "Classifique e documente a causa do atraso antes de prorrogar o prazo: evento da Administração, fato externo ou mora da contratada. Vincule a conclusão a evidências e às consequências contratuais correspondentes.",
   "limites_md": "A atribuição de causa e responsabilidade depende do nexo causal e das circunstâncias do caso. Penalidades exigem processo regular, contraditório e proporcionalidade.",
   "dispositivos": [],
-  "referencias": [],
+  "referencias": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Atraso",
+      "grupo": "TERMINOLOGIA",
+      "id": "atraso"
+    }
+  ],
   "pdf": null,
   "publicado_em": "2026-08-22"
 }

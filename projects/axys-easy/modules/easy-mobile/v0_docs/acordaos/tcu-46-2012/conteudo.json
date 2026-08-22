@@ -26,6 +26,12 @@
       "rotulo": "Preço unitário",
       "grupo": "TERMINOLOGIA",
       "id": "preco-unitario"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Orçamento",
+      "grupo": "TERMINOLOGIA",
+      "id": "orcamento"
     }
   ],
   "pdf": null,
