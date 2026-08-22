@@ -1,0 +1,109 @@
+{
+  "assunto": "composicoes",
+  "titulo": "Composições e insumos",
+  "gerado_em": "2026-08-22T15:00:00Z",
+  "itens": [
+    {
+      "id": "ler-composicao-custo-unitario",
+      "pergunta": "Como ler uma composição de custo unitário?",
+      "resposta_direta": "Leia cada linha como **insumo × coeficiente = custo parcial**. Some materiais, mão de obra, equipamentos e composições auxiliares para chegar ao custo unitário do serviço.",
+      "explicacao_md": "O cabeçalho informa unidade e descrição do serviço. O coeficiente representa o consumo necessário para produzir uma unidade, já o preço unitário vem da referência escolhida. Antes de aceitar o total, confira se unidade, produtividade, perdas e condições de execução correspondem ao projeto. A descrição completa e as notas metodológicas são tão importantes quanto o código.",
+      "exemplo_md": "Para 0,20 h de equipamento a R$ 150/h, o custo parcial é R$ 30. Se também houver material e mão de obra, seus parciais são somados para formar o custo do serviço.",
+      "ressalva_md": "Composições referenciais representam condições médias. Transporte, altura, acesso, escala ou tecnologia diferente podem exigir ajustes tecnicamente justificados, sem alterar silenciosamente o significado do serviço.\n\nComo verificação final, confira unidade, produtividade, coeficientes, perdas, equipamentos e escopo do serviço. A composição deve permitir que outra pessoa reconstrua o raciocínio do preço sem depender de informações que ficaram apenas na memória de quem orçou.",
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "SINAPI Metodologias e Conceitos",
+          "url": "https://www.caixa.gov.br/Downloads/sinapi-metodologia/Livro_SINAPI_Metodologias_Conceitos.pdf"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    },
+    {
+      "id": "verificar-coeficiente-consumo",
+      "pergunta": "Como verificar se um coeficiente de consumo está coerente?",
+      "resposta_direta": "Compare-o com produtividade, unidade do serviço, projeto, método executivo e histórico confiável. Depois, refaça a relação física para entender quanto do insumo é consumido por unidade produzida.",
+      "explicacao_md": "Coeficientes não devem ser avaliados isoladamente. Um número aparentemente alto pode incluir perdas, sobreposição ou tempo improdutivo previsto na metodologia. A conferência pode usar desenhos, especificações, fichas técnicas, medições anteriores e composição oficial equivalente. O objetivo é explicar o consumo, não apenas aproximá-lo de uma média.",
+      "exemplo_md": "Se uma equipe produz 8 m² por hora, o coeficiente da equipe é `1 ÷ 8 = 0,125 h/m²`. Se a produção cair para 5 m²/h, o coeficiente sobe para 0,20 h/m².",
+      "ressalva_md": "Não substitua produtividade referencial por percepção pessoal. Registre fonte, condições e cálculo. Mudanças relevantes devem ser compatíveis com o planejamento e com a realidade do canteiro.\n\nComo verificação final, confira unidade, produtividade, coeficientes, perdas, equipamentos e escopo do serviço. A composição deve permitir que outra pessoa reconstrua o raciocínio do preço sem depender de informações que ficaram apenas na memória de quem orçou.",
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "SINAPI Metodologias e Conceitos",
+          "url": "https://www.caixa.gov.br/Downloads/sinapi-metodologia/Livro_SINAPI_Metodologias_Conceitos.pdf"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    },
+    {
+      "id": "criar-composicao-propria",
+      "pergunta": "Quando é compatível criar uma composição própria?",
+      "resposta_direta": "Quando o serviço não existe na base, quando a referência não representa a solução projetada ou quando as condições justificam adaptação. A composição deve ter memória técnica verificável.",
+      "explicacao_md": "Comece definindo exatamente o serviço, sua unidade e o método executivo. Em seguida, liste equipe, equipamentos, materiais, produtividades, perdas e composições auxiliares. Use preços da data e localidade do orçamento. Sempre que possível, aproveite insumos e referências oficiais, mantendo a origem de cada dado. Uma composição própria não deve ser um preço global sem abertura.",
+      "exemplo_md": "Para um sistema construtivo específico não encontrado no SINAPI, podem ser usados salários e materiais oficiais, produtividade do fabricante validada tecnicamente e cotações documentadas para itens exclusivos.",
+      "ressalva_md": "A ausência de código não autoriza estimativa arbitrária. Verifique se há serviço equivalente, evite duplicidades e submeta premissas relevantes à revisão técnica exigida pela contratação.\n\nComo verificação final, confira unidade, produtividade, coeficientes, perdas, equipamentos e escopo do serviço. A composição deve permitir que outra pessoa reconstrua o raciocínio do preço sem depender de informações que ficaram apenas na memória de quem orçou.",
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "SINAPI página oficial",
+          "url": "https://www.caixa.gov.br/poder-publico/modernizacao-gestao/sinapi/Paginas/default.aspx"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    },
+    {
+      "id": "substituir-insumo-composicao",
+      "pergunta": "Como substituir um insumo sem distorcer a composição?",
+      "resposta_direta": "Confirme equivalência técnica, ajuste unidade e coeficiente, atualize preço e preserve a função desempenhada. A troca precisa manter a mesma entrega prevista para o serviço.",
+      "explicacao_md": "Nome semelhante não garante equivalência. Compare especificação, desempenho, rendimento, embalagem e perdas. Se o novo material muda produtividade ou exige acessórios, a composição inteira pode precisar de revisão. Guarde a justificativa, a fonte do preço e o cálculo da conversão de unidades, permitindo reproduzir a alteração.",
+      "exemplo_md": "Trocar um produto vendido em litro por outro cotado em galão exige converter volume e verificar rendimento por área. Copiar o mesmo coeficiente sem essa análise pode superestimar ou omitir consumo.",
+      "ressalva_md": "Em contrato ou licitação, substituição de solução pode depender de aprovação e das especificações. A adaptação orçamentária não autoriza, por si só, alterar o objeto ou reduzir desempenho.\n\nComo verificação final, confira unidade, produtividade, coeficientes, perdas, equipamentos e escopo do serviço. A composição deve permitir que outra pessoa reconstrua o raciocínio do preço sem depender de informações que ficaram apenas na memória de quem orçou.",
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "SINAPI Metodologias e Conceitos",
+          "url": "https://www.caixa.gov.br/Downloads/sinapi-metodologia/Livro_SINAPI_Metodologias_Conceitos.pdf"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    },
+    {
+      "id": "produtividade-coeficiente-mao-obra",
+      "pergunta": "Como relacionar produtividade e coeficiente de mão de obra?",
+      "resposta_direta": "Quando a produtividade é dada em unidades por hora, o coeficiente básico é seu inverso. Depois, considere tamanho da equipe e as premissas de tempo previstas na metodologia.",
+      "explicacao_md": "Produtividade informa quanto se produz em determinado período; coeficiente informa quantas horas são consumidas por unidade. Se a produtividade se refere à equipe, o resultado inicial está em hora de equipe. Para abrir por profissional, multiplique o tempo pela quantidade de trabalhadores de cada função. Essa leitura evita confundir hora de equipe com homem-hora.",
+      "exemplo_md": "Uma equipe com dois trabalhadores produz 10 m²/h. O coeficiente é 0,10 h de equipe por m²; aberto por trabalhador, corresponde a 0,20 homem-hora por m².",
+      "ressalva_md": "Verifique se a produtividade já inclui pausas, preparação, transporte interno ou improdutividade. Acrescentar fatores que já estão embutidos duplica tempo; ignorá-los pode subestimar o custo.\n\nComo verificação final, confira unidade, produtividade, coeficientes, perdas, equipamentos e escopo do serviço. A composição deve permitir que outra pessoa reconstrua o raciocínio do preço sem depender de informações que ficaram apenas na memória de quem orçou.",
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "SINAPI Cálculos e Parâmetros",
+          "url": "https://www.caixa.gov.br/Downloads/sinapi-metodologia/Livro_SINAPI_Calculos_Parametros.pdf"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    },
+    {
+      "id": "considerar-perdas-materiais",
+      "pergunta": "Como considerar perdas de materiais?",
+      "resposta_direta": "Inclua perdas tecnicamente justificadas no coeficiente do material ou em fator claramente identificado. Não aplique um percentual genérico a todos os insumos.",
+      "explicacao_md": "Perda pode decorrer de corte, sobreposição, quebra, evaporação, transporte e limitações de fornecimento. A taxa depende do material, geometria, método e controle. Bases oficiais frequentemente já incorporam perdas em seus coeficientes; por isso, a primeira tarefa é conferir a composição original. Quando houver ajuste, mostre consumo teórico, fator de perda e consumo final.",
+      "exemplo_md": "Se o consumo teórico é 10 kg e a perda justificada é 5%, o coeficiente final é `10 × 1,05 = 10,5 kg`, desde que a referência ainda não contenha essa perda.",
+      "ressalva_md": "Perda orçamentária não legitima desperdício nem substitui controle de estoque. Use dados de projeto, fabricante ou histórico comparável, e evite somar contingência sobre perda já incluída.\n\nComo verificação final, confira unidade, produtividade, coeficientes, perdas, equipamentos e escopo do serviço. A composição deve permitir que outra pessoa reconstrua o raciocínio do preço sem depender de informações que ficaram apenas na memória de quem orçou.",
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "SINAPI Metodologias e Conceitos",
+          "url": "https://www.caixa.gov.br/Downloads/sinapi-metodologia/Livro_SINAPI_Metodologias_Conceitos.pdf"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    }
+  ]
+}

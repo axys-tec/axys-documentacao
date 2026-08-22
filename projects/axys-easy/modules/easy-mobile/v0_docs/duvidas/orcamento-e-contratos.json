@@ -1,0 +1,109 @@
+{
+  "assunto": "orcamento-e-contratos",
+  "titulo": "Orçamento e contratos",
+  "gerado_em": "2026-08-22T15:00:00Z",
+  "itens": [
+    {
+      "id": "orcamento-sintetico-e-analitico",
+      "pergunta": "Como usar orçamento sintético e analítico em conjunto?",
+      "resposta_direta": "Use o sintético para enxergar itens, quantidades e totais; use o analítico para verificar insumos, coeficientes e formação dos preços. Um deve permitir rastrear o outro.",
+      "explicacao_md": "O sintético facilita planejamento, licitação e controle global, mas não explica sozinho por que um preço custa determinado valor. O analítico revela produtividade, salários, materiais, equipamentos e bases. Na revisão, escolha itens relevantes ou atípicos no sintético e abra suas composições. Confirme também se a soma dos analíticos reproduz os preços unitários apresentados.",
+      "exemplo_md": "Ao notar preço elevado em alvenaria no sintético, abra a composição para verificar bloco, argamassa, equipe, perdas e produtividade. Assim, a diferença pode ser localizada e corrigida.",
+      "ressalva_md": "Nem todo contrato exige o mesmo nível de abertura na proposta, mas o orçamento de referência deve ter memória suficiente para controle. Respeite sigilos legalmente protegidos sem perder rastreabilidade.\n\nComo verificação final, confronte a solução com o edital, o contrato, os projetos, as especificações e a legislação aplicável ao caso. Em matéria contratual, uma resposta geral orienta o caminho, mas não substitui a análise dos documentos e dos fatos concretos.",
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei nº 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    },
+    {
+      "id": "curva-abc-revisao-orcamento",
+      "pergunta": "Como usar a curva ABC na revisão do orçamento?",
+      "resposta_direta": "Ordene os itens pelo impacto financeiro acumulado e concentre a revisão nos que mais influenciam o total. Depois, faça verificações amostrais nas demais faixas.",
+      "explicacao_md": "A curva ABC ajuda a priorizar tempo, não a declarar irrelevantes os itens menores. Itens da faixa A normalmente merecem conferência detalhada de quantidade, composição e preço. A faixa B recebe revisão intermediária; a C pode ser amostrada. Serviços de baixo valor, mas alto risco técnico ou contratual, também devem ser destacados fora do critério financeiro.",
+      "exemplo_md": "Se 15 itens representam 80% do orçamento, revisar profundamente esses itens tende a capturar a maior exposição. Ainda assim, um item pequeno com quantidade errada pode exigir correção.",
+      "ressalva_md": "Os limites de A, B e C são critérios de gestão, não percentuais universais. Documente o corte adotado e combine impacto financeiro com risco, materialidade e criticidade.\n\nComo verificação final, confronte a solução com o edital, o contrato, os projetos, as especificações e a legislação aplicável ao caso. Em matéria contratual, uma resposta geral orienta o caminho, mas não substitui a análise dos documentos e dos fatos concretos.",
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei nº 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    },
+    {
+      "id": "medir-servico-parcial",
+      "pergunta": "Como medir um serviço parcialmente executado?",
+      "resposta_direta": "Meça apenas a parcela verificável e aceita conforme o critério contratual. Quando o item não for divisível, não crie percentual subjetivo sem previsão e memória técnica.",
+      "explicacao_md": "A medição deve relacionar quantidade executada, unidade do item, evidência de campo e aceite. Para serviços progressivos, levantamentos físicos podem demonstrar a parcela. Em itens complexos, marcos de pagamento precisam estar definidos previamente. Materiais apenas entregues não equivalem automaticamente a serviço executado, salvo regra contratual específica.",
+      "exemplo_md": "Em 100 m² de revestimento contratado, 42 m² concluídos e aceitos podem gerar medição de 42 m². Preparação sem acabamento deve seguir a decomposição ou regra prevista, não uma estimativa informal.",
+      "ressalva_md": "Critérios variam por contrato. A medição não deve antecipar pagamento nem reter parcela já executada sem fundamento. Registre fotos, memória, localização e responsáveis pela verificação.\n\nComo verificação final, confronte a solução com o edital, o contrato, os projetos, as especificações e a legislação aplicável ao caso. Em matéria contratual, uma resposta geral orienta o caminho, mas não substitui a análise dos documentos e dos fatos concretos.",
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei nº 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    },
+    {
+      "id": "arredondamentos-no-orcamento",
+      "pergunta": "Como tratar arredondamentos sem gerar diferenças?",
+      "resposta_direta": "Calcule com precisão interna maior e arredonde apenas nos pontos definidos para apresentação ou pagamento. Use a mesma regra em toda a planilha.",
+      "explicacao_md": "Arredondar coeficientes, preços parciais e subtotais em cada etapa pode acumular diferença relevante. A planilha deve preservar casas suficientes nos cálculos e informar a regra de exibição. Também é preciso conferir se o preço total é obtido pelo preço unitário apresentado ou pelo valor interno, principalmente em arquivos importados entre sistemas.",
+      "exemplo_md": "Um preço interno de R$ 12,3456 exibido como R$ 12,35 pode gerar centavos de diferença quando multiplicado por grande quantidade. A memória deve definir qual valor tem precedência.",
+      "ressalva_md": "O edital ou sistema pode fixar número de casas e regra de truncamento. Siga essa regra e não faça ajustes manuais sem rastreabilidade apenas para “fechar” o total.\n\nComo verificação final, confronte a solução com o edital, o contrato, os projetos, as especificações e a legislação aplicável ao caso. Em matéria contratual, uma resposta geral orienta o caminho, mas não substitui a análise dos documentos e dos fatos concretos.",
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei nº 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    },
+    {
+      "id": "reajuste-contrato",
+      "pergunta": "Como funciona o reajuste do contrato?",
+      "resposta_direta": "O reajuste recompõe a variação de custos por índice e periodicidade definidos no edital e no contrato, observada a data-base aplicável. Não é aumento livre nem depende só da data da assinatura.",
+      "explicacao_md": "O cálculo identifica a parcela sujeita ao reajuste, o índice previsto e o intervalo entre datas. Serviços executados em períodos distintos podem receber fatores diferentes. A memória deve mostrar valores, competências dos índices e fórmula. Reajuste não se confunde com revisão ou reequilíbrio, que possuem fundamentos e requisitos próprios.",
+      "exemplo_md": "Se o contrato prevê índice setorial e a anualidade foi completada, aplica-se a variação entre as competências definidas sobre a parcela elegível, descontando o que não integra a base.",
+      "ressalva_md": "A data-base, o índice, a anualidade e o procedimento dependem da legislação e dos documentos da contratação. Analise também atrasos, cronograma e responsabilidades antes de concluir.\n\nComo verificação final, confronte a solução com o edital, o contrato, os projetos, as especificações e a legislação aplicável ao caso. Em matéria contratual, uma resposta geral orienta o caminho, mas não substitui a análise dos documentos e dos fatos concretos.",
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei nº 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    },
+    {
+      "id": "preco-unitario-e-global",
+      "pergunta": "Como analisar preço unitário e preço global em conjunto?",
+      "resposta_direta": "Verifique simultaneamente o total da proposta e os preços dos itens relevantes. Um preço global aceitável não elimina distorções unitárias capazes de afetar medições e alterações futuras.",
+      "explicacao_md": "A análise unitária identifica jogo de planilha, itens inexequíveis, sobrepreços localizados e distribuição incompatível de custos. A global verifica compatibilidade do conjunto com o orçamento e o regime de execução. Quantidades, curva ABC e cronograma ajudam a localizar riscos. O objetivo é compreender a proposta inteira, sem transformar qualquer diferença isolada em irregularidade automática.",
+      "exemplo_md": "Uma proposta pode ter total abaixo do referencial, mas concentrar preço alto em serviço executado no início e preço baixo em item posterior. Isso exige análise da distribuição e do cronograma.",
+      "ressalva_md": "Os critérios de aceitabilidade e julgamento devem seguir o edital e a legislação. A conclusão depende do regime de execução, da materialidade e das justificativas tecnicamente demonstradas.\n\nComo verificação final, confronte a solução com o edital, o contrato, os projetos, as especificações e a legislação aplicável ao caso. Em matéria contratual, uma resposta geral orienta o caminho, mas não substitui a análise dos documentos e dos fatos concretos.",
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei nº 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    }
+  ]
+}

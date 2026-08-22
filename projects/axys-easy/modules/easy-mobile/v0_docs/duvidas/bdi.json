@@ -1,0 +1,115 @@
+{
+  "assunto": "bdi",
+  "titulo": "BDI e preço de venda",
+  "gerado_em": "2026-08-22T15:00:00Z",
+  "itens": [
+    {
+      "id": "calcular-preco-venda-com-bdi",
+      "pergunta": "Como calcular o preço de venda a partir do custo direto e do BDI?",
+      "resposta_direta": "Multiplique o custo direto por um mais a taxa de BDI: **PV = CD × (1 + BDI)**. Converta o percentual em número decimal antes do cálculo.",
+      "explicacao_md": "O custo direto reúne os recursos diretamente associados aos serviços. O BDI agrega, conforme a metodologia adotada, parcelas que não devem ser apropriadas diretamente em cada composição e a remuneração empresarial. Por isso, o percentual incide sobre a base definida no orçamento. A memória de cálculo precisa mostrar quais parcelas formam a taxa e evitar que um custo já incluído nas composições reapareça no BDI.",
+      "exemplo_md": "Para custo direto de R$ 100.000 e BDI de 25%, o preço de venda é `100.000 × 1,25 = R$ 125.000`. O acréscimo correspondente ao BDI é R$ 25.000.",
+      "ressalva_md": "A fórmula só é válida quando custo direto e BDI foram estruturados com a mesma metodologia. Tributos, riscos e demais parcelas devem seguir o edital, o contrato e o regime tributário aplicável.\n\nComo verificação final, preserve a memória de cálculo, identifique as parcelas adotadas e confirme se a incidência escolhida é compatível com a planilha e com o instrumento convocatório. Isso facilita a revisão e evita comparar percentuais formados por critérios diferentes.",
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2622/2013",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2622-2013"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    },
+    {
+      "id": "bdi-percentual-nao-valor-absoluto",
+      "pergunta": "Por que o BDI não deve ser apenas somado ao custo como valor absoluto?",
+      "resposta_direta": "Porque o BDI é uma taxa aplicada sobre uma base de custo, e não uma quantia fixa. Somar “25” a qualquer orçamento ignora a escala e produz um preço incorreto.",
+      "explicacao_md": "A taxa expressa uma relação proporcional entre determinadas parcelas e o custo que serve de base. Quando o custo muda, o valor monetário correspondente ao BDI também muda. Na planilha, é importante separar percentual, base de incidência e valor resultante. Essa distinção também facilita conferir se houve dupla aplicação do BDI em itens já apresentados a preço de venda.",
+      "exemplo_md": "Em um custo de R$ 80.000, BDI de 20% representa R$ 16.000. Em um custo de R$ 200.000, a mesma taxa representa R$ 40.000. O percentual é igual; o valor não.",
+      "ressalva_md": "Alguns demonstrativos apresentam fatores ou fórmulas próprias. Antes de recalcular, confirme a convenção usada e se os percentuais foram informados em forma decimal ou percentual.\n\nComo verificação final, preserve a memória de cálculo, identifique as parcelas adotadas e confirme se a incidência escolhida é compatível com a planilha e com o instrumento convocatório. Isso facilita a revisão e evita comparar percentuais formados por critérios diferentes.",
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2622/2013",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2622-2013"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    },
+    {
+      "id": "bdi-diferenciado-materiais-equipamentos",
+      "pergunta": "Quando avaliar BDI diferenciado para materiais e equipamentos?",
+      "resposta_direta": "Avalie quando houver fornecimento relevante de materiais ou equipamentos de natureza específica, especialmente quando a incidência do BDI geral puder gerar preço desproporcional às atividades efetivamente assumidas.",
+      "explicacao_md": "A análise não nasce apenas do valor elevado do item. É preciso observar logística, garantia, risco, financiamento, administração e participação real da contratada no fornecimento. O BDI diferenciado deve ter memória própria e justificativa técnica. Não significa retirar automaticamente todas as parcelas, mas adequá-las às características do objeto e evitar remuneração sem correspondência econômica.",
+      "exemplo_md": "Um equipamento adquirido pronto, entregue pelo fabricante e com pequena intervenção da construtora pode justificar avaliação distinta de um serviço executado integralmente no canteiro, com mobilização, equipe e riscos de produção.",
+      "ressalva_md": "A adoção depende do caso concreto, do parcelamento do objeto e das regras da contratação. Não aplique uma taxa reduzida por padrão nem trate qualquer material caro como fornecimento especial.\n\nComo verificação final, preserve a memória de cálculo, identifique as parcelas adotadas e confirme se a incidência escolhida é compatível com a planilha e com o instrumento convocatório. Isso facilita a revisão e evita comparar percentuais formados por critérios diferentes.",
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2622/2013",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2622-2013"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    },
+    {
+      "id": "tributos-no-bdi",
+      "pergunta": "Como tratar tributos na composição do BDI?",
+      "resposta_direta": "Inclua apenas os tributos incidentes sobre o faturamento da contratação, nas alíquotas compatíveis com o regime aplicável. Tributos sobre lucro não devem ser repassados como parcela autônoma do BDI.",
+      "explicacao_md": "O tratamento tributário exige identificar a natureza da receita, o local da prestação, o regime da empresa e as regras do edital. As alíquotas efetivas podem diferir das nominais. A memória do BDI deve indicar a base e a fonte de cada percentual, sem duplicar tributos já considerados em preços de insumos ou em outras parcelas.",
+      "exemplo_md": "Se a planilha prevê ISS sobre a receita do serviço, a alíquota utilizada deve respeitar o enquadramento e a legislação municipal aplicável, e não ser copiada automaticamente de outro orçamento.",
+      "ressalva_md": "A condição tributária pode variar entre licitantes. O orçamento de referência deve adotar premissas justificadas; a proposta é responsabilidade do licitante, sem afastar limites e regras do certame.\n\nComo verificação final, preserve a memória de cálculo, identifique as parcelas adotadas e confirme se a incidência escolhida é compatível com a planilha e com o instrumento convocatório. Isso facilita a revisão e evita comparar percentuais formados por critérios diferentes.",
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2622/2013",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2622-2013"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    },
+    {
+      "id": "administracao-local-bdi-ou-planilha",
+      "pergunta": "Administração local entra no BDI ou na planilha?",
+      "resposta_direta": "Em regra, a administração local deve aparecer como custo direto específico na planilha, com composição, critério de medição e vínculo com a execução da obra, evitando sua inclusão genérica no BDI.",
+      "explicacao_md": "Ela reúne recursos de gestão mantidos no canteiro, como equipe técnica e apoio local. Torná-la item explícito melhora a transparência e permite ajustar o pagamento ao avanço real. A composição deve refletir prazo, estrutura e necessidades da obra. Já a administração central, quando cabível, integra a formação do BDI segundo a metodologia adotada.",
+      "exemplo_md": "Em obra de 12 meses, a equipe local pode ser estimada por funções, quantidades e permanência. A medição pode seguir regra proporcional prevista, sem transformar o item em pagamento automático desvinculado da execução.",
+      "ressalva_md": "O critério exato deve observar edital, contrato e orientação aplicável. Prorrogações, atrasos e alterações de prazo não geram, por si sós, direito automático a pagamento adicional.\n\nComo verificação final, preserve a memória de cálculo, identifique as parcelas adotadas e confirme se a incidência escolhida é compatível com a planilha e com o instrumento convocatório. Isso facilita a revisão e evita comparar percentuais formados por critérios diferentes.",
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2622/2013",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2622-2013"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    },
+    {
+      "id": "comparar-dois-bdis",
+      "pergunta": "Como comparar dois BDIs sem olhar apenas o percentual?",
+      "resposta_direta": "Compare a fórmula, as parcelas, as bases de incidência e as premissas. Dois BDIs com o mesmo percentual podem ter estruturas diferentes; percentuais distintos podem decorrer de riscos ou tributos legítimos.",
+      "explicacao_md": "A conferência deve abrir a taxa em administração central, riscos, seguros e garantias, despesas financeiras, tributos e lucro, conforme o modelo usado. Também é necessário verificar se custos foram deslocados entre BDI e planilha direta. Comparar somente o número final pode esconder duplicidades ou omissões e não demonstra, sozinho, sobrepreço.",
+      "exemplo_md": "Um BDI de 24% com risco documentado e tributação compatível pode ser mais consistente que outro de 22% que omitiu uma parcela necessária e a adicionou depois em item separado.",
+      "ressalva_md": "Faixas referenciais são parâmetros de análise, não taxas obrigatórias aplicáveis mecanicamente. A conclusão deve considerar objeto, porte, prazo, regime de execução e justificativas do caso.\n\nComo verificação final, preserve a memória de cálculo, identifique as parcelas adotadas e confirme se a incidência escolhida é compatível com a planilha e com o instrumento convocatório. Isso facilita a revisão e evita comparar percentuais formados por critérios diferentes.",
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2622/2013",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2622-2013"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    }
+  ]
+}

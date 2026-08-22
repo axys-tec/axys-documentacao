@@ -1,0 +1,129 @@
+{
+  "assunto": "referencias-de-precos",
+  "titulo": "Referências de preços",
+  "gerado_em": "2026-08-22T15:00:00Z",
+  "itens": [
+    {
+      "id": "quando-usar-sinapi-ou-sicro",
+      "pergunta": "Quando usar SINAPI e quando usar SICRO?",
+      "resposta_direta": "Use o SINAPI como referência principal para edificações e serviços urbanos compatíveis; use o SICRO para infraestrutura de transportes. A natureza do serviço e a aderência da composição devem orientar a escolha.",
+      "explicacao_md": "A base não deve ser escolhida apenas pelo menor preço. Compare descrição, unidade, premissas, equipamentos e produtividade com o objeto. Uma obra pode conter serviços de naturezas diferentes e, de forma justificada, utilizar referências distintas. O orçamento precisa manter data-base e critérios coerentes, sem misturar metodologias de maneira automática.",
+      "exemplo_md": "Um prédio público tende a usar SINAPI. Uma obra rodoviária tende a usar SICRO. Se o prédio inclui acesso viário especial, esse trecho pode exigir referência de infraestrutura compatível.",
+      "ressalva_md": "Observe a legislação e as regras da contratação, além das orientações do órgão responsável. Quando a base não representar o serviço, justifique composição própria ou outra fonte idônea.\n\nComo verificação final, registre o sistema, a competência, a localidade, a condição de desoneração e os ajustes efetuados. A rastreabilidade da fonte é tão importante quanto o valor adotado, especialmente quando houver combinação de referências ou pesquisa de mercado.",
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "SINAPI página oficial",
+          "url": "https://www.caixa.gov.br/poder-publico/modernizacao-gestao/sinapi/Paginas/default.aspx"
+        },
+        {
+          "tipo": "url",
+          "rotulo": "SICRO página oficial",
+          "url": "https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/custos-referenciais/sistemas-de-custos/sicro"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    },
+    {
+      "id": "servico-ausente-na-base",
+      "pergunta": "O que fazer quando o serviço não existe na base de referência?",
+      "resposta_direta": "Procure composição equivalente e, se não houver aderência, desenvolva composição própria com insumos, produtividades e preços documentados. Não use código apenas por semelhança de nome.",
+      "explicacao_md": "A busca deve considerar descrições completas, unidades e composições auxiliares. Se a solução for própria, defina método executivo, equipe, equipamentos e materiais. Preços podem vir de bases oficiais e, para itens ausentes, de pesquisa de mercado válida. A memória deve permitir que outra pessoa reproduza o resultado.",
+      "exemplo_md": "Um revestimento especializado sem código pode usar mão de obra oficial, consumo indicado em projeto e três cotações comparáveis para o produto específico, com tratamento de frete e impostos.",
+      "ressalva_md": "Antes de criar novo serviço, confirme que ele não está incluído em outra composição do orçamento. A pesquisa complementar deve seguir critérios da contratação e preservar a mesma data-base.\n\nComo verificação final, registre o sistema, a competência, a localidade, a condição de desoneração e os ajustes efetuados. A rastreabilidade da fonte é tão importante quanto o valor adotado, especialmente quando houver combinação de referências ou pesquisa de mercado.",
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "SINAPI página oficial",
+          "url": "https://www.caixa.gov.br/poder-publico/modernizacao-gestao/sinapi/Paginas/default.aspx"
+        },
+        {
+          "tipo": "url",
+          "rotulo": "Lei nº 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    },
+    {
+      "id": "escolher-data-base",
+      "pergunta": "Qual data-base deve ser adotada no orçamento?",
+      "resposta_direta": "Adote uma data única, identificada e compatível com o momento definido para o orçamento da contratação. Todos os preços devem ser trazidos, sempre que possível, para essa mesma referência.",
+      "explicacao_md": "A data-base permite comparar valores e calcular futuras atualizações. Misturar meses sem ajuste pode criar diferença que não decorre do projeto, mas da inflação. O relatório deve informar mês e ano das bases, cotações e índices utilizados. Quando um preço só estiver disponível em outra data, documente o procedimento de atualização.",
+      "exemplo_md": "Se o orçamento é de abril, uma cotação recebida em fevereiro pode ser atualizada por critério tecnicamente compatível, com fonte e cálculo registrados, em vez de ser combinada silenciosamente com preços de abril.",
+      "ressalva_md": "A data relevante para reajuste contratual decorre das regras legais, do edital e do contrato. Não confunda a data de elaboração interna com a data-base juridicamente prevista.\n\nComo verificação final, registre o sistema, a competência, a localidade, a condição de desoneração e os ajustes efetuados. A rastreabilidade da fonte é tão importante quanto o valor adotado, especialmente quando houver combinação de referências ou pesquisa de mercado.",
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei nº 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    },
+    {
+      "id": "diferencas-regionais-precos",
+      "pergunta": "Como lidar com diferenças regionais de preços?",
+      "resposta_direta": "Use a referência da localidade da obra e analise frete, disponibilidade, impostos e produtividade local. Preço de outra região só deve ser usado com ajuste e justificativa.",
+      "explicacao_md": "Materiais e mão de obra variam por mercado. A base estadual pode não captar situações remotas ou logísticas especiais, mas isso não autoriza acréscimo genérico. Identifique a causa: distância de fornecedor, transporte, necessidade de alojamento ou baixa oferta. Trate cada efeito no componente correto e preserve as fontes.",
+      "exemplo_md": "Para material produzido longe do canteiro, pode ser necessário separar preço na origem, carga, distância de transporte e descarga, em vez de majorar arbitrariamente o valor unitário.",
+      "ressalva_md": "Evite incluir no preço do material custos já contemplados em transporte ou mobilização. Condições excepcionais devem ser demonstradas com rotas, cotações e premissas verificáveis.\n\nComo verificação final, registre o sistema, a competência, a localidade, a condição de desoneração e os ajustes efetuados. A rastreabilidade da fonte é tão importante quanto o valor adotado, especialmente quando houver combinação de referências ou pesquisa de mercado.",
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "SINAPI página oficial",
+          "url": "https://www.caixa.gov.br/poder-publico/modernizacao-gestao/sinapi/Paginas/default.aspx"
+        },
+        {
+          "tipo": "url",
+          "rotulo": "SICRO página oficial",
+          "url": "https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/custos-referenciais/sistemas-de-custos/sicro"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    },
+    {
+      "id": "combinar-bases-diferentes",
+      "pergunta": "É possível combinar referências de bases diferentes?",
+      "resposta_direta": "Sim, quando cada referência é compatível ao serviço e a combinação é justificada. Harmonize data, localidade, encargos, unidades e metodologia para evitar preços incompatíveis.",
+      "explicacao_md": "A combinação é uma decisão técnica, não uma montagem pelo menor valor. Primeiro, verifique prioridade legal ou prevista no edital. Depois, registre para cada item a base, competência e adaptações. Itens oriundos de metodologias diferentes podem tratar transporte, encargos ou produção de forma distinta; esses pontos precisam ser conferidos.",
+      "exemplo_md": "Uma obra urbana pode usar SINAPI para edificação e SICRO para serviço rodoviário específico, desde que os custos não se sobreponham e sejam levados à mesma data-base.",
+      "ressalva_md": "Não misture componentes de duas composições sem entender suas premissas. Se houver adaptação relevante, trate-a como composição própria e apresente memória completa.\n\nComo verificação final, registre o sistema, a competência, a localidade, a condição de desoneração e os ajustes efetuados. A rastreabilidade da fonte é tão importante quanto o valor adotado, especialmente quando houver combinação de referências ou pesquisa de mercado.",
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "SINAPI página oficial",
+          "url": "https://www.caixa.gov.br/poder-publico/modernizacao-gestao/sinapi/Paginas/default.aspx"
+        },
+        {
+          "tipo": "url",
+          "rotulo": "SICRO página oficial",
+          "url": "https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/custos-referenciais/sistemas-de-custos/sicro"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    },
+    {
+      "id": "pesquisa-mercado-complementar",
+      "pergunta": "Como documentar uma pesquisa de mercado complementar?",
+      "resposta_direta": "Defina claramente o item, obtenha propostas comparáveis, registre fornecedor, data, condições comerciais, frete e impostos e explique o critério usado para formar o preço de referência.",
+      "explicacao_md": "Cotações só são comparáveis quando tratam do mesmo objeto e condições. Normalize unidade, quantidade, prazo, local de entrega e especificação. Valores inexequíveis, promocionais ou incompletos precisam ser analisados, não eliminados sem registro. Guarde solicitações, respostas e memória estatística ou justificativa da escolha.",
+      "exemplo_md": "Três propostas para o mesmo equipamento podem incluir fretes diferentes. Antes de calcular mediana ou média, ajuste todas para entrega no canteiro e confirme se impostos e acessórios estão incluídos.",
+      "ressalva_md": "A quantidade de fontes e o método devem seguir as regras aplicáveis. Quando o mercado for restrito, registre as tentativas frustradas e complemente com outras fontes idôneas.\n\nComo verificação final, registre o sistema, a competência, a localidade, a condição de desoneração e os ajustes efetuados. A rastreabilidade da fonte é tão importante quanto o valor adotado, especialmente quando houver combinação de referências ou pesquisa de mercado.",
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei nº 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    }
+  ]
+}

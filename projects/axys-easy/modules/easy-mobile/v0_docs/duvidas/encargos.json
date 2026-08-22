@@ -1,0 +1,109 @@
+{
+  "assunto": "encargos",
+  "titulo": "Encargos e mão de obra",
+  "gerado_em": "2026-08-22T15:00:00Z",
+  "itens": [
+    {
+      "id": "converter-horista-mensalista",
+      "pergunta": "Como converter encargos do regime horista para mensalista?",
+      "resposta_direta": "Não existe conversão por simples troca do percentual. Converta a unidade da mão de obra e use a tabela de encargos correspondente ao regime mensalista, preservando as premissas da composição.",
+      "explicacao_md": "No regime horista, o custo e o coeficiente estão expressos por hora produtiva; no mensalista, a unidade é mês. A transformação deve considerar a jornada mensal adotada pela base e a forma como horas não trabalhadas e obrigações estão tratadas. Misturar coeficiente horista com percentual mensalista gera distorção, mesmo quando o salário de referência é o mesmo.",
+      "exemplo_md": "Se uma composição usa 1,16 h e a premissa é 220 h/mês, o coeficiente equivalente é `1,16 ÷ 220 = 0,00527 mês`. Depois, aplica-se custo mensal e encargos compatíveis.",
+      "ressalva_md": "As 220 horas são apenas exemplo. Use a jornada, a convenção coletiva, a data e a metodologia da base escolhida. Registre toda adaptação na memória de cálculo.\n\nComo verificação final, confira a data-base, a localidade, o regime de trabalho e a versão da referência utilizada. Pequenas diferenças nesses parâmetros alteram os percentuais e podem comprometer a comparação entre planilhas que, à primeira vista, parecem equivalentes.",
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "SINAPI Cálculos e Parâmetros",
+          "url": "https://www.caixa.gov.br/Downloads/sinapi-metodologia/Livro_SINAPI_Calculos_Parametros.pdf"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    },
+    {
+      "id": "diferenca-horista-mensalista",
+      "pergunta": "Por que horista e mensalista apresentam percentuais de encargos diferentes?",
+      "resposta_direta": "Porque os regimes distribuem de forma diferente os dias remunerados, as horas produtivas e as obrigações trabalhistas. Percentuais distintos não significam necessariamente custos totais incompatíveis.",
+      "explicacao_md": "No cálculo horista, diversas ausências e descansos remunerados precisam ser representados sobre a hora efetivamente trabalhada. No mensalista, parte desses efeitos já está incorporada ao salário do mês e a estrutura percentual muda. A comparação correta deve levar ambos a uma mesma unidade de produção, e não confrontar apenas as taxas finais.",
+      "exemplo_md": "Uma taxa horista aparentemente maior pode produzir custo equivalente ao mensalista depois que salário, jornada mensal e coeficiente são harmonizados. O que importa é o custo por unidade do serviço.",
+      "ressalva_md": "Não escolha o regime pelo menor percentual. A escolha deve refletir vínculo, jornada, forma de apropriação da mão de obra e parâmetros oficiais aplicáveis ao orçamento.\n\nComo verificação final, confira a data-base, a localidade, o regime de trabalho e a versão da referência utilizada. Pequenas diferenças nesses parâmetros alteram os percentuais e podem comprometer a comparação entre planilhas que, à primeira vista, parecem equivalentes.",
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "SINAPI Metodologias e Conceitos",
+          "url": "https://www.caixa.gov.br/Downloads/sinapi-metodologia/Livro_SINAPI_Metodologias_Conceitos.pdf"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    },
+    {
+      "id": "evitar-duplicidade-encargos",
+      "pergunta": "Como evitar duplicidade de encargos no orçamento?",
+      "resposta_direta": "Identifique onde cada parcela já está incorporada: salário, custo horário, tabela de encargos, encargo complementar, composição auxiliar ou BDI. Uma mesma obrigação deve aparecer uma única vez.",
+      "explicacao_md": "O controle começa pela leitura da metodologia da base. Custos horários publicados podem já incluir encargos sociais; composições podem acrescentar alimentação, transporte ou equipamentos de proteção como encargos complementares. Aplicar novamente uma taxa global sobre esses valores cria duplicidade. Uma memória simples, relacionando cada parcela à sua origem, facilita a auditoria.",
+      "exemplo_md": "Se o custo horário oficial já contém encargos sociais, a composição deve multiplicar esse custo pelo coeficiente. Não se deve adicionar outra linha de “encargos sociais” sobre o subtotal da mão de obra.",
+      "ressalva_md": "Bases e versões podem mudar sua estrutura. Confira os relatórios analíticos da data-base utilizada e documente adaptações em vez de presumir que todo preço publicado é “sem encargos”.\n\nComo verificação final, confira a data-base, a localidade, o regime de trabalho e a versão da referência utilizada. Pequenas diferenças nesses parâmetros alteram os percentuais e podem comprometer a comparação entre planilhas que, à primeira vista, parecem equivalentes.",
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "SINAPI Metodologias e Conceitos",
+          "url": "https://www.caixa.gov.br/Downloads/sinapi-metodologia/Livro_SINAPI_Metodologias_Conceitos.pdf"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    },
+    {
+      "id": "encargos-complementares-e-sociais",
+      "pergunta": "Encargos complementares entram junto com encargos sociais?",
+      "resposta_direta": "Eles podem integrar o custo da mão de obra, mas devem ser identificados separadamente. Encargos sociais decorrem de obrigações trabalhistas; complementares cobrem itens como alimentação, transporte, exames e proteção individual.",
+      "explicacao_md": "A separação evita confundir naturezas e permite atualizar cada parcela pela fonte compatível. Em algumas bases, os complementares aparecem como composições auxiliares vinculadas à hora de trabalho; em outras, podem estar embutidos no custo publicado. A estrutura escolhida deve manter rastreabilidade e não duplicar benefícios já presentes no salário ou em outra composição.",
+      "exemplo_md": "Uma composição pode trazer “servente com encargos complementares” como insumo auxiliar. Nesse caso, vale abrir o relatório para conferir quais itens já fazem parte daquele custo antes de acrescentar novas linhas.",
+      "ressalva_md": "A lista e a incidência variam conforme categoria, convenção coletiva, local e metodologia. O orçamento deve refletir as obrigações efetivas e a base de referência adotada.\n\nComo verificação final, confira a data-base, a localidade, o regime de trabalho e a versão da referência utilizada. Pequenas diferenças nesses parâmetros alteram os percentuais e podem comprometer a comparação entre planilhas que, à primeira vista, parecem equivalentes.",
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "SINAPI Metodologias e Conceitos",
+          "url": "https://www.caixa.gov.br/Downloads/sinapi-metodologia/Livro_SINAPI_Metodologias_Conceitos.pdf"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    },
+    {
+      "id": "escolher-tabela-encargos",
+      "pergunta": "Como escolher a tabela de encargos compatível?",
+      "resposta_direta": "Use tabela compatível com localidade, data-base, regime horista ou mensalista, categoria profissional e condição de desoneração adotada no orçamento.",
+      "explicacao_md": "A tabela de outro estado ou período pode conter feriados, benefícios e alíquotas diferentes. Antes de utilizá-la, confira cabeçalho, versão e notas metodológicas. A escolha deve permanecer coerente com os salários, composições e preços de referência usados. Quando não houver tabela específica, a adaptação precisa ser justificada e documentada.",
+      "exemplo_md": "Se o orçamento usa composições SINAPI de determinada unidade federativa e mês, a tabela de encargos deve corresponder à mesma referência, salvo ajuste técnico explicitado na memória.",
+      "ressalva_md": "Uma tabela oficial não substitui a análise das regras da contratação e das convenções vigentes. Em propostas, a licitante deve avaliar sua realidade sem perder comparabilidade com o orçamento de referência.\n\nComo verificação final, confira a data-base, a localidade, o regime de trabalho e a versão da referência utilizada. Pequenas diferenças nesses parâmetros alteram os percentuais e podem comprometer a comparação entre planilhas que, à primeira vista, parecem equivalentes.",
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "SINAPI página oficial",
+          "url": "https://www.caixa.gov.br/poder-publico/modernizacao-gestao/sinapi/Paginas/default.aspx"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    },
+    {
+      "id": "desoneracao-no-orcamento",
+      "pergunta": "Como a desoneração pode alterar o orçamento?",
+      "resposta_direta": "Ela modifica encargos e pode alterar parcelas do BDI relacionadas à contribuição previdenciária sobre a receita. A comparação deve recalcular o orçamento completo em cada cenário, não apenas trocar uma alíquota.",
+      "explicacao_md": "Uma versão desonerada pode reduzir parte do custo da mão de obra e introduzir incidência sobre faturamento. O efeito depende da intensidade de mão de obra, do regime aplicável e da data. Para escolher a referência, compare cenários consistentes, usando composições e BDI preparados sob a mesma premissa.",
+      "exemplo_md": "Não é correto usar custo de mão de obra desonerado e, ao mesmo tempo, BDI da versão não desonerada. A mistura pode omitir ou duplicar a contribuição considerada.",
+      "ressalva_md": "A legislação tributária e a aplicabilidade do regime mudam. Confirme a regra vigente na data-base e registre a opção adotada. Em contratação pública, observe também os critérios do edital.\n\nComo verificação final, confira a data-base, a localidade, o regime de trabalho e a versão da referência utilizada. Pequenas diferenças nesses parâmetros alteram os percentuais e podem comprometer a comparação entre planilhas que, à primeira vista, parecem equivalentes.",
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "SINAPI página oficial",
+          "url": "https://www.caixa.gov.br/poder-publico/modernizacao-gestao/sinapi/Paginas/default.aspx"
+        }
+      ],
+      "publicado_em": "2026-08-22",
+      "atualizado_em": "2026-08-22"
+    }
+  ]
+}

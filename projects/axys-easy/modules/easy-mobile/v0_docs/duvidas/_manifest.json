@@ -1,0 +1,36 @@
+{
+  "grupo": "DUVIDAS",
+  "gerado_em": "2026-08-22T15:00:00Z",
+  "assuntos": [
+    {
+      "id": "bdi",
+      "titulo": "BDI e preço de venda",
+      "qtd": 6,
+      "arquivo": "easy-mobile/duvidas/bdi.json"
+    },
+    {
+      "id": "encargos",
+      "titulo": "Encargos e mão de obra",
+      "qtd": 6,
+      "arquivo": "easy-mobile/duvidas/encargos.json"
+    },
+    {
+      "id": "composicoes",
+      "titulo": "Composições e insumos",
+      "qtd": 6,
+      "arquivo": "easy-mobile/duvidas/composicoes.json"
+    },
+    {
+      "id": "referencias-de-precos",
+      "titulo": "Referências de preços",
+      "qtd": 6,
+      "arquivo": "easy-mobile/duvidas/referencias-de-precos.json"
+    },
+    {
+      "id": "orcamento-e-contratos",
+      "titulo": "Orçamento e contratos",
+      "qtd": 6,
+      "arquivo": "easy-mobile/duvidas/orcamento-e-contratos.json"
+    }
+  ]
+}
