@@ -372,8 +372,7 @@
   ],
   "codigo": {
     "numero": "01",
-    "letra": "A",
-    "rotulo": "#01-A"
+    "rotulo": "#01"
   },
   "acumulado_ano": {
     "fonte_pct": 0.47,
