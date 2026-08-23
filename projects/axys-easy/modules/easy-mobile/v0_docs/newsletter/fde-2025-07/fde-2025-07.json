@@ -1,0 +1,516 @@
+{
+  "fonte": "FDE",
+  "ref": "2025-07-01",
+  "ref_anterior": "2025-04-01",
+  "versao": "07-25",
+  "edi_id": 55,
+  "edi_anterior": 54,
+  "meses_intervalo": 3,
+  "modalidade": "SD",
+  "uf_foco": "SP",
+  "movimento": {
+    "incluidas": 29,
+    "inativadas": 3,
+    "reativadas": 0,
+    "alteradas": 0
+  },
+  "cobertura": {
+    "ufs": 1,
+    "cpus": 3311,
+    "sem_custo": 0,
+    "linhas": 6622,
+    "pct_sem_custo": 0.0,
+    "insumos": 2368,
+    "insumos_sem_preco": 0,
+    "pct_sem_preco": 0.0
+  },
+  "precos": {
+    "uf": "SP",
+    "comparaveis": 3282,
+    "media_pct": 3.47,
+    "mediana_pct": 2.77,
+    "subiram": 2843,
+    "cairam": 386,
+    "estaveis": 53
+  },
+  "subgrupos": {
+    "altas": [
+      {
+        "subgrupo": "DEMOLICOES - ALTA TENSAO",
+        "cpus": 29,
+        "var_pct": 12.85,
+        "medio_anterior": 90.28,
+        "medio_atual": 101.88
+      },
+      {
+        "subgrupo": "RECOLOCACAO - ALTA TENSAO",
+        "cpus": 13,
+        "var_pct": 11.75,
+        "medio_anterior": 189.37,
+        "medio_atual": 211.62
+      },
+      {
+        "subgrupo": "RETIRADAS - ALTA TENSAO",
+        "cpus": 16,
+        "var_pct": 11.59,
+        "medio_anterior": 122.2,
+        "medio_atual": 136.36
+      },
+      {
+        "subgrupo": "DEMOLICOES - APARELHOS E EQUIPAMENTOS",
+        "cpus": 16,
+        "var_pct": 10.8,
+        "medio_anterior": 106.25,
+        "medio_atual": 117.73
+      },
+      {
+        "subgrupo": "RECOLOCACOES - APARELHOS E EQUIPAMENTOS",
+        "cpus": 10,
+        "var_pct": 10.54,
+        "medio_anterior": 191.78,
+        "medio_atual": 212.0
+      },
+      {
+        "subgrupo": "DEMOLICOES - BAIXA TENSAO",
+        "cpus": 26,
+        "var_pct": 10.21,
+        "medio_anterior": 57.76,
+        "medio_atual": 63.66
+      },
+      {
+        "subgrupo": "RETIRADAS - APARELHOS E EQUIPAMENTOS",
+        "cpus": 10,
+        "var_pct": 10.2,
+        "medio_anterior": 149.48,
+        "medio_atual": 164.72
+      },
+      {
+        "subgrupo": "RECOLOCACOES - BAIXA TENSAO",
+        "cpus": 16,
+        "var_pct": 9.42,
+        "medio_anterior": 103.99,
+        "medio_atual": 113.78
+      },
+      {
+        "subgrupo": "RETIRADAS - BAIXA TENSAO",
+        "cpus": 15,
+        "var_pct": 8.98,
+        "medio_anterior": 80.58,
+        "medio_atual": 87.82
+      },
+      {
+        "subgrupo": "CENTRO DE LUZ",
+        "cpus": 14,
+        "var_pct": 8.12,
+        "medio_anterior": 234.19,
+        "medio_atual": 253.2
+      }
+    ],
+    "baixas": [
+      {
+        "subgrupo": "CONSERVACAO - ALTA TENSAO",
+        "cpus": 49,
+        "var_pct": -9.26,
+        "medio_anterior": 7083.66,
+        "medio_atual": 6428.0
+      },
+      {
+        "subgrupo": "ÁGUAS PLUVIAIS E DRENAGEM DE ACABAMENTO",
+        "cpus": 48,
+        "var_pct": -6.66,
+        "medio_anterior": 740.56,
+        "medio_atual": 691.25
+      },
+      {
+        "subgrupo": "LIGACOES EM TENSAO PRIMARIA - POSTE/CABINE DE MEDICAO E TRANSFORMACAO",
+        "cpus": 22,
+        "var_pct": -4.06,
+        "medio_anterior": 86078.89,
+        "medio_atual": 82586.65
+      },
+      {
+        "subgrupo": "ABRIGO E REDE DE GAS",
+        "cpus": 19,
+        "var_pct": -2.62,
+        "medio_anterior": 2536.67,
+        "medio_atual": 2470.28
+      },
+      {
+        "subgrupo": "ESQUADRIAS METALICAS",
+        "cpus": 49,
+        "var_pct": -2.34,
+        "medio_anterior": 1638.59,
+        "medio_atual": 1600.17
+      },
+      {
+        "subgrupo": "REDE E TRATAMENTO DE ESGOTO",
+        "cpus": 28,
+        "var_pct": -1.97,
+        "medio_anterior": 11287.38,
+        "medio_atual": 11065.05
+      },
+      {
+        "subgrupo": "FECHO:MUROS/ALAMBRADOS/PORTOES",
+        "cpus": 45,
+        "var_pct": -1.65,
+        "medio_anterior": 2325.38,
+        "medio_atual": 2287.04
+      },
+      {
+        "subgrupo": "REDE DE AGUAS PLUVIAIS: TUBULACOES",
+        "cpus": 16,
+        "var_pct": -1.23,
+        "medio_anterior": 348.89,
+        "medio_atual": 344.59
+      },
+      {
+        "subgrupo": "QUADRA DE ESPORTES",
+        "cpus": 21,
+        "var_pct": -1.1,
+        "medio_anterior": 7924.81,
+        "medio_atual": 7837.75
+      },
+      {
+        "subgrupo": "ILUMINACAO EXTERNA",
+        "cpus": 18,
+        "var_pct": -0.46,
+        "medio_anterior": 2175.14,
+        "medio_atual": 2165.13
+      }
+    ],
+    "total_subgrupos": 98
+  },
+  "grupos": {
+    "todos": [
+      {
+        "grupo": "PINTURA",
+        "cpus": 151,
+        "var_pct": 4.25,
+        "medio_anterior": 60.54,
+        "medio_atual": 63.11
+      },
+      {
+        "grupo": "FORRO",
+        "cpus": 37,
+        "var_pct": 3.39,
+        "medio_anterior": 181.6,
+        "medio_atual": 187.76
+      },
+      {
+        "grupo": "VIDROS",
+        "cpus": 20,
+        "var_pct": 2.95,
+        "medio_anterior": 385.69,
+        "medio_atual": 397.07
+      },
+      {
+        "grupo": "ALVENARIA E OUTROS ELEMENTOS DIVISORIOS",
+        "cpus": 75,
+        "var_pct": 2.72,
+        "medio_anterior": 267.01,
+        "medio_atual": 274.27
+      },
+      {
+        "grupo": "COBERTURA",
+        "cpus": 185,
+        "var_pct": 2.59,
+        "medio_anterior": 198.34,
+        "medio_atual": 203.47
+      },
+      {
+        "grupo": "REVESTIMENTOS: TETO E PAREDE",
+        "cpus": 54,
+        "var_pct": 2.33,
+        "medio_anterior": 141.84,
+        "medio_atual": 145.14
+      },
+      {
+        "grupo": "INFRA ESTRUTURA",
+        "cpus": 94,
+        "var_pct": 2.32,
+        "medio_anterior": 1311.91,
+        "medio_atual": 1342.36
+      },
+      {
+        "grupo": "PISOS INTERNOS / RODAPES / PEITORIS",
+        "cpus": 182,
+        "var_pct": 2.13,
+        "medio_anterior": 164.22,
+        "medio_atual": 167.72
+      },
+      {
+        "grupo": "ELEMENTOS DE MADEIRA/COMPONENTES ESPECIAIS",
+        "cpus": 169,
+        "var_pct": 1.92,
+        "medio_anterior": 1264.93,
+        "medio_atual": 1289.23
+      },
+      {
+        "grupo": "IMPERMEABILIZACOES / JUNTAS DE DILATACAO",
+        "cpus": 50,
+        "var_pct": 1.8,
+        "medio_anterior": 171.12,
+        "medio_atual": 174.19
+      },
+      {
+        "grupo": "SUPER ESTRUTURA",
+        "cpus": 102,
+        "var_pct": 1.72,
+        "medio_anterior": 379.98,
+        "medio_atual": 386.53
+      },
+      {
+        "grupo": "INSTALACOES HIDRAULICAS",
+        "cpus": 414,
+        "var_pct": 1.62,
+        "medio_anterior": 1141.72,
+        "medio_atual": 1160.21
+      },
+      {
+        "grupo": "SERVICOS PRELIMINARES",
+        "cpus": 76,
+        "var_pct": 1.5,
+        "medio_anterior": 1703.48,
+        "medio_atual": 1728.98
+      },
+      {
+        "grupo": "ELEMENTOS METALICOS/COMPONENTES ESPECIAIS",
+        "cpus": 186,
+        "var_pct": 0.61,
+        "medio_anterior": 2650.07,
+        "medio_atual": 2666.34
+      },
+      {
+        "grupo": "SERVICOS COMPLEMENTARES",
+        "cpus": 709,
+        "var_pct": 0.0,
+        "medio_anterior": 3599.85,
+        "medio_atual": 3599.89
+      },
+      {
+        "grupo": "INSTALACOES ELETRICAS",
+        "cpus": 778,
+        "var_pct": -3.91,
+        "medio_anterior": 3319.42,
+        "medio_atual": 3189.57
+      }
+    ],
+    "altas": [
+      {
+        "grupo": "PINTURA",
+        "cpus": 151,
+        "var_pct": 4.25,
+        "medio_anterior": 60.54,
+        "medio_atual": 63.11
+      },
+      {
+        "grupo": "FORRO",
+        "cpus": 37,
+        "var_pct": 3.39,
+        "medio_anterior": 181.6,
+        "medio_atual": 187.76
+      },
+      {
+        "grupo": "VIDROS",
+        "cpus": 20,
+        "var_pct": 2.95,
+        "medio_anterior": 385.69,
+        "medio_atual": 397.07
+      },
+      {
+        "grupo": "ALVENARIA E OUTROS ELEMENTOS DIVISORIOS",
+        "cpus": 75,
+        "var_pct": 2.72,
+        "medio_anterior": 267.01,
+        "medio_atual": 274.27
+      },
+      {
+        "grupo": "COBERTURA",
+        "cpus": 185,
+        "var_pct": 2.59,
+        "medio_anterior": 198.34,
+        "medio_atual": 203.47
+      },
+      {
+        "grupo": "REVESTIMENTOS: TETO E PAREDE",
+        "cpus": 54,
+        "var_pct": 2.33,
+        "medio_anterior": 141.84,
+        "medio_atual": 145.14
+      },
+      {
+        "grupo": "INFRA ESTRUTURA",
+        "cpus": 94,
+        "var_pct": 2.32,
+        "medio_anterior": 1311.91,
+        "medio_atual": 1342.36
+      },
+      {
+        "grupo": "PISOS INTERNOS / RODAPES / PEITORIS",
+        "cpus": 182,
+        "var_pct": 2.13,
+        "medio_anterior": 164.22,
+        "medio_atual": 167.72
+      }
+    ],
+    "baixas": [
+      {
+        "grupo": "INSTALACOES ELETRICAS",
+        "cpus": 778,
+        "var_pct": -3.91,
+        "medio_anterior": 3319.42,
+        "medio_atual": 3189.57
+      }
+    ],
+    "total": 16
+  },
+  "insumos": {
+    "comparaveis": 2331,
+    "media_pct": 0.59,
+    "altas": [
+      {
+        "insumo": "PISO CONCRETO PRE MOLDADO ARTICULADO INTERTRAVADO E= 8 CM 50MPA COR NATURAL",
+        "unidade": "M2",
+        "var_pct": 38.4,
+        "preco": 155.9
+      },
+      {
+        "insumo": "REBITE DE ALUMINIO CABECA REDONDA 5/32\"X3/4\"",
+        "unidade": "KG",
+        "var_pct": 37.6,
+        "preco": 129.27
+      },
+      {
+        "insumo": "DIVISORIA PAINEL CEGO 1,20X2,52M COLOCADA G1-C7",
+        "unidade": "UN",
+        "var_pct": 37.4,
+        "preco": 719.04
+      },
+      {
+        "insumo": "ÁRVORE ORNAMENTAL DIADEMA H=2,00M",
+        "unidade": "UN",
+        "var_pct": 35.3,
+        "preco": 427.85
+      },
+      {
+        "insumo": "ELETROCALHA (BANDEJA) LISA CHAPA 24 (065MM) PRE ZINCADA 150X50MM",
+        "unidade": "M",
+        "var_pct": 35.2,
+        "preco": 44.15
+      },
+      {
+        "insumo": "INTERRUPTOR 2 TECLAS SILENTOQUE COMPL",
+        "unidade": "UN",
+        "var_pct": 33.6,
+        "preco": 23.68
+      },
+      {
+        "insumo": "INTERRUPTOR 1 TECLA PARAL SILENT COMPL INTERRUPTOR EM PARALELO BIPOLAR EM CAIXA 4X2 - ELETROD PVC Ø 25MM FLEXIVEL NBR",
+        "unidade": "UN",
+        "var_pct": 32.2,
+        "preco": 18.2
+      },
+      {
+        "insumo": "MONTANTE P/GRADIL ELETROFUNDIDO H=1718MM GALV. COM PINTURA ELETROSTATICA",
+        "unidade": "UN",
+        "var_pct": 31.0,
+        "preco": 278.21
+      },
+      {
+        "insumo": "ELETROCALHA (BANDEJA) LISA CHAPA 24 (065MM ) PRE ZINCADA 200X50MM",
+        "unidade": "M",
+        "var_pct": 30.0,
+        "preco": 45.7
+      }
+    ],
+    "baixas": [
+      {
+        "insumo": "LONA DE PLASTICO PRETO E=0,20MM",
+        "unidade": "M2",
+        "var_pct": -49.9,
+        "preco": 1.82
+      },
+      {
+        "insumo": "RUFO DENT.ACO GALV.PINT.E=0.50MM C=300MM",
+        "unidade": "M",
+        "var_pct": -47.2,
+        "preco": 20.34
+      },
+      {
+        "insumo": "FUSIVEL DIAZED ATE 25A",
+        "unidade": "UN",
+        "var_pct": -43.3,
+        "preco": 11.54
+      },
+      {
+        "insumo": "ELETROCALHA (BANDEJA) LISA CHAPA 24 (065MM) PRE ZINCADA 50X50MM",
+        "unidade": "M",
+        "var_pct": -38.5,
+        "preco": 10.03
+      },
+      {
+        "insumo": "PARAFUSO PRISIONEIRO COMPR=130MM",
+        "unidade": "UN",
+        "var_pct": -37.4,
+        "preco": 2.59
+      },
+      {
+        "insumo": "AG-04 PORTAO TELA 1.50X1.50 M MALHA 2\" FIO 10",
+        "unidade": "UN",
+        "var_pct": -36.1,
+        "preco": 1697.21
+      },
+      {
+        "insumo": "CARRETA PRANCHA",
+        "unidade": "H",
+        "var_pct": -34.5,
+        "preco": 302.6
+      },
+      {
+        "insumo": "RUFO DENT.ACO GALV.PINT.E=0.50MM C=400MM",
+        "unidade": "M",
+        "var_pct": -34.0,
+        "preco": 27.14
+      },
+      {
+        "insumo": "CAMINHAO ESPARGIDOR 6000KG-BAR/MANG",
+        "unidade": "H",
+        "var_pct": -31.9,
+        "preco": 177.15
+      }
+    ]
+  },
+  "indicadores": {
+    "acumulados": {
+      "IGP-M": -2.91,
+      "INCC-M": 2.14,
+      "INPC": 0.79,
+      "IPCA": 0.76
+    },
+    "selic_aa": 15.0,
+    "selic_aa_anterior": 14.25,
+    "meses": 3
+  },
+  "revisoes": {
+    "coeficiente": 0,
+    "insumo_incluido": 0,
+    "insumo_excluido": 0,
+    "cabecalho": 0,
+    "total": 0
+  },
+  "revisoes_subgrupos": [],
+  "codigo": {
+    "numero": "03",
+    "rotulo": "#03"
+  },
+  "acumulado_ano": {
+    "fonte_pct": 3.16,
+    "comparaveis": 3281,
+    "indices": {
+      "INCC-M": 4.4,
+      "IPCA": 3.26
+    },
+    "desde": "2025-01-01"
+  },
+  "dispersao_uf": null
+}

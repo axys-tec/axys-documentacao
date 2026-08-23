@@ -1,0 +1,537 @@
+{
+  "fonte": "FDE",
+  "ref": "2025-01-01",
+  "ref_anterior": "2024-10-01",
+  "versao": "01-25",
+  "edi_id": 53,
+  "edi_anterior": 52,
+  "meses_intervalo": 3,
+  "modalidade": "SD",
+  "uf_foco": "SP",
+  "movimento": {
+    "incluidas": 1,
+    "inativadas": 1,
+    "reativadas": 0,
+    "alteradas": 0
+  },
+  "cobertura": {
+    "ufs": 1,
+    "cpus": 3285,
+    "sem_custo": 0,
+    "linhas": 6570,
+    "pct_sem_custo": 0.0,
+    "insumos": 2331,
+    "insumos_sem_preco": 0,
+    "pct_sem_preco": 0.0
+  },
+  "precos": {
+    "uf": "SP",
+    "comparaveis": 3284,
+    "media_pct": 0.73,
+    "mediana_pct": 0.1,
+    "subiram": 1775,
+    "cairam": 871,
+    "estaveis": 638
+  },
+  "subgrupos": {
+    "altas": [
+      {
+        "subgrupo": "PLACAS DIVISORIAS",
+        "cpus": 15,
+        "var_pct": 8.24,
+        "medio_anterior": 471.2,
+        "medio_atual": 510.05
+      },
+      {
+        "subgrupo": "PORTAS",
+        "cpus": 40,
+        "var_pct": 5.69,
+        "medio_anterior": 7684.23,
+        "medio_atual": 8121.66
+      },
+      {
+        "subgrupo": "REDE DE BAIXA TENSAO: ENFIACAO",
+        "cpus": 22,
+        "var_pct": 3.8,
+        "medio_anterior": 102.04,
+        "medio_atual": 105.92
+      },
+      {
+        "subgrupo": "FECHO:MUROS/ALAMBRADOS/PORTOES",
+        "cpus": 45,
+        "var_pct": 3.71,
+        "medio_anterior": 2181.24,
+        "medio_atual": 2262.25
+      },
+      {
+        "subgrupo": "ENTRADA: INTERLIGACAO AO QUADRO GERAL",
+        "cpus": 38,
+        "var_pct": 3.66,
+        "medio_anterior": 122.02,
+        "medio_atual": 126.49
+      },
+      {
+        "subgrupo": "ENTRADA EM BAIXA TENSAO",
+        "cpus": 45,
+        "var_pct": 3.65,
+        "medio_anterior": 2989.84,
+        "medio_atual": 3098.95
+      },
+      {
+        "subgrupo": "FUNDACAO PROFUNDA",
+        "cpus": 48,
+        "var_pct": 3.56,
+        "medio_anterior": 2042.12,
+        "medio_atual": 2114.74
+      },
+      {
+        "subgrupo": "SERVICOS COMPLEMENTARES - ELETRICA",
+        "cpus": 21,
+        "var_pct": 3.2,
+        "medio_anterior": 72468.91,
+        "medio_atual": 74789.03
+      },
+      {
+        "subgrupo": "REDE DE AGUAS PLUVIAIS: TUBULACOES",
+        "cpus": 16,
+        "var_pct": 2.85,
+        "medio_anterior": 319.96,
+        "medio_atual": 329.06
+      },
+      {
+        "subgrupo": "REDE DE AGUA FRIA: DEMAIS SERVICOS",
+        "cpus": 27,
+        "var_pct": 2.59,
+        "medio_anterior": 283.05,
+        "medio_atual": 290.39
+      }
+    ],
+    "baixas": [
+      {
+        "subgrupo": "ILUMINACAO EXTERNA",
+        "cpus": 18,
+        "var_pct": -2.63,
+        "medio_anterior": 2198.82,
+        "medio_atual": 2141.08
+      },
+      {
+        "subgrupo": "COMPLEMENTOS EXTERNOS/CANTEIRO DE OBRA/ALAMBRADO",
+        "cpus": 33,
+        "var_pct": -2.33,
+        "medio_anterior": 757.6,
+        "medio_atual": 739.95
+      },
+      {
+        "subgrupo": "PARA RAIOS",
+        "cpus": 15,
+        "var_pct": -2.31,
+        "medio_anterior": 434.64,
+        "medio_atual": 424.59
+      },
+      {
+        "subgrupo": "COBERTURA",
+        "cpus": 31,
+        "var_pct": -1.89,
+        "medio_anterior": 188.78,
+        "medio_atual": 185.21
+      },
+      {
+        "subgrupo": "LIMPEZA DO TERRENO",
+        "cpus": 20,
+        "var_pct": -1.7,
+        "medio_anterior": 5893.91,
+        "medio_atual": 5793.62
+      },
+      {
+        "subgrupo": "CONSERVACAO - PINTURA",
+        "cpus": 33,
+        "var_pct": -1.66,
+        "medio_anterior": 63.07,
+        "medio_atual": 62.02
+      },
+      {
+        "subgrupo": "PECAS PARA COBERTURA",
+        "cpus": 51,
+        "var_pct": -1.1,
+        "medio_anterior": 113.18,
+        "medio_atual": 111.93
+      },
+      {
+        "subgrupo": "ALVENARIA",
+        "cpus": 34,
+        "var_pct": -0.83,
+        "medio_anterior": 173.27,
+        "medio_atual": 171.82
+      },
+      {
+        "subgrupo": "REVESTIMENTO DE RODAPES",
+        "cpus": 22,
+        "var_pct": -0.82,
+        "medio_anterior": 64.07,
+        "medio_atual": 63.55
+      },
+      {
+        "subgrupo": "PORTAS/BATENTES/FERRAGENS",
+        "cpus": 45,
+        "var_pct": -0.69,
+        "medio_anterior": 2099.17,
+        "medio_atual": 2084.79
+      }
+    ],
+    "total_subgrupos": 98
+  },
+  "grupos": {
+    "todos": [
+      {
+        "grupo": "ELEMENTOS METALICOS/COMPONENTES ESPECIAIS",
+        "cpus": 186,
+        "var_pct": 4.12,
+        "medio_anterior": 2532.77,
+        "medio_atual": 2637.01
+      },
+      {
+        "grupo": "INFRA ESTRUTURA",
+        "cpus": 94,
+        "var_pct": 3.11,
+        "medio_anterior": 1230.37,
+        "medio_atual": 1268.68
+      },
+      {
+        "grupo": "ALVENARIA E OUTROS ELEMENTOS DIVISORIOS",
+        "cpus": 75,
+        "var_pct": 3.01,
+        "medio_anterior": 255.73,
+        "medio_atual": 263.43
+      },
+      {
+        "grupo": "SERVICOS COMPLEMENTARES",
+        "cpus": 709,
+        "var_pct": 2.44,
+        "medio_anterior": 3389.34,
+        "medio_atual": 3472.07
+      },
+      {
+        "grupo": "INSTALACOES ELETRICAS",
+        "cpus": 781,
+        "var_pct": 1.4,
+        "medio_anterior": 3222.03,
+        "medio_atual": 3267.01
+      },
+      {
+        "grupo": "VIDROS",
+        "cpus": 19,
+        "var_pct": 1.37,
+        "medio_anterior": 366.57,
+        "medio_atual": 371.6
+      },
+      {
+        "grupo": "FORRO",
+        "cpus": 37,
+        "var_pct": 0.75,
+        "medio_anterior": 176.77,
+        "medio_atual": 178.11
+      },
+      {
+        "grupo": "PISOS INTERNOS / RODAPES / PEITORIS",
+        "cpus": 182,
+        "var_pct": 0.71,
+        "medio_anterior": 160.34,
+        "medio_atual": 161.48
+      },
+      {
+        "grupo": "SUPER ESTRUTURA",
+        "cpus": 102,
+        "var_pct": 0.66,
+        "medio_anterior": 374.42,
+        "medio_atual": 376.87
+      },
+      {
+        "grupo": "REVESTIMENTOS: TETO E PAREDE",
+        "cpus": 54,
+        "var_pct": 0.39,
+        "medio_anterior": 138.51,
+        "medio_atual": 139.05
+      },
+      {
+        "grupo": "IMPERMEABILIZACOES / JUNTAS DE DILATACAO",
+        "cpus": 50,
+        "var_pct": 0.14,
+        "medio_anterior": 168.55,
+        "medio_atual": 168.79
+      },
+      {
+        "grupo": "INSTALACOES HIDRAULICAS",
+        "cpus": 414,
+        "var_pct": 0.11,
+        "medio_anterior": 1119.84,
+        "medio_atual": 1121.04
+      },
+      {
+        "grupo": "ELEMENTOS DE MADEIRA/COMPONENTES ESPECIAIS",
+        "cpus": 169,
+        "var_pct": -0.03,
+        "medio_anterior": 1247.34,
+        "medio_atual": 1246.97
+      },
+      {
+        "grupo": "PINTURA",
+        "cpus": 151,
+        "var_pct": -0.05,
+        "medio_anterior": 59.34,
+        "medio_atual": 59.31
+      },
+      {
+        "grupo": "COBERTURA",
+        "cpus": 185,
+        "var_pct": -0.51,
+        "medio_anterior": 196.19,
+        "medio_atual": 195.2
+      },
+      {
+        "grupo": "SERVICOS PRELIMINARES",
+        "cpus": 76,
+        "var_pct": -1.5,
+        "medio_anterior": 1708.56,
+        "medio_atual": 1682.92
+      }
+    ],
+    "altas": [
+      {
+        "grupo": "ELEMENTOS METALICOS/COMPONENTES ESPECIAIS",
+        "cpus": 186,
+        "var_pct": 4.12,
+        "medio_anterior": 2532.77,
+        "medio_atual": 2637.01
+      },
+      {
+        "grupo": "INFRA ESTRUTURA",
+        "cpus": 94,
+        "var_pct": 3.11,
+        "medio_anterior": 1230.37,
+        "medio_atual": 1268.68
+      },
+      {
+        "grupo": "ALVENARIA E OUTROS ELEMENTOS DIVISORIOS",
+        "cpus": 75,
+        "var_pct": 3.01,
+        "medio_anterior": 255.73,
+        "medio_atual": 263.43
+      },
+      {
+        "grupo": "SERVICOS COMPLEMENTARES",
+        "cpus": 709,
+        "var_pct": 2.44,
+        "medio_anterior": 3389.34,
+        "medio_atual": 3472.07
+      },
+      {
+        "grupo": "INSTALACOES ELETRICAS",
+        "cpus": 781,
+        "var_pct": 1.4,
+        "medio_anterior": 3222.03,
+        "medio_atual": 3267.01
+      },
+      {
+        "grupo": "VIDROS",
+        "cpus": 19,
+        "var_pct": 1.37,
+        "medio_anterior": 366.57,
+        "medio_atual": 371.6
+      },
+      {
+        "grupo": "FORRO",
+        "cpus": 37,
+        "var_pct": 0.75,
+        "medio_anterior": 176.77,
+        "medio_atual": 178.11
+      },
+      {
+        "grupo": "PISOS INTERNOS / RODAPES / PEITORIS",
+        "cpus": 182,
+        "var_pct": 0.71,
+        "medio_anterior": 160.34,
+        "medio_atual": 161.48
+      }
+    ],
+    "baixas": [
+      {
+        "grupo": "SERVICOS PRELIMINARES",
+        "cpus": 76,
+        "var_pct": -1.5,
+        "medio_anterior": 1708.56,
+        "medio_atual": 1682.92
+      },
+      {
+        "grupo": "COBERTURA",
+        "cpus": 185,
+        "var_pct": -0.51,
+        "medio_anterior": 196.19,
+        "medio_atual": 195.2
+      },
+      {
+        "grupo": "PINTURA",
+        "cpus": 151,
+        "var_pct": -0.05,
+        "medio_anterior": 59.34,
+        "medio_atual": 59.31
+      },
+      {
+        "grupo": "ELEMENTOS DE MADEIRA/COMPONENTES ESPECIAIS",
+        "cpus": 169,
+        "var_pct": -0.03,
+        "medio_anterior": 1247.34,
+        "medio_atual": 1246.97
+      }
+    ],
+    "total": 16
+  },
+  "insumos": {
+    "comparaveis": 2330,
+    "media_pct": 1.15,
+    "altas": [
+      {
+        "insumo": "BARRA DE POLIESTER REFORÇADA COM FIBRA DE VIDRO (PRFV) MEDIA DAS BITOLAS",
+        "unidade": "KG",
+        "var_pct": 325.9,
+        "preco": 27.17
+      },
+      {
+        "insumo": "CABO COBRE FLEXIVEL MULTIPOLAR PP 3X1,5 MM2 0,6/1KV",
+        "unidade": "M",
+        "var_pct": 36.8,
+        "preco": 5.87
+      },
+      {
+        "insumo": "APARELHO AR CONDICIONADO HI WALL MINI SPLIT 30.000 BTU/H SÓ FRIO INVERTER 220V FORNECIDO E INSTALADO REMOTO",
+        "unidade": "CJ",
+        "var_pct": 34.6,
+        "preco": 11038.2
+      },
+      {
+        "insumo": "CABO FLEXIVEL DE COBRE MULTIPOLAR PP 3X2,5 MM2 0,6/1KV (ISOLAÇAO NAO HALOGENADO)",
+        "unidade": "M",
+        "var_pct": 34.3,
+        "preco": 8.85
+      },
+      {
+        "insumo": "VARA MANOPLA FENOLITE 2.70M P/CH SEC",
+        "unidade": "UN",
+        "var_pct": 33.3,
+        "preco": 280.12
+      },
+      {
+        "insumo": "DIVISORIA SANITARIA DE GRANILITE E=3CM",
+        "unidade": "M2",
+        "var_pct": 33.1,
+        "preco": 300.45
+      },
+      {
+        "insumo": "CABO FLEXIVEL DE COBRE MULTIPOLAR PP 3X4 MM2 0,6/1KV (ISOLAÇAO NAO HALOGENADO)",
+        "unidade": "M",
+        "var_pct": 32.6,
+        "preco": 12.98
+      },
+      {
+        "insumo": "FUSIVEL DIAZED RAP/RET 2/35 A $MD",
+        "unidade": "UN",
+        "var_pct": 32.0,
+        "preco": 20.43
+      },
+      {
+        "insumo": "CABO FLEXIVEL DE COBRE MULTIPOLAR PP 3X6 MM2 0,6/1KV (ISOLAÇAO NAO HALOGENADO)",
+        "unidade": "M",
+        "var_pct": 31.4,
+        "preco": 18.44
+      }
+    ],
+    "baixas": [
+      {
+        "insumo": "SOLUCAO ACIDA DILUIDA EM AGUA - MURIATICO",
+        "unidade": "L",
+        "var_pct": -69.2,
+        "preco": 6.43
+      },
+      {
+        "insumo": "LIMPA VIDROS PULVERIZADOR SPRAY",
+        "unidade": "L",
+        "var_pct": -61.9,
+        "preco": 18.4
+      },
+      {
+        "insumo": "CANTONEIRA DE ALUMINIO PERFIL SEXTAVADO PARA AZULEJO",
+        "unidade": "M",
+        "var_pct": -59.5,
+        "preco": 3.03
+      },
+      {
+        "insumo": "FIO TRANCADO PARA TELEFONE - PADRAO TELEBRAS",
+        "unidade": "M",
+        "var_pct": -39.6,
+        "preco": 0.93
+      },
+      {
+        "insumo": "CUMEEIRA DE ACO NATURAL LISA / LISA DENT. E=0,5MM",
+        "unidade": "M",
+        "var_pct": -36.7,
+        "preco": 30.68
+      },
+      {
+        "insumo": "GALVANIZACAO A FRIO (TINTA RICA EM ZINCO)",
+        "unidade": "L",
+        "var_pct": -34.8,
+        "preco": 296.4
+      },
+      {
+        "insumo": "POSTE CONCR TUB OCO 11M C/JANELA INSPECAO",
+        "unidade": "UN",
+        "var_pct": -25.1,
+        "preco": 1615.0
+      },
+      {
+        "insumo": "ARGAMASSA PRE FABRICADA PARA REJUNTAMENTO",
+        "unidade": "KG",
+        "var_pct": -23.5,
+        "preco": 7.25
+      },
+      {
+        "insumo": "RUFO LISO ACO GALV.PINT.E=0.65MM C=600MM",
+        "unidade": "M",
+        "var_pct": -21.8,
+        "preco": 67.09
+      }
+    ]
+  },
+  "indicadores": {
+    "acumulados": {
+      "IGP-M": 2.53,
+      "INCC-M": 1.67,
+      "INPC": 0.81,
+      "IPCA": 1.07
+    },
+    "selic_aa": 13.25,
+    "selic_aa_anterior": 10.75,
+    "meses": 3
+  },
+  "revisoes": {
+    "coeficiente": 0,
+    "insumo_incluido": 0,
+    "insumo_excluido": 0,
+    "cabecalho": 0,
+    "total": 0
+  },
+  "revisoes_subgrupos": [],
+  "codigo": {
+    "numero": "01",
+    "rotulo": "#01"
+  },
+  "acumulado_ano": {
+    "fonte_pct": 1.8,
+    "comparaveis": 3284,
+    "indices": {
+      "INCC-M": 0.71,
+      "IPCA": 0.16
+    },
+    "desde": "2025-01-01"
+  },
+  "dispersao_uf": null
+}

@@ -180,6 +180,7 @@
     ],
     "total_subgrupos": 109
   },
+  "grupos": null,
   "insumos": {
     "comparaveis": 4835,
     "media_pct": 0.16,
@@ -187,184 +188,172 @@
       {
         "insumo": "PROTETOR AUDITIVO TIPO CONCHA COM ABAFADOR DE RUIDOS, ATENUACAO ACIMA DE 22 DB",
         "unidade": "UN",
-        "var_pct": 134.7
+        "var_pct": 134.7,
+        "preco": 74.55
       },
       {
         "insumo": "CINTURAO DE SEGURANCA TIPO PARAQUEDISTA, FIVELA EM ACO, AJUSTE NO SUSPENSORIO, CINTURA E PERNAS",
         "unidade": "UN",
-        "var_pct": 125.9
+        "var_pct": 125.9,
+        "preco": 168.05
       },
       {
         "insumo": "MASCARA DE SEGURANCA PARA SOLDA COM ESCUDO DE CELERON E CARNEIRA DE PLASTICO COM REGULAGEM",
         "unidade": "UN",
-        "var_pct": 99.9
+        "var_pct": 99.9,
+        "preco": 83.64
       },
       {
         "insumo": "ALICATE PARA ANEIS DE PISTAO, CAPACIDADE *50* A 100 MM",
         "unidade": "UN",
-        "var_pct": 73.3
+        "var_pct": 73.3,
+        "preco": 253.52
       },
       {
         "insumo": "BALDE VERMELHO PARA SINALIZACAO DE VIAS",
         "unidade": "UN",
-        "var_pct": 66.7
+        "var_pct": 66.7,
+        "preco": 10.85
       },
       {
         "insumo": "BLOQUETE/PISO INTERTRAVADO DE CONCRETO - MODELO ONDA/16 FACES/RETANGULAR/TIJOLINHO/PAVER/HOLANDES/PARALELEPIPEDO, *20 X 10* CM, E = 10 CM, RESISTENCIA DE 50 MPA, COR NATURAL",
         "unidade": "M2",
-        "var_pct": 58.9
+        "var_pct": 58.9,
+        "preco": 159.43
       },
       {
         "insumo": "LADRILHO HIDRAULICO, *30 X 30* CM, E= 2 CM, PADRAO MILANO, COR NATURAL",
         "unidade": "M2",
-        "var_pct": 49.7
+        "var_pct": 49.7,
+        "preco": 125.69
       },
       {
         "insumo": "TALHADEIRA COM PUNHO DE PROTECAO *20 X 250* MM",
         "unidade": "UN",
-        "var_pct": 49.1
+        "var_pct": 49.1,
+        "preco": 71.85
       },
       {
         "insumo": "ALICATE DE CRIMPAR RJ11, RJ12 E RJ45, COM CATRACA",
         "unidade": "UN",
-        "var_pct": 46.7
+        "var_pct": 46.7,
+        "preco": 248.25
       },
       {
         "insumo": "BLOQUETE/PISO INTERTRAVADO DE CONCRETO - MODELO RAQUETE, *22 X 13,5* CM, E = 6 CM, RESISTENCIA DE 35 MPA, COR NATURAL",
         "unidade": "M2",
-        "var_pct": 42.0
+        "var_pct": 42.0,
+        "preco": 95.59
       },
       {
         "insumo": "LADRILHO HIDRAULICO, *25 X 25* CM, E= 2 CM, PADRAO RAMPA, COR NATURAL",
         "unidade": "M2",
-        "var_pct": 41.6
+        "var_pct": 41.6,
+        "preco": 121.06
       },
       {
         "insumo": "BLOQUETE/PISO INTERTRAVADO DE CONCRETO - MODELO SEXTAVADO / HEXAGONAL, *25 X 25* CM, E = 10 CM, RESISTENCIA DE 35 MPA, COR NATURAL",
         "unidade": "M2",
-        "var_pct": 35.9
+        "var_pct": 35.9,
+        "preco": 136.4
       },
       {
         "insumo": "ALICATE DE PRESSAO PARA SOLDA DE CHAPA 18\"",
         "unidade": "UN",
-        "var_pct": 30.3
+        "var_pct": 30.3,
+        "preco": 237.04
       },
       {
         "insumo": "ENXADA ESTREITA, EM ACO, *25 X 23* CM, COM CABO DE MADEIRA DE *150* CM",
         "unidade": "UN",
-        "var_pct": 29.6
-      },
-      {
-        "insumo": "BLOQUETE/PISO INTERTRAVADO DE CONCRETO - MODELO SEXTAVADO / HEXAGONAL, *25 X 25* CM, E = 6 CM, RESISTENCIA DE 35 MPA, COR NATURAL",
-        "unidade": "M2",
-        "var_pct": 29.5
-      },
-      {
-        "insumo": "BLOQUETE/PISO DE CONCRETO - MODELO PISOGRAMA/CONCREGRAMA 2 FUROS, DIMENSOES APROX. DE *35 X 15* CM E ESPESSURA DE 7 CM (+/- 1 CM), COR NATURAL",
-        "unidade": "M2",
-        "var_pct": 26.0
-      },
-      {
-        "insumo": "BLOQUETE/PISO INTERTRAVADO DE CONCRETO - MODELO ONDA/16 FACES/RETANGULAR/TIJOLINHO/PAVER/HOLANDES/PARALELEPIPEDO, *20 X 10* CM, E = 6 CM, RESISTENCIA DE 35 MPA, COLORIDO",
-        "unidade": "M2",
-        "var_pct": 24.8
-      },
-      {
-        "insumo": "BLOQUETE/PISO INTERTRAVADO DE CONCRETO - MODELO ONDA/16 FACES/RETANGULAR/TIJOLINHO/PAVER/HOLANDES/PARALELEPIPEDO, *20 X 10* CM, E = 8 CM, RESISTENCIA DE 35 MPA, COLORIDO",
-        "unidade": "M2",
-        "var_pct": 24.2
+        "var_pct": 29.6,
+        "preco": 68.69
       }
     ],
     "baixas": [
       {
         "insumo": "DISCO DE CORTE DIAMANTADO SEGMENTADO PARA CONCRETO/ASFALTO, DIAMETRO DE *350* MM, FURO DE 25,40 MM",
         "unidade": "UN",
-        "var_pct": -56.8
+        "var_pct": -56.8,
+        "preco": 305.88
       },
       {
         "insumo": "KIT ACESSORIOS PARA COMPRESSOR DE AR, 5 PECAS (PISTOLAS PINTURA, LIMPEZA E PULVERIZACAO, CALIBRADOR E MANGUEIRA)",
         "unidade": "UN",
-        "var_pct": -48.9
+        "var_pct": -48.9,
+        "preco": 200.52
       },
       {
         "insumo": "DISCO DE CORTE DIAMANTADO SEGMENTADO DIAMETRO DE 180 MM PARA ESMERILHADEIRA 7\"",
         "unidade": "UN",
-        "var_pct": -43.1
+        "var_pct": -43.1,
+        "preco": 70.21
       },
       {
         "insumo": "ESPATULA EM ACO INOX COM CABO DE MADEIRA E LARGURA DE *8* CM",
         "unidade": "UN",
-        "var_pct": -39.2
+        "var_pct": -39.2,
+        "preco": 13.01
       },
       {
         "insumo": "BLOQUETE/PISO DE CONCRETO - MODELO PISOGRAMA/CONCREGRAMA/PAVI-GRADE/GRAMEIRO, DIMENSOES APROXIMADAS DE *60 X 45* CM E ESPESSURA DE 8 CM (+/- 1 CM), COR NATURAL",
         "unidade": "M2",
-        "var_pct": -38.4
+        "var_pct": -38.4,
+        "preco": 96.78
       },
       {
         "insumo": "ESCADA EXTENSIVEL EM ALUMINIO, COM SAPATAS DE BORRACHA, ALTURA FECHADA 3,60 M, ALTURA ESTENDIDA DE 6,0 A 6,30 M, LARGURA MINIMA DE 35 CM, CACIDADE *120* KG",
         "unidade": "UN",
-        "var_pct": -38.2
+        "var_pct": -38.2,
+        "preco": 697.05
       },
       {
         "insumo": "ESTILETE DE METAL, LAMINA 18 MM",
         "unidade": "UN",
-        "var_pct": -37.3
+        "var_pct": -37.3,
+        "preco": 15.59
       },
       {
         "insumo": "DESEMPENADEIRA DE ACO LISA 12 X *25* CM COM CABO FECHADO DE MADEIRA",
         "unidade": "UN",
-        "var_pct": -37.1
+        "var_pct": -37.1,
+        "preco": 13.47
       },
       {
         "insumo": "ESQUADRO DE ACO 12\" (300 MM), CABO DE ALUMINIO",
         "unidade": "UN",
-        "var_pct": -36.3
+        "var_pct": -36.3,
+        "preco": 21.65
       },
       {
         "insumo": "MISTURADOR MANUAL DE TINTAS PARA FURADEIRA, HASTE METALICA *60* CM, COM HELICE (MEXEDOR DE TINTA)",
         "unidade": "UN",
-        "var_pct": -36.2
+        "var_pct": -36.2,
+        "preco": 37.32
       },
       {
         "insumo": "CORDA DE POLIAMIDA 12 MM TIPO BOMBEIRO, PARA TRABALHO EM ALTURA",
         "unidade": "100M",
-        "var_pct": -34.4
+        "var_pct": -34.4,
+        "preco": 433.82
       },
       {
         "insumo": "ESCADA DUPLA DE ABRIR EM ALUMINIO, COM SAPATAS DE BORRACHA, *2,30* X *0,57* M (ALTURA UTIL X LARGURA MINIMA), MODELO PINTOR, 8 DEGRAUS, CAPACIDADE *100* KG",
         "unidade": "UN",
-        "var_pct": -34.0
+        "var_pct": -34.0,
+        "preco": 262.88
       },
       {
         "insumo": "PRUMO DE CENTRO EM ACO *400* G, COM CORDAO EM NYLON E CALCO GUIA EM ACO OU MADEIRA",
         "unidade": "UN",
-        "var_pct": -30.7
+        "var_pct": -30.7,
+        "preco": 29.8
       },
       {
         "insumo": "PRUMO DE PAREDE EM ACO 700 A 750 G, COM CORDAO EM NYLON E TACO",
         "unidade": "UN",
-        "var_pct": -29.7
-      },
-      {
-        "insumo": "LUVA DE BORRACHA ISOLANTE PARA ALTA TENSAO, RESISTENTE A OZONIO, TENSAO DE ENSAIO 2,5 KV (PAR)",
-        "unidade": "PAR",
-        "var_pct": -27.5
-      },
-      {
-        "insumo": "CADEIRA SUSPENSA MANUAL / BALANCIM INDIVIDUAL (NBR 14751)",
-        "unidade": "UN",
-        "var_pct": -21.8
-      },
-      {
-        "insumo": "ESCOVA CIRCULAR EM ACO LATONADO, 6 X 1\" (DIAMETRO X ESPESSURA), FURO DE 1 1/4\", FIO ONDULADO *0,30* MM",
-        "unidade": "UN",
-        "var_pct": -19.3
-      },
-      {
-        "insumo": "DISCO DE CORTE PARA METAL COM DUAS TELAS 12 X 1/8 X 3/4\" (300 X 3,2 X 19,05 MM)",
-        "unidade": "UN",
-        "var_pct": -15.9
+        "var_pct": -29.7,
+        "preco": 34.46
       }
     ]
   },

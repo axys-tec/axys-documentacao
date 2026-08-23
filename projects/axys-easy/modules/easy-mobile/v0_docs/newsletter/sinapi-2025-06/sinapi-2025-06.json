@@ -180,6 +180,7 @@
     ],
     "total_subgrupos": 109
   },
+  "grupos": null,
   "insumos": {
     "comparaveis": 4872,
     "media_pct": 0.4,
@@ -187,184 +188,172 @@
       {
         "insumo": "RODO PARA CHAO 40 CM, COM BORRACHA DUPLA E CABO",
         "unidade": "UN",
-        "var_pct": 489.8
+        "var_pct": 489.8,
+        "preco": 58.33
       },
       {
         "insumo": "PA DE LIXO PLASTICA, CABO LONGO",
         "unidade": "UN",
-        "var_pct": 387.4
+        "var_pct": 387.4,
+        "preco": 40.5
       },
       {
         "insumo": "VASSOURA 40 CM COM CABO",
         "unidade": "UN",
-        "var_pct": 248.9
+        "var_pct": 248.9,
+        "preco": 48.32
       },
       {
         "insumo": "LONA PLASTICA PESADA PRETA, E = 150 MICRA",
         "unidade": "M2",
-        "var_pct": 133.7
+        "var_pct": 133.7,
+        "preco": 2.01
       },
       {
         "insumo": "LONA PLASTICA EXTRA FORTE PRETA, E = 200 MICRA",
         "unidade": "M2",
-        "var_pct": 91.6
+        "var_pct": 91.6,
+        "preco": 2.28
       },
       {
         "insumo": "ESTOPA",
         "unidade": "KG",
-        "var_pct": 54.5
+        "var_pct": 54.5,
+        "preco": 20.42
       },
       {
         "insumo": "APARELHO CORTE OXI-ACETILENO PARA SOLDA E CORTE CONTENDO MACARICO SOLDA, BICO DE CORTE, CILINDROS, REGULADORES, MANGUEIRAS E CARRINHO",
         "unidade": "UN",
-        "var_pct": 45.4
+        "var_pct": 45.4,
+        "preco": 3430.78
       },
       {
         "insumo": "ALICATE DE PRESSAO 11\" PARA SOLDA, TIPO U",
         "unidade": "UN",
-        "var_pct": 42.9
+        "var_pct": 42.9,
+        "preco": 169.93
       },
       {
         "insumo": "MANGUEIRA CRISTAL TRANCADA, PVC COM REFORCO, PRESSAO DE TRABALHO (PT) 250 LBS/POL2, DE 1\" X *3,1* MM",
         "unidade": "M",
-        "var_pct": 41.0
+        "var_pct": 41.0,
+        "preco": 23.24
       },
       {
         "insumo": "MANGUEIRA CRISTAL, LISA, PVC TRANSPARENTE, 1/4\" X1 MM",
         "unidade": "M",
-        "var_pct": 33.3
+        "var_pct": 33.3,
+        "preco": 1.68
       },
       {
         "insumo": "MANGUEIRA CRISTAL, LISA, PVC TRANSPARENTE, 3/4\" X 2 MM",
         "unidade": "M",
-        "var_pct": 32.4
+        "var_pct": 32.4,
+        "preco": 8.98
       },
       {
         "insumo": "MANGUEIRA CRISTAL, LISA, PVC TRANSPARENTE, 1/4\" X1,5 MM",
         "unidade": "M",
-        "var_pct": 31.9
+        "var_pct": 31.9,
+        "preco": 2.81
       },
       {
         "insumo": "MACARICO DE SOLDA 201 PARA EXTENSAO GLP OU ACETILENO",
         "unidade": "UN",
-        "var_pct": 30.6
+        "var_pct": 30.6,
+        "preco": 268.14
       },
       {
         "insumo": "FLANELA *30 X 40* CM",
         "unidade": "UN",
-        "var_pct": 28.1
-      },
-      {
-        "insumo": "ALICATE DE PRESSAO 11\" PARA SOLDA, TIPO C",
-        "unidade": "UN",
-        "var_pct": 26.0
-      },
-      {
-        "insumo": "PROTETOR AUDITIVO TIPO CONCHA COM ABAFADOR DE RUIDOS, ATENUACAO ACIMA DE 22 DB",
-        "unidade": "UN",
-        "var_pct": 25.6
-      },
-      {
-        "insumo": "MASCARA DE SEGURANCA PARA SOLDA COM ESCUDO DE CELERON E CARNEIRA DE PLASTICO COM REGULAGEM",
-        "unidade": "UN",
-        "var_pct": 24.2
-      },
-      {
-        "insumo": "MANGUEIRA CRISTAL, LISA, PVC TRANSPARENTE, 5/16\" X 1 MM",
-        "unidade": "M",
-        "var_pct": 24.0
+        "var_pct": 28.1,
+        "preco": 2.6
       }
     ],
     "baixas": [
       {
         "insumo": "DESEMPENADEIRA PLASTICA LISA *14 X 27* CM",
         "unidade": "UN",
-        "var_pct": -54.0
+        "var_pct": -54.0,
+        "preco": 12.32
       },
       {
         "insumo": "DISCO DE BORRACHA PARA LIXADEIRA RIGIDO 7\" COM ARRUELA CENTRAL",
         "unidade": "UN",
-        "var_pct": -43.1
+        "var_pct": -43.1,
+        "preco": 20.48
       },
       {
         "insumo": "ALICATE DE CORTE DIAGONAL 6\" COM ISOLAMENTO",
         "unidade": "UN",
-        "var_pct": -42.9
+        "var_pct": -42.9,
+        "preco": 37.4
       },
       {
         "insumo": "ESPATULA DE PLASTICO LISA, LARGURA *10* CM",
         "unidade": "UN",
-        "var_pct": -30.2
+        "var_pct": -30.2,
+        "preco": 7.27
       },
       {
         "insumo": "BOLSA DE LONA PARA FERRAMENTAS *50 X 35 X 25* CM",
         "unidade": "UN",
-        "var_pct": -29.7
+        "var_pct": -29.7,
+        "preco": 185.89
       },
       {
         "insumo": "MANGUEIRA DE PVC FLEXIVEL, TIPO FLAT/ACHATADA, D = 1 1/2\" (40 MM), PARA CONDUCAO DE AGUA, SERVICOS LEVES E MEDIOS",
         "unidade": "M",
-        "var_pct": -27.2
+        "var_pct": -27.2,
+        "preco": 14.28
       },
       {
         "insumo": "DISCO DE LIXA PARA METAL, DIAMETRO = 180 MM, GRAO 120",
         "unidade": "UN",
-        "var_pct": -26.8
+        "var_pct": -26.8,
+        "preco": 5.27
       },
       {
         "insumo": "BUCHA DE NYLON SEM ABA S5",
         "unidade": "UN",
-        "var_pct": -25.0
+        "var_pct": -25.0,
+        "preco": 0.03
       },
       {
         "insumo": "BUCHA DE NYLON SEM ABA S8, COM PARAFUSO DE 4,80 X 50 MM EM ACO ZINCADO COM ROSCA SOBERBA, CABECA CHATA E FENDA PHILLIPS",
         "unidade": "UN",
-        "var_pct": -20.0
+        "var_pct": -20.0,
+        "preco": 0.2
       },
       {
         "insumo": "BUCHA DE NYLON SEM ABA S10",
         "unidade": "UN",
-        "var_pct": -18.2
+        "var_pct": -18.2,
+        "preco": 0.18
       },
       {
         "insumo": "BUCHA DE NYLON SEM ABA S8",
         "unidade": "UN",
-        "var_pct": -18.2
+        "var_pct": -18.2,
+        "preco": 0.09
       },
       {
         "insumo": "LIXA D'AGUA EM FOLHA, COR PRETA, GRAO 100",
         "unidade": "UN",
-        "var_pct": -17.9
+        "var_pct": -17.9,
+        "preco": 2.38
       },
       {
         "insumo": "BUCHA DE NYLON SEM ABA S12, COM PARAFUSO DE 5/16\" X 80 MM EM ACO ZINCADO COM ROSCA SOBERBA E CABECA SEXTAVADA",
         "unidade": "UN",
-        "var_pct": -17.9
-      },
-      {
-        "insumo": "BUCHA DE NYLON SEM ABA S6",
-        "unidade": "UN",
-        "var_pct": -16.7
-      },
-      {
-        "insumo": "BUCHA DE NYLON SEM ABA S6, COM PARAFUSO DE 4,20 X 40 MM EM ACO ZINCADO COM ROSCA SOBERBA, CABECA CHATA E FENDA PHILLIPS",
-        "unidade": "UN",
-        "var_pct": -16.7
+        "var_pct": -17.9,
+        "preco": 0.46
       },
       {
         "insumo": "BUCHA DE NYLON SEM ABA S10, COM PARAFUSO DE 6,10 X 65 MM EM ACO ZINCADO COM ROSCA SOBERBA, CABECA CHATA E FENDA PHILLIPS",
         "unidade": "UN",
-        "var_pct": -16.7
-      },
-      {
-        "insumo": "ESCOVA DE ACO, COM CABO, *4 X 15* FILEIRAS DE CERDAS",
-        "unidade": "UN",
-        "var_pct": -15.1
-      },
-      {
-        "insumo": "PROLONGADOR/ EXTENSOR TELESCOPICO, EM CHAPA METALICA, COM 3 METROS, PARA ROLO DE PINTURA",
-        "unidade": "UN",
-        "var_pct": -14.9
+        "var_pct": -16.7,
+        "preco": 0.3
       }
     ]
   },

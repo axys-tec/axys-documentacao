@@ -180,6 +180,7 @@
     ],
     "total_subgrupos": 120
   },
+  "grupos": null,
   "insumos": {
     "comparaveis": 4876,
     "media_pct": 1.52,
@@ -187,184 +188,172 @@
       {
         "insumo": "POLIESTIRENO EXPANDIDO/EPS (ISOPOR), TIPO 2F, PLACA, ISOLAMENTO TERMOACUSTICO, E = 10 MM, 1000 X 500 MM",
         "unidade": "M2",
-        "var_pct": 33.5
+        "var_pct": 33.5,
+        "preco": 4.98
       },
       {
         "insumo": "PAINEL DE LA DE VIDRO SEM REVESTIMENTO PSI 20, E = 25 MM, DE 1200 X 600 MM",
         "unidade": "M2",
-        "var_pct": 33.4
+        "var_pct": 33.4,
+        "preco": 27.18
       },
       {
         "insumo": "POLIESTIRENO EXPANDIDO/EPS (ISOPOR), TIPO 2F, PLACA, ISOLAMENTO TERMOACUSTICO, E = 50 MM, 1000 X 500 MM",
         "unidade": "M2",
-        "var_pct": 33.4
+        "var_pct": 33.4,
+        "preco": 33.05
       },
       {
         "insumo": "PAINEL DE LA DE VIDRO SEM REVESTIMENTO PSI 40, E = 50 MM, DE 1200 X 600 MM",
         "unidade": "M2",
-        "var_pct": 33.4
+        "var_pct": 33.4,
+        "preco": 100.26
       },
       {
         "insumo": "PAINEL DE LA DE VIDRO SEM REVESTIMENTO PSI 20, E = 50 MM, DE 1200 X 600 MM",
         "unidade": "M2",
-        "var_pct": 33.4
+        "var_pct": 33.4,
+        "preco": 61.18
       },
       {
         "insumo": "POLIESTIRENO EXPANDIDO/EPS (ISOPOR), PEROLAS, PARA CONCRETO LEVE",
         "unidade": "KG",
-        "var_pct": 33.4
+        "var_pct": 33.4,
+        "preco": 76.28
       },
       {
         "insumo": "POLIESTIRENO EXPANDIDO/EPS (ISOPOR), TIPO 2F, BLOCO",
         "unidade": "M3",
-        "var_pct": 33.4
+        "var_pct": 33.4,
+        "preco": 586.86
       },
       {
         "insumo": "POLIESTIRENO EXPANDIDO/EPS (ISOPOR), TIPO 2F, PLACA, ISOLAMENTO TERMOACUSTICO, E = 20 MM, 1000 X 500 MM",
         "unidade": "M2",
-        "var_pct": 33.4
+        "var_pct": 33.4,
+        "preco": 13.22
       },
       {
         "insumo": "POLVORA NEGRA",
         "unidade": "KG",
-        "var_pct": 33.4
-      },
-      {
-        "insumo": "EMULSAO EXPLOSIVA EM CARTUCHOS DE 1\" X 12\", DENSIDADE 1.15 G/CM3, INICIACAO ESPOLETA N. 8 / CORDEL",
-        "unidade": "KG",
-        "var_pct": 33.4
-      },
-      {
-        "insumo": "EMULSAO EXPLOSIVA EM CARTUCHOS DE 1\" X 24\", DENSIDADE 1.15 G/CM3, INICIACAO ESPOLETA N. 8 / CORDEL",
-        "unidade": "KG",
-        "var_pct": 33.4
+        "var_pct": 33.4,
+        "preco": 152.33
       },
       {
         "insumo": "EMULSAO EXPLOSIVA EM CARTUCHOS DE 1\" X 8\", DENSIDADE 1.15 G/CM3, INICIACAO ESPOLETA N. 8 / CORDEL",
         "unidade": "KG",
-        "var_pct": 33.4
+        "var_pct": 33.4,
+        "preco": 30.2
+      },
+      {
+        "insumo": "EMULSAO EXPLOSIVA EM CARTUCHOS DE 1\" X 12\", DENSIDADE 1.15 G/CM3, INICIACAO ESPOLETA N. 8 / CORDEL",
+        "unidade": "KG",
+        "var_pct": 33.4,
+        "preco": 30.2
+      },
+      {
+        "insumo": "EMULSAO EXPLOSIVA EM CARTUCHOS DE 1\" X 24\", DENSIDADE 1.15 G/CM3, INICIACAO ESPOLETA N. 8 / CORDEL",
+        "unidade": "KG",
+        "var_pct": 33.4,
+        "preco": 30.2
       },
       {
         "insumo": "EMULSAO EXPLOSIVA EM CARTUCHOS DE 2 1/2\" X 24\", DENSIDADE 1.15 G/CM3, INICIACAO ESPOLETA N. 8 / CORDEL",
         "unidade": "KG",
-        "var_pct": 33.4
-      },
-      {
-        "insumo": "EMULSAO EXPLOSIVA EM CARTUCHOS DE 2\" X 24\", DENSIDADE 1.15 G/CM3, INICIACAO ESPOLETA N. 8 / CORDEL",
-        "unidade": "KG",
-        "var_pct": 33.4
+        "var_pct": 33.4,
+        "preco": 22.85
       },
       {
         "insumo": "EMULSAO EXPLOSIVA EM CARTUCHOS DE 2 1/4\" X 24\", DENSIDADE 1.15 G/CM3, INICIACAO ESPOLETA N. 8 / CORDEL",
         "unidade": "KG",
-        "var_pct": 33.4
-      },
-      {
-        "insumo": "PAINEL DE LA DE VIDRO SEM REVESTIMENTO PSI 40, E = 25 MM, DE 1200 X 600 MM",
-        "unidade": "M2",
-        "var_pct": 33.4
-      },
-      {
-        "insumo": "COTOVELO DE COBRE 90 GRAUS SEM ANEL DE SOLDA, BOLSA X BOLSA, 15 MM",
-        "unidade": "UN",
-        "var_pct": 29.4
-      },
-      {
-        "insumo": "BUCHA DE REDUCAO DE COBRE SEM ANEL DE SOLDA, PONTA X BOLSA, 28 X 22 MM",
-        "unidade": "UN",
-        "var_pct": 29.3
+        "var_pct": 33.4,
+        "preco": 22.85
       }
     ],
     "baixas": [
       {
         "insumo": "TUBO PVC DE REVESTIMENTO GEOMECANICO NERVURADO STANDARD, DN = 154 MM, COMPRIMENTO = 2 M",
         "unidade": "M",
-        "var_pct": -21.8
+        "var_pct": -21.8,
+        "preco": 89.99
       },
       {
         "insumo": "SAPATA DE PVC ADITIVADO NERVURADO D = 6 POLEGADAS",
         "unidade": "UN",
-        "var_pct": -21.8
+        "var_pct": -21.8,
+        "preco": 211.79
       },
       {
         "insumo": "SAPATA DE PVC ADITIVADO NERVURADO D = 8 POLEGADAS",
         "unidade": "UN",
-        "var_pct": -21.8
+        "var_pct": -21.8,
+        "preco": 278.73
       },
       {
         "insumo": "TUBO PVC DE REVESTIMENTO GEOMECANICO NERVURADO REFORCADO, DN = 200 MM, COMPRIMENTO = 2 M",
         "unidade": "M",
-        "var_pct": -21.8
+        "var_pct": -21.8,
+        "preco": 205.39
       },
       {
         "insumo": "TUBO PVC DE REVESTIMENTO GEOMECANICO NERVURADO REFORCADO, DN = 150 MM, COMPRIMENTO = 2 M",
         "unidade": "M",
-        "var_pct": -21.8
+        "var_pct": -21.8,
+        "preco": 115.5
       },
       {
         "insumo": "TUBO PVC DE REVESTIMENTO GEOMECANICO NERVURADO STANDARD, DN = 206 MM, COMPRIMENTO = 2 M",
         "unidade": "M",
-        "var_pct": -21.8
+        "var_pct": -21.8,
+        "preco": 156.05
       },
       {
         "insumo": "PARAFUSO ROSCA SOBERBA ZINCADO CABECA CHATA FENDA SIMPLES 3,8 X 30 MM (1.1/4\")",
         "unidade": "UN",
-        "var_pct": -12.5
+        "var_pct": -12.5,
+        "preco": 0.07
       },
       {
         "insumo": "COLAR TOMADA PVC, COM TRAVAS, SAIDA COM ROSCA, DE 40 MM X 1/2\" OU 40 MM X 3/4\", PARA LIGACAO PREDIAL DE AGUA",
         "unidade": "UN",
-        "var_pct": -9.5
+        "var_pct": -9.5,
+        "preco": 9.49
       },
       {
         "insumo": "TUBO PVC PBA JEI, CLASSE 15, DN 50 MM, PARA REDE DE AGUA (NBR 5647)",
         "unidade": "M",
-        "var_pct": -9.5
+        "var_pct": -9.5,
+        "preco": 22.9
       },
       {
         "insumo": "LUVA DE CORRER PVC PBA, JE, DN 50 / DE 60 MM, PARA REDE DE AGUA",
         "unidade": "UN",
-        "var_pct": -9.5
+        "var_pct": -9.5,
+        "preco": 16.7
       },
       {
         "insumo": "COLAR TOMADA PVC, COM TRAVAS, SAIDA COM ROSCA, DE 85 MM X 1/2\" OU 85 MM X 3/4\", PARA LIGACAO PREDIAL DE AGUA",
         "unidade": "UN",
-        "var_pct": -9.5
+        "var_pct": -9.5,
+        "preco": 14.04
       },
       {
         "insumo": "LUVA DE CORRER PVC PBA, JE, DN 75 / DE 85 MM, PARA REDE DE AGUA",
         "unidade": "UN",
-        "var_pct": -9.5
+        "var_pct": -9.5,
+        "preco": 36.49
       },
       {
         "insumo": "TUBO PVC DEFOFO, JEI, 1 MPA, DN 100 MM, PARA REDE DE AGUA (NBR 7665)",
         "unidade": "M",
-        "var_pct": -9.5
+        "var_pct": -9.5,
+        "preco": 52.27
       },
       {
         "insumo": "TE DE REDUCAO, PVC PBA, BBB, JE, DN 100 X 75 / DE 110 X 85 MM, PARA REDE DE AGUA",
         "unidade": "UN",
-        "var_pct": -9.5
-      },
-      {
-        "insumo": "EXTREMIDADE/TUBETE PARA HIDROMETRO PVC, COM ROSCA, CURTA, COM BUCHA LATAO, 3/4\" OU 1/2\"",
-        "unidade": "UN",
-        "var_pct": -9.5
-      },
-      {
-        "insumo": "TUBO PVC PBA JEI, CLASSE 15, DN 100 MM, PARA REDE DE AGUA (NBR 5647)",
-        "unidade": "M",
-        "var_pct": -9.5
-      },
-      {
-        "insumo": "TE, PVC PBA, BBB, 90 GRAUS, DN 100 / DE 110 MM, PARA REDE DE AGUA",
-        "unidade": "UN",
-        "var_pct": -9.5
-      },
-      {
-        "insumo": "EXTREMIDADE PVC PBA, BF, JE, DN 75/ DE 85 MM",
-        "unidade": "UN",
-        "var_pct": -9.5
+        "var_pct": -9.5,
+        "preco": 86.61
       }
     ]
   },

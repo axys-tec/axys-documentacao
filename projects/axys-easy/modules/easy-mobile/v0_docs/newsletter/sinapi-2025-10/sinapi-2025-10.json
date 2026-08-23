@@ -180,6 +180,7 @@
     ],
     "total_subgrupos": 113
   },
+  "grupos": null,
   "insumos": {
     "comparaveis": 4818,
     "media_pct": 0.47,
@@ -187,184 +188,172 @@
       {
         "insumo": "PARAFUSO DE ACO ZINCADO COM ROSCA SOBERBA, CABECA CHATA E FENDA SIMPLES, DIAMETRO 2,5 MM, COMPRIMENTO * 9,5 * MM",
         "unidade": "UN",
-        "var_pct": 25.0
+        "var_pct": 25.0,
+        "preco": 0.05
       },
       {
         "insumo": "CONE DE SINALIZACAO EM PVC FLEXIVEL, H = 70 / 76 CM (NBR 15071)",
         "unidade": "UN",
-        "var_pct": 22.0
+        "var_pct": 22.0,
+        "preco": 137.55
       },
       {
         "insumo": "CONE DE SINALIZACAO EM PVC RIGIDO COM FAIXA REFLETIVA, H = 70 / 76 CM",
         "unidade": "UN",
-        "var_pct": 22.0
+        "var_pct": 22.0,
+        "preco": 57.9
       },
       {
         "insumo": "CAL HIDRATADA PARA PINTURA",
         "unidade": "KG",
-        "var_pct": 16.5
+        "var_pct": 16.5,
+        "preco": 1.84
       },
       {
         "insumo": "CAL HIDRATADA CH-I PARA ARGAMASSAS",
         "unidade": "KG",
-        "var_pct": 15.8
+        "var_pct": 15.8,
+        "preco": 1.1
       },
       {
         "insumo": "PORCA ZINCADA, SEXTAVADA, DIAMETRO 5/16\"",
         "unidade": "UN",
-        "var_pct": 15.4
+        "var_pct": 15.4,
+        "preco": 0.15
       },
       {
         "insumo": "PARAFUSO DE LATAO COM ROSCA SOBERBA, CABECA CHATA E FENDA SIMPLES, DIAMETRO 2,5 MM, COMPRIMENTO 12 MM",
         "unidade": "UN",
-        "var_pct": 15.4
+        "var_pct": 15.4,
+        "preco": 0.15
       },
       {
         "insumo": "CAL VIRGEM COMUM PARA ARGAMASSAS (NBR 6453)",
         "unidade": "KG",
-        "var_pct": 14.8
+        "var_pct": 14.8,
+        "preco": 0.93
       },
       {
         "insumo": "PARAFUSO DRY WALL, EM ACO FOSFATIZADO, CABECA TROMBETA E PONTA BROCA (TB), COMPRIMENTO 25 MM",
         "unidade": "UN",
-        "var_pct": 14.3
+        "var_pct": 14.3,
+        "preco": 0.16
       },
       {
         "insumo": "PARAFUSO DRY WALL, EM ACO FOSFATIZADO, CABECA TROMBETA E PONTA BROCA (TB), COMPRIMENTO 45 MM",
         "unidade": "UN",
-        "var_pct": 13.0
+        "var_pct": 13.0,
+        "preco": 0.26
       },
       {
         "insumo": "POSTE DECORATIVO PARA JARDIM EM ACO TUBULAR, SEM LUMINARIA, H = *2,5* M",
         "unidade": "UN",
-        "var_pct": 11.8
+        "var_pct": 11.8,
+        "preco": 271.18
       },
       {
         "insumo": "POSTE CONICO CONTINUO EM ACO GALVANIZADO, CURVO, BRACO SIMPLES, FLANGEADO, H = 9 M, DIAMETRO INFERIOR = *135* MM",
         "unidade": "UN",
-        "var_pct": 11.8
+        "var_pct": 11.8,
+        "preco": 1778.18
       },
       {
         "insumo": "POSTE CONICO CONTINUO EM ACO GALVANIZADO, CURVO, BRACO DUPLO, ENGASTADO, H = 9 M, DIAMETRO INFERIOR/BASE = *135* MM",
         "unidade": "UN",
-        "var_pct": 11.8
+        "var_pct": 11.8,
+        "preco": 1842.23
       },
       {
         "insumo": "POSTE CONICO CONTINUO EM ACO GALVANIZADO, CURVO, BRACO SIMPLES, ENGASTADO, H = 9 M, DIAMETRO INFERIOR = *135* MM",
         "unidade": "UN",
-        "var_pct": 11.8
-      },
-      {
-        "insumo": "CONJUNTO PARA QUADRA DE VOLEI COM POSTES EM TUBO DE ACO GALVANIZADO 3\", H = *255* CM, PINTURA EM TINTA ESMALTE SINTETICO, REDE DE NYLON COM 2 MM, MALHA 10 X 10 CM E ANTENAS OFICIAIS EM FIBRA DE VIDRO",
-        "unidade": "UN",
-        "var_pct": 11.8
-      },
-      {
-        "insumo": "POSTE CONICO CONTINUO EM ACO GALVANIZADO, CURVO, BRACO SIMPLES, FLANGEADO, H = 7 M, DIAMETRO INFERIOR = *125* MM",
-        "unidade": "UN",
-        "var_pct": 11.8
-      },
-      {
-        "insumo": "CONJUNTO PARA FUTSAL COM PAR DE TRAVES OFICIAIS DE 3,00 X 2,00 M EM TUBO DE ACO GALVANIZADO 3\" COM REQUADROS EM TUBO DE 1\", PINTURA EM PRIMER COM TINTA ESMALTE SINTETICO E REDES DE POLIETILENO FIO 4 MM",
-        "unidade": "UN",
-        "var_pct": 11.8
-      },
-      {
-        "insumo": "POSTE CONICO CONTINUO EM ACO GALVANIZADO, RETO, ENGASTADO, H = 9 M, DIAMETRO INFERIOR = *145* MM",
-        "unidade": "UN",
-        "var_pct": 11.8
+        "var_pct": 11.8,
+        "preco": 1780.76
       }
     ],
     "baixas": [
       {
         "insumo": "TELHA DE FIBRA DE VIDRO ONDULADA, TRANSLUCIDA / INCOLOR, E = *0,6* MM, DE *0,50 X 2,44* M (L X C)",
         "unidade": "M2",
-        "var_pct": -12.0
+        "var_pct": -12.0,
+        "preco": 36.07
       },
       {
         "insumo": "DOMOS / CLARABOIA INDIVIDUAL, EM ACRILICO BRANCO/LEITOSO, *95 X 95* CM, INCLUI ACESSORIOS DE FIXACAO, SEM INSTALACAO",
         "unidade": "UN",
-        "var_pct": -12.0
+        "var_pct": -12.0,
+        "preco": 575.4
       },
       {
         "insumo": "PLACA DE ACRILICO TRANSPARENTE ADESIVADA PARA SINALIZACAO DE PORTAS, BORDA POLIDA, DE *25 X 8*, E = 6 MM (NAO INCLUI ACESSORIOS PARA FIXACAO)",
         "unidade": "UN",
-        "var_pct": -12.0
+        "var_pct": -12.0,
+        "preco": 56.68
       },
       {
         "insumo": "CAIXA DE CONCRETO ARMADO PRE-MOLDADO, SEM FUNDO, QUADRADA, DIMENSOES DE 0,30 X 0,30 X 0,30 M",
         "unidade": "UN",
-        "var_pct": -11.2
+        "var_pct": -11.2,
+        "preco": 108.54
       },
       {
         "insumo": "ANEL EM CONCRETO ARMADO, LISO, PARA POCOS DE INSPECAO, SEM FUNDO, DIAMETRO INTERNO DE 0,60 M E ALTURA DE 0,20 M",
         "unidade": "UN",
-        "var_pct": -11.2
+        "var_pct": -11.2,
+        "preco": 95.25
       },
       {
         "insumo": "TUBO DE CONCRETO ARMADO PARA AGUAS PLUVIAIS, CLASSE PA-1, COM ENCAIXE PONTA E BOLSA, DIAMETRO NOMINAL DE 300 MM",
         "unidade": "M",
-        "var_pct": -11.2
+        "var_pct": -11.2,
+        "preco": 123.6
       },
       {
         "insumo": "TUBO DE CONCRETO ARMADO PARA AGUAS PLUVIAIS, CLASSE PA-2, COM ENCAIXE PONTA E BOLSA, DIAMETRO NOMINAL DE 400 MM",
         "unidade": "M",
-        "var_pct": -11.2
+        "var_pct": -11.2,
+        "preco": 147.42
       },
       {
         "insumo": "TUBO DE CONCRETO ARMADO PARA ESGOTO SANITARIO, CLASSE EA-2, COM ENCAIXE PONTA E BOLSA, COM JUNTA ELASTICA, DIAMETRO NOMINAL DE 400 MM",
         "unidade": "M",
-        "var_pct": -11.2
+        "var_pct": -11.2,
+        "preco": 226.8
       },
       {
         "insumo": "CAIXA DE CONCRETO ARMADO PRE-MOLDADO, COM FUNDO E TAMPA, DIMENSOES DE 0,30 X 0,30 X 0,30 M",
         "unidade": "UN",
-        "var_pct": -11.2
+        "var_pct": -11.2,
+        "preco": 209.79
       },
       {
         "insumo": "ANEL EM CONCRETO ARMADO, PERFURADO, PARA FOSSAS SEPTICAS E SUMIDOUROS, SEM FUNDO, DIAMETRO INTERNO DE 1,20 M E ALTURA DE 0,50 M",
         "unidade": "UN",
-        "var_pct": -11.2
+        "var_pct": -11.2,
+        "preco": 306.18
       },
       {
         "insumo": "ANEL EM CONCRETO ARMADO, LISO, PARA POCOS DE VISITAS, POCOS DE INSPECAO, FOSSAS SEPTICAS E SUMIDOUROS, SEM FUNDO, DIAMETRO INTERNO DE 0,80 M E ALTURA DE 0,50 M",
         "unidade": "UN",
-        "var_pct": -11.2
+        "var_pct": -11.2,
+        "preco": 192.78
       },
       {
         "insumo": "CAIXA DE GORDURA CILINDRICA EM CONCRETO SIMPLES, PRE-MOLDADA, COM DIAMETRO DE 40 CM E ALTURA DE 45 CM, COM TAMPA",
         "unidade": "UN",
-        "var_pct": -11.2
+        "var_pct": -11.2,
+        "preco": 192.78
       },
       {
         "insumo": "TUBO DE CONCRETO ARMADO PARA AGUAS PLUVIAIS, CLASSE PA-2, COM ENCAIXE PONTA E BOLSA, DIAMETRO NOMINAL DE 600 MM",
         "unidade": "M",
-        "var_pct": -11.2
+        "var_pct": -11.2,
+        "preco": 234.17
       },
       {
         "insumo": "TUBO DE CONCRETO ARMADO PARA AGUAS PLUVIAIS, CLASSE PA-2, COM ENCAIXE PONTA E BOLSA, DIAMETRO NOMINAL DE 500 MM",
         "unidade": "M",
-        "var_pct": -11.2
-      },
-      {
-        "insumo": "TAMPA DE CONCRETO ARMADO PARA FOSSA, D = *1,10* M, E = 0,05 M",
-        "unidade": "UN",
-        "var_pct": -11.2
-      },
-      {
-        "insumo": "ANEL EM CONCRETO ARMADO, LISO, PARA POCOS DE VISITAS, POCOS DE INSPECAO, FOSSAS SEPTICAS E SUMIDOUROS, COM FUNDO, DIAMETRO INTERNO DE 0,80 M E ALTURA DE 0,50 M",
-        "unidade": "UN",
-        "var_pct": -11.2
-      },
-      {
-        "insumo": "CONJUNTO PRE-MOLDADO COMPOSTO POR GRELHA (0,99 X 0,45 M), QUADRO (1,10 X 0,52 M) E CANTONEIRA (1,10 X 0,35 M), EM CONCRETO ARMADO, COM FCK DE 21 MPA",
-        "unidade": "UN",
-        "var_pct": -11.2
-      },
-      {
-        "insumo": "TUBO DE CONCRETO ARMADO PARA AGUAS PLUVIAIS, CLASSE PA-2, COM ENCAIXE PONTA E BOLSA, DIAMETRO NOMINAL DE 700 MM",
-        "unidade": "M",
-        "var_pct": -11.2
+        "var_pct": -11.2,
+        "preco": 179.17
       }
     ]
   },

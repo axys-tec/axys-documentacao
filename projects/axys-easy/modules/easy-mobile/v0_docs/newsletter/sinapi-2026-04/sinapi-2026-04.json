@@ -180,6 +180,7 @@
     ],
     "total_subgrupos": 116
   },
+  "grupos": null,
   "insumos": {
     "comparaveis": 4855,
     "media_pct": 0.75,
@@ -187,184 +188,172 @@
       {
         "insumo": "PLACA DE SINALIZACAO DE SEGURANCA CONTRA INCENDIO - ALERTA, TRIANGULAR, BASE DE *30* CM, EM PVC *2* MM ANTI-CHAMAS (SIMBOLOS, CORES E PICTOGRAMAS CONFORME NBR 16820)",
         "unidade": "UN",
-        "var_pct": 26.9
+        "var_pct": 26.9,
+        "preco": 54.71
       },
       {
         "insumo": "PLACA DE SINALIZACAO DE SEGURANCA CONTRA INCENDIO, FOTOLUMINESCENTE, RETANGULAR, *12 X 40* CM, EM PVC *2* MM ANTI-CHAMAS (SIMBOLOS, CORES E PICTOGRAMAS CONFORME NBR 16820)",
         "unidade": "UN",
-        "var_pct": 26.9
+        "var_pct": 26.9,
+        "preco": 39.43
       },
       {
         "insumo": "PLACA DE SINALIZACAO DE SEGURANCA CONTRA INCENDIO, FOTOLUMINESCENTE, RETANGULAR, *13 X 26* CM, EM PVC *2* MM ANTI-CHAMAS (SIMBOLOS, CORES E PICTOGRAMAS CONFORME NBR 16820)",
         "unidade": "UN",
-        "var_pct": 26.9
+        "var_pct": 26.9,
+        "preco": 27.79
       },
       {
         "insumo": "PLACA DE SINALIZACAO DE SEGURANCA CONTRA INCENDIO, FOTOLUMINESCENTE, RETANGULAR, *20 X 40* CM, EM PVC *2* MM ANTI-CHAMAS (SIMBOLOS, CORES E PICTOGRAMAS CONFORME NBR 16820)",
         "unidade": "UN",
-        "var_pct": 26.9
+        "var_pct": 26.9,
+        "preco": 51.81
       },
       {
         "insumo": "PLACA DE SINALIZACAO DE SEGURANCA CONTRA INCENDIO, FOTOLUMINESCENTE, QUADRADA, *14 X 14* CM, EM PVC *2* MM ANTI-CHAMAS (SIMBOLOS, CORES E PICTOGRAMAS CONFORME NBR 16820)",
         "unidade": "UN",
-        "var_pct": 26.9
+        "var_pct": 26.9,
+        "preco": 16.61
       },
       {
         "insumo": "PLACA DE SINALIZACAO DE SEGURANCA CONTRA INCENDIO, FOTOLUMINESCENTE, QUADRADA, *20 X 20* CM, EM PVC *2* MM ANTI-CHAMAS (SIMBOLOS, CORES E PICTOGRAMAS CONFORME NBR 16820)",
         "unidade": "UN",
-        "var_pct": 26.9
+        "var_pct": 26.9,
+        "preco": 32.14
       },
       {
         "insumo": "DETERGENTE NEUTRO USO GERAL, CONCENTRADO",
         "unidade": "L",
-        "var_pct": 12.7
+        "var_pct": 12.7,
+        "preco": 16.03
       },
       {
         "insumo": "DESINFETANTE PRONTO USO",
         "unidade": "L",
-        "var_pct": 12.7
+        "var_pct": 12.7,
+        "preco": 12.23
       },
       {
         "insumo": "ACIDO CLORIDRICO / ACIDO MURIATICO, DILUICAO 10% A 12% PARA USO EM LIMPEZA",
         "unidade": "L",
-        "var_pct": 12.7
+        "var_pct": 12.7,
+        "preco": 19.68
       },
       {
         "insumo": "CERA LIQUIDA INCOLOR MULTIPISO",
         "unidade": "L",
-        "var_pct": 12.7
+        "var_pct": 12.7,
+        "preco": 27.05
       },
       {
         "insumo": "DILUENTE EPOXI",
         "unidade": "L",
-        "var_pct": 12.7
+        "var_pct": 12.7,
+        "preco": 59.08
       },
       {
         "insumo": "DILUENTE AGUARRAS",
         "unidade": "L",
-        "var_pct": 12.7
+        "var_pct": 12.7,
+        "preco": 25.92
       },
       {
         "insumo": "LIMPA VIDROS COM PULVERIZADOR",
         "unidade": "L",
-        "var_pct": 12.7
+        "var_pct": 12.7,
+        "preco": 63.85
       },
       {
         "insumo": "ESPOLETA SIMPLES N 8.",
         "unidade": "UN",
-        "var_pct": 12.4
-      },
-      {
-        "insumo": "ACESSORIO DE LIGACAO NAO ELETRICO PARA CARGAS EXPLOSIVAS, TUBO DE 6 M",
-        "unidade": "UN",
-        "var_pct": 12.4
-      },
-      {
-        "insumo": "CORDEL DETONANTE, NP 10 G/M",
-        "unidade": "M",
-        "var_pct": 12.3
-      },
-      {
-        "insumo": "CONJUNTO MONTADO ESTOPIM COM ESPOLETA COMUM NUMERO 8, COM CABECA ACENDEDORA, 1,5 M",
-        "unidade": "UN",
-        "var_pct": 12.3
-      },
-      {
-        "insumo": "RETARDO PARA CORDEL DETONANTE",
-        "unidade": "UN",
-        "var_pct": 12.3
+        "var_pct": 12.4,
+        "preco": 11.37
       }
     ],
     "baixas": [
       {
         "insumo": "CONE DE SINALIZACAO EM PVC FLEXIVEL, H = 70 / 76 CM (NBR 15071)",
         "unidade": "UN",
-        "var_pct": -15.4
+        "var_pct": -15.4,
+        "preco": 118.54
       },
       {
         "insumo": "CONE DE SINALIZACAO EM PVC RIGIDO COM FAIXA REFLETIVA, H = 70 / 76 CM",
         "unidade": "UN",
-        "var_pct": -15.4
+        "var_pct": -15.4,
+        "preco": 49.9
       },
       {
         "insumo": "CURVA 90 GRAUS RANHURADA EM FERRO FUNDIDO, DN 50 MM (2\")",
         "unidade": "UN",
-        "var_pct": -10.2
+        "var_pct": -10.2,
+        "preco": 19.68
       },
       {
         "insumo": "TE RANHURADO EM FERRO FUNDIDO, DN 50 (2\")",
         "unidade": "UN",
-        "var_pct": -10.2
+        "var_pct": -10.2,
+        "preco": 32.24
       },
       {
         "insumo": "CURVA 45 GRAUS RANHURADA EM FERRO FUNDIDO, DN 50 MM (2\")",
         "unidade": "UN",
-        "var_pct": -10.2
+        "var_pct": -10.2,
+        "preco": 18.12
       },
       {
         "insumo": "TE RANHURADO EM FERRO FUNDIDO, DN 65 (2 1/2\")",
         "unidade": "UN",
-        "var_pct": -10.2
+        "var_pct": -10.2,
+        "preco": 47.04
       },
       {
         "insumo": "ACOPLAMENTO RIGIDO EM FERRO FUNDIDO PARA SISTEMA DE TUBULACAO RANHURADA, DN 65 MM (2 1/2\")",
         "unidade": "UN",
-        "var_pct": -10.2
+        "var_pct": -10.2,
+        "preco": 22.46
       },
       {
         "insumo": "ACOPLAMENTO RIGIDO EM FERRO FUNDIDO PARA SISTEMA DE TUBULACAO RANHURADA, DN 80 MM (3\")",
         "unidade": "UN",
-        "var_pct": -10.2
+        "var_pct": -10.2,
+        "preco": 25.21
       },
       {
         "insumo": "ACOPLAMENTO RIGIDO EM FERRO FUNDIDO PARA SISTEMA DE TUBULACAO RANHURADA, DN 50 MM (2\")",
         "unidade": "UN",
-        "var_pct": -10.2
+        "var_pct": -10.2,
+        "preco": 20.7
       },
       {
         "insumo": "CURVA 90 GRAUS RANHURADA EM FERRO FUNDIDO, DN 80 MM (3\")",
         "unidade": "UN",
-        "var_pct": -10.2
+        "var_pct": -10.2,
+        "preco": 33.09
       },
       {
         "insumo": "TE RANHURADO EM FERRO FUNDIDO, DN 80 (3\")",
         "unidade": "UN",
-        "var_pct": -10.2
+        "var_pct": -10.2,
+        "preco": 50.08
       },
       {
         "insumo": "CURVA 90 GRAUS RANHURADA EM FERRO FUNDIDO, DN 65 MM (2 1/2\")",
         "unidade": "UN",
-        "var_pct": -10.2
+        "var_pct": -10.2,
+        "preco": 28.05
       },
       {
         "insumo": "CURVA 45 GRAUS RANHURADA EM FERRO FUNDIDO, DN 65 MM (2 1/2\")",
         "unidade": "UN",
-        "var_pct": -10.2
+        "var_pct": -10.2,
+        "preco": 25.05
       },
       {
         "insumo": "CURVA 45 GRAUS RANHURADA EM FERRO FUNDIDO, DN 80 MM (3\")",
         "unidade": "UN",
-        "var_pct": -10.1
-      },
-      {
-        "insumo": "ELETRODO REVESTIDO AWS - E7018, DIAMETRO IGUAL A 4,00 MM",
-        "unidade": "KG",
-        "var_pct": -9.6
-      },
-      {
-        "insumo": "SOLDA EM BARRA DE ESTANHO-CHUMBO 50/50",
-        "unidade": "KG",
-        "var_pct": -9.6
-      },
-      {
-        "insumo": "ELETRODO REVESTIDO AWS - E-6010, DIAMETRO IGUAL A 4,00 MM",
-        "unidade": "KG",
-        "var_pct": -9.6
-      },
-      {
-        "insumo": "ELETRODO REVESTIDO AWS - E6013, DIAMETRO IGUAL A 2,50 MM",
-        "unidade": "KG",
-        "var_pct": -9.6
+        "var_pct": -10.1,
+        "preco": 29.88
       }
     ]
   },

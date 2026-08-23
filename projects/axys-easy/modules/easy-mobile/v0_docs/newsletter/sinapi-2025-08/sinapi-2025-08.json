@@ -180,6 +180,7 @@
     ],
     "total_subgrupos": 110
   },
+  "grupos": null,
   "insumos": {
     "comparaveis": 4885,
     "media_pct": 0.74,
@@ -187,184 +188,172 @@
       {
         "insumo": "PERFURATRIZ MANUAL, TORQUE MAXIMO 83 N.M, POTENCIA 5 CV, COM DIAMETRO MAXIMO 4\" (NAO INCLUI SUPORTE / CHASSI)",
         "unidade": "UN",
-        "var_pct": 77.9
+        "var_pct": 77.9,
+        "preco": 17328.41
       },
       {
         "insumo": "PERFURATRIZ MANUAL, TORQUE MAXIMO 83 N.M, POTENCIA 5 CV, COM DIAMETRO MAXIMO 4\", PARA SOLO GRAMPEADO (INCLUI SUPORTE OU CHASSI TIPO MESA)",
         "unidade": "UN",
-        "var_pct": 22.5
+        "var_pct": 22.5,
+        "preco": 37365.63
       },
       {
         "insumo": "DOBRADEIRA ELETROMECANICA DE VERGALHAO, PARA ACO DE DIAMETRO ATE 1 1/2\", MOTOR ELETRICO TRIFASICO, POTENCIA DE 3 HP ATE 5 HP",
         "unidade": "UN",
-        "var_pct": 22.2
+        "var_pct": 22.2,
+        "preco": 143009.21
       },
       {
         "insumo": "LOCACAO DE GRUPO GERADOR ACIMA DE * 125 ATE 180* KVA, MOTOR DIESEL, REBOCAVEL, ACIONAMENTO MANUAL",
         "unidade": "H",
-        "var_pct": 22.1
+        "var_pct": 22.1,
+        "preco": 29.57
       },
       {
         "insumo": "LOCACAO DE GRUPO GERADOR *80 A 125* KVA, MOTOR DIESEL, REBOCAVEL, ACIONAMENTO MANUAL",
         "unidade": "H",
-        "var_pct": 22.1
+        "var_pct": 22.1,
+        "preco": 24.72
       },
       {
         "insumo": "LOCACAO DE GRUPO GERADOR DE *260* KVA, DIESEL REBOCAVEL, ACIONAMENTO MANUAL",
         "unidade": "H",
-        "var_pct": 22.1
+        "var_pct": 22.1,
+        "preco": 40.5
       },
       {
         "insumo": "CORTADEIRA HIDRAULICA DE VERGALHAO, PARA ACO DE DIAMETRO ATE 50 MM, MOTOR ELETRICO TRIFASICO, POTENCIA DE 5,5 HP A 7,5 HP",
         "unidade": "UN",
-        "var_pct": 19.4
-      },
-      {
-        "insumo": "CAIXA DE GORDURA CILINDRICA EM CONCRETO SIMPLES, PRE-MOLDADA, COM DIAMETRO DE 40 CM E ALTURA DE 45 CM, COM TAMPA",
-        "unidade": "UN",
-        "var_pct": 14.3
+        "var_pct": 19.4,
+        "preco": 131855.29
       },
       {
         "insumo": "ANEL EM CONCRETO ARMADO, LISO, PARA POCOS DE VISITAS, POCOS DE INSPECAO, FOSSAS SEPTICAS E SUMIDOUROS, SEM FUNDO, DIAMETRO INTERNO DE 0,80 M E ALTURA DE 0,50 M",
         "unidade": "UN",
-        "var_pct": 14.3
+        "var_pct": 14.3,
+        "preco": 217.14
+      },
+      {
+        "insumo": "CAIXA DE GORDURA CILINDRICA EM CONCRETO SIMPLES, PRE-MOLDADA, COM DIAMETRO DE 40 CM E ALTURA DE 45 CM, COM TAMPA",
+        "unidade": "UN",
+        "var_pct": 14.3,
+        "preco": 217.14
       },
       {
         "insumo": "TUBO DE CONCRETO ARMADO PARA ESGOTO SANITARIO, CLASSE EA-2, COM ENCAIXE PONTA E BOLSA, COM JUNTA ELASTICA, DIAMETRO NOMINAL DE 400 MM",
         "unidade": "M",
-        "var_pct": 14.3
+        "var_pct": 14.3,
+        "preco": 255.46
       },
       {
         "insumo": "TUBO DE CONCRETO ARMADO PARA AGUAS PLUVIAIS, CLASSE PA-2, COM ENCAIXE PONTA E BOLSA, DIAMETRO NOMINAL DE 400 MM",
         "unidade": "M",
-        "var_pct": 14.3
+        "var_pct": 14.3,
+        "preco": 166.05
       },
       {
         "insumo": "TAMPA DE CONCRETO ARMADO PARA POCO, COM FURO E TAMPINHA, D = *1,10* M, E = 0,05 M",
         "unidade": "UN",
-        "var_pct": 14.3
+        "var_pct": 14.3,
+        "preco": 245.24
       },
       {
         "insumo": "TUBO DE CONCRETO ARMADO PARA AGUAS PLUVIAIS, CLASSE PA-3, COM ENCAIXE PONTA E BOLSA, DIAMETRO NOMINAL DE 500 MM",
         "unidade": "M",
-        "var_pct": 14.3
+        "var_pct": 14.3,
+        "preco": 326.99
       },
       {
         "insumo": "TUBO DE CONCRETO ARMADO PARA AGUAS PLUVIAIS, CLASSE PA-2, COM ENCAIXE PONTA E BOLSA, DIAMETRO NOMINAL DE 500 MM",
         "unidade": "M",
-        "var_pct": 14.3
-      },
-      {
-        "insumo": "TAMPA DE CONCRETO ARMADO PARA FOSSA, D = *1,10* M, E = 0,05 M",
-        "unidade": "UN",
-        "var_pct": 14.3
-      },
-      {
-        "insumo": "CAIXA DE CONCRETO ARMADO PRE-MOLDADO, SEM FUNDO, QUADRADA, DIMENSOES DE 0,40 X 0,40 X 0,40 M",
-        "unidade": "UN",
-        "var_pct": 14.3
-      },
-      {
-        "insumo": "ANEL EM CONCRETO ARMADO, LISO, PARA POCOS DE VISITAS, POCOS DE INSPECAO, FOSSAS SEPTICAS E SUMIDOUROS, SEM FUNDO, DIAMETRO INTERNO DE 1,00 M E ALTURA DE 0,50 M",
-        "unidade": "UN",
-        "var_pct": 14.3
-      },
-      {
-        "insumo": "TUBO DE CONCRETO ARMADO PARA AGUAS PLUVIAIS, CLASSE PA-2, COM ENCAIXE PONTA E BOLSA, DIAMETRO NOMINAL DE 300 MM",
-        "unidade": "M",
-        "var_pct": 14.3
+        "var_pct": 14.3,
+        "preco": 201.81
       }
     ],
     "baixas": [
       {
         "insumo": "MARTELO DEMOLIDOR PNEUMATICO MANUAL, PESO DE 28 KG, COM SILENCIADOR",
         "unidade": "UN",
-        "var_pct": -74.1
+        "var_pct": -74.1,
+        "preco": 5921.94
       },
       {
         "insumo": "LIXADEIRA ELETRICA ANGULAR PARA CONCRETO, POTENCIA 1.400 W, PRATO DIAMANTADO DE 5\"",
         "unidade": "UN",
-        "var_pct": -60.1
+        "var_pct": -60.1,
+        "preco": 2415.2
       },
       {
         "insumo": "CORTADEIRA DE PISO DE CONCRETO E ASFALTO, PARA DISCO PADRAO DE DIAMETRO 350 MM (14\") OU 450 MM (18\"), MOTOR A GASOLINA, POTENCIA 13 HP, SEM DISCO",
         "unidade": "UN",
-        "var_pct": -56.8
+        "var_pct": -56.8,
+        "preco": 5786.41
       },
       {
         "insumo": "TERMOFUSORA PARA TUBOS E CONEXOES EM PPR COM DIAMETROS DE 75 A 110 MM, POTENCIA DE *1100* W, TENSAO 220 V",
         "unidade": "UN",
-        "var_pct": -56.2
+        "var_pct": -56.2,
+        "preco": 665.54
       },
       {
         "insumo": "TERMOFUSORA PARA TUBOS E CONEXOES EM PPR COM DIAMETROS DE 20 A 63 MM, POTENCIA DE 800 W, TENSAO 220 V",
         "unidade": "UN",
-        "var_pct": -51.8
+        "var_pct": -51.8,
+        "preco": 521.76
       },
       {
         "insumo": "MARTELO DEMOLIDOR PNEUMATICO MANUAL, PADRAO, PESO DE 32 KG",
         "unidade": "UN",
-        "var_pct": -41.1
+        "var_pct": -41.1,
+        "preco": 11990.46
       },
       {
         "insumo": "ESMERILHADEIRA ANGULAR ELETRICA, DIAMETRO DO DISCO 7\" (180 MM), ROTACAO 8500 RPM, POTENCIA 2400 W",
         "unidade": "UN",
-        "var_pct": -33.5
+        "var_pct": -33.5,
+        "preco": 644.89
       },
       {
         "insumo": "MARTELO DEMOLIDOR PNEUMATICO MANUAL, COM REDUCAO DE VIBRACAO, PESO DE 31,5 KG",
         "unidade": "UN",
-        "var_pct": -30.8
+        "var_pct": -30.8,
+        "preco": 14894.46
       },
       {
         "insumo": "MARTELO DEMOLIDOR PNEUMATICO MANUAL, COM REDUCAO DE VIBRACAO, PESO DE 21 KG",
         "unidade": "UN",
-        "var_pct": -29.5
+        "var_pct": -29.5,
+        "preco": 13193.49
       },
       {
         "insumo": "MARTELO PERFURADOR PNEUMATICO MANUAL, PESO DE 25 KG, COM SILENCIADOR",
         "unidade": "UN",
-        "var_pct": -29.0
+        "var_pct": -29.0,
+        "preco": 16417.77
       },
       {
         "insumo": "SERRA CIRCULAR DE BANCADA COM MOTOR ELETRICO, POTENCIA DE *1600* W, PARA DISCO DE DIAMETRO DE 10\" (250 MM)",
         "unidade": "UN",
-        "var_pct": -17.6
-      },
-      {
-        "insumo": "PORCA ZINCADA, SEXTAVADA, DIAMETRO 3/8\"",
-        "unidade": "UN",
-        "var_pct": -12.0
+        "var_pct": -17.6,
+        "preco": 1203.3
       },
       {
         "insumo": "PARAFUSO ZINCADO, SEXTAVADO, COM ROSCA INTEIRA, DIAMETRO 1/4\", COMPRIMENTO 1/2\"",
         "unidade": "UN",
-        "var_pct": -12.0
+        "var_pct": -12.0,
+        "preco": 0.22
+      },
+      {
+        "insumo": "PORCA ZINCADA, SEXTAVADA, DIAMETRO 3/8\"",
+        "unidade": "UN",
+        "var_pct": -12.0,
+        "preco": 0.22
       },
       {
         "insumo": "ACO CA-50, 20,0 MM OU 25,0 MM, VERGALHAO",
         "unidade": "KG",
-        "var_pct": -11.1
-      },
-      {
-        "insumo": "ACO CA-50, 10,0 MM, VERGALHAO",
-        "unidade": "KG",
-        "var_pct": -11.1
-      },
-      {
-        "insumo": "PARAFUSO DRY WALL, EM ACO ZINCADO, CABECA LENTILHA E PONTA BROCA (LB), LARGURA 4,2 MM, COMPRIMENTO 13 MM",
-        "unidade": "UN",
-        "var_pct": -11.1
-      },
-      {
-        "insumo": "ACO CA-25, 25,0 MM, BARRA DE TRANSFERENCIA",
-        "unidade": "KG",
-        "var_pct": -11.1
-      },
-      {
-        "insumo": "ACO CA-50, 6,3 MM, VERGALHAO",
-        "unidade": "KG",
-        "var_pct": -11.1
+        "var_pct": -11.1,
+        "preco": 6.22
       }
     ]
   },

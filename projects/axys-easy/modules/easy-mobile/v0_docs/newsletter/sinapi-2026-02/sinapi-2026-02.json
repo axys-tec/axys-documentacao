@@ -180,6 +180,7 @@
     ],
     "total_subgrupos": 116
   },
+  "grupos": null,
   "insumos": {
     "comparaveis": 4851,
     "media_pct": 0.1,
@@ -187,184 +188,172 @@
       {
         "insumo": "FITA ISOLANTE DE BORRACHA AUTOFUSAO, USO ATE 69 KV (ALTA TENSAO), LARGURA DE 19 MM",
         "unidade": "M",
-        "var_pct": 50.4
+        "var_pct": 50.4,
+        "preco": 4.24
       },
       {
         "insumo": "FITA VEDA ROSCA, EM PTFE, ROLO DE 18 MM X 50 M (L X C)",
         "unidade": "UN",
-        "var_pct": 48.7
+        "var_pct": 48.7,
+        "preco": 16.22
       },
       {
         "insumo": "FITA VEDA ROSCA, EM PTFE, ROLO DE 18 MM X 10 M (L X C)",
         "unidade": "UN",
-        "var_pct": 39.5
+        "var_pct": 39.5,
+        "preco": 4.13
       },
       {
         "insumo": "FITA VEDA ROSCA, EM PTFE, ROLO DE 18 MM X 25 M (L X C)",
         "unidade": "UN",
-        "var_pct": 12.0
+        "var_pct": 12.0,
+        "preco": 7.54
       },
       {
         "insumo": "LUMINARIA DE EMERGENCIA 30 LEDS, POTENCIA 2 W, BATERIA DE LITIO, AUTONOMIA DE 6 HORAS",
         "unidade": "UN",
-        "var_pct": 7.8
+        "var_pct": 7.8,
+        "preco": 11.13
       },
       {
         "insumo": "LAMPADA LED 6 W BIVOLT BRANCA, FORMATO TRADICIONAL (BASE E27)",
         "unidade": "UN",
-        "var_pct": 7.8
+        "var_pct": 7.8,
+        "preco": 3.85
       },
       {
         "insumo": "LUMINARIA LED PLAFON REDONDO DE SOBREPOR BIVOLT 12/13 W, D = *17* CM",
         "unidade": "UN",
-        "var_pct": 7.8
+        "var_pct": 7.8,
+        "preco": 10.18
       },
       {
         "insumo": "LAMPADA LED TUBULAR BIVOLT 9/10 W, BASE G13",
         "unidade": "UN",
-        "var_pct": 7.8
+        "var_pct": 7.8,
+        "preco": 5.92
       },
       {
         "insumo": "LUMINARIA LED REFLETOR RETANGULAR BIVOLT, LUZ BRANCA, 30 W",
         "unidade": "UN",
-        "var_pct": 7.8
+        "var_pct": 7.8,
+        "preco": 23.15
       },
       {
         "insumo": "LUMINARIA LED REFLETOR RETANGULAR BIVOLT, LUZ BRANCA, 10 W",
         "unidade": "UN",
-        "var_pct": 7.8
+        "var_pct": 7.8,
+        "preco": 11.04
       },
       {
         "insumo": "LUMINARIA LED REFLETOR RETANGULAR BIVOLT, LUZ BRANCA, 50 W",
         "unidade": "UN",
-        "var_pct": 7.8
+        "var_pct": 7.8,
+        "preco": 25.99
       },
       {
         "insumo": "APARELHO SINALIZADOR LUMINOSO COM LED, PARA SAIDA GARAGEM, COM 2 LENTES EM POLICARBONATO, BIVOLT (INCLUI SUPORTE DE FIXACAO)",
         "unidade": "UN",
-        "var_pct": 7.8
+        "var_pct": 7.8,
+        "preco": 48.97
       },
       {
         "insumo": "LUMINARIA DE LED PARA ILUMINACAO PUBLICA, DE 33 W ATE 50 W, INVOLUCRO EM ALUMINIO OU ACO INOX",
         "unidade": "UN",
-        "var_pct": 7.8
+        "var_pct": 7.8,
+        "preco": 114.16
       },
       {
         "insumo": "LUMINARIA SOLAR LED EXTERNA, TIPO ARANDELA DE PAREDE, EM ALUMINIO, 16 LEDS, LUZ BRANCA, *180* LUMENS, CAPACIDADE DE ILUMINACAO ATE 36 H, RETANGULAR, *13 X 9 X 7* (C X L X A), COM SENSOR DE MOVIMENTO / PRESENCA, BATERIA RECARREGAVEL COM LUZ SOLAR, RESISTENTE AO CALOR, A PROVA DE AGUA E POEIRA/ IMPERMEAVEL, IP65",
         "unidade": "UN",
-        "var_pct": 7.8
-      },
-      {
-        "insumo": "LUMINARIA DE LED PARA ILUMINACAO PUBLICA, DE 138 W ATE 180 W, INVOLUCRO EM ALUMINIO OU ACO INOX",
-        "unidade": "UN",
-        "var_pct": 7.8
-      },
-      {
-        "insumo": "LAMPADA LED 10 W BIVOLT BRANCA, FORMATO TRADICIONAL (BASE E27)",
-        "unidade": "UN",
-        "var_pct": 7.8
-      },
-      {
-        "insumo": "LUMINARIA DE LED PARA ILUMINACAO PUBLICA, DE 240 W ATE 350 W, INVOLUCRO EM ALUMINIO OU ACO INOX",
-        "unidade": "UN",
-        "var_pct": 7.8
-      },
-      {
-        "insumo": "LUMINARIA DE LED PARA ILUMINACAO PUBLICA, DE 98 W ATE 137 W, INVOLUCRO EM ALUMINIO OU ACO INOX",
-        "unidade": "UN",
-        "var_pct": 7.8
+        "var_pct": 7.8,
+        "preco": 31.83
       }
     ],
     "baixas": [
       {
         "insumo": "FITA ADESIVA ANTICORROSIVA DE PVC FLEXIVEL, COR PRETA, PARA PROTECAO TUBULACAO, 50 MM X 30 M (L X C), E= *0,25* MM",
         "unidade": "M",
-        "var_pct": -34.9
+        "var_pct": -34.9,
+        "preco": 3.75
       },
       {
         "insumo": "PARAFUSO DE ACO ZINCADO COM ROSCA SOBERBA, CABECA CHATA E FENDA SIMPLES, DIAMETRO 2,5 MM, COMPRIMENTO * 9,5 * MM",
         "unidade": "UN",
-        "var_pct": -20.0
+        "var_pct": -20.0,
+        "preco": 0.04
       },
       {
         "insumo": "FITA ISOLANTE ADESIVA ANTICHAMA, USO ATE 750 V, EM ROLO DE 19 MM X 5 M",
         "unidade": "UN",
-        "var_pct": -17.3
+        "var_pct": -17.3,
+        "preco": 6.47
       },
       {
         "insumo": "PARAFUSO DRY WALL, EM ACO FOSFATIZADO, CABECA TROMBETA E PONTA BROCA (TB), COMPRIMENTO 25 MM",
         "unidade": "UN",
-        "var_pct": -13.3
+        "var_pct": -13.3,
+        "preco": 0.13
       },
       {
         "insumo": "REGISTRO DE PRESSAO PVC, ROSCAVEL, VOLANTE SIMPLES, DE 3/4\"",
         "unidade": "UN",
-        "var_pct": -12.1
+        "var_pct": -12.1,
+        "preco": 20.43
       },
       {
         "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 20 MM, COM CORPO DIVIDIDO",
         "unidade": "UN",
-        "var_pct": -12.0
+        "var_pct": -12.0,
+        "preco": 21.84
       },
       {
         "insumo": "REGISTRO DE PRESSAO PVC, ROSCAVEL, VOLANTE SIMPLES, DE 1/2\"",
         "unidade": "UN",
-        "var_pct": -12.0
+        "var_pct": -12.0,
+        "preco": 7.16
       },
       {
         "insumo": "REGISTRO DE ESFERA DE PASSEIO, PVC PARA POLIETILENO, 20 MM",
         "unidade": "UN",
-        "var_pct": -12.0
+        "var_pct": -12.0,
+        "preco": 13.68
       },
       {
         "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 1 1/2\", COM CORPO DIVIDIDO",
         "unidade": "UN",
-        "var_pct": -12.0
+        "var_pct": -12.0,
+        "preco": 63.45
       },
       {
         "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 40 MM, COM CORPO DIVIDIDO",
         "unidade": "UN",
-        "var_pct": -12.0
+        "var_pct": -12.0,
+        "preco": 59.72
       },
       {
         "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 60 MM, COM CORPO DIVIDIDO",
         "unidade": "UN",
-        "var_pct": -12.0
+        "var_pct": -12.0,
+        "preco": 112.96
       },
       {
         "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 2\", COM CORPO DIVIDIDO",
         "unidade": "UN",
-        "var_pct": -12.0
+        "var_pct": -12.0,
+        "preco": 97.11
       },
       {
         "insumo": "REGISTRO DE ESFERA PVC, COM BORBOLETA, COM ROSCA EXTERNA, DE 3/4\"",
         "unidade": "UN",
-        "var_pct": -12.0
+        "var_pct": -12.0,
+        "preco": 21.9
       },
       {
         "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 1 1/4\", COM CORPO DIVIDIDO",
         "unidade": "UN",
-        "var_pct": -12.0
-      },
-      {
-        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 50 MM, COM CORPO DIVIDIDO",
-        "unidade": "UN",
-        "var_pct": -12.0
-      },
-      {
-        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 25 MM, COM CORPO DIVIDIDO",
-        "unidade": "UN",
-        "var_pct": -12.0
-      },
-      {
-        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 1/2\", COM CORPO DIVIDIDO",
-        "unidade": "UN",
-        "var_pct": -12.0
-      },
-      {
-        "insumo": "REGISTRO DE ESFERA PVC, COM CABECA QUADRADA, COM ROSCA EXTERNA, 1/2\"",
-        "unidade": "UN",
-        "var_pct": -12.0
+        "var_pct": -12.0,
+        "preco": 60.43
       }
     ]
   },

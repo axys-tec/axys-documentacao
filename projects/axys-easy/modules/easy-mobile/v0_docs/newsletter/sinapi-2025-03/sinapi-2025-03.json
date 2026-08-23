@@ -180,6 +180,7 @@
     ],
     "total_subgrupos": 109
   },
+  "grupos": null,
   "insumos": {
     "comparaveis": 4835,
     "media_pct": 0.41,
@@ -187,184 +188,172 @@
       {
         "insumo": "ABRACADEIRA DE NYLON PARA AMARRACAO DE CABOS, COMPRIMENTO DE 100 X 2,5 MM",
         "unidade": "UN",
-        "var_pct": 16.7
+        "var_pct": 16.7,
+        "preco": 0.07
       },
       {
         "insumo": "ABRACADEIRA DE NYLON PARA AMARRACAO DE CABOS, COMPRIMENTO DE 150 X *3,6* MM",
         "unidade": "UN",
-        "var_pct": 13.3
+        "var_pct": 13.3,
+        "preco": 0.17
       },
       {
         "insumo": "TUBO ACO CARBONO SEM COSTURA 1/2\", E= *2,77 MM, SCHEDULE 40, *1,27 KG/M",
         "unidade": "M",
-        "var_pct": 11.0
+        "var_pct": 11.0,
+        "preco": 40.32
       },
       {
         "insumo": "TUBO ACO CARBONO SEM COSTURA 2 1/2\", E = 5,16 MM, SCHEDULE 40 (8,62 KG/M)",
         "unidade": "M",
-        "var_pct": 11.0
+        "var_pct": 11.0,
+        "preco": 179.73
       },
       {
         "insumo": "TUBO ACO CARBONO SEM COSTURA 1\", E= *3,38 MM, SCHEDULE 40, *2,50* KG/M",
         "unidade": "M",
-        "var_pct": 11.0
+        "var_pct": 11.0,
+        "preco": 61.9
       },
       {
         "insumo": "TUBO ACO CARBONO SEM COSTURA 4\", E= *6,02 MM, SCHEDULE 40, *16,06 KG/M",
         "unidade": "M",
-        "var_pct": 11.0
+        "var_pct": 11.0,
+        "preco": 329.24
       },
       {
         "insumo": "TUBO ACO CARBONO SEM COSTURA 5\", E= *6,55 MM, SCHEDULE 40, *21,75* KG/M",
         "unidade": "M",
-        "var_pct": 11.0
+        "var_pct": 11.0,
+        "preco": 516.46
       },
       {
         "insumo": "TUBO ACO CARBONO SEM COSTURA 4\", E= *8,56 MM, SCHEDULE 80, *22,31 KG/M",
         "unidade": "M",
-        "var_pct": 11.0
+        "var_pct": 11.0,
+        "preco": 470.67
       },
       {
         "insumo": "TUBO ACO CARBONO SEM COSTURA 3\", E= *5,49 MM, SCHEDULE 40, *11,28* KG/M",
         "unidade": "M",
-        "var_pct": 11.0
+        "var_pct": 11.0,
+        "preco": 226.28
       },
       {
         "insumo": "TUBO ACO CARBONO SEM COSTURA 8\", E= *12,70 MM, SCHEDULE 80, *64,64 KG/M",
         "unidade": "M",
-        "var_pct": 11.0
+        "var_pct": 11.0,
+        "preco": 1166.24
       },
       {
         "insumo": "TUBO ACO CARBONO SEM COSTURA 8\", E= *8,18 MM, SCHEDULE 40, *42,55 KG/M",
         "unidade": "M",
-        "var_pct": 11.0
+        "var_pct": 11.0,
+        "preco": 875.34
       },
       {
         "insumo": "TUBO ACO CARBONO SEM COSTURA 8\", E= *7,04 MM, SCHEDULE 30, *36,75 KG/M",
         "unidade": "M",
-        "var_pct": 11.0
+        "var_pct": 11.0,
+        "preco": 735.83
       },
       {
         "insumo": "TUBO DE REVESTIMENTO, EM ACO, CORPO SCHEDULE 40, PONTEIRA SCHEDULE 80, ROSQUEAVEL E SEGMENTADO PARA PERFURACAO, DIAMETRO 4\" (450 MM)",
         "unidade": "M",
-        "var_pct": 11.0
+        "var_pct": 11.0,
+        "preco": 1154.58
       },
       {
         "insumo": "TUBO DE REVESTIMENTO, EM ACO, CORPO SCHEDULE 40, PONTEIRA SCHEDULE 80, ROSQUEAVEL E SEGMENTADO PARA PERFURACAO, DIAMETRO 8\" (200 MM)",
         "unidade": "M",
-        "var_pct": 11.0
-      },
-      {
-        "insumo": "TUBO ACO CARBONO SEM COSTURA 6\", E= *10,97 MM, SCHEDULE 80, *42,56 KG/M",
-        "unidade": "M",
-        "var_pct": 11.0
-      },
-      {
-        "insumo": "TUBO 30\" EM CHAPA PRETA, E= 3/8\", 177 KG/6 M",
-        "unidade": "M",
-        "var_pct": 11.0
-      },
-      {
-        "insumo": "TUBO DE REVESTIMENTO, EM ACO, CORPO SCHEDULE 40, PONTEIRA SCHEDULE 80, ROSQUEAVEL E SEGMENTADO PARA PERFURACAO, DIAMETRO 12\" (320 MM)",
-        "unidade": "M",
-        "var_pct": 11.0
-      },
-      {
-        "insumo": "TUBO ACO CARBONO SEM COSTURA 14\", E= *11,13 MM, SCHEDULE 40, *94,55 KG/M",
-        "unidade": "M",
-        "var_pct": 11.0
+        "var_pct": 11.0,
+        "preco": 2289.74
       }
     ],
     "baixas": [
       {
-        "insumo": "PARAFUSO ZINCADO, SEXTAVADO, COM ROSCA INTEIRA, DIAMETRO 1/4\", COMPRIMENTO 1/2\"",
-        "unidade": "UN",
-        "var_pct": -12.0
-      },
-      {
         "insumo": "PORCA ZINCADA, SEXTAVADA, DIAMETRO 3/8\"",
         "unidade": "UN",
-        "var_pct": -12.0
+        "var_pct": -12.0,
+        "preco": 0.22
+      },
+      {
+        "insumo": "PARAFUSO ZINCADO, SEXTAVADO, COM ROSCA INTEIRA, DIAMETRO 1/4\", COMPRIMENTO 1/2\"",
+        "unidade": "UN",
+        "var_pct": -12.0,
+        "preco": 0.22
       },
       {
         "insumo": "TELHA DE FIBRA DE VIDRO ONDULADA, TRANSLUCIDA / INCOLOR, E = *0,6* MM, DE *0,50 X 2,44* M (L X C)",
         "unidade": "M2",
-        "var_pct": -12.0
+        "var_pct": -12.0,
+        "preco": 36.07
       },
       {
         "insumo": "DOMOS / CLARABOIA INDIVIDUAL, EM ACRILICO BRANCO/LEITOSO, *95 X 95* CM, INCLUI ACESSORIOS DE FIXACAO, SEM INSTALACAO",
         "unidade": "UN",
-        "var_pct": -12.0
+        "var_pct": -12.0,
+        "preco": 575.4
       },
       {
         "insumo": "PLACA DE ACRILICO TRANSPARENTE ADESIVADA PARA SINALIZACAO DE PORTAS, BORDA POLIDA, DE *25 X 8*, E = 6 MM (NAO INCLUI ACESSORIOS PARA FIXACAO)",
         "unidade": "UN",
-        "var_pct": -12.0
+        "var_pct": -12.0,
+        "preco": 56.68
       },
       {
         "insumo": "PARAFUSO DRY WALL, EM ACO ZINCADO, CABECA LENTILHA E PONTA BROCA (LB), LARGURA 4,2 MM, COMPRIMENTO 13 MM",
         "unidade": "UN",
-        "var_pct": -11.1
+        "var_pct": -11.1,
+        "preco": 0.24
       },
       {
         "insumo": "PARAFUSO DRY WALL, EM ACO FOSFATIZADO, CABECA TROMBETA E PONTA AGULHA (TA), COMPRIMENTO 35 MM",
         "unidade": "UN",
-        "var_pct": -10.5
+        "var_pct": -10.5,
+        "preco": 0.17
       },
       {
         "insumo": "PARAFUSO DE ACO ZINCADO COM ROSCA SOBERBA, CABECA CHATA E FENDA SIMPLES, DIAMETRO 4,8 MM, COMPRIMENTO 45 MM",
         "unidade": "UN",
-        "var_pct": -10.3
-      },
-      {
-        "insumo": "PARAFUSO DE LATAO COM ROSCA SOBERBA, CABECA CHATA E FENDA SIMPLES, DIAMETRO 3,2 MM, COMPRIMENTO 16 MM",
-        "unidade": "UN",
-        "var_pct": -10.3
+        "var_pct": -10.3,
+        "preco": 0.26
       },
       {
         "insumo": "PARAFUSO CABECA TROMBETA E PONTA AGULHA (GN55), COMPRIMENTO 55 MM, EM ACO FOSFATIZADO, PARA FIXAR CHAPA DE GESSO EM PERFIL DRYWALL METALICO MAXIMO 0,7 MM",
         "unidade": "UN",
-        "var_pct": -10.3
+        "var_pct": -10.3,
+        "preco": 0.26
       },
       {
-        "insumo": "PARAFUSO DE ACO ZINCADO, SEXTAVADO, COM ROSCA INTEIRA, DIAMETRO 5/16\", COMPRIMENTO 3/4\", COM PORCA E ARRUELA LISA LEVE",
+        "insumo": "PARAFUSO DE LATAO COM ROSCA SOBERBA, CABECA CHATA E FENDA SIMPLES, DIAMETRO 3,2 MM, COMPRIMENTO 16 MM",
         "unidade": "UN",
-        "var_pct": -10.0
+        "var_pct": -10.3,
+        "preco": 0.26
       },
       {
         "insumo": "PARAFUSO DRY WALL, EM ACO ZINCADO, CABECA LENTILHA E PONTA AGULHA (LA), LARGURA 4,2 MM, COMPRIMENTO 13 MM",
         "unidade": "UN",
-        "var_pct": -10.0
+        "var_pct": -10.0,
+        "preco": 0.18
+      },
+      {
+        "insumo": "PARAFUSO DE ACO ZINCADO, SEXTAVADO, COM ROSCA INTEIRA, DIAMETRO 5/16\", COMPRIMENTO 3/4\", COM PORCA E ARRUELA LISA LEVE",
+        "unidade": "UN",
+        "var_pct": -10.0,
+        "preco": 0.45
       },
       {
         "insumo": "PARAFUSO ZINCADO, SEXTAVADO, COM ROSCA SOBERBA, DIAMETRO 5/16\", COMPRIMENTO 40 MM",
         "unidade": "UN",
-        "var_pct": -9.3
+        "var_pct": -9.3,
+        "preco": 0.68
       },
       {
         "insumo": "VIDRO TEMPERADO VERDE E = 6 MM, SEM COLOCACAO",
         "unidade": "M2",
-        "var_pct": -9.1
-      },
-      {
-        "insumo": "VIDRO TEMPERADO INCOLOR E = 6 MM, SEM COLOCACAO",
-        "unidade": "M2",
-        "var_pct": -9.1
-      },
-      {
-        "insumo": "VIDRO TEMPERADO INCOLOR E = 10 MM, SEM COLOCACAO",
-        "unidade": "M2",
-        "var_pct": -9.1
-      },
-      {
-        "insumo": "VIDRO TEMPERADO INCOLOR E = 8 MM, SEM COLOCACAO",
-        "unidade": "M2",
-        "var_pct": -9.1
-      },
-      {
-        "insumo": "PORTA VIDRO TEMPERADO INCOLOR, 2 FOLHAS DE CORRER, E = 10 MM (SEM FERRAGENS E SEM COLOCACAO)",
-        "unidade": "M2",
-        "var_pct": -9.1
+        "var_pct": -9.1,
+        "preco": 329.16
       }
     ]
   },

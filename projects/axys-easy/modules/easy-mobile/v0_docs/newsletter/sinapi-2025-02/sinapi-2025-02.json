@@ -180,6 +180,7 @@
     ],
     "total_subgrupos": 109
   },
+  "grupos": null,
   "insumos": {
     "comparaveis": 4835,
     "media_pct": 0.28,
@@ -187,184 +188,172 @@
       {
         "insumo": "RALO FOFO SEMIESFERICO, 75 MM, PARA LAJES/ CALHAS",
         "unidade": "UN",
-        "var_pct": 16.3
+        "var_pct": 16.3,
+        "preco": 13.73
       },
       {
         "insumo": "RALO FOFO SEMIESFERICO, 100 MM, PARA LAJES/ CALHAS",
         "unidade": "UN",
-        "var_pct": 16.2
+        "var_pct": 16.2,
+        "preco": 18.33
       },
       {
         "insumo": "RALO FOFO COM REQUADRO, QUADRADO 200 X 200 MM",
         "unidade": "UN",
-        "var_pct": 16.2
+        "var_pct": 16.2,
+        "preco": 69.33
       },
       {
         "insumo": "TAMPAO FOFO SIMPLES COM BASE / REQUADRO, CLASSE A15 CARGA MAX. 1,5 T, 300 X 300 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
         "unidade": "UN",
-        "var_pct": 16.2
+        "var_pct": 16.2,
+        "preco": 113.33
       },
       {
         "insumo": "RALO FOFO COM REQUADRO, QUADRADO 250 X 250 MM",
         "unidade": "UN",
-        "var_pct": 16.2
+        "var_pct": 16.2,
+        "preco": 85.33
       },
       {
         "insumo": "RALO FOFO SEMIESFERICO, 150 MM, PARA LAJES/ CALHAS",
         "unidade": "UN",
-        "var_pct": 16.2
+        "var_pct": 16.2,
+        "preco": 43.06
       },
       {
         "insumo": "TAMPAO FOFO ARTICULADO P/ REGISTRO, COM BASE / REQUADRO, CLASSE A15 CARGA MAX 1,5 T, *200 X 200* MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
         "unidade": "UN",
-        "var_pct": 16.2
+        "var_pct": 16.2,
+        "preco": 74.66
       },
       {
         "insumo": "TAMPAO FOFO SIMPLES COM BASE / REQUADRO, CLASSE A15 CARGA MAX. 1,5 T, 400 X 400 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
         "unidade": "UN",
-        "var_pct": 16.2
+        "var_pct": 16.2,
+        "preco": 173.33
       },
       {
         "insumo": "TAMPAO FOFO ARTICULADO, COM BASE / REQUADRO, CLASSE B125 CARGA MAX 12,5 T, REDONDO, TAMPA 600 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
         "unidade": "UN",
-        "var_pct": 16.2
+        "var_pct": 16.2,
+        "preco": 473.33
       },
       {
         "insumo": "TAMPAO FOFO ARTICULADO, COM BASE / REQUADRO, CLASSE D400 CARGA MAX 40 T, REDONDO, TAMPA 600 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
         "unidade": "UN",
-        "var_pct": 16.2
+        "var_pct": 16.2,
+        "preco": 579.99
       },
       {
         "insumo": "TAMPAO FOFO SIMPLES COM BASE / REQUADRO, CLASSE B125 CARGA MAX. 12,5 T, REDONDO, TAMPA 600 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
         "unidade": "UN",
-        "var_pct": 16.2
+        "var_pct": 16.2,
+        "preco": 430.0
       },
       {
         "insumo": "TAMPAO FOFO SIMPLES COM BASE / REQUADRO, CLASSE D400 CARGA MAX. 40 T, REDONDO, TAMPA 600 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
         "unidade": "UN",
-        "var_pct": 16.2
+        "var_pct": 16.2,
+        "preco": 569.33
       },
       {
         "insumo": "TAMPAO FOFO SIMPLES COM BASE / REQUADRO, CLASSE D400 CARGA MAX. 40 T, REDONDO, TAMPA 900 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
         "unidade": "UN",
-        "var_pct": 16.2
+        "var_pct": 16.2,
+        "preco": 1813.99
       },
       {
         "insumo": "RALO FOFO COM REQUADRO, QUADRADO 400 X 400 MM",
         "unidade": "UN",
-        "var_pct": 16.2
-      },
-      {
-        "insumo": "TAMPAO FOFO SIMPLES COM BASE / REQUADRO, R-2, CLASSE A15 CARGA MAX. 1,5 T, 550 X 1100 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
-        "unidade": "UN",
-        "var_pct": 16.2
-      },
-      {
-        "insumo": "TAMPAO FOFO SIMPLES COM BASE / REQUADRO, CLASSE B125 CARGA MAX. 12,5 T, REDONDO, TAMPA 500 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
-        "unidade": "UN",
-        "var_pct": 16.2
-      },
-      {
-        "insumo": "GRELHA FOFO SIMPLES COM REQUADRO, CARGA MAXIMA 1,5 T, 200 X 1000 MM, E= *15* MM",
-        "unidade": "UN",
-        "var_pct": 16.2
-      },
-      {
-        "insumo": "GRELHA FOFO SIMPLES COM REQUADRO, CARGA MAXIMA 12,5 T, *300 X 1000* MM, E= *15* MM, AREA ESTACIONAMENTO CARRO PASSEIO",
-        "unidade": "UN",
-        "var_pct": 16.2
+        "var_pct": 16.2,
+        "preco": 167.99
       }
     ],
     "baixas": [
       {
         "insumo": "PARAFUSO DE ACO ZINCADO COM ROSCA SOBERBA, CABECA CHATA E FENDA SIMPLES, DIAMETRO 2,5 MM, COMPRIMENTO * 9,5 * MM",
         "unidade": "UN",
-        "var_pct": -16.7
+        "var_pct": -16.7,
+        "preco": 0.05
       },
       {
         "insumo": "GRANALHA DE ACO, ANGULAR (GRIT), PARA JATEAMENTO, PENEIRA 1,41 A 1,19 MM (SAE G16)",
         "unidade": "SC25KG",
-        "var_pct": -13.7
+        "var_pct": -13.7,
+        "preco": 116.02
       },
       {
         "insumo": "GRANALHA DE ACO, ESFERICA (SHOT), PARA JATEAMENTO, PENEIRA 0,40 A 1,00 MM (SAE S-170 A S-280)",
         "unidade": "SC25KG",
-        "var_pct": -13.7
+        "var_pct": -13.7,
+        "preco": 138.49
       },
       {
         "insumo": "GRANALHA DE ACO, ESFERICA (SHOT), PARA JATEAMENTO, PENEIRA 1,19 A 1,00 MM (SAE S390)",
         "unidade": "SC25KG",
-        "var_pct": -13.7
+        "var_pct": -13.7,
+        "preco": 156.0
       },
       {
         "insumo": "GRANALHA DE ACO, ANGULAR (GRIT), PARA JATEAMENTO, PENEIRA 0,117 A 1,00 MM, (SAE G-40 A G-80)",
         "unidade": "SC25KG",
-        "var_pct": -13.7
+        "var_pct": -13.7,
+        "preco": 133.52
       },
       {
         "insumo": "TUBO ACO CARBONO SEM COSTURA 1/2\", E= *2,77 MM, SCHEDULE 40, *1,27 KG/M",
         "unidade": "M",
-        "var_pct": -9.9
+        "var_pct": -9.9,
+        "preco": 36.31
       },
       {
         "insumo": "TUBO ACO CARBONO SEM COSTURA 2 1/2\", E = 5,16 MM, SCHEDULE 40 (8,62 KG/M)",
         "unidade": "M",
-        "var_pct": -9.9
+        "var_pct": -9.9,
+        "preco": 161.87
       },
       {
         "insumo": "TUBO ACO CARBONO SEM COSTURA 1\", E= *3,38 MM, SCHEDULE 40, *2,50* KG/M",
         "unidade": "M",
-        "var_pct": -9.9
+        "var_pct": -9.9,
+        "preco": 55.75
       },
       {
         "insumo": "TUBO ACO CARBONO SEM COSTURA 4\", E= *6,02 MM, SCHEDULE 40, *16,06 KG/M",
         "unidade": "M",
-        "var_pct": -9.9
+        "var_pct": -9.9,
+        "preco": 296.53
       },
       {
         "insumo": "TUBO ACO CARBONO SEM COSTURA 5\", E= *6,55 MM, SCHEDULE 40, *21,75* KG/M",
         "unidade": "M",
-        "var_pct": -9.9
+        "var_pct": -9.9,
+        "preco": 465.15
       },
       {
         "insumo": "TUBO ACO CARBONO SEM COSTURA 4\", E= *8,56 MM, SCHEDULE 80, *22,31 KG/M",
         "unidade": "M",
-        "var_pct": -9.9
+        "var_pct": -9.9,
+        "preco": 423.91
       },
       {
         "insumo": "TUBO ACO CARBONO SEM COSTURA 3\", E= *5,49 MM, SCHEDULE 40, *11,28* KG/M",
         "unidade": "M",
-        "var_pct": -9.9
+        "var_pct": -9.9,
+        "preco": 203.8
       },
       {
         "insumo": "TUBO ACO CARBONO SEM COSTURA 8\", E= *12,70 MM, SCHEDULE 80, *64,64 KG/M",
         "unidade": "M",
-        "var_pct": -9.9
+        "var_pct": -9.9,
+        "preco": 1050.38
       },
       {
         "insumo": "TUBO ACO CARBONO SEM COSTURA 8\", E= *8,18 MM, SCHEDULE 40, *42,55 KG/M",
         "unidade": "M",
-        "var_pct": -9.9
-      },
-      {
-        "insumo": "TUBO ACO CARBONO SEM COSTURA 8\", E= *7,04 MM, SCHEDULE 30, *36,75 KG/M",
-        "unidade": "M",
-        "var_pct": -9.9
-      },
-      {
-        "insumo": "TUBO DE REVESTIMENTO, EM ACO, CORPO SCHEDULE 40, PONTEIRA SCHEDULE 80, ROSQUEAVEL E SEGMENTADO PARA PERFURACAO, DIAMETRO 4\" (450 MM)",
-        "unidade": "M",
-        "var_pct": -9.9
-      },
-      {
-        "insumo": "TUBO DE REVESTIMENTO, EM ACO, CORPO SCHEDULE 40, PONTEIRA SCHEDULE 80, ROSQUEAVEL E SEGMENTADO PARA PERFURACAO, DIAMETRO 8\" (200 MM)",
-        "unidade": "M",
-        "var_pct": -9.9
-      },
-      {
-        "insumo": "TUBO ACO CARBONO SEM COSTURA 6\", E= *10,97 MM, SCHEDULE 80, *42,56 KG/M",
-        "unidade": "M",
-        "var_pct": -9.9
+        "var_pct": -9.9,
+        "preco": 788.38
       }
     ]
   },

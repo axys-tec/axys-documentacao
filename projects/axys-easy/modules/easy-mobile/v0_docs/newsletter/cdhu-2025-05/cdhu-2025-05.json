@@ -1,0 +1,872 @@
+{
+  "fonte": "CDHU",
+  "ref": "2025-05-01",
+  "ref_anterior": "2025-02-01",
+  "versao": "198",
+  "edi_id": 38,
+  "edi_anterior": 37,
+  "meses_intervalo": 3,
+  "modalidade": "SD",
+  "uf_foco": "SP",
+  "movimento": {
+    "incluidas": 3,
+    "inativadas": 18,
+    "reativadas": 0,
+    "alteradas": 38
+  },
+  "cobertura": {
+    "ufs": 1,
+    "cpus": 3562,
+    "sem_custo": 0,
+    "linhas": 10686,
+    "pct_sem_custo": 0.0,
+    "insumos": 3228,
+    "insumos_sem_preco": 0,
+    "pct_sem_preco": 0.0
+  },
+  "precos": {
+    "uf": "SP",
+    "comparaveis": 3559,
+    "media_pct": 2.68,
+    "mediana_pct": 2.44,
+    "subiram": 2989,
+    "cairam": 552,
+    "estaveis": 18
+  },
+  "subgrupos": {
+    "altas": [
+      {
+        "subgrupo": "TUBULAÇÃO EM FERRO DÚCTIL PARA REDES DE SANEAMENTO",
+        "cpus": 12,
+        "var_pct": 8.83,
+        "medio_anterior": 885.63,
+        "medio_atual": 963.87
+      },
+      {
+        "subgrupo": "ESTACA TIPO RAIZ",
+        "cpus": 18,
+        "var_pct": 7.98,
+        "medio_anterior": 3682.06,
+        "medio_atual": 3975.93
+      },
+      {
+        "subgrupo": "TUBULAÇÃO EM PP - ÁGUAS PLUVIAIS / ESGOTO",
+        "cpus": 38,
+        "var_pct": 7.92,
+        "medio_anterior": 60.52,
+        "medio_atual": 65.32
+      },
+      {
+        "subgrupo": "POÇO PROFUNDO",
+        "cpus": 59,
+        "var_pct": 7.38,
+        "medio_anterior": 2213.67,
+        "medio_atual": 2377.0
+      },
+      {
+        "subgrupo": "REGISTRO E / OU VÁLVULA EM FERRO FUNDIDO",
+        "cpus": 16,
+        "var_pct": 7.31,
+        "medio_anterior": 2569.69,
+        "medio_atual": 2757.44
+      },
+      {
+        "subgrupo": "TUBULAÇÃO EM COBRE RÍGIDO, PARA SISTEMA VRF DE AR CONDICIONADO",
+        "cpus": 11,
+        "var_pct": 7.08,
+        "medio_anterior": 164.41,
+        "medio_atual": 176.05
+      },
+      {
+        "subgrupo": "REPAROS, CONSERVAÇÕES E COMPLEMENTOS - GRUPO 37",
+        "cpus": 12,
+        "var_pct": 6.96,
+        "medio_anterior": 3790.13,
+        "medio_atual": 4054.04
+      },
+      {
+        "subgrupo": "TUBULAÇÃO FLANGEADA EM FERRO DÚCTIL PARA REDES DE SANEAMENTO",
+        "cpus": 31,
+        "var_pct": 6.55,
+        "medio_anterior": 663.48,
+        "medio_atual": 706.95
+      },
+      {
+        "subgrupo": "APARELHOS E LOUÇAS",
+        "cpus": 22,
+        "var_pct": 6.33,
+        "medio_anterior": 521.8,
+        "medio_atual": 554.83
+      },
+      {
+        "subgrupo": "RETIRADA EM INSTALAÇÃO ELÉTRICA - LETRA A ATÉ B",
+        "cpus": 12,
+        "var_pct": 6.0,
+        "medio_anterior": 27.0,
+        "medio_atual": 28.61
+      }
+    ],
+    "baixas": [
+      {
+        "subgrupo": "APARELHO DE ILUMINAÇÃO PÚBLICA E DECORATIVA",
+        "cpus": 16,
+        "var_pct": -7.94,
+        "medio_anterior": 969.16,
+        "medio_atual": 892.18
+      },
+      {
+        "subgrupo": "DISTRIBUIÇÃO E COMANDO, CAIXAS E EQUIPAMENTOS ESPECÍFICOS",
+        "cpus": 10,
+        "var_pct": -5.54,
+        "medio_anterior": 10080.12,
+        "medio_atual": 9521.33
+      },
+      {
+        "subgrupo": "CAIXAS DE ENTRADA / MEDIÇÃO",
+        "cpus": 11,
+        "var_pct": -2.79,
+        "medio_anterior": 1178.79,
+        "medio_atual": 1145.87
+      },
+      {
+        "subgrupo": "FIOS E CABOS TELEFÔNICOS",
+        "cpus": 16,
+        "var_pct": -2.65,
+        "medio_anterior": 28.64,
+        "medio_atual": 27.88
+      },
+      {
+        "subgrupo": "RODAPÉ TÉCNICO E ACESSÓRIOS",
+        "cpus": 13,
+        "var_pct": -1.9,
+        "medio_anterior": 111.22,
+        "medio_atual": 109.11
+      },
+      {
+        "subgrupo": "CABO DE COBRE FLEXÍVEL, ISOLAMENTO 0,6/1 KV, ISOLAÇÃO EM HEPR 90°C",
+        "cpus": 22,
+        "var_pct": -1.71,
+        "medio_anterior": 59.16,
+        "medio_atual": 58.15
+      },
+      {
+        "subgrupo": "TACHAS E TACHÕES",
+        "cpus": 13,
+        "var_pct": -1.51,
+        "medio_anterior": 56.39,
+        "medio_atual": 55.54
+      },
+      {
+        "subgrupo": "CABO DE COBRE FLEXÍVEL, ISOLAMENTO 0,6/1KV - ISOLAÇÃO HEPR 90° C - BAIXA EMISSÃO FUMAÇA E GASES",
+        "cpus": 15,
+        "var_pct": -1.39,
+        "medio_anterior": 73.77,
+        "medio_atual": 72.75
+      },
+      {
+        "subgrupo": "DIVISÓRIA E FECHAMENTO",
+        "cpus": 25,
+        "var_pct": -1.1,
+        "medio_anterior": 465.94,
+        "medio_atual": 460.83
+      },
+      {
+        "subgrupo": "RELÉ",
+        "cpus": 10,
+        "var_pct": -0.79,
+        "medio_anterior": 941.95,
+        "medio_atual": 934.47
+      }
+    ],
+    "total_subgrupos": 115
+  },
+  "grupos": {
+    "todos": [
+      {
+        "grupo": "SERVICO TECNICO ESPECIALIZADO",
+        "cpus": 154,
+        "var_pct": 6.1,
+        "medio_anterior": 3269.46,
+        "medio_atual": 3469.02
+      },
+      {
+        "grupo": "FUNDAÇÃO PROFUNDA",
+        "cpus": 55,
+        "var_pct": 5.95,
+        "medio_anterior": 3224.79,
+        "medio_atual": 3416.73
+      },
+      {
+        "grupo": "SERVIÇO EM SOLO E ROCHA, MANUAL",
+        "cpus": 9,
+        "var_pct": 5.82,
+        "medio_anterior": 51.69,
+        "medio_atual": 54.69
+      },
+      {
+        "grupo": "RETIRADA COM PROVÁVEL REAPROVEITAMENTO",
+        "cpus": 165,
+        "var_pct": 5.8,
+        "medio_anterior": 41.8,
+        "medio_atual": 44.22
+      },
+      {
+        "grupo": "SERVIÇO EM SOLO E ROCHA, MECANIZADO",
+        "cpus": 18,
+        "var_pct": 5.6,
+        "medio_anterior": 33.88,
+        "medio_atual": 35.78
+      },
+      {
+        "grupo": "DEMOLIÇÃO SEM REAPROVEITAMENTO",
+        "cpus": 42,
+        "var_pct": 4.99,
+        "medio_anterior": 90.3,
+        "medio_atual": 94.81
+      },
+      {
+        "grupo": "TELHAMENTO",
+        "cpus": 56,
+        "var_pct": 4.23,
+        "medio_anterior": 122.0,
+        "medio_atual": 127.16
+      },
+      {
+        "grupo": "VÁLVULAS E APARELHOS DE MEDIÇÃO E CONTROLE PARA LÍQUIDOS E GASES",
+        "cpus": 134,
+        "var_pct": 4.19,
+        "medio_anterior": 1185.5,
+        "medio_atual": 1235.24
+      },
+      {
+        "grupo": "INSERTE METÁLICO",
+        "cpus": 10,
+        "var_pct": 4.07,
+        "medio_anterior": 39.9,
+        "medio_atual": 41.53
+      },
+      {
+        "grupo": "APARELHOS E METAIS HIDRÁULICOS",
+        "cpus": 114,
+        "var_pct": 3.83,
+        "medio_anterior": 521.82,
+        "medio_atual": 541.79
+      },
+      {
+        "grupo": "TUBULAÇÃO E CONDUTORES PARA LÍQUIDOS E GASES",
+        "cpus": 328,
+        "var_pct": 3.55,
+        "medio_anterior": 372.39,
+        "medio_atual": 385.59
+      },
+      {
+        "grupo": "PARA-RAIOS PARA EDIFICAÇÃO",
+        "cpus": 89,
+        "var_pct": 3.22,
+        "medio_anterior": 65.04,
+        "medio_atual": 67.14
+      },
+      {
+        "grupo": "DETECÇÃO, COMBATE E PREVENÇÃO A INCÊNDIO",
+        "cpus": 59,
+        "var_pct": 3.08,
+        "medio_anterior": 1198.85,
+        "medio_atual": 1235.81
+      },
+      {
+        "grupo": "SINALIZAÇÃO E COMUNICAÇÃO VISUAL",
+        "cpus": 15,
+        "var_pct": 3.01,
+        "medio_anterior": 788.14,
+        "medio_atual": 811.85
+      },
+      {
+        "grupo": "ESQUADRIA E ELEMENTO EM MATERIAL ESPECIAL",
+        "cpus": 12,
+        "var_pct": 2.88,
+        "medio_anterior": 480.19,
+        "medio_atual": 494.01
+      },
+      {
+        "grupo": "PAVIMENTAÇÃO E PASSEIO",
+        "cpus": 54,
+        "var_pct": 2.82,
+        "medio_anterior": 289.52,
+        "medio_atual": 297.69
+      },
+      {
+        "grupo": "CAIXA, RALO, GRELHA E ACESSÓRIO HIDRÁULICO",
+        "cpus": 64,
+        "var_pct": 2.5,
+        "medio_anterior": 2491.29,
+        "medio_atual": 2553.48
+      },
+      {
+        "grupo": "PINTURA",
+        "cpus": 36,
+        "var_pct": 2.44,
+        "medio_anterior": 85.56,
+        "medio_atual": 87.64
+      },
+      {
+        "grupo": "FERRAGEM COMPLEMENTAR PARA ESQUADRIAS",
+        "cpus": 54,
+        "var_pct": 2.43,
+        "medio_anterior": 1037.23,
+        "medio_atual": 1062.41
+      },
+      {
+        "grupo": "ENTRADA DE ÁGUA, INCÊNDIO E GÁS",
+        "cpus": 17,
+        "var_pct": 2.35,
+        "medio_anterior": 4046.46,
+        "medio_atual": 4141.57
+      },
+      {
+        "grupo": "TRANSPORTE E MOVIMENTAÇÃO, DENTRO E FORA DA OBRA",
+        "cpus": 30,
+        "var_pct": 2.33,
+        "medio_anterior": 77.49,
+        "medio_atual": 79.3
+      },
+      {
+        "grupo": "REVESTIMENTO EM MASSA OU FUNDIDO NO LOCAL",
+        "cpus": 61,
+        "var_pct": 2.33,
+        "medio_anterior": 204.78,
+        "medio_atual": 209.56
+      },
+      {
+        "grupo": "FORMA",
+        "cpus": 21,
+        "var_pct": 2.32,
+        "medio_anterior": 183.23,
+        "medio_atual": 187.48
+      },
+      {
+        "grupo": "ESQUADRIA, MARCENARIA E ELEMENTO EM MADEIRA",
+        "cpus": 88,
+        "var_pct": 2.26,
+        "medio_anterior": 1078.5,
+        "medio_atual": 1102.85
+      },
+      {
+        "grupo": "REVESTIMENTO SINTÉTICO E METÁLICO",
+        "cpus": 40,
+        "var_pct": 2.17,
+        "medio_anterior": 231.31,
+        "medio_atual": 236.32
+      },
+      {
+        "grupo": "ESQUADRIA, SERRALHERIA E ELEMENTO EM ALUMÍNIO",
+        "cpus": 45,
+        "var_pct": 2.02,
+        "medio_anterior": 949.06,
+        "medio_atual": 968.18
+      },
+      {
+        "grupo": "REVESTIMENTO EM MADEIRA",
+        "cpus": 9,
+        "var_pct": 2.0,
+        "medio_anterior": 176.52,
+        "medio_atual": 180.05
+      },
+      {
+        "grupo": "CONFORTO MECÂNICO, EQUIPAMENTO E SISTEMA",
+        "cpus": 94,
+        "var_pct": 1.93,
+        "medio_anterior": 38004.67,
+        "medio_atual": 38737.64
+      },
+      {
+        "grupo": "DISTRIBUIÇÃO DE FORÇA E COMANDO DE ENERGIA ELÉTRICA E TELEFONIA",
+        "cpus": 105,
+        "var_pct": 1.83,
+        "medio_anterior": 366.76,
+        "medio_atual": 373.46
+      },
+      {
+        "grupo": "FORRO, BRISE E FACHADA",
+        "cpus": 28,
+        "var_pct": 1.82,
+        "medio_anterior": 249.22,
+        "medio_atual": 253.77
+      },
+      {
+        "grupo": "PAISAGISMO E FECHAMENTOS",
+        "cpus": 54,
+        "var_pct": 1.62,
+        "medio_anterior": 751.94,
+        "medio_atual": 764.09
+      },
+      {
+        "grupo": "CONCRETO, MASSA E LASTRO",
+        "cpus": 49,
+        "var_pct": 1.56,
+        "medio_anterior": 760.67,
+        "medio_atual": 772.5
+      },
+      {
+        "grupo": "ELETRIFICAÇÃO, EQUIPAMENTOS E SISTEMA",
+        "cpus": 29,
+        "var_pct": 1.52,
+        "medio_anterior": 1891.05,
+        "medio_atual": 1919.75
+      },
+      {
+        "grupo": "ESQUADRIA E ELEMENTO EM VIDRO",
+        "cpus": 29,
+        "var_pct": 1.52,
+        "medio_anterior": 707.71,
+        "medio_atual": 718.43
+      },
+      {
+        "grupo": "REVESTIMENTO EM PEDRA",
+        "cpus": 21,
+        "var_pct": 1.5,
+        "medio_anterior": 346.67,
+        "medio_atual": 351.87
+      },
+      {
+        "grupo": "LAJE E PAINEL DE FECHAMENTO PRÉ-FABRICADOS",
+        "cpus": 20,
+        "var_pct": 1.41,
+        "medio_anterior": 214.55,
+        "medio_atual": 217.56
+      },
+      {
+        "grupo": "RESERVATÓRIO E TANQUE PARA LÍQUIDOS E GASES",
+        "cpus": 25,
+        "var_pct": 1.38,
+        "medio_anterior": 6105.42,
+        "medio_atual": 6189.76
+      },
+      {
+        "grupo": "ESTRUTURA EM MADEIRA, FERRO, ALUMÍNIO E CONCRETO",
+        "cpus": 27,
+        "var_pct": 1.28,
+        "medio_anterior": 889.06,
+        "medio_atual": 900.4
+      },
+      {
+        "grupo": "SINALIZAÇÃO VIÁRIA",
+        "cpus": 52,
+        "var_pct": 1.26,
+        "medio_anterior": 1246.12,
+        "medio_atual": 1261.86
+      },
+      {
+        "grupo": "REVESTIMENTO CERÂMICO",
+        "cpus": 54,
+        "var_pct": 1.19,
+        "medio_anterior": 90.76,
+        "medio_atual": 91.85
+      },
+      {
+        "grupo": "CAPTAÇÃO, ADUÇÃO E TRATAMENTO DE ÁGUA E ESGOTO, EQUIPAMENTOS E SISTEMA",
+        "cpus": 11,
+        "var_pct": 1.19,
+        "medio_anterior": 79391.97,
+        "medio_atual": 80339.72
+      },
+      {
+        "grupo": "SEGURANÇA, VIGILÂNCIA E CONTROLE, EQUIPAMENTO E SISTEMA",
+        "cpus": 32,
+        "var_pct": 1.11,
+        "medio_anterior": 3964.14,
+        "medio_atual": 4008.03
+      },
+      {
+        "grupo": "TUBULAÇÃO E CONDUTOR PARA ENERGIA ELÉTRICA E TELEFONIA BÁSICA",
+        "cpus": 152,
+        "var_pct": 1.1,
+        "medio_anterior": 92.64,
+        "medio_atual": 93.65
+      },
+      {
+        "grupo": "TELEFONIA, LÓGICA E TRANSMISSÃO DE DADOS, EQUIPAMENTOS E SISTEMA",
+        "cpus": 62,
+        "var_pct": 1.01,
+        "medio_anterior": 16710.67,
+        "medio_atual": 16878.95
+      },
+      {
+        "grupo": "IMPERMEABILIZAÇÃO, PROTEÇÃO E JUNTA",
+        "cpus": 87,
+        "var_pct": 0.89,
+        "medio_anterior": 135.5,
+        "medio_atual": 136.71
+      },
+      {
+        "grupo": "APARELHOS ELÉTRICOS, HIDRÁULICOS E A GÁS",
+        "cpus": 92,
+        "var_pct": 0.88,
+        "medio_anterior": 10886.49,
+        "medio_atual": 10982.34
+      },
+      {
+        "grupo": "ENTRADA DE ENERGIA ELÉTRICA E TELEFONIA",
+        "cpus": 84,
+        "var_pct": 0.85,
+        "medio_anterior": 48333.61,
+        "medio_atual": 48742.16
+      },
+      {
+        "grupo": "COZINHA, REFEITÓRIO, LAVANDERIA INDUSTRIAL E EQUIPAMENTOS",
+        "cpus": 6,
+        "var_pct": 0.73,
+        "medio_anterior": 6066.35,
+        "medio_atual": 6110.81
+      },
+      {
+        "grupo": "QUADRO E PAINEL PARA ENERGIA ELÉTRICA E TELEFONIA",
+        "cpus": 144,
+        "var_pct": 0.57,
+        "medio_anterior": 7560.69,
+        "medio_atual": 7603.56
+      },
+      {
+        "grupo": "PLAYGROUND E EQUIPAMENTO RECREATIVO",
+        "cpus": 20,
+        "var_pct": 0.56,
+        "medio_anterior": 2354.6,
+        "medio_atual": 2367.75
+      },
+      {
+        "grupo": "ALVENARIA E ELEMENTO DIVISOR",
+        "cpus": 66,
+        "var_pct": 0.54,
+        "medio_anterior": 356.46,
+        "medio_atual": 358.38
+      },
+      {
+        "grupo": "ESCORAMENTO, CONTENÇÃO E DRENAGEM",
+        "cpus": 29,
+        "var_pct": 0.52,
+        "medio_anterior": 634.06,
+        "medio_atual": 637.35
+      },
+      {
+        "grupo": "ESQUADRIA, SERRALHERIA E ELEMENTO EM FERRO",
+        "cpus": 96,
+        "var_pct": 0.38,
+        "medio_anterior": 1642.77,
+        "medio_atual": 1648.95
+      },
+      {
+        "grupo": "ARMADURA E CORDOALHA ESTRUTURAL",
+        "cpus": 5,
+        "var_pct": 0.15,
+        "medio_anterior": 24.05,
+        "medio_atual": 24.08
+      },
+      {
+        "grupo": "LIMPEZA E ARREMATE",
+        "cpus": 14,
+        "var_pct": 0.09,
+        "medio_anterior": 34.81,
+        "medio_atual": 34.84
+      },
+      {
+        "grupo": "INÍCIO, APOIO E ADMINISTRAÇÃO DA OBRA",
+        "cpus": 40,
+        "var_pct": 0.03,
+        "medio_anterior": 1343.19,
+        "medio_atual": 1343.59
+      },
+      {
+        "grupo": "CONDUTOR E ENFIAÇÃO DE ENERGIA ELÉTRICA E TELEFONIA",
+        "cpus": 125,
+        "var_pct": -0.67,
+        "medio_anterior": 44.19,
+        "medio_atual": 43.89
+      },
+      {
+        "grupo": "ILUMINAÇÃO",
+        "cpus": 87,
+        "var_pct": -1.64,
+        "medio_anterior": 425.18,
+        "medio_atual": 418.19
+      },
+      {
+        "grupo": "ACESSIBILIDADE",
+        "cpus": 38,
+        "var_pct": -4.72,
+        "medio_anterior": 2092.56,
+        "medio_atual": 1993.74
+      }
+    ],
+    "altas": [
+      {
+        "grupo": "SERVICO TECNICO ESPECIALIZADO",
+        "cpus": 154,
+        "var_pct": 6.1,
+        "medio_anterior": 3269.46,
+        "medio_atual": 3469.02
+      },
+      {
+        "grupo": "FUNDAÇÃO PROFUNDA",
+        "cpus": 55,
+        "var_pct": 5.95,
+        "medio_anterior": 3224.79,
+        "medio_atual": 3416.73
+      },
+      {
+        "grupo": "SERVIÇO EM SOLO E ROCHA, MANUAL",
+        "cpus": 9,
+        "var_pct": 5.82,
+        "medio_anterior": 51.69,
+        "medio_atual": 54.69
+      },
+      {
+        "grupo": "RETIRADA COM PROVÁVEL REAPROVEITAMENTO",
+        "cpus": 165,
+        "var_pct": 5.8,
+        "medio_anterior": 41.8,
+        "medio_atual": 44.22
+      },
+      {
+        "grupo": "SERVIÇO EM SOLO E ROCHA, MECANIZADO",
+        "cpus": 18,
+        "var_pct": 5.6,
+        "medio_anterior": 33.88,
+        "medio_atual": 35.78
+      },
+      {
+        "grupo": "DEMOLIÇÃO SEM REAPROVEITAMENTO",
+        "cpus": 42,
+        "var_pct": 4.99,
+        "medio_anterior": 90.3,
+        "medio_atual": 94.81
+      },
+      {
+        "grupo": "TELHAMENTO",
+        "cpus": 56,
+        "var_pct": 4.23,
+        "medio_anterior": 122.0,
+        "medio_atual": 127.16
+      },
+      {
+        "grupo": "VÁLVULAS E APARELHOS DE MEDIÇÃO E CONTROLE PARA LÍQUIDOS E GASES",
+        "cpus": 134,
+        "var_pct": 4.19,
+        "medio_anterior": 1185.5,
+        "medio_atual": 1235.24
+      }
+    ],
+    "baixas": [
+      {
+        "grupo": "ACESSIBILIDADE",
+        "cpus": 38,
+        "var_pct": -4.72,
+        "medio_anterior": 2092.56,
+        "medio_atual": 1993.74
+      },
+      {
+        "grupo": "ILUMINAÇÃO",
+        "cpus": 87,
+        "var_pct": -1.64,
+        "medio_anterior": 425.18,
+        "medio_atual": 418.19
+      },
+      {
+        "grupo": "CONDUTOR E ENFIAÇÃO DE ENERGIA ELÉTRICA E TELEFONIA",
+        "cpus": 125,
+        "var_pct": -0.67,
+        "medio_anterior": 44.19,
+        "medio_atual": 43.89
+      }
+    ],
+    "total": 59
+  },
+  "insumos": {
+    "comparaveis": 3224,
+    "media_pct": 1.44,
+    "altas": [
+      {
+        "insumo": "PARECER TÉCNICO JUNTO A CETESB CONFORME CRITÉRIOS ESPECÍFICOS DETERMINADOS NA INSTRUÇÃO TÉCNICA DPO Nº 10 DE 30/05/2017 DO DAEE",
+        "unidade": "UN",
+        "var_pct": 168.5,
+        "preco": 15663.65
+      },
+      {
+        "insumo": "FORRO EM PLACA DE GESSO LISO(STANDARD), ESPESSURA 12,5MM, FIXADO E ESTRUTURADO - INSTALADO",
+        "unidade": "M2",
+        "var_pct": 67.6,
+        "preco": 150.5
+      },
+      {
+        "insumo": "BATE-MACA OU PROTETOR CURVO DE PAREDE EM PVC, COM ALTURA DE 198MM, NAS CORES BRANCO, BEGE AZUL ESCURO, BARRA DE 4M, REF. TEC 198 N DA TECNOPERFIL OU EQUIVALENTE",
+        "unidade": "M",
+        "var_pct": 61.7,
+        "preco": 149.4
+      },
+      {
+        "insumo": "FORRO TERMOACÚSTICO EM LÃ DE VIDRO COM ACABAMENTO PLÁSTICO; E= 20 MM, DENSIDADE 60 KG/M³, COM ESTRUTURA DE SUSTENTAÇÃO; REF. FORROVID K-60 OU EQUIVALENTE - INSTALADO",
+        "unidade": "M2",
+        "var_pct": 44.0,
+        "preco": 110.77
+      },
+      {
+        "insumo": "SINALIZAÇÃO HORIZONTAL COM RESINA VINÍLICA OU ACRÍLICA",
+        "unidade": "M2",
+        "var_pct": 43.7,
+        "preco": 37.42
+      },
+      {
+        "insumo": "CHUVEIRO SIMPLES EM PVC, DIÂMETRO DE 10 CM, COM BRAÇO ACOPLADO, REF. DUCHA 4 - LINHA PLENA DUCHAS DA TIGRE OU EQUIVALENTE",
+        "unidade": "UN",
+        "var_pct": 38.1,
+        "preco": 25.65
+      },
+      {
+        "insumo": "DISJUNTOR EM CAIXA MOLDADA BIPOLAR A2N 250 TMF 150 2P FF, 2 POLOS, INSTALAÇÃO FIXO, RELE TERMOMAGNÉTICO FIXO TMF, 150A - 600VCA; REFERÊNCIA 1SDA068778R1 DA ABB OU EQUIVALENTE",
+        "unidade": "UN",
+        "var_pct": 34.6,
+        "preco": 901.93
+      },
+      {
+        "insumo": "SENSOR DE TEMPERATURA AMBIENTE PT100, 3 FIOS, HASTE EM INOX 304, CORPO ALUMÍNIO FUNDIDO, ROSCA DE 1/2\" BSP, COMPATÍVEL COM TRANSMISSOR DE 4 A 20MA; REF. PT12191208 COM 3 FIOS DA RESISPAR OU EQUIVALENTE",
+        "unidade": "UN",
+        "var_pct": 34.4,
+        "preco": 279.77
+      },
+      {
+        "insumo": "TRATAMENTO DE AR COMPACTA FANCOLETE HIDRÔNICO TP CASSETTE, COM VENTILADORES CENTRÍFUGOS DUPLA ASPIRAÇÃO, KIT GRELHA E MOTOR ELÉTRICO, ESTRUTURA E PAINÉIS PLÁSTICO ALTA RESISTÊNCIA, REFRIGERAÇÃO 20.000 BTU/H - 1,6 TR, REF. 40HK-20 CARRIER OU EQUIVALENTE",
+        "unidade": "UN",
+        "var_pct": 33.2,
+        "preco": 5722.03
+      }
+    ],
+    "baixas": [
+      {
+        "insumo": "DISJUNTOR SÉRIE UNIVERSAL EM CAIXA MOLDADA, TÉRMICO FIXO E MAGNÉTICO AJUSTÁVEL, TRIPOLAR 600VCA, CAPACIDADE 10KA ATÉ 42KA, CORRENTE 500A ATÉ 630A, TENSÃO 600VCA; REF. NXM-630S/3300 500A TRIPOLAR DA CHINT, 630A3P35KADWP6301-3 DA WEG OU EQUIVALENTE",
+        "unidade": "UN",
+        "var_pct": -79.5,
+        "preco": 1275.1
+      },
+      {
+        "insumo": "TRINCO PARA PISO, REF. SM1060 DA DORMA, 3240 DA GLASSPEÇAS, 1519 DA SANTA MARINA OU EQUIVALENTE",
+        "unidade": "UN",
+        "var_pct": -72.7,
+        "preco": 48.65
+      },
+      {
+        "insumo": "PELÍCULA ADESIVA JATEADA LISO FOSCO OU LISTRA BRANCA PARA VIDROS - USO INTERNO",
+        "unidade": "M2",
+        "var_pct": -59.2,
+        "preco": 17.79
+      },
+      {
+        "insumo": "TEXTURA ACRÍLICA SEM AGREGADOS MINERAIS, COR BRANCA; REFERÊNCIA COMERCIAL TEXTURATTO SUAVE DA SUVINIL OU EQUIVALENTE, PARA USO INTERNO OU EXTERNO",
+        "unidade": "KG",
+        "var_pct": -47.2,
+        "preco": 9.34
+      },
+      {
+        "insumo": "DISJUNTOR SÉRIE UNIVERSAL EM CAIXA MOLDADA, TÉRMICO FIXO E MAGNÉTICO AJUSTÁVEL, TRIPOLAR 600VCA, CAPACIDADE 10KA ATÉ 42KA, CORRENTE 300A ATÉ 400A, TENSÃO MÁXIMA 600VCA; REF. DGW400NT TRIPOLAR DA WEG, 300A AGW400N TRIPOLAR DA WEG OU EQUIVALENTE",
+        "unidade": "UN",
+        "var_pct": -46.4,
+        "preco": 1851.02
+      },
+      {
+        "insumo": "DISJUNTOR SÉRIE UNIVERSAL EM CAIXA MOLDADA, TÉRMICO FIXO E MAGNÉTICO AJUSTÁVEL, TRIPOLAR 600VCA, CAPACIDADE 10KA ATÉ 42KA, CORRENTE 700A, TENSÃO 600VCA; REF. DL800-X-700A-3P OU DL800 700A 690VCA3P DA SOPRANO, DWP800L-800-3 DA WEG OU EQUIVALENTE",
+        "unidade": "UN",
+        "var_pct": -46.3,
+        "preco": 3591.68
+      },
+      {
+        "insumo": "LUMINÁRIA LED RETANGULAR PARA POSTE, EFICIÊNCIA MIN. 18.000 LM, EFICIÊNCIA MIN.180 LM/W, IP67, TEMPERATURA COR 4.000 A 5000K, IP67, POTÊNCIA DE 100W; REF. CLP-A100G LINHA IPORANGA DA CONEXLED OU EQUIVALENTE",
+        "unidade": "UN",
+        "var_pct": -36.9,
+        "preco": 515.73
+      },
+      {
+        "insumo": "LUMINÁRIA LED RETANGULAR PARA POSTE, EFICIÊNCIA MIN. 36.000 LM, EFICIÊNCIA MIN.180 LM/W, IP67, TEMPERATURA COR 4.000 A 5000K, IP67, POTÊNCIA DE 200W; REF. CLP-A200G LINHA IPORANGA DA CONEXLED OU EQUIVALENTE",
+        "unidade": "UN",
+        "var_pct": -27.6,
+        "preco": 909.01
+      },
+      {
+        "insumo": "ASSENTO DE PLÁSTICO TIPO UNIVERSAL PARA BACIA SANITÁRIA; REF. ASTRA, TUPAN OU EQUIVALENTE",
+        "unidade": "UN",
+        "var_pct": -26.9,
+        "preco": 37.85
+      }
+    ]
+  },
+  "indicadores": {
+    "acumulados": {
+      "IGP-M": -0.59,
+      "INCC-M": 1.23,
+      "INPC": 1.35,
+      "IPCA": 1.25
+    },
+    "selic_aa": 14.75,
+    "selic_aa_anterior": 13.25,
+    "meses": 3
+  },
+  "revisoes": {
+    "coeficiente": 1,
+    "insumo_incluido": 7,
+    "insumo_excluido": 2,
+    "cabecalho": 30,
+    "total": 38
+  },
+  "revisoes_subgrupos": [
+    {
+      "subgrupo": "DISJUNTORES",
+      "revisadas": 7
+    },
+    {
+      "subgrupo": "TELHAMENTO METÁLICO COMUM",
+      "revisadas": 6
+    },
+    {
+      "subgrupo": "TELHAMENTO METÁLICO ESPECIAL",
+      "revisadas": 4
+    },
+    {
+      "subgrupo": "ELEVADOR E PLATAFORMA",
+      "revisadas": 2
+    },
+    {
+      "subgrupo": "APARELHO DE ILUMINAÇÃO PÚBLICA E DECORATIVA",
+      "revisadas": 2
+    },
+    {
+      "subgrupo": "CABO PARA TRANSMISSÃO DE DADOS",
+      "revisadas": 2
+    },
+    {
+      "subgrupo": "ELEMENTOS EM FERRO",
+      "revisadas": 2
+    },
+    {
+      "subgrupo": "REGISTRO E / OU VÁLVULA EM FERRO DÚCTIL",
+      "revisadas": 2
+    },
+    {
+      "subgrupo": "REGISTRO E VÁLVULA CONTROLADORA",
+      "revisadas": 2
+    },
+    {
+      "subgrupo": "TELHAMENTO EM MADEIRA OU FIBRA VEGETAL",
+      "revisadas": 2
+    }
+  ],
+  "codigo": {
+    "numero": "02",
+    "rotulo": "#02"
+  },
+  "acumulado_ano": {
+    "fonte_pct": 3.23,
+    "comparaveis": 3557,
+    "indices": {
+      "INCC-M": 2.47,
+      "IPCA": 2.75
+    },
+    "desde": "2025-01-01"
+  },
+  "dispersao_uf": null
+}

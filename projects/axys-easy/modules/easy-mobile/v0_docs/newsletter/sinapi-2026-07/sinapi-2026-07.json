@@ -180,6 +180,7 @@
     ],
     "total_subgrupos": 120
   },
+  "grupos": null,
   "insumos": {
     "comparaveis": 4876,
     "media_pct": 0.31,
@@ -187,184 +188,172 @@
       {
         "insumo": "AGREGADO RECICLADO, TIPO RACHAO RECICLADO CINZA, CLASSE A",
         "unidade": "M3",
-        "var_pct": 19.0
+        "var_pct": 19.0,
+        "preco": 75.0
       },
       {
         "insumo": "PARAFUSO ROSCA SOBERBA ZINCADO CABECA CHATA FENDA SIMPLES 3,8 X 30 MM (1.1/4\")",
         "unidade": "UN",
-        "var_pct": 14.3
+        "var_pct": 14.3,
+        "preco": 0.08
       },
       {
         "insumo": "LOCACAO DE NIVEL OPTICO, COM PRECISAO DE 0,7 MM, AUMENTO DE 32X",
         "unidade": "H",
-        "var_pct": 13.3
+        "var_pct": 13.3,
+        "preco": 2.81
       },
       {
         "insumo": "LOCACAO DE TEODOLITO ELETRONICO, PRECISAO ANGULAR DE 5 A 7 SEGUNDOS, INCLUINDO TRIPE",
         "unidade": "H",
-        "var_pct": 13.3
+        "var_pct": 13.3,
+        "preco": 2.81
       },
       {
         "insumo": "BARRA DE APOIO RETA, EM ACO INOX POLIDO, COMPRIMENTO 60CM, DIAMETRO MINIMO 3 CM",
         "unidade": "UN",
-        "var_pct": 13.1
+        "var_pct": 13.1,
+        "preco": 190.46
       },
       {
         "insumo": "BARRA DE APOIO RETA, EM ACO INOX POLIDO, COMPRIMENTO 90 CM, DIAMETRO MINIMO 3 CM",
         "unidade": "UN",
-        "var_pct": 13.1
+        "var_pct": 13.1,
+        "preco": 236.29
       },
       {
         "insumo": "BANCO ARTICULADO PARA BANHO, EM ACO INOX POLIDO, 70* CM X 45* CM",
         "unidade": "UN",
-        "var_pct": 13.1
+        "var_pct": 13.1,
+        "preco": 976.69
       },
       {
         "insumo": "BARRA DE APOIO LATERAL ARTICULADA, COM TRAVA, EM ACO INOX POLIDO, 70 CM, DIAMETRO MINIMO 3 CM",
         "unidade": "UN",
-        "var_pct": 13.1
+        "var_pct": 13.1,
+        "preco": 537.18
       },
       {
         "insumo": "BARRA DE APOIO RETA, EM ACO INOX POLIDO, COMPRIMENTO 80CM, DIAMETRO MINIMO 3 CM",
         "unidade": "UN",
-        "var_pct": 13.1
+        "var_pct": 13.1,
+        "preco": 225.54
       },
       {
         "insumo": "BARRA DE APOIO EM \"L\", EM ACO INOX POLIDO 80 X 80 CM, DIAMETRO MINIMO 3 CM",
         "unidade": "UN",
-        "var_pct": 13.1
+        "var_pct": 13.1,
+        "preco": 496.48
       },
       {
         "insumo": "BARRA DE APOIO RETA, EM ACO INOX POLIDO, COMPRIMENTO 70CM, DIAMETRO MINIMO 3 CM",
         "unidade": "UN",
-        "var_pct": 13.1
+        "var_pct": 13.1,
+        "preco": 211.52
       },
       {
         "insumo": "BARRA DE APOIO EM \"L\", EM ACO INOX POLIDO 70 X 70 CM, DIAMETRO MINIMO 3 CM",
         "unidade": "UN",
-        "var_pct": 13.1
+        "var_pct": 13.1,
+        "preco": 432.6
       },
       {
         "insumo": "BOLSA DE LIGACAO EM PVC FLEXIVEL PARA VASO SANITARIO 40 MM (1 1/2\")",
         "unidade": "UN",
-        "var_pct": 11.5
+        "var_pct": 11.5,
+        "preco": 5.13
       },
       {
         "insumo": "CONJUNTO DE LIGACAO AJUSTAVEL, PARA VASO / BACIA SANITARIA, EM PLASTICO BRANCO, COM TUBO, CANOPLA E ESPUDE",
         "unidade": "UN",
-        "var_pct": 11.5
-      },
-      {
-        "insumo": "TUBO DE DESCIDA EXTERNO, DE PVC, PARA CAIXA DE DESCARGA EXTERNA ALTA - DIAMETRO DE 40 MM E ALTURA DE APROXIMADAMENTE 1,55 M",
-        "unidade": "UN",
-        "var_pct": 11.5
-      },
-      {
-        "insumo": "CONJUNTO DE LIGACAO PARA VASO / BACIA SANITARIA, EM PLASTICO BRANCO, COM TUBO, CANOPLA E ANEL DE EXPANSAO (TUBO 1.1/2\" X 20 CM)",
-        "unidade": "UN",
-        "var_pct": 11.4
-      },
-      {
-        "insumo": "CAIXA DE DESCARGA PLASTICA PARA BACIA / VASO SANITARIO DE EMBUTIR, COM ESPELHO ACIONADOR EM PLASTICO, CAPACIDADE 6 A 10 LITROS, (COMPLETA - ACESSORIOS INCLUSOS)",
-        "unidade": "UN",
-        "var_pct": 11.4
-      },
-      {
-        "insumo": "CAIXA DE DESCARGA PLASTICA PARA BACIA / VASO SANITARIO, EXTERNA, CAPACIDADE 9 LITROS, PUXADOR FIO DE NYLON, NAO INCLUSO CANO, BOLSA, ENGATE",
-        "unidade": "UN",
-        "var_pct": 11.4
+        "var_pct": 11.5,
+        "preco": 11.15
       }
     ],
     "baixas": [
       {
         "insumo": "PISO DE BORRACHA CANELADO EM PLACAS 50 X 50 CM, E = *3,5* MM, PARA COLA",
         "unidade": "M2",
-        "var_pct": -16.5
+        "var_pct": -16.5,
+        "preco": 77.05
       },
       {
         "insumo": "PISO EM REGUA VINILICA SEMIFLEXIVEL, ENCAIXE CLICADO, E = 4 MM (SEM COLOCACAO)",
         "unidade": "M2",
-        "var_pct": -16.5
+        "var_pct": -16.5,
+        "preco": 171.61
       },
       {
         "insumo": "PLACA VINILICA SEMIFLEXIVEL PARA PISOS, E = 3,2 MM, 30 X 30 CM (SEM COLOCACAO)",
         "unidade": "M2",
-        "var_pct": -16.5
+        "var_pct": -16.5,
+        "preco": 164.74
       },
       {
         "insumo": "PISO DE BORRACHA FRISADO OU PASTILHADO, PRETO, EM PLACAS 50 X 50 CM, E = 7 MM, PARA ARGAMASSA",
         "unidade": "M2",
-        "var_pct": -16.5
+        "var_pct": -16.5,
+        "preco": 213.15
       },
       {
         "insumo": "RODAPE PLANO PARA PISO VINILICO, H = 5 CM",
         "unidade": "M",
-        "var_pct": -16.5
+        "var_pct": -16.5,
+        "preco": 24.05
       },
       {
         "insumo": "PISO TATIL DE ALERTA OU DIRECIONAL, DE BORRACHA, COLORIDO, 25 X 25 CM, E = 12 MM, PARA ARGAMASSA",
         "unidade": "M2",
-        "var_pct": -16.5
+        "var_pct": -16.5,
+        "preco": 580.07
       },
       {
         "insumo": "PISO TATIL DE ALERTA OU DIRECIONAL DE BORRACHA, PRETO, 25 X 25 CM, E = 5 MM, PARA COLA",
         "unidade": "M2",
-        "var_pct": -16.5
+        "var_pct": -16.5,
+        "preco": 223.16
       },
       {
         "insumo": "PLACA VINILICA SEMIFLEXIVEL PARA REVESTIMENTO DE PISOS E PAREDES, E = 2 MM (SEM COLOCACAO)",
         "unidade": "M2",
-        "var_pct": -16.5
+        "var_pct": -16.5,
+        "preco": 99.05
       },
       {
         "insumo": "PISO TATIL ALERTA OU DIRECIONAL, DE BORRACHA, COLORIDO, 25 X 25 CM, E = 5 MM, PARA COLA",
         "unidade": "M2",
-        "var_pct": -16.5
+        "var_pct": -16.5,
+        "preco": 234.28
       },
       {
         "insumo": "PISO DE BORRACHA ESPORTIVO EM PLACAS 50 X 50 CM, E = 15 MM, PARA ARGAMASSA, PRETO",
         "unidade": "M2",
-        "var_pct": -16.5
+        "var_pct": -16.5,
+        "preco": 350.94
       },
       {
         "insumo": "PISO TATIL DE ALERTA OU DIRECIONAL, DE BORRACHA, PRETO, 25 X 25 CM, E = 12 MM, PARA ARGAMASSA",
         "unidade": "M2",
-        "var_pct": -16.5
+        "var_pct": -16.5,
+        "preco": 516.47
       },
       {
         "insumo": "PISO DE BORRACHA PASTILHADO EM PLACAS 50 X 50 CM, E = 15 MM, PARA ARGAMASSA, PRETO",
         "unidade": "M2",
-        "var_pct": -16.5
+        "var_pct": -16.5,
+        "preco": 341.62
       },
       {
         "insumo": "PISO DE BORRACHA PASTILHADO EM PLACAS 50 X 50 CM, E = *3,5* MM, PARA COLA, PRETO",
         "unidade": "M2",
-        "var_pct": -16.5
+        "var_pct": -16.5,
+        "preco": 58.62
       },
       {
         "insumo": "RODAPE DE BORRACHA LISO, H = *70* MM, E = *2* MM, PARA ARGAMASSA, PRETO",
         "unidade": "M",
-        "var_pct": -16.5
-      },
-      {
-        "insumo": "TESTEIRA ANTIDERRAPANTE PARA PISO VINILICO *5 X 2,5* CM, E = 2 MM",
-        "unidade": "M",
-        "var_pct": -16.4
-      },
-      {
-        "insumo": "MANTA / LENCOL DE BORRACHA, SBR, ANTIRRUIDO, E = 5 MM",
-        "unidade": "M2",
-        "var_pct": -16.4
-      },
-      {
-        "insumo": "MASSA PARA VIDRO",
-        "unidade": "KG",
-        "var_pct": -16.4
-      },
-      {
-        "insumo": "VIDRO LISO INCOLOR 2 A 3 MM - SEM COLOCACAO",
-        "unidade": "M2",
-        "var_pct": -16.4
+        "var_pct": -16.5,
+        "preco": 31.33
       }
     ]
   },

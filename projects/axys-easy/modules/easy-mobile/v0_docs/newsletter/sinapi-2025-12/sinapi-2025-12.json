@@ -180,6 +180,7 @@
     ],
     "total_subgrupos": 114
   },
+  "grupos": null,
   "insumos": {
     "comparaveis": 4818,
     "media_pct": 0.32,
@@ -187,184 +188,172 @@
       {
         "insumo": "TUBO DE CONCRETO ARMADO PARA AGUAS PLUVIAIS, CLASSE PA-2, COM ENCAIXE PONTA E BOLSA, DIAMETRO NOMINAL DE 400 MM",
         "unidade": "M",
-        "var_pct": 14.2
+        "var_pct": 14.2,
+        "preco": 146.33
       },
       {
         "insumo": "CAIXA DE CONCRETO ARMADO PRE-MOLDADO, COM FUNDO E TAMPA, DIMENSOES DE 0,30 X 0,30 X 0,30 M",
         "unidade": "UN",
-        "var_pct": 14.2
+        "var_pct": 14.2,
+        "preco": 208.24
       },
       {
         "insumo": "CAIXA DE ATERRAMENTO EM CONCRETO PRE-MOLDADO, DIAMETRO DE 0,30 M E ALTURA DE 0,35 M, SEM FUNDO E COM TAMPA",
         "unidade": "UN",
-        "var_pct": 14.2
+        "var_pct": 14.2,
+        "preco": 124.93
       },
       {
         "insumo": "TUBO DE CONCRETO ARMADO PARA AGUAS PLUVIAIS, CLASSE PA-1, COM ENCAIXE PONTA E BOLSA, DIAMETRO NOMINAL DE 300 MM",
         "unidade": "M",
-        "var_pct": 14.2
+        "var_pct": 14.2,
+        "preco": 122.69
       },
       {
         "insumo": "ANEL EM CONCRETO ARMADO, PERFURADO, PARA FOSSAS SEPTICAS E SUMIDOUROS, SEM FUNDO, DIAMETRO INTERNO DE 1,20 M E ALTURA DE 0,50 M",
         "unidade": "UN",
-        "var_pct": 14.2
+        "var_pct": 14.2,
+        "preco": 303.92
       },
       {
         "insumo": "TAMPA DE CONCRETO ARMADO PARA POCO, COM FURO E TAMPINHA, D = *1,10* M, E = 0,05 M",
         "unidade": "UN",
-        "var_pct": 14.2
+        "var_pct": 14.2,
+        "preco": 216.12
       },
       {
         "insumo": "ANEL EM CONCRETO ARMADO, LISO, PARA POCOS DE INSPECAO, SEM FUNDO, DIAMETRO INTERNO DE 0,60 M E ALTURA DE 0,20 M",
         "unidade": "UN",
-        "var_pct": 14.2
+        "var_pct": 14.2,
+        "preco": 94.55
       },
       {
         "insumo": "ANEL EM CONCRETO ARMADO, LISO, PARA POCOS DE VISITAS, POCOS DE INSPECAO, FOSSAS SEPTICAS E SUMIDOUROS, SEM FUNDO, DIAMETRO INTERNO DE 0,80 M E ALTURA DE 0,50 M",
         "unidade": "UN",
-        "var_pct": 14.2
+        "var_pct": 14.2,
+        "preco": 191.35
       },
       {
         "insumo": "CAIXA DE GORDURA CILINDRICA EM CONCRETO SIMPLES, PRE-MOLDADA, COM DIAMETRO DE 40 CM E ALTURA DE 45 CM, COM TAMPA",
         "unidade": "UN",
-        "var_pct": 14.2
+        "var_pct": 14.2,
+        "preco": 191.35
       },
       {
         "insumo": "ANEL DE CONCRETO ARMADO, COM FUROS/DRENO PARA SUMIDOURO, D = 1,00 M, H = 0,50M",
         "unidade": "UN",
-        "var_pct": 14.2
+        "var_pct": 14.2,
+        "preco": 222.87
       },
       {
         "insumo": "CAIXA DE CONCRETO ARMADO PRE-MOLDADO, COM FUNDO E TAMPA, DIMENSOES DE 0,40 X 0,40 X 0,40 M",
         "unidade": "UN",
-        "var_pct": 14.2
+        "var_pct": 14.2,
+        "preco": 382.71
       },
       {
         "insumo": "ANEL EM CONCRETO ARMADO, LISO, PARA POCOS DE VISITAS, POCOS DE INSPECAO, FOSSAS SEPTICAS E SUMIDOUROS, SEM FUNDO, DIAMETRO INTERNO DE 1,00 M E ALTURA DE 0,50 M",
         "unidade": "UN",
-        "var_pct": 14.2
+        "var_pct": 14.2,
+        "preco": 257.36
       },
       {
         "insumo": "TUBO DE CONCRETO ARMADO PARA ESGOTO SANITARIO, CLASSE EA-2, COM ENCAIXE PONTA E BOLSA, COM JUNTA ELASTICA, DIAMETRO NOMINAL DE 400 MM",
         "unidade": "M",
-        "var_pct": 14.2
+        "var_pct": 14.2,
+        "preco": 225.12
       },
       {
         "insumo": "ANEL EM CONCRETO ARMADO, LISO, PARA POCOS DE VISITA, POCOS DE INSPECAO, FOSSAS SEPTICAS E SUMIDOUROS, SEM FUNDO, DIAMETRO INTERNO DE 1,20 M E ALTURA DE 0,50 M",
         "unidade": "UN",
-        "var_pct": 14.2
-      },
-      {
-        "insumo": "TUBO DE CONCRETO ARMADO PARA AGUAS PLUVIAIS, CLASSE PA-2, COM ENCAIXE PONTA E BOLSA, DIAMETRO NOMINAL DE 1000 MM",
-        "unidade": "M",
-        "var_pct": 14.2
-      },
-      {
-        "insumo": "TUBO DE CONCRETO ARMADO PARA AGUAS PLUVIAIS, CLASSE PA-1, COM ENCAIXE PONTA E BOLSA, DIAMETRO NOMINAL DE 700 MM",
-        "unidade": "M",
-        "var_pct": 14.2
-      },
-      {
-        "insumo": "TUBO DE CONCRETO ARMADO PARA ESGOTO SANITARIO, CLASSE EA-2, COM ENCAIXE PONTA E BOLSA, COM JUNTA ELASTICA, DIAMETRO NOMINAL DE 500 MM",
-        "unidade": "M",
-        "var_pct": 14.2
-      },
-      {
-        "insumo": "TUBO DE CONCRETO ARMADO PARA AGUAS PLUVIAIS, CLASSE PA-3, COM ENCAIXE PONTA E BOLSA, DIAMETRO NOMINAL DE 500 MM",
-        "unidade": "M",
-        "var_pct": 14.2
+        "var_pct": 14.2,
+        "preco": 349.35
       }
     ],
     "baixas": [
       {
         "insumo": "CONE DE SINALIZACAO EM PVC FLEXIVEL, H = 70 / 76 CM (NBR 15071)",
         "unidade": "UN",
-        "var_pct": -16.2
+        "var_pct": -16.2,
+        "preco": 117.35
       },
       {
         "insumo": "CONE DE SINALIZACAO EM PVC RIGIDO COM FAIXA REFLETIVA, H = 70 / 76 CM",
         "unidade": "UN",
-        "var_pct": -16.2
+        "var_pct": -16.2,
+        "preco": 49.4
       },
       {
         "insumo": "ALICATE AMPERIMETRO, TENSAO AC/DC, CAPACIDADE MAXIMA 1000 A",
         "unidade": "UN",
-        "var_pct": -10.0
+        "var_pct": -10.0,
+        "preco": 227.55
       },
       {
         "insumo": "COMPRESSOR DE AR PROFISSIONAL 10 PCM, *110* L, 140 PSI, 110/220 VOLTS, MONOFASICO",
         "unidade": "UN",
-        "var_pct": -10.0
+        "var_pct": -10.0,
+        "preco": 2434.38
       },
       {
         "insumo": "SERRA CIRCULAR DE BANCADA COM MOTOR ELETRICO, POTENCIA DE *1600* W, PARA DISCO DE DIAMETRO DE 10\" (250 MM)",
         "unidade": "UN",
-        "var_pct": -10.0
+        "var_pct": -10.0,
+        "preco": 1252.51
       },
       {
         "insumo": "CORTADEIRA DE PISO DE CONCRETO E ASFALTO, PARA DISCO PADRAO DE DIAMETRO 350 MM (14\") OU 450 MM (18\"), MOTOR A GASOLINA, POTENCIA 13 HP, SEM DISCO",
         "unidade": "UN",
-        "var_pct": -10.0
+        "var_pct": -10.0,
+        "preco": 6023.06
       },
       {
         "insumo": "MARTELO DEMOLIDOR PNEUMATICO MANUAL, PADRAO, PESO DE 32 KG",
         "unidade": "UN",
-        "var_pct": -10.0
+        "var_pct": -10.0,
+        "preco": 12480.84
       },
       {
         "insumo": "PERFURATRIZ MANUAL, TORQUE MAXIMO 83 N.M, POTENCIA 5 CV, COM DIAMETRO MAXIMO 4\", PARA SOLO GRAMPEADO (INCLUI SUPORTE OU CHASSI TIPO MESA)",
         "unidade": "UN",
-        "var_pct": -10.0
+        "var_pct": -10.0,
+        "preco": 38893.8
       },
       {
         "insumo": "MARTELO DEMOLIDOR ELETRICO, COM POTENCIA DE 2.000 W, FREQUENCIA DE 1.000 IMPACTOS POR MINUTO, FORCA DE IMPACTO ENTRE 60 E 65 J, PESO DE 30 KG",
         "unidade": "UN",
-        "var_pct": -10.0
+        "var_pct": -10.0,
+        "preco": 10449.0
       },
       {
         "insumo": "MARTELO PERFURADOR PNEUMATICO MANUAL, HASTE 19 X 108 MM, *11* KG",
         "unidade": "UN",
-        "var_pct": -10.0
+        "var_pct": -10.0,
+        "preco": 10604.16
       },
       {
         "insumo": "MARTELO DEMOLIDOR PNEUMATICO MANUAL, PESO DE 28 KG, COM SILENCIADOR",
         "unidade": "UN",
-        "var_pct": -10.0
+        "var_pct": -10.0,
+        "preco": 6164.14
       },
       {
         "insumo": "TERMOFUSORA PARA TUBOS E CONEXOES EM PPR COM DIAMETROS DE 20 A 63 MM, POTENCIA DE 800 W, TENSAO 220 V",
         "unidade": "UN",
-        "var_pct": -10.0
+        "var_pct": -10.0,
+        "preco": 543.1
       },
       {
         "insumo": "FURADEIRA ELETRICA DE IMPACTO 1/2\", 600 W",
         "unidade": "UN",
-        "var_pct": -10.0
+        "var_pct": -10.0,
+        "preco": 244.22
       },
       {
         "insumo": "TERMOFUSORA PARA TUBOS E CONEXOES EM PPR COM DIAMETROS DE 75 A 110 MM, POTENCIA DE *1100* W, TENSAO 220 V",
         "unidade": "UN",
-        "var_pct": -10.0
-      },
-      {
-        "insumo": "DETECTOR DE TENSAO 90 V A 1000 V (CAT IV)",
-        "unidade": "UN",
-        "var_pct": -10.0
-      },
-      {
-        "insumo": "LUVA PARA ELETRODUTO, EM ACO GALVANIZADO ELETROLITICO, COM ROSCA, DIAMETRO DE 25 MM (1\")",
-        "unidade": "UN",
-        "var_pct": -9.3
-      },
-      {
-        "insumo": "LUVA PARA ELETRODUTO, EM ACO GALVANIZADO ELETROLITICO, COM ROSCA, DIAMETRO DE 20 MM (3/4\")",
-        "unidade": "UN",
-        "var_pct": -9.0
-      },
-      {
-        "insumo": "CURVA 90 GRAUS PARA ELETRODUTO, EM ACO GALVANIZADO ELETROLITICO, COM ROSCA, DIAMETRO DE 20 MM (3/4\"), ESPESSURA DE 1,50 MM",
-        "unidade": "UN",
-        "var_pct": -8.9
+        "var_pct": -10.0,
+        "preco": 692.76
       }
     ]
   },

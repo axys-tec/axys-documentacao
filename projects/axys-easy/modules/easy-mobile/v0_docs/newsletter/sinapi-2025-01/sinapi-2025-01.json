@@ -180,6 +180,7 @@
     ],
     "total_subgrupos": 110
   },
+  "grupos": null,
   "insumos": {
     "comparaveis": 4837,
     "media_pct": 0.55,
@@ -187,184 +188,172 @@
       {
         "insumo": "SEGURO - MENSALISTA (COLETADO CAIXA - ENCARGOS COMPLEMENTARES)",
         "unidade": "MES",
-        "var_pct": 111.5
+        "var_pct": 111.5,
+        "preco": 15.46
       },
       {
         "insumo": "SEGURO - HORISTA (COLETADO CAIXA - ENCARGOS COMPLEMENTARES)",
         "unidade": "H",
-        "var_pct": 100.0
+        "var_pct": 100.0,
+        "preco": 0.08
       },
       {
         "insumo": "PARAFUSO DE ACO ZINCADO COM ROSCA SOBERBA, CABECA CHATA E FENDA SIMPLES, DIAMETRO 2,5 MM, COMPRIMENTO * 9,5 * MM",
         "unidade": "UN",
-        "var_pct": 20.0
+        "var_pct": 20.0,
+        "preco": 0.06
       },
       {
         "insumo": "SPRINKLER TIPO PENDENTE, BULBO VERMELHO DE RESPOSTA RAPIDA, 68 GRAUS CELSIUS, ACABAMENTO CROMADO, D = 20 MM (3/4\")",
         "unidade": "UN",
-        "var_pct": 10.9
+        "var_pct": 10.9,
+        "preco": 44.9
       },
       {
         "insumo": "SPRINKLER TIPO PENDENTE, BULBO AMARELO DE RESPOSTA RAPIDA, 79 GRAUS CELSIUS, ACABAMENTO NATURAL, D = 20 MM (3/4\")",
         "unidade": "UN",
-        "var_pct": 10.9
+        "var_pct": 10.9,
+        "preco": 47.06
       },
       {
         "insumo": "SPRINKLER TIPO PENDENTE, BULBO VERMELHO DE RESPOSTA RAPIDA, 68 GRAUS CELSIUS, ACABAMENTO CROMADO, D = 15 MM (1/2\")",
         "unidade": "UN",
-        "var_pct": 10.9
+        "var_pct": 10.9,
+        "preco": 32.78
       },
       {
         "insumo": "SPRINKLER TIPO PENDENTE, BULBO VERMELHO DE RESPOSTA RAPIDA, 68 GRAUS CELSIUS, ACABAMENTO NATURAL, D = 20 MM (3/4\")",
         "unidade": "UN",
-        "var_pct": 10.9
+        "var_pct": 10.9,
+        "preco": 38.72
       },
       {
         "insumo": "SPRINKLER TIPO PENDENTE, BULBO VERMELHO RESPOSTA RAPIDA, 68 GRAUS CELSIUS, ACABAMENTO NATURAL, D = 15 MM (1/2\")",
         "unidade": "UN",
-        "var_pct": 10.9
+        "var_pct": 10.9,
+        "preco": 32.08
       },
       {
         "insumo": "SPRINKLER TIPO PENDENTE, BULBO AMARELO DE RESPOSTA RAPIDA, 79 GRAUS CELSIUS, ACABAMENTO CROMADO, D = 20 MM (3/4\")",
         "unidade": "UN",
-        "var_pct": 10.8
+        "var_pct": 10.8,
+        "preco": 48.33
       },
       {
         "insumo": "SPRINKLER TIPO PENDENTE, BULBO AMARELO DE RESPOSTA RAPIDA, 79 GRAUS CELSIUS, ACABAMENTO NATURAL OU CROMADO, D = 15 MM (1/2\")",
         "unidade": "UN",
-        "var_pct": 10.8
+        "var_pct": 10.8,
+        "preco": 37.25
       },
       {
         "insumo": "CANOPLA ACABAMENTO CROMADO PARA INSTALACAO DE SPRINKLER, SOB FORRO, 15 MM",
         "unidade": "UN",
-        "var_pct": 10.8
+        "var_pct": 10.8,
+        "preco": 5.24
       },
       {
         "insumo": "ACETILENO - RECARGA DE GAS PARA CILINDRO (NAO INCLUI TROCA/MANUTENCAO DO CILINDRO)",
         "unidade": "KG",
-        "var_pct": 10.0
+        "var_pct": 10.0,
+        "preco": 104.5
       },
       {
         "insumo": "OXIGENIO - RECARGA DE GAS PARA CILINDRO (NAO INCLUI TROCA/MANUTENCAO DO CILINDRO)",
         "unidade": "M3",
-        "var_pct": 10.0
+        "var_pct": 10.0,
+        "preco": 22.9
       },
       {
         "insumo": "PORTA DE ABRIR EM ACO, COM DIVISAO HORIZONTAL PARA VIDROS, 90 X 210 CM, COM FUNDO ANTICORROSIVO/PRIMER DE PROTECAO, INCLUI FECHADURA, MACANETA E PARAFUSO, SEM GUARNICAO/ALIZAR/VISTA, VIDROS NAO INCLUSOS",
         "unidade": "UN",
-        "var_pct": 9.4
-      },
-      {
-        "insumo": "PORTAO BASCULANTE, MANUAL, EM ACO GALVANIZADO, CHAPA 26, TIPO LAMBRIL, COM REQUADRO, ACABAMENTO NATURAL",
-        "unidade": "M2",
-        "var_pct": 9.4
-      },
-      {
-        "insumo": "PORTA DE ABRIR / GIRO, EM GRADIL FERRO, COM BARRA CHATA 3 CM X 1/4\", COM REQUADRO E GUARNICAO - COMPLETO - ACABAMENTO NATURAL",
-        "unidade": "M2",
-        "var_pct": 9.4
-      },
-      {
-        "insumo": "PORTA DE ABRIR EM ACO, TIPO VENEZIANA, 90 X 210 CM, COM FUNDO ANTICORROSIVO / PRIMER DE PROTECAO, INCLUI FECHADURA, MACANETA E PARAFUSOS, SEM GUARNICAO/ALIZAR/VISTA",
-        "unidade": "UN",
-        "var_pct": 9.4
-      },
-      {
-        "insumo": "PORTA CORTA-FOGO SIMPLES PARA SAIDA DE EMERGENCIA, 1 FOLHA DE ABRIR, 5 CM, ACABAMENTO NATURAL / SEM PINTURA, COM FECHADURA TIPO TRINCO, DOBRADICAS E BATENTE, VAO LUZ DE 90 X 210 CM, CLASSE P-90 (NBR 11742)",
-        "unidade": "UN",
-        "var_pct": 9.4
+        "var_pct": 9.4,
+        "preco": 713.39
       }
     ],
     "baixas": [
       {
         "insumo": "FERRAMENTAS - FAMILIA TOPOGRAFO - HORISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
         "unidade": "H",
-        "var_pct": -28.6
+        "var_pct": -28.6,
+        "preco": 0.05
       },
       {
         "insumo": "FERRAMENTAS - FAMILIA TOPOGRAFO - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
         "unidade": "MES",
-        "var_pct": -22.6
+        "var_pct": -22.6,
+        "preco": 9.89
       },
       {
         "insumo": "FERRAMENTAS - FAMILIA ENCARREGADO GERAL - HORISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
         "unidade": "H",
-        "var_pct": -20.0
+        "var_pct": -20.0,
+        "preco": 0.08
       },
       {
         "insumo": "FERRAMENTAS - FAMILIA ENCARREGADO GERAL - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
         "unidade": "MES",
-        "var_pct": -17.5
+        "var_pct": -17.5,
+        "preco": 15.46
       },
       {
         "insumo": "FERRAMENTAS - FAMILIA CARPINTEIRO DE FORMAS - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
         "unidade": "MES",
-        "var_pct": -10.8
+        "var_pct": -10.8,
+        "preco": 82.31
       },
       {
         "insumo": "FERRAMENTAS - FAMILIA CARPINTEIRO DE FORMAS - HORISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
         "unidade": "H",
-        "var_pct": -10.2
+        "var_pct": -10.2,
+        "preco": 0.44
       },
       {
         "insumo": "MARTELO DEMOLIDOR PNEUMATICO MANUAL, PADRAO, PESO DE 32 KG",
         "unidade": "UN",
-        "var_pct": -9.6
+        "var_pct": -9.6,
+        "preco": 22070.33
       },
       {
         "insumo": "MARTELO PERFURADOR PNEUMATICO MANUAL, HASTE 25 X 75 MM, 21 KG",
         "unidade": "UN",
-        "var_pct": -9.6
+        "var_pct": -9.6,
+        "preco": 25554.83
       },
       {
         "insumo": "MARTELO DEMOLIDOR PNEUMATICO MANUAL, COM REDUCAO DE VIBRACAO, PESO DE 31,5 KG",
         "unidade": "UN",
-        "var_pct": -9.6
+        "var_pct": -9.6,
+        "preco": 23367.58
       },
       {
         "insumo": "MARTELO DEMOLIDOR PNEUMATICO MANUAL, COM REDUCAO DE VIBRACAO, PESO DE 21 KG",
         "unidade": "UN",
-        "var_pct": -9.6
+        "var_pct": -9.6,
+        "preco": 20306.49
       },
       {
         "insumo": "MARTELO PERFURADOR PNEUMATICO MANUAL, DE SUPERFICIE, COM AVANCO DE COLUNA, PESO DE 22 KG",
         "unidade": "UN",
-        "var_pct": -9.6
+        "var_pct": -9.6,
+        "preco": 45692.82
       },
       {
         "insumo": "PERFURATRIZ MANUAL, TORQUE MAXIMO 55 KGF.M, POTENCIA 5 CV, COM DIAMETRO MAXIMO 8 1/2\" (INCLUI SUPORTE/CHASSI TIPO MESA)",
         "unidade": "UN",
-        "var_pct": -9.6
+        "var_pct": -9.6,
+        "preco": 73348.19
       },
       {
         "insumo": "MARTELO PERFURADOR PNEUMATICO MANUAL, PESO DE 25 KG, COM SILENCIADOR",
         "unidade": "UN",
-        "var_pct": -9.6
+        "var_pct": -9.6,
+        "preco": 25073.2
       },
       {
         "insumo": "MARTELO DEMOLIDOR PNEUMATICO MANUAL, PESO DE 28 KG, COM SILENCIADOR",
         "unidade": "UN",
-        "var_pct": -9.6
-      },
-      {
-        "insumo": "PERFURATRIZ MANUAL, TORQUE MAXIMO 83 N.M, POTENCIA 5 CV, COM DIAMETRO MAXIMO 4\" (NAO INCLUI SUPORTE / CHASSI)",
-        "unidade": "UN",
-        "var_pct": -9.6
-      },
-      {
-        "insumo": "PERFURATRIZ PNEUMATICA MANUAL DE PESO MEDIO, 18KG, COMPRIMENTO DE CURSO DE 6 M, DIAMETRO DO PISTAO DE 5,5 CM",
-        "unidade": "UN",
-        "var_pct": -9.6
-      },
-      {
-        "insumo": "MARTELO DEMOLIDOR ELETRICO, COM POTENCIA DE 2.000 W, FREQUENCIA DE 1.000 IMPACTOS POR MINUTO, FORCA DE IMPACTO ENTRE 60 E 65 J, PESO DE 30 KG",
-        "unidade": "UN",
-        "var_pct": -9.6
-      },
-      {
-        "insumo": "ROMPEDOR ELETRICO PESO 26 KG, POTENCIA OPERACIONAL DE 2,5 KW",
-        "unidade": "UN",
-        "var_pct": -9.6
+        "var_pct": -9.6,
+        "preco": 24832.13
       }
     ]
   },

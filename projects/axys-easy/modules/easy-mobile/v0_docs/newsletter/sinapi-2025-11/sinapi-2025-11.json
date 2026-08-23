@@ -180,191 +180,180 @@
     ],
     "total_subgrupos": 114
   },
+  "grupos": null,
   "insumos": {
     "comparaveis": 4818,
     "media_pct": -0.17,
     "altas": [
       {
-        "insumo": "LOCACAO DE NIVEL OPTICO, COM PRECISAO DE 0,7 MM, AUMENTO DE 32X",
-        "unidade": "H",
-        "var_pct": 15.1
-      },
-      {
         "insumo": "LOCACAO DE TEODOLITO ELETRONICO, PRECISAO ANGULAR DE 5 A 7 SEGUNDOS, INCLUINDO TRIPE",
         "unidade": "H",
-        "var_pct": 15.1
+        "var_pct": 15.1,
+        "preco": 2.59
+      },
+      {
+        "insumo": "LOCACAO DE NIVEL OPTICO, COM PRECISAO DE 0,7 MM, AUMENTO DE 32X",
+        "unidade": "H",
+        "var_pct": 15.1,
+        "preco": 2.59
       },
       {
         "insumo": "REGISTRO DE PRESSAO PVC, ROSCAVEL, VOLANTE SIMPLES, DE 3/4\"",
         "unidade": "UN",
-        "var_pct": 11.1
+        "var_pct": 11.1,
+        "preco": 23.23
       },
       {
         "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 20 MM, COM CORPO DIVIDIDO",
         "unidade": "UN",
-        "var_pct": 11.1
+        "var_pct": 11.1,
+        "preco": 24.83
       },
       {
         "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 1 1/2\", COM CORPO DIVIDIDO",
         "unidade": "UN",
-        "var_pct": 11.1
+        "var_pct": 11.1,
+        "preco": 72.12
       },
       {
         "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 32 MM, COM CORPO DIVIDIDO",
         "unidade": "UN",
-        "var_pct": 11.1
+        "var_pct": 11.1,
+        "preco": 50.75
       },
       {
         "insumo": "REGISTRO DE ESFERA PVC, COM BORBOLETA, COM ROSCA EXTERNA, DE 1/2\"",
         "unidade": "UN",
-        "var_pct": 11.1
+        "var_pct": 11.1,
+        "preco": 21.18
       },
       {
         "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 25 MM, COM CORPO DIVIDIDO",
         "unidade": "UN",
-        "var_pct": 11.1
+        "var_pct": 11.1,
+        "preco": 31.97
       },
       {
         "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 60 MM, COM CORPO DIVIDIDO",
         "unidade": "UN",
-        "var_pct": 11.1
+        "var_pct": 11.1,
+        "preco": 128.39
       },
       {
         "insumo": "REGISTRO DE ESFERA PVC, COM BORBOLETA, COM ROSCA EXTERNA, DE 3/4\"",
         "unidade": "UN",
-        "var_pct": 11.1
+        "var_pct": 11.1,
+        "preco": 24.89
       },
       {
         "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 40 MM, COM CORPO DIVIDIDO",
         "unidade": "UN",
-        "var_pct": 11.1
+        "var_pct": 11.1,
+        "preco": 67.88
       },
       {
         "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 1 1/4\", COM CORPO DIVIDIDO",
         "unidade": "UN",
-        "var_pct": 11.1
+        "var_pct": 11.1,
+        "preco": 68.68
       },
       {
         "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 2\", COM CORPO DIVIDIDO",
         "unidade": "UN",
-        "var_pct": 11.1
+        "var_pct": 11.1,
+        "preco": 110.37
       },
       {
         "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 50 MM, COM CORPO DIVIDIDO",
         "unidade": "UN",
-        "var_pct": 11.1
-      },
-      {
-        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 1/2\", COM CORPO DIVIDIDO",
-        "unidade": "UN",
-        "var_pct": 11.1
-      },
-      {
-        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 1\", COM CORPO DIVIDIDO",
-        "unidade": "UN",
-        "var_pct": 11.1
-      },
-      {
-        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 3/4\", COM CORPO DIVIDIDO",
-        "unidade": "UN",
-        "var_pct": 11.1
-      },
-      {
-        "insumo": "REGISTRO DE ESFERA PVC, COM CABECA QUADRADA, COM ROSCA EXTERNA, 3/4\"",
-        "unidade": "UN",
-        "var_pct": 11.1
+        "var_pct": 11.1,
+        "preco": 70.1
       }
     ],
     "baixas": [
       {
         "insumo": "RALO FOFO SEMIESFERICO, 75 MM, PARA LAJES/ CALHAS",
         "unidade": "UN",
-        "var_pct": -17.2
+        "var_pct": -17.2,
+        "preco": 13.41
       },
       {
         "insumo": "RALO FOFO SEMIESFERICO, 100 MM, PARA LAJES/ CALHAS",
         "unidade": "UN",
-        "var_pct": -17.2
+        "var_pct": -17.2,
+        "preco": 17.9
       },
       {
         "insumo": "RALO FOFO COM REQUADRO, QUADRADO 250 X 250 MM",
         "unidade": "UN",
-        "var_pct": -17.2
+        "var_pct": -17.2,
+        "preco": 83.34
       },
       {
         "insumo": "GRELHA FOFO SIMPLES COM REQUADRO, CARGA MAXIMA 1,5 T, 150 X 1000 MM, E= *15* MM",
         "unidade": "UN",
-        "var_pct": -17.2
+        "var_pct": -17.2,
+        "preco": 156.27
       },
       {
         "insumo": "GRELHA FOFO SIMPLES COM REQUADRO, CARGA MAXIMA 12,5 T, *300 X 1000* MM, E= *15* MM, AREA ESTACIONAMENTO CARRO PASSEIO",
         "unidade": "UN",
-        "var_pct": -17.2
+        "var_pct": -17.2,
+        "preco": 283.25
       },
       {
         "insumo": "TAMPAO FOFO ARTICULADO P/ REGISTRO, COM BASE / REQUADRO, CLASSE A15 CARGA MAXIMA 1,5 T, *400 X 400* MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
         "unidade": "UN",
-        "var_pct": -17.2
+        "var_pct": -17.2,
+        "preco": 182.32
       },
       {
         "insumo": "RALO FOFO SEMIESFERICO, 200 MM, PARA LAJES/ CALHAS",
         "unidade": "UN",
-        "var_pct": -17.2
+        "var_pct": -17.2,
+        "preco": 96.69
       },
       {
         "insumo": "TAMPAO FOFO SIMPLES COM BASE / REQUADRO, CLASSE A15 CARGA MAX. 1,5 T, 300 X 300 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
         "unidade": "UN",
-        "var_pct": -17.2
+        "var_pct": -17.2,
+        "preco": 110.69
       },
       {
         "insumo": "TAMPAO FOFO ARTICULADO, COM BASE / REQUADRO, CLASSE B125 CARGA MAX 12,5 T, REDONDO, TAMPA 600 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
         "unidade": "UN",
-        "var_pct": -17.2
+        "var_pct": -17.2,
+        "preco": 462.32
       },
       {
         "insumo": "GRELHA FOFO SIMPLES COM REQUADRO, CARGA MAXIMA 1,5 T, 200 X 1000 MM, E= *15* MM",
         "unidade": "UN",
-        "var_pct": -17.2
+        "var_pct": -17.2,
+        "preco": 198.6
       },
       {
         "insumo": "TAMPAO FOFO SIMPLES COM BASE / REQUADRO, CLASSE A15 CARGA MAX. 1,5 T, 400 X 400 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
         "unidade": "UN",
-        "var_pct": -17.2
+        "var_pct": -17.2,
+        "preco": 169.3
       },
       {
         "insumo": "TAMPAO FOFO ARTICULADO, COM BASE / REQUADRO, CLASSE D400 CARGA MAX 40 T, REDONDO, TAMPA 600 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
         "unidade": "UN",
-        "var_pct": -17.2
+        "var_pct": -17.2,
+        "preco": 566.51
       },
       {
         "insumo": "TAMPAO FOFO SIMPLES COM BASE / REQUADRO, CLASSE D400 CARGA MAX. 40 T, REDONDO, TAMPA 900 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
         "unidade": "UN",
-        "var_pct": -17.2
+        "var_pct": -17.2,
+        "preco": 1771.81
       },
       {
         "insumo": "TAMPAO FOFO SIMPLES COM BASE / REQUADRO, CLASSE B125 CARGA MAX. 12,5 T, REDONDO, TAMPA 600 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
         "unidade": "UN",
-        "var_pct": -17.2
-      },
-      {
-        "insumo": "TAMPAO FOFO SIMPLES COM BASE / REQUADRO, CLASSE D400 CARGA MAX. 40 T, REDONDO, TAMPA 600 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
-        "unidade": "UN",
-        "var_pct": -17.2
-      },
-      {
-        "insumo": "RALO FOFO COM REQUADRO, QUADRADO 400 X 400 MM",
-        "unidade": "UN",
-        "var_pct": -17.2
-      },
-      {
-        "insumo": "RALO FOFO COM REQUADRO, QUADRADO 300 X 300 MM",
-        "unidade": "UN",
-        "var_pct": -17.2
-      },
-      {
-        "insumo": "GRELHA FOFO ARTICULADA, CARGA MAXIMA 1,5 T, *300 X 1000* MM, E= *15* MM",
-        "unidade": "UN",
-        "var_pct": -17.2
+        "var_pct": -17.2,
+        "preco": 420.0
       }
     ]
   },

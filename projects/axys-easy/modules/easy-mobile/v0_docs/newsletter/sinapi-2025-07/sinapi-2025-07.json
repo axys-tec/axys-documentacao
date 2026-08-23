@@ -180,6 +180,7 @@
     ],
     "total_subgrupos": 109
   },
+  "grupos": null,
   "insumos": {
     "comparaveis": 4893,
     "media_pct": 0.29,
@@ -187,184 +188,172 @@
       {
         "insumo": "LOCACAO DE BOMBA SUBMERSIVEL PARA DRENAGEM E ESGOTAMENTO, MOTOR ELETRICO TRIFASICO, POTENCIA DE 2 CV, DIAMETRO DE RECALQUE DE 3\". FAIXA DE OPERACAO Q=70 M3/H (+ OU - 2 M3/H) E AMT=2 M, Q=9,5 M3/H (+ OU - 3,5 M3/H) E AMT = 10 M (+ OU - 2 M)",
         "unidade": "H",
-        "var_pct": 22.2
+        "var_pct": 22.2,
+        "preco": 2.97
       },
       {
         "insumo": "LOCACAO DE BOMBA SUBMERSIVEL PARA DRENAGEM E ESGOTAMENTO, MOTOR ELETRICO TRIFASICO, POTENCIA DE 4 CV, DIAMETRO DE RECALQUE DE 3\". FAIXA DE OPERACAO Q=60 M3/H (+ OU - 1 M3/H) E AMT=2 M, Q=11 M3/H (+ OU - 1 M3/H) E AMT = 23 M (+ OU - 1 M)",
         "unidade": "H",
-        "var_pct": 22.2
+        "var_pct": 22.2,
+        "preco": 3.47
       },
       {
         "insumo": "LOCACAO DE BOMBA SUBMERSIVEL PARA DRENAGEM E ESGOTAMENTO, MOTOR ELETRICO TRIFASICO, POTENCIA DE 3 CV, DIAMETRO DE RECALQUE DE 2\", FAIXA DE OPERACAO Q=84 M3/H (+ OU - 2,5 M3/H) E AMT=2 M, Q=9,1 M3/H (+ OU - 2 M3/H) E AMT = 12 M (+ OU - 2 M)",
         "unidade": "H",
-        "var_pct": 22.2
+        "var_pct": 22.2,
+        "preco": 2.48
       },
       {
         "insumo": "LOCACAO DE BOMBA SUBMERSIVEL PARA DRENAGEM E ESGOTAMENTO, MOTOR ELETRICO TRIFASICO, POTENCIA DE 2 CV, DIAMETRO DE RECALQUE DE 2\", FAIXA DE OPERACAO Q=35 M3/H (+ OU - 3 M3/H) E AMT=2 M, Q=13 M3/H (+ OU - 3 M3/H) E AMT = 17 M (+ OU - 3 M)",
         "unidade": "H",
-        "var_pct": 22.2
+        "var_pct": 22.2,
+        "preco": 2.48
       },
       {
         "insumo": "LOCACAO DE BOMBA SUBMERSIVEL PARA DRENAGEM E ESGOTAMENTO, MOTOR ELETRICO TRIFASICO, POTENCIA DE 1 CV, DIAMETRO DE RECALQUE DE 2\". FAIXA DE OPERACAO Q=25 M3/H (+ OU - 1 M3/H) E AMT=2 M, Q=12 M3/H (+ OU - 2 M3/H) E AMT = 12 M (+ OU - 2 M)",
         "unidade": "H",
-        "var_pct": 22.2
+        "var_pct": 22.2,
+        "preco": 2.48
       },
       {
         "insumo": "DISTRIBUIDOR DE AGREGADOS REBOCAVEL, CAPACIDADE 1,9 M3, LARGURA DE TRABALHO 3,66 M",
         "unidade": "UN",
-        "var_pct": 16.5
+        "var_pct": 16.5,
+        "preco": 108920.28
       },
       {
         "insumo": "ESPARGIDOR DE ASFALTO PRESSURIZADO, TANQUE 6 M3 COM ISOLACAO TERMICA, AQUECIDO COM 2 MACARICOS, COM BARRA ESPARGIDORA 3,60 M, A SER MONTADO SOBRE CAMINHAO",
         "unidade": "UN",
-        "var_pct": 16.5
+        "var_pct": 16.5,
+        "preco": 298043.63
       },
       {
         "insumo": "DISTRIBUIDOR DE AGREGADOS AUTOPROPELIDO, CAP 3 M3, A DIESEL, 6 CC, 176 CV",
         "unidade": "UN",
-        "var_pct": 16.5
+        "var_pct": 16.5,
+        "preco": 473543.63
       },
       {
         "insumo": "AQUECEDOR DE OLEO BPF (FLUIDO) TERMICO, CAPACIDADE DE 300.000 KCAL/H",
         "unidade": "UN",
-        "var_pct": 16.5
+        "var_pct": 16.5,
+        "preco": 385137.15
       },
       {
         "insumo": "USINA DE LAMA ASFALTICA, PROD 30 A 50 T/H, SILO DE AGREGADO 7 M3, RESERVATORIOS PARA EMULSAO E AGUA DE 2,3 M3 CADA, MISTURADOR TIPO PUGG-MILL A SER MONTADO SOBRE CAMINHAO",
         "unidade": "UN",
-        "var_pct": 16.5
+        "var_pct": 16.5,
+        "preco": 805286.77
       },
       {
         "insumo": "ESPARGIDOR DE ASFALTO PRESSURIZADO, REBOCAVEL, TANQUE DE 2500 L, PNEUMATICO, COM MOTOR A GASOLINA 3,4HP",
         "unidade": "UN",
-        "var_pct": 16.5
+        "var_pct": 16.5,
+        "preco": 140400.0
       },
       {
         "insumo": "MAQUINA DEMARCADORA DE FAIXA DE TRAFEGO A FRIO, AUTOPROPELIDA, MOTOR DIESEL 38 HP",
         "unidade": "UN",
-        "var_pct": 16.5
+        "var_pct": 16.5,
+        "preco": 959890.6
       },
       {
         "insumo": "TORNEIRA PLASTICA DE BOIA PARA CAIXA DE DESCARGA, 1/2\", BALAO E TORNEIRA PLASTICOS, COM HASTE METALICA",
         "unidade": "UN",
-        "var_pct": 10.8
+        "var_pct": 10.8,
+        "preco": 12.1
       },
       {
         "insumo": "TORNEIRA DE BOIA CONVENCIONAL PARA CAIXA D'AGUA, AGUA FRIA, 1/2\", COM HASTE E TORNEIRA METALICOS E BALAO PLASTICO",
         "unidade": "UN",
-        "var_pct": 10.8
-      },
-      {
-        "insumo": "TORNEIRA DE BOIA BALAO METALICO, VAZAO TOTAL, PARA CAIXA D'AGUA, AGUA QUENTE, ROSCA 3/4\", COM HASTE, TORNEIRA E BALAO METALICOS",
-        "unidade": "UN",
-        "var_pct": 10.8
-      },
-      {
-        "insumo": "TORNEIRA DE BOIA VAZAO TOTAL PARA CAIXA D'AGUA, AGUA FRIA, BITOLA 1/2\", COM HASTE E TORNEIRA METALICOS E BALAO PLASTICO",
-        "unidade": "UN",
-        "var_pct": 10.8
-      },
-      {
-        "insumo": "TORNEIRA DE BOIA CONVENCIONAL PARA CAIXA D'AGUA, AGUA FRIA, 3/4\", COM HASTE E TORNEIRA METALICOS E BALAO PLASTICO",
-        "unidade": "UN",
-        "var_pct": 10.8
-      },
-      {
-        "insumo": "TORNEIRA DE BOIA CONVENCIONAL PARA CAIXA D'AGUA, 1\", AGUA FRIA, COM HASTE E TORNEIRA METALICOS E BALAO PLASTICO",
-        "unidade": "UN",
-        "var_pct": 10.8
+        "var_pct": 10.8,
+        "preco": 45.85
       }
     ],
     "baixas": [
       {
         "insumo": "JANELA DE ABRIR EM MADEIRA PINUS/EUCALIPTO/TAUARI/VIROLA OU EQUIVALENTE DA REGIAO, CAIXA DO BATENTE/MARCO *10* CM, 2 FOLHAS DE ABRIR TIPO VENEZIANA E 2 FOLHAS GUILHOTINA PARA VIDRO, COM FERRAGENS (SEM VIDRO, SEM GUARNICAO/ALIZAR E SEM ACABAMENTO)",
         "unidade": "M2",
-        "var_pct": -12.0
+        "var_pct": -12.0,
+        "preco": 448.25
       },
       {
         "insumo": "JANELA DE 6 FOLHAS DE CORRER EM MADEIRA IMBUIA/CEDRO ARANA/CEDRO ROSA OU EQUIVALENTE DA REGIAO, CAIXA DO BATENTE/MARCO *10* CM, 2 FOLHAS DE CORRER VENEZIANA, 2 FOLHAS FIXAS VENEZIANA E 2 FOLHAS DE CORRER PARA VIDRO, COM FERRAGENS (SEM VIDRO, SEM ACABAMENTO E SEM GUARNICAO/ALIZAR)",
         "unidade": "M2",
-        "var_pct": -12.0
+        "var_pct": -12.0,
+        "preco": 948.43
       },
       {
         "insumo": "JANELA DE 6 FOLHAS DE CORRER EM MADEIRA CEDRINHO/ ANGELIM COMERCIAL/ CURUPIXA/ CUMARU OU EQUIVALENTE DA REGIAO, CAIXA DO BATENTE/MARCO *10* CM, 2 FOLHAS DE CORRER VENEZIANA, 2 FOLHAS FIXAS VENEZIANA E 2 FOLHAS DE CORRER PARA VIDRO, COM FERRAGENS (SEM VIDRO, SEM ACABAMENTO E SEM GUARNICAO/ALIZAR)",
         "unidade": "M2",
-        "var_pct": -12.0
+        "var_pct": -12.0,
+        "preco": 748.34
       },
       {
         "insumo": "JANELA MAXIM-AR EM MADEIRA CEDRINHO/ ANGELIM COMERCIAL/ CURUPIXA/ CUMARU OU EQUIVALENTE DA REGIAO, CAIXA DO BATENTE/MARCO *10* CM, 1 FOLHA PARA VIDRO, COM GUARNICAO/ALIZAR, COM FERRAGENS, (SEM VIDRO E SEM ACABAMENTO)",
         "unidade": "M2",
-        "var_pct": -12.0
+        "var_pct": -12.0,
+        "preco": 828.63
       },
       {
         "insumo": "JANELA EM MADEIRA CEDRINHO/ ANGELIM COMERCIAL/ CURUPIXA/ CUMARU OU EQUIVALENTE DA REGIAO, CAIXA DO BATENTE/MARCO *10* CM, 2 FOLHAS DE ABRIR TIPO VENEZIANA E 2 FOLHAS GUILHOTINA PARA VIDRO, COM GUARNICAO/ALIZAR, COM FERRAGENS (SEM VIDRO E SEM ACABAMENTO)",
         "unidade": "M2",
-        "var_pct": -12.0
+        "var_pct": -12.0,
+        "preco": 587.58
       },
       {
         "insumo": "JANELA DE 6 FOLHAS DE CORRER EM MADEIRA PINUS/ EUCALIPTO/ TAUARI/ VIROLA OU EQUIVALENTE DA REGIAO, CAIXA DO BATENTE/MARCO *10* CM, 2 FOLHAS DE CORRER VENEZIANA, 2 FOLHAS FIXAS VENEZIANA E 2 FOLHAS DE CORRER PARA VIDRO, COM FERRAGENS (SEM VIDRO, SEM ACABAMENTO E SEM GUARNICAO/ALIZAR)",
         "unidade": "M2",
-        "var_pct": -12.0
+        "var_pct": -12.0,
+        "preco": 583.12
       },
       {
         "insumo": "JANELA BASCULANTE EM MADEIRA PINUS/ EUCALIPTO/ TAUARI/ VIROLA OU EQUIVALENTE DA REGIAO, CAIXA DO BATENTE/ MARCO *10* CM, *2* FOLHAS BASCULANTES PARA VIDRO, COM FERRAGENS (SEM VIDRO, SEM GUARNICAO/ALIZAR E SEM ACABAMENTO)",
         "unidade": "M2",
-        "var_pct": -12.0
+        "var_pct": -12.0,
+        "preco": 528.92
       },
       {
         "insumo": "JANELA DE ABRIR EM MADEIRA IMBUIA/CEDRO ARANA/CEDRO ROSA OU EQUIVALENTE DA REGIAO, CAIXA DO BATENTE/MARCO *10* CM, 2 FOLHAS DE ABRIR TIPO VENEZIANA E 2 FOLHAS DE ABRIR PARA VIDRO, COM GUARNICAO/ALIZAR, COM FERRAGENS, (SEM VIDRO E SEM ACABAMENTO)",
         "unidade": "M2",
-        "var_pct": -12.0
+        "var_pct": -12.0,
+        "preco": 784.56
       },
       {
         "insumo": "JANELA BASCULANTE EM MADEIRA PINUS/ EUCALIPTO/ TAUARI/ VIROLA OU EQUIVALENTE DA REGIAO, *60 X 60*, CAIXA DO BATENTE/ MARCO E = *10* CM, 2 BASCULAS PARA VIDRO, COM FERRAGENS (SEM VIDRO, SEM GUARNICAO/ALIZAR E SEM ACABAMENTO)",
         "unidade": "UN",
-        "var_pct": -12.0
+        "var_pct": -12.0,
+        "preco": 190.41
       },
       {
         "insumo": "MEIO-FIO OU GUIA DE CONCRETO PRE-MOLDADO, COMP *39* CM, *19 X 6,5/6,5* CM (H X L1/L2)",
         "unidade": "UN",
-        "var_pct": -10.5
+        "var_pct": -10.5,
+        "preco": 11.67
       },
       {
         "insumo": "MOURAO DE CONCRETO RETO, TIPO ESTICADOR, *10 X 10* CM, H= 2,50 M",
         "unidade": "UN",
-        "var_pct": -10.5
+        "var_pct": -10.5,
+        "preco": 58.38
       },
       {
         "insumo": "MEIO-FIO OU GUIA DE CONCRETO PRE-MOLDADO, TIPO CHAPEU PARA BOCA DE LOBO, DIMENSOES *1,20* X 0,15 X 0,30 M",
         "unidade": "UN",
-        "var_pct": -10.5
+        "var_pct": -10.5,
+        "preco": 41.7
       },
       {
         "insumo": "MOURAO DE CONCRETO RETO, SECAO QUADRADA *10 X 10* CM, H= *2,30* M",
         "unidade": "UN",
-        "var_pct": -10.5
-      },
-      {
-        "insumo": "MEIO-FIO OU GUIA DE CONCRETO, PRE-MOLDADO, COMP 1 M, *30 X 12/15* CM (H X L1/L2)",
-        "unidade": "M",
-        "var_pct": -10.5
-      },
-      {
-        "insumo": "MEIO-FIO OU GUIA DE CONCRETO PRE MOLDADO, COMP 1 M, *30 X 10/12* CM (H X L1/L2)",
-        "unidade": "UN",
-        "var_pct": -10.5
+        "var_pct": -10.5,
+        "preco": 56.71
       },
       {
         "insumo": "MEIO-FIO OU GUIA DE CONCRETO, PRE-MOLDADO, COMP 1 M, *30 X 15* CM (H X L)",
         "unidade": "UN",
-        "var_pct": -10.5
-      },
-      {
-        "insumo": "MOURAO DE CONCRETO RETO, SECAO QUADRADA, *10 X 10* CM, H= 3,00 M",
-        "unidade": "UN",
-        "var_pct": -10.5
-      },
-      {
-        "insumo": "MOURAO DE CONCRETO CURVO, *10 X 10* CM, H= *2,60* M + CURVA DE 0,40 M",
-        "unidade": "UN",
-        "var_pct": -10.5
+        "var_pct": -10.5,
+        "preco": 29.47
       }
     ]
   },

@@ -16,8 +16,8 @@
         "sinapi"
       ],
       "pdf": "easy-mobile/newsletter/sinapi-2026-07/sinapi-2026-07.pdf",
-      "pdf_bytes": 500974,
-      "paginas": 8,
+      "pdf_bytes": 498409,
+      "paginas": 7,
       "publicado_em": "2026-07-01"
     },
     {
@@ -34,9 +34,27 @@
         "sinapi"
       ],
       "pdf": "easy-mobile/newsletter/sinapi-2026-06/sinapi-2026-06.pdf",
-      "pdf_bytes": 492714,
+      "pdf_bytes": 493357,
       "paginas": 7,
       "publicado_em": "2026-06-01"
+    },
+    {
+      "id": "cdhu-2026-05",
+      "titulo": "CDHU · maio de 2026",
+      "edicao": "#06",
+      "fonte": "CDHU",
+      "ref": "2026-05-01",
+      "chamada": "Variação média de +2,75% em SP, com 12 composições incluídas e 6 inativadas.",
+      "variacao_media_pct": 2.75,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "cdhu"
+      ],
+      "pdf": "easy-mobile/newsletter/cdhu-2026-05/cdhu-2026-05.pdf",
+      "pdf_bytes": 504384,
+      "paginas": 8,
+      "publicado_em": "2026-05-01"
     },
     {
       "id": "sinapi-2026-05",
@@ -52,9 +70,27 @@
         "sinapi"
       ],
       "pdf": "easy-mobile/newsletter/sinapi-2026-05/sinapi-2026-05.pdf",
-      "pdf_bytes": 485024,
+      "pdf_bytes": 485812,
       "paginas": 7,
       "publicado_em": "2026-05-01"
+    },
+    {
+      "id": "fde-2026-04",
+      "titulo": "FDE · abril de 2026",
+      "edicao": "#06",
+      "fonte": "FDE",
+      "ref": "2026-04-01",
+      "chamada": "Variação média de +1,62% em SP, com 84 composições incluídas e 22 inativadas.",
+      "variacao_media_pct": 1.62,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "fde"
+      ],
+      "pdf": "easy-mobile/newsletter/fde-2026-04/fde-2026-04.pdf",
+      "pdf_bytes": 491710,
+      "paginas": 7,
+      "publicado_em": "2026-04-01"
     },
     {
       "id": "sinapi-2026-04",
@@ -70,7 +106,7 @@
         "sinapi"
       ],
       "pdf": "easy-mobile/newsletter/sinapi-2026-04/sinapi-2026-04.pdf",
-      "pdf_bytes": 494851,
+      "pdf_bytes": 495140,
       "paginas": 7,
       "publicado_em": "2026-04-01"
     },
@@ -88,9 +124,27 @@
         "sinapi"
       ],
       "pdf": "easy-mobile/newsletter/sinapi-2026-03/sinapi-2026-03.pdf",
-      "pdf_bytes": 496185,
+      "pdf_bytes": 496119,
       "paginas": 7,
       "publicado_em": "2026-03-01"
+    },
+    {
+      "id": "cdhu-2026-02",
+      "titulo": "CDHU · fevereiro de 2026",
+      "edicao": "#05",
+      "fonte": "CDHU",
+      "ref": "2026-02-01",
+      "chamada": "Variação média de +0,89% em SP, com 0 composições incluídas e 2 inativadas.",
+      "variacao_media_pct": 0.89,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "cdhu"
+      ],
+      "pdf": "easy-mobile/newsletter/cdhu-2026-02/cdhu-2026-02.pdf",
+      "pdf_bytes": 507818,
+      "paginas": 7,
+      "publicado_em": "2026-02-01"
     },
     {
       "id": "sinapi-2026-02",
@@ -106,9 +160,27 @@
         "sinapi"
       ],
       "pdf": "easy-mobile/newsletter/sinapi-2026-02/sinapi-2026-02.pdf",
-      "pdf_bytes": 486323,
+      "pdf_bytes": 487153,
       "paginas": 7,
       "publicado_em": "2026-02-01"
+    },
+    {
+      "id": "fde-2026-01",
+      "titulo": "FDE · janeiro de 2026",
+      "edicao": "#05",
+      "fonte": "FDE",
+      "ref": "2026-01-01",
+      "chamada": "Variação média de +0,48% em SP, com 15 composições incluídas e 20 inativadas.",
+      "variacao_media_pct": 0.48,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "fde"
+      ],
+      "pdf": "easy-mobile/newsletter/fde-2026-01/fde-2026-01.pdf",
+      "pdf_bytes": 486134,
+      "paginas": 6,
+      "publicado_em": "2026-01-01"
     },
     {
       "id": "sinapi-2026-01",
@@ -124,7 +196,7 @@
         "sinapi"
       ],
       "pdf": "easy-mobile/newsletter/sinapi-2026-01/sinapi-2026-01.pdf",
-      "pdf_bytes": 498368,
+      "pdf_bytes": 498473,
       "paginas": 8,
       "publicado_em": "2026-01-01"
     },
@@ -142,9 +214,27 @@
         "sinapi"
       ],
       "pdf": "easy-mobile/newsletter/sinapi-2025-12/sinapi-2025-12.pdf",
-      "pdf_bytes": 487509,
+      "pdf_bytes": 488232,
       "paginas": 7,
       "publicado_em": "2025-12-01"
+    },
+    {
+      "id": "cdhu-2025-11",
+      "titulo": "CDHU · novembro de 2025",
+      "edicao": "#04",
+      "fonte": "CDHU",
+      "ref": "2025-11-01",
+      "chamada": "Variação média de +0,30% em SP, com 3 composições incluídas e 2 inativadas.",
+      "variacao_media_pct": 0.3,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "cdhu"
+      ],
+      "pdf": "easy-mobile/newsletter/cdhu-2025-11/cdhu-2025-11.pdf",
+      "pdf_bytes": 505403,
+      "paginas": 7,
+      "publicado_em": "2025-11-01"
     },
     {
       "id": "sinapi-2025-11",
@@ -160,9 +250,27 @@
         "sinapi"
       ],
       "pdf": "easy-mobile/newsletter/sinapi-2025-11/sinapi-2025-11.pdf",
-      "pdf_bytes": 468255,
+      "pdf_bytes": 468662,
       "paginas": 7,
       "publicado_em": "2025-11-01"
+    },
+    {
+      "id": "fde-2025-10",
+      "titulo": "FDE · outubro de 2025",
+      "edicao": "#04",
+      "fonte": "FDE",
+      "ref": "2025-10-01",
+      "chamada": "Variação média de +0,66% em SP, com 8 composições incluídas e 1 inativadas.",
+      "variacao_media_pct": 0.66,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "fde"
+      ],
+      "pdf": "easy-mobile/newsletter/fde-2025-10/fde-2025-10.pdf",
+      "pdf_bytes": 481490,
+      "paginas": 6,
+      "publicado_em": "2025-10-01"
     },
     {
       "id": "sinapi-2025-10",
@@ -178,7 +286,7 @@
         "sinapi"
       ],
       "pdf": "easy-mobile/newsletter/sinapi-2025-10/sinapi-2025-10.pdf",
-      "pdf_bytes": 503898,
+      "pdf_bytes": 502817,
       "paginas": 8,
       "publicado_em": "2025-10-01"
     },
@@ -196,9 +304,27 @@
         "sinapi"
       ],
       "pdf": "easy-mobile/newsletter/sinapi-2025-09/sinapi-2025-09.pdf",
-      "pdf_bytes": 500610,
+      "pdf_bytes": 500032,
       "paginas": 8,
       "publicado_em": "2025-09-01"
+    },
+    {
+      "id": "cdhu-2025-08",
+      "titulo": "CDHU · agosto de 2025",
+      "edicao": "#03",
+      "fonte": "CDHU",
+      "ref": "2025-08-01",
+      "chamada": "Variação média de +0,22% em SP, com 2 composições incluídas e 3 inativadas.",
+      "variacao_media_pct": 0.22,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "cdhu"
+      ],
+      "pdf": "easy-mobile/newsletter/cdhu-2025-08/cdhu-2025-08.pdf",
+      "pdf_bytes": 511819,
+      "paginas": 7,
+      "publicado_em": "2025-08-01"
     },
     {
       "id": "sinapi-2025-08",
@@ -214,9 +340,27 @@
         "sinapi"
       ],
       "pdf": "easy-mobile/newsletter/sinapi-2025-08/sinapi-2025-08.pdf",
-      "pdf_bytes": 495821,
+      "pdf_bytes": 496750,
       "paginas": 7,
       "publicado_em": "2025-08-01"
+    },
+    {
+      "id": "fde-2025-07",
+      "titulo": "FDE · julho de 2025",
+      "edicao": "#03",
+      "fonte": "FDE",
+      "ref": "2025-07-01",
+      "chamada": "Variação média de +3,47% em SP, com 29 composições incluídas e 3 inativadas.",
+      "variacao_media_pct": 3.47,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "fde"
+      ],
+      "pdf": "easy-mobile/newsletter/fde-2025-07/fde-2025-07.pdf",
+      "pdf_bytes": 477450,
+      "paginas": 6,
+      "publicado_em": "2025-07-01"
     },
     {
       "id": "sinapi-2025-07",
@@ -232,7 +376,7 @@
         "sinapi"
       ],
       "pdf": "easy-mobile/newsletter/sinapi-2025-07/sinapi-2025-07.pdf",
-      "pdf_bytes": 500380,
+      "pdf_bytes": 501416,
       "paginas": 8,
       "publicado_em": "2025-07-01"
     },
@@ -250,9 +394,27 @@
         "sinapi"
       ],
       "pdf": "easy-mobile/newsletter/sinapi-2025-06/sinapi-2025-06.pdf",
-      "pdf_bytes": 490904,
+      "pdf_bytes": 491469,
       "paginas": 7,
       "publicado_em": "2025-06-01"
+    },
+    {
+      "id": "cdhu-2025-05",
+      "titulo": "CDHU · maio de 2025",
+      "edicao": "#02",
+      "fonte": "CDHU",
+      "ref": "2025-05-01",
+      "chamada": "Variação média de +2,68% em SP, com 3 composições incluídas e 18 inativadas.",
+      "variacao_media_pct": 2.68,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "cdhu"
+      ],
+      "pdf": "easy-mobile/newsletter/cdhu-2025-05/cdhu-2025-05.pdf",
+      "pdf_bytes": 499416,
+      "paginas": 8,
+      "publicado_em": "2025-05-01"
     },
     {
       "id": "sinapi-2025-05",
@@ -268,9 +430,27 @@
         "sinapi"
       ],
       "pdf": "easy-mobile/newsletter/sinapi-2025-05/sinapi-2025-05.pdf",
-      "pdf_bytes": 486878,
+      "pdf_bytes": 486959,
       "paginas": 7,
       "publicado_em": "2025-05-01"
+    },
+    {
+      "id": "fde-2025-04",
+      "titulo": "FDE · abril de 2025",
+      "edicao": "#02",
+      "fonte": "FDE",
+      "ref": "2025-04-01",
+      "chamada": "Variação média de +1,82% em SP, com 0 composições incluídas e 0 inativadas.",
+      "variacao_media_pct": 1.82,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "fde"
+      ],
+      "pdf": "easy-mobile/newsletter/fde-2025-04/fde-2025-04.pdf",
+      "pdf_bytes": 473510,
+      "paginas": 6,
+      "publicado_em": "2025-04-01"
     },
     {
       "id": "sinapi-2025-04",
@@ -286,7 +466,7 @@
         "sinapi"
       ],
       "pdf": "easy-mobile/newsletter/sinapi-2025-04/sinapi-2025-04.pdf",
-      "pdf_bytes": 500394,
+      "pdf_bytes": 499959,
       "paginas": 8,
       "publicado_em": "2025-04-01"
     },
@@ -304,9 +484,27 @@
         "sinapi"
       ],
       "pdf": "easy-mobile/newsletter/sinapi-2025-03/sinapi-2025-03.pdf",
-      "pdf_bytes": 490760,
+      "pdf_bytes": 491671,
       "paginas": 7,
       "publicado_em": "2025-03-01"
+    },
+    {
+      "id": "cdhu-2025-02",
+      "titulo": "CDHU · fevereiro de 2025",
+      "edicao": "#01",
+      "fonte": "CDHU",
+      "ref": "2025-02-01",
+      "chamada": "Variação média de +1,53% em SP, com 2 composições incluídas e 7 inativadas.",
+      "variacao_media_pct": 1.53,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "cdhu"
+      ],
+      "pdf": "easy-mobile/newsletter/cdhu-2025-02/cdhu-2025-02.pdf",
+      "pdf_bytes": 512909,
+      "paginas": 7,
+      "publicado_em": "2025-02-01"
     },
     {
       "id": "sinapi-2025-02",
@@ -322,9 +520,27 @@
         "sinapi"
       ],
       "pdf": "easy-mobile/newsletter/sinapi-2025-02/sinapi-2025-02.pdf",
-      "pdf_bytes": 493475,
-      "paginas": 8,
+      "pdf_bytes": 491196,
+      "paginas": 7,
       "publicado_em": "2025-02-01"
+    },
+    {
+      "id": "fde-2025-01",
+      "titulo": "FDE · janeiro de 2025",
+      "edicao": "#01",
+      "fonte": "FDE",
+      "ref": "2025-01-01",
+      "chamada": "Variação média de +0,73% em SP, com 1 composições incluídas e 1 inativadas.",
+      "variacao_media_pct": 0.73,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "fde"
+      ],
+      "pdf": "easy-mobile/newsletter/fde-2025-01/fde-2025-01.pdf",
+      "pdf_bytes": 485611,
+      "paginas": 6,
+      "publicado_em": "2025-01-01"
     },
     {
       "id": "sinapi-2025-01",
@@ -340,7 +556,7 @@
         "sinapi"
       ],
       "pdf": "easy-mobile/newsletter/sinapi-2025-01/sinapi-2025-01.pdf",
-      "pdf_bytes": 493438,
+      "pdf_bytes": 492999,
       "paginas": 7,
       "publicado_em": "2025-01-01"
     }

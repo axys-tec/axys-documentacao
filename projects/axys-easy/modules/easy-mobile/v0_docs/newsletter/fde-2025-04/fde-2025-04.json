@@ -1,0 +1,485 @@
+{
+  "fonte": "FDE",
+  "ref": "2025-04-01",
+  "ref_anterior": "2025-01-01",
+  "versao": "04-25",
+  "edi_id": 54,
+  "edi_anterior": 53,
+  "meses_intervalo": 3,
+  "modalidade": "SD",
+  "uf_foco": "SP",
+  "movimento": {
+    "incluidas": 0,
+    "inativadas": 0,
+    "reativadas": 0,
+    "alteradas": 6
+  },
+  "cobertura": {
+    "ufs": 1,
+    "cpus": 3285,
+    "sem_custo": 0,
+    "linhas": 6570,
+    "pct_sem_custo": 0.0,
+    "insumos": 2331,
+    "insumos_sem_preco": 0,
+    "pct_sem_preco": 0.0
+  },
+  "precos": {
+    "uf": "SP",
+    "comparaveis": 3285,
+    "media_pct": 1.82,
+    "mediana_pct": 1.82,
+    "subiram": 2896,
+    "cairam": 369,
+    "estaveis": 20
+  },
+  "subgrupos": {
+    "altas": [
+      {
+        "subgrupo": "SERVICOS COMPLEMENTARES - CIVIL",
+        "cpus": 24,
+        "var_pct": 57.74,
+        "medio_anterior": 1306.61,
+        "medio_atual": 2061.05
+      },
+      {
+        "subgrupo": "REDE DE ESGOTO: TUBULACOES",
+        "cpus": 15,
+        "var_pct": 6.77,
+        "medio_anterior": 181.03,
+        "medio_atual": 193.28
+      },
+      {
+        "subgrupo": "REDE DE AGUAS PLUVIAIS: TUBULACOES",
+        "cpus": 16,
+        "var_pct": 6.03,
+        "medio_anterior": 329.06,
+        "medio_atual": 348.89
+      },
+      {
+        "subgrupo": "PREPARACAO E CONSERVACAO DE SUPERFICIES DE CONCRETO / ACO",
+        "cpus": 19,
+        "var_pct": 5.35,
+        "medio_anterior": 49.27,
+        "medio_atual": 51.91
+      },
+      {
+        "subgrupo": "COBERTURA",
+        "cpus": 31,
+        "var_pct": 4.61,
+        "medio_anterior": 185.21,
+        "medio_atual": 193.75
+      },
+      {
+        "subgrupo": "REDE DE AGUA QUENTE: TUBULACOES",
+        "cpus": 13,
+        "var_pct": 4.55,
+        "medio_anterior": 104.45,
+        "medio_atual": 109.21
+      },
+      {
+        "subgrupo": "FUNDACAO PROFUNDA",
+        "cpus": 48,
+        "var_pct": 3.66,
+        "medio_anterior": 2114.74,
+        "medio_atual": 2192.1
+      },
+      {
+        "subgrupo": "SERVICOS COMPLEMENTARES - ELETRICA",
+        "cpus": 21,
+        "var_pct": 3.65,
+        "medio_anterior": 74789.03,
+        "medio_atual": 77519.89
+      },
+      {
+        "subgrupo": "CONSERVACAO - REDE DE GAS E AGUA FRIA",
+        "cpus": 21,
+        "var_pct": 3.37,
+        "medio_anterior": 243.02,
+        "medio_atual": 251.21
+      },
+      {
+        "subgrupo": "REVESTIMENTO DE RODAPES",
+        "cpus": 22,
+        "var_pct": 3.34,
+        "medio_anterior": 63.55,
+        "medio_atual": 65.67
+      }
+    ],
+    "baixas": [
+      {
+        "subgrupo": "CONSERVACAO - ELEMENTOS METALICOS/COMPONENTES ESPECIAIS",
+        "cpus": 23,
+        "var_pct": -13.74,
+        "medio_anterior": 611.3,
+        "medio_atual": 527.34
+      },
+      {
+        "subgrupo": "ESQUADRIAS METALICAS",
+        "cpus": 49,
+        "var_pct": -4.19,
+        "medio_anterior": 1710.29,
+        "medio_atual": 1638.59
+      },
+      {
+        "subgrupo": "FUROS EM CONCRETO",
+        "cpus": 19,
+        "var_pct": -1.51,
+        "medio_anterior": 83.75,
+        "medio_atual": 82.48
+      },
+      {
+        "subgrupo": "CONSERVACAO - REDE DE ESGOTO E AGUAS PLUVIAIS",
+        "cpus": 15,
+        "var_pct": -0.54,
+        "medio_anterior": 128.34,
+        "medio_atual": 127.65
+      },
+      {
+        "subgrupo": "REDE DE AGUA FRIA: DEMAIS SERVICOS",
+        "cpus": 27,
+        "var_pct": -0.23,
+        "medio_anterior": 290.39,
+        "medio_atual": 289.72
+      },
+      {
+        "subgrupo": "REDE DE AGUA FRIA: TUBULACOES",
+        "cpus": 21,
+        "var_pct": -0.07,
+        "medio_anterior": 158.45,
+        "medio_atual": 158.35
+      }
+    ],
+    "total_subgrupos": 98
+  },
+  "grupos": {
+    "todos": [
+      {
+        "grupo": "SERVICOS COMPLEMENTARES",
+        "cpus": 709,
+        "var_pct": 3.68,
+        "medio_anterior": 3472.07,
+        "medio_atual": 3599.85
+      },
+      {
+        "grupo": "INFRA ESTRUTURA",
+        "cpus": 94,
+        "var_pct": 3.41,
+        "medio_anterior": 1268.68,
+        "medio_atual": 1311.91
+      },
+      {
+        "grupo": "INSTALACOES ELETRICAS",
+        "cpus": 781,
+        "var_pct": 2.1,
+        "medio_anterior": 3267.01,
+        "medio_atual": 3335.51
+      },
+      {
+        "grupo": "PINTURA",
+        "cpus": 151,
+        "var_pct": 2.06,
+        "medio_anterior": 59.31,
+        "medio_atual": 60.54
+      },
+      {
+        "grupo": "VIDROS",
+        "cpus": 20,
+        "var_pct": 2.03,
+        "medio_anterior": 378.0,
+        "medio_atual": 385.69
+      },
+      {
+        "grupo": "REVESTIMENTOS: TETO E PAREDE",
+        "cpus": 54,
+        "var_pct": 2.01,
+        "medio_anterior": 139.05,
+        "medio_atual": 141.84
+      },
+      {
+        "grupo": "FORRO",
+        "cpus": 37,
+        "var_pct": 1.96,
+        "medio_anterior": 178.11,
+        "medio_atual": 181.6
+      },
+      {
+        "grupo": "INSTALACOES HIDRAULICAS",
+        "cpus": 414,
+        "var_pct": 1.84,
+        "medio_anterior": 1121.04,
+        "medio_atual": 1141.72
+      },
+      {
+        "grupo": "PISOS INTERNOS / RODAPES / PEITORIS",
+        "cpus": 182,
+        "var_pct": 1.7,
+        "medio_anterior": 161.48,
+        "medio_atual": 164.22
+      },
+      {
+        "grupo": "COBERTURA",
+        "cpus": 185,
+        "var_pct": 1.61,
+        "medio_anterior": 195.2,
+        "medio_atual": 198.34
+      },
+      {
+        "grupo": "ELEMENTOS DE MADEIRA/COMPONENTES ESPECIAIS",
+        "cpus": 169,
+        "var_pct": 1.44,
+        "medio_anterior": 1246.97,
+        "medio_atual": 1264.93
+      },
+      {
+        "grupo": "IMPERMEABILIZACOES / JUNTAS DE DILATACAO",
+        "cpus": 50,
+        "var_pct": 1.38,
+        "medio_anterior": 168.79,
+        "medio_atual": 171.12
+      },
+      {
+        "grupo": "ALVENARIA E OUTROS ELEMENTOS DIVISORIOS",
+        "cpus": 75,
+        "var_pct": 1.36,
+        "medio_anterior": 263.43,
+        "medio_atual": 267.01
+      },
+      {
+        "grupo": "SERVICOS PRELIMINARES",
+        "cpus": 76,
+        "var_pct": 1.22,
+        "medio_anterior": 1682.92,
+        "medio_atual": 1703.48
+      },
+      {
+        "grupo": "SUPER ESTRUTURA",
+        "cpus": 102,
+        "var_pct": 0.82,
+        "medio_anterior": 376.87,
+        "medio_atual": 379.98
+      },
+      {
+        "grupo": "ELEMENTOS METALICOS/COMPONENTES ESPECIAIS",
+        "cpus": 186,
+        "var_pct": 0.5,
+        "medio_anterior": 2637.01,
+        "medio_atual": 2650.07
+      }
+    ],
+    "altas": [
+      {
+        "grupo": "SERVICOS COMPLEMENTARES",
+        "cpus": 709,
+        "var_pct": 3.68,
+        "medio_anterior": 3472.07,
+        "medio_atual": 3599.85
+      },
+      {
+        "grupo": "INFRA ESTRUTURA",
+        "cpus": 94,
+        "var_pct": 3.41,
+        "medio_anterior": 1268.68,
+        "medio_atual": 1311.91
+      },
+      {
+        "grupo": "INSTALACOES ELETRICAS",
+        "cpus": 781,
+        "var_pct": 2.1,
+        "medio_anterior": 3267.01,
+        "medio_atual": 3335.51
+      },
+      {
+        "grupo": "PINTURA",
+        "cpus": 151,
+        "var_pct": 2.06,
+        "medio_anterior": 59.31,
+        "medio_atual": 60.54
+      },
+      {
+        "grupo": "VIDROS",
+        "cpus": 20,
+        "var_pct": 2.03,
+        "medio_anterior": 378.0,
+        "medio_atual": 385.69
+      },
+      {
+        "grupo": "REVESTIMENTOS: TETO E PAREDE",
+        "cpus": 54,
+        "var_pct": 2.01,
+        "medio_anterior": 139.05,
+        "medio_atual": 141.84
+      },
+      {
+        "grupo": "FORRO",
+        "cpus": 37,
+        "var_pct": 1.96,
+        "medio_anterior": 178.11,
+        "medio_atual": 181.6
+      },
+      {
+        "grupo": "INSTALACOES HIDRAULICAS",
+        "cpus": 414,
+        "var_pct": 1.84,
+        "medio_anterior": 1121.04,
+        "medio_atual": 1141.72
+      }
+    ],
+    "baixas": [],
+    "total": 16
+  },
+  "insumos": {
+    "comparaveis": 2331,
+    "media_pct": 1.84,
+    "altas": [
+      {
+        "insumo": "SI-12 TOTEM DE SINALIZAÇÃO",
+        "unidade": "UN",
+        "var_pct": 174.0,
+        "preco": 27890.52
+      },
+      {
+        "insumo": "ARRUELA QUADRADA 57MM FURO 18MM",
+        "unidade": "UN",
+        "var_pct": 80.6,
+        "preco": 3.92
+      },
+      {
+        "insumo": "FIO TRANCADO PARA TELEFONE - PADRAO TELEBRAS",
+        "unidade": "M",
+        "var_pct": 57.0,
+        "preco": 1.46
+      },
+      {
+        "insumo": "TRATOR DE ESTEIRAS C/LAMINA POT 80HP",
+        "unidade": "H",
+        "var_pct": 52.6,
+        "preco": 312.5
+      },
+      {
+        "insumo": "REBITE DE FERRO ZINCADO CABECA REDONDA 5/32\"X1/2\"",
+        "unidade": "KG",
+        "var_pct": 52.5,
+        "preco": 35.16
+      },
+      {
+        "insumo": "MONTANTE P/GRADIL ELETROFUNDIDO H=1718MM GALV. COM PINTURA ELETROSTATICA",
+        "unidade": "UN",
+        "var_pct": 45.0,
+        "preco": 212.31
+      },
+      {
+        "insumo": "ÁRVORE ORNAMENTAL CANELA-SASSAFRÁS H=2,00M",
+        "unidade": "UN",
+        "var_pct": 40.9,
+        "preco": 190.0
+      },
+      {
+        "insumo": "PALMEIRA GUARIROBA (SYAGRUS OLERACEA) - DAP3",
+        "unidade": "UN",
+        "var_pct": 40.6,
+        "preco": 431.6
+      },
+      {
+        "insumo": "TELHA GALVALUME / GALV PINT PO 2 FACES TRAPEZ H=40MM E=0,80MM",
+        "unidade": "M2",
+        "var_pct": 40.0,
+        "preco": 116.18
+      }
+    ],
+    "baixas": [
+      {
+        "insumo": "CUMEEIRA ACO GALV NAT PERFIL TRAP 0,5MM H=100MM",
+        "unidade": "M",
+        "var_pct": -50.8,
+        "preco": 44.18
+      },
+      {
+        "insumo": "EF-05 ESQUADRIA DE FERRO 180X120CM",
+        "unidade": "UN",
+        "var_pct": -42.7,
+        "preco": 2465.95
+      },
+      {
+        "insumo": "REGISTRO PRESSAO C/ CANOPLA CROMADA DN 3/4\"",
+        "unidade": "UN",
+        "var_pct": -40.3,
+        "preco": 53.07
+      },
+      {
+        "insumo": "RUFO DE ACO NATURAL SIMPLES E=0,5MM",
+        "unidade": "M",
+        "var_pct": -37.4,
+        "preco": 12.52
+      },
+      {
+        "insumo": "EF-04 ESQUADRIA DE FERRO 180X60CM",
+        "unidade": "UN",
+        "var_pct": -33.9,
+        "preco": 1418.37
+      },
+      {
+        "insumo": "REGISTRO GAVETA C/ CANOPLA CROMADA DN 1 1/4\"",
+        "unidade": "UN",
+        "var_pct": -31.3,
+        "preco": 105.38
+      },
+      {
+        "insumo": "ESQUADRIA DE FERRO (TIPO CONESP)",
+        "unidade": "KG",
+        "var_pct": -30.8,
+        "preco": 61.48
+      },
+      {
+        "insumo": "LAMPADA VAPOR DE SODIO ELIPSOIDAL OU TUBULAR 70W/220V",
+        "unidade": "UN",
+        "var_pct": -28.6,
+        "preco": 34.61
+      },
+      {
+        "insumo": "ASSENTO C/TAMPA PLASTICA BRANCA P/BACIA SANITARIA",
+        "unidade": "UN",
+        "var_pct": -26.5,
+        "preco": 38.04
+      }
+    ]
+  },
+  "indicadores": {
+    "acumulados": {
+      "IGP-M": 0.96,
+      "INCC-M": 1.49,
+      "INPC": 2.49,
+      "IPCA": 2.32
+    },
+    "selic_aa": 14.25,
+    "selic_aa_anterior": 13.25,
+    "meses": 3
+  },
+  "revisoes": {
+    "coeficiente": 0,
+    "insumo_incluido": 0,
+    "insumo_excluido": 0,
+    "cabecalho": 6,
+    "total": 6
+  },
+  "revisoes_subgrupos": [
+    {
+      "subgrupo": "PECAS PARA COBERTURA",
+      "revisadas": 6
+    }
+  ],
+  "codigo": {
+    "numero": "02",
+    "rotulo": "#02"
+  },
+  "acumulado_ano": {
+    "fonte_pct": 4.36,
+    "comparaveis": 3284,
+    "indices": {
+      "INCC-M": 2.21,
+      "IPCA": 2.48
+    },
+    "desde": "2025-01-01"
+  },
+  "dispersao_uf": null
+}

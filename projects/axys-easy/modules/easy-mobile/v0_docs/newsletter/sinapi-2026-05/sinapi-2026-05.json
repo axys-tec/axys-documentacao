@@ -180,6 +180,7 @@
     ],
     "total_subgrupos": 116
   },
+  "grupos": null,
   "insumos": {
     "comparaveis": 4855,
     "media_pct": 1.26,
@@ -187,184 +188,172 @@
       {
         "insumo": "FITA PLASTICA ZEBRADA PARA DEMARCACAO DE AREAS, LARGURA = 7 CM, SEM ADESIVO",
         "unidade": "M",
-        "var_pct": 14.3
+        "var_pct": 14.3,
+        "preco": 0.08
       },
       {
         "insumo": "RODAPE PRE-MOLDADO DE GRANILITE, MARMORITE OU GRANITINA L = 10 CM",
         "unidade": "M",
-        "var_pct": 12.7
+        "var_pct": 12.7,
+        "preco": 46.43
       },
       {
         "insumo": "REVESTIMENTO PARA ESCADA EM GRANILITE, MARMORITE OU GRANITINA ESP = 8 MM (INCLUSO EXECUCAO)",
         "unidade": "M2",
-        "var_pct": 12.7
+        "var_pct": 12.7,
+        "preco": 150.91
       },
       {
         "insumo": "SOLEIRA PRE-MOLDADA EM GRANILITE, MARMORITE OU GRANITINA, L = *15 CM",
         "unidade": "M",
-        "var_pct": 12.7
+        "var_pct": 12.7,
+        "preco": 127.69
       },
       {
         "insumo": "DIVISORIA, PLACA PRE-MOLDADA EM GRANILITE, MARMORITE OU GRANITINA, E = *3 CM",
         "unidade": "M2",
-        "var_pct": 12.7
+        "var_pct": 12.7,
+        "preco": 255.39
       },
       {
         "insumo": "REVESTIMENTO DE PAREDE EM GRANILITE, MARMORITE OU GRANITINA - ESP = 5 MM (INCLUSO EXECUCAO)",
         "unidade": "M2",
-        "var_pct": 12.7
+        "var_pct": 12.7,
+        "preco": 315.75
       },
       {
         "insumo": "PISO INDUSTRIAL EM CONCRETO ARMADO DE ACABAMENTO POLIDO, ESPESSURA 12 CM (CIMENTO QUEIMADO) (INCLUSO EXECUCAO)",
         "unidade": "M2",
-        "var_pct": 12.7
+        "var_pct": 12.7,
+        "preco": 209.32
       },
       {
         "insumo": "PISO FULGET (GRANITO LAVADO) MOLDADO IN LOCO (INCLUSO EXECUCAO)",
         "unidade": "M2",
-        "var_pct": 12.7
+        "var_pct": 12.7,
+        "preco": 190.1
       },
       {
         "insumo": "PISO FULGET (GRANITO LAVADO) EM PLACAS DE *75 X 75* CM, E = 2,0 CM (SEM COLOCACAO)",
         "unidade": "M2",
-        "var_pct": 12.7
+        "var_pct": 12.7,
+        "preco": 354.57
       },
       {
         "insumo": "PISO URETANO, VERSAO REVESTIMENTO AUTONIVELANTE, ESPESSURA VARIAVEL DE 3 A 4 MM (INCLUSO EXECUCAO)",
         "unidade": "M2",
-        "var_pct": 12.7
-      },
-      {
-        "insumo": "PISO KORODUR (INCLUSO EXECUCAO)",
-        "unidade": "M2",
-        "var_pct": 12.7
+        "var_pct": 12.7,
+        "preco": 248.84
       },
       {
         "insumo": "PISO EPOXI AUTONIVELANTE, ESPESSURA *4* MM (INCLUSO EXECUCAO)",
         "unidade": "M2",
-        "var_pct": 12.7
+        "var_pct": 12.7,
+        "preco": 256.32
       },
       {
-        "insumo": "PISO FULGET (GRANITO LAVADO) EM PLACAS DE *40 X 40* CM, E = 2,0 CM (SEM COLOCACAO)",
+        "insumo": "PISO KORODUR (INCLUSO EXECUCAO)",
         "unidade": "M2",
-        "var_pct": 12.7
+        "var_pct": 12.7,
+        "preco": 160.2
       },
       {
         "insumo": "PISO EM GRANILITE, MARMORITE OU GRANITINA, AGREGADO COR PRETO, CINZA, PALHA OU BRANCO, E= *8* MM (INCLUSO EXECUCAO)",
         "unidade": "M2",
-        "var_pct": 12.7
+        "var_pct": 12.7,
+        "preco": 133.5
       },
       {
-        "insumo": "REVESTIMENTO DE PAREDE EM GRANILITE, MARMORITE OU GRANITINA COLORIDO - ESP = 5 MM (INCLUSO EXECUCAO)",
+        "insumo": "PISO FULGET (GRANITO LAVADO) EM PLACAS DE *40 X 40* CM, E = 2,0 CM (SEM COLOCACAO)",
         "unidade": "M2",
-        "var_pct": 12.7
-      },
-      {
-        "insumo": "PEITORIL PRE-MOLDADO EM GRANILITE, MARMORITE OU GRANITINA, L = *15* CM",
-        "unidade": "M2",
-        "var_pct": 12.7
-      },
-      {
-        "insumo": "PISO EPOXI MULTILAYER, ESPESSURA *2* MM (INCLUSO EXECUCAO)",
-        "unidade": "M2",
-        "var_pct": 12.7
-      },
-      {
-        "insumo": "VALVULA DE RETENCAO VERTICAL, DE BRONZE (PN-16), 1/2\", 200 PSI, EXTREMIDADES COM ROSCA",
-        "unidade": "UN",
-        "var_pct": 12.6
+        "var_pct": 12.7,
+        "preco": 192.24
       }
     ],
     "baixas": [
       {
         "insumo": "ARGAMASSA PRONTA PARA CONTRAPISO",
         "unidade": "KG",
-        "var_pct": -9.6
+        "var_pct": -9.6,
+        "preco": 0.75
       },
       {
         "insumo": "ARGAMASSA COLANTE AC II",
         "unidade": "KG",
-        "var_pct": -9.4
+        "var_pct": -9.4,
+        "preco": 1.35
       },
       {
         "insumo": "ARGAMASSA INDUSTRIALIZADA MULTIUSO, PARA REVESTIMENTO INTERNO E EXTERNO E ASSENTAMENTO DE BLOCOS DIVERSOS",
         "unidade": "KG",
-        "var_pct": -9.2
+        "var_pct": -9.2,
+        "preco": 0.79
       },
       {
         "insumo": "MANGUEIRA DE INCENDIO, TIPO 2, DE 2 1/2\", COMPRIMENTO = 15 M, TECIDO EM FIO DE POLIESTER E TUBO INTERNO EM BORRACHA SINTETICA, COM UNIOES ENGATE RAPIDO",
         "unidade": "UN",
-        "var_pct": -9.1
+        "var_pct": -9.1,
+        "preco": 700.75
       },
       {
         "insumo": "MANGUEIRA DE INCENDIO, TIPO 2, DE 1 1/2\", COMPRIMENTO = 15 M, TECIDO EM FIO DE POLIESTER E TUBO INTERNO EM BORRACHA SINTETICA, COM UNIOES ENGATE RAPIDO",
         "unidade": "UN",
-        "var_pct": -9.1
+        "var_pct": -9.1,
+        "preco": 522.5
       },
       {
         "insumo": "MANGUEIRA DE INCENDIO, TIPO 2, DE 1 1/2\", COMPRIMENTO = 25 M, TECIDO EM FIO DE POLIESTER E TUBO INTERNO EM BORRACHA SINTETICA, COM UNIOES",
         "unidade": "UN",
-        "var_pct": -9.1
+        "var_pct": -9.1,
+        "preco": 629.1
       },
       {
         "insumo": "MANGUEIRA DE INCENDIO, TIPO 2, DE 1 1/2\", COMPRIMENTO = 30 M, TECIDO EM FIO DE POLIESTER E TUBO INTERNO EM BORRACHA SINTETICA, COM UNIOES",
         "unidade": "UN",
-        "var_pct": -9.1
+        "var_pct": -9.1,
+        "preco": 821.33
       },
       {
         "insumo": "MANGUEIRA DE INCENDIO, TIPO 1, DE 1 1/2\", COMPRIMENTO = 20 M, TECIDO EM FIO DE POLIESTER E TUBO INTERNO EM BORRACHA SINTETICA, COM UNIOES ENGATE RAPIDO",
         "unidade": "UN",
-        "var_pct": -9.1
+        "var_pct": -9.1,
+        "preco": 435.13
       },
       {
         "insumo": "MANGUEIRA DE INCENDIO, TIPO 2, DE 2 1/2\", COMPRIMENTO = 30 M, TECIDO EM FIO DE POLIESTER E TUBO INTERNO EM BORRACHA SINTETICA, COM UNIOES ENGATE RAPIDO",
         "unidade": "UN",
-        "var_pct": -9.1
+        "var_pct": -9.1,
+        "preco": 1223.26
       },
       {
         "insumo": "MANGUEIRA DE INCENDIO, TIPO 1, DE 1 1/2\", COMPRIMENTO = 25 M, TECIDO EM FIO DE POLIESTER E TUBO INTERNO EM BORRACHA SINTETICA, COM UNIOES ENGATE RAPIDO",
         "unidade": "UN",
-        "var_pct": -9.1
-      },
-      {
-        "insumo": "MANGUEIRA DE INCENDIO, TIPO 1, DE 1 1/2\", COMPRIMENTO = 15 M, TECIDO EM FIO DE POLIESTER E TUBO INTERNO EM BORRACHA SINTETICA, COM UNIOES ENGATE RAPIDO",
-        "unidade": "UN",
-        "var_pct": -9.1
+        "var_pct": -9.1,
+        "preco": 541.73
       },
       {
         "insumo": "MANGUEIRA DE INCENDIO, TIPO 2, DE 2 1/2\", COMPRIMENTO = 20 M, TECIDO EM FIO DE POLIESTER E TUBO INTERNO EM BORRACHA SINTETICA, COM UNIOES",
         "unidade": "UN",
-        "var_pct": -9.1
+        "var_pct": -9.1,
+        "preco": 882.5
+      },
+      {
+        "insumo": "MANGUEIRA DE INCENDIO, TIPO 1, DE 1 1/2\", COMPRIMENTO = 15 M, TECIDO EM FIO DE POLIESTER E TUBO INTERNO EM BORRACHA SINTETICA, COM UNIOES ENGATE RAPIDO",
+        "unidade": "UN",
+        "var_pct": -9.1,
+        "preco": 353.0
       },
       {
         "insumo": "MANGUEIRA DE INCENDIO, TIPO 1, DE 1 1/2\", COMPRIMENTO = 30 M, TECIDO EM FIO DE POLIESTER E TUBO INTERNO EM BORRACHA SINTETICA, COM UNIOES ENGATE RAPIDO",
         "unidade": "UN",
-        "var_pct": -9.1
+        "var_pct": -9.1,
+        "preco": 578.43
       },
       {
         "insumo": "MANGUEIRA DE INCENDIO, TIPO 2, DE 1 1/2\", COMPRIMENTO = 20 M, TECIDO EM FIO DE POLIESTER E TUBO INTERNO EM BORRACHA SINTETICA, COM UNIOES",
         "unidade": "UN",
-        "var_pct": -9.1
-      },
-      {
-        "insumo": "MANGUEIRA DE INCENDIO, TIPO 2, DE 2 1/2\", COMPRIMENTO = 25 M, TECIDO EM FIO DE POLIESTER E TUBO INTERNO EM BORRACHA SINTETICA, COM UNIOES ENGATE RAPIDO",
-        "unidade": "UN",
-        "var_pct": -9.1
-      },
-      {
-        "insumo": "ARGAMASSA PISO SOBRE PISO",
-        "unidade": "KG",
-        "var_pct": -9.1
-      },
-      {
-        "insumo": "ARGAMASSA INDUSTRIALIZADA PARA CHAPISCO ROLADO",
-        "unidade": "KG",
-        "var_pct": -9.1
-      },
-      {
-        "insumo": "ARGAMASSA PARA REVESTIMENTO DECORATIVO MONOCAMADA",
-        "unidade": "KG",
-        "var_pct": -9.0
+        "var_pct": -9.1,
+        "preco": 622.99
       }
     ]
   },

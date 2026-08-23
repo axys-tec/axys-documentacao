@@ -180,6 +180,7 @@
     ],
     "total_subgrupos": 109
   },
+  "grupos": null,
   "insumos": {
     "comparaveis": 4837,
     "media_pct": 0.62,
@@ -187,184 +188,172 @@
       {
         "insumo": "BLOCO CONCRETO CELULAR AUTOCLAVADO 7,5 X 30 X 60 CM (E X A X C)",
         "unidade": "M2",
-        "var_pct": 21.0
+        "var_pct": 21.0,
+        "preco": 80.45
       },
       {
         "insumo": "BLOCO CONCRETO CELULAR AUTOCLAVADO 12,5 X 30 X 60 CM (E X A X C)",
         "unidade": "M2",
-        "var_pct": 21.0
+        "var_pct": 21.0,
+        "preco": 136.11
       },
       {
         "insumo": "BLOCO DE VEDACAO DE CONCRETO CELULAR AUTOCLAVADO 10 X 30 X 60 CM (E X A X C)",
         "unidade": "M2",
-        "var_pct": 21.0
+        "var_pct": 21.0,
+        "preco": 96.98
       },
       {
         "insumo": "BLOCO DE VEDACAO DE CONCRETO CELULAR AUTOCLAVADO 15 X 30 X 60 CM (E X A X C)",
         "unidade": "M2",
-        "var_pct": 21.0
+        "var_pct": 21.0,
+        "preco": 142.45
       },
       {
         "insumo": "BLOCO DE VEDACAO DE CONCRETO CELULAR AUTOCLAVADO 20 X 30 X 60 CM (E X A X C)",
         "unidade": "M2",
-        "var_pct": 21.0
+        "var_pct": 21.0,
+        "preco": 218.21
       },
       {
         "insumo": "RODAPE DE MADEIRA MACICA CUMARU/IPE CHAMPANHE OU EQUIVALENTE DA REGIAO, *1,5 X 7 CM",
         "unidade": "M",
-        "var_pct": 20.9
+        "var_pct": 20.9,
+        "preco": 27.0
       },
       {
         "insumo": "TACO DE MADEIRA PARA PISO, IPE (CERNE) OU EQUIVALENTE DA REGIAO, 7 X 42 CM, E = 2 CM",
         "unidade": "M2",
-        "var_pct": 20.9
+        "var_pct": 20.9,
+        "preco": 282.08
       },
       {
         "insumo": "TABUA DE MADEIRA PARA PISO, IPE (CERNE) OU EQUIVALENTE DA REGIAO, ENCAIXE MACHO/FEMEA, *20 X 2* CM",
         "unidade": "M2",
-        "var_pct": 20.9
+        "var_pct": 20.9,
+        "preco": 603.25
       },
       {
         "insumo": "TABUA DE MADEIRA PARA PISO, CUMARU/IPE CHAMPANHE OU EQUIVALENTE DA REGIAO, ENCAIXE MACHO/FEMEA, *15 X 2* CM",
         "unidade": "M2",
-        "var_pct": 20.9
+        "var_pct": 20.9,
+        "preco": 486.0
       },
       {
         "insumo": "TABUA DE MADEIRA PARA PISO, CUMARU/IPE CHAMPANHE OU EQUIVALENTE DA REGIAO, ENCAIXE MACHO/FEMEA, *10 X 2* CM",
         "unidade": "M2",
-        "var_pct": 20.9
+        "var_pct": 20.9,
+        "preco": 450.31
       },
       {
         "insumo": "RALO FOFO SEMIESFERICO, 100 MM, PARA LAJES/ CALHAS",
         "unidade": "UN",
-        "var_pct": 14.0
+        "var_pct": 14.0,
+        "preco": 20.89
       },
       {
         "insumo": "RALO FOFO SEMIESFERICO, 200 MM, PARA LAJES/ CALHAS",
         "unidade": "UN",
-        "var_pct": 14.0
+        "var_pct": 14.0,
+        "preco": 112.81
       },
       {
         "insumo": "RALO FOFO COM REQUADRO, QUADRADO 300 X 300 MM",
         "unidade": "UN",
-        "var_pct": 14.0
+        "var_pct": 14.0,
+        "preco": 121.55
       },
       {
         "insumo": "RALO FOFO COM REQUADRO, QUADRADO 150 X 150 MM",
         "unidade": "UN",
-        "var_pct": 14.0
-      },
-      {
-        "insumo": "RALO FOFO COM REQUADRO, QUADRADO 400 X 400 MM",
-        "unidade": "UN",
-        "var_pct": 14.0
-      },
-      {
-        "insumo": "RALO FOFO COM REQUADRO, QUADRADO 250 X 250 MM",
-        "unidade": "UN",
-        "var_pct": 14.0
-      },
-      {
-        "insumo": "RALO FOFO SEMIESFERICO, 150 MM, PARA LAJES/ CALHAS",
-        "unidade": "UN",
-        "var_pct": 14.0
-      },
-      {
-        "insumo": "GRELHA FOFO SIMPLES COM REQUADRO, CARGA MAXIMA 1,5 T, 150 X 1000 MM, E= *15* MM",
-        "unidade": "UN",
-        "var_pct": 14.0
+        "var_pct": 14.0,
+        "preco": 52.41
       }
     ],
     "baixas": [
       {
         "insumo": "LIMPADORA DE SUCCAO TANQUE 7000 L, BOMBA 12 M3/MIN 95% VACUO (INCLUI MONTAGEM, NAO INCLUI CAMINHAO)",
         "unidade": "UN",
-        "var_pct": -9.5
+        "var_pct": -9.5,
+        "preco": 250504.73
       },
       {
         "insumo": "EQUIPAMENTO DE LIMPEZA COMBINADO (VACUO/ALTA PRESSAO) 95% VACUO, TANQUE 7000 L, BOMBA 140 KGF/CM2 66 L/MIN COM MOTOR INDEPENDENTE A DIESEL DE 60 CV (INCLUI MONTAGEM, NAO INCLUI CAMINHAO)",
         "unidade": "UN",
-        "var_pct": -9.5
+        "var_pct": -9.5,
+        "preco": 565124.71
       },
       {
         "insumo": "LIMPADORA A SUCCAO, TANQUE 12000 L, BASCULAMENTO HIDRAULICO, BOMBA 12 M3/MIN 95% VACUO (INCLUI MONTAGEM, NAO INCLUI CAMINHAO)",
         "unidade": "UN",
-        "var_pct": -9.5
+        "var_pct": -9.5,
+        "preco": 295000.0
       },
       {
         "insumo": "LIMPADORA DE SUCCAO, TANQUE 11000 L, BOMBA 340 M3/MIN (INCLUI MONTAGEM, NAO INCLUI CAMINHAO)",
         "unidade": "UN",
-        "var_pct": -9.5
+        "var_pct": -9.5,
+        "preco": 419376.48
       },
       {
         "insumo": "LIMPADORA DE SUCCAO, TANQUE 5500 L, BOMBA 60M3/MIN, VACUO 500 MBAR (INCLUI MONTAGEM, NAO INCLUI CAMINHAO)",
         "unidade": "UN",
-        "var_pct": -9.5
+        "var_pct": -9.5,
+        "preco": 711748.8
       },
       {
         "insumo": "HIDROJATEADORA PARA DESOBSTRUCAO DE REDES E GALERIAS, TANQUE 7000 L, BOMBA TRIPLEX 120 KGF/CM2 128 L/MIN (INCLUI MONTAGEM, NAO INCLUI CAMINHAO)",
         "unidade": "UN",
-        "var_pct": -9.5
+        "var_pct": -9.5,
+        "preco": 342998.8
       },
       {
         "insumo": "HIDROJATEADORA PARA DESOBSTRUCAO DE REDES E GALERIAS, TANQUE 7000 L, BOMBA TRIPLEX 140 KGF/CM2 260 L/MIN ALIMENTADA POR MOTOR INDEPENDENTE A DIESEL POTENCIA 125 CV (INCLUI MONTAGEM, NAO INCLUI CAMINHAO)",
         "unidade": "UN",
-        "var_pct": -9.5
+        "var_pct": -9.5,
+        "preco": 364896.09
       },
       {
         "insumo": "GRAMPO METALICO TIPO U PARA HASTE DE ATERRAMENTO DE ATE 3/4\", CONDUTOR DE 10 A 25 MM2",
         "unidade": "UN",
-        "var_pct": -9.3
+        "var_pct": -9.3,
+        "preco": 40.85
       },
       {
         "insumo": "HASTE DE ATERRAMENTO EM ACO COM 3,00 M DE COMPRIMENTO E DN = 5/8\", REVESTIDA COM BAIXA CAMADA DE COBRE, SEM CONECTOR",
         "unidade": "UN",
-        "var_pct": -9.3
+        "var_pct": -9.3,
+        "preco": 78.2
       },
       {
         "insumo": "GRAMPO METALICO TIPO U PARA HASTE DE ATERRAMENTO DE ATE 5/8\", CONDUTOR DE 10 A 25 MM2",
         "unidade": "UN",
-        "var_pct": -9.3
+        "var_pct": -9.3,
+        "preco": 39.9
       },
       {
         "insumo": "HASTE DE ATERRAMENTO EM ACO COM 3,00 M DE COMPRIMENTO E DN = 3/4\", REVESTIDA COM BAIXA CAMADA DE COBRE, SEM CONECTOR",
         "unidade": "UN",
-        "var_pct": -9.3
+        "var_pct": -9.3,
+        "preco": 115.71
       },
       {
         "insumo": "GRAMPO PARALELO METALICO PARA CABO DE 6 A 50 MM2, COM 2 PARAFUSOS",
         "unidade": "UN",
-        "var_pct": -9.3
+        "var_pct": -9.3,
+        "preco": 15.22
       },
       {
         "insumo": "GRAMPO LINHA VIVA DE LATAO ESTANHADO, DIAMETRO DO CONDUTOR PRINCIPAL DE 10 A 120 MM2, DIAMETRO DA DERIVACAO DE 10 A 70 MM2",
         "unidade": "UN",
-        "var_pct": -9.3
+        "var_pct": -9.3,
+        "preco": 79.72
       },
       {
         "insumo": "GRAMPO METALICO TIPO OLHAL PARA HASTE DE ATERRAMENTO DE 1\", CONDUTOR DE *10* A 50 MM2",
         "unidade": "UN",
-        "var_pct": -9.3
-      },
-      {
-        "insumo": "HASTE DE ATERRAMENTO EM ACO COM 3,00 M DE COMPRIMENTO E DN = 5/8\", REVESTIDA COM BAIXA CAMADA DE COBRE, COM CONECTOR TIPO GRAMPO",
-        "unidade": "UN",
-        "var_pct": -9.3
-      },
-      {
-        "insumo": "GRAMPO METALICO TIPO OLHAL PARA HASTE DE ATERRAMENTO DE 5/8\", CONDUTOR DE *10* A 50 MM2",
-        "unidade": "UN",
-        "var_pct": -9.3
-      },
-      {
-        "insumo": "HASTE DE ATERRAMENTO EM ACO GALVANIZADO TIPO CANTONEIRA COM 2,00 M DE COMPRIMENTO, 25 X 25 MM E CHAPA DE 3/16\"",
-        "unidade": "UN",
-        "var_pct": -9.3
-      },
-      {
-        "insumo": "SUPORTE GUIA SIMPLES COM ROLDANA EM POLIPROPILENO PARA CHUMBAR, H = 20 CM",
-        "unidade": "UN",
-        "var_pct": -9.3
+        "var_pct": -9.3,
+        "preco": 32.69
       }
     ]
   },

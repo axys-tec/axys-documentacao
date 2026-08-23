@@ -180,6 +180,7 @@
     ],
     "total_subgrupos": 115
   },
+  "grupos": null,
   "insumos": {
     "comparaveis": 4855,
     "media_pct": 0.0,
@@ -187,184 +188,172 @@
       {
         "insumo": "CONE DE SINALIZACAO EM PVC FLEXIVEL, H = 70 / 76 CM (NBR 15071)",
         "unidade": "UN",
-        "var_pct": 19.3
+        "var_pct": 19.3,
+        "preco": 140.04
       },
       {
         "insumo": "CONE DE SINALIZACAO EM PVC RIGIDO COM FAIXA REFLETIVA, H = 70 / 76 CM",
         "unidade": "UN",
-        "var_pct": 19.3
+        "var_pct": 19.3,
+        "preco": 58.95
       },
       {
         "insumo": "LUBRIFICANTE REDUTOR DE TORQUE E ARRASTO DE ALTO DESEMPENHO, PARA PERFURACAO HORIZONTAL DIRECIONAL, HDD",
         "unidade": "KG",
-        "var_pct": 19.1
+        "var_pct": 19.1,
+        "preco": 57.81
       },
       {
         "insumo": "OLEO LUBRIFICANTE MINERAL MONOVISCOSO, SAE 40, PARA MOTORES DE EQUIPAMENTOS PESADOS (CAMINHOES, TRATORES, RETROS E ETC)",
         "unidade": "L",
-        "var_pct": 19.1
+        "var_pct": 19.1,
+        "preco": 33.76
       },
       {
         "insumo": "GRAXA LUBRIFICANTE A BASE DE LITIO, DE MULTIPLAS APLICACOES E CONTENDO ADITIVOS DE EXTREMA PRESSAO (GRAU DE VISCOSIDADE NLGI 2)",
         "unidade": "KG",
-        "var_pct": 19.1
+        "var_pct": 19.1,
+        "preco": 53.92
       },
       {
         "insumo": "OLEO DIESEL COMBUSTIVEL COMUM METROPOLITANO S-10 OU S-500",
         "unidade": "L",
-        "var_pct": 19.1
+        "var_pct": 19.1,
+        "preco": 7.24
       },
       {
         "insumo": "TELHA TRAPEZOIDAL EM ACO ZINCADO, SEM PINTURA, ALTURA DE APROXIMADAMENTE 40 MM, ESPESSURA DE 0,50 MM E LARGURA UTIL DE 980 MM",
         "unidade": "M2",
-        "var_pct": 11.1
+        "var_pct": 11.1,
+        "preco": 52.67
       },
       {
         "insumo": "TELHA TERMOISOLANTE REVESTIDA EM ACO GALVALUME, FACE SUPERIOR TRAPEZOIDAL E FACE INFERIOR PLANA (NAO INCLUI ACESSORIOS DE FIXACAO), REVEST COM ESPESSURA DE 0,50 MM, COM PRE-PINTURA DE COR BRANCA NAS DUAS FACES, NUCLEO EM POLIISOCIANURATO (PIR) COM ESPESSURA DE 50 MM",
         "unidade": "M2",
-        "var_pct": 11.1
+        "var_pct": 11.1,
+        "preco": 198.33
       },
       {
         "insumo": "TELHA TERMOISOLANTE REVESTIDA EM ACO GALVANIZADO, FACES SUPERIOR E INFERIOR EM TELHA TRAPEZOIDAL (SEM ACESSORIOS DE FIXACAO), REVESTIMENTO COM ESPESSURA DE 0,50 MM COM PRE-PINTURA NAS DUAS FACES, NUCLEO EM POLIESTIRENO (EPS) DE 50 MM",
         "unidade": "M2",
-        "var_pct": 11.1
+        "var_pct": 11.1,
+        "preco": 172.54
       },
       {
         "insumo": "CHAPA EM ACO GALVANIZADO PARA STEEL DECK, COM NERVURAS TRAPEZOIDAIS, LARGURA UTIL DE 915 MM E ESPESSURA DE 0,95 MM",
         "unidade": "M2",
-        "var_pct": 11.1
+        "var_pct": 11.1,
+        "preco": 129.99
       },
       {
         "insumo": "TELHA TERMOISOLANTE REVESTIDA EM ACO GALVANIZADO, FACE SUPERIOR EM TELHA TRAPEZOIDAL E FACE INFERIOR EM CHAPA PLANA (SEM ACESSORIOS DE FIXACAO), REVESTIMENTO COM ESPESSURA DE 0,50 MM COM PRE-PINTURA NAS DUAS FACES, NUCLEO EM POLIESTIRENO (EPS) DE 50 MM",
         "unidade": "M2",
-        "var_pct": 11.1
+        "var_pct": 11.1,
+        "preco": 167.09
       },
       {
         "insumo": "CHAPA EM ACO GALVANIZADO PARA STEEL DECK, COM NERVURAS TRAPEZOIDAIS, LARGURA UTIL DE 915 MM E ESPESSURA DE 1,25 MM",
         "unidade": "M2",
-        "var_pct": 11.1
+        "var_pct": 11.1,
+        "preco": 168.59
       },
       {
         "insumo": "PAINEL TERMOISOLANTE PARA FECHAMENTOS VERTICAIS (INCLUI PARAFUSOS DE FIXACAO) REVESTIDO EM ACO GALVALUME, LARGURA UTIL DE 1100 MM, REVESTIMENTO COM ESPESSURA DE 0,50 MM, COM PRE-PINTURA NAS DUAS FACES, NUCLEO EM POLIURETANO (PUR) COM ESPESSURA 70/80 MM",
         "unidade": "M2",
-        "var_pct": 11.1
+        "var_pct": 11.1,
+        "preco": 290.59
       },
       {
         "insumo": "TELHA ONDULADA EM ACO ZINCADO, ALTURA DE 17 MM, ESPESSURA DE 0,50 MM, LARGURA UTIL DE APROXIMADAMENTE 985 MM, SEM PINTURA",
         "unidade": "M2",
-        "var_pct": 11.1
-      },
-      {
-        "insumo": "TELHA TERMOISOLANTE REVESTIDA EM ACO GALVANIZADO, FACE SUPERIOR EM TELHA TRAPEZOIDAL E FACE INFERIOR EM CHAPA PLANA (SEM ACESSORIOS DE FIXACAO), REVESTIMENTO COM ESPESSURA DE 0,50 MM COM PRE-PINTURA NAS DUAS FACES, NUCLEO EM POLIESTIRENO (EPS) DE 30 MM",
-        "unidade": "M2",
-        "var_pct": 11.1
-      },
-      {
-        "insumo": "PAINEL TERMOISOLANTE PARA FECHAMENTOS VERTICAIS (INCLUI PARAFUSOS DE FIXACAO) REVESTIDO EM ACO GALVALUME, LARGURA UTIL DE 1100 MM, REVESTIMENTO COM ESPESSURA DE 0,50 MM, COM PRE-PINTURA NAS DUAS FACES, NUCLEO EM POLIURETANO (PUR) COM ESPESSURA 40/50 MM",
-        "unidade": "M2",
-        "var_pct": 11.1
-      },
-      {
-        "insumo": "TELHA GALVALUME COM ISOLAMENTO TERMOACUSTICO EM ESPUMA RIGIDA DE POLIURETANO (PU) INJETADO, ESPESSURA DE 30 MM, DENSIDADE DE 35 KG/M3, REVESTIMENTO EM TELHA TRAPEZOIDAL NAS DUAS FACES COM ESPESSURA DE 0,50 MM CADA, ACABAMENTO NATURAL (NAO INCLUI ACESSORIOS DE FIXACAO)",
-        "unidade": "M2",
-        "var_pct": 11.1
-      },
-      {
-        "insumo": "CHAPA EM ACO GALVANIZADO PARA STEEL DECK, COM NERVURAS TRAPEZOIDAIS, LARGURA UTIL DE 915 MM E ESPESSURA DE 0,80 MM",
-        "unidade": "M2",
-        "var_pct": 11.1
+        "var_pct": 11.1,
+        "preco": 50.4
       }
     ],
     "baixas": [
       {
         "insumo": "TELA DE ANIAGEM (JUTA)",
         "unidade": "M2",
-        "var_pct": -17.3
+        "var_pct": -17.3,
+        "preco": 20.43
       },
       {
         "insumo": "SISAL EM FIBRA / ESTOPA SISAL PARA GESSO",
         "unidade": "KG",
-        "var_pct": -17.2
+        "var_pct": -17.2,
+        "preco": 22.75
       },
       {
         "insumo": "SACO DE RAFIA PARA ENTULHO, NOVO, LISO (SEM CLICHE), *60 X 90* CM",
         "unidade": "UN",
-        "var_pct": -17.2
+        "var_pct": -17.2,
+        "preco": 5.05
       },
       {
         "insumo": "REGISTRO DE ESFERA PVC, COM BORBOLETA, COM ROSCA EXTERNA, DE 1/2\"",
         "unidade": "UN",
-        "var_pct": -13.7
+        "var_pct": -13.7,
+        "preco": 16.08
       },
       {
         "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 25 MM, COM CORPO DIVIDIDO",
         "unidade": "UN",
-        "var_pct": -13.7
+        "var_pct": -13.7,
+        "preco": 24.27
       },
       {
         "insumo": "REGISTRO DE ESFERA PVC, COM CABECA QUADRADA, COM ROSCA EXTERNA, 3/4\"",
         "unidade": "UN",
-        "var_pct": -13.7
+        "var_pct": -13.7,
+        "preco": 25.17
       },
       {
         "insumo": "REGISTRO DE PRESSAO PVC, ROSCAVEL, VOLANTE SIMPLES, DE 3/4\"",
         "unidade": "UN",
-        "var_pct": -13.7
+        "var_pct": -13.7,
+        "preco": 17.63
       },
       {
         "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 32 MM, COM CORPO DIVIDIDO",
         "unidade": "UN",
-        "var_pct": -13.7
+        "var_pct": -13.7,
+        "preco": 38.54
       },
       {
         "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 1 1/4\", COM CORPO DIVIDIDO",
         "unidade": "UN",
-        "var_pct": -13.7
+        "var_pct": -13.7,
+        "preco": 52.15
       },
       {
         "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 50 MM, COM CORPO DIVIDIDO",
         "unidade": "UN",
-        "var_pct": -13.7
+        "var_pct": -13.7,
+        "preco": 53.23
       },
       {
         "insumo": "REGISTRO DE ESFERA PVC, COM BORBOLETA, COM ROSCA EXTERNA, DE 3/4\"",
         "unidade": "UN",
-        "var_pct": -13.7
+        "var_pct": -13.7,
+        "preco": 18.9
       },
       {
         "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 1\", COM CORPO DIVIDIDO",
         "unidade": "UN",
-        "var_pct": -13.7
+        "var_pct": -13.7,
+        "preco": 39.06
       },
       {
         "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 3/4\", COM CORPO DIVIDIDO",
         "unidade": "UN",
-        "var_pct": -13.7
+        "var_pct": -13.7,
+        "preco": 23.94
       },
       {
         "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 40 MM, COM CORPO DIVIDIDO",
         "unidade": "UN",
-        "var_pct": -13.7
-      },
-      {
-        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 1 1/2\", COM CORPO DIVIDIDO",
-        "unidade": "UN",
-        "var_pct": -13.7
-      },
-      {
-        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 2\", COM CORPO DIVIDIDO",
-        "unidade": "UN",
-        "var_pct": -13.7
-      },
-      {
-        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 60 MM, COM CORPO DIVIDIDO",
-        "unidade": "UN",
-        "var_pct": -13.7
-      },
-      {
-        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 1/2\", COM CORPO DIVIDIDO",
-        "unidade": "UN",
-        "var_pct": -13.7
+        "var_pct": -13.7,
+        "preco": 51.54
       }
     ]
   },

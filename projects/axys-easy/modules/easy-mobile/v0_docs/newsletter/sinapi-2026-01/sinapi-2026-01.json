@@ -180,6 +180,7 @@
     ],
     "total_subgrupos": 114
   },
+  "grupos": null,
   "insumos": {
     "comparaveis": 4818,
     "media_pct": 10.86,
@@ -187,184 +188,172 @@
       {
         "insumo": "FERRAMENTAS - FAMILIA OPERADOR ESCAVADEIRA - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
         "unidade": "MES",
-        "var_pct": 49400.0
-      },
-      {
-        "insumo": "FERRAMENTAS - FAMILIA ENGENHEIRO CIVIL - HORISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
-        "unidade": "H",
-        "var_pct": 100.0
+        "var_pct": 49400.0,
+        "preco": 4.95
       },
       {
         "insumo": "FERRAMENTAS - FAMILIA OPERADOR ESCAVADEIRA - HORISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
         "unidade": "H",
-        "var_pct": 100.0
+        "var_pct": 100.0,
+        "preco": 0.02
+      },
+      {
+        "insumo": "FERRAMENTAS - FAMILIA ENGENHEIRO CIVIL - HORISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
+        "unidade": "H",
+        "var_pct": 100.0,
+        "preco": 0.02
       },
       {
         "insumo": "FERRAMENTAS - FAMILIA ENGENHEIRO CIVIL - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
         "unidade": "MES",
-        "var_pct": 84.3
+        "var_pct": 84.3,
+        "preco": 4.33
       },
       {
         "insumo": "FERRAMENTAS - FAMILIA TOPOGRAFO - HORISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
         "unidade": "H",
-        "var_pct": 60.0
+        "var_pct": 60.0,
+        "preco": 0.08
       },
       {
         "insumo": "FERRAMENTAS - FAMILIA ENCARREGADO GERAL - HORISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
         "unidade": "H",
-        "var_pct": 50.0
+        "var_pct": 50.0,
+        "preco": 0.12
       },
       {
         "insumo": "PAINEL ESTRUTURAL PARA LAJE SECA REVESTIDO EM PLACA CIMENTICIA, DE 1,20 X 2,50 M, E = 40 MM",
         "unidade": "M2",
-        "var_pct": 46.4
+        "var_pct": 46.4,
+        "preco": 142.61
       },
       {
         "insumo": "FERRAMENTAS - FAMILIA TOPOGRAFO - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
         "unidade": "MES",
-        "var_pct": 44.3
+        "var_pct": 44.3,
+        "preco": 14.27
       },
       {
         "insumo": "FERRAMENTAS - FAMILIA ENCARREGADO GERAL - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
         "unidade": "MES",
-        "var_pct": 38.0
+        "var_pct": 38.0,
+        "preco": 21.33
       },
       {
         "insumo": "PAINEL ESTRUTURAL PARA LAJE SECA REVESTIDO EM PLACA CIMENTICIA, DE 1,20 X 2,50 M, E = 23 MM",
         "unidade": "M2",
-        "var_pct": 37.5
+        "var_pct": 37.5,
+        "preco": 118.4
       },
       {
         "insumo": "SEGURO - HORISTA (COLETADO CAIXA - ENCARGOS COMPLEMENTARES)",
         "unidade": "H",
-        "var_pct": 37.5
+        "var_pct": 37.5,
+        "preco": 0.11
       },
       {
         "insumo": "FERRAMENTAS - FAMILIA ENCANADOR - HORISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
         "unidade": "H",
-        "var_pct": 35.5
+        "var_pct": 35.5,
+        "preco": 0.42
       },
       {
         "insumo": "PAINEL ESTRUTURAL PARA LAJE SECA REVESTIDO EM PLACA CIMENTICIA, DE *1,20 X 2,50* M, E = 55 MM",
         "unidade": "M2",
-        "var_pct": 25.7
+        "var_pct": 25.7,
+        "preco": 184.7
       },
       {
         "insumo": "EPI - FAMILIA SOLDADOR - HORISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
         "unidade": "H",
-        "var_pct": 23.1
-      },
-      {
-        "insumo": "FERRAMENTAS - FAMILIA ENCANADOR - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
-        "unidade": "MES",
-        "var_pct": 19.9
-      },
-      {
-        "insumo": "EPI - FAMILIA ENGENHEIRO CIVIL - HORISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
-        "unidade": "H",
-        "var_pct": 19.5
-      },
-      {
-        "insumo": "SEGURO - MENSALISTA (COLETADO CAIXA - ENCARGOS COMPLEMENTARES)",
-        "unidade": "MES",
-        "var_pct": 18.2
-      },
-      {
-        "insumo": "DENTE PARA FRESADORA",
-        "unidade": "UN",
-        "var_pct": 17.2
+        "var_pct": 23.1,
+        "preco": 2.24
       }
     ],
     "baixas": [
       {
         "insumo": "FERRAMENTAS - FAMILIA CARPINTEIRO DE FORMAS - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
         "unidade": "MES",
-        "var_pct": -40.1
+        "var_pct": -40.1,
+        "preco": 49.31
       },
       {
         "insumo": "FERRAMENTAS - FAMILIA CARPINTEIRO DE FORMAS - HORISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
         "unidade": "H",
-        "var_pct": -34.1
+        "var_pct": -34.1,
+        "preco": 0.29
       },
       {
         "insumo": "ELEMENTO PRE-MOLDADO PARA TRANSICAO EXCENTRICA EM CONCRETO ARMADO, DN *1500* MM, FURO CIRCULAR DN 600 MM, ESPESSURA 15 CM",
         "unidade": "UN",
-        "var_pct": -32.7
+        "var_pct": -32.7,
+        "preco": 497.04
       },
       {
         "insumo": "LAJE PRE-MOLDADA TRELICADA (LAJOTAS + VIGOTAS) PARA FORRO, UNIDIRECIONAL, SOBRECARGA DE 100 KG/M2, VAO ATE 6,00 M (SEM COLOCACAO)",
         "unidade": "M2",
-        "var_pct": -29.2
+        "var_pct": -29.2,
+        "preco": 55.8
       },
       {
         "insumo": "LAJE PRE-MOLDADA CONVENCIONAL (LAJOTAS + VIGOTAS) PARA FORRO, UNIDIRECIONAL, SOBRECARGA DE 100 KG/M2, VAO ATE 4 M (SEM COLOCACAO)",
         "unidade": "M2",
-        "var_pct": -25.8
+        "var_pct": -25.8,
+        "preco": 38.75
       },
       {
         "insumo": "LAJE PRE-MOLDADA CONVENCIONAL (LAJOTAS + VIGOTAS) PARA FORRO, UNIDIRECIONAL, SOBRECARGA DE 100 KG/M2, VAO ATE 4,5 M (SEM COLOCACAO)",
         "unidade": "M2",
-        "var_pct": -23.1
+        "var_pct": -23.1,
+        "preco": 41.89
       },
       {
         "insumo": "PARAFUSO ROSCA SOBERBA ZINCADO CABECA CHATA FENDA SIMPLES 3,2 X 20 MM (3/4\")",
         "unidade": "UN",
-        "var_pct": -20.0
+        "var_pct": -20.0,
+        "preco": 0.04
       },
       {
         "insumo": "EPI - FAMILIA ALMOXARIFE - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
         "unidade": "MES",
-        "var_pct": -18.9
+        "var_pct": -18.9,
+        "preco": 124.49
       },
       {
         "insumo": "FERRAMENTAS - FAMILIA PEDREIRO - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
         "unidade": "MES",
-        "var_pct": -17.3
+        "var_pct": -17.3,
+        "preco": 122.35
       },
       {
         "insumo": "FERRAMENTAS - FAMILIA ALMOXARIFE - HORISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
         "unidade": "H",
-        "var_pct": -16.7
+        "var_pct": -16.7,
+        "preco": 0.05
       },
       {
         "insumo": "FERRAMENTAS - FAMILIA SERVENTE - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
         "unidade": "MES",
-        "var_pct": -16.6
+        "var_pct": -16.6,
+        "preco": 95.69
       },
       {
         "insumo": "ELEMENTO PRE-MOLDADO PARA TRANSICAO EXCENTRICA EM CONCRETO ARMADO, DN *1200* MM, FURO CIRCULAR DN 600 MM, ESPESSURA *12* CM",
         "unidade": "UN",
-        "var_pct": -15.4
+        "var_pct": -15.4,
+        "preco": 366.56
       },
       {
         "insumo": "FERRAMENTAS - FAMILIA ALMOXARIFE - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
         "unidade": "MES",
-        "var_pct": -14.5
+        "var_pct": -14.5,
+        "preco": 9.52
       },
       {
         "insumo": "FERRAMENTAS - FAMILIA ELETRICISTA - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
         "unidade": "MES",
-        "var_pct": -13.8
-      },
-      {
-        "insumo": "LAJE PRE-MOLDADA CONVENCIONAL (LAJOTAS + VIGOTAS) PARA PISO, UNIDIRECIONAL, SOBRECARGA DE 350 KG/M2, VAO ATE 4,5 M (SEM COLOCACAO)",
-        "unidade": "M2",
-        "var_pct": -13.3
-      },
-      {
-        "insumo": "PARAFUSO ROSCA SOBERBA ZINCADO CABECA CHATA FENDA SIMPLES 3,5 X 25 MM (1\")",
-        "unidade": "UN",
-        "var_pct": -12.5
-      },
-      {
-        "insumo": "EXAMES - MENSALISTA (COLETADO CAIXA - ENCARGOS COMPLEMENTARES)",
-        "unidade": "MES",
-        "var_pct": -12.4
-      },
-      {
-        "insumo": "EPI - FAMILIA ENCARREGADO GERAL - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
-        "unidade": "MES",
-        "var_pct": -12.2
+        "var_pct": -13.8,
+        "preco": 139.4
       }
     ]
   },

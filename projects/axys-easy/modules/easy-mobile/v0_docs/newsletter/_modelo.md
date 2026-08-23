@@ -179,3 +179,30 @@ Como usar esta edição
 ## encerramento_texto
 
 Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. As composições e os insumos citados podem ser consultados em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com {fonte}, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
+## abre_grupos
+
+Impacto por frente
+
+## titulo_grupos
+
+Como cada frente de obra se comportou
+
+## grupos_texto
+
+A {fonte} organiza as composições em grupos, que reúnem serviços de uma mesma frente de
+obra. Nesta edição, {total_grupos} grupos tinham composições comparáveis em {uf}. A
+leitura por frente mostra onde o movimento se concentrou, antes de descer ao detalhe do
+subgrupo.
+
+## grupos_altas_titulo
+
+As frentes com maior aumento
+
+## grupos_baixas_titulo
+
+As frentes com redução
+
+## grupos_nota
+
+Grupos com pelo menos 5 composições comparáveis. A variação é a razão entre os custos
+médios das duas edições, o que respeita a grandeza de cada composição dentro da frente.
