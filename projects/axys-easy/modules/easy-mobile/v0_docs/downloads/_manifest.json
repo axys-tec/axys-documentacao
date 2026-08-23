@@ -1,0 +1,56 @@
+{
+  "grupo": "DOWNLOADS",
+  "gerado_em": null,
+  "itens": [
+    {
+      "id": "planilha-inteligente-orcamento",
+      "titulo": "Planilha inteligente para elaboração de orçamentos",
+      "tipo": "xlsx",
+      "resumo": "Preenchimento automatizado com validação de soma sobre uma EAP bem definida. Traz a SINAPI 07/2026 completa, nas 27 UFs e nos três regimes de encargos: escolhe-se o estado e o regime uma vez e todo o orçamento recalcula. Inclui BDI, Leis Sociais, cronograma e memórias de cálculo vinculadas à planilha orçamentária.",
+      "autoria": "Axys Tecnologia",
+      "data_documento": "agosto/2026",
+      "arquivo": "easy-mobile/downloads/planilha-inteligente-orcamento.xlsx",
+      "bytes": 16483601
+    },
+    {
+      "id": "tcu-orientacoes-planilhas-orcamentarias",
+      "titulo": "Orientações para elaboração de planilhas orçamentárias de obras públicas",
+      "tipo": "pdf",
+      "resumo": "Referência do TCU sobre como montar a planilha orçamentária: composição de custos, BDI, encargos sociais, critérios de medição e os erros que mais aparecem em auditoria. É o documento que sustenta boa parte do que se cobra em fiscalização.",
+      "autoria": "Tribunal de Contas da União",
+      "data_documento": "2014",
+      "arquivo": "easy-mobile/downloads/tcu-orientacoes-planilhas-orcamentarias.pdf",
+      "bytes": 7870876
+    },
+    {
+      "id": "ibraop-ot-005-sobrepreco-superfaturamento",
+      "titulo": "OT-IBR 005/2012 · Apuração de sobrepreço e superfaturamento",
+      "tipo": "pdf",
+      "resumo": "Orientação técnica que separa os dois conceitos e fixa o método de apuração de cada um. Sobrepreço olha o preço contratado; superfaturamento exige demonstrar dano na execução ou no pagamento.",
+      "autoria": "IBRAOP · Instituto Brasileiro de Auditoria de Obras Públicas",
+      "data_documento": "setembro/2012",
+      "arquivo": "easy-mobile/downloads/ibraop-ot-005-sobrepreco-superfaturamento.pdf",
+      "bytes": 283699
+    },
+    {
+      "id": "ibraop-ot-009-reequilibrio",
+      "titulo": "OT-IBR 009/2024 · Reequilíbrio econômico-financeiro",
+      "tipo": "pdf",
+      "resumo": "Diretrizes para pedidos de reequilíbrio em contratos de obras e serviços de engenharia: o que caracteriza desequilíbrio, o que precisa ser demonstrado e onde termina o risco ordinário da contratada.",
+      "autoria": "IBRAOP · Instituto Brasileiro de Auditoria de Obras Públicas",
+      "data_documento": "abril/2024",
+      "arquivo": "easy-mobile/downloads/ibraop-ot-009-reequilibrio.pdf",
+      "bytes": 433000
+    },
+    {
+      "id": "ibraop-irb-008-alteracoes-contratuais",
+      "titulo": "PROC-IBR-GER 008/2016 · Análise de alterações contratuais",
+      "tipo": "pdf",
+      "resumo": "Procedimento para examinar aditivos: motivação, limites quantitativos e qualitativos, formação de preço novo e manutenção do desconto contratual.",
+      "autoria": "IBRAOP e Instituto Rui Barbosa · Comitê de Obras Públicas",
+      "data_documento": "junho/2016",
+      "arquivo": "easy-mobile/downloads/ibraop-irb-008-alteracoes-contratuais.pdf",
+      "bytes": 267479
+    }
+  ]
+}
