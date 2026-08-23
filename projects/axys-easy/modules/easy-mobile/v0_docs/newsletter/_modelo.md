@@ -68,7 +68,7 @@ Impacto por subgrupo
 
 ## titulo_subgrupos
 
-Onde o preço se moveu
+Onde os custos variaram
 
 ## subgrupos_texto
 
@@ -79,15 +79,15 @@ onde ocorreram os maiores aumentos e reduções no período.
 
 ## altas_titulo
 
-As dez maiores altas
+Os dez maiores aumentos
 
 ## baixas_titulo
 
-E as que recuaram
+Os subgrupos com redução
 
 ## baixas_vazio
 
-Nenhum subgrupo fechou em queda nesta edição.
+Nenhum subgrupo apresentou redução nesta edição.
 
 ## abre_extremos
 
@@ -99,7 +99,7 @@ Os extremos da edição
 
 ## insumos_titulo
 
-Insumos que mais se moveram
+Insumos com maior variação
 
 ## insumos_nota
 
@@ -178,8 +178,4 @@ Como usar esta edição
 
 ## encerramento_texto
 
-Os números desta edição saem da leitura completa da publicação da fonte-base, comparada
-com a edição imediatamente anterior. Cada composição, insumo e acórdão citado aqui pode
-ser consultado em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se
-você orça com {fonte}, vale conferir se os subgrupos listados nesta edição estão presentes
-no seu orçamento em andamento.
+Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. As composições e os insumos citados podem ser consultados em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com {fonte}, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.

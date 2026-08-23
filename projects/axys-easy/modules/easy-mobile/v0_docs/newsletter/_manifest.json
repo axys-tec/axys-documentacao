@@ -3,6 +3,330 @@
   "gerado_em": null,
   "itens": [
     {
+      "id": "sinapi-2026-07",
+      "titulo": "SINAPI · julho de 2026",
+      "edicao": "#19",
+      "fonte": "SINAPI",
+      "ref": "2026-07-01",
+      "chamada": "Variação média de +0,03% em SP, com 127 composições incluídas e 37 inativadas.",
+      "variacao_media_pct": 0.03,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "sinapi"
+      ],
+      "pdf": "easy-mobile/newsletter/sinapi-2026-07/sinapi-2026-07.pdf",
+      "pdf_bytes": 500974,
+      "paginas": 8,
+      "publicado_em": "2026-07-01"
+    },
+    {
+      "id": "sinapi-2026-06",
+      "titulo": "SINAPI · junho de 2026",
+      "edicao": "#18",
+      "fonte": "SINAPI",
+      "ref": "2026-06-01",
+      "chamada": "Variação média de +1,95% em SP, com 46 composições incluídas e 5 inativadas.",
+      "variacao_media_pct": 1.95,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "sinapi"
+      ],
+      "pdf": "easy-mobile/newsletter/sinapi-2026-06/sinapi-2026-06.pdf",
+      "pdf_bytes": 492714,
+      "paginas": 7,
+      "publicado_em": "2026-06-01"
+    },
+    {
+      "id": "sinapi-2026-05",
+      "titulo": "SINAPI · maio de 2026",
+      "edicao": "#17",
+      "fonte": "SINAPI",
+      "ref": "2026-05-01",
+      "chamada": "Variação média de +0,48% em SP, com 35 composições incluídas e 0 inativadas.",
+      "variacao_media_pct": 0.48,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "sinapi"
+      ],
+      "pdf": "easy-mobile/newsletter/sinapi-2026-05/sinapi-2026-05.pdf",
+      "pdf_bytes": 485024,
+      "paginas": 7,
+      "publicado_em": "2026-05-01"
+    },
+    {
+      "id": "sinapi-2026-04",
+      "titulo": "SINAPI · abril de 2026",
+      "edicao": "#16",
+      "fonte": "SINAPI",
+      "ref": "2026-04-01",
+      "chamada": "Variação média de +0,92% em SP, com 4 composições incluídas e 0 inativadas.",
+      "variacao_media_pct": 0.92,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "sinapi"
+      ],
+      "pdf": "easy-mobile/newsletter/sinapi-2026-04/sinapi-2026-04.pdf",
+      "pdf_bytes": 494851,
+      "paginas": 7,
+      "publicado_em": "2026-04-01"
+    },
+    {
+      "id": "sinapi-2026-03",
+      "titulo": "SINAPI · março de 2026",
+      "edicao": "#15",
+      "fonte": "SINAPI",
+      "ref": "2026-03-01",
+      "chamada": "Variação média de +0,87% em SP, com 15 composições incluídas e 91 inativadas.",
+      "variacao_media_pct": 0.87,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "sinapi"
+      ],
+      "pdf": "easy-mobile/newsletter/sinapi-2026-03/sinapi-2026-03.pdf",
+      "pdf_bytes": 496185,
+      "paginas": 7,
+      "publicado_em": "2026-03-01"
+    },
+    {
+      "id": "sinapi-2026-02",
+      "titulo": "SINAPI · fevereiro de 2026",
+      "edicao": "#14",
+      "fonte": "SINAPI",
+      "ref": "2026-02-01",
+      "chamada": "Variação média de +0,11% em SP, com 112 composições incluídas e 7 inativadas.",
+      "variacao_media_pct": 0.11,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "sinapi"
+      ],
+      "pdf": "easy-mobile/newsletter/sinapi-2026-02/sinapi-2026-02.pdf",
+      "pdf_bytes": 486323,
+      "paginas": 7,
+      "publicado_em": "2026-02-01"
+    },
+    {
+      "id": "sinapi-2026-01",
+      "titulo": "SINAPI · janeiro de 2026",
+      "edicao": "#13",
+      "fonte": "SINAPI",
+      "ref": "2026-01-01",
+      "chamada": "Variação média de +0,57% em SP, com 126 composições incluídas e 12 inativadas.",
+      "variacao_media_pct": 0.57,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "sinapi"
+      ],
+      "pdf": "easy-mobile/newsletter/sinapi-2026-01/sinapi-2026-01.pdf",
+      "pdf_bytes": 498368,
+      "paginas": 8,
+      "publicado_em": "2026-01-01"
+    },
+    {
+      "id": "sinapi-2025-12",
+      "titulo": "SINAPI · dezembro de 2025",
+      "edicao": "#12",
+      "fonte": "SINAPI",
+      "ref": "2025-12-01",
+      "chamada": "Variação média de +0,03% em SP, com 179 composições incluídas e 7 inativadas.",
+      "variacao_media_pct": 0.03,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "sinapi"
+      ],
+      "pdf": "easy-mobile/newsletter/sinapi-2025-12/sinapi-2025-12.pdf",
+      "pdf_bytes": 487509,
+      "paginas": 7,
+      "publicado_em": "2025-12-01"
+    },
+    {
+      "id": "sinapi-2025-11",
+      "titulo": "SINAPI · novembro de 2025",
+      "edicao": "#11",
+      "fonte": "SINAPI",
+      "ref": "2025-11-01",
+      "chamada": "Variação média de +0,04% em SP, com 0 composições incluídas e 0 inativadas.",
+      "variacao_media_pct": 0.04,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "sinapi"
+      ],
+      "pdf": "easy-mobile/newsletter/sinapi-2025-11/sinapi-2025-11.pdf",
+      "pdf_bytes": 468255,
+      "paginas": 7,
+      "publicado_em": "2025-11-01"
+    },
+    {
+      "id": "sinapi-2025-10",
+      "titulo": "SINAPI · outubro de 2025",
+      "edicao": "#10",
+      "fonte": "SINAPI",
+      "ref": "2025-10-01",
+      "chamada": "Variação média de +0,57% em SP, com 219 composições incluídas e 33 inativadas.",
+      "variacao_media_pct": 0.57,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "sinapi"
+      ],
+      "pdf": "easy-mobile/newsletter/sinapi-2025-10/sinapi-2025-10.pdf",
+      "pdf_bytes": 503898,
+      "paginas": 8,
+      "publicado_em": "2025-10-01"
+    },
+    {
+      "id": "sinapi-2025-09",
+      "titulo": "SINAPI · setembro de 2025",
+      "edicao": "#09",
+      "fonte": "SINAPI",
+      "ref": "2025-09-01",
+      "chamada": "Variação média de +0,17% em SP, com 17 composições incluídas e 8 inativadas.",
+      "variacao_media_pct": 0.17,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "sinapi"
+      ],
+      "pdf": "easy-mobile/newsletter/sinapi-2025-09/sinapi-2025-09.pdf",
+      "pdf_bytes": 500610,
+      "paginas": 8,
+      "publicado_em": "2025-09-01"
+    },
+    {
+      "id": "sinapi-2025-08",
+      "titulo": "SINAPI · agosto de 2025",
+      "edicao": "#08",
+      "fonte": "SINAPI",
+      "ref": "2025-08-01",
+      "chamada": "Variação média de +0,21% em SP, com 69 composições incluídas e 19 inativadas.",
+      "variacao_media_pct": 0.21,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "sinapi"
+      ],
+      "pdf": "easy-mobile/newsletter/sinapi-2025-08/sinapi-2025-08.pdf",
+      "pdf_bytes": 495821,
+      "paginas": 7,
+      "publicado_em": "2025-08-01"
+    },
+    {
+      "id": "sinapi-2025-07",
+      "titulo": "SINAPI · julho de 2025",
+      "edicao": "#07",
+      "fonte": "SINAPI",
+      "ref": "2025-07-01",
+      "chamada": "Variação média de +0,60% em SP, com 26 composições incluídas e 26 inativadas.",
+      "variacao_media_pct": 0.6,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "sinapi"
+      ],
+      "pdf": "easy-mobile/newsletter/sinapi-2025-07/sinapi-2025-07.pdf",
+      "pdf_bytes": 500380,
+      "paginas": 8,
+      "publicado_em": "2025-07-01"
+    },
+    {
+      "id": "sinapi-2025-06",
+      "titulo": "SINAPI · junho de 2025",
+      "edicao": "#06",
+      "fonte": "SINAPI",
+      "ref": "2025-06-01",
+      "chamada": "Variação média de +1,85% em SP, com 0 composições incluídas e 0 inativadas.",
+      "variacao_media_pct": 1.85,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "sinapi"
+      ],
+      "pdf": "easy-mobile/newsletter/sinapi-2025-06/sinapi-2025-06.pdf",
+      "pdf_bytes": 490904,
+      "paginas": 7,
+      "publicado_em": "2025-06-01"
+    },
+    {
+      "id": "sinapi-2025-05",
+      "titulo": "SINAPI · maio de 2025",
+      "edicao": "#05",
+      "fonte": "SINAPI",
+      "ref": "2025-05-01",
+      "chamada": "Variação média de -0,08% em SP, com 43 composições incluídas e 6 inativadas.",
+      "variacao_media_pct": -0.08,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "sinapi"
+      ],
+      "pdf": "easy-mobile/newsletter/sinapi-2025-05/sinapi-2025-05.pdf",
+      "pdf_bytes": 486878,
+      "paginas": 7,
+      "publicado_em": "2025-05-01"
+    },
+    {
+      "id": "sinapi-2025-04",
+      "titulo": "SINAPI · abril de 2025",
+      "edicao": "#04",
+      "fonte": "SINAPI",
+      "ref": "2025-04-01",
+      "chamada": "Variação média de +0,27% em SP, com 33 composições incluídas e 0 inativadas.",
+      "variacao_media_pct": 0.27,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "sinapi"
+      ],
+      "pdf": "easy-mobile/newsletter/sinapi-2025-04/sinapi-2025-04.pdf",
+      "pdf_bytes": 500394,
+      "paginas": 8,
+      "publicado_em": "2025-04-01"
+    },
+    {
+      "id": "sinapi-2025-03",
+      "titulo": "SINAPI · março de 2025",
+      "edicao": "#03",
+      "fonte": "SINAPI",
+      "ref": "2025-03-01",
+      "chamada": "Variação média de +0,44% em SP, com 6 composições incluídas e 0 inativadas.",
+      "variacao_media_pct": 0.44,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "sinapi"
+      ],
+      "pdf": "easy-mobile/newsletter/sinapi-2025-03/sinapi-2025-03.pdf",
+      "pdf_bytes": 490760,
+      "paginas": 7,
+      "publicado_em": "2025-03-01"
+    },
+    {
+      "id": "sinapi-2025-02",
+      "titulo": "SINAPI · fevereiro de 2025",
+      "edicao": "#02",
+      "fonte": "SINAPI",
+      "ref": "2025-02-01",
+      "chamada": "Variação média de +0,53% em SP, com 12 composições incluídas e 33 inativadas.",
+      "variacao_media_pct": 0.53,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "sinapi"
+      ],
+      "pdf": "easy-mobile/newsletter/sinapi-2025-02/sinapi-2025-02.pdf",
+      "pdf_bytes": 493475,
+      "paginas": 8,
+      "publicado_em": "2025-02-01"
+    },
+    {
       "id": "sinapi-2025-01",
       "titulo": "SINAPI · janeiro de 2025",
       "edicao": "#01",
@@ -16,7 +340,7 @@
         "sinapi"
       ],
       "pdf": "easy-mobile/newsletter/sinapi-2025-01/sinapi-2025-01.pdf",
-      "pdf_bytes": 492972,
+      "pdf_bytes": 493438,
       "paginas": 7,
       "publicado_em": "2025-01-01"
     }
