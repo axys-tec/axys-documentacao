@@ -1,41 +1,41 @@
-# Axys Newsletter — texto das 19 edições SINAPI, para revisão
+# Axys Newsletter — texto das 19 edições SINAPI
 
-Série de janeiro de 2025 a julho de 2026. Cada edição segue uma edição publicada da
-fonte-base e compara com a imediatamente anterior.
+Numeração global e cronológica da série, com SINAPI, CDHU e FDE nessa ordem dentro do
+mesmo mês. Os números aqui não são sequenciais entre si por isso.
 
-**O que já passou por revisão nesta camada:** concordância de número (havia "0 novas
-composições", "Das 1 composições revisadas" e "1 tiveram"), edição sem movimento
-(novembro/2025 não teve nenhuma alteração de cadastro e agora diz isso em vez de
-enfileirar zeros) e totalidade ("todas tiveram" no lugar de "109 de 109").
+**Já corrigido nesta camada:** concordância de número, chamada que conta apenas o que
+aconteceu (ausência não vira item de lista), revisão de descrição ou unidade descrita
+como tal, caixa de cobertura sem tratado metodológico quando não falta preço, títulos no
+padrão de aumento e redução, e Selic descrita sem verbo de direção.
 
-**O que NÃO foi tocado:** os números, que vêm da apuração e se conferem no `.json` de
-cada edição — não reescrevendo a frase.
+**Não tocado:** os números, que se conferem no `.json` de cada edição.
 
-**Como devolver a revisão:** edite o `.md` da edição correspondente, em
-`v0_docs/newsletter/<edição>/<edição>.md`. É dele que o PDF é gerado; este aglutinado
-serve só para leitura em conjunto.
+**Como devolver:** edite o `.md` da edição, em `v0_docs/newsletter/<edição>/<edição>.md`.
 
 ---
 
-## Edição #01 — janeiro de 2025
+## Edição #01 — SINAPI, janeiro de 2025
 
 <!-- apurado: média +0.41% · mediana +0.67% ·
      6184 aumentos / 1285 reduções / 344 estáveis ·
-     movimento +7 −30 r0 rev190 ·
+     movimento +7 −30 r0 rev190
+     (coef 188 · ins+ 2 · ins− 2 ·
+      cabeçalho 0) ·
      IPCA +0.16% · INCC-M +0.71% ·
-     27 UF · 110 subgrupos com dado -->
+     intervalo 1 mês/es · 27 UF ·
+     0 grupos · 110 subgrupos -->
 
 **Chamada da capa**
 
-A edição de janeiro de 2025 apresentou variação média de +0,41% nos custos das composições em SP, acima do IPCA registrado no período. Entre as atualizações da fonte, foram incluídas 7 novas composições, 30 foram inativadas e outras 190 passaram por revisão.
+A edição de janeiro de 2025 apresentou variação média de +0,41% nos custos das composições em SP, acima do IPCA registrado no período. Entre as atualizações da fonte, 7 novas composições foram incluídas, 30 foram inativadas e 190 passaram por revisão.
 
 **Título da Visão 360°**
 
-SINAPI 2025-01, em números
+SINAPI #01 · janeiro de 2025, em números
 
 **Nota do gráfico de índices**
 
-Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic subiu de 12,25% para 13,25% a.a. no período.
+Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic passou de 12,25% para 13,25% a.a. no período.
 
 **A média não conta a história**
 
@@ -49,9 +49,9 @@ Das 190 composições revisadas, 188 tiveram alteração de coeficiente, 2 passa
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos índices acumulados no mesmo período.
+Variação desde a última edição de 2024 até esta, em SP, ao lado dos índices acumulados no mesmo intervalo.
 
 **Caixa de cobertura**
 
@@ -59,19 +59,19 @@ Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos
 
 **Título — subgrupos**
 
-Onde o preço se moveu
+Onde os custos variaram
 
 **Entrada dos subgrupos**
 
 A análise considera os subgrupos com pelo menos 10 composições comparáveis em SP. Nesta edição, 110 subgrupos atenderam a esse critério. Para cada um deles, a variação foi calculada a partir dos custos médios das duas edições, permitindo identificar onde ocorreram os maiores aumentos e reduções no período.
 
-**Título — altas**
+**Título — maiores aumentos**
 
-As dez maiores altas
+Os dez maiores aumentos
 
-**Título — quedas**
+**Título — reduções**
 
-E as que recuaram
+Os subgrupos com redução
 
 **Título — extremos**
 
@@ -85,11 +85,11 @@ Variação de preço em SP, sem encargos. São preços de mercado coletados pela
 
 A variação não é nacional
 
-**Territorial, 1º parágrafo**
+**Territorial 1**
 
 A variação de preços apresenta diferenças entre as UFs. Nesta edição, o Pará registrou a maior variação, com +3,21%, enquanto o Maranhão apresentou a menor, com -0,23%. A diferença entre os dois extremos foi de 3,44 pontos percentuais.
 
-**Territorial, 2º parágrafo**
+**Territorial 2**
 
 Esse intervalo demonstra a importância de considerar o comportamento dos preços em cada estado. Abaixo, apresentamos a variação observada em cada UF contemplada pela fonte-base.
 
@@ -103,29 +103,32 @@ Como usar esta edição
 
 **Fecho**
 
-Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. Cada composição, insumo e acórdão citado aqui pode ser consultado em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
+Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. As composições e os insumos citados podem ser consultados em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
 
 ---
 
-## Edição #02 — fevereiro de 2025
+## Edição #03 — SINAPI, fevereiro de 2025
 
 <!-- apurado: média +0.53% · mediana +0.00% ·
      3302 aumentos / 2734 reduções / 1760 estáveis ·
-     movimento +12 −33 r0 rev253 ·
+     movimento +12 −33 r0 rev253
+     (coef 39 · ins+ 37 · ins− 13 ·
+      cabeçalho 250) ·
      IPCA +1.31% · INCC-M +0.51% ·
-     27 UF · 109 subgrupos com dado -->
+     intervalo 1 mês/es · 27 UF ·
+     0 grupos · 109 subgrupos -->
 
 **Chamada da capa**
 
-A edição de fevereiro de 2025 apresentou variação média de +0,53% nos custos das composições em SP, abaixo do IPCA registrado no período. Entre as atualizações da fonte, foram incluídas 12 novas composições, 33 foram inativadas e outras 253 passaram por revisão.
+A edição de fevereiro de 2025 apresentou variação média de +0,53% nos custos das composições em SP, abaixo do IPCA registrado no período. Entre as atualizações da fonte, 12 novas composições foram incluídas, 33 foram inativadas e 253 passaram por revisão.
 
 **Título da Visão 360°**
 
-SINAPI 2025-02, em números
+SINAPI #03 · fevereiro de 2025, em números
 
 **Nota do gráfico de índices**
 
-Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic se manteve estática no período, permanecendo no patamar de 13,25% a.a.
+Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic permaneceu estável no período, em 13,25% a.a.
 
 **A média não conta a história**
 
@@ -133,15 +136,15 @@ Das 7.796 composições comparáveis, 3.302 tiveram aumento de custo e 2.734 tiv
 
 **Revisões da edição**
 
-Das 253 composições revisadas, 39 tiveram alteração de coeficiente, 37 passaram a contar com novo insumo e 13 tiveram insumo removido. Uma mesma composição pode figurar em mais de uma categoria.
+Das 253 composições revisadas, 39 tiveram alteração de coeficiente, 37 passaram a contar com novo insumo, 13 tiveram insumo removido e 250 tiveram alteração de descrição ou unidade. Uma mesma composição pode figurar em mais de uma categoria.
 
 **Título — concentração**
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos índices acumulados no mesmo período.
+Variação desde a última edição de 2024 até esta, em SP, ao lado dos índices acumulados no mesmo intervalo.
 
 **Caixa de cobertura**
 
@@ -149,19 +152,19 @@ Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos
 
 **Título — subgrupos**
 
-Onde o preço se moveu
+Onde os custos variaram
 
 **Entrada dos subgrupos**
 
 A análise considera os subgrupos com pelo menos 10 composições comparáveis em SP. Nesta edição, 109 subgrupos atenderam a esse critério. Para cada um deles, a variação foi calculada a partir dos custos médios das duas edições, permitindo identificar onde ocorreram os maiores aumentos e reduções no período.
 
-**Título — altas**
+**Título — maiores aumentos**
 
-As dez maiores altas
+Os dez maiores aumentos
 
-**Título — quedas**
+**Título — reduções**
 
-E as que recuaram
+Os subgrupos com redução
 
 **Título — extremos**
 
@@ -175,11 +178,11 @@ Variação de preço em SP, sem encargos. São preços de mercado coletados pela
 
 A variação não é nacional
 
-**Territorial, 1º parágrafo**
+**Territorial 1**
 
 A variação de preços apresenta diferenças entre as UFs. Nesta edição, o Acre registrou a maior variação, com +1,37%, enquanto Pernambuco apresentou a menor, com -0,49%. A diferença entre os dois extremos foi de 1,86 pontos percentuais.
 
-**Territorial, 2º parágrafo**
+**Territorial 2**
 
 Esse intervalo demonstra a importância de considerar o comportamento dos preços em cada estado. Abaixo, apresentamos a variação observada em cada UF contemplada pela fonte-base.
 
@@ -193,29 +196,32 @@ Como usar esta edição
 
 **Fecho**
 
-Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. Cada composição, insumo e acórdão citado aqui pode ser consultado em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
+Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. As composições e os insumos citados podem ser consultados em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
 
 ---
 
-## Edição #03 — março de 2025
+## Edição #05 — SINAPI, março de 2025
 
 <!-- apurado: média +0.44% · mediana +0.07% ·
      4855 aumentos / 1395 reduções / 1547 estáveis ·
-     movimento +6 −0 r0 rev1 ·
+     movimento +6 −0 r0 rev1
+     (coef 1 · ins+ 0 · ins− 0 ·
+      cabeçalho 0) ·
      IPCA +0.56% · INCC-M +0.38% ·
-     27 UF · 109 subgrupos com dado -->
+     intervalo 1 mês/es · 27 UF ·
+     0 grupos · 109 subgrupos -->
 
 **Chamada da capa**
 
-A edição de março de 2025 apresentou variação média de +0,44% nos custos das composições em SP, abaixo do IPCA registrado no período. Entre as atualizações da fonte, foram incluídas 6 novas composições, nenhuma foi inativada e outra passou por revisão.
+A edição de março de 2025 apresentou variação média de +0,44% nos custos das composições em SP, abaixo do IPCA registrado no período. Entre as atualizações da fonte, 6 novas composições foram incluídas e 1 passou por revisão.
 
 **Título da Visão 360°**
 
-SINAPI 2025-03, em números
+SINAPI #05 · março de 2025, em números
 
 **Nota do gráfico de índices**
 
-Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic subiu de 13,25% para 14,25% a.a. no período.
+Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic passou de 13,25% para 14,25% a.a. no período.
 
 **A média não conta a história**
 
@@ -229,9 +235,9 @@ A única composição revisada teve alteração de coeficiente.
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos índices acumulados no mesmo período.
+Variação desde a última edição de 2024 até esta, em SP, ao lado dos índices acumulados no mesmo intervalo.
 
 **Caixa de cobertura**
 
@@ -239,19 +245,19 @@ Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos
 
 **Título — subgrupos**
 
-Onde o preço se moveu
+Onde os custos variaram
 
 **Entrada dos subgrupos**
 
 A análise considera os subgrupos com pelo menos 10 composições comparáveis em SP. Nesta edição, 109 subgrupos atenderam a esse critério. Para cada um deles, a variação foi calculada a partir dos custos médios das duas edições, permitindo identificar onde ocorreram os maiores aumentos e reduções no período.
 
-**Título — altas**
+**Título — maiores aumentos**
 
-As dez maiores altas
+Os dez maiores aumentos
 
-**Título — quedas**
+**Título — reduções**
 
-E as que recuaram
+Os subgrupos com redução
 
 **Título — extremos**
 
@@ -265,11 +271,11 @@ Variação de preço em SP, sem encargos. São preços de mercado coletados pela
 
 A variação não é nacional
 
-**Territorial, 1º parágrafo**
+**Territorial 1**
 
 A variação de preços apresenta diferenças entre as UFs. Nesta edição, o Acre registrou a maior variação, com +1,89%, enquanto a Bahia apresentou a menor, com -0,36%. A diferença entre os dois extremos foi de 2,25 pontos percentuais.
 
-**Territorial, 2º parágrafo**
+**Territorial 2**
 
 Esse intervalo demonstra a importância de considerar o comportamento dos preços em cada estado. Abaixo, apresentamos a variação observada em cada UF contemplada pela fonte-base.
 
@@ -283,29 +289,32 @@ Como usar esta edição
 
 **Fecho**
 
-Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. Cada composição, insumo e acórdão citado aqui pode ser consultado em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
+Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. As composições e os insumos citados podem ser consultados em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
 
 ---
 
-## Edição #04 — abril de 2025
+## Edição #06 — SINAPI, abril de 2025
 
 <!-- apurado: média +0.27% · mediana +0.00% ·
      3917 aumentos / 2134 reduções / 1746 estáveis ·
-     movimento +33 −0 r0 rev704 ·
+     movimento +33 −0 r0 rev704
+     (coef 47 · ins+ 46 · ins− 5 ·
+      cabeçalho 703) ·
      IPCA +0.43% · INCC-M +0.59% ·
-     27 UF · 109 subgrupos com dado -->
+     intervalo 1 mês/es · 27 UF ·
+     0 grupos · 109 subgrupos -->
 
 **Chamada da capa**
 
-A edição de abril de 2025 apresentou variação média de +0,27% nos custos das composições em SP, abaixo do IPCA registrado no período. Entre as atualizações da fonte, foram incluídas 33 novas composições, nenhuma foi inativada e outras 704 passaram por revisão.
+A edição de abril de 2025 apresentou variação média de +0,27% nos custos das composições em SP, abaixo do IPCA registrado no período. Entre as atualizações da fonte, 33 novas composições foram incluídas e 704 passaram por revisão.
 
 **Título da Visão 360°**
 
-SINAPI 2025-04, em números
+SINAPI #06 · abril de 2025, em números
 
 **Nota do gráfico de índices**
 
-Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic se manteve estática no período, permanecendo no patamar de 14,25% a.a.
+Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic permaneceu estável no período, em 14,25% a.a.
 
 **A média não conta a história**
 
@@ -313,15 +322,15 @@ Das 7.797 composições comparáveis, 3.917 tiveram aumento de custo e 2.134 tiv
 
 **Revisões da edição**
 
-Das 704 composições revisadas, 47 tiveram alteração de coeficiente, 46 passaram a contar com novo insumo e 5 tiveram insumo removido. Uma mesma composição pode figurar em mais de uma categoria.
+Das 704 composições revisadas, 47 tiveram alteração de coeficiente, 46 passaram a contar com novo insumo, 5 tiveram insumo removido e 703 tiveram alteração de descrição ou unidade. Uma mesma composição pode figurar em mais de uma categoria.
 
 **Título — concentração**
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos índices acumulados no mesmo período.
+Variação desde a última edição de 2024 até esta, em SP, ao lado dos índices acumulados no mesmo intervalo.
 
 **Caixa de cobertura**
 
@@ -329,19 +338,19 @@ Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos
 
 **Título — subgrupos**
 
-Onde o preço se moveu
+Onde os custos variaram
 
 **Entrada dos subgrupos**
 
 A análise considera os subgrupos com pelo menos 10 composições comparáveis em SP. Nesta edição, 109 subgrupos atenderam a esse critério. Para cada um deles, a variação foi calculada a partir dos custos médios das duas edições, permitindo identificar onde ocorreram os maiores aumentos e reduções no período.
 
-**Título — altas**
+**Título — maiores aumentos**
 
-As dez maiores altas
+Os dez maiores aumentos
 
-**Título — quedas**
+**Título — reduções**
 
-E as que recuaram
+Os subgrupos com redução
 
 **Título — extremos**
 
@@ -355,11 +364,11 @@ Variação de preço em SP, sem encargos. São preços de mercado coletados pela
 
 A variação não é nacional
 
-**Territorial, 1º parágrafo**
+**Territorial 1**
 
 A variação de preços apresenta diferenças entre as UFs. Nesta edição, a Bahia registrou a maior variação, com +1,31%, enquanto o Maranhão apresentou a menor, com -0,21%. A diferença entre os dois extremos foi de 1,52 pontos percentuais.
 
-**Territorial, 2º parágrafo**
+**Territorial 2**
 
 Esse intervalo demonstra a importância de considerar o comportamento dos preços em cada estado. Abaixo, apresentamos a variação observada em cada UF contemplada pela fonte-base.
 
@@ -373,29 +382,32 @@ Como usar esta edição
 
 **Fecho**
 
-Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. Cada composição, insumo e acórdão citado aqui pode ser consultado em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
+Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. As composições e os insumos citados podem ser consultados em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
 
 ---
 
-## Edição #05 — maio de 2025
+## Edição #08 — SINAPI, maio de 2025
 
 <!-- apurado: média -0.08% · mediana +0.00% ·
      3067 aumentos / 3131 reduções / 1596 estáveis ·
-     movimento +43 −6 r0 rev13 ·
+     movimento +43 −6 r0 rev13
+     (coef 13 · ins+ 4 · ins− 0 ·
+      cabeçalho 13) ·
      IPCA +0.26% · INCC-M +0.26% ·
-     27 UF · 109 subgrupos com dado -->
+     intervalo 1 mês/es · 27 UF ·
+     0 grupos · 109 subgrupos -->
 
 **Chamada da capa**
 
-A edição de maio de 2025 apresentou variação média de -0,08% nos custos das composições em SP, abaixo do IPCA registrado no período. Entre as atualizações da fonte, foram incluídas 43 novas composições, 6 foram inativadas e outras 13 passaram por revisão.
+A edição de maio de 2025 apresentou variação média de -0,08% nos custos das composições em SP, abaixo do IPCA registrado no período. Entre as atualizações da fonte, 43 novas composições foram incluídas, 6 foram inativadas e 13 passaram por revisão.
 
 **Título da Visão 360°**
 
-SINAPI 2025-05, em números
+SINAPI #08 · maio de 2025, em números
 
 **Nota do gráfico de índices**
 
-Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic subiu de 14,25% para 14,75% a.a. no período.
+Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic passou de 14,25% para 14,75% a.a. no período.
 
 **A média não conta a história**
 
@@ -403,15 +415,15 @@ Das 7.794 composições comparáveis, 3.067 tiveram aumento de custo e 3.131 tiv
 
 **Revisões da edição**
 
-Das 13 composições revisadas, todas tiveram alteração de coeficiente, 4 passaram a contar com novo insumo e nenhuma teve insumo removido. Uma mesma composição pode figurar em mais de uma categoria.
+Das 13 composições revisadas, todas tiveram alteração de coeficiente, 4 passaram a contar com novo insumo e todas tiveram alteração de descrição ou unidade. Uma mesma composição pode figurar em mais de uma categoria.
 
 **Título — concentração**
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos índices acumulados no mesmo período.
+Variação desde a última edição de 2024 até esta, em SP, ao lado dos índices acumulados no mesmo intervalo.
 
 **Caixa de cobertura**
 
@@ -419,19 +431,19 @@ Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos
 
 **Título — subgrupos**
 
-Onde o preço se moveu
+Onde os custos variaram
 
 **Entrada dos subgrupos**
 
 A análise considera os subgrupos com pelo menos 10 composições comparáveis em SP. Nesta edição, 109 subgrupos atenderam a esse critério. Para cada um deles, a variação foi calculada a partir dos custos médios das duas edições, permitindo identificar onde ocorreram os maiores aumentos e reduções no período.
 
-**Título — altas**
+**Título — maiores aumentos**
 
-As dez maiores altas
+Os dez maiores aumentos
 
-**Título — quedas**
+**Título — reduções**
 
-E as que recuaram
+Os subgrupos com redução
 
 **Título — extremos**
 
@@ -445,11 +457,11 @@ Variação de preço em SP, sem encargos. São preços de mercado coletados pela
 
 A variação não é nacional
 
-**Territorial, 1º parágrafo**
+**Territorial 1**
 
 A variação de preços apresenta diferenças entre as UFs. Nesta edição, Pernambuco registrou a maior variação, com +1,48%, enquanto Rondônia apresentou a menor, com -0,67%. A diferença entre os dois extremos foi de 2,15 pontos percentuais.
 
-**Territorial, 2º parágrafo**
+**Territorial 2**
 
 Esse intervalo demonstra a importância de considerar o comportamento dos preços em cada estado. Abaixo, apresentamos a variação observada em cada UF contemplada pela fonte-base.
 
@@ -463,29 +475,32 @@ Como usar esta edição
 
 **Fecho**
 
-Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. Cada composição, insumo e acórdão citado aqui pode ser consultado em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
+Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. As composições e os insumos citados podem ser consultados em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
 
 ---
 
-## Edição #06 — junho de 2025
+## Edição #10 — SINAPI, junho de 2025
 
 <!-- apurado: média +1.85% · mediana +1.18% ·
      5873 aumentos / 1406 reduções / 555 estáveis ·
-     movimento +0 −0 r0 rev3 ·
+     movimento +0 −0 r0 rev3
+     (coef 1 · ins+ 2 · ins− 2 ·
+      cabeçalho 0) ·
      IPCA +0.24% · INCC-M +0.96% ·
-     27 UF · 109 subgrupos com dado -->
+     intervalo 1 mês/es · 27 UF ·
+     0 grupos · 109 subgrupos -->
 
 **Chamada da capa**
 
-A edição de junho de 2025 apresentou variação média de +1,85% nos custos das composições em SP, acima do IPCA registrado no período. Entre as atualizações da fonte, nenhuma composição foi incluída, nenhuma foi inativada e outras 3 passaram por revisão.
+A edição de junho de 2025 apresentou variação média de +1,85% nos custos das composições em SP, acima do IPCA registrado no período. Entre as atualizações da fonte, 3 passaram por revisão.
 
 **Título da Visão 360°**
 
-SINAPI 2025-06, em números
+SINAPI #10 · junho de 2025, em números
 
 **Nota do gráfico de índices**
 
-Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic subiu de 14,75% para 15,00% a.a. no período.
+Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic passou de 14,75% para 15,00% a.a. no período.
 
 **A média não conta a história**
 
@@ -499,9 +514,9 @@ Das 3 composições revisadas, 1 teve alteração de coeficiente, 2 passaram a c
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos índices acumulados no mesmo período.
+Variação desde a última edição de 2024 até esta, em SP, ao lado dos índices acumulados no mesmo intervalo.
 
 **Caixa de cobertura**
 
@@ -509,19 +524,19 @@ Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos
 
 **Título — subgrupos**
 
-Onde o preço se moveu
+Onde os custos variaram
 
 **Entrada dos subgrupos**
 
 A análise considera os subgrupos com pelo menos 10 composições comparáveis em SP. Nesta edição, 109 subgrupos atenderam a esse critério. Para cada um deles, a variação foi calculada a partir dos custos médios das duas edições, permitindo identificar onde ocorreram os maiores aumentos e reduções no período.
 
-**Título — altas**
+**Título — maiores aumentos**
 
-As dez maiores altas
+Os dez maiores aumentos
 
-**Título — quedas**
+**Título — reduções**
 
-E as que recuaram
+Os subgrupos com redução
 
 **Título — extremos**
 
@@ -535,11 +550,11 @@ Variação de preço em SP, sem encargos. São preços de mercado coletados pela
 
 A variação não é nacional
 
-**Territorial, 1º parágrafo**
+**Territorial 1**
 
 A variação de preços apresenta diferenças entre as UFs. Nesta edição, São Paulo registrou a maior variação, com +1,85%, enquanto Alagoas apresentou a menor, com -0,37%. A diferença entre os dois extremos foi de 2,22 pontos percentuais.
 
-**Territorial, 2º parágrafo**
+**Territorial 2**
 
 Esse intervalo demonstra a importância de considerar o comportamento dos preços em cada estado. Abaixo, apresentamos a variação observada em cada UF contemplada pela fonte-base.
 
@@ -553,29 +568,32 @@ Como usar esta edição
 
 **Fecho**
 
-Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. Cada composição, insumo e acórdão citado aqui pode ser consultado em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
+Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. As composições e os insumos citados podem ser consultados em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
 
 ---
 
-## Edição #07 — julho de 2025
+## Edição #11 — SINAPI, julho de 2025
 
 <!-- apurado: média +0.60% · mediana +0.21% ·
      5141 aumentos / 1344 reduções / 1343 estáveis ·
-     movimento +26 −26 r0 rev107 ·
+     movimento +26 −26 r0 rev107
+     (coef 87 · ins+ 16 · ins− 16 ·
+      cabeçalho 102) ·
      IPCA +0.26% · INCC-M +0.91% ·
-     27 UF · 109 subgrupos com dado -->
+     intervalo 1 mês/es · 27 UF ·
+     0 grupos · 109 subgrupos -->
 
 **Chamada da capa**
 
-A edição de julho de 2025 apresentou variação média de +0,60% nos custos das composições em SP, acima do IPCA registrado no período. Entre as atualizações da fonte, foram incluídas 26 novas composições, 26 foram inativadas e outras 107 passaram por revisão.
+A edição de julho de 2025 apresentou variação média de +0,60% nos custos das composições em SP, acima do IPCA registrado no período. Entre as atualizações da fonte, 26 novas composições foram incluídas, 26 foram inativadas e 107 passaram por revisão.
 
 **Título da Visão 360°**
 
-SINAPI 2025-07, em números
+SINAPI #11 · julho de 2025, em números
 
 **Nota do gráfico de índices**
 
-Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic se manteve estática no período, permanecendo no patamar de 15,00% a.a.
+Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic permaneceu estável no período, em 15,00% a.a.
 
 **A média não conta a história**
 
@@ -583,15 +601,15 @@ Das 7.828 composições comparáveis, 5.141 tiveram aumento de custo e 1.344 tiv
 
 **Revisões da edição**
 
-Das 107 composições revisadas, 87 tiveram alteração de coeficiente, 16 passaram a contar com novo insumo e 16 tiveram insumo removido. Uma mesma composição pode figurar em mais de uma categoria.
+Das 107 composições revisadas, 87 tiveram alteração de coeficiente, 16 passaram a contar com novo insumo, 16 tiveram insumo removido e 102 tiveram alteração de descrição ou unidade. Uma mesma composição pode figurar em mais de uma categoria.
 
 **Título — concentração**
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos índices acumulados no mesmo período.
+Variação desde a última edição de 2024 até esta, em SP, ao lado dos índices acumulados no mesmo intervalo.
 
 **Caixa de cobertura**
 
@@ -599,19 +617,19 @@ Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos
 
 **Título — subgrupos**
 
-Onde o preço se moveu
+Onde os custos variaram
 
 **Entrada dos subgrupos**
 
 A análise considera os subgrupos com pelo menos 10 composições comparáveis em SP. Nesta edição, 109 subgrupos atenderam a esse critério. Para cada um deles, a variação foi calculada a partir dos custos médios das duas edições, permitindo identificar onde ocorreram os maiores aumentos e reduções no período.
 
-**Título — altas**
+**Título — maiores aumentos**
 
-As dez maiores altas
+Os dez maiores aumentos
 
-**Título — quedas**
+**Título — reduções**
 
-E as que recuaram
+Os subgrupos com redução
 
 **Título — extremos**
 
@@ -625,11 +643,11 @@ Variação de preço em SP, sem encargos. São preços de mercado coletados pela
 
 A variação não é nacional
 
-**Territorial, 1º parágrafo**
+**Territorial 1**
 
 A variação de preços apresenta diferenças entre as UFs. Nesta edição, Alagoas registrou a maior variação, com +1,75%, enquanto o Pará apresentou a menor, com -0,18%. A diferença entre os dois extremos foi de 1,93 pontos percentuais.
 
-**Territorial, 2º parágrafo**
+**Territorial 2**
 
 Esse intervalo demonstra a importância de considerar o comportamento dos preços em cada estado. Abaixo, apresentamos a variação observada em cada UF contemplada pela fonte-base.
 
@@ -643,29 +661,32 @@ Como usar esta edição
 
 **Fecho**
 
-Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. Cada composição, insumo e acórdão citado aqui pode ser consultado em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
+Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. As composições e os insumos citados podem ser consultados em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
 
 ---
 
-## Edição #08 — agosto de 2025
+## Edição #13 — SINAPI, agosto de 2025
 
 <!-- apurado: média +0.21% · mediana +0.02% ·
      4275 aumentos / 2144 reduções / 1410 estáveis ·
-     movimento +69 −19 r1 rev91 ·
+     movimento +69 −19 r1 rev91
+     (coef 87 · ins+ 14 · ins− 10 ·
+      cabeçalho 86) ·
      IPCA -0.11% · INCC-M +0.70% ·
-     27 UF · 110 subgrupos com dado -->
+     intervalo 1 mês/es · 27 UF ·
+     0 grupos · 110 subgrupos -->
 
 **Chamada da capa**
 
-A edição de agosto de 2025 apresentou variação média de +0,21% nos custos das composições em SP, acima do IPCA registrado no período. Entre as atualizações da fonte, foram incluídas 69 novas composições, 19 foram inativadas e outras 91 passaram por revisão.
+A edição de agosto de 2025 apresentou variação média de +0,21% nos custos das composições em SP, acima do IPCA registrado no período. Entre as atualizações da fonte, 69 novas composições foram incluídas, 19 foram inativadas, 1 foi reativada e 91 passaram por revisão.
 
 **Título da Visão 360°**
 
-SINAPI 2025-08, em números
+SINAPI #13 · agosto de 2025, em números
 
 **Nota do gráfico de índices**
 
-Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic se manteve estática no período, permanecendo no patamar de 15,00% a.a.
+Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic permaneceu estável no período, em 15,00% a.a.
 
 **A média não conta a história**
 
@@ -673,15 +694,15 @@ Das 7.829 composições comparáveis, 4.275 tiveram aumento de custo e 2.144 tiv
 
 **Revisões da edição**
 
-Das 91 composições revisadas, 87 tiveram alteração de coeficiente, 14 passaram a contar com novo insumo e 10 tiveram insumo removido. Uma mesma composição pode figurar em mais de uma categoria.
+Das 91 composições revisadas, 87 tiveram alteração de coeficiente, 14 passaram a contar com novo insumo, 10 tiveram insumo removido e 86 tiveram alteração de descrição ou unidade. Uma mesma composição pode figurar em mais de uma categoria.
 
 **Título — concentração**
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos índices acumulados no mesmo período.
+Variação desde a última edição de 2024 até esta, em SP, ao lado dos índices acumulados no mesmo intervalo.
 
 **Caixa de cobertura**
 
@@ -689,19 +710,19 @@ Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos
 
 **Título — subgrupos**
 
-Onde o preço se moveu
+Onde os custos variaram
 
 **Entrada dos subgrupos**
 
 A análise considera os subgrupos com pelo menos 10 composições comparáveis em SP. Nesta edição, 110 subgrupos atenderam a esse critério. Para cada um deles, a variação foi calculada a partir dos custos médios das duas edições, permitindo identificar onde ocorreram os maiores aumentos e reduções no período.
 
-**Título — altas**
+**Título — maiores aumentos**
 
-As dez maiores altas
+Os dez maiores aumentos
 
-**Título — quedas**
+**Título — reduções**
 
-E as que recuaram
+Os subgrupos com redução
 
 **Título — extremos**
 
@@ -715,11 +736,11 @@ Variação de preço em SP, sem encargos. São preços de mercado coletados pela
 
 A variação não é nacional
 
-**Territorial, 1º parágrafo**
+**Territorial 1**
 
 A variação de preços apresenta diferenças entre as UFs. Nesta edição, o Rio Grande do Sul registrou a maior variação, com +2,16%, enquanto Rondônia apresentou a menor, com -0,33%. A diferença entre os dois extremos foi de 2,49 pontos percentuais.
 
-**Territorial, 2º parágrafo**
+**Territorial 2**
 
 Esse intervalo demonstra a importância de considerar o comportamento dos preços em cada estado. Abaixo, apresentamos a variação observada em cada UF contemplada pela fonte-base.
 
@@ -733,29 +754,32 @@ Como usar esta edição
 
 **Fecho**
 
-Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. Cada composição, insumo e acórdão citado aqui pode ser consultado em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
+Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. As composições e os insumos citados podem ser consultados em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
 
 ---
 
-## Edição #09 — setembro de 2025
+## Edição #15 — SINAPI, setembro de 2025
 
 <!-- apurado: média +0.17% · mediana +0.07% ·
      5374 aumentos / 1460 reduções / 1105 estáveis ·
-     movimento +17 −8 r0 rev69 ·
+     movimento +17 −8 r0 rev69
+     (coef 1 · ins+ 48 · ins− 50 ·
+      cabeçalho 51) ·
      IPCA +0.48% · INCC-M +0.21% ·
-     27 UF · 112 subgrupos com dado -->
+     intervalo 1 mês/es · 27 UF ·
+     0 grupos · 112 subgrupos -->
 
 **Chamada da capa**
 
-A edição de setembro de 2025 apresentou variação média de +0,17% nos custos das composições em SP, abaixo do IPCA registrado no período. Entre as atualizações da fonte, foram incluídas 17 novas composições, 8 foram inativadas e outras 69 passaram por revisão.
+A edição de setembro de 2025 apresentou variação média de +0,17% nos custos das composições em SP, abaixo do IPCA registrado no período. Entre as atualizações da fonte, 17 novas composições foram incluídas, 8 foram inativadas e 69 passaram por revisão.
 
 **Título da Visão 360°**
 
-SINAPI 2025-09, em números
+SINAPI #15 · setembro de 2025, em números
 
 **Nota do gráfico de índices**
 
-Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic se manteve estática no período, permanecendo no patamar de 15,00% a.a.
+Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic permaneceu estável no período, em 15,00% a.a.
 
 **A média não conta a história**
 
@@ -763,15 +787,15 @@ Das 7.939 composições comparáveis, 5.374 tiveram aumento de custo e 1.460 tiv
 
 **Revisões da edição**
 
-Das 69 composições revisadas, 1 teve alteração de coeficiente, 48 passaram a contar com novo insumo e 50 tiveram insumo removido. Uma mesma composição pode figurar em mais de uma categoria.
+Das 69 composições revisadas, 1 teve alteração de coeficiente, 48 passaram a contar com novo insumo, 50 tiveram insumo removido e 51 tiveram alteração de descrição ou unidade. Uma mesma composição pode figurar em mais de uma categoria.
 
 **Título — concentração**
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos índices acumulados no mesmo período.
+Variação desde a última edição de 2024 até esta, em SP, ao lado dos índices acumulados no mesmo intervalo.
 
 **Caixa de cobertura**
 
@@ -779,19 +803,19 @@ Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos
 
 **Título — subgrupos**
 
-Onde o preço se moveu
+Onde os custos variaram
 
 **Entrada dos subgrupos**
 
 A análise considera os subgrupos com pelo menos 10 composições comparáveis em SP. Nesta edição, 112 subgrupos atenderam a esse critério. Para cada um deles, a variação foi calculada a partir dos custos médios das duas edições, permitindo identificar onde ocorreram os maiores aumentos e reduções no período.
 
-**Título — altas**
+**Título — maiores aumentos**
 
-As dez maiores altas
+Os dez maiores aumentos
 
-**Título — quedas**
+**Título — reduções**
 
-E as que recuaram
+Os subgrupos com redução
 
 **Título — extremos**
 
@@ -805,11 +829,11 @@ Variação de preço em SP, sem encargos. São preços de mercado coletados pela
 
 A variação não é nacional
 
-**Territorial, 1º parágrafo**
+**Territorial 1**
 
 A variação de preços apresenta diferenças entre as UFs. Nesta edição, o Mato Grosso registrou a maior variação, com +3,36%, enquanto Goiás apresentou a menor, com -0,30%. A diferença entre os dois extremos foi de 3,66 pontos percentuais.
 
-**Territorial, 2º parágrafo**
+**Territorial 2**
 
 Esse intervalo demonstra a importância de considerar o comportamento dos preços em cada estado. Abaixo, apresentamos a variação observada em cada UF contemplada pela fonte-base.
 
@@ -823,29 +847,32 @@ Como usar esta edição
 
 **Fecho**
 
-Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. Cada composição, insumo e acórdão citado aqui pode ser consultado em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
+Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. As composições e os insumos citados podem ser consultados em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
 
 ---
 
-## Edição #10 — outubro de 2025
+## Edição #16 — SINAPI, outubro de 2025
 
 <!-- apurado: média +0.57% · mediana +0.00% ·
      3010 aumentos / 2586 reduções / 2338 estáveis ·
-     movimento +219 −33 r0 rev444 ·
+     movimento +219 −33 r0 rev444
+     (coef 316 · ins+ 181 · ins− 101 ·
+      cabeçalho 393) ·
      IPCA +0.09% · INCC-M +0.21% ·
-     27 UF · 113 subgrupos com dado -->
+     intervalo 1 mês/es · 27 UF ·
+     0 grupos · 113 subgrupos -->
 
 **Chamada da capa**
 
-A edição de outubro de 2025 apresentou variação média de +0,57% nos custos das composições em SP, acima do IPCA registrado no período. Entre as atualizações da fonte, foram incluídas 219 novas composições, 33 foram inativadas e outras 444 passaram por revisão.
+A edição de outubro de 2025 apresentou variação média de +0,57% nos custos das composições em SP, acima do IPCA registrado no período. Entre as atualizações da fonte, 219 novas composições foram incluídas, 33 foram inativadas e 444 passaram por revisão.
 
 **Título da Visão 360°**
 
-SINAPI 2025-10, em números
+SINAPI #16 · outubro de 2025, em números
 
 **Nota do gráfico de índices**
 
-Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic se manteve estática no período, permanecendo no patamar de 15,00% a.a.
+Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic permaneceu estável no período, em 15,00% a.a.
 
 **A média não conta a história**
 
@@ -853,15 +880,15 @@ Das 7.934 composições comparáveis, 3.010 tiveram aumento de custo e 2.586 tiv
 
 **Revisões da edição**
 
-Das 444 composições revisadas, 316 tiveram alteração de coeficiente, 181 passaram a contar com novo insumo e 101 tiveram insumo removido. Uma mesma composição pode figurar em mais de uma categoria.
+Das 444 composições revisadas, 316 tiveram alteração de coeficiente, 181 passaram a contar com novo insumo, 101 tiveram insumo removido e 393 tiveram alteração de descrição ou unidade. Uma mesma composição pode figurar em mais de uma categoria.
 
 **Título — concentração**
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos índices acumulados no mesmo período.
+Variação desde a última edição de 2024 até esta, em SP, ao lado dos índices acumulados no mesmo intervalo.
 
 **Caixa de cobertura**
 
@@ -869,19 +896,19 @@ Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos
 
 **Título — subgrupos**
 
-Onde o preço se moveu
+Onde os custos variaram
 
 **Entrada dos subgrupos**
 
 A análise considera os subgrupos com pelo menos 10 composições comparáveis em SP. Nesta edição, 113 subgrupos atenderam a esse critério. Para cada um deles, a variação foi calculada a partir dos custos médios das duas edições, permitindo identificar onde ocorreram os maiores aumentos e reduções no período.
 
-**Título — altas**
+**Título — maiores aumentos**
 
-As dez maiores altas
+Os dez maiores aumentos
 
-**Título — quedas**
+**Título — reduções**
 
-E as que recuaram
+Os subgrupos com redução
 
 **Título — extremos**
 
@@ -895,11 +922,11 @@ Variação de preço em SP, sem encargos. São preços de mercado coletados pela
 
 A variação não é nacional
 
-**Territorial, 1º parágrafo**
+**Territorial 1**
 
 A variação de preços apresenta diferenças entre as UFs. Nesta edição, o Pará registrou a maior variação, com +1,96%, enquanto o Rio Grande do Norte apresentou a menor, com -0,12%. A diferença entre os dois extremos foi de 2,08 pontos percentuais.
 
-**Territorial, 2º parágrafo**
+**Territorial 2**
 
 Esse intervalo demonstra a importância de considerar o comportamento dos preços em cada estado. Abaixo, apresentamos a variação observada em cada UF contemplada pela fonte-base.
 
@@ -913,17 +940,20 @@ Como usar esta edição
 
 **Fecho**
 
-Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. Cada composição, insumo e acórdão citado aqui pode ser consultado em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
+Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. As composições e os insumos citados podem ser consultados em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
 
 ---
 
-## Edição #11 — novembro de 2025
+## Edição #18 — SINAPI, novembro de 2025
 
 <!-- apurado: média +0.04% · mediana +0.00% ·
      3323 aumentos / 2254 reduções / 2457 estáveis ·
-     movimento +0 −0 r0 rev0 ·
+     movimento +0 −0 r0 rev0
+     (coef 0 · ins+ 0 · ins− 0 ·
+      cabeçalho 0) ·
      IPCA +0.18% · INCC-M +0.28% ·
-     27 UF · 114 subgrupos com dado -->
+     intervalo 1 mês/es · 27 UF ·
+     0 grupos · 114 subgrupos -->
 
 **Chamada da capa**
 
@@ -931,11 +961,11 @@ A edição de novembro de 2025 apresentou variação média de +0,04% nos custos
 
 **Título da Visão 360°**
 
-SINAPI 2025-11, em números
+SINAPI #18 · novembro de 2025, em números
 
 **Nota do gráfico de índices**
 
-Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic se manteve estática no período, permanecendo no patamar de 15,00% a.a.
+Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic permaneceu estável no período, em 15,00% a.a.
 
 **A média não conta a história**
 
@@ -949,9 +979,9 @@ A fonte não revisou composições nesta edição.
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos índices acumulados no mesmo período.
+Variação desde a última edição de 2024 até esta, em SP, ao lado dos índices acumulados no mesmo intervalo.
 
 **Caixa de cobertura**
 
@@ -959,19 +989,19 @@ Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos
 
 **Título — subgrupos**
 
-Onde o preço se moveu
+Onde os custos variaram
 
 **Entrada dos subgrupos**
 
 A análise considera os subgrupos com pelo menos 10 composições comparáveis em SP. Nesta edição, 114 subgrupos atenderam a esse critério. Para cada um deles, a variação foi calculada a partir dos custos médios das duas edições, permitindo identificar onde ocorreram os maiores aumentos e reduções no período.
 
-**Título — altas**
+**Título — maiores aumentos**
 
-As dez maiores altas
+Os dez maiores aumentos
 
-**Título — quedas**
+**Título — reduções**
 
-E as que recuaram
+Os subgrupos com redução
 
 **Título — extremos**
 
@@ -985,11 +1015,11 @@ Variação de preço em SP, sem encargos. São preços de mercado coletados pela
 
 A variação não é nacional
 
-**Territorial, 1º parágrafo**
+**Territorial 1**
 
 A variação de preços apresenta diferenças entre as UFs. Nesta edição, o Espírito Santo registrou a maior variação, com +1,12%, enquanto o Rio Grande do Sul apresentou a menor, com -0,67%. A diferença entre os dois extremos foi de 1,79 pontos percentuais.
 
-**Territorial, 2º parágrafo**
+**Territorial 2**
 
 Esse intervalo demonstra a importância de considerar o comportamento dos preços em cada estado. Abaixo, apresentamos a variação observada em cada UF contemplada pela fonte-base.
 
@@ -1003,29 +1033,32 @@ Como usar esta edição
 
 **Fecho**
 
-Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. Cada composição, insumo e acórdão citado aqui pode ser consultado em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
+Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. As composições e os insumos citados podem ser consultados em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
 
 ---
 
-## Edição #12 — dezembro de 2025
+## Edição #20 — SINAPI, dezembro de 2025
 
 <!-- apurado: média +0.03% · mediana +0.00% ·
      3147 aumentos / 2462 reduções / 2418 estáveis ·
-     movimento +179 −7 r0 rev96 ·
+     movimento +179 −7 r0 rev96
+     (coef 91 · ins+ 13 · ins− 5 ·
+      cabeçalho 92) ·
      IPCA +0.33% · INCC-M +0.21% ·
-     27 UF · 114 subgrupos com dado -->
+     intervalo 1 mês/es · 27 UF ·
+     0 grupos · 114 subgrupos -->
 
 **Chamada da capa**
 
-A edição de dezembro de 2025 apresentou variação média de +0,03% nos custos das composições em SP, abaixo do IPCA registrado no período. Entre as atualizações da fonte, foram incluídas 179 novas composições, 7 foram inativadas e outras 96 passaram por revisão.
+A edição de dezembro de 2025 apresentou variação média de +0,03% nos custos das composições em SP, abaixo do IPCA registrado no período. Entre as atualizações da fonte, 179 novas composições foram incluídas, 7 foram inativadas e 96 passaram por revisão.
 
 **Título da Visão 360°**
 
-SINAPI 2025-12, em números
+SINAPI #20 · dezembro de 2025, em números
 
 **Nota do gráfico de índices**
 
-Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic se manteve estática no período, permanecendo no patamar de 15,00% a.a.
+Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic permaneceu estável no período, em 15,00% a.a.
 
 **A média não conta a história**
 
@@ -1033,15 +1066,15 @@ Das 8.027 composições comparáveis, 3.147 tiveram aumento de custo e 2.462 tiv
 
 **Revisões da edição**
 
-Das 96 composições revisadas, 91 tiveram alteração de coeficiente, 13 passaram a contar com novo insumo e 5 tiveram insumo removido. Uma mesma composição pode figurar em mais de uma categoria.
+Das 96 composições revisadas, 91 tiveram alteração de coeficiente, 13 passaram a contar com novo insumo, 5 tiveram insumo removido e 92 tiveram alteração de descrição ou unidade. Uma mesma composição pode figurar em mais de uma categoria.
 
 **Título — concentração**
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos índices acumulados no mesmo período.
+Última edição de 2025 da SINAPI. A variação acumulada compara com a última edição de 2024, que serve de base do ano, em SP, ao lado dos índices no mesmo intervalo.
 
 **Caixa de cobertura**
 
@@ -1049,19 +1082,19 @@ Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos
 
 **Título — subgrupos**
 
-Onde o preço se moveu
+Onde os custos variaram
 
 **Entrada dos subgrupos**
 
 A análise considera os subgrupos com pelo menos 10 composições comparáveis em SP. Nesta edição, 114 subgrupos atenderam a esse critério. Para cada um deles, a variação foi calculada a partir dos custos médios das duas edições, permitindo identificar onde ocorreram os maiores aumentos e reduções no período.
 
-**Título — altas**
+**Título — maiores aumentos**
 
-As dez maiores altas
+Os dez maiores aumentos
 
-**Título — quedas**
+**Título — reduções**
 
-E as que recuaram
+Os subgrupos com redução
 
 **Título — extremos**
 
@@ -1075,11 +1108,11 @@ Variação de preço em SP, sem encargos. São preços de mercado coletados pela
 
 A variação não é nacional
 
-**Territorial, 1º parágrafo**
+**Territorial 1**
 
 A variação de preços apresenta diferenças entre as UFs. Nesta edição, Minas Gerais registrou a maior variação, com +1,63%, enquanto Roraima apresentou a menor, com -0,39%. A diferença entre os dois extremos foi de 2,02 pontos percentuais.
 
-**Territorial, 2º parágrafo**
+**Territorial 2**
 
 Esse intervalo demonstra a importância de considerar o comportamento dos preços em cada estado. Abaixo, apresentamos a variação observada em cada UF contemplada pela fonte-base.
 
@@ -1093,29 +1126,32 @@ Como usar esta edição
 
 **Fecho**
 
-Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. Cada composição, insumo e acórdão citado aqui pode ser consultado em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
+Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. As composições e os insumos citados podem ser consultados em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
 
 ---
 
-## Edição #13 — janeiro de 2026
+## Edição #21 — SINAPI, janeiro de 2026
 
 <!-- apurado: média +0.57% · mediana +0.46% ·
      6518 aumentos / 1131 reduções / 428 estáveis ·
-     movimento +126 −12 r0 rev576 ·
+     movimento +126 −12 r0 rev576
+     (coef 478 · ins+ 48 · ins− 148 ·
+      cabeçalho 481) ·
      IPCA +0.33% · INCC-M +0.63% ·
-     27 UF · 114 subgrupos com dado -->
+     intervalo 1 mês/es · 27 UF ·
+     0 grupos · 114 subgrupos -->
 
 **Chamada da capa**
 
-A edição de janeiro de 2026 apresentou variação média de +0,57% nos custos das composições em SP, acima do IPCA registrado no período. Entre as atualizações da fonte, foram incluídas 126 novas composições, 12 foram inativadas e outras 576 passaram por revisão.
+A edição de janeiro de 2026 apresentou variação média de +0,57% nos custos das composições em SP, acima do IPCA registrado no período. Entre as atualizações da fonte, 126 novas composições foram incluídas, 12 foram inativadas e 576 passaram por revisão.
 
 **Título da Visão 360°**
 
-SINAPI 2026-01, em números
+SINAPI #21 · janeiro de 2026, em números
 
 **Nota do gráfico de índices**
 
-Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic se manteve estática no período, permanecendo no patamar de 15,00% a.a.
+Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic permaneceu estável no período, em 15,00% a.a.
 
 **A média não conta a história**
 
@@ -1123,15 +1159,15 @@ Das 8.077 composições comparáveis, 6.518 tiveram aumento de custo e 1.131 tiv
 
 **Revisões da edição**
 
-Das 576 composições revisadas, 478 tiveram alteração de coeficiente, 48 passaram a contar com novo insumo e 148 tiveram insumo removido. Uma mesma composição pode figurar em mais de uma categoria.
+Das 576 composições revisadas, 478 tiveram alteração de coeficiente, 48 passaram a contar com novo insumo, 148 tiveram insumo removido e 481 tiveram alteração de descrição ou unidade. Uma mesma composição pode figurar em mais de uma categoria.
 
 **Título — concentração**
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos índices acumulados no mesmo período.
+Variação desde a última edição de 2025, que é a base do acumulado de 2026, em SP, ao lado dos índices no mesmo intervalo.
 
 **Caixa de cobertura**
 
@@ -1139,19 +1175,19 @@ Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos
 
 **Título — subgrupos**
 
-Onde o preço se moveu
+Onde os custos variaram
 
 **Entrada dos subgrupos**
 
 A análise considera os subgrupos com pelo menos 10 composições comparáveis em SP. Nesta edição, 114 subgrupos atenderam a esse critério. Para cada um deles, a variação foi calculada a partir dos custos médios das duas edições, permitindo identificar onde ocorreram os maiores aumentos e reduções no período.
 
-**Título — altas**
+**Título — maiores aumentos**
 
-As dez maiores altas
+Os dez maiores aumentos
 
-**Título — quedas**
+**Título — reduções**
 
-E as que recuaram
+Os subgrupos com redução
 
 **Título — extremos**
 
@@ -1165,11 +1201,11 @@ Variação de preço em SP, sem encargos. São preços de mercado coletados pela
 
 A variação não é nacional
 
-**Territorial, 1º parágrafo**
+**Territorial 1**
 
 A variação de preços apresenta diferenças entre as UFs. Nesta edição, o Rio Grande do Norte registrou a maior variação, com +3,23%, enquanto o Maranhão apresentou a menor, com -2,07%. A diferença entre os dois extremos foi de 5,30 pontos percentuais.
 
-**Territorial, 2º parágrafo**
+**Territorial 2**
 
 Esse intervalo demonstra a importância de considerar o comportamento dos preços em cada estado. Abaixo, apresentamos a variação observada em cada UF contemplada pela fonte-base.
 
@@ -1183,29 +1219,32 @@ Como usar esta edição
 
 **Fecho**
 
-Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. Cada composição, insumo e acórdão citado aqui pode ser consultado em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
+Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. As composições e os insumos citados podem ser consultados em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
 
 ---
 
-## Edição #14 — fevereiro de 2026
+## Edição #23 — SINAPI, fevereiro de 2026
 
 <!-- apurado: média +0.11% · mediana +0.00% ·
      3556 aumentos / 3151 reduções / 1523 estáveis ·
-     movimento +112 −7 r0 rev330 ·
+     movimento +112 −7 r0 rev330
+     (coef 255 · ins+ 48 · ins− 42 ·
+      cabeçalho 312) ·
      IPCA +0.70% · INCC-M +0.34% ·
-     27 UF · 116 subgrupos com dado -->
+     intervalo 1 mês/es · 27 UF ·
+     0 grupos · 116 subgrupos -->
 
 **Chamada da capa**
 
-A edição de fevereiro de 2026 apresentou variação média de +0,11% nos custos das composições em SP, abaixo do IPCA registrado no período. Entre as atualizações da fonte, foram incluídas 112 novas composições, 7 foram inativadas e outras 330 passaram por revisão.
+A edição de fevereiro de 2026 apresentou variação média de +0,11% nos custos das composições em SP, abaixo do IPCA registrado no período. Entre as atualizações da fonte, 112 novas composições foram incluídas, 7 foram inativadas e 330 passaram por revisão.
 
 **Título da Visão 360°**
 
-SINAPI 2026-02, em números
+SINAPI #23 · fevereiro de 2026, em números
 
 **Nota do gráfico de índices**
 
-Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic se manteve estática no período, permanecendo no patamar de 15,00% a.a.
+Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic permaneceu estável no período, em 15,00% a.a.
 
 **A média não conta a história**
 
@@ -1213,15 +1252,15 @@ Das 8.230 composições comparáveis, 3.556 tiveram aumento de custo e 3.151 tiv
 
 **Revisões da edição**
 
-Das 330 composições revisadas, 255 tiveram alteração de coeficiente, 48 passaram a contar com novo insumo e 42 tiveram insumo removido. Uma mesma composição pode figurar em mais de uma categoria.
+Das 330 composições revisadas, 255 tiveram alteração de coeficiente, 48 passaram a contar com novo insumo, 42 tiveram insumo removido e 312 tiveram alteração de descrição ou unidade. Uma mesma composição pode figurar em mais de uma categoria.
 
 **Título — concentração**
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos índices acumulados no mesmo período.
+Variação desde a última edição de 2025, que é a base do acumulado de 2026, em SP, ao lado dos índices no mesmo intervalo.
 
 **Caixa de cobertura**
 
@@ -1229,19 +1268,19 @@ Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos
 
 **Título — subgrupos**
 
-Onde o preço se moveu
+Onde os custos variaram
 
 **Entrada dos subgrupos**
 
 A análise considera os subgrupos com pelo menos 10 composições comparáveis em SP. Nesta edição, 116 subgrupos atenderam a esse critério. Para cada um deles, a variação foi calculada a partir dos custos médios das duas edições, permitindo identificar onde ocorreram os maiores aumentos e reduções no período.
 
-**Título — altas**
+**Título — maiores aumentos**
 
-As dez maiores altas
+Os dez maiores aumentos
 
-**Título — quedas**
+**Título — reduções**
 
-E as que recuaram
+Os subgrupos com redução
 
 **Título — extremos**
 
@@ -1255,11 +1294,11 @@ Variação de preço em SP, sem encargos. São preços de mercado coletados pela
 
 A variação não é nacional
 
-**Territorial, 1º parágrafo**
+**Territorial 1**
 
 A variação de preços apresenta diferenças entre as UFs. Nesta edição, Pernambuco registrou a maior variação, com +0,88%, enquanto o Rio Grande do Norte apresentou a menor, com -0,22%. A diferença entre os dois extremos foi de 1,10 pontos percentuais.
 
-**Territorial, 2º parágrafo**
+**Territorial 2**
 
 Esse intervalo demonstra a importância de considerar o comportamento dos preços em cada estado. Abaixo, apresentamos a variação observada em cada UF contemplada pela fonte-base.
 
@@ -1273,29 +1312,32 @@ Como usar esta edição
 
 **Fecho**
 
-Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. Cada composição, insumo e acórdão citado aqui pode ser consultado em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
+Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. As composições e os insumos citados podem ser consultados em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
 
 ---
 
-## Edição #15 — março de 2026
+## Edição #25 — SINAPI, março de 2026
 
 <!-- apurado: média +0.87% · mediana +0.00% ·
      3790 aumentos / 2824 reduções / 1609 estáveis ·
-     movimento +15 −91 r0 rev10 ·
+     movimento +15 −91 r0 rev10
+     (coef 5 · ins+ 7 · ins− 7 ·
+      cabeçalho 8) ·
      IPCA +0.88% · INCC-M +0.36% ·
-     27 UF · 115 subgrupos com dado -->
+     intervalo 1 mês/es · 27 UF ·
+     0 grupos · 115 subgrupos -->
 
 **Chamada da capa**
 
-A edição de março de 2026 apresentou variação média de +0,87% nos custos das composições em SP, praticamente em linha com o IPCA registrado no período. Entre as atualizações da fonte, foram incluídas 15 novas composições, 91 foram inativadas e outras 10 passaram por revisão.
+A edição de março de 2026 apresentou variação média de +0,87% nos custos das composições em SP, ante um IPCA de +0,88% no período. Entre as atualizações da fonte, 15 novas composições foram incluídas, 91 foram inativadas e 10 passaram por revisão.
 
 **Título da Visão 360°**
 
-SINAPI 2026-03, em números
+SINAPI #25 · março de 2026, em números
 
 **Nota do gráfico de índices**
 
-Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic recuou de 15,00% para 14,75% a.a. no período.
+Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic passou de 15,00% para 14,75% a.a. no período.
 
 **A média não conta a história**
 
@@ -1303,15 +1345,15 @@ Das 8.223 composições comparáveis, 3.790 tiveram aumento de custo e 2.824 tiv
 
 **Revisões da edição**
 
-Das 10 composições revisadas, 5 tiveram alteração de coeficiente, 7 passaram a contar com novo insumo e 7 tiveram insumo removido. Uma mesma composição pode figurar em mais de uma categoria.
+Das 10 composições revisadas, 5 tiveram alteração de coeficiente, 7 passaram a contar com novo insumo, 7 tiveram insumo removido e 8 tiveram alteração de descrição ou unidade. Uma mesma composição pode figurar em mais de uma categoria.
 
 **Título — concentração**
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos índices acumulados no mesmo período.
+Variação desde a última edição de 2025 até esta, em SP, ao lado dos índices acumulados no mesmo intervalo.
 
 **Caixa de cobertura**
 
@@ -1319,19 +1361,19 @@ Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos
 
 **Título — subgrupos**
 
-Onde o preço se moveu
+Onde os custos variaram
 
 **Entrada dos subgrupos**
 
 A análise considera os subgrupos com pelo menos 10 composições comparáveis em SP. Nesta edição, 115 subgrupos atenderam a esse critério. Para cada um deles, a variação foi calculada a partir dos custos médios das duas edições, permitindo identificar onde ocorreram os maiores aumentos e reduções no período.
 
-**Título — altas**
+**Título — maiores aumentos**
 
-As dez maiores altas
+Os dez maiores aumentos
 
-**Título — quedas**
+**Título — reduções**
 
-E as que recuaram
+Os subgrupos com redução
 
 **Título — extremos**
 
@@ -1345,11 +1387,11 @@ Variação de preço em SP, sem encargos. São preços de mercado coletados pela
 
 A variação não é nacional
 
-**Territorial, 1º parágrafo**
+**Territorial 1**
 
 A variação de preços apresenta diferenças entre as UFs. Nesta edição, a Bahia registrou a maior variação, com +2,57%, enquanto o Amapá apresentou a menor, com -0,21%. A diferença entre os dois extremos foi de 2,78 pontos percentuais.
 
-**Territorial, 2º parágrafo**
+**Territorial 2**
 
 Esse intervalo demonstra a importância de considerar o comportamento dos preços em cada estado. Abaixo, apresentamos a variação observada em cada UF contemplada pela fonte-base.
 
@@ -1363,29 +1405,32 @@ Como usar esta edição
 
 **Fecho**
 
-Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. Cada composição, insumo e acórdão citado aqui pode ser consultado em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
+Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. As composições e os insumos citados podem ser consultados em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
 
 ---
 
-## Edição #16 — abril de 2026
+## Edição #26 — SINAPI, abril de 2026
 
 <!-- apurado: média +0.92% · mediana +0.03% ·
      4182 aumentos / 3348 reduções / 708 estáveis ·
-     movimento +4 −0 r90 rev93 ·
+     movimento +4 −0 r90 rev93
+     (coef 93 · ins+ 0 · ins− 0 ·
+      cabeçalho 93) ·
      IPCA +0.67% · INCC-M +1.04% ·
-     27 UF · 116 subgrupos com dado -->
+     intervalo 1 mês/es · 27 UF ·
+     0 grupos · 116 subgrupos -->
 
 **Chamada da capa**
 
-A edição de abril de 2026 apresentou variação média de +0,92% nos custos das composições em SP, acima do IPCA registrado no período. Entre as atualizações da fonte, foram incluídas 4 novas composições, nenhuma foi inativada e outras 93 passaram por revisão.
+A edição de abril de 2026 apresentou variação média de +0,92% nos custos das composições em SP, acima do IPCA registrado no período. Entre as atualizações da fonte, 4 novas composições foram incluídas, 90 foram reativadas e 93 passaram por revisão.
 
 **Título da Visão 360°**
 
-SINAPI 2026-04, em números
+SINAPI #26 · abril de 2026, em números
 
 **Nota do gráfico de índices**
 
-Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic recuou de 14,75% para 14,50% a.a. no período.
+Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic passou de 14,75% para 14,50% a.a. no período.
 
 **A média não conta a história**
 
@@ -1393,15 +1438,15 @@ Das 8.238 composições comparáveis, 4.182 tiveram aumento de custo e 3.348 tiv
 
 **Revisões da edição**
 
-Das 93 composições revisadas, todas tiveram alteração de coeficiente, nenhuma passou a contar com novo insumo e nenhuma teve insumo removido.
+Das 93 composições revisadas, todas tiveram alteração de coeficiente e todas tiveram alteração de descrição ou unidade. Uma mesma composição pode figurar em mais de uma categoria.
 
 **Título — concentração**
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos índices acumulados no mesmo período.
+Variação desde a última edição de 2025 até esta, em SP, ao lado dos índices acumulados no mesmo intervalo.
 
 **Caixa de cobertura**
 
@@ -1409,19 +1454,19 @@ Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos
 
 **Título — subgrupos**
 
-Onde o preço se moveu
+Onde os custos variaram
 
 **Entrada dos subgrupos**
 
 A análise considera os subgrupos com pelo menos 10 composições comparáveis em SP. Nesta edição, 116 subgrupos atenderam a esse critério. Para cada um deles, a variação foi calculada a partir dos custos médios das duas edições, permitindo identificar onde ocorreram os maiores aumentos e reduções no período.
 
-**Título — altas**
+**Título — maiores aumentos**
 
-As dez maiores altas
+Os dez maiores aumentos
 
-**Título — quedas**
+**Título — reduções**
 
-E as que recuaram
+Os subgrupos com redução
 
 **Título — extremos**
 
@@ -1435,11 +1480,11 @@ Variação de preço em SP, sem encargos. São preços de mercado coletados pela
 
 A variação não é nacional
 
-**Territorial, 1º parágrafo**
+**Territorial 1**
 
-A variação de preços apresenta diferenças entre as UFs. Nesta edição, Santa Catarina registrou a maior variação, com +2,56%, enquanto o Rio Grande do Sul apresentou a menor, com +0,09%. A diferença entre os dois extremos foi de 2,47 pontos percentuais.
+Todas as UFs registraram aumento de custos nesta edição, em intensidades diferentes, Santa catarina teve a maior variação, com +2,56%, e o Rio Grande do Sul a menor, com +0,09%, A distância entre as duas foi de 2,47 pontos percentuais.
 
-**Territorial, 2º parágrafo**
+**Territorial 2**
 
 Esse intervalo demonstra a importância de considerar o comportamento dos preços em cada estado. Abaixo, apresentamos a variação observada em cada UF contemplada pela fonte-base.
 
@@ -1453,29 +1498,32 @@ Como usar esta edição
 
 **Fecho**
 
-Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. Cada composição, insumo e acórdão citado aqui pode ser consultado em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
+Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. As composições e os insumos citados podem ser consultados em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
 
 ---
 
-## Edição #17 — maio de 2026
+## Edição #28 — SINAPI, maio de 2026
 
 <!-- apurado: média +0.48% · mediana +0.07% ·
      4385 aumentos / 2575 reduções / 1282 estáveis ·
-     movimento +35 −0 r0 rev6 ·
+     movimento +35 −0 r0 rev6
+     (coef 5 · ins+ 0 · ins− 0 ·
+      cabeçalho 6) ·
      IPCA +0.58% · INCC-M +0.77% ·
-     27 UF · 116 subgrupos com dado -->
+     intervalo 1 mês/es · 27 UF ·
+     0 grupos · 116 subgrupos -->
 
 **Chamada da capa**
 
-A edição de maio de 2026 apresentou variação média de +0,48% nos custos das composições em SP, praticamente em linha com o IPCA registrado no período. Entre as atualizações da fonte, foram incluídas 35 novas composições, nenhuma foi inativada e outras 6 passaram por revisão.
+A edição de maio de 2026 apresentou variação média de +0,48% nos custos das composições em SP, ante um IPCA de +0,58% no período. Entre as atualizações da fonte, 35 novas composições foram incluídas e 6 passaram por revisão.
 
 **Título da Visão 360°**
 
-SINAPI 2026-05, em números
+SINAPI #28 · maio de 2026, em números
 
 **Nota do gráfico de índices**
 
-Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic se manteve estática no período, permanecendo no patamar de 14,50% a.a.
+Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic permaneceu estável no período, em 14,50% a.a.
 
 **A média não conta a história**
 
@@ -1483,15 +1531,15 @@ Das 8.242 composições comparáveis, 4.385 tiveram aumento de custo e 2.575 tiv
 
 **Revisões da edição**
 
-Das 6 composições revisadas, 5 tiveram alteração de coeficiente, nenhuma passou a contar com novo insumo e nenhuma teve insumo removido.
+Das 6 composições revisadas, 5 tiveram alteração de coeficiente e todas tiveram alteração de descrição ou unidade. Uma mesma composição pode figurar em mais de uma categoria.
 
 **Título — concentração**
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos índices acumulados no mesmo período.
+Variação desde a última edição de 2025 até esta, em SP, ao lado dos índices acumulados no mesmo intervalo.
 
 **Caixa de cobertura**
 
@@ -1499,19 +1547,19 @@ Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos
 
 **Título — subgrupos**
 
-Onde o preço se moveu
+Onde os custos variaram
 
 **Entrada dos subgrupos**
 
 A análise considera os subgrupos com pelo menos 10 composições comparáveis em SP. Nesta edição, 116 subgrupos atenderam a esse critério. Para cada um deles, a variação foi calculada a partir dos custos médios das duas edições, permitindo identificar onde ocorreram os maiores aumentos e reduções no período.
 
-**Título — altas**
+**Título — maiores aumentos**
 
-As dez maiores altas
+Os dez maiores aumentos
 
-**Título — quedas**
+**Título — reduções**
 
-E as que recuaram
+Os subgrupos com redução
 
 **Título — extremos**
 
@@ -1525,11 +1573,11 @@ Variação de preço em SP, sem encargos. São preços de mercado coletados pela
 
 A variação não é nacional
 
-**Territorial, 1º parágrafo**
+**Territorial 1**
 
 A variação de preços apresenta diferenças entre as UFs. Nesta edição, Alagoas registrou a maior variação, com +1,08%, enquanto o Rio de Janeiro apresentou a menor, com -0,58%. A diferença entre os dois extremos foi de 1,66 pontos percentuais.
 
-**Territorial, 2º parágrafo**
+**Territorial 2**
 
 Esse intervalo demonstra a importância de considerar o comportamento dos preços em cada estado. Abaixo, apresentamos a variação observada em cada UF contemplada pela fonte-base.
 
@@ -1543,29 +1591,32 @@ Como usar esta edição
 
 **Fecho**
 
-Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. Cada composição, insumo e acórdão citado aqui pode ser consultado em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
+Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. As composições e os insumos citados podem ser consultados em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
 
 ---
 
-## Edição #18 — junho de 2026
+## Edição #30 — SINAPI, junho de 2026
 
 <!-- apurado: média +1.95% · mediana +1.32% ·
      6554 aumentos / 1343 reduções / 478 estáveis ·
-     movimento +46 −5 r0 rev109 ·
+     movimento +46 −5 r0 rev109
+     (coef 109 · ins+ 17 · ins− 14 ·
+      cabeçalho 109) ·
      IPCA +0.16% · INCC-M +0.85% ·
-     27 UF · 120 subgrupos com dado -->
+     intervalo 1 mês/es · 27 UF ·
+     0 grupos · 120 subgrupos -->
 
 **Chamada da capa**
 
-A edição de junho de 2026 apresentou variação média de +1,95% nos custos das composições em SP, acima do IPCA registrado no período. Entre as atualizações da fonte, foram incluídas 46 novas composições, 5 foram inativadas e outras 109 passaram por revisão.
+A edição de junho de 2026 apresentou variação média de +1,95% nos custos das composições em SP, acima do IPCA registrado no período. Entre as atualizações da fonte, 46 novas composições foram incluídas, 5 foram inativadas e 109 passaram por revisão.
 
 **Título da Visão 360°**
 
-SINAPI 2026-06, em números
+SINAPI #30 · junho de 2026, em números
 
 **Nota do gráfico de índices**
 
-Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic recuou de 14,50% para 14,25% a.a. no período.
+Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic passou de 14,50% para 14,25% a.a. no período.
 
 **A média não conta a história**
 
@@ -1573,15 +1624,15 @@ Das 8.375 composições comparáveis, 6.554 tiveram aumento de custo e 1.343 tiv
 
 **Revisões da edição**
 
-Das 109 composições revisadas, todas tiveram alteração de coeficiente, 17 passaram a contar com novo insumo e 14 tiveram insumo removido. Uma mesma composição pode figurar em mais de uma categoria.
+Das 109 composições revisadas, todas tiveram alteração de coeficiente, 17 passaram a contar com novo insumo, 14 tiveram insumo removido e todas tiveram alteração de descrição ou unidade. Uma mesma composição pode figurar em mais de uma categoria.
 
 **Título — concentração**
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos índices acumulados no mesmo período.
+Variação desde a última edição de 2025 até esta, em SP, ao lado dos índices acumulados no mesmo intervalo.
 
 **Caixa de cobertura**
 
@@ -1589,19 +1640,19 @@ Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos
 
 **Título — subgrupos**
 
-Onde o preço se moveu
+Onde os custos variaram
 
 **Entrada dos subgrupos**
 
 A análise considera os subgrupos com pelo menos 10 composições comparáveis em SP. Nesta edição, 120 subgrupos atenderam a esse critério. Para cada um deles, a variação foi calculada a partir dos custos médios das duas edições, permitindo identificar onde ocorreram os maiores aumentos e reduções no período.
 
-**Título — altas**
+**Título — maiores aumentos**
 
-As dez maiores altas
+Os dez maiores aumentos
 
-**Título — quedas**
+**Título — reduções**
 
-E as que recuaram
+Os subgrupos com redução
 
 **Título — extremos**
 
@@ -1615,11 +1666,11 @@ Variação de preço em SP, sem encargos. São preços de mercado coletados pela
 
 A variação não é nacional
 
-**Territorial, 1º parágrafo**
+**Territorial 1**
 
-A variação de preços apresenta diferenças entre as UFs. Nesta edição, Pernambuco registrou a maior variação, com +2,96%, enquanto Minas Gerais apresentou a menor, com +0,25%. A diferença entre os dois extremos foi de 2,71 pontos percentuais.
+Todas as UFs registraram aumento de custos nesta edição, em intensidades diferentes, Pernambuco teve a maior variação, com +2,96%, e Minas Gerais a menor, com +0,25%, A distância entre as duas foi de 2,71 pontos percentuais.
 
-**Territorial, 2º parágrafo**
+**Territorial 2**
 
 Esse intervalo demonstra a importância de considerar o comportamento dos preços em cada estado. Abaixo, apresentamos a variação observada em cada UF contemplada pela fonte-base.
 
@@ -1633,29 +1684,32 @@ Como usar esta edição
 
 **Fecho**
 
-Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. Cada composição, insumo e acórdão citado aqui pode ser consultado em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
+Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. As composições e os insumos citados podem ser consultados em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
 
 ---
 
-## Edição #19 — julho de 2026
+## Edição #31 — SINAPI, julho de 2026
 
 <!-- apurado: média +0.03% · mediana +0.00% ·
      3550 aumentos / 3084 reduções / 1732 estáveis ·
-     movimento +127 −37 r0 rev279 ·
+     movimento +127 −37 r0 rev279
+     (coef 232 · ins+ 99 · ins− 42 ·
+      cabeçalho 254) ·
      IPCA +0.07% · INCC-M +0.62% ·
-     27 UF · 120 subgrupos com dado -->
+     intervalo 1 mês/es · 27 UF ·
+     0 grupos · 120 subgrupos -->
 
 **Chamada da capa**
 
-A edição de julho de 2026 apresentou variação média de +0,03% nos custos das composições em SP, praticamente em linha com o IPCA registrado no período. Entre as atualizações da fonte, foram incluídas 127 novas composições, 37 foram inativadas e outras 279 passaram por revisão.
+A edição de julho de 2026 apresentou variação média de +0,03% nos custos das composições em SP, ante um IPCA de +0,07% no período. Entre as atualizações da fonte, 127 novas composições foram incluídas, 37 foram inativadas e 279 passaram por revisão.
 
 **Título da Visão 360°**
 
-SINAPI 2026-07, em números
+SINAPI #31 · julho de 2026, em números
 
 **Nota do gráfico de índices**
 
-Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic se manteve estática no período, permanecendo no patamar de 14,25% a.a.
+Variação da fonte em SP, regime sem desoneração, contra os índices acumulados no intervalo entre a edição atual e a edição anterior. A taxa Selic permaneceu estável no período, em 14,25% a.a.
 
 **A média não conta a história**
 
@@ -1663,15 +1717,15 @@ Das 8.366 composições comparáveis, 3.550 tiveram aumento de custo e 3.084 tiv
 
 **Revisões da edição**
 
-Das 279 composições revisadas, 232 tiveram alteração de coeficiente, 99 passaram a contar com novo insumo e 42 tiveram insumo removido. Uma mesma composição pode figurar em mais de uma categoria.
+Das 279 composições revisadas, 232 tiveram alteração de coeficiente, 99 passaram a contar com novo insumo, 42 tiveram insumo removido e 254 tiveram alteração de descrição ou unidade. Uma mesma composição pode figurar em mais de uma categoria.
 
 **Título — concentração**
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos índices acumulados no mesmo período.
+Variação desde a última edição de 2025 até esta, em SP, ao lado dos índices acumulados no mesmo intervalo.
 
 **Caixa de cobertura**
 
@@ -1679,19 +1733,19 @@ Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos
 
 **Título — subgrupos**
 
-Onde o preço se moveu
+Onde os custos variaram
 
 **Entrada dos subgrupos**
 
 A análise considera os subgrupos com pelo menos 10 composições comparáveis em SP. Nesta edição, 120 subgrupos atenderam a esse critério. Para cada um deles, a variação foi calculada a partir dos custos médios das duas edições, permitindo identificar onde ocorreram os maiores aumentos e reduções no período.
 
-**Título — altas**
+**Título — maiores aumentos**
 
-As dez maiores altas
+Os dez maiores aumentos
 
-**Título — quedas**
+**Título — reduções**
 
-E as que recuaram
+Os subgrupos com redução
 
 **Título — extremos**
 
@@ -1705,11 +1759,11 @@ Variação de preço em SP, sem encargos. São preços de mercado coletados pela
 
 A variação não é nacional
 
-**Territorial, 1º parágrafo**
+**Territorial 1**
 
 A variação de preços apresenta diferenças entre as UFs. Nesta edição, o Acre registrou a maior variação, com +1,73%, enquanto Alagoas apresentou a menor, com -0,10%. A diferença entre os dois extremos foi de 1,83 pontos percentuais.
 
-**Territorial, 2º parágrafo**
+**Territorial 2**
 
 Esse intervalo demonstra a importância de considerar o comportamento dos preços em cada estado. Abaixo, apresentamos a variação observada em cada UF contemplada pela fonte-base.
 
@@ -1723,6 +1777,6 @@ Como usar esta edição
 
 **Fecho**
 
-Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. Cada composição, insumo e acórdão citado aqui pode ser consultado em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
+Os números desta edição saem da leitura completa da publicação da fonte-base, comparada com a edição imediatamente anterior. As composições e os insumos citados podem ser consultados em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se você orça com SINAPI, vale conferir se os subgrupos listados nesta edição estão presentes no seu orçamento em andamento.
 
 ---

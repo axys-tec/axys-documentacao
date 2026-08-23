@@ -1,24 +1,14 @@
-# Axys Newsletter — texto das 12 edições CDHU e FDE, para refino
+# Axys Newsletter — texto das 12 edições CDHU e FDE
 
-Fontes de UF ÚNICA e cadência quadrimestral. O desenho difere do da SINAPI em três
-pontos, e vale ter isso em mente ao ler:
+Numeração global e cronológica da série, com SINAPI, CDHU e FDE nessa ordem dentro do
+mesmo mês. Os números aqui não são sequenciais entre si por isso.
 
-- **Não há análise territorial.** São de São Paulo apenas, então não existe mapa a
-  mostrar e os blocos de UF foram removidos destes arquivos.
-- **Há análise por FRENTE DE OBRA.** CDHU tem 61 grupos e FDE 16, camada que a SINAPI
-  não possui. Ela ocupa o lugar que a territorial ocupa lá, e vem antes do subgrupo.
-- **A lista de insumos é menor** (9 mais 9, contra 14 mais 14), proporcional ao tamanho
-  da base.
-
-**Já corrigido nesta camada:** concordância de número, edição sem revisão, revisão só de
-cabeçalho (a FDE de abril/2025 tinha 6 revisões que não mexeram em coeficiente nem em
-insumo, e o texto dizia que nenhuma teve nada), Selic estável, fecho sem referência a
-acórdãos e os títulos no padrão de aumento e redução.
+**Já corrigido nesta camada:** concordância de número, chamada que conta apenas o que
+aconteceu (ausência não vira item de lista), revisão de descrição ou unidade descrita
+como tal, caixa de cobertura sem tratado metodológico quando não falta preço, títulos no
+padrão de aumento e redução, e Selic descrita sem verbo de direção.
 
 **Não tocado:** os números, que se conferem no `.json` de cada edição.
-
-**Numeração:** é global e cronológica, com SINAPI, CDHU e FDE nessa ordem dentro do mesmo
-mês. Por isso os números aqui não são sequenciais entre si.
 
 **Como devolver:** edite o `.md` da edição, em `v0_docs/newsletter/<edição>/<edição>.md`.
 
@@ -28,14 +18,16 @@ mês. Por isso os números aqui não são sequenciais entre si.
 
 <!-- apurado: média +0.73% · mediana +0.10% ·
      1775 aumentos / 871 reduções / 638 estáveis ·
-     movimento +1 −1 r0 rev0 ·
+     movimento +1 −1 r0 rev0
+     (coef 0 · ins+ 0 · ins− 0 ·
+      cabeçalho 0) ·
      IPCA +1.07% · INCC-M +1.67% ·
-     intervalo de 3 meses · 1 UF ·
+     intervalo 3 mês/es · 1 UF ·
      16 grupos · 98 subgrupos -->
 
 **Chamada da capa**
 
-A edição de janeiro de 2025 apresentou variação média de +0,73% nos custos das composições em SP, abaixo do IPCA registrado no período. Entre as atualizações da fonte, foi incluída 1 nova composição, 1 foi inativada e nenhuma passou por revisão.
+A edição de janeiro de 2025 apresentou variação média de +0,73% nos custos das composições em SP, abaixo do IPCA registrado no período. Entre as atualizações da fonte, 1 nova composição foi incluída e 1 foi inativada.
 
 **Título da Visão 360°**
 
@@ -57,13 +49,13 @@ A fonte não revisou composições nesta edição.
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro de 2024, que é a base do acumulado de 2025, em SP, ao lado dos índices no mesmo período.
+Variação desde a última edição de 2024 até esta, em SP, ao lado dos índices acumulados no mesmo intervalo.
 
 **Caixa de cobertura**
 
-**Cobertura desta edição:** 1 UFs e 3.285 composições. Do total publicado, 0,0% das linhas de custo das composições e 0,0% dos preços de insumos foram disponibilizados pela fonte sem preço. Esses percentuais ajudam a dimensionar a cobertura efetiva da edição e a disponibilidade de preços para uso em orçamentos.
+**Cobertura desta edição:** 3.285 composições em São Paulo, com preço disponível para a totalidade dos dados considerados.
 
 **Abertura — frentes**
 
@@ -71,11 +63,11 @@ Impacto por frente
 
 **Título — frentes**
 
-Como cada frente de obra se comportou
+Variação de custos por frente de obra
 
 **Entrada das frentes**
 
-A FDE organiza as composições em grupos, que reúnem serviços de uma mesma frente de obra. Nesta edição, 16 grupos tinham composições comparáveis em SP. A leitura por frente mostra onde o movimento se concentrou, antes de descer ao detalhe do subgrupo.
+A FDE organiza as composições em grupos, que reúnem serviços de uma mesma frente de obra. Nesta edição, 16 grupos tinham composições comparáveis. A análise por grupo mostra a variação de custos de cada frente antes do detalhe por subgrupo.
 
 **Título — frentes com aumento**
 
@@ -87,7 +79,7 @@ As frentes com redução
 
 **Nota das frentes**
 
-Grupos com pelo menos 5 composições comparáveis. A variação é a razão entre os custos médios das duas edições, o que respeita a grandeza de cada composição dentro da frente.
+Grupos com pelo menos 5 composições comparáveis. A variação de cada grupo é calculada a partir dos custos médios das duas edições.
 
 **Título — subgrupos**
 
@@ -127,14 +119,16 @@ Os números desta edição saem da leitura completa da publicação da fonte-bas
 
 <!-- apurado: média +1.53% · mediana +0.69% ·
      2406 aumentos / 791 reduções / 378 estáveis ·
-     movimento +2 −7 r0 rev68 ·
+     movimento +2 −7 r0 rev68
+     (coef 5 · ins+ 26 · ins− 26 ·
+      cabeçalho 37) ·
      IPCA +2.00% · INCC-M +1.74% ·
-     intervalo de 3 meses · 1 UF ·
+     intervalo 3 mês/es · 1 UF ·
      59 grupos · 116 subgrupos -->
 
 **Chamada da capa**
 
-A edição de fevereiro de 2025 apresentou variação média de +1,53% nos custos das composições em SP, abaixo do IPCA registrado no período. Entre as atualizações da fonte, foram incluídas 2 novas composições, 7 foram inativadas e outras 68 passaram por revisão.
+A edição de fevereiro de 2025 apresentou variação média de +1,53% nos custos das composições em SP, abaixo do IPCA registrado no período. Entre as atualizações da fonte, 2 novas composições foram incluídas, 7 foram inativadas e 68 passaram por revisão.
 
 **Título da Visão 360°**
 
@@ -150,19 +144,19 @@ Das 3.575 composições comparáveis, 2.406 tiveram aumento de custo e 791 tiver
 
 **Revisões da edição**
 
-Das 68 composições revisadas, 5 tiveram alteração de coeficiente, 26 passaram a contar com novo insumo e 26 tiveram insumo removido. Uma mesma composição pode figurar em mais de uma categoria.
+Das 68 composições revisadas, 5 tiveram alteração de coeficiente, 26 passaram a contar com novo insumo, 26 tiveram insumo removido e 37 tiveram alteração de descrição ou unidade. Uma mesma composição pode figurar em mais de uma categoria.
 
 **Título — concentração**
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos índices acumulados no mesmo período.
+Variação desde a última edição de 2024 até esta, em SP, ao lado dos índices acumulados no mesmo intervalo.
 
 **Caixa de cobertura**
 
-**Cobertura desta edição:** 1 UFs e 3.577 composições. Do total publicado, 0,0% das linhas de custo das composições e 0,0% dos preços de insumos foram disponibilizados pela fonte sem preço. Esses percentuais ajudam a dimensionar a cobertura efetiva da edição e a disponibilidade de preços para uso em orçamentos.
+**Cobertura desta edição:** 3.577 composições em São Paulo, com preço disponível para a totalidade dos dados considerados.
 
 **Abertura — frentes**
 
@@ -170,11 +164,11 @@ Impacto por frente
 
 **Título — frentes**
 
-Como cada frente de obra se comportou
+Variação de custos por frente de obra
 
 **Entrada das frentes**
 
-A CDHU organiza as composições em grupos, que reúnem serviços de uma mesma frente de obra. Nesta edição, 59 grupos tinham composições comparáveis em SP. A leitura por frente mostra onde o movimento se concentrou, antes de descer ao detalhe do subgrupo.
+A CDHU organiza as composições em grupos, que reúnem serviços de uma mesma frente de obra. Nesta edição, 59 grupos tinham composições comparáveis. A análise por grupo mostra a variação de custos de cada frente antes do detalhe por subgrupo.
 
 **Título — frentes com aumento**
 
@@ -186,7 +180,7 @@ As frentes com redução
 
 **Nota das frentes**
 
-Grupos com pelo menos 5 composições comparáveis. A variação é a razão entre os custos médios das duas edições, o que respeita a grandeza de cada composição dentro da frente.
+Grupos com pelo menos 5 composições comparáveis. A variação de cada grupo é calculada a partir dos custos médios das duas edições.
 
 **Título — subgrupos**
 
@@ -226,14 +220,16 @@ Os números desta edição saem da leitura completa da publicação da fonte-bas
 
 <!-- apurado: média +1.82% · mediana +1.82% ·
      2896 aumentos / 369 reduções / 20 estáveis ·
-     movimento +0 −0 r0 rev6 ·
+     movimento +0 −0 r0 rev6
+     (coef 0 · ins+ 0 · ins− 0 ·
+      cabeçalho 6) ·
      IPCA +2.32% · INCC-M +1.49% ·
-     intervalo de 3 meses · 1 UF ·
+     intervalo 3 mês/es · 1 UF ·
      16 grupos · 98 subgrupos -->
 
 **Chamada da capa**
 
-A edição de abril de 2025 apresentou variação média de +1,82% nos custos das composições em SP, abaixo do IPCA registrado no período. A fonte revisou 6 composições nesta edição, sem incluir ou inativar nenhuma.
+A edição de abril de 2025 apresentou variação média de +1,82% nos custos das composições em SP, abaixo do IPCA registrado no período. Entre as atualizações da fonte, 6 passaram por revisão.
 
 **Título da Visão 360°**
 
@@ -249,19 +245,19 @@ Das 3.285 composições comparáveis, 2.896 tiveram aumento de custo e 369 tiver
 
 **Revisões da edição**
 
-As 6 composições revisadas tiveram alteração de descrição ou unidade, sem mudança de coeficiente ou de insumo.
+Das 6 composições revisadas, todas tiveram alteração de descrição ou unidade.
 
 **Título — concentração**
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos índices acumulados no mesmo período.
+Variação desde a última edição de 2024 até esta, em SP, ao lado dos índices acumulados no mesmo intervalo.
 
 **Caixa de cobertura**
 
-**Cobertura desta edição:** 1 UFs e 3.285 composições. Do total publicado, 0,0% das linhas de custo das composições e 0,0% dos preços de insumos foram disponibilizados pela fonte sem preço. Esses percentuais ajudam a dimensionar a cobertura efetiva da edição e a disponibilidade de preços para uso em orçamentos.
+**Cobertura desta edição:** 3.285 composições em São Paulo, com preço disponível para a totalidade dos dados considerados.
 
 **Abertura — frentes**
 
@@ -269,11 +265,11 @@ Impacto por frente
 
 **Título — frentes**
 
-Como cada frente de obra se comportou
+Variação de custos por frente de obra
 
 **Entrada das frentes**
 
-A FDE organiza as composições em grupos, que reúnem serviços de uma mesma frente de obra. Nesta edição, 16 grupos tinham composições comparáveis em SP. A leitura por frente mostra onde o movimento se concentrou, antes de descer ao detalhe do subgrupo.
+A FDE organiza as composições em grupos, que reúnem serviços de uma mesma frente de obra. Nesta edição, 16 grupos tinham composições comparáveis. A análise por grupo mostra a variação de custos de cada frente antes do detalhe por subgrupo.
 
 **Título — frentes com aumento**
 
@@ -285,7 +281,7 @@ As frentes com redução
 
 **Nota das frentes**
 
-Grupos com pelo menos 5 composições comparáveis. A variação é a razão entre os custos médios das duas edições, o que respeita a grandeza de cada composição dentro da frente.
+Grupos com pelo menos 5 composições comparáveis. A variação de cada grupo é calculada a partir dos custos médios das duas edições.
 
 **Título — subgrupos**
 
@@ -325,14 +321,16 @@ Os números desta edição saem da leitura completa da publicação da fonte-bas
 
 <!-- apurado: média +2.68% · mediana +2.44% ·
      2989 aumentos / 552 reduções / 18 estáveis ·
-     movimento +3 −18 r0 rev38 ·
+     movimento +3 −18 r0 rev38
+     (coef 1 · ins+ 7 · ins− 2 ·
+      cabeçalho 30) ·
      IPCA +1.25% · INCC-M +1.23% ·
-     intervalo de 3 meses · 1 UF ·
+     intervalo 3 mês/es · 1 UF ·
      59 grupos · 115 subgrupos -->
 
 **Chamada da capa**
 
-A edição de maio de 2025 apresentou variação média de +2,68% nos custos das composições em SP, acima do IPCA registrado no período. Entre as atualizações da fonte, foram incluídas 3 novas composições, 18 foram inativadas e outras 38 passaram por revisão.
+A edição de maio de 2025 apresentou variação média de +2,68% nos custos das composições em SP, acima do IPCA registrado no período. Entre as atualizações da fonte, 3 novas composições foram incluídas, 18 foram inativadas e 38 passaram por revisão.
 
 **Título da Visão 360°**
 
@@ -348,19 +346,19 @@ Das 3.559 composições comparáveis, 2.989 tiveram aumento de custo e 552 tiver
 
 **Revisões da edição**
 
-Das 38 composições revisadas, 1 teve alteração de coeficiente, 7 passaram a contar com novo insumo e 2 tiveram insumo removido. Uma mesma composição pode figurar em mais de uma categoria.
+Das 38 composições revisadas, 1 teve alteração de coeficiente, 7 passaram a contar com novo insumo, 2 tiveram insumo removido e 30 tiveram alteração de descrição ou unidade. Uma mesma composição pode figurar em mais de uma categoria.
 
 **Título — concentração**
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos índices acumulados no mesmo período.
+Variação desde a última edição de 2024 até esta, em SP, ao lado dos índices acumulados no mesmo intervalo.
 
 **Caixa de cobertura**
 
-**Cobertura desta edição:** 1 UFs e 3.562 composições. Do total publicado, 0,0% das linhas de custo das composições e 0,0% dos preços de insumos foram disponibilizados pela fonte sem preço. Esses percentuais ajudam a dimensionar a cobertura efetiva da edição e a disponibilidade de preços para uso em orçamentos.
+**Cobertura desta edição:** 3.562 composições em São Paulo, com preço disponível para a totalidade dos dados considerados.
 
 **Abertura — frentes**
 
@@ -368,11 +366,11 @@ Impacto por frente
 
 **Título — frentes**
 
-Como cada frente de obra se comportou
+Variação de custos por frente de obra
 
 **Entrada das frentes**
 
-A CDHU organiza as composições em grupos, que reúnem serviços de uma mesma frente de obra. Nesta edição, 59 grupos tinham composições comparáveis em SP. A leitura por frente mostra onde o movimento se concentrou, antes de descer ao detalhe do subgrupo.
+A CDHU organiza as composições em grupos, que reúnem serviços de uma mesma frente de obra. Nesta edição, 59 grupos tinham composições comparáveis. A análise por grupo mostra a variação de custos de cada frente antes do detalhe por subgrupo.
 
 **Título — frentes com aumento**
 
@@ -384,7 +382,7 @@ As frentes com redução
 
 **Nota das frentes**
 
-Grupos com pelo menos 5 composições comparáveis. A variação é a razão entre os custos médios das duas edições, o que respeita a grandeza de cada composição dentro da frente.
+Grupos com pelo menos 5 composições comparáveis. A variação de cada grupo é calculada a partir dos custos médios das duas edições.
 
 **Título — subgrupos**
 
@@ -424,14 +422,16 @@ Os números desta edição saem da leitura completa da publicação da fonte-bas
 
 <!-- apurado: média +3.47% · mediana +2.77% ·
      2843 aumentos / 386 reduções / 53 estáveis ·
-     movimento +29 −3 r0 rev0 ·
+     movimento +29 −3 r0 rev0
+     (coef 0 · ins+ 0 · ins− 0 ·
+      cabeçalho 0) ·
      IPCA +0.76% · INCC-M +2.14% ·
-     intervalo de 3 meses · 1 UF ·
+     intervalo 3 mês/es · 1 UF ·
      16 grupos · 98 subgrupos -->
 
 **Chamada da capa**
 
-A edição de julho de 2025 apresentou variação média de +3,47% nos custos das composições em SP, acima do IPCA registrado no período. Entre as atualizações da fonte, foram incluídas 29 novas composições, 3 foram inativadas e nenhuma passou por revisão.
+A edição de julho de 2025 apresentou variação média de +3,47% nos custos das composições em SP, acima do IPCA registrado no período. Entre as atualizações da fonte, 29 novas composições foram incluídas e 3 foram inativadas.
 
 **Título da Visão 360°**
 
@@ -453,13 +453,13 @@ A fonte não revisou composições nesta edição.
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos índices acumulados no mesmo período.
+Variação desde a última edição de 2024 até esta, em SP, ao lado dos índices acumulados no mesmo intervalo.
 
 **Caixa de cobertura**
 
-**Cobertura desta edição:** 1 UFs e 3.311 composições. Do total publicado, 0,0% das linhas de custo das composições e 0,0% dos preços de insumos foram disponibilizados pela fonte sem preço. Esses percentuais ajudam a dimensionar a cobertura efetiva da edição e a disponibilidade de preços para uso em orçamentos.
+**Cobertura desta edição:** 3.311 composições em São Paulo, com preço disponível para a totalidade dos dados considerados.
 
 **Abertura — frentes**
 
@@ -467,11 +467,11 @@ Impacto por frente
 
 **Título — frentes**
 
-Como cada frente de obra se comportou
+Variação de custos por frente de obra
 
 **Entrada das frentes**
 
-A FDE organiza as composições em grupos, que reúnem serviços de uma mesma frente de obra. Nesta edição, 16 grupos tinham composições comparáveis em SP. A leitura por frente mostra onde o movimento se concentrou, antes de descer ao detalhe do subgrupo.
+A FDE organiza as composições em grupos, que reúnem serviços de uma mesma frente de obra. Nesta edição, 16 grupos tinham composições comparáveis. A análise por grupo mostra a variação de custos de cada frente antes do detalhe por subgrupo.
 
 **Título — frentes com aumento**
 
@@ -483,7 +483,7 @@ As frentes com redução
 
 **Nota das frentes**
 
-Grupos com pelo menos 5 composições comparáveis. A variação é a razão entre os custos médios das duas edições, o que respeita a grandeza de cada composição dentro da frente.
+Grupos com pelo menos 5 composições comparáveis. A variação de cada grupo é calculada a partir dos custos médios das duas edições.
 
 **Título — subgrupos**
 
@@ -523,14 +523,16 @@ Os números desta edição saem da leitura completa da publicação da fonte-bas
 
 <!-- apurado: média +0.22% · mediana +0.06% ·
      1820 aumentos / 1339 reduções / 400 estáveis ·
-     movimento +2 −3 r0 rev9 ·
+     movimento +2 −3 r0 rev9
+     (coef 0 · ins+ 6 · ins− 7 ·
+      cabeçalho 2) ·
      IPCA +0.39% · INCC-M +2.59% ·
-     intervalo de 3 meses · 1 UF ·
+     intervalo 3 mês/es · 1 UF ·
      59 grupos · 114 subgrupos -->
 
 **Chamada da capa**
 
-A edição de agosto de 2025 apresentou variação média de +0,22% nos custos das composições em SP, abaixo do IPCA registrado no período. Entre as atualizações da fonte, foram incluídas 2 novas composições, 3 foram inativadas e outras 9 passaram por revisão.
+A edição de agosto de 2025 apresentou variação média de +0,22% nos custos das composições em SP, abaixo do IPCA registrado no período. Entre as atualizações da fonte, 2 novas composições foram incluídas, 3 foram inativadas e 9 passaram por revisão.
 
 **Título da Visão 360°**
 
@@ -546,19 +548,19 @@ Das 3.559 composições comparáveis, 1.820 tiveram aumento de custo e 1.339 tiv
 
 **Revisões da edição**
 
-Das 9 composições revisadas, nenhuma teve alteração de coeficiente, 6 passaram a contar com novo insumo e 7 tiveram insumo removido. Uma mesma composição pode figurar em mais de uma categoria.
+Das 9 composições revisadas, 6 passaram a contar com novo insumo, 7 tiveram insumo removido e 2 tiveram alteração de descrição ou unidade. Uma mesma composição pode figurar em mais de uma categoria.
 
 **Título — concentração**
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos índices acumulados no mesmo período.
+Variação desde a última edição de 2024 até esta, em SP, ao lado dos índices acumulados no mesmo intervalo.
 
 **Caixa de cobertura**
 
-**Cobertura desta edição:** 1 UFs e 3.561 composições. Do total publicado, 0,0% das linhas de custo das composições e 0,0% dos preços de insumos foram disponibilizados pela fonte sem preço. Esses percentuais ajudam a dimensionar a cobertura efetiva da edição e a disponibilidade de preços para uso em orçamentos.
+**Cobertura desta edição:** 3.561 composições em São Paulo, com preço disponível para a totalidade dos dados considerados.
 
 **Abertura — frentes**
 
@@ -566,11 +568,11 @@ Impacto por frente
 
 **Título — frentes**
 
-Como cada frente de obra se comportou
+Variação de custos por frente de obra
 
 **Entrada das frentes**
 
-A CDHU organiza as composições em grupos, que reúnem serviços de uma mesma frente de obra. Nesta edição, 59 grupos tinham composições comparáveis em SP. A leitura por frente mostra onde o movimento se concentrou, antes de descer ao detalhe do subgrupo.
+A CDHU organiza as composições em grupos, que reúnem serviços de uma mesma frente de obra. Nesta edição, 59 grupos tinham composições comparáveis. A análise por grupo mostra a variação de custos de cada frente antes do detalhe por subgrupo.
 
 **Título — frentes com aumento**
 
@@ -582,7 +584,7 @@ As frentes com redução
 
 **Nota das frentes**
 
-Grupos com pelo menos 5 composições comparáveis. A variação é a razão entre os custos médios das duas edições, o que respeita a grandeza de cada composição dentro da frente.
+Grupos com pelo menos 5 composições comparáveis. A variação de cada grupo é calculada a partir dos custos médios das duas edições.
 
 **Título — subgrupos**
 
@@ -622,14 +624,16 @@ Os números desta edição saem da leitura completa da publicação da fonte-bas
 
 <!-- apurado: média +0.66% · mediana +0.02% ·
      1680 aumentos / 1112 reduções / 518 estáveis ·
-     movimento +8 −1 r0 rev0 ·
+     movimento +8 −1 r0 rev0
+     (coef 0 · ins+ 0 · ins− 0 ·
+      cabeçalho 0) ·
      IPCA +0.46% · INCC-M +1.12% ·
-     intervalo de 3 meses · 1 UF ·
+     intervalo 3 mês/es · 1 UF ·
      16 grupos · 98 subgrupos -->
 
 **Chamada da capa**
 
-A edição de outubro de 2025 apresentou variação média de +0,66% nos custos das composições em SP, acima do IPCA registrado no período. Entre as atualizações da fonte, foram incluídas 8 novas composições, 1 foi inativada e nenhuma passou por revisão.
+A edição de outubro de 2025 apresentou variação média de +0,66% nos custos das composições em SP, acima do IPCA registrado no período. Entre as atualizações da fonte, 8 novas composições foram incluídas e 1 foi inativada.
 
 **Título da Visão 360°**
 
@@ -651,13 +655,13 @@ A fonte não revisou composições nesta edição.
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos índices acumulados no mesmo período.
+Última edição de 2025 da FDE. A variação acumulada compara com a última edição de 2024, que serve de base do ano, em SP, ao lado dos índices no mesmo intervalo.
 
 **Caixa de cobertura**
 
-**Cobertura desta edição:** 1 UFs e 3.318 composições. Do total publicado, 0,0% das linhas de custo das composições e 0,0% dos preços de insumos foram disponibilizados pela fonte sem preço. Esses percentuais ajudam a dimensionar a cobertura efetiva da edição e a disponibilidade de preços para uso em orçamentos.
+**Cobertura desta edição:** 3.318 composições em São Paulo, com preço disponível para a totalidade dos dados considerados.
 
 **Abertura — frentes**
 
@@ -665,11 +669,11 @@ Impacto por frente
 
 **Título — frentes**
 
-Como cada frente de obra se comportou
+Variação de custos por frente de obra
 
 **Entrada das frentes**
 
-A FDE organiza as composições em grupos, que reúnem serviços de uma mesma frente de obra. Nesta edição, 16 grupos tinham composições comparáveis em SP. A leitura por frente mostra onde o movimento se concentrou, antes de descer ao detalhe do subgrupo.
+A FDE organiza as composições em grupos, que reúnem serviços de uma mesma frente de obra. Nesta edição, 16 grupos tinham composições comparáveis. A análise por grupo mostra a variação de custos de cada frente antes do detalhe por subgrupo.
 
 **Título — frentes com aumento**
 
@@ -681,7 +685,7 @@ As frentes com redução
 
 **Nota das frentes**
 
-Grupos com pelo menos 5 composições comparáveis. A variação é a razão entre os custos médios das duas edições, o que respeita a grandeza de cada composição dentro da frente.
+Grupos com pelo menos 5 composições comparáveis. A variação de cada grupo é calculada a partir dos custos médios das duas edições.
 
 **Título — subgrupos**
 
@@ -721,14 +725,16 @@ Os números desta edição saem da leitura completa da publicação da fonte-bas
 
 <!-- apurado: média +0.30% · mediana +0.04% ·
      1808 aumentos / 1384 reduções / 367 estáveis ·
-     movimento +3 −2 r0 rev5 ·
+     movimento +3 −2 r0 rev5
+     (coef 1 · ins+ 2 · ins− 2 ·
+      cabeçalho 3) ·
      IPCA +0.75% · INCC-M +0.70% ·
-     intervalo de 3 meses · 1 UF ·
+     intervalo 3 mês/es · 1 UF ·
      59 grupos · 114 subgrupos -->
 
 **Chamada da capa**
 
-A edição de novembro de 2025 apresentou variação média de +0,30% nos custos das composições em SP, abaixo do IPCA registrado no período. Entre as atualizações da fonte, foram incluídas 3 novas composições, 2 foram inativadas e outras 5 passaram por revisão.
+A edição de novembro de 2025 apresentou variação média de +0,30% nos custos das composições em SP, abaixo do IPCA registrado no período. Entre as atualizações da fonte, 3 novas composições foram incluídas, 2 foram inativadas e 5 passaram por revisão.
 
 **Título da Visão 360°**
 
@@ -744,19 +750,19 @@ Das 3.559 composições comparáveis, 1.808 tiveram aumento de custo e 1.384 tiv
 
 **Revisões da edição**
 
-Das 5 composições revisadas, 1 teve alteração de coeficiente, 2 passaram a contar com novo insumo e 2 tiveram insumo removido. Uma mesma composição pode figurar em mais de uma categoria.
+Das 5 composições revisadas, 1 teve alteração de coeficiente, 2 passaram a contar com novo insumo, 2 tiveram insumo removido e 3 tiveram alteração de descrição ou unidade. Uma mesma composição pode figurar em mais de uma categoria.
 
 **Título — concentração**
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos índices acumulados no mesmo período.
+Última edição de 2025 da CDHU. A variação acumulada compara com a última edição de 2024, que serve de base do ano, em SP, ao lado dos índices no mesmo intervalo.
 
 **Caixa de cobertura**
 
-**Cobertura desta edição:** 1 UFs e 3.562 composições. Do total publicado, 0,0% das linhas de custo das composições e 0,0% dos preços de insumos foram disponibilizados pela fonte sem preço. Esses percentuais ajudam a dimensionar a cobertura efetiva da edição e a disponibilidade de preços para uso em orçamentos.
+**Cobertura desta edição:** 3.562 composições em São Paulo, com preço disponível para a totalidade dos dados considerados.
 
 **Abertura — frentes**
 
@@ -764,11 +770,11 @@ Impacto por frente
 
 **Título — frentes**
 
-Como cada frente de obra se comportou
+Variação de custos por frente de obra
 
 **Entrada das frentes**
 
-A CDHU organiza as composições em grupos, que reúnem serviços de uma mesma frente de obra. Nesta edição, 59 grupos tinham composições comparáveis em SP. A leitura por frente mostra onde o movimento se concentrou, antes de descer ao detalhe do subgrupo.
+A CDHU organiza as composições em grupos, que reúnem serviços de uma mesma frente de obra. Nesta edição, 59 grupos tinham composições comparáveis. A análise por grupo mostra a variação de custos de cada frente antes do detalhe por subgrupo.
 
 **Título — frentes com aumento**
 
@@ -780,7 +786,7 @@ As frentes com redução
 
 **Nota das frentes**
 
-Grupos com pelo menos 5 composições comparáveis. A variação é a razão entre os custos médios das duas edições, o que respeita a grandeza de cada composição dentro da frente.
+Grupos com pelo menos 5 composições comparáveis. A variação de cada grupo é calculada a partir dos custos médios das duas edições.
 
 **Título — subgrupos**
 
@@ -820,14 +826,16 @@ Os números desta edição saem da leitura completa da publicação da fonte-bas
 
 <!-- apurado: média +0.48% · mediana +0.13% ·
      1994 aumentos / 811 reduções / 493 estáveis ·
-     movimento +15 −20 r0 rev0 ·
+     movimento +15 −20 r0 rev0
+     (coef 0 · ins+ 0 · ins− 0 ·
+      cabeçalho 0) ·
      IPCA +0.84% · INCC-M +1.12% ·
-     intervalo de 3 meses · 1 UF ·
+     intervalo 3 mês/es · 1 UF ·
      16 grupos · 98 subgrupos -->
 
 **Chamada da capa**
 
-A edição de janeiro de 2026 apresentou variação média de +0,48% nos custos das composições em SP, abaixo do IPCA registrado no período. Entre as atualizações da fonte, foram incluídas 15 novas composições, 20 foram inativadas e nenhuma passou por revisão.
+A edição de janeiro de 2026 apresentou variação média de +0,48% nos custos das composições em SP, abaixo do IPCA registrado no período. Entre as atualizações da fonte, 15 novas composições foram incluídas e 20 foram inativadas.
 
 **Título da Visão 360°**
 
@@ -849,13 +857,13 @@ A fonte não revisou composições nesta edição.
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro de 2025, que é a base do acumulado de 2026, em SP, ao lado dos índices no mesmo período.
+Variação desde a última edição de 2025, que é a base do acumulado de 2026, em SP, ao lado dos índices no mesmo intervalo.
 
 **Caixa de cobertura**
 
-**Cobertura desta edição:** 1 UFs e 3.313 composições. Do total publicado, 0,0% das linhas de custo das composições e 0,0% dos preços de insumos foram disponibilizados pela fonte sem preço. Esses percentuais ajudam a dimensionar a cobertura efetiva da edição e a disponibilidade de preços para uso em orçamentos.
+**Cobertura desta edição:** 3.313 composições em São Paulo, com preço disponível para a totalidade dos dados considerados.
 
 **Abertura — frentes**
 
@@ -863,11 +871,11 @@ Impacto por frente
 
 **Título — frentes**
 
-Como cada frente de obra se comportou
+Variação de custos por frente de obra
 
 **Entrada das frentes**
 
-A FDE organiza as composições em grupos, que reúnem serviços de uma mesma frente de obra. Nesta edição, 16 grupos tinham composições comparáveis em SP. A leitura por frente mostra onde o movimento se concentrou, antes de descer ao detalhe do subgrupo.
+A FDE organiza as composições em grupos, que reúnem serviços de uma mesma frente de obra. Nesta edição, 16 grupos tinham composições comparáveis. A análise por grupo mostra a variação de custos de cada frente antes do detalhe por subgrupo.
 
 **Título — frentes com aumento**
 
@@ -879,7 +887,7 @@ As frentes com redução
 
 **Nota das frentes**
 
-Grupos com pelo menos 5 composições comparáveis. A variação é a razão entre os custos médios das duas edições, o que respeita a grandeza de cada composição dentro da frente.
+Grupos com pelo menos 5 composições comparáveis. A variação de cada grupo é calculada a partir dos custos médios das duas edições.
 
 **Título — subgrupos**
 
@@ -919,14 +927,16 @@ Os números desta edição saem da leitura completa da publicação da fonte-bas
 
 <!-- apurado: média +0.89% · mediana +0.37% ·
      2109 aumentos / 1026 reduções / 425 estáveis ·
-     movimento +0 −2 r0 rev62 ·
+     movimento +0 −2 r0 rev62
+     (coef 2 · ins+ 9 · ins− 11 ·
+      cabeçalho 53) ·
      IPCA +1.37% · INCC-M +1.18% ·
-     intervalo de 3 meses · 1 UF ·
+     intervalo 3 mês/es · 1 UF ·
      59 grupos · 114 subgrupos -->
 
 **Chamada da capa**
 
-A edição de fevereiro de 2026 apresentou variação média de +0,89% nos custos das composições em SP, abaixo do IPCA registrado no período. Entre as atualizações da fonte, nenhuma composição foi incluída, 2 foram inativadas e outras 62 passaram por revisão.
+A edição de fevereiro de 2026 apresentou variação média de +0,89% nos custos das composições em SP, abaixo do IPCA registrado no período. Entre as atualizações da fonte, 2 foram inativadas e 62 passaram por revisão.
 
 **Título da Visão 360°**
 
@@ -942,19 +952,19 @@ Das 3.560 composições comparáveis, 2.109 tiveram aumento de custo e 1.026 tiv
 
 **Revisões da edição**
 
-Das 62 composições revisadas, 2 tiveram alteração de coeficiente, 9 passaram a contar com novo insumo e 11 tiveram insumo removido. Uma mesma composição pode figurar em mais de uma categoria.
+Das 62 composições revisadas, 2 tiveram alteração de coeficiente, 9 passaram a contar com novo insumo, 11 tiveram insumo removido e 53 tiveram alteração de descrição ou unidade. Uma mesma composição pode figurar em mais de uma categoria.
 
 **Título — concentração**
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos índices acumulados no mesmo período.
+Variação desde a última edição de 2025, que é a base do acumulado de 2026, em SP, ao lado dos índices no mesmo intervalo.
 
 **Caixa de cobertura**
 
-**Cobertura desta edição:** 1 UFs e 3.560 composições. Do total publicado, 0,0% das linhas de custo das composições e 0,0% dos preços de insumos foram disponibilizados pela fonte sem preço. Esses percentuais ajudam a dimensionar a cobertura efetiva da edição e a disponibilidade de preços para uso em orçamentos.
+**Cobertura desta edição:** 3.560 composições em São Paulo, com preço disponível para a totalidade dos dados considerados.
 
 **Abertura — frentes**
 
@@ -962,11 +972,11 @@ Impacto por frente
 
 **Título — frentes**
 
-Como cada frente de obra se comportou
+Variação de custos por frente de obra
 
 **Entrada das frentes**
 
-A CDHU organiza as composições em grupos, que reúnem serviços de uma mesma frente de obra. Nesta edição, 59 grupos tinham composições comparáveis em SP. A leitura por frente mostra onde o movimento se concentrou, antes de descer ao detalhe do subgrupo.
+A CDHU organiza as composições em grupos, que reúnem serviços de uma mesma frente de obra. Nesta edição, 59 grupos tinham composições comparáveis. A análise por grupo mostra a variação de custos de cada frente antes do detalhe por subgrupo.
 
 **Título — frentes com aumento**
 
@@ -978,7 +988,7 @@ As frentes com redução
 
 **Nota das frentes**
 
-Grupos com pelo menos 5 composições comparáveis. A variação é a razão entre os custos médios das duas edições, o que respeita a grandeza de cada composição dentro da frente.
+Grupos com pelo menos 5 composições comparáveis. A variação de cada grupo é calculada a partir dos custos médios das duas edições.
 
 **Título — subgrupos**
 
@@ -1018,14 +1028,16 @@ Os números desta edição saem da leitura completa da publicação da fonte-bas
 
 <!-- apurado: média +1.62% · mediana +1.03% ·
      2346 aumentos / 630 reduções / 315 estáveis ·
-     movimento +84 −22 r0 rev77 ·
+     movimento +84 −22 r0 rev77
+     (coef 0 · ins+ 1 · ins− 1 ·
+      cabeçalho 76) ·
      IPCA +2.27% · INCC-M +1.75% ·
-     intervalo de 3 meses · 1 UF ·
+     intervalo 3 mês/es · 1 UF ·
      16 grupos · 98 subgrupos -->
 
 **Chamada da capa**
 
-A edição de abril de 2026 apresentou variação média de +1,62% nos custos das composições em SP, abaixo do IPCA registrado no período. Entre as atualizações da fonte, foram incluídas 84 novas composições, 22 foram inativadas e outras 77 passaram por revisão.
+A edição de abril de 2026 apresentou variação média de +1,62% nos custos das composições em SP, abaixo do IPCA registrado no período. Entre as atualizações da fonte, 84 novas composições foram incluídas, 22 foram inativadas e 77 passaram por revisão.
 
 **Título da Visão 360°**
 
@@ -1041,19 +1053,19 @@ Das 3.291 composições comparáveis, 2.346 tiveram aumento de custo e 630 tiver
 
 **Revisões da edição**
 
-Das 77 composições revisadas, nenhuma teve alteração de coeficiente, 1 passou a contar com novo insumo e 1 teve insumo removido. Uma mesma composição pode figurar em mais de uma categoria.
+Das 77 composições revisadas, 1 passou a contar com novo insumo, 1 teve insumo removido e 76 tiveram alteração de descrição ou unidade. Uma mesma composição pode figurar em mais de uma categoria.
 
 **Título — concentração**
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos índices acumulados no mesmo período.
+Variação desde a última edição de 2025 até esta, em SP, ao lado dos índices acumulados no mesmo intervalo.
 
 **Caixa de cobertura**
 
-**Cobertura desta edição:** 1 UFs e 3.375 composições. Do total publicado, 0,0% das linhas de custo das composições e 0,0% dos preços de insumos foram disponibilizados pela fonte sem preço. Esses percentuais ajudam a dimensionar a cobertura efetiva da edição e a disponibilidade de preços para uso em orçamentos.
+**Cobertura desta edição:** 3.375 composições em São Paulo, com preço disponível para a totalidade dos dados considerados.
 
 **Abertura — frentes**
 
@@ -1061,11 +1073,11 @@ Impacto por frente
 
 **Título — frentes**
 
-Como cada frente de obra se comportou
+Variação de custos por frente de obra
 
 **Entrada das frentes**
 
-A FDE organiza as composições em grupos, que reúnem serviços de uma mesma frente de obra. Nesta edição, 16 grupos tinham composições comparáveis em SP. A leitura por frente mostra onde o movimento se concentrou, antes de descer ao detalhe do subgrupo.
+A FDE organiza as composições em grupos, que reúnem serviços de uma mesma frente de obra. Nesta edição, 16 grupos tinham composições comparáveis. A análise por grupo mostra a variação de custos de cada frente antes do detalhe por subgrupo.
 
 **Título — frentes com aumento**
 
@@ -1077,7 +1089,7 @@ As frentes com redução
 
 **Nota das frentes**
 
-Grupos com pelo menos 5 composições comparáveis. A variação é a razão entre os custos médios das duas edições, o que respeita a grandeza de cada composição dentro da frente.
+Grupos com pelo menos 5 composições comparáveis. A variação de cada grupo é calculada a partir dos custos médios das duas edições.
 
 **Título — subgrupos**
 
@@ -1117,14 +1129,16 @@ Os números desta edição saem da leitura completa da publicação da fonte-bas
 
 <!-- apurado: média +2.75% · mediana +2.47% ·
      3059 aumentos / 476 reduções / 19 estáveis ·
-     movimento +12 −6 r0 rev23 ·
+     movimento +12 −6 r0 rev23
+     (coef 10 · ins+ 12 · ins− 5 ·
+      cabeçalho 1) ·
      IPCA +2.14% · INCC-M +2.18% ·
-     intervalo de 3 meses · 1 UF ·
+     intervalo 3 mês/es · 1 UF ·
      59 grupos · 114 subgrupos -->
 
 **Chamada da capa**
 
-A edição de maio de 2026 apresentou variação média de +2,75% nos custos das composições em SP, acima do IPCA registrado no período. Entre as atualizações da fonte, foram incluídas 12 novas composições, 6 foram inativadas e outras 23 passaram por revisão.
+A edição de maio de 2026 apresentou variação média de +2,75% nos custos das composições em SP, acima do IPCA registrado no período. Entre as atualizações da fonte, 12 novas composições foram incluídas, 6 foram inativadas e 23 passaram por revisão.
 
 **Título da Visão 360°**
 
@@ -1140,19 +1154,19 @@ Das 3.554 composições comparáveis, 3.059 tiveram aumento de custo e 476 tiver
 
 **Revisões da edição**
 
-Das 23 composições revisadas, 10 tiveram alteração de coeficiente, 12 passaram a contar com novo insumo e 5 tiveram insumo removido. Uma mesma composição pode figurar em mais de uma categoria.
+Das 23 composições revisadas, 10 tiveram alteração de coeficiente, 12 passaram a contar com novo insumo, 5 tiveram insumo removido e 1 teve alteração de descrição ou unidade. Uma mesma composição pode figurar em mais de uma categoria.
 
 **Título — concentração**
 
 Onde as revisões se concentraram
 
-**Nota do acumulado do ano**
+**Nota do acumulado**
 
-Variação desde o fechamento de dezembro até esta edição, em SP, ao lado dos índices acumulados no mesmo período.
+Variação desde a última edição de 2025 até esta, em SP, ao lado dos índices acumulados no mesmo intervalo.
 
 **Caixa de cobertura**
 
-**Cobertura desta edição:** 1 UFs e 3.566 composições. Do total publicado, 0,0% das linhas de custo das composições e 0,0% dos preços de insumos foram disponibilizados pela fonte sem preço. Esses percentuais ajudam a dimensionar a cobertura efetiva da edição e a disponibilidade de preços para uso em orçamentos.
+**Cobertura desta edição:** 3.566 composições em São Paulo, com preço disponível para a totalidade dos dados considerados.
 
 **Abertura — frentes**
 
@@ -1160,11 +1174,11 @@ Impacto por frente
 
 **Título — frentes**
 
-Como cada frente de obra se comportou
+Variação de custos por frente de obra
 
 **Entrada das frentes**
 
-A CDHU organiza as composições em grupos, que reúnem serviços de uma mesma frente de obra. Nesta edição, 59 grupos tinham composições comparáveis em SP. A leitura por frente mostra onde o movimento se concentrou, antes de descer ao detalhe do subgrupo.
+A CDHU organiza as composições em grupos, que reúnem serviços de uma mesma frente de obra. Nesta edição, 59 grupos tinham composições comparáveis. A análise por grupo mostra a variação de custos de cada frente antes do detalhe por subgrupo.
 
 **Título — frentes com aumento**
 
@@ -1176,7 +1190,7 @@ As frentes com redução
 
 **Nota das frentes**
 
-Grupos com pelo menos 5 composições comparáveis. A variação é a razão entre os custos médios das duas edições, o que respeita a grandeza de cada composição dentro da frente.
+Grupos com pelo menos 5 composições comparáveis. A variação de cada grupo é calculada a partir dos custos médios das duas edições.
 
 **Título — subgrupos**
 
