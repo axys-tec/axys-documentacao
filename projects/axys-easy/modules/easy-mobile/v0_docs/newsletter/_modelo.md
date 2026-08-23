@@ -19,9 +19,10 @@ leitor.
 
 ## lead
 
-O que mudou na edição de {mes_extenso} da {fonte}: {media}% de variação média
-{intervalo}, {veredito_frase}, com {incluidas} composições incluídas e {inativadas}
-inativadas.
+A edição de {mes_extenso} apresentou variação média de {media}% nos custos das
+composições em {uf}, {veredito_frase}. Entre as atualizações da fonte, foram incluídas
+{incluidas} novas composições, {inativadas} foram inativadas e outras {alteradas}
+passaram por revisão.
 
 ## abre_360
 
@@ -38,8 +39,7 @@ A fonte diante dos índices
 ## indices_nota
 
 Variação da fonte em {uf}, regime sem desoneração, contra os índices acumulados no
-intervalo entre as duas edições ({meses}). A Selic ({selic}% a.a.) aparece como contexto e
-não entra na comparação: é taxa, não variação de preço.
+intervalo entre a edição atual e a edição anterior. {selic_frase}
 
 ## placar_titulo
 
@@ -47,9 +47,9 @@ A média não conta a história
 
 ## placar_texto
 
-Das {comparaveis} composições comparáveis, {subiram} subiram e {cairam} caíram. A média de
-{media}% é o saldo desse encontro, não o comportamento típico — a mediana ficou em
-{mediana}%.
+Das {comparaveis} composições comparáveis, {subiram} tiveram aumento de custo e {cairam}
+tiveram redução. A média de {media}% é o resultado desse balanço, não o comportamento
+típico. A mediana das variações ficou em {mediana}%.
 
 ## movimento_titulo
 
@@ -57,10 +57,10 @@ O que entrou, saiu e voltou
 
 ## cobertura_texto
 
-**Cobertura desta edição:** {ufs} UFs e {cpus} composições. {pct_sem_custo}% das linhas de
-custo saíram sem valor e {pct_sem_preco}% dos preços de insumo estão vazios. Isso é
-característica da publicação da fonte, e não do nosso processamento — informamos porque
-quem orça precisa saber onde a base não alcança.
+**Cobertura desta edição:** {ufs} UFs e {cpus} composições. Do total publicado, {pct_sem_custo}%
+das linhas de custo das composições e {pct_sem_preco}% dos preços de insumos foram
+disponibilizados pela fonte sem preço. Esses percentuais ajudam a dimensionar a cobertura
+efetiva da edição e a disponibilidade de preços para uso em orçamentos.
 
 ## abre_subgrupos
 
@@ -72,10 +72,10 @@ Onde o preço se moveu
 
 ## subgrupos_texto
 
-Subgrupos com pelo menos 10 composições comparáveis, em {uf}. {total_subgrupos} subgrupos
-tinham dado suficiente nesta edição. A variação é a razão entre os custos médios das duas
-edições, e não a média das variações item a item: é ela que responde quanto o subgrupo
-pesou, respeitando a grandeza de cada composição.
+A análise considera os subgrupos com pelo menos 10 composições comparáveis em {uf}. Nesta
+edição, {total_subgrupos} subgrupos atenderam a esse critério. Para cada um deles, a
+variação foi calculada a partir dos custos médios das duas edições, permitindo identificar
+onde ocorreram os maiores aumentos e reduções no período.
 
 ## altas_titulo
 
@@ -103,9 +103,9 @@ Insumos que mais se moveram
 
 ## insumos_nota
 
-Variação de preço em {uf}, sem encargos. Extremos costumam refletir recomposição pontual
-de um item, e não tendência de mercado — leia junto com a média de {ins_media}% dos
-{ins_comparaveis} insumos comparáveis.
+Variação de preço em {uf}, sem encargos. Extremos costumam refletir a recomposição pontual
+de um item, e não uma tendência de mercado. Para entender melhor essas variações,
+recomendamos a avaliação dos respectivos insumos e composições.
 
 ## uf_titulo
 
@@ -113,28 +113,47 @@ A variação não é nacional
 
 ## uf_texto
 
-A média esconde o mapa. Entre a UF que mais subiu e a que menos subiu há {distancia_uf}
-pontos percentuais de distância nesta edição — orçamento feito com a média do país erra
-nos dois extremos.
+A variação de preços apresenta diferenças entre as UFs. Nesta edição, {uf_maior_nome}
+registrou a maior variação, com {uf_maior_pct}%, enquanto {uf_menor_nome} apresentou a
+menor, com {uf_menor_pct}%. A diferença entre os dois extremos foi de {distancia_uf} pontos
+percentuais, demonstrando a importância de considerar o comportamento dos preços em cada
+estado. Abaixo, apresentamos a variação observada em cada UF contemplada pela fonte-base.
 
 ## uf_nota
 
-As cinco UFs de maior e de menor variação, na MESMA escala. Dois gráficos lado a lado,
-cada um normalizado pelo próprio máximo, fariam uma queda de 0,2% parecer maior que uma
-alta de 0,3%.
+Todas as {ufs} UFs contempladas pela fonte-base, na mesma escala.
 
 ## kpi_variacao
 
 Variação média ({uf})
 
-## kpi_insumos
+## kpi_revisadas
 
-Insumos
+Revisadas
 
-## kpi_ipca
+## kpi_cobertura_capa
 
-Diante do IPCA
+Cobertura
 
 ## kpi_cobertura
 
 Cobertura
+
+## revisoes_titulo
+
+Revisões da edição
+
+## revisoes_texto
+
+Das {alteradas} composições revisadas, {rev_coeficiente} tiveram alteração de coeficiente,
+{rev_incluido} passaram a contar com novo insumo e {rev_excluido} tiveram insumo removido.
+Uma mesma composição pode figurar em mais de uma categoria.
+
+## acumulado_titulo
+
+No acumulado do ano
+
+## acumulado_texto
+
+Variação desde o fechamento de dezembro até esta edição, em {uf}, ao lado dos índices
+acumulados no mesmo período.

@@ -1,0 +1,427 @@
+{
+  "fonte": "SINAPI",
+  "ref": "2025-01-01",
+  "ref_anterior": "2024-12-01",
+  "versao": "01-25",
+  "edi_id": 6,
+  "edi_anterior": 5,
+  "meses_intervalo": 1,
+  "modalidade": "SD",
+  "uf_foco": "SP",
+  "movimento": {
+    "incluidas": 7,
+    "inativadas": 30,
+    "reativadas": 0,
+    "alteradas": 190
+  },
+  "cobertura": {
+    "ufs": 27,
+    "cpus": 9668,
+    "sem_custo": 150188,
+    "linhas": 783108,
+    "pct_sem_custo": 19.2,
+    "insumos": 130653,
+    "insumos_sem_preco": 38854,
+    "pct_sem_preco": 29.7
+  },
+  "precos": {
+    "uf": "SP",
+    "comparaveis": 7813,
+    "media_pct": 0.41,
+    "mediana_pct": 0.67,
+    "subiram": 6184,
+    "cairam": 1285,
+    "estaveis": 344
+  },
+  "subgrupos": {
+    "altas": [
+      {
+        "subgrupo": "INSTALAÇÕES HIDRÁULICAS EM PEX",
+        "cpus": 82,
+        "var_pct": 3.92,
+        "medio_anterior": 53.1,
+        "medio_atual": 55.18
+      },
+      {
+        "subgrupo": "POSTES DE CONCRETO E METÁLICOS",
+        "cpus": 46,
+        "var_pct": 3.4,
+        "medio_anterior": 1178.38,
+        "medio_atual": 1218.48
+      },
+      {
+        "subgrupo": "INSTALAÇÕES ELÉTRICAS - REDE DE DISTRIBUIÇÃO",
+        "cpus": 73,
+        "var_pct": 3.27,
+        "medio_anterior": 1123.97,
+        "medio_atual": 1160.7
+      },
+      {
+        "subgrupo": "LUMINÁRIAS EXTERNAS",
+        "cpus": 18,
+        "var_pct": 3.21,
+        "medio_anterior": 233.82,
+        "medio_atual": 241.32
+      },
+      {
+        "subgrupo": "PINTURA EM SUPERFÍCIES METÁLICAS",
+        "cpus": 41,
+        "var_pct": 3.02,
+        "medio_anterior": 28.21,
+        "medio_atual": 29.06
+      },
+      {
+        "subgrupo": "ASSENTAMENTO DE TUBOS DE PVC E METÁLICOS EM REDES DE ÁGUA",
+        "cpus": 226,
+        "var_pct": 2.69,
+        "medio_anterior": 64.69,
+        "medio_atual": 66.43
+      },
+      {
+        "subgrupo": "SISTEMA DE PROTEÇÃO CONTRA DESCARGAS ATMOSFÉRICAS - SPDA",
+        "cpus": 22,
+        "var_pct": 2.5,
+        "medio_anterior": 81.61,
+        "medio_atual": 83.65
+      },
+      {
+        "subgrupo": "TRANSFORMADORES",
+        "cpus": 12,
+        "var_pct": 2.49,
+        "medio_anterior": 37034.52,
+        "medio_atual": 37956.72
+      },
+      {
+        "subgrupo": "BOMBAS HIDRÁULICAS - CENTRÍFUGAS, HORIZONTAIS E SUBMERSÍVEIS",
+        "cpus": 14,
+        "var_pct": 2.42,
+        "medio_anterior": 1479.08,
+        "medio_atual": 1514.94
+      },
+      {
+        "subgrupo": "PINTURA EM MADEIRA",
+        "cpus": 29,
+        "var_pct": 2.38,
+        "medio_anterior": 21.62,
+        "medio_atual": 22.13
+      }
+    ],
+    "baixas": [
+      {
+        "subgrupo": "ASSENTAMENTO DE TUBOS DE ESGOTO OU DRENAGEM PLUVIAL EM CONCRETO",
+        "cpus": 78,
+        "var_pct": -5.81,
+        "medio_anterior": 300.1,
+        "medio_atual": 282.66
+      },
+      {
+        "subgrupo": "GABIÕES - EXECUÇÃO DE MURO E PROTEÇÃO SUPERFICIAL",
+        "cpus": 16,
+        "var_pct": -2.0,
+        "medio_anterior": 900.21,
+        "medio_atual": 882.25
+      },
+      {
+        "subgrupo": "ASSENTAMENTO DE TUBOS DE ESGOTO EM PVC E PEAD",
+        "cpus": 56,
+        "var_pct": -1.86,
+        "medio_anterior": 223.85,
+        "medio_atual": 219.69
+      },
+      {
+        "subgrupo": "INSTALAÇÕES PREDIAIS DE ÁGUAS PLUVIAIS - TUBOS, CONEXÕES, CAIXAS E RALOS",
+        "cpus": 86,
+        "var_pct": -1.43,
+        "medio_anterior": 79.79,
+        "medio_atual": 78.65
+      },
+      {
+        "subgrupo": "PAISAGISMO - PLANTIO",
+        "cpus": 12,
+        "var_pct": -1.35,
+        "medio_anterior": 64.83,
+        "medio_atual": 63.96
+      }
+    ],
+    "total_subgrupos": 110
+  },
+  "insumos": {
+    "comparaveis": 4837,
+    "media_pct": 0.55,
+    "altas": [
+      {
+        "insumo": "SEGURO - MENSALISTA (COLETADO CAIXA - ENCARGOS COMPLEMENTARES)",
+        "unidade": "MES",
+        "var_pct": 111.5
+      },
+      {
+        "insumo": "SEGURO - HORISTA (COLETADO CAIXA - ENCARGOS COMPLEMENTARES)",
+        "unidade": "H",
+        "var_pct": 100.0
+      },
+      {
+        "insumo": "PARAFUSO DE ACO ZINCADO COM ROSCA SOBERBA, CABECA CHATA E FENDA SIMPLES, DIAMETRO 2,5 MM, COMPRIMENTO * 9,5 * MM",
+        "unidade": "UN",
+        "var_pct": 20.0
+      },
+      {
+        "insumo": "SPRINKLER TIPO PENDENTE, BULBO VERMELHO DE RESPOSTA RAPIDA, 68 GRAUS CELSIUS, ACABAMENTO CROMADO, D = 20 MM (3/4\")",
+        "unidade": "UN",
+        "var_pct": 10.9
+      },
+      {
+        "insumo": "SPRINKLER TIPO PENDENTE, BULBO AMARELO DE RESPOSTA RAPIDA, 79 GRAUS CELSIUS, ACABAMENTO NATURAL, D = 20 MM (3/4\")",
+        "unidade": "UN",
+        "var_pct": 10.9
+      }
+    ],
+    "baixas": [
+      {
+        "insumo": "FERRAMENTAS - FAMILIA TOPOGRAFO - HORISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
+        "unidade": "H",
+        "var_pct": -28.6
+      },
+      {
+        "insumo": "FERRAMENTAS - FAMILIA TOPOGRAFO - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
+        "unidade": "MES",
+        "var_pct": -22.6
+      },
+      {
+        "insumo": "FERRAMENTAS - FAMILIA ENCARREGADO GERAL - HORISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
+        "unidade": "H",
+        "var_pct": -20.0
+      },
+      {
+        "insumo": "FERRAMENTAS - FAMILIA ENCARREGADO GERAL - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
+        "unidade": "MES",
+        "var_pct": -17.5
+      },
+      {
+        "insumo": "FERRAMENTAS - FAMILIA CARPINTEIRO DE FORMAS - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
+        "unidade": "MES",
+        "var_pct": -10.8
+      }
+    ]
+  },
+  "indicadores": {
+    "acumulados": {
+      "IGP-M": 0.27,
+      "INCC-M": 0.71,
+      "INPC": 0.0,
+      "IPCA": 0.16
+    },
+    "selic_aa": 13.25,
+    "selic_aa_anterior": 12.25,
+    "meses": 1
+  },
+  "revisoes": {
+    "coeficiente": 188,
+    "insumo_incluido": 2,
+    "insumo_excluido": 2,
+    "cabecalho": 0,
+    "total": 190
+  },
+  "acumulado_ano": {
+    "fonte_pct": 0.47,
+    "comparaveis": 7813,
+    "indices": {
+      "INCC-M": 0.71,
+      "IPCA": 0.16
+    },
+    "desde": "2025-01-01"
+  },
+  "dispersao_uf": {
+    "todas": [
+      {
+        "uf": "PA",
+        "cpus": 7813,
+        "var_pct": 3.21
+      },
+      {
+        "uf": "MG",
+        "cpus": 7813,
+        "var_pct": 2.89
+      },
+      {
+        "uf": "PE",
+        "cpus": 7813,
+        "var_pct": 2.5
+      },
+      {
+        "uf": "RN",
+        "cpus": 7813,
+        "var_pct": 1.57
+      },
+      {
+        "uf": "ES",
+        "cpus": 7813,
+        "var_pct": 1.52
+      },
+      {
+        "uf": "RO",
+        "cpus": 7813,
+        "var_pct": 1.24
+      },
+      {
+        "uf": "CE",
+        "cpus": 7813,
+        "var_pct": 1.08
+      },
+      {
+        "uf": "MT",
+        "cpus": 7813,
+        "var_pct": 1.03
+      },
+      {
+        "uf": "RJ",
+        "cpus": 7813,
+        "var_pct": 0.99
+      },
+      {
+        "uf": "AM",
+        "cpus": 7813,
+        "var_pct": 0.96
+      },
+      {
+        "uf": "RR",
+        "cpus": 7813,
+        "var_pct": 0.93
+      },
+      {
+        "uf": "SC",
+        "cpus": 7813,
+        "var_pct": 0.87
+      },
+      {
+        "uf": "TO",
+        "cpus": 7813,
+        "var_pct": 0.84
+      },
+      {
+        "uf": "AP",
+        "cpus": 7813,
+        "var_pct": 0.83
+      },
+      {
+        "uf": "PR",
+        "cpus": 7813,
+        "var_pct": 0.76
+      },
+      {
+        "uf": "SE",
+        "cpus": 7813,
+        "var_pct": 0.75
+      },
+      {
+        "uf": "PI",
+        "cpus": 7813,
+        "var_pct": 0.68
+      },
+      {
+        "uf": "GO",
+        "cpus": 7813,
+        "var_pct": 0.56
+      },
+      {
+        "uf": "DF",
+        "cpus": 7813,
+        "var_pct": 0.56
+      },
+      {
+        "uf": "BA",
+        "cpus": 7813,
+        "var_pct": 0.46
+      },
+      {
+        "uf": "SP",
+        "cpus": 7813,
+        "var_pct": 0.41
+      },
+      {
+        "uf": "AC",
+        "cpus": 7813,
+        "var_pct": 0.3
+      },
+      {
+        "uf": "AL",
+        "cpus": 7813,
+        "var_pct": 0.28
+      },
+      {
+        "uf": "MS",
+        "cpus": 7813,
+        "var_pct": 0.08
+      },
+      {
+        "uf": "PB",
+        "cpus": 7812,
+        "var_pct": 0.03
+      },
+      {
+        "uf": "RS",
+        "cpus": 7813,
+        "var_pct": -0.03
+      },
+      {
+        "uf": "MA",
+        "cpus": 7813,
+        "var_pct": -0.23
+      }
+    ],
+    "altas": [
+      {
+        "uf": "PA",
+        "cpus": 7813,
+        "var_pct": 3.21
+      },
+      {
+        "uf": "MG",
+        "cpus": 7813,
+        "var_pct": 2.89
+      },
+      {
+        "uf": "PE",
+        "cpus": 7813,
+        "var_pct": 2.5
+      },
+      {
+        "uf": "RN",
+        "cpus": 7813,
+        "var_pct": 1.57
+      },
+      {
+        "uf": "ES",
+        "cpus": 7813,
+        "var_pct": 1.52
+      }
+    ],
+    "baixas": [
+      {
+        "uf": "MA",
+        "cpus": 7813,
+        "var_pct": -0.23
+      },
+      {
+        "uf": "RS",
+        "cpus": 7813,
+        "var_pct": -0.03
+      },
+      {
+        "uf": "PB",
+        "cpus": 7812,
+        "var_pct": 0.03
+      },
+      {
+        "uf": "MS",
+        "cpus": 7813,
+        "var_pct": 0.08
+      },
+      {
+        "uf": "AL",
+        "cpus": 7813,
+        "var_pct": 0.28
+      }
+    ],
+    "ufs": 27
+  }
+}
