@@ -141,6 +141,41 @@
         "var_pct": -1.35,
         "medio_anterior": 64.83,
         "medio_atual": 63.96
+      },
+      {
+        "subgrupo": "INSTALAÇÕES EM COBRE",
+        "cpus": 242,
+        "var_pct": -1.13,
+        "medio_anterior": 110.15,
+        "medio_atual": 108.9
+      },
+      {
+        "subgrupo": "INSTALAÇÕES PREDIAIS DE ESGOTO - TUBOS E CONEXÕES",
+        "cpus": 90,
+        "var_pct": -0.82,
+        "medio_anterior": 36.59,
+        "medio_atual": 36.29
+      },
+      {
+        "subgrupo": "BOCAS PARA BUEIROS",
+        "cpus": 76,
+        "var_pct": -0.8,
+        "medio_anterior": 22030.53,
+        "medio_atual": 21853.45
+      },
+      {
+        "subgrupo": "INSTALAÇÕES ELÉTRICAS - QUADROS, CABOS, DISJUNTORES, CONTATORES E BARRAMENTOS BLINDADOS",
+        "cpus": 61,
+        "var_pct": -0.67,
+        "medio_anterior": 629.12,
+        "medio_atual": 624.88
+      },
+      {
+        "subgrupo": "FOSSAS E SUMIDOUROS",
+        "cpus": 49,
+        "var_pct": -0.58,
+        "medio_anterior": 7393.98,
+        "medio_atual": 7351.05
       }
     ],
     "total_subgrupos": 110
@@ -173,6 +208,56 @@
         "insumo": "SPRINKLER TIPO PENDENTE, BULBO AMARELO DE RESPOSTA RAPIDA, 79 GRAUS CELSIUS, ACABAMENTO NATURAL, D = 20 MM (3/4\")",
         "unidade": "UN",
         "var_pct": 10.9
+      },
+      {
+        "insumo": "SPRINKLER TIPO PENDENTE, BULBO VERMELHO DE RESPOSTA RAPIDA, 68 GRAUS CELSIUS, ACABAMENTO CROMADO, D = 15 MM (1/2\")",
+        "unidade": "UN",
+        "var_pct": 10.9
+      },
+      {
+        "insumo": "SPRINKLER TIPO PENDENTE, BULBO VERMELHO DE RESPOSTA RAPIDA, 68 GRAUS CELSIUS, ACABAMENTO NATURAL, D = 20 MM (3/4\")",
+        "unidade": "UN",
+        "var_pct": 10.9
+      },
+      {
+        "insumo": "SPRINKLER TIPO PENDENTE, BULBO VERMELHO RESPOSTA RAPIDA, 68 GRAUS CELSIUS, ACABAMENTO NATURAL, D = 15 MM (1/2\")",
+        "unidade": "UN",
+        "var_pct": 10.9
+      },
+      {
+        "insumo": "SPRINKLER TIPO PENDENTE, BULBO AMARELO DE RESPOSTA RAPIDA, 79 GRAUS CELSIUS, ACABAMENTO CROMADO, D = 20 MM (3/4\")",
+        "unidade": "UN",
+        "var_pct": 10.8
+      },
+      {
+        "insumo": "SPRINKLER TIPO PENDENTE, BULBO AMARELO DE RESPOSTA RAPIDA, 79 GRAUS CELSIUS, ACABAMENTO NATURAL OU CROMADO, D = 15 MM (1/2\")",
+        "unidade": "UN",
+        "var_pct": 10.8
+      },
+      {
+        "insumo": "CANOPLA ACABAMENTO CROMADO PARA INSTALACAO DE SPRINKLER, SOB FORRO, 15 MM",
+        "unidade": "UN",
+        "var_pct": 10.8
+      },
+      {
+        "insumo": "ACETILENO - RECARGA DE GAS PARA CILINDRO (NAO INCLUI TROCA/MANUTENCAO DO CILINDRO)",
+        "unidade": "KG",
+        "var_pct": 10.0
+      },
+      {
+        "insumo": "OXIGENIO - RECARGA DE GAS PARA CILINDRO (NAO INCLUI TROCA/MANUTENCAO DO CILINDRO)",
+        "unidade": "M3",
+        "var_pct": 10.0
+      },
+      {
+        "insumo": "PORTA DE ABRIR EM ACO, COM DIVISAO HORIZONTAL PARA VIDROS, 90 X 210 CM, COM FUNDO ANTICORROSIVO/PRIMER DE PROTECAO, INCLUI FECHADURA, MACANETA E PARAFUSO, SEM GUARNICAO/ALIZAR/VISTA, VIDROS NAO INCLUSOS",
+        "unidade": "UN",
+        "var_pct": 9.4
+      },
+      {
+        "insumo": "PORTAO BASCULANTE, MANUAL, EM ACO GALVANIZADO, CHAPA 26, TIPO LAMBRIL, COM REQUADRO, ACABAMENTO NATURAL",
+        "unidade": "M2",
+        "var_pct": 9.4
       }
     ],
     "baixas": [
@@ -200,6 +285,56 @@
         "insumo": "FERRAMENTAS - FAMILIA CARPINTEIRO DE FORMAS - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
         "unidade": "MES",
         "var_pct": -10.8
+      },
+      {
+        "insumo": "FERRAMENTAS - FAMILIA CARPINTEIRO DE FORMAS - HORISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
+        "unidade": "H",
+        "var_pct": -10.2
+      },
+      {
+        "insumo": "MARTELO DEMOLIDOR PNEUMATICO MANUAL, PADRAO, PESO DE 32 KG",
+        "unidade": "UN",
+        "var_pct": -9.6
+      },
+      {
+        "insumo": "MARTELO PERFURADOR PNEUMATICO MANUAL, HASTE 25 X 75 MM, 21 KG",
+        "unidade": "UN",
+        "var_pct": -9.6
+      },
+      {
+        "insumo": "MARTELO DEMOLIDOR PNEUMATICO MANUAL, COM REDUCAO DE VIBRACAO, PESO DE 31,5 KG",
+        "unidade": "UN",
+        "var_pct": -9.6
+      },
+      {
+        "insumo": "MARTELO DEMOLIDOR PNEUMATICO MANUAL, COM REDUCAO DE VIBRACAO, PESO DE 21 KG",
+        "unidade": "UN",
+        "var_pct": -9.6
+      },
+      {
+        "insumo": "MARTELO PERFURADOR PNEUMATICO MANUAL, DE SUPERFICIE, COM AVANCO DE COLUNA, PESO DE 22 KG",
+        "unidade": "UN",
+        "var_pct": -9.6
+      },
+      {
+        "insumo": "PERFURATRIZ MANUAL, TORQUE MAXIMO 55 KGF.M, POTENCIA 5 CV, COM DIAMETRO MAXIMO 8 1/2\" (INCLUI SUPORTE/CHASSI TIPO MESA)",
+        "unidade": "UN",
+        "var_pct": -9.6
+      },
+      {
+        "insumo": "MARTELO PERFURADOR PNEUMATICO MANUAL, PESO DE 25 KG, COM SILENCIADOR",
+        "unidade": "UN",
+        "var_pct": -9.6
+      },
+      {
+        "insumo": "MARTELO DEMOLIDOR PNEUMATICO MANUAL, PESO DE 28 KG, COM SILENCIADOR",
+        "unidade": "UN",
+        "var_pct": -9.6
+      },
+      {
+        "insumo": "PERFURATRIZ MANUAL, TORQUE MAXIMO 83 N.M, POTENCIA 5 CV, COM DIAMETRO MAXIMO 4\" (NAO INCLUI SUPORTE / CHASSI)",
+        "unidade": "UN",
+        "var_pct": -9.6
       }
     ]
   },
@@ -220,6 +355,25 @@
     "insumo_excluido": 2,
     "cabecalho": 0,
     "total": 190
+  },
+  "revisoes_subgrupos": [
+    {
+      "subgrupo": "LIVRO SINAPI: CÁLCULOS E PARÂMETROS",
+      "revisadas": 188
+    },
+    {
+      "subgrupo": "ESQUADRIAS - JANELAS",
+      "revisadas": 1
+    },
+    {
+      "subgrupo": "PISOS",
+      "revisadas": 1
+    }
+  ],
+  "codigo": {
+    "numero": "01",
+    "letra": "A",
+    "rotulo": "#01-A"
   },
   "acumulado_ano": {
     "fonte_pct": 0.47,
@@ -393,6 +547,31 @@
         "uf": "ES",
         "cpus": 7813,
         "var_pct": 1.52
+      },
+      {
+        "uf": "RO",
+        "cpus": 7813,
+        "var_pct": 1.24
+      },
+      {
+        "uf": "CE",
+        "cpus": 7813,
+        "var_pct": 1.08
+      },
+      {
+        "uf": "MT",
+        "cpus": 7813,
+        "var_pct": 1.03
+      },
+      {
+        "uf": "RJ",
+        "cpus": 7813,
+        "var_pct": 0.99
+      },
+      {
+        "uf": "AM",
+        "cpus": 7813,
+        "var_pct": 0.96
       }
     ],
     "baixas": [
@@ -420,6 +599,31 @@
         "uf": "AL",
         "cpus": 7813,
         "var_pct": 0.28
+      },
+      {
+        "uf": "AC",
+        "cpus": 7813,
+        "var_pct": 0.3
+      },
+      {
+        "uf": "SP",
+        "cpus": 7813,
+        "var_pct": 0.41
+      },
+      {
+        "uf": "BA",
+        "cpus": 7813,
+        "var_pct": 0.46
+      },
+      {
+        "uf": "DF",
+        "cpus": 7813,
+        "var_pct": 0.56
+      },
+      {
+        "uf": "GO",
+        "cpus": 7813,
+        "var_pct": 0.56
       }
     ],
     "ufs": 27

@@ -115,9 +115,14 @@ A variação não é nacional
 
 A variação de preços apresenta diferenças entre as UFs. Nesta edição, {uf_maior_nome}
 registrou a maior variação, com {uf_maior_pct}%, enquanto {uf_menor_nome} apresentou a
-menor, com {uf_menor_pct}%. A diferença entre os dois extremos foi de {distancia_uf} pontos
-percentuais, demonstrando a importância de considerar o comportamento dos preços em cada
-estado. Abaixo, apresentamos a variação observada em cada UF contemplada pela fonte-base.
+menor, com {uf_menor_pct}%. A diferença entre os dois extremos foi de {distancia_uf}
+pontos percentuais.
+
+## uf_texto2
+
+Esse intervalo demonstra a importância de considerar o comportamento dos preços em cada
+estado. Abaixo, apresentamos a variação observada em cada UF contemplada pela
+fonte-base.
 
 ## uf_nota
 
@@ -157,3 +162,23 @@ No acumulado do ano
 
 Variação desde o fechamento de dezembro até esta edição, em {uf}, ao lado dos índices
 acumulados no mesmo período.
+
+## revisoes_subgrupos_titulo
+
+Onde as revisões se concentraram
+
+## acumulado_rotulo_fonte
+
+{fonte} ({uf})
+
+## encerramento_titulo
+
+Como usar esta edição
+
+## encerramento_texto
+
+Os números desta edição saem da leitura completa da publicação da fonte-base, comparada
+com a edição imediatamente anterior. Cada composição, insumo e acórdão citado aqui pode
+ser consultado em detalhe na **Base de Conhecimento Axys**, disponível no aplicativo. Se
+você orça com {fonte}, vale conferir se os subgrupos listados nesta edição estão presentes
+no seu orçamento em andamento.
