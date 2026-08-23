@@ -1,0 +1,652 @@
+{
+  "fonte": "SINAPI",
+  "ref": "2025-06-01",
+  "ref_anterior": "2025-05-01",
+  "versao": "06-25",
+  "edi_id": 11,
+  "edi_anterior": 10,
+  "meses_intervalo": 1,
+  "modalidade": "SD",
+  "uf_foco": "SP",
+  "movimento": {
+    "incluidas": 0,
+    "inativadas": 0,
+    "reativadas": 0,
+    "alteradas": 3
+  },
+  "cobertura": {
+    "ufs": 27,
+    "cpus": 9723,
+    "sem_custo": 152618,
+    "linhas": 787563,
+    "pct_sem_custo": 19.4,
+    "insumos": 132219,
+    "insumos_sem_preco": 38892,
+    "pct_sem_preco": 29.4
+  },
+  "precos": {
+    "uf": "SP",
+    "comparaveis": 7834,
+    "media_pct": 1.85,
+    "mediana_pct": 1.18,
+    "subiram": 5873,
+    "cairam": 1406,
+    "estaveis": 555
+  },
+  "subgrupos": {
+    "altas": [
+      {
+        "subgrupo": "INSTALAÇÕES HIDRÁULICAS EM PPR",
+        "cpus": 95,
+        "var_pct": 10.04,
+        "medio_anterior": 49.54,
+        "medio_atual": 54.51
+      },
+      {
+        "subgrupo": "ARRASAMENTO DE ESTACAS",
+        "cpus": 11,
+        "var_pct": 7.12,
+        "medio_anterior": 102.53,
+        "medio_atual": 109.83
+      },
+      {
+        "subgrupo": "FORROS",
+        "cpus": 15,
+        "var_pct": 4.93,
+        "medio_anterior": 72.13,
+        "medio_atual": 75.69
+      },
+      {
+        "subgrupo": "ASSENTAMENTO DE TUBOS DE PVC E METÁLICOS EM REDES DE ÁGUA",
+        "cpus": 226,
+        "var_pct": 4.8,
+        "medio_anterior": 66.6,
+        "medio_atual": 69.8
+      },
+      {
+        "subgrupo": "PAREDES DE CONCRETO - CONCRETAGEM",
+        "cpus": 12,
+        "var_pct": 4.7,
+        "medio_anterior": 633.21,
+        "medio_atual": 663.01
+      },
+      {
+        "subgrupo": "PAREDES EM DRYWALL",
+        "cpus": 23,
+        "var_pct": 4.59,
+        "medio_anterior": 128.8,
+        "medio_atual": 134.72
+      },
+      {
+        "subgrupo": "CONCRETAGEM PARA ESTRUTURAS DE CONCRETO ARMADO",
+        "cpus": 20,
+        "var_pct": 4.42,
+        "medio_anterior": 729.26,
+        "medio_atual": 761.46
+      },
+      {
+        "subgrupo": "FUNDAÇÕES RASAS (BLOCOS, SAPATAS, VIGAS BALDRAME)",
+        "cpus": 46,
+        "var_pct": 4.33,
+        "medio_anterior": 184.54,
+        "medio_atual": 192.53
+      },
+      {
+        "subgrupo": "LIVRO SINAPI: CÁLCULOS E PARÂMETROS",
+        "cpus": 373,
+        "var_pct": 4.17,
+        "medio_anterior": 1943.91,
+        "medio_atual": 2024.98
+      },
+      {
+        "subgrupo": "GUIAS E SARJETAS",
+        "cpus": 32,
+        "var_pct": 4.09,
+        "medio_anterior": 58.6,
+        "medio_atual": 61.0
+      }
+    ],
+    "baixas": [
+      {
+        "subgrupo": "PAREDES DE CONCRETO - ARMAÇÃO",
+        "cpus": 16,
+        "var_pct": -4.86,
+        "medio_anterior": 9.73,
+        "medio_atual": 9.26
+      },
+      {
+        "subgrupo": "ARMAÇÃO PARA ESTRUTURAS DE CONCRETO ARMADO",
+        "cpus": 56,
+        "var_pct": -4.04,
+        "medio_anterior": 11.22,
+        "medio_atual": 10.77
+      },
+      {
+        "subgrupo": "MONOCAPA",
+        "cpus": 12,
+        "var_pct": -3.84,
+        "medio_anterior": 187.41,
+        "medio_atual": 180.21
+      },
+      {
+        "subgrupo": "ARMAÇÃO DE ESTACAS",
+        "cpus": 11,
+        "var_pct": -3.48,
+        "medio_anterior": 12.0,
+        "medio_atual": 11.58
+      },
+      {
+        "subgrupo": "INSTALAÇÕES ELÉTRICAS - REDE DE DISTRIBUIÇÃO",
+        "cpus": 73,
+        "var_pct": -2.29,
+        "medio_anterior": 1178.06,
+        "medio_atual": 1151.1
+      },
+      {
+        "subgrupo": "TRANSFORMADORES",
+        "cpus": 12,
+        "var_pct": -2.19,
+        "medio_anterior": 36836.41,
+        "medio_atual": 36030.99
+      },
+      {
+        "subgrupo": "POSTES DE CONCRETO E METÁLICOS",
+        "cpus": 49,
+        "var_pct": -1.97,
+        "medio_anterior": 1291.54,
+        "medio_atual": 1266.12
+      },
+      {
+        "subgrupo": "INSTALAÇÕES ELÉTRICAS - QUADROS, CABOS, DISJUNTORES, CONTATORES E BARRAMENTOS BLINDADOS",
+        "cpus": 61,
+        "var_pct": -1.56,
+        "medio_anterior": 642.69,
+        "medio_atual": 632.69
+      },
+      {
+        "subgrupo": "CAIXAS DE ÁGUA PARA EDIFICAÇÕES",
+        "cpus": 37,
+        "var_pct": -1.42,
+        "medio_anterior": 1257.34,
+        "medio_atual": 1239.53
+      },
+      {
+        "subgrupo": "VÁLVULAS E REGISTROS PARA SISTEMAS PREDIAIS",
+        "cpus": 84,
+        "var_pct": -1.38,
+        "medio_anterior": 198.51,
+        "medio_atual": 195.77
+      }
+    ],
+    "total_subgrupos": 109
+  },
+  "insumos": {
+    "comparaveis": 4872,
+    "media_pct": 0.4,
+    "altas": [
+      {
+        "insumo": "RODO PARA CHAO 40 CM, COM BORRACHA DUPLA E CABO",
+        "unidade": "UN",
+        "var_pct": 489.8
+      },
+      {
+        "insumo": "PA DE LIXO PLASTICA, CABO LONGO",
+        "unidade": "UN",
+        "var_pct": 387.4
+      },
+      {
+        "insumo": "VASSOURA 40 CM COM CABO",
+        "unidade": "UN",
+        "var_pct": 248.9
+      },
+      {
+        "insumo": "LONA PLASTICA PESADA PRETA, E = 150 MICRA",
+        "unidade": "M2",
+        "var_pct": 133.7
+      },
+      {
+        "insumo": "LONA PLASTICA EXTRA FORTE PRETA, E = 200 MICRA",
+        "unidade": "M2",
+        "var_pct": 91.6
+      },
+      {
+        "insumo": "ESTOPA",
+        "unidade": "KG",
+        "var_pct": 54.5
+      },
+      {
+        "insumo": "APARELHO CORTE OXI-ACETILENO PARA SOLDA E CORTE CONTENDO MACARICO SOLDA, BICO DE CORTE, CILINDROS, REGULADORES, MANGUEIRAS E CARRINHO",
+        "unidade": "UN",
+        "var_pct": 45.4
+      },
+      {
+        "insumo": "ALICATE DE PRESSAO 11\" PARA SOLDA, TIPO U",
+        "unidade": "UN",
+        "var_pct": 42.9
+      },
+      {
+        "insumo": "MANGUEIRA CRISTAL TRANCADA, PVC COM REFORCO, PRESSAO DE TRABALHO (PT) 250 LBS/POL2, DE 1\" X *3,1* MM",
+        "unidade": "M",
+        "var_pct": 41.0
+      },
+      {
+        "insumo": "MANGUEIRA CRISTAL, LISA, PVC TRANSPARENTE, 1/4\" X1 MM",
+        "unidade": "M",
+        "var_pct": 33.3
+      },
+      {
+        "insumo": "MANGUEIRA CRISTAL, LISA, PVC TRANSPARENTE, 3/4\" X 2 MM",
+        "unidade": "M",
+        "var_pct": 32.4
+      },
+      {
+        "insumo": "MANGUEIRA CRISTAL, LISA, PVC TRANSPARENTE, 1/4\" X1,5 MM",
+        "unidade": "M",
+        "var_pct": 31.9
+      },
+      {
+        "insumo": "MACARICO DE SOLDA 201 PARA EXTENSAO GLP OU ACETILENO",
+        "unidade": "UN",
+        "var_pct": 30.6
+      },
+      {
+        "insumo": "FLANELA *30 X 40* CM",
+        "unidade": "UN",
+        "var_pct": 28.1
+      },
+      {
+        "insumo": "ALICATE DE PRESSAO 11\" PARA SOLDA, TIPO C",
+        "unidade": "UN",
+        "var_pct": 26.0
+      },
+      {
+        "insumo": "PROTETOR AUDITIVO TIPO CONCHA COM ABAFADOR DE RUIDOS, ATENUACAO ACIMA DE 22 DB",
+        "unidade": "UN",
+        "var_pct": 25.6
+      },
+      {
+        "insumo": "MASCARA DE SEGURANCA PARA SOLDA COM ESCUDO DE CELERON E CARNEIRA DE PLASTICO COM REGULAGEM",
+        "unidade": "UN",
+        "var_pct": 24.2
+      },
+      {
+        "insumo": "MANGUEIRA CRISTAL, LISA, PVC TRANSPARENTE, 5/16\" X 1 MM",
+        "unidade": "M",
+        "var_pct": 24.0
+      }
+    ],
+    "baixas": [
+      {
+        "insumo": "DESEMPENADEIRA PLASTICA LISA *14 X 27* CM",
+        "unidade": "UN",
+        "var_pct": -54.0
+      },
+      {
+        "insumo": "DISCO DE BORRACHA PARA LIXADEIRA RIGIDO 7\" COM ARRUELA CENTRAL",
+        "unidade": "UN",
+        "var_pct": -43.1
+      },
+      {
+        "insumo": "ALICATE DE CORTE DIAGONAL 6\" COM ISOLAMENTO",
+        "unidade": "UN",
+        "var_pct": -42.9
+      },
+      {
+        "insumo": "ESPATULA DE PLASTICO LISA, LARGURA *10* CM",
+        "unidade": "UN",
+        "var_pct": -30.2
+      },
+      {
+        "insumo": "BOLSA DE LONA PARA FERRAMENTAS *50 X 35 X 25* CM",
+        "unidade": "UN",
+        "var_pct": -29.7
+      },
+      {
+        "insumo": "MANGUEIRA DE PVC FLEXIVEL, TIPO FLAT/ACHATADA, D = 1 1/2\" (40 MM), PARA CONDUCAO DE AGUA, SERVICOS LEVES E MEDIOS",
+        "unidade": "M",
+        "var_pct": -27.2
+      },
+      {
+        "insumo": "DISCO DE LIXA PARA METAL, DIAMETRO = 180 MM, GRAO 120",
+        "unidade": "UN",
+        "var_pct": -26.8
+      },
+      {
+        "insumo": "BUCHA DE NYLON SEM ABA S5",
+        "unidade": "UN",
+        "var_pct": -25.0
+      },
+      {
+        "insumo": "BUCHA DE NYLON SEM ABA S8, COM PARAFUSO DE 4,80 X 50 MM EM ACO ZINCADO COM ROSCA SOBERBA, CABECA CHATA E FENDA PHILLIPS",
+        "unidade": "UN",
+        "var_pct": -20.0
+      },
+      {
+        "insumo": "BUCHA DE NYLON SEM ABA S10",
+        "unidade": "UN",
+        "var_pct": -18.2
+      },
+      {
+        "insumo": "BUCHA DE NYLON SEM ABA S8",
+        "unidade": "UN",
+        "var_pct": -18.2
+      },
+      {
+        "insumo": "LIXA D'AGUA EM FOLHA, COR PRETA, GRAO 100",
+        "unidade": "UN",
+        "var_pct": -17.9
+      },
+      {
+        "insumo": "BUCHA DE NYLON SEM ABA S12, COM PARAFUSO DE 5/16\" X 80 MM EM ACO ZINCADO COM ROSCA SOBERBA E CABECA SEXTAVADA",
+        "unidade": "UN",
+        "var_pct": -17.9
+      },
+      {
+        "insumo": "BUCHA DE NYLON SEM ABA S6",
+        "unidade": "UN",
+        "var_pct": -16.7
+      },
+      {
+        "insumo": "BUCHA DE NYLON SEM ABA S6, COM PARAFUSO DE 4,20 X 40 MM EM ACO ZINCADO COM ROSCA SOBERBA, CABECA CHATA E FENDA PHILLIPS",
+        "unidade": "UN",
+        "var_pct": -16.7
+      },
+      {
+        "insumo": "BUCHA DE NYLON SEM ABA S10, COM PARAFUSO DE 6,10 X 65 MM EM ACO ZINCADO COM ROSCA SOBERBA, CABECA CHATA E FENDA PHILLIPS",
+        "unidade": "UN",
+        "var_pct": -16.7
+      },
+      {
+        "insumo": "ESCOVA DE ACO, COM CABO, *4 X 15* FILEIRAS DE CERDAS",
+        "unidade": "UN",
+        "var_pct": -15.1
+      },
+      {
+        "insumo": "PROLONGADOR/ EXTENSOR TELESCOPICO, EM CHAPA METALICA, COM 3 METROS, PARA ROLO DE PINTURA",
+        "unidade": "UN",
+        "var_pct": -14.9
+      }
+    ]
+  },
+  "indicadores": {
+    "acumulados": {
+      "IGP-M": -1.67,
+      "INCC-M": 0.96,
+      "INPC": 0.23,
+      "IPCA": 0.24
+    },
+    "selic_aa": 15.0,
+    "selic_aa_anterior": 14.75,
+    "meses": 1
+  },
+  "revisoes": {
+    "coeficiente": 1,
+    "insumo_incluido": 2,
+    "insumo_excluido": 2,
+    "cabecalho": 0,
+    "total": 3
+  },
+  "revisoes_subgrupos": [
+    {
+      "subgrupo": "ATERROS, BASES, SUB BASES E IMPRIMAÇÕES",
+      "revisadas": 3
+    }
+  ],
+  "codigo": {
+    "numero": "06",
+    "rotulo": "#06"
+  },
+  "acumulado_ano": {
+    "fonte_pct": 2.53,
+    "comparaveis": 7789,
+    "indices": {
+      "INCC-M": 3.46,
+      "IPCA": 2.99
+    },
+    "desde": "2025-01-01"
+  },
+  "dispersao_uf": {
+    "todas": [
+      {
+        "uf": "SP",
+        "cpus": 7834,
+        "var_pct": 1.85
+      },
+      {
+        "uf": "RO",
+        "cpus": 7834,
+        "var_pct": 1.78
+      },
+      {
+        "uf": "DF",
+        "cpus": 7834,
+        "var_pct": 1.6
+      },
+      {
+        "uf": "ES",
+        "cpus": 7834,
+        "var_pct": 1.52
+      },
+      {
+        "uf": "GO",
+        "cpus": 7834,
+        "var_pct": 1.42
+      },
+      {
+        "uf": "MA",
+        "cpus": 7834,
+        "var_pct": 0.94
+      },
+      {
+        "uf": "AC",
+        "cpus": 7834,
+        "var_pct": 0.94
+      },
+      {
+        "uf": "SC",
+        "cpus": 7834,
+        "var_pct": 0.83
+      },
+      {
+        "uf": "RN",
+        "cpus": 7834,
+        "var_pct": 0.67
+      },
+      {
+        "uf": "MG",
+        "cpus": 7834,
+        "var_pct": 0.67
+      },
+      {
+        "uf": "MS",
+        "cpus": 7834,
+        "var_pct": 0.58
+      },
+      {
+        "uf": "RR",
+        "cpus": 7834,
+        "var_pct": 0.45
+      },
+      {
+        "uf": "AM",
+        "cpus": 7834,
+        "var_pct": 0.39
+      },
+      {
+        "uf": "RS",
+        "cpus": 7834,
+        "var_pct": 0.39
+      },
+      {
+        "uf": "SE",
+        "cpus": 7834,
+        "var_pct": 0.31
+      },
+      {
+        "uf": "CE",
+        "cpus": 7834,
+        "var_pct": 0.22
+      },
+      {
+        "uf": "PB",
+        "cpus": 7833,
+        "var_pct": 0.19
+      },
+      {
+        "uf": "PI",
+        "cpus": 7834,
+        "var_pct": 0.18
+      },
+      {
+        "uf": "PA",
+        "cpus": 7834,
+        "var_pct": 0.12
+      },
+      {
+        "uf": "MT",
+        "cpus": 7834,
+        "var_pct": 0.1
+      },
+      {
+        "uf": "AP",
+        "cpus": 7834,
+        "var_pct": 0.06
+      },
+      {
+        "uf": "PR",
+        "cpus": 7834,
+        "var_pct": 0.01
+      },
+      {
+        "uf": "PE",
+        "cpus": 7834,
+        "var_pct": -0.0
+      },
+      {
+        "uf": "TO",
+        "cpus": 7834,
+        "var_pct": -0.03
+      },
+      {
+        "uf": "RJ",
+        "cpus": 7834,
+        "var_pct": -0.12
+      },
+      {
+        "uf": "BA",
+        "cpus": 7834,
+        "var_pct": -0.35
+      },
+      {
+        "uf": "AL",
+        "cpus": 7834,
+        "var_pct": -0.37
+      }
+    ],
+    "altas": [
+      {
+        "uf": "SP",
+        "cpus": 7834,
+        "var_pct": 1.85
+      },
+      {
+        "uf": "RO",
+        "cpus": 7834,
+        "var_pct": 1.78
+      },
+      {
+        "uf": "DF",
+        "cpus": 7834,
+        "var_pct": 1.6
+      },
+      {
+        "uf": "ES",
+        "cpus": 7834,
+        "var_pct": 1.52
+      },
+      {
+        "uf": "GO",
+        "cpus": 7834,
+        "var_pct": 1.42
+      },
+      {
+        "uf": "MA",
+        "cpus": 7834,
+        "var_pct": 0.94
+      },
+      {
+        "uf": "AC",
+        "cpus": 7834,
+        "var_pct": 0.94
+      },
+      {
+        "uf": "SC",
+        "cpus": 7834,
+        "var_pct": 0.83
+      },
+      {
+        "uf": "RN",
+        "cpus": 7834,
+        "var_pct": 0.67
+      },
+      {
+        "uf": "MG",
+        "cpus": 7834,
+        "var_pct": 0.67
+      }
+    ],
+    "baixas": [
+      {
+        "uf": "AL",
+        "cpus": 7834,
+        "var_pct": -0.37
+      },
+      {
+        "uf": "BA",
+        "cpus": 7834,
+        "var_pct": -0.35
+      },
+      {
+        "uf": "RJ",
+        "cpus": 7834,
+        "var_pct": -0.12
+      },
+      {
+        "uf": "TO",
+        "cpus": 7834,
+        "var_pct": -0.03
+      },
+      {
+        "uf": "PE",
+        "cpus": 7834,
+        "var_pct": -0.0
+      },
+      {
+        "uf": "PR",
+        "cpus": 7834,
+        "var_pct": 0.01
+      },
+      {
+        "uf": "AP",
+        "cpus": 7834,
+        "var_pct": 0.06
+      },
+      {
+        "uf": "MT",
+        "cpus": 7834,
+        "var_pct": 0.1
+      },
+      {
+        "uf": "PA",
+        "cpus": 7834,
+        "var_pct": 0.12
+      },
+      {
+        "uf": "PI",
+        "cpus": 7834,
+        "var_pct": 0.18
+      }
+    ],
+    "ufs": 27
+  }
+}

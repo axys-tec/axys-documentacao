@@ -1,0 +1,688 @@
+{
+  "fonte": "SINAPI",
+  "ref": "2025-04-01",
+  "ref_anterior": "2025-03-01",
+  "versao": "04-25",
+  "edi_id": 9,
+  "edi_anterior": 8,
+  "meses_intervalo": 1,
+  "modalidade": "SD",
+  "uf_foco": "SP",
+  "movimento": {
+    "incluidas": 33,
+    "inativadas": 0,
+    "reativadas": 0,
+    "alteradas": 704
+  },
+  "cobertura": {
+    "ufs": 27,
+    "cpus": 9686,
+    "sem_custo": 152780,
+    "linhas": 784566,
+    "pct_sem_custo": 19.5,
+    "insumos": 131382,
+    "insumos_sem_preco": 39526,
+    "pct_sem_preco": 30.1
+  },
+  "precos": {
+    "uf": "SP",
+    "comparaveis": 7797,
+    "media_pct": 0.27,
+    "mediana_pct": 0.0,
+    "subiram": 3917,
+    "cairam": 2134,
+    "estaveis": 1746
+  },
+  "subgrupos": {
+    "altas": [
+      {
+        "subgrupo": "ASSENTAMENTO DE TUBOS DE ESGOTO OU DRENAGEM PLUVIAL EM CONCRETO",
+        "cpus": 78,
+        "var_pct": 6.76,
+        "medio_anterior": 301.45,
+        "medio_atual": 321.83
+      },
+      {
+        "subgrupo": "MONOCAPA",
+        "cpus": 12,
+        "var_pct": 4.87,
+        "medio_anterior": 178.74,
+        "medio_atual": 187.43
+      },
+      {
+        "subgrupo": "CANALETAS, GRELHAS E CAIXAS COM GRELHA PARA DRENAGEM",
+        "cpus": 18,
+        "var_pct": 4.28,
+        "medio_anterior": 237.98,
+        "medio_atual": 248.17
+      },
+      {
+        "subgrupo": "PISOS",
+        "cpus": 41,
+        "var_pct": 3.39,
+        "medio_anterior": 197.68,
+        "medio_atual": 204.39
+      },
+      {
+        "subgrupo": "CONTRAPISO",
+        "cpus": 59,
+        "var_pct": 2.94,
+        "medio_anterior": 91.02,
+        "medio_atual": 93.69
+      },
+      {
+        "subgrupo": "POSTES DE CONCRETO E METÁLICOS",
+        "cpus": 46,
+        "var_pct": 2.51,
+        "medio_anterior": 1211.47,
+        "medio_atual": 1241.88
+      },
+      {
+        "subgrupo": "ARGAMASSAS",
+        "cpus": 144,
+        "var_pct": 2.37,
+        "medio_anterior": 1274.23,
+        "medio_atual": 1304.45
+      },
+      {
+        "subgrupo": "ESTRUTURAS DE MADEIRA",
+        "cpus": 34,
+        "var_pct": 2.15,
+        "medio_anterior": 153.93,
+        "medio_atual": 157.24
+      },
+      {
+        "subgrupo": "INSTALAÇÕES ELÉTRICAS - REDE DE DISTRIBUIÇÃO",
+        "cpus": 73,
+        "var_pct": 2.0,
+        "medio_anterior": 1158.36,
+        "medio_atual": 1181.51
+      },
+      {
+        "subgrupo": "CHAPISCO",
+        "cpus": 28,
+        "var_pct": 1.94,
+        "medio_anterior": 10.26,
+        "medio_atual": 10.46
+      }
+    ],
+    "baixas": [
+      {
+        "subgrupo": "LUMINÁRIAS EXTERNAS",
+        "cpus": 18,
+        "var_pct": -3.33,
+        "medio_anterior": 222.32,
+        "medio_atual": 214.91
+      },
+      {
+        "subgrupo": "PAISAGISMO - PLANTIO",
+        "cpus": 12,
+        "var_pct": -3.21,
+        "medio_anterior": 65.86,
+        "medio_atual": 63.75
+      },
+      {
+        "subgrupo": "FÔRMAS PARA ESTRUTURAS DE CONCRETO ARMADO",
+        "cpus": 101,
+        "var_pct": -1.52,
+        "medio_anterior": 129.97,
+        "medio_atual": 127.99
+      },
+      {
+        "subgrupo": "DEPRECIAÇÃO, JUROS, IMPOSTOS E SEGUROS, MANUTENÇÃO E MATERIAIS NA OPERAÇÃO DOS EQUIPAMENTOS",
+        "cpus": 665,
+        "var_pct": -1.4,
+        "medio_anterior": 68.06,
+        "medio_atual": 67.1
+      },
+      {
+        "subgrupo": "ESCAVAÇÃO VERTICAL A CÉU ABERTO",
+        "cpus": 72,
+        "var_pct": -1.28,
+        "medio_anterior": 21.34,
+        "medio_atual": 21.06
+      },
+      {
+        "subgrupo": "INSTALAÇÕES ELÉTRICAS - ELETRODUTOS, CONEXÕES E CONDULETES APARENTES",
+        "cpus": 45,
+        "var_pct": -1.23,
+        "medio_anterior": 38.77,
+        "medio_atual": 38.29
+      },
+      {
+        "subgrupo": "CERCAS, PROTETORES E ALAMBRADOS",
+        "cpus": 20,
+        "var_pct": -1.06,
+        "medio_anterior": 93.14,
+        "medio_atual": 92.15
+      },
+      {
+        "subgrupo": "TRANSPORTE, CARGA E DESCARGA DE MATERIAIS",
+        "cpus": 140,
+        "var_pct": -1.05,
+        "medio_anterior": 24.47,
+        "medio_atual": 24.21
+      },
+      {
+        "subgrupo": "PAVIMENTO RÍGIDO DE CONCRETO",
+        "cpus": 30,
+        "var_pct": -1.05,
+        "medio_anterior": 125.83,
+        "medio_atual": 124.51
+      },
+      {
+        "subgrupo": "CAIXAS DE ÁGUA PARA EDIFICAÇÕES",
+        "cpus": 37,
+        "var_pct": -1.03,
+        "medio_anterior": 1249.47,
+        "medio_atual": 1236.63
+      }
+    ],
+    "total_subgrupos": 109
+  },
+  "insumos": {
+    "comparaveis": 4837,
+    "media_pct": 0.62,
+    "altas": [
+      {
+        "insumo": "BLOCO CONCRETO CELULAR AUTOCLAVADO 7,5 X 30 X 60 CM (E X A X C)",
+        "unidade": "M2",
+        "var_pct": 21.0
+      },
+      {
+        "insumo": "BLOCO CONCRETO CELULAR AUTOCLAVADO 12,5 X 30 X 60 CM (E X A X C)",
+        "unidade": "M2",
+        "var_pct": 21.0
+      },
+      {
+        "insumo": "BLOCO DE VEDACAO DE CONCRETO CELULAR AUTOCLAVADO 10 X 30 X 60 CM (E X A X C)",
+        "unidade": "M2",
+        "var_pct": 21.0
+      },
+      {
+        "insumo": "BLOCO DE VEDACAO DE CONCRETO CELULAR AUTOCLAVADO 15 X 30 X 60 CM (E X A X C)",
+        "unidade": "M2",
+        "var_pct": 21.0
+      },
+      {
+        "insumo": "BLOCO DE VEDACAO DE CONCRETO CELULAR AUTOCLAVADO 20 X 30 X 60 CM (E X A X C)",
+        "unidade": "M2",
+        "var_pct": 21.0
+      },
+      {
+        "insumo": "RODAPE DE MADEIRA MACICA CUMARU/IPE CHAMPANHE OU EQUIVALENTE DA REGIAO, *1,5 X 7 CM",
+        "unidade": "M",
+        "var_pct": 20.9
+      },
+      {
+        "insumo": "TACO DE MADEIRA PARA PISO, IPE (CERNE) OU EQUIVALENTE DA REGIAO, 7 X 42 CM, E = 2 CM",
+        "unidade": "M2",
+        "var_pct": 20.9
+      },
+      {
+        "insumo": "TABUA DE MADEIRA PARA PISO, IPE (CERNE) OU EQUIVALENTE DA REGIAO, ENCAIXE MACHO/FEMEA, *20 X 2* CM",
+        "unidade": "M2",
+        "var_pct": 20.9
+      },
+      {
+        "insumo": "TABUA DE MADEIRA PARA PISO, CUMARU/IPE CHAMPANHE OU EQUIVALENTE DA REGIAO, ENCAIXE MACHO/FEMEA, *15 X 2* CM",
+        "unidade": "M2",
+        "var_pct": 20.9
+      },
+      {
+        "insumo": "TABUA DE MADEIRA PARA PISO, CUMARU/IPE CHAMPANHE OU EQUIVALENTE DA REGIAO, ENCAIXE MACHO/FEMEA, *10 X 2* CM",
+        "unidade": "M2",
+        "var_pct": 20.9
+      },
+      {
+        "insumo": "RALO FOFO SEMIESFERICO, 100 MM, PARA LAJES/ CALHAS",
+        "unidade": "UN",
+        "var_pct": 14.0
+      },
+      {
+        "insumo": "RALO FOFO SEMIESFERICO, 200 MM, PARA LAJES/ CALHAS",
+        "unidade": "UN",
+        "var_pct": 14.0
+      },
+      {
+        "insumo": "RALO FOFO COM REQUADRO, QUADRADO 300 X 300 MM",
+        "unidade": "UN",
+        "var_pct": 14.0
+      },
+      {
+        "insumo": "RALO FOFO COM REQUADRO, QUADRADO 150 X 150 MM",
+        "unidade": "UN",
+        "var_pct": 14.0
+      },
+      {
+        "insumo": "RALO FOFO COM REQUADRO, QUADRADO 400 X 400 MM",
+        "unidade": "UN",
+        "var_pct": 14.0
+      },
+      {
+        "insumo": "RALO FOFO COM REQUADRO, QUADRADO 250 X 250 MM",
+        "unidade": "UN",
+        "var_pct": 14.0
+      },
+      {
+        "insumo": "RALO FOFO SEMIESFERICO, 150 MM, PARA LAJES/ CALHAS",
+        "unidade": "UN",
+        "var_pct": 14.0
+      },
+      {
+        "insumo": "GRELHA FOFO SIMPLES COM REQUADRO, CARGA MAXIMA 1,5 T, 150 X 1000 MM, E= *15* MM",
+        "unidade": "UN",
+        "var_pct": 14.0
+      }
+    ],
+    "baixas": [
+      {
+        "insumo": "LIMPADORA DE SUCCAO TANQUE 7000 L, BOMBA 12 M3/MIN 95% VACUO (INCLUI MONTAGEM, NAO INCLUI CAMINHAO)",
+        "unidade": "UN",
+        "var_pct": -9.5
+      },
+      {
+        "insumo": "EQUIPAMENTO DE LIMPEZA COMBINADO (VACUO/ALTA PRESSAO) 95% VACUO, TANQUE 7000 L, BOMBA 140 KGF/CM2 66 L/MIN COM MOTOR INDEPENDENTE A DIESEL DE 60 CV (INCLUI MONTAGEM, NAO INCLUI CAMINHAO)",
+        "unidade": "UN",
+        "var_pct": -9.5
+      },
+      {
+        "insumo": "LIMPADORA A SUCCAO, TANQUE 12000 L, BASCULAMENTO HIDRAULICO, BOMBA 12 M3/MIN 95% VACUO (INCLUI MONTAGEM, NAO INCLUI CAMINHAO)",
+        "unidade": "UN",
+        "var_pct": -9.5
+      },
+      {
+        "insumo": "LIMPADORA DE SUCCAO, TANQUE 11000 L, BOMBA 340 M3/MIN (INCLUI MONTAGEM, NAO INCLUI CAMINHAO)",
+        "unidade": "UN",
+        "var_pct": -9.5
+      },
+      {
+        "insumo": "LIMPADORA DE SUCCAO, TANQUE 5500 L, BOMBA 60M3/MIN, VACUO 500 MBAR (INCLUI MONTAGEM, NAO INCLUI CAMINHAO)",
+        "unidade": "UN",
+        "var_pct": -9.5
+      },
+      {
+        "insumo": "HIDROJATEADORA PARA DESOBSTRUCAO DE REDES E GALERIAS, TANQUE 7000 L, BOMBA TRIPLEX 120 KGF/CM2 128 L/MIN (INCLUI MONTAGEM, NAO INCLUI CAMINHAO)",
+        "unidade": "UN",
+        "var_pct": -9.5
+      },
+      {
+        "insumo": "HIDROJATEADORA PARA DESOBSTRUCAO DE REDES E GALERIAS, TANQUE 7000 L, BOMBA TRIPLEX 140 KGF/CM2 260 L/MIN ALIMENTADA POR MOTOR INDEPENDENTE A DIESEL POTENCIA 125 CV (INCLUI MONTAGEM, NAO INCLUI CAMINHAO)",
+        "unidade": "UN",
+        "var_pct": -9.5
+      },
+      {
+        "insumo": "GRAMPO METALICO TIPO U PARA HASTE DE ATERRAMENTO DE ATE 3/4\", CONDUTOR DE 10 A 25 MM2",
+        "unidade": "UN",
+        "var_pct": -9.3
+      },
+      {
+        "insumo": "HASTE DE ATERRAMENTO EM ACO COM 3,00 M DE COMPRIMENTO E DN = 5/8\", REVESTIDA COM BAIXA CAMADA DE COBRE, SEM CONECTOR",
+        "unidade": "UN",
+        "var_pct": -9.3
+      },
+      {
+        "insumo": "GRAMPO METALICO TIPO U PARA HASTE DE ATERRAMENTO DE ATE 5/8\", CONDUTOR DE 10 A 25 MM2",
+        "unidade": "UN",
+        "var_pct": -9.3
+      },
+      {
+        "insumo": "HASTE DE ATERRAMENTO EM ACO COM 3,00 M DE COMPRIMENTO E DN = 3/4\", REVESTIDA COM BAIXA CAMADA DE COBRE, SEM CONECTOR",
+        "unidade": "UN",
+        "var_pct": -9.3
+      },
+      {
+        "insumo": "GRAMPO PARALELO METALICO PARA CABO DE 6 A 50 MM2, COM 2 PARAFUSOS",
+        "unidade": "UN",
+        "var_pct": -9.3
+      },
+      {
+        "insumo": "GRAMPO LINHA VIVA DE LATAO ESTANHADO, DIAMETRO DO CONDUTOR PRINCIPAL DE 10 A 120 MM2, DIAMETRO DA DERIVACAO DE 10 A 70 MM2",
+        "unidade": "UN",
+        "var_pct": -9.3
+      },
+      {
+        "insumo": "GRAMPO METALICO TIPO OLHAL PARA HASTE DE ATERRAMENTO DE 1\", CONDUTOR DE *10* A 50 MM2",
+        "unidade": "UN",
+        "var_pct": -9.3
+      },
+      {
+        "insumo": "HASTE DE ATERRAMENTO EM ACO COM 3,00 M DE COMPRIMENTO E DN = 5/8\", REVESTIDA COM BAIXA CAMADA DE COBRE, COM CONECTOR TIPO GRAMPO",
+        "unidade": "UN",
+        "var_pct": -9.3
+      },
+      {
+        "insumo": "GRAMPO METALICO TIPO OLHAL PARA HASTE DE ATERRAMENTO DE 5/8\", CONDUTOR DE *10* A 50 MM2",
+        "unidade": "UN",
+        "var_pct": -9.3
+      },
+      {
+        "insumo": "HASTE DE ATERRAMENTO EM ACO GALVANIZADO TIPO CANTONEIRA COM 2,00 M DE COMPRIMENTO, 25 X 25 MM E CHAPA DE 3/16\"",
+        "unidade": "UN",
+        "var_pct": -9.3
+      },
+      {
+        "insumo": "SUPORTE GUIA SIMPLES COM ROLDANA EM POLIPROPILENO PARA CHUMBAR, H = 20 CM",
+        "unidade": "UN",
+        "var_pct": -9.3
+      }
+    ]
+  },
+  "indicadores": {
+    "acumulados": {
+      "IGP-M": 0.24,
+      "INCC-M": 0.59,
+      "INPC": 0.48,
+      "IPCA": 0.43
+    },
+    "selic_aa": 14.25,
+    "selic_aa_anterior": 14.25,
+    "meses": 1
+  },
+  "revisoes": {
+    "coeficiente": 47,
+    "insumo_incluido": 46,
+    "insumo_excluido": 5,
+    "cabecalho": 703,
+    "total": 704
+  },
+  "revisoes_subgrupos": [
+    {
+      "subgrupo": "INSTALAÇÕES PREDIAIS DE ÁGUA QUENTE EM CPVC",
+      "revisadas": 89
+    },
+    {
+      "subgrupo": "INSTALAÇÕES HIDRÁULICAS EM PPR",
+      "revisadas": 79
+    },
+    {
+      "subgrupo": "DEPRECIAÇÃO, JUROS, IMPOSTOS E SEGUROS, MANUTENÇÃO E MATERIAIS NA OPERAÇÃO DOS EQUIPAMENTOS",
+      "revisadas": 48
+    },
+    {
+      "subgrupo": "TUBULAÇÃO FLANGEADA PARA REDES DE ÁGUA",
+      "revisadas": 48
+    },
+    {
+      "subgrupo": "INSTALAÇÕES PREDIAIS DE ÁGUA FRIA EM PVC",
+      "revisadas": 47
+    },
+    {
+      "subgrupo": "POSTES DE CONCRETO E METÁLICOS",
+      "revisadas": 46
+    },
+    {
+      "subgrupo": "ESCAVAÇÃO VERTICAL A CÉU ABERTO",
+      "revisadas": 35
+    },
+    {
+      "subgrupo": "INSTALAÇÕES HIDRÁULICAS - RESERVAÇÃO E BOMBAS DE RECALQUE",
+      "revisadas": 28
+    },
+    {
+      "subgrupo": "GALERIAS COM ADUELAS DE CONCRETO",
+      "revisadas": 24
+    },
+    {
+      "subgrupo": "CUSTOS HORÁRIOS PRODUTIVO E IMPRODUTIVO DOS EQUIPAMENTOS",
+      "revisadas": 23
+    }
+  ],
+  "codigo": {
+    "numero": "04",
+    "rotulo": "#04"
+  },
+  "acumulado_ano": {
+    "fonte_pct": 1.04,
+    "comparaveis": 7795,
+    "indices": {
+      "INCC-M": 2.21,
+      "IPCA": 2.48
+    },
+    "desde": "2025-01-01"
+  },
+  "dispersao_uf": {
+    "todas": [
+      {
+        "uf": "BA",
+        "cpus": 7797,
+        "var_pct": 1.31
+      },
+      {
+        "uf": "RJ",
+        "cpus": 7797,
+        "var_pct": 0.87
+      },
+      {
+        "uf": "AP",
+        "cpus": 7797,
+        "var_pct": 0.62
+      },
+      {
+        "uf": "RO",
+        "cpus": 7797,
+        "var_pct": 0.48
+      },
+      {
+        "uf": "PA",
+        "cpus": 7797,
+        "var_pct": 0.47
+      },
+      {
+        "uf": "AM",
+        "cpus": 7797,
+        "var_pct": 0.43
+      },
+      {
+        "uf": "PR",
+        "cpus": 7797,
+        "var_pct": 0.38
+      },
+      {
+        "uf": "CE",
+        "cpus": 7797,
+        "var_pct": 0.36
+      },
+      {
+        "uf": "RS",
+        "cpus": 7797,
+        "var_pct": 0.35
+      },
+      {
+        "uf": "SC",
+        "cpus": 7797,
+        "var_pct": 0.3
+      },
+      {
+        "uf": "MG",
+        "cpus": 7797,
+        "var_pct": 0.27
+      },
+      {
+        "uf": "SP",
+        "cpus": 7797,
+        "var_pct": 0.27
+      },
+      {
+        "uf": "PE",
+        "cpus": 7797,
+        "var_pct": 0.24
+      },
+      {
+        "uf": "RR",
+        "cpus": 7797,
+        "var_pct": 0.22
+      },
+      {
+        "uf": "PB",
+        "cpus": 7796,
+        "var_pct": 0.2
+      },
+      {
+        "uf": "TO",
+        "cpus": 7797,
+        "var_pct": 0.2
+      },
+      {
+        "uf": "AL",
+        "cpus": 7797,
+        "var_pct": 0.2
+      },
+      {
+        "uf": "ES",
+        "cpus": 7797,
+        "var_pct": 0.19
+      },
+      {
+        "uf": "SE",
+        "cpus": 7797,
+        "var_pct": 0.18
+      },
+      {
+        "uf": "MS",
+        "cpus": 7797,
+        "var_pct": 0.12
+      },
+      {
+        "uf": "AC",
+        "cpus": 7797,
+        "var_pct": 0.06
+      },
+      {
+        "uf": "PI",
+        "cpus": 7797,
+        "var_pct": 0.0
+      },
+      {
+        "uf": "MT",
+        "cpus": 7797,
+        "var_pct": -0.03
+      },
+      {
+        "uf": "GO",
+        "cpus": 7797,
+        "var_pct": -0.1
+      },
+      {
+        "uf": "DF",
+        "cpus": 7797,
+        "var_pct": -0.13
+      },
+      {
+        "uf": "RN",
+        "cpus": 7797,
+        "var_pct": -0.16
+      },
+      {
+        "uf": "MA",
+        "cpus": 7797,
+        "var_pct": -0.21
+      }
+    ],
+    "altas": [
+      {
+        "uf": "BA",
+        "cpus": 7797,
+        "var_pct": 1.31
+      },
+      {
+        "uf": "RJ",
+        "cpus": 7797,
+        "var_pct": 0.87
+      },
+      {
+        "uf": "AP",
+        "cpus": 7797,
+        "var_pct": 0.62
+      },
+      {
+        "uf": "RO",
+        "cpus": 7797,
+        "var_pct": 0.48
+      },
+      {
+        "uf": "PA",
+        "cpus": 7797,
+        "var_pct": 0.47
+      },
+      {
+        "uf": "AM",
+        "cpus": 7797,
+        "var_pct": 0.43
+      },
+      {
+        "uf": "PR",
+        "cpus": 7797,
+        "var_pct": 0.38
+      },
+      {
+        "uf": "CE",
+        "cpus": 7797,
+        "var_pct": 0.36
+      },
+      {
+        "uf": "RS",
+        "cpus": 7797,
+        "var_pct": 0.35
+      },
+      {
+        "uf": "SC",
+        "cpus": 7797,
+        "var_pct": 0.3
+      }
+    ],
+    "baixas": [
+      {
+        "uf": "MA",
+        "cpus": 7797,
+        "var_pct": -0.21
+      },
+      {
+        "uf": "RN",
+        "cpus": 7797,
+        "var_pct": -0.16
+      },
+      {
+        "uf": "DF",
+        "cpus": 7797,
+        "var_pct": -0.13
+      },
+      {
+        "uf": "GO",
+        "cpus": 7797,
+        "var_pct": -0.1
+      },
+      {
+        "uf": "MT",
+        "cpus": 7797,
+        "var_pct": -0.03
+      },
+      {
+        "uf": "PI",
+        "cpus": 7797,
+        "var_pct": 0.0
+      },
+      {
+        "uf": "AC",
+        "cpus": 7797,
+        "var_pct": 0.06
+      },
+      {
+        "uf": "MS",
+        "cpus": 7797,
+        "var_pct": 0.12
+      },
+      {
+        "uf": "SE",
+        "cpus": 7797,
+        "var_pct": 0.18
+      },
+      {
+        "uf": "ES",
+        "cpus": 7797,
+        "var_pct": 0.19
+      }
+    ],
+    "ufs": 27
+  }
+}

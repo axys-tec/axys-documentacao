@@ -1,0 +1,680 @@
+{
+  "fonte": "SINAPI",
+  "ref": "2026-01-01",
+  "ref_anterior": "2025-12-01",
+  "versao": "01-26",
+  "edi_id": 18,
+  "edi_anterior": 17,
+  "meses_intervalo": 1,
+  "modalidade": "SD",
+  "uf_foco": "SP",
+  "movimento": {
+    "incluidas": 126,
+    "inativadas": 12,
+    "reativadas": 0,
+    "alteradas": 576
+  },
+  "cobertura": {
+    "ufs": 27,
+    "cpus": 10255,
+    "sem_custo": 163460,
+    "linhas": 830655,
+    "pct_sem_custo": 19.7,
+    "insumos": 131409,
+    "insumos_sem_preco": 37608,
+    "pct_sem_preco": 28.6
+  },
+  "precos": {
+    "uf": "SP",
+    "comparaveis": 8077,
+    "media_pct": 0.57,
+    "mediana_pct": 0.46,
+    "subiram": 6518,
+    "cairam": 1131,
+    "estaveis": 428
+  },
+  "subgrupos": {
+    "altas": [
+      {
+        "subgrupo": "ASSENTAMENTO DE TUBOS DE ESGOTO EM PVC E PEAD",
+        "cpus": 56,
+        "var_pct": 5.99,
+        "medio_anterior": 218.94,
+        "medio_atual": 232.06
+      },
+      {
+        "subgrupo": "REVESTIMENTOS CERÂMICOS INTERNOS",
+        "cpus": 42,
+        "var_pct": 4.53,
+        "medio_anterior": 91.03,
+        "medio_atual": 95.15
+      },
+      {
+        "subgrupo": "SISTEMA DE PROTEÇÃO CONTRA DESCARGAS ATMOSFÉRICAS - SPDA",
+        "cpus": 22,
+        "var_pct": 4.01,
+        "medio_anterior": 79.87,
+        "medio_atual": 83.07
+      },
+      {
+        "subgrupo": "POSTES DE CONCRETO E METÁLICOS",
+        "cpus": 49,
+        "var_pct": 3.98,
+        "medio_anterior": 1279.41,
+        "medio_atual": 1330.26
+      },
+      {
+        "subgrupo": "ESCORAMENTO E PREPARO DE FUNDO DE VALAS",
+        "cpus": 40,
+        "var_pct": 3.84,
+        "medio_anterior": 92.95,
+        "medio_atual": 96.52
+      },
+      {
+        "subgrupo": "TELHAMENTO PARA COBERTURA",
+        "cpus": 42,
+        "var_pct": 3.72,
+        "medio_anterior": 87.62,
+        "medio_atual": 90.88
+      },
+      {
+        "subgrupo": "PAREDES DE CONCRETO - ARMAÇÃO",
+        "cpus": 16,
+        "var_pct": 3.58,
+        "medio_anterior": 9.0,
+        "medio_atual": 9.32
+      },
+      {
+        "subgrupo": "LIGAÇÕES PREDIAIS DE ÁGUA E ESGOTO",
+        "cpus": 36,
+        "var_pct": 3.44,
+        "medio_anterior": 49.97,
+        "medio_atual": 51.69
+      },
+      {
+        "subgrupo": "INSTALAÇÕES ELÉTRICAS - REDE DE DISTRIBUIÇÃO",
+        "cpus": 81,
+        "var_pct": 3.02,
+        "medio_anterior": 1037.27,
+        "medio_atual": 1068.58
+      },
+      {
+        "subgrupo": "INSTALAÇÕES PREDIAIS DE ÁGUAS PLUVIAIS - TUBOS, CONEXÕES, CAIXAS E RALOS",
+        "cpus": 86,
+        "var_pct": 2.84,
+        "medio_anterior": 82.93,
+        "medio_atual": 85.28
+      }
+    ],
+    "baixas": [
+      {
+        "subgrupo": "INSTALAÇÕES ELÉTRICAS - ELETRODUTOS, CONEXÕES E CONDULETES APARENTES",
+        "cpus": 45,
+        "var_pct": -17.76,
+        "medio_anterior": 40.32,
+        "medio_atual": 33.16
+      },
+      {
+        "subgrupo": "LUMINÁRIAS EXTERNAS",
+        "cpus": 18,
+        "var_pct": -5.94,
+        "medio_anterior": 215.67,
+        "medio_atual": 202.85
+      },
+      {
+        "subgrupo": "ILUMINAÇÃO PREDIAL E MONITORAMENTO",
+        "cpus": 13,
+        "var_pct": -5.08,
+        "medio_anterior": 56.82,
+        "medio_atual": 53.93
+      },
+      {
+        "subgrupo": "QUADROS DE AUTOMAÇÃO DE BOMBAS",
+        "cpus": 18,
+        "var_pct": -3.06,
+        "medio_anterior": 275.2,
+        "medio_atual": 266.77
+      },
+      {
+        "subgrupo": "BOMBAS HIDRÁULICAS - CENTRÍFUGAS, HORIZONTAIS E SUBMERSÍVEIS",
+        "cpus": 18,
+        "var_pct": -2.98,
+        "medio_anterior": 1859.91,
+        "medio_atual": 1804.45
+      },
+      {
+        "subgrupo": "PAISAGISMO - PLANTIO",
+        "cpus": 12,
+        "var_pct": -2.17,
+        "medio_anterior": 70.23,
+        "medio_atual": 68.71
+      },
+      {
+        "subgrupo": "INSTALAÇÕES DE GÁS E INCÊNDIO EM AÇO E FERRO GALVANIZADO",
+        "cpus": 316,
+        "var_pct": -1.57,
+        "medio_anterior": 173.92,
+        "medio_atual": 171.2
+      },
+      {
+        "subgrupo": "LIVRO SINAPI: CÁLCULOS E PARÂMETROS",
+        "cpus": 372,
+        "var_pct": -1.23,
+        "medio_anterior": 2114.22,
+        "medio_atual": 2088.29
+      },
+      {
+        "subgrupo": "ARMAÇÃO PARA ESTRUTURAS DE CONCRETO ARMADO",
+        "cpus": 56,
+        "var_pct": -1.07,
+        "medio_anterior": 10.05,
+        "medio_atual": 9.94
+      },
+      {
+        "subgrupo": "ARMAÇÃO DE ESTACAS",
+        "cpus": 11,
+        "var_pct": -0.91,
+        "medio_anterior": 10.87,
+        "medio_atual": 10.77
+      }
+    ],
+    "total_subgrupos": 114
+  },
+  "insumos": {
+    "comparaveis": 4818,
+    "media_pct": 10.86,
+    "altas": [
+      {
+        "insumo": "FERRAMENTAS - FAMILIA OPERADOR ESCAVADEIRA - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
+        "unidade": "MES",
+        "var_pct": 49400.0
+      },
+      {
+        "insumo": "FERRAMENTAS - FAMILIA ENGENHEIRO CIVIL - HORISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
+        "unidade": "H",
+        "var_pct": 100.0
+      },
+      {
+        "insumo": "FERRAMENTAS - FAMILIA OPERADOR ESCAVADEIRA - HORISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
+        "unidade": "H",
+        "var_pct": 100.0
+      },
+      {
+        "insumo": "FERRAMENTAS - FAMILIA ENGENHEIRO CIVIL - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
+        "unidade": "MES",
+        "var_pct": 84.3
+      },
+      {
+        "insumo": "FERRAMENTAS - FAMILIA TOPOGRAFO - HORISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
+        "unidade": "H",
+        "var_pct": 60.0
+      },
+      {
+        "insumo": "FERRAMENTAS - FAMILIA ENCARREGADO GERAL - HORISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
+        "unidade": "H",
+        "var_pct": 50.0
+      },
+      {
+        "insumo": "PAINEL ESTRUTURAL PARA LAJE SECA REVESTIDO EM PLACA CIMENTICIA, DE 1,20 X 2,50 M, E = 40 MM",
+        "unidade": "M2",
+        "var_pct": 46.4
+      },
+      {
+        "insumo": "FERRAMENTAS - FAMILIA TOPOGRAFO - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
+        "unidade": "MES",
+        "var_pct": 44.3
+      },
+      {
+        "insumo": "FERRAMENTAS - FAMILIA ENCARREGADO GERAL - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
+        "unidade": "MES",
+        "var_pct": 38.0
+      },
+      {
+        "insumo": "PAINEL ESTRUTURAL PARA LAJE SECA REVESTIDO EM PLACA CIMENTICIA, DE 1,20 X 2,50 M, E = 23 MM",
+        "unidade": "M2",
+        "var_pct": 37.5
+      },
+      {
+        "insumo": "SEGURO - HORISTA (COLETADO CAIXA - ENCARGOS COMPLEMENTARES)",
+        "unidade": "H",
+        "var_pct": 37.5
+      },
+      {
+        "insumo": "FERRAMENTAS - FAMILIA ENCANADOR - HORISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
+        "unidade": "H",
+        "var_pct": 35.5
+      },
+      {
+        "insumo": "PAINEL ESTRUTURAL PARA LAJE SECA REVESTIDO EM PLACA CIMENTICIA, DE *1,20 X 2,50* M, E = 55 MM",
+        "unidade": "M2",
+        "var_pct": 25.7
+      },
+      {
+        "insumo": "EPI - FAMILIA SOLDADOR - HORISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
+        "unidade": "H",
+        "var_pct": 23.1
+      },
+      {
+        "insumo": "FERRAMENTAS - FAMILIA ENCANADOR - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
+        "unidade": "MES",
+        "var_pct": 19.9
+      },
+      {
+        "insumo": "EPI - FAMILIA ENGENHEIRO CIVIL - HORISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
+        "unidade": "H",
+        "var_pct": 19.5
+      },
+      {
+        "insumo": "SEGURO - MENSALISTA (COLETADO CAIXA - ENCARGOS COMPLEMENTARES)",
+        "unidade": "MES",
+        "var_pct": 18.2
+      },
+      {
+        "insumo": "DENTE PARA FRESADORA",
+        "unidade": "UN",
+        "var_pct": 17.2
+      }
+    ],
+    "baixas": [
+      {
+        "insumo": "FERRAMENTAS - FAMILIA CARPINTEIRO DE FORMAS - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
+        "unidade": "MES",
+        "var_pct": -40.1
+      },
+      {
+        "insumo": "FERRAMENTAS - FAMILIA CARPINTEIRO DE FORMAS - HORISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
+        "unidade": "H",
+        "var_pct": -34.1
+      },
+      {
+        "insumo": "ELEMENTO PRE-MOLDADO PARA TRANSICAO EXCENTRICA EM CONCRETO ARMADO, DN *1500* MM, FURO CIRCULAR DN 600 MM, ESPESSURA 15 CM",
+        "unidade": "UN",
+        "var_pct": -32.7
+      },
+      {
+        "insumo": "LAJE PRE-MOLDADA TRELICADA (LAJOTAS + VIGOTAS) PARA FORRO, UNIDIRECIONAL, SOBRECARGA DE 100 KG/M2, VAO ATE 6,00 M (SEM COLOCACAO)",
+        "unidade": "M2",
+        "var_pct": -29.2
+      },
+      {
+        "insumo": "LAJE PRE-MOLDADA CONVENCIONAL (LAJOTAS + VIGOTAS) PARA FORRO, UNIDIRECIONAL, SOBRECARGA DE 100 KG/M2, VAO ATE 4 M (SEM COLOCACAO)",
+        "unidade": "M2",
+        "var_pct": -25.8
+      },
+      {
+        "insumo": "LAJE PRE-MOLDADA CONVENCIONAL (LAJOTAS + VIGOTAS) PARA FORRO, UNIDIRECIONAL, SOBRECARGA DE 100 KG/M2, VAO ATE 4,5 M (SEM COLOCACAO)",
+        "unidade": "M2",
+        "var_pct": -23.1
+      },
+      {
+        "insumo": "PARAFUSO ROSCA SOBERBA ZINCADO CABECA CHATA FENDA SIMPLES 3,2 X 20 MM (3/4\")",
+        "unidade": "UN",
+        "var_pct": -20.0
+      },
+      {
+        "insumo": "EPI - FAMILIA ALMOXARIFE - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
+        "unidade": "MES",
+        "var_pct": -18.9
+      },
+      {
+        "insumo": "FERRAMENTAS - FAMILIA PEDREIRO - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
+        "unidade": "MES",
+        "var_pct": -17.3
+      },
+      {
+        "insumo": "FERRAMENTAS - FAMILIA ALMOXARIFE - HORISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
+        "unidade": "H",
+        "var_pct": -16.7
+      },
+      {
+        "insumo": "FERRAMENTAS - FAMILIA SERVENTE - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
+        "unidade": "MES",
+        "var_pct": -16.6
+      },
+      {
+        "insumo": "ELEMENTO PRE-MOLDADO PARA TRANSICAO EXCENTRICA EM CONCRETO ARMADO, DN *1200* MM, FURO CIRCULAR DN 600 MM, ESPESSURA *12* CM",
+        "unidade": "UN",
+        "var_pct": -15.4
+      },
+      {
+        "insumo": "FERRAMENTAS - FAMILIA ALMOXARIFE - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
+        "unidade": "MES",
+        "var_pct": -14.5
+      },
+      {
+        "insumo": "FERRAMENTAS - FAMILIA ELETRICISTA - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
+        "unidade": "MES",
+        "var_pct": -13.8
+      },
+      {
+        "insumo": "LAJE PRE-MOLDADA CONVENCIONAL (LAJOTAS + VIGOTAS) PARA PISO, UNIDIRECIONAL, SOBRECARGA DE 350 KG/M2, VAO ATE 4,5 M (SEM COLOCACAO)",
+        "unidade": "M2",
+        "var_pct": -13.3
+      },
+      {
+        "insumo": "PARAFUSO ROSCA SOBERBA ZINCADO CABECA CHATA FENDA SIMPLES 3,5 X 25 MM (1\")",
+        "unidade": "UN",
+        "var_pct": -12.5
+      },
+      {
+        "insumo": "EXAMES - MENSALISTA (COLETADO CAIXA - ENCARGOS COMPLEMENTARES)",
+        "unidade": "MES",
+        "var_pct": -12.4
+      },
+      {
+        "insumo": "EPI - FAMILIA ENCARREGADO GERAL - MENSALISTA (ENCARGOS COMPLEMENTARES - COLETADO CAIXA)",
+        "unidade": "MES",
+        "var_pct": -12.2
+      }
+    ]
+  },
+  "indicadores": {
+    "acumulados": {
+      "IGP-M": 0.41,
+      "INCC-M": 0.63,
+      "INPC": 0.39,
+      "IPCA": 0.33
+    },
+    "selic_aa": 15.0,
+    "selic_aa_anterior": 15.0,
+    "meses": 1
+  },
+  "revisoes": {
+    "coeficiente": 478,
+    "insumo_incluido": 48,
+    "insumo_excluido": 148,
+    "cabecalho": 481,
+    "total": 576
+  },
+  "revisoes_subgrupos": [
+    {
+      "subgrupo": "INSTALAÇÕES DE GÁS E INCÊNDIO EM AÇO E FERRO GALVANIZADO",
+      "revisadas": 316
+    },
+    {
+      "subgrupo": "LIVRO SINAPI: CÁLCULOS E PARÂMETROS",
+      "revisadas": 92
+    },
+    {
+      "subgrupo": "INSTALAÇÕES ELÉTRICAS - ELETRODUTOS, CONEXÕES E CONDULETES APARENTES",
+      "revisadas": 82
+    },
+    {
+      "subgrupo": "ESCORAMENTO E PREPARO DE FUNDO DE VALAS",
+      "revisadas": 49
+    },
+    {
+      "subgrupo": "ENERGIA SOLAR PARA EDIFICAÇÕES",
+      "revisadas": 32
+    },
+    {
+      "subgrupo": "BOMBAS HIDRÁULICAS - CENTRÍFUGAS, HORIZONTAIS E SUBMERSÍVEIS",
+      "revisadas": 2
+    },
+    {
+      "subgrupo": "PENEIRAMENTO E ENSACAMENTO DE AREIA EM OBRA",
+      "revisadas": 2
+    },
+    {
+      "subgrupo": "PISOS",
+      "revisadas": 1
+    }
+  ],
+  "codigo": {
+    "numero": "13",
+    "rotulo": "#13"
+  },
+  "acumulado_ano": {
+    "fonte_pct": 0.31,
+    "comparaveis": 8077,
+    "indices": {
+      "INCC-M": 0.63,
+      "IPCA": 0.33
+    },
+    "desde": "2026-01-01"
+  },
+  "dispersao_uf": {
+    "todas": [
+      {
+        "uf": "RN",
+        "cpus": 8077,
+        "var_pct": 3.23
+      },
+      {
+        "uf": "ES",
+        "cpus": 8077,
+        "var_pct": 2.96
+      },
+      {
+        "uf": "PB",
+        "cpus": 8077,
+        "var_pct": 2.58
+      },
+      {
+        "uf": "PI",
+        "cpus": 8077,
+        "var_pct": 2.41
+      },
+      {
+        "uf": "AL",
+        "cpus": 8077,
+        "var_pct": 2.13
+      },
+      {
+        "uf": "MT",
+        "cpus": 8077,
+        "var_pct": 2.1
+      },
+      {
+        "uf": "MS",
+        "cpus": 8078,
+        "var_pct": 2.06
+      },
+      {
+        "uf": "PR",
+        "cpus": 8077,
+        "var_pct": 1.74
+      },
+      {
+        "uf": "TO",
+        "cpus": 8078,
+        "var_pct": 1.64
+      },
+      {
+        "uf": "CE",
+        "cpus": 8078,
+        "var_pct": 1.39
+      },
+      {
+        "uf": "BA",
+        "cpus": 8077,
+        "var_pct": 1.34
+      },
+      {
+        "uf": "AM",
+        "cpus": 8077,
+        "var_pct": 1.23
+      },
+      {
+        "uf": "GO",
+        "cpus": 8076,
+        "var_pct": 1.03
+      },
+      {
+        "uf": "MG",
+        "cpus": 8077,
+        "var_pct": 1.02
+      },
+      {
+        "uf": "AP",
+        "cpus": 8076,
+        "var_pct": 0.97
+      },
+      {
+        "uf": "SC",
+        "cpus": 8076,
+        "var_pct": 0.93
+      },
+      {
+        "uf": "RS",
+        "cpus": 8078,
+        "var_pct": 0.92
+      },
+      {
+        "uf": "SE",
+        "cpus": 8077,
+        "var_pct": 0.8
+      },
+      {
+        "uf": "PA",
+        "cpus": 8077,
+        "var_pct": 0.79
+      },
+      {
+        "uf": "RJ",
+        "cpus": 8077,
+        "var_pct": 0.67
+      },
+      {
+        "uf": "SP",
+        "cpus": 8077,
+        "var_pct": 0.57
+      },
+      {
+        "uf": "PE",
+        "cpus": 8077,
+        "var_pct": 0.44
+      },
+      {
+        "uf": "DF",
+        "cpus": 8077,
+        "var_pct": 0.43
+      },
+      {
+        "uf": "RR",
+        "cpus": 8077,
+        "var_pct": 0.42
+      },
+      {
+        "uf": "RO",
+        "cpus": 8076,
+        "var_pct": -0.0
+      },
+      {
+        "uf": "AC",
+        "cpus": 8077,
+        "var_pct": -0.98
+      },
+      {
+        "uf": "MA",
+        "cpus": 8078,
+        "var_pct": -2.07
+      }
+    ],
+    "altas": [
+      {
+        "uf": "RN",
+        "cpus": 8077,
+        "var_pct": 3.23
+      },
+      {
+        "uf": "ES",
+        "cpus": 8077,
+        "var_pct": 2.96
+      },
+      {
+        "uf": "PB",
+        "cpus": 8077,
+        "var_pct": 2.58
+      },
+      {
+        "uf": "PI",
+        "cpus": 8077,
+        "var_pct": 2.41
+      },
+      {
+        "uf": "AL",
+        "cpus": 8077,
+        "var_pct": 2.13
+      },
+      {
+        "uf": "MT",
+        "cpus": 8077,
+        "var_pct": 2.1
+      },
+      {
+        "uf": "MS",
+        "cpus": 8078,
+        "var_pct": 2.06
+      },
+      {
+        "uf": "PR",
+        "cpus": 8077,
+        "var_pct": 1.74
+      },
+      {
+        "uf": "TO",
+        "cpus": 8078,
+        "var_pct": 1.64
+      },
+      {
+        "uf": "CE",
+        "cpus": 8078,
+        "var_pct": 1.39
+      }
+    ],
+    "baixas": [
+      {
+        "uf": "MA",
+        "cpus": 8078,
+        "var_pct": -2.07
+      },
+      {
+        "uf": "AC",
+        "cpus": 8077,
+        "var_pct": -0.98
+      },
+      {
+        "uf": "RO",
+        "cpus": 8076,
+        "var_pct": -0.0
+      },
+      {
+        "uf": "RR",
+        "cpus": 8077,
+        "var_pct": 0.42
+      },
+      {
+        "uf": "DF",
+        "cpus": 8077,
+        "var_pct": 0.43
+      },
+      {
+        "uf": "PE",
+        "cpus": 8077,
+        "var_pct": 0.44
+      },
+      {
+        "uf": "SP",
+        "cpus": 8077,
+        "var_pct": 0.57
+      },
+      {
+        "uf": "RJ",
+        "cpus": 8077,
+        "var_pct": 0.67
+      },
+      {
+        "uf": "PA",
+        "cpus": 8077,
+        "var_pct": 0.79
+      },
+      {
+        "uf": "SE",
+        "cpus": 8077,
+        "var_pct": 0.8
+      }
+    ],
+    "ufs": 27
+  }
+}

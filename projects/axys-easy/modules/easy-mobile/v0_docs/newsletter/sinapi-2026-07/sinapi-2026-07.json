@@ -1,0 +1,688 @@
+{
+  "fonte": "SINAPI",
+  "ref": "2026-07-01",
+  "ref_anterior": "2026-06-01",
+  "versao": "07-26",
+  "edi_id": 59,
+  "edi_anterior": 23,
+  "meses_intervalo": 1,
+  "modalidade": "SD",
+  "uf_foco": "SP",
+  "movimento": {
+    "incluidas": 127,
+    "inativadas": 37,
+    "reativadas": 0,
+    "alteradas": 279
+  },
+  "cobertura": {
+    "ufs": 27,
+    "cpus": 10544,
+    "sem_custo": 173665,
+    "linhas": 854064,
+    "pct_sem_custo": 20.3,
+    "insumos": 133866,
+    "insumos_sem_preco": 36022,
+    "pct_sem_preco": 26.9
+  },
+  "precos": {
+    "uf": "SP",
+    "comparaveis": 8366,
+    "media_pct": 0.03,
+    "mediana_pct": 0.0,
+    "subiram": 3550,
+    "cairam": 3084,
+    "estaveis": 1732
+  },
+  "subgrupos": {
+    "altas": [
+      {
+        "subgrupo": "INSTALAÇÕES DE AR CONDICIONADO",
+        "cpus": 44,
+        "var_pct": 6.74,
+        "medio_anterior": 8094.41,
+        "medio_atual": 8639.94
+      },
+      {
+        "subgrupo": "CONCRETO PROJETADO",
+        "cpus": 32,
+        "var_pct": 3.44,
+        "medio_anterior": 255.81,
+        "medio_atual": 264.61
+      },
+      {
+        "subgrupo": "ARMAÇÃO PARA ESTRUTURAS DE CONCRETO ARMADO",
+        "cpus": 56,
+        "var_pct": 2.84,
+        "medio_anterior": 10.24,
+        "medio_atual": 10.53
+      },
+      {
+        "subgrupo": "ARMAÇÃO DE ESTACAS",
+        "cpus": 11,
+        "var_pct": 2.6,
+        "medio_anterior": 11.1,
+        "medio_atual": 11.39
+      },
+      {
+        "subgrupo": "CAIXAS DE ÁGUA PARA EDIFICAÇÕES",
+        "cpus": 37,
+        "var_pct": 2.12,
+        "medio_anterior": 1361.18,
+        "medio_atual": 1390.06
+      },
+      {
+        "subgrupo": "ARGAMASSAS",
+        "cpus": 111,
+        "var_pct": 2.04,
+        "medio_anterior": 1194.73,
+        "medio_atual": 1219.1
+      },
+      {
+        "subgrupo": "PAREDES DE CONCRETO - CONCRETAGEM",
+        "cpus": 12,
+        "var_pct": 1.95,
+        "medio_anterior": 710.56,
+        "medio_atual": 724.45
+      },
+      {
+        "subgrupo": "INSTALAÇÕES ELÉTRICAS - QUADROS, CABOS, DISJUNTORES, CONTATORES E BARRAMENTOS BLINDADOS",
+        "cpus": 61,
+        "var_pct": 1.74,
+        "medio_anterior": 648.95,
+        "medio_atual": 660.23
+      },
+      {
+        "subgrupo": "ESTACAS EM HÉLICE CONTÍNUA",
+        "cpus": 20,
+        "var_pct": 1.73,
+        "medio_anterior": 370.47,
+        "medio_atual": 376.88
+      },
+      {
+        "subgrupo": "INSTALAÇÕES ELÉTRICAS - REDE DE DISTRIBUIÇÃO",
+        "cpus": 81,
+        "var_pct": 1.55,
+        "medio_anterior": 1120.18,
+        "medio_atual": 1137.54
+      }
+    ],
+    "baixas": [
+      {
+        "subgrupo": "REVESTIMENTOS CERÂMICOS INTERNOS",
+        "cpus": 42,
+        "var_pct": -6.34,
+        "medio_anterior": 104.64,
+        "medio_atual": 98.01
+      },
+      {
+        "subgrupo": "PISOS",
+        "cpus": 40,
+        "var_pct": -4.43,
+        "medio_anterior": 199.94,
+        "medio_atual": 191.08
+      },
+      {
+        "subgrupo": "VIDROS E ESPELHOS",
+        "cpus": 37,
+        "var_pct": -3.58,
+        "medio_anterior": 767.77,
+        "medio_atual": 740.3
+      },
+      {
+        "subgrupo": "ASSENTAMENTO DE TUBOS DE ESGOTO EM PVC E PEAD",
+        "cpus": 56,
+        "var_pct": -3.51,
+        "medio_anterior": 229.94,
+        "medio_atual": 221.87
+      },
+      {
+        "subgrupo": "MONOCAPA",
+        "cpus": 12,
+        "var_pct": -2.92,
+        "medio_anterior": 172.74,
+        "medio_atual": 167.69
+      },
+      {
+        "subgrupo": "PAISAGISMO - PLANTIO",
+        "cpus": 12,
+        "var_pct": -2.82,
+        "medio_anterior": 72.15,
+        "medio_atual": 70.11
+      },
+      {
+        "subgrupo": "INSTALAÇÕES ELÉTRICAS - ELETRODUTOS EMBUTIDOS, CABOS, CAIXAS, TOMADAS E INTERRUPTORES",
+        "cpus": 193,
+        "var_pct": -1.79,
+        "medio_anterior": 45.43,
+        "medio_atual": 44.62
+      },
+      {
+        "subgrupo": "DEPRECIAÇÃO, JUROS, IMPOSTOS E SEGUROS, MANUTENÇÃO E MATERIAIS NA OPERAÇÃO DOS EQUIPAMENTOS",
+        "cpus": 714,
+        "var_pct": -1.78,
+        "medio_anterior": 73.26,
+        "medio_atual": 71.95
+      },
+      {
+        "subgrupo": "REDES DE ÁGUA E ESGOTO EM PEAD LISO (TUBOS E CONEXÕES)",
+        "cpus": 61,
+        "var_pct": -1.63,
+        "medio_anterior": 1208.98,
+        "medio_atual": 1189.25
+      },
+      {
+        "subgrupo": "SISTEMAS DE MEDIÇÃO",
+        "cpus": 46,
+        "var_pct": -1.61,
+        "medio_anterior": 893.84,
+        "medio_atual": 879.44
+      }
+    ],
+    "total_subgrupos": 120
+  },
+  "insumos": {
+    "comparaveis": 4876,
+    "media_pct": 0.31,
+    "altas": [
+      {
+        "insumo": "AGREGADO RECICLADO, TIPO RACHAO RECICLADO CINZA, CLASSE A",
+        "unidade": "M3",
+        "var_pct": 19.0
+      },
+      {
+        "insumo": "PARAFUSO ROSCA SOBERBA ZINCADO CABECA CHATA FENDA SIMPLES 3,8 X 30 MM (1.1/4\")",
+        "unidade": "UN",
+        "var_pct": 14.3
+      },
+      {
+        "insumo": "LOCACAO DE NIVEL OPTICO, COM PRECISAO DE 0,7 MM, AUMENTO DE 32X",
+        "unidade": "H",
+        "var_pct": 13.3
+      },
+      {
+        "insumo": "LOCACAO DE TEODOLITO ELETRONICO, PRECISAO ANGULAR DE 5 A 7 SEGUNDOS, INCLUINDO TRIPE",
+        "unidade": "H",
+        "var_pct": 13.3
+      },
+      {
+        "insumo": "BARRA DE APOIO RETA, EM ACO INOX POLIDO, COMPRIMENTO 60CM, DIAMETRO MINIMO 3 CM",
+        "unidade": "UN",
+        "var_pct": 13.1
+      },
+      {
+        "insumo": "BARRA DE APOIO RETA, EM ACO INOX POLIDO, COMPRIMENTO 90 CM, DIAMETRO MINIMO 3 CM",
+        "unidade": "UN",
+        "var_pct": 13.1
+      },
+      {
+        "insumo": "BANCO ARTICULADO PARA BANHO, EM ACO INOX POLIDO, 70* CM X 45* CM",
+        "unidade": "UN",
+        "var_pct": 13.1
+      },
+      {
+        "insumo": "BARRA DE APOIO LATERAL ARTICULADA, COM TRAVA, EM ACO INOX POLIDO, 70 CM, DIAMETRO MINIMO 3 CM",
+        "unidade": "UN",
+        "var_pct": 13.1
+      },
+      {
+        "insumo": "BARRA DE APOIO RETA, EM ACO INOX POLIDO, COMPRIMENTO 80CM, DIAMETRO MINIMO 3 CM",
+        "unidade": "UN",
+        "var_pct": 13.1
+      },
+      {
+        "insumo": "BARRA DE APOIO EM \"L\", EM ACO INOX POLIDO 80 X 80 CM, DIAMETRO MINIMO 3 CM",
+        "unidade": "UN",
+        "var_pct": 13.1
+      },
+      {
+        "insumo": "BARRA DE APOIO RETA, EM ACO INOX POLIDO, COMPRIMENTO 70CM, DIAMETRO MINIMO 3 CM",
+        "unidade": "UN",
+        "var_pct": 13.1
+      },
+      {
+        "insumo": "BARRA DE APOIO EM \"L\", EM ACO INOX POLIDO 70 X 70 CM, DIAMETRO MINIMO 3 CM",
+        "unidade": "UN",
+        "var_pct": 13.1
+      },
+      {
+        "insumo": "BOLSA DE LIGACAO EM PVC FLEXIVEL PARA VASO SANITARIO 40 MM (1 1/2\")",
+        "unidade": "UN",
+        "var_pct": 11.5
+      },
+      {
+        "insumo": "CONJUNTO DE LIGACAO AJUSTAVEL, PARA VASO / BACIA SANITARIA, EM PLASTICO BRANCO, COM TUBO, CANOPLA E ESPUDE",
+        "unidade": "UN",
+        "var_pct": 11.5
+      },
+      {
+        "insumo": "TUBO DE DESCIDA EXTERNO, DE PVC, PARA CAIXA DE DESCARGA EXTERNA ALTA - DIAMETRO DE 40 MM E ALTURA DE APROXIMADAMENTE 1,55 M",
+        "unidade": "UN",
+        "var_pct": 11.5
+      },
+      {
+        "insumo": "CONJUNTO DE LIGACAO PARA VASO / BACIA SANITARIA, EM PLASTICO BRANCO, COM TUBO, CANOPLA E ANEL DE EXPANSAO (TUBO 1.1/2\" X 20 CM)",
+        "unidade": "UN",
+        "var_pct": 11.4
+      },
+      {
+        "insumo": "CAIXA DE DESCARGA PLASTICA PARA BACIA / VASO SANITARIO DE EMBUTIR, COM ESPELHO ACIONADOR EM PLASTICO, CAPACIDADE 6 A 10 LITROS, (COMPLETA - ACESSORIOS INCLUSOS)",
+        "unidade": "UN",
+        "var_pct": 11.4
+      },
+      {
+        "insumo": "CAIXA DE DESCARGA PLASTICA PARA BACIA / VASO SANITARIO, EXTERNA, CAPACIDADE 9 LITROS, PUXADOR FIO DE NYLON, NAO INCLUSO CANO, BOLSA, ENGATE",
+        "unidade": "UN",
+        "var_pct": 11.4
+      }
+    ],
+    "baixas": [
+      {
+        "insumo": "PISO DE BORRACHA CANELADO EM PLACAS 50 X 50 CM, E = *3,5* MM, PARA COLA",
+        "unidade": "M2",
+        "var_pct": -16.5
+      },
+      {
+        "insumo": "PISO EM REGUA VINILICA SEMIFLEXIVEL, ENCAIXE CLICADO, E = 4 MM (SEM COLOCACAO)",
+        "unidade": "M2",
+        "var_pct": -16.5
+      },
+      {
+        "insumo": "PLACA VINILICA SEMIFLEXIVEL PARA PISOS, E = 3,2 MM, 30 X 30 CM (SEM COLOCACAO)",
+        "unidade": "M2",
+        "var_pct": -16.5
+      },
+      {
+        "insumo": "PISO DE BORRACHA FRISADO OU PASTILHADO, PRETO, EM PLACAS 50 X 50 CM, E = 7 MM, PARA ARGAMASSA",
+        "unidade": "M2",
+        "var_pct": -16.5
+      },
+      {
+        "insumo": "RODAPE PLANO PARA PISO VINILICO, H = 5 CM",
+        "unidade": "M",
+        "var_pct": -16.5
+      },
+      {
+        "insumo": "PISO TATIL DE ALERTA OU DIRECIONAL, DE BORRACHA, COLORIDO, 25 X 25 CM, E = 12 MM, PARA ARGAMASSA",
+        "unidade": "M2",
+        "var_pct": -16.5
+      },
+      {
+        "insumo": "PISO TATIL DE ALERTA OU DIRECIONAL DE BORRACHA, PRETO, 25 X 25 CM, E = 5 MM, PARA COLA",
+        "unidade": "M2",
+        "var_pct": -16.5
+      },
+      {
+        "insumo": "PLACA VINILICA SEMIFLEXIVEL PARA REVESTIMENTO DE PISOS E PAREDES, E = 2 MM (SEM COLOCACAO)",
+        "unidade": "M2",
+        "var_pct": -16.5
+      },
+      {
+        "insumo": "PISO TATIL ALERTA OU DIRECIONAL, DE BORRACHA, COLORIDO, 25 X 25 CM, E = 5 MM, PARA COLA",
+        "unidade": "M2",
+        "var_pct": -16.5
+      },
+      {
+        "insumo": "PISO DE BORRACHA ESPORTIVO EM PLACAS 50 X 50 CM, E = 15 MM, PARA ARGAMASSA, PRETO",
+        "unidade": "M2",
+        "var_pct": -16.5
+      },
+      {
+        "insumo": "PISO TATIL DE ALERTA OU DIRECIONAL, DE BORRACHA, PRETO, 25 X 25 CM, E = 12 MM, PARA ARGAMASSA",
+        "unidade": "M2",
+        "var_pct": -16.5
+      },
+      {
+        "insumo": "PISO DE BORRACHA PASTILHADO EM PLACAS 50 X 50 CM, E = 15 MM, PARA ARGAMASSA, PRETO",
+        "unidade": "M2",
+        "var_pct": -16.5
+      },
+      {
+        "insumo": "PISO DE BORRACHA PASTILHADO EM PLACAS 50 X 50 CM, E = *3,5* MM, PARA COLA, PRETO",
+        "unidade": "M2",
+        "var_pct": -16.5
+      },
+      {
+        "insumo": "RODAPE DE BORRACHA LISO, H = *70* MM, E = *2* MM, PARA ARGAMASSA, PRETO",
+        "unidade": "M",
+        "var_pct": -16.5
+      },
+      {
+        "insumo": "TESTEIRA ANTIDERRAPANTE PARA PISO VINILICO *5 X 2,5* CM, E = 2 MM",
+        "unidade": "M",
+        "var_pct": -16.4
+      },
+      {
+        "insumo": "MANTA / LENCOL DE BORRACHA, SBR, ANTIRRUIDO, E = 5 MM",
+        "unidade": "M2",
+        "var_pct": -16.4
+      },
+      {
+        "insumo": "MASSA PARA VIDRO",
+        "unidade": "KG",
+        "var_pct": -16.4
+      },
+      {
+        "insumo": "VIDRO LISO INCOLOR 2 A 3 MM - SEM COLOCACAO",
+        "unidade": "M2",
+        "var_pct": -16.4
+      }
+    ]
+  },
+  "indicadores": {
+    "acumulados": {
+      "IGP-M": -1.16,
+      "INCC-M": 0.62,
+      "INPC": -0.01,
+      "IPCA": 0.07
+    },
+    "selic_aa": 14.25,
+    "selic_aa_anterior": 14.25,
+    "meses": 1
+  },
+  "revisoes": {
+    "coeficiente": 232,
+    "insumo_incluido": 99,
+    "insumo_excluido": 42,
+    "cabecalho": 254,
+    "total": 279
+  },
+  "revisoes_subgrupos": [
+    {
+      "subgrupo": "ARGAMASSAS",
+      "revisadas": 132
+    },
+    {
+      "subgrupo": "RADIER, PISO DE CONCRETO E LAJE SOBRE SOLO",
+      "revisadas": 48
+    },
+    {
+      "subgrupo": "CONCRETO PROJETADO",
+      "revisadas": 33
+    },
+    {
+      "subgrupo": "VERGAS, CONTRAVERGAS E FIXAÇÃO DE ALVENARIA",
+      "revisadas": 23
+    },
+    {
+      "subgrupo": "PINTURA EM SUPERFÍCIES METÁLICAS",
+      "revisadas": 19
+    },
+    {
+      "subgrupo": "ALVENARIA ESTRUTURAL - BLOCOS DE CONCRETO",
+      "revisadas": 12
+    },
+    {
+      "subgrupo": "ALVENARIA ESTRUTURAL - BLOCOS CERÂMICOS",
+      "revisadas": 4
+    },
+    {
+      "subgrupo": "GUARDA-CORPO, CORRIMÃO E GRADE PARA ESQUADRIAS",
+      "revisadas": 3
+    },
+    {
+      "subgrupo": "SISTEMAS DE MEDIÇÃO DE GÁS",
+      "revisadas": 3
+    },
+    {
+      "subgrupo": "ALVENARIAS DIVERSAS",
+      "revisadas": 2
+    }
+  ],
+  "codigo": {
+    "numero": "19",
+    "rotulo": "#19"
+  },
+  "acumulado_ano": {
+    "fonte_pct": 3.54,
+    "comparaveis": 8027,
+    "indices": {
+      "INCC-M": 4.7,
+      "IPCA": 3.44
+    },
+    "desde": "2026-01-01"
+  },
+  "dispersao_uf": {
+    "todas": [
+      {
+        "uf": "AC",
+        "cpus": 8366,
+        "var_pct": 1.73
+      },
+      {
+        "uf": "GO",
+        "cpus": 8365,
+        "var_pct": 1.19
+      },
+      {
+        "uf": "RS",
+        "cpus": 8366,
+        "var_pct": 0.88
+      },
+      {
+        "uf": "RO",
+        "cpus": 8366,
+        "var_pct": 0.7
+      },
+      {
+        "uf": "RN",
+        "cpus": 8366,
+        "var_pct": 0.52
+      },
+      {
+        "uf": "RR",
+        "cpus": 8366,
+        "var_pct": 0.47
+      },
+      {
+        "uf": "ES",
+        "cpus": 8365,
+        "var_pct": 0.47
+      },
+      {
+        "uf": "SE",
+        "cpus": 8366,
+        "var_pct": 0.42
+      },
+      {
+        "uf": "AP",
+        "cpus": 8365,
+        "var_pct": 0.35
+      },
+      {
+        "uf": "MS",
+        "cpus": 8366,
+        "var_pct": 0.34
+      },
+      {
+        "uf": "MG",
+        "cpus": 8365,
+        "var_pct": 0.28
+      },
+      {
+        "uf": "AM",
+        "cpus": 8367,
+        "var_pct": 0.27
+      },
+      {
+        "uf": "PR",
+        "cpus": 8366,
+        "var_pct": 0.22
+      },
+      {
+        "uf": "CE",
+        "cpus": 8367,
+        "var_pct": 0.22
+      },
+      {
+        "uf": "PE",
+        "cpus": 8366,
+        "var_pct": 0.2
+      },
+      {
+        "uf": "PI",
+        "cpus": 8366,
+        "var_pct": 0.17
+      },
+      {
+        "uf": "PB",
+        "cpus": 8367,
+        "var_pct": 0.14
+      },
+      {
+        "uf": "TO",
+        "cpus": 8367,
+        "var_pct": 0.13
+      },
+      {
+        "uf": "DF",
+        "cpus": 8366,
+        "var_pct": 0.08
+      },
+      {
+        "uf": "RJ",
+        "cpus": 8366,
+        "var_pct": 0.06
+      },
+      {
+        "uf": "MT",
+        "cpus": 8366,
+        "var_pct": 0.04
+      },
+      {
+        "uf": "SP",
+        "cpus": 8366,
+        "var_pct": 0.03
+      },
+      {
+        "uf": "PA",
+        "cpus": 8366,
+        "var_pct": 0.03
+      },
+      {
+        "uf": "MA",
+        "cpus": 8367,
+        "var_pct": -0.01
+      },
+      {
+        "uf": "BA",
+        "cpus": 8366,
+        "var_pct": -0.09
+      },
+      {
+        "uf": "SC",
+        "cpus": 8365,
+        "var_pct": -0.1
+      },
+      {
+        "uf": "AL",
+        "cpus": 8366,
+        "var_pct": -0.1
+      }
+    ],
+    "altas": [
+      {
+        "uf": "AC",
+        "cpus": 8366,
+        "var_pct": 1.73
+      },
+      {
+        "uf": "GO",
+        "cpus": 8365,
+        "var_pct": 1.19
+      },
+      {
+        "uf": "RS",
+        "cpus": 8366,
+        "var_pct": 0.88
+      },
+      {
+        "uf": "RO",
+        "cpus": 8366,
+        "var_pct": 0.7
+      },
+      {
+        "uf": "RN",
+        "cpus": 8366,
+        "var_pct": 0.52
+      },
+      {
+        "uf": "RR",
+        "cpus": 8366,
+        "var_pct": 0.47
+      },
+      {
+        "uf": "ES",
+        "cpus": 8365,
+        "var_pct": 0.47
+      },
+      {
+        "uf": "SE",
+        "cpus": 8366,
+        "var_pct": 0.42
+      },
+      {
+        "uf": "AP",
+        "cpus": 8365,
+        "var_pct": 0.35
+      },
+      {
+        "uf": "MS",
+        "cpus": 8366,
+        "var_pct": 0.34
+      }
+    ],
+    "baixas": [
+      {
+        "uf": "AL",
+        "cpus": 8366,
+        "var_pct": -0.1
+      },
+      {
+        "uf": "SC",
+        "cpus": 8365,
+        "var_pct": -0.1
+      },
+      {
+        "uf": "BA",
+        "cpus": 8366,
+        "var_pct": -0.09
+      },
+      {
+        "uf": "MA",
+        "cpus": 8367,
+        "var_pct": -0.01
+      },
+      {
+        "uf": "PA",
+        "cpus": 8366,
+        "var_pct": 0.03
+      },
+      {
+        "uf": "SP",
+        "cpus": 8366,
+        "var_pct": 0.03
+      },
+      {
+        "uf": "MT",
+        "cpus": 8366,
+        "var_pct": 0.04
+      },
+      {
+        "uf": "RJ",
+        "cpus": 8366,
+        "var_pct": 0.06
+      },
+      {
+        "uf": "DF",
+        "cpus": 8366,
+        "var_pct": 0.08
+      },
+      {
+        "uf": "TO",
+        "cpus": 8367,
+        "var_pct": 0.13
+      }
+    ],
+    "ufs": 27
+  }
+}

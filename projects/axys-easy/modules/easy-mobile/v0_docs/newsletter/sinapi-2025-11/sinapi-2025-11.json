@@ -1,0 +1,647 @@
+{
+  "fonte": "SINAPI",
+  "ref": "2025-11-01",
+  "ref_anterior": "2025-10-01",
+  "versao": "11-25",
+  "edi_id": 16,
+  "edi_anterior": 15,
+  "meses_intervalo": 1,
+  "modalidade": "SD",
+  "uf_foco": "SP",
+  "movimento": {
+    "incluidas": 0,
+    "inativadas": 0,
+    "reativadas": 0,
+    "alteradas": 0
+  },
+  "cobertura": {
+    "ufs": 27,
+    "cpus": 9969,
+    "sem_custo": 156738,
+    "linhas": 807489,
+    "pct_sem_custo": 19.4,
+    "insumos": 130086,
+    "insumos_sem_preco": 37424,
+    "pct_sem_preco": 28.8
+  },
+  "precos": {
+    "uf": "SP",
+    "comparaveis": 8034,
+    "media_pct": 0.04,
+    "mediana_pct": 0.0,
+    "subiram": 3323,
+    "cairam": 2254,
+    "estaveis": 2457
+  },
+  "subgrupos": {
+    "altas": [
+      {
+        "subgrupo": "PAVIMENTO INTERTRAVADO",
+        "cpus": 18,
+        "var_pct": 6.16,
+        "medio_anterior": 112.41,
+        "medio_atual": 119.33
+      },
+      {
+        "subgrupo": "INSTALAÇÕES PREDIAIS DE ÁGUA FRIA EM PVC",
+        "cpus": 235,
+        "var_pct": 3.46,
+        "medio_anterior": 26.09,
+        "medio_atual": 26.99
+      },
+      {
+        "subgrupo": "TELHAMENTO PARA COBERTURA",
+        "cpus": 42,
+        "var_pct": 2.72,
+        "medio_anterior": 85.59,
+        "medio_atual": 87.91
+      },
+      {
+        "subgrupo": "CAIXAS DE ÁGUA PARA EDIFICAÇÕES",
+        "cpus": 37,
+        "var_pct": 2.1,
+        "medio_anterior": 1240.27,
+        "medio_atual": 1266.32
+      },
+      {
+        "subgrupo": "PISOS",
+        "cpus": 41,
+        "var_pct": 1.97,
+        "medio_anterior": 206.33,
+        "medio_atual": 210.39
+      },
+      {
+        "subgrupo": "LOUÇAS E METAIS",
+        "cpus": 102,
+        "var_pct": 1.75,
+        "medio_anterior": 408.22,
+        "medio_atual": 415.34
+      },
+      {
+        "subgrupo": "PAREDES DE CONCRETO - CONCRETAGEM",
+        "cpus": 12,
+        "var_pct": 1.66,
+        "medio_anterior": 652.26,
+        "medio_atual": 663.07
+      },
+      {
+        "subgrupo": "GRAUTE E ARMAÇÃO",
+        "cpus": 21,
+        "var_pct": 1.4,
+        "medio_anterior": 367.91,
+        "medio_atual": 373.06
+      },
+      {
+        "subgrupo": "USINAGENS",
+        "cpus": 16,
+        "var_pct": 1.38,
+        "medio_anterior": 137.75,
+        "medio_atual": 139.65
+      },
+      {
+        "subgrupo": "INSTALAÇÕES DE AR CONDICIONADO",
+        "cpus": 40,
+        "var_pct": 1.32,
+        "medio_anterior": 7980.6,
+        "medio_atual": 8085.96
+      }
+    ],
+    "baixas": [
+      {
+        "subgrupo": "ASSENTAMENTO DE TUBOS DE ESGOTO OU DRENAGEM PLUVIAL EM CONCRETO",
+        "cpus": 78,
+        "var_pct": -9.83,
+        "medio_anterior": 329.13,
+        "medio_atual": 296.76
+      },
+      {
+        "subgrupo": "INSTALAÇÕES PREDIAIS DE ÁGUA QUENTE EM CPVC",
+        "cpus": 137,
+        "var_pct": -3.25,
+        "medio_anterior": 54.47,
+        "medio_atual": 52.7
+      },
+      {
+        "subgrupo": "PAISAGISMO - PLANTIO",
+        "cpus": 12,
+        "var_pct": -1.82,
+        "medio_anterior": 68.34,
+        "medio_atual": 67.1
+      },
+      {
+        "subgrupo": "FOSSAS E SUMIDOUROS",
+        "cpus": 49,
+        "var_pct": -1.67,
+        "medio_anterior": 7793.49,
+        "medio_atual": 7663.22
+      },
+      {
+        "subgrupo": "INSTALAÇÕES HIDRÁULICAS - RESERVAÇÃO E BOMBAS DE RECALQUE",
+        "cpus": 286,
+        "var_pct": -1.63,
+        "medio_anterior": 153.69,
+        "medio_atual": 151.18
+      },
+      {
+        "subgrupo": "CAIXAS ENTERRADAS",
+        "cpus": 56,
+        "var_pct": -1.62,
+        "medio_anterior": 682.9,
+        "medio_atual": 671.81
+      },
+      {
+        "subgrupo": "INSTALAÇÕES DE GÁS E INCÊNDIO EM AÇO E FERRO GALVANIZADO",
+        "cpus": 319,
+        "var_pct": -1.35,
+        "medio_anterior": 271.17,
+        "medio_atual": 267.5
+      },
+      {
+        "subgrupo": "POSTES DE CONCRETO E METÁLICOS",
+        "cpus": 49,
+        "var_pct": -1.22,
+        "medio_anterior": 1288.7,
+        "medio_atual": 1272.92
+      },
+      {
+        "subgrupo": "SISTEMAS DE MEDIÇÃO",
+        "cpus": 46,
+        "var_pct": -1.01,
+        "medio_anterior": 850.5,
+        "medio_atual": 841.94
+      },
+      {
+        "subgrupo": "REVESTIMENTOS CERÂMICOS INTERNOS",
+        "cpus": 42,
+        "var_pct": -1.0,
+        "medio_anterior": 91.95,
+        "medio_atual": 91.03
+      }
+    ],
+    "total_subgrupos": 114
+  },
+  "insumos": {
+    "comparaveis": 4818,
+    "media_pct": -0.17,
+    "altas": [
+      {
+        "insumo": "LOCACAO DE NIVEL OPTICO, COM PRECISAO DE 0,7 MM, AUMENTO DE 32X",
+        "unidade": "H",
+        "var_pct": 15.1
+      },
+      {
+        "insumo": "LOCACAO DE TEODOLITO ELETRONICO, PRECISAO ANGULAR DE 5 A 7 SEGUNDOS, INCLUINDO TRIPE",
+        "unidade": "H",
+        "var_pct": 15.1
+      },
+      {
+        "insumo": "REGISTRO DE PRESSAO PVC, ROSCAVEL, VOLANTE SIMPLES, DE 3/4\"",
+        "unidade": "UN",
+        "var_pct": 11.1
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 20 MM, COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": 11.1
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 1 1/2\", COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": 11.1
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 32 MM, COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": 11.1
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA PVC, COM BORBOLETA, COM ROSCA EXTERNA, DE 1/2\"",
+        "unidade": "UN",
+        "var_pct": 11.1
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 25 MM, COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": 11.1
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 60 MM, COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": 11.1
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA PVC, COM BORBOLETA, COM ROSCA EXTERNA, DE 3/4\"",
+        "unidade": "UN",
+        "var_pct": 11.1
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 40 MM, COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": 11.1
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 1 1/4\", COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": 11.1
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 2\", COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": 11.1
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 50 MM, COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": 11.1
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 1/2\", COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": 11.1
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 1\", COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": 11.1
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 3/4\", COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": 11.1
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA PVC, COM CABECA QUADRADA, COM ROSCA EXTERNA, 3/4\"",
+        "unidade": "UN",
+        "var_pct": 11.1
+      }
+    ],
+    "baixas": [
+      {
+        "insumo": "RALO FOFO SEMIESFERICO, 75 MM, PARA LAJES/ CALHAS",
+        "unidade": "UN",
+        "var_pct": -17.2
+      },
+      {
+        "insumo": "RALO FOFO SEMIESFERICO, 100 MM, PARA LAJES/ CALHAS",
+        "unidade": "UN",
+        "var_pct": -17.2
+      },
+      {
+        "insumo": "RALO FOFO COM REQUADRO, QUADRADO 250 X 250 MM",
+        "unidade": "UN",
+        "var_pct": -17.2
+      },
+      {
+        "insumo": "GRELHA FOFO SIMPLES COM REQUADRO, CARGA MAXIMA 1,5 T, 150 X 1000 MM, E= *15* MM",
+        "unidade": "UN",
+        "var_pct": -17.2
+      },
+      {
+        "insumo": "GRELHA FOFO SIMPLES COM REQUADRO, CARGA MAXIMA 12,5 T, *300 X 1000* MM, E= *15* MM, AREA ESTACIONAMENTO CARRO PASSEIO",
+        "unidade": "UN",
+        "var_pct": -17.2
+      },
+      {
+        "insumo": "TAMPAO FOFO ARTICULADO P/ REGISTRO, COM BASE / REQUADRO, CLASSE A15 CARGA MAXIMA 1,5 T, *400 X 400* MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
+        "unidade": "UN",
+        "var_pct": -17.2
+      },
+      {
+        "insumo": "RALO FOFO SEMIESFERICO, 200 MM, PARA LAJES/ CALHAS",
+        "unidade": "UN",
+        "var_pct": -17.2
+      },
+      {
+        "insumo": "TAMPAO FOFO SIMPLES COM BASE / REQUADRO, CLASSE A15 CARGA MAX. 1,5 T, 300 X 300 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
+        "unidade": "UN",
+        "var_pct": -17.2
+      },
+      {
+        "insumo": "TAMPAO FOFO ARTICULADO, COM BASE / REQUADRO, CLASSE B125 CARGA MAX 12,5 T, REDONDO, TAMPA 600 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
+        "unidade": "UN",
+        "var_pct": -17.2
+      },
+      {
+        "insumo": "GRELHA FOFO SIMPLES COM REQUADRO, CARGA MAXIMA 1,5 T, 200 X 1000 MM, E= *15* MM",
+        "unidade": "UN",
+        "var_pct": -17.2
+      },
+      {
+        "insumo": "TAMPAO FOFO SIMPLES COM BASE / REQUADRO, CLASSE A15 CARGA MAX. 1,5 T, 400 X 400 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
+        "unidade": "UN",
+        "var_pct": -17.2
+      },
+      {
+        "insumo": "TAMPAO FOFO ARTICULADO, COM BASE / REQUADRO, CLASSE D400 CARGA MAX 40 T, REDONDO, TAMPA 600 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
+        "unidade": "UN",
+        "var_pct": -17.2
+      },
+      {
+        "insumo": "TAMPAO FOFO SIMPLES COM BASE / REQUADRO, CLASSE D400 CARGA MAX. 40 T, REDONDO, TAMPA 900 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
+        "unidade": "UN",
+        "var_pct": -17.2
+      },
+      {
+        "insumo": "TAMPAO FOFO SIMPLES COM BASE / REQUADRO, CLASSE B125 CARGA MAX. 12,5 T, REDONDO, TAMPA 600 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
+        "unidade": "UN",
+        "var_pct": -17.2
+      },
+      {
+        "insumo": "TAMPAO FOFO SIMPLES COM BASE / REQUADRO, CLASSE D400 CARGA MAX. 40 T, REDONDO, TAMPA 600 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
+        "unidade": "UN",
+        "var_pct": -17.2
+      },
+      {
+        "insumo": "RALO FOFO COM REQUADRO, QUADRADO 400 X 400 MM",
+        "unidade": "UN",
+        "var_pct": -17.2
+      },
+      {
+        "insumo": "RALO FOFO COM REQUADRO, QUADRADO 300 X 300 MM",
+        "unidade": "UN",
+        "var_pct": -17.2
+      },
+      {
+        "insumo": "GRELHA FOFO ARTICULADA, CARGA MAXIMA 1,5 T, *300 X 1000* MM, E= *15* MM",
+        "unidade": "UN",
+        "var_pct": -17.2
+      }
+    ]
+  },
+  "indicadores": {
+    "acumulados": {
+      "IGP-M": 0.27,
+      "INCC-M": 0.28,
+      "INPC": 0.03,
+      "IPCA": 0.18
+    },
+    "selic_aa": 15.0,
+    "selic_aa_anterior": 15.0,
+    "meses": 1
+  },
+  "revisoes": {
+    "coeficiente": 0,
+    "insumo_incluido": 0,
+    "insumo_excluido": 0,
+    "cabecalho": 0,
+    "total": 0
+  },
+  "revisoes_subgrupos": [],
+  "codigo": {
+    "numero": "11",
+    "rotulo": "#11"
+  },
+  "acumulado_ano": {
+    "fonte_pct": 3.11,
+    "comparaveis": 7731,
+    "indices": {
+      "INCC-M": 5.87,
+      "IPCA": 3.92
+    },
+    "desde": "2025-01-01"
+  },
+  "dispersao_uf": {
+    "todas": [
+      {
+        "uf": "ES",
+        "cpus": 8034,
+        "var_pct": 1.12
+      },
+      {
+        "uf": "RR",
+        "cpus": 8034,
+        "var_pct": 0.97
+      },
+      {
+        "uf": "GO",
+        "cpus": 8034,
+        "var_pct": 0.91
+      },
+      {
+        "uf": "SC",
+        "cpus": 8033,
+        "var_pct": 0.55
+      },
+      {
+        "uf": "PI",
+        "cpus": 8034,
+        "var_pct": 0.34
+      },
+      {
+        "uf": "MT",
+        "cpus": 8034,
+        "var_pct": 0.31
+      },
+      {
+        "uf": "AC",
+        "cpus": 8034,
+        "var_pct": 0.31
+      },
+      {
+        "uf": "CE",
+        "cpus": 8035,
+        "var_pct": 0.21
+      },
+      {
+        "uf": "TO",
+        "cpus": 8035,
+        "var_pct": 0.2
+      },
+      {
+        "uf": "MG",
+        "cpus": 8034,
+        "var_pct": 0.08
+      },
+      {
+        "uf": "PR",
+        "cpus": 8034,
+        "var_pct": 0.07
+      },
+      {
+        "uf": "SP",
+        "cpus": 8034,
+        "var_pct": 0.04
+      },
+      {
+        "uf": "PA",
+        "cpus": 8034,
+        "var_pct": -0.01
+      },
+      {
+        "uf": "BA",
+        "cpus": 8034,
+        "var_pct": -0.01
+      },
+      {
+        "uf": "MA",
+        "cpus": 8035,
+        "var_pct": -0.03
+      },
+      {
+        "uf": "RO",
+        "cpus": 8033,
+        "var_pct": -0.06
+      },
+      {
+        "uf": "PB",
+        "cpus": 8034,
+        "var_pct": -0.07
+      },
+      {
+        "uf": "MS",
+        "cpus": 8035,
+        "var_pct": -0.1
+      },
+      {
+        "uf": "PE",
+        "cpus": 8034,
+        "var_pct": -0.17
+      },
+      {
+        "uf": "AP",
+        "cpus": 8033,
+        "var_pct": -0.19
+      },
+      {
+        "uf": "RN",
+        "cpus": 8034,
+        "var_pct": -0.25
+      },
+      {
+        "uf": "SE",
+        "cpus": 8034,
+        "var_pct": -0.27
+      },
+      {
+        "uf": "RJ",
+        "cpus": 8034,
+        "var_pct": -0.33
+      },
+      {
+        "uf": "AM",
+        "cpus": 8034,
+        "var_pct": -0.38
+      },
+      {
+        "uf": "AL",
+        "cpus": 8034,
+        "var_pct": -0.46
+      },
+      {
+        "uf": "DF",
+        "cpus": 8034,
+        "var_pct": -0.49
+      },
+      {
+        "uf": "RS",
+        "cpus": 8035,
+        "var_pct": -0.67
+      }
+    ],
+    "altas": [
+      {
+        "uf": "ES",
+        "cpus": 8034,
+        "var_pct": 1.12
+      },
+      {
+        "uf": "RR",
+        "cpus": 8034,
+        "var_pct": 0.97
+      },
+      {
+        "uf": "GO",
+        "cpus": 8034,
+        "var_pct": 0.91
+      },
+      {
+        "uf": "SC",
+        "cpus": 8033,
+        "var_pct": 0.55
+      },
+      {
+        "uf": "PI",
+        "cpus": 8034,
+        "var_pct": 0.34
+      },
+      {
+        "uf": "MT",
+        "cpus": 8034,
+        "var_pct": 0.31
+      },
+      {
+        "uf": "AC",
+        "cpus": 8034,
+        "var_pct": 0.31
+      },
+      {
+        "uf": "CE",
+        "cpus": 8035,
+        "var_pct": 0.21
+      },
+      {
+        "uf": "TO",
+        "cpus": 8035,
+        "var_pct": 0.2
+      },
+      {
+        "uf": "MG",
+        "cpus": 8034,
+        "var_pct": 0.08
+      }
+    ],
+    "baixas": [
+      {
+        "uf": "RS",
+        "cpus": 8035,
+        "var_pct": -0.67
+      },
+      {
+        "uf": "DF",
+        "cpus": 8034,
+        "var_pct": -0.49
+      },
+      {
+        "uf": "AL",
+        "cpus": 8034,
+        "var_pct": -0.46
+      },
+      {
+        "uf": "AM",
+        "cpus": 8034,
+        "var_pct": -0.38
+      },
+      {
+        "uf": "RJ",
+        "cpus": 8034,
+        "var_pct": -0.33
+      },
+      {
+        "uf": "SE",
+        "cpus": 8034,
+        "var_pct": -0.27
+      },
+      {
+        "uf": "RN",
+        "cpus": 8034,
+        "var_pct": -0.25
+      },
+      {
+        "uf": "AP",
+        "cpus": 8033,
+        "var_pct": -0.19
+      },
+      {
+        "uf": "PE",
+        "cpus": 8034,
+        "var_pct": -0.17
+      },
+      {
+        "uf": "MS",
+        "cpus": 8035,
+        "var_pct": -0.1
+      }
+    ],
+    "ufs": 27
+  }
+}

@@ -1,0 +1,668 @@
+{
+  "fonte": "SINAPI",
+  "ref": "2026-02-01",
+  "ref_anterior": "2026-01-01",
+  "versao": "02-26",
+  "edi_id": 19,
+  "edi_anterior": 18,
+  "meses_intervalo": 1,
+  "modalidade": "SD",
+  "uf_foco": "SP",
+  "movimento": {
+    "incluidas": 112,
+    "inativadas": 7,
+    "reativadas": 0,
+    "alteradas": 330
+  },
+  "cobertura": {
+    "ufs": 27,
+    "cpus": 10360,
+    "sem_custo": 165724,
+    "linhas": 839160,
+    "pct_sem_custo": 19.7,
+    "insumos": 131679,
+    "insumos_sem_preco": 36074,
+    "pct_sem_preco": 27.4
+  },
+  "precos": {
+    "uf": "SP",
+    "comparaveis": 8230,
+    "media_pct": 0.11,
+    "mediana_pct": 0.0,
+    "subiram": 3556,
+    "cairam": 3151,
+    "estaveis": 1523
+  },
+  "subgrupos": {
+    "altas": [
+      {
+        "subgrupo": "TRANSPORTE, CARGA E DESCARGA DE MATERIAIS",
+        "cpus": 140,
+        "var_pct": 13.94,
+        "medio_anterior": 24.5,
+        "medio_atual": 27.92
+      },
+      {
+        "subgrupo": "PISOS",
+        "cpus": 35,
+        "var_pct": 5.55,
+        "medio_anterior": 184.75,
+        "medio_atual": 195.0
+      },
+      {
+        "subgrupo": "LUMINÁRIAS EXTERNAS",
+        "cpus": 18,
+        "var_pct": 4.57,
+        "medio_anterior": 202.85,
+        "medio_atual": 212.11
+      },
+      {
+        "subgrupo": "REVESTIMENTOS CERÂMICOS INTERNOS",
+        "cpus": 42,
+        "var_pct": 4.14,
+        "medio_anterior": 95.15,
+        "medio_atual": 99.1
+      },
+      {
+        "subgrupo": "PAVIMENTO INTERTRAVADO",
+        "cpus": 18,
+        "var_pct": 2.98,
+        "medio_anterior": 116.01,
+        "medio_atual": 119.46
+      },
+      {
+        "subgrupo": "POSTES DE CONCRETO E METÁLICOS",
+        "cpus": 49,
+        "var_pct": 2.48,
+        "medio_anterior": 1330.26,
+        "medio_atual": 1363.25
+      },
+      {
+        "subgrupo": "INSTALAÇÕES EM COBRE",
+        "cpus": 242,
+        "var_pct": 2.36,
+        "medio_anterior": 116.29,
+        "medio_atual": 119.04
+      },
+      {
+        "subgrupo": "INSTALAÇÕES DE GÁS EM PEX MULTICAMADAS",
+        "cpus": 16,
+        "var_pct": 2.23,
+        "medio_anterior": 38.02,
+        "medio_atual": 38.86
+      },
+      {
+        "subgrupo": "INSTALAÇÕES ELÉTRICAS - REDE DE DISTRIBUIÇÃO",
+        "cpus": 81,
+        "var_pct": 2.2,
+        "medio_anterior": 1068.58,
+        "medio_atual": 1092.09
+      },
+      {
+        "subgrupo": "VÁLVULAS E REGISTROS PARA SISTEMAS PREDIAIS",
+        "cpus": 84,
+        "var_pct": 1.71,
+        "medio_anterior": 215.39,
+        "medio_atual": 219.08
+      }
+    ],
+    "baixas": [
+      {
+        "subgrupo": "INSTALAÇÕES DE AR CONDICIONADO",
+        "cpus": 40,
+        "var_pct": -5.68,
+        "medio_anterior": 7923.78,
+        "medio_atual": 7473.89
+      },
+      {
+        "subgrupo": "REDES DE LÓGICA, TELEFONIA E IMAGEM",
+        "cpus": 61,
+        "var_pct": -5.03,
+        "medio_anterior": 245.48,
+        "medio_atual": 233.13
+      },
+      {
+        "subgrupo": "ESCAVAÇÃO HORIZONTAL",
+        "cpus": 40,
+        "var_pct": -4.55,
+        "medio_anterior": 14.78,
+        "medio_atual": 14.11
+      },
+      {
+        "subgrupo": "ELETROCALHAS",
+        "cpus": 90,
+        "var_pct": -3.15,
+        "medio_anterior": 199.82,
+        "medio_atual": 193.53
+      },
+      {
+        "subgrupo": "ASSENTAMENTO DE TUBOS DE ESGOTO EM PVC E PEAD",
+        "cpus": 56,
+        "var_pct": -2.42,
+        "medio_anterior": 232.06,
+        "medio_atual": 226.44
+      },
+      {
+        "subgrupo": "ILUMINAÇÃO PREDIAL E MONITORAMENTO",
+        "cpus": 13,
+        "var_pct": -1.81,
+        "medio_anterior": 53.93,
+        "medio_atual": 52.96
+      },
+      {
+        "subgrupo": "ESQUADRIAS - JANELAS",
+        "cpus": 21,
+        "var_pct": -1.1,
+        "medio_anterior": 617.19,
+        "medio_atual": 610.39
+      },
+      {
+        "subgrupo": "BOMBAS HIDRÁULICAS - CENTRÍFUGAS, HORIZONTAIS E SUBMERSÍVEIS",
+        "cpus": 18,
+        "var_pct": -1.07,
+        "medio_anterior": 1804.45,
+        "medio_atual": 1785.08
+      },
+      {
+        "subgrupo": "PAREDES DE CONCRETO - CONCRETAGEM",
+        "cpus": 12,
+        "var_pct": -1.07,
+        "medio_anterior": 651.12,
+        "medio_atual": 644.19
+      },
+      {
+        "subgrupo": "CERCAS, PROTETORES E ALAMBRADOS",
+        "cpus": 38,
+        "var_pct": -0.97,
+        "medio_anterior": 86.2,
+        "medio_atual": 85.37
+      }
+    ],
+    "total_subgrupos": 116
+  },
+  "insumos": {
+    "comparaveis": 4851,
+    "media_pct": 0.1,
+    "altas": [
+      {
+        "insumo": "FITA ISOLANTE DE BORRACHA AUTOFUSAO, USO ATE 69 KV (ALTA TENSAO), LARGURA DE 19 MM",
+        "unidade": "M",
+        "var_pct": 50.4
+      },
+      {
+        "insumo": "FITA VEDA ROSCA, EM PTFE, ROLO DE 18 MM X 50 M (L X C)",
+        "unidade": "UN",
+        "var_pct": 48.7
+      },
+      {
+        "insumo": "FITA VEDA ROSCA, EM PTFE, ROLO DE 18 MM X 10 M (L X C)",
+        "unidade": "UN",
+        "var_pct": 39.5
+      },
+      {
+        "insumo": "FITA VEDA ROSCA, EM PTFE, ROLO DE 18 MM X 25 M (L X C)",
+        "unidade": "UN",
+        "var_pct": 12.0
+      },
+      {
+        "insumo": "LUMINARIA DE EMERGENCIA 30 LEDS, POTENCIA 2 W, BATERIA DE LITIO, AUTONOMIA DE 6 HORAS",
+        "unidade": "UN",
+        "var_pct": 7.8
+      },
+      {
+        "insumo": "LAMPADA LED 6 W BIVOLT BRANCA, FORMATO TRADICIONAL (BASE E27)",
+        "unidade": "UN",
+        "var_pct": 7.8
+      },
+      {
+        "insumo": "LUMINARIA LED PLAFON REDONDO DE SOBREPOR BIVOLT 12/13 W, D = *17* CM",
+        "unidade": "UN",
+        "var_pct": 7.8
+      },
+      {
+        "insumo": "LAMPADA LED TUBULAR BIVOLT 9/10 W, BASE G13",
+        "unidade": "UN",
+        "var_pct": 7.8
+      },
+      {
+        "insumo": "LUMINARIA LED REFLETOR RETANGULAR BIVOLT, LUZ BRANCA, 30 W",
+        "unidade": "UN",
+        "var_pct": 7.8
+      },
+      {
+        "insumo": "LUMINARIA LED REFLETOR RETANGULAR BIVOLT, LUZ BRANCA, 10 W",
+        "unidade": "UN",
+        "var_pct": 7.8
+      },
+      {
+        "insumo": "LUMINARIA LED REFLETOR RETANGULAR BIVOLT, LUZ BRANCA, 50 W",
+        "unidade": "UN",
+        "var_pct": 7.8
+      },
+      {
+        "insumo": "APARELHO SINALIZADOR LUMINOSO COM LED, PARA SAIDA GARAGEM, COM 2 LENTES EM POLICARBONATO, BIVOLT (INCLUI SUPORTE DE FIXACAO)",
+        "unidade": "UN",
+        "var_pct": 7.8
+      },
+      {
+        "insumo": "LUMINARIA DE LED PARA ILUMINACAO PUBLICA, DE 33 W ATE 50 W, INVOLUCRO EM ALUMINIO OU ACO INOX",
+        "unidade": "UN",
+        "var_pct": 7.8
+      },
+      {
+        "insumo": "LUMINARIA SOLAR LED EXTERNA, TIPO ARANDELA DE PAREDE, EM ALUMINIO, 16 LEDS, LUZ BRANCA, *180* LUMENS, CAPACIDADE DE ILUMINACAO ATE 36 H, RETANGULAR, *13 X 9 X 7* (C X L X A), COM SENSOR DE MOVIMENTO / PRESENCA, BATERIA RECARREGAVEL COM LUZ SOLAR, RESISTENTE AO CALOR, A PROVA DE AGUA E POEIRA/ IMPERMEAVEL, IP65",
+        "unidade": "UN",
+        "var_pct": 7.8
+      },
+      {
+        "insumo": "LUMINARIA DE LED PARA ILUMINACAO PUBLICA, DE 138 W ATE 180 W, INVOLUCRO EM ALUMINIO OU ACO INOX",
+        "unidade": "UN",
+        "var_pct": 7.8
+      },
+      {
+        "insumo": "LAMPADA LED 10 W BIVOLT BRANCA, FORMATO TRADICIONAL (BASE E27)",
+        "unidade": "UN",
+        "var_pct": 7.8
+      },
+      {
+        "insumo": "LUMINARIA DE LED PARA ILUMINACAO PUBLICA, DE 240 W ATE 350 W, INVOLUCRO EM ALUMINIO OU ACO INOX",
+        "unidade": "UN",
+        "var_pct": 7.8
+      },
+      {
+        "insumo": "LUMINARIA DE LED PARA ILUMINACAO PUBLICA, DE 98 W ATE 137 W, INVOLUCRO EM ALUMINIO OU ACO INOX",
+        "unidade": "UN",
+        "var_pct": 7.8
+      }
+    ],
+    "baixas": [
+      {
+        "insumo": "FITA ADESIVA ANTICORROSIVA DE PVC FLEXIVEL, COR PRETA, PARA PROTECAO TUBULACAO, 50 MM X 30 M (L X C), E= *0,25* MM",
+        "unidade": "M",
+        "var_pct": -34.9
+      },
+      {
+        "insumo": "PARAFUSO DE ACO ZINCADO COM ROSCA SOBERBA, CABECA CHATA E FENDA SIMPLES, DIAMETRO 2,5 MM, COMPRIMENTO * 9,5 * MM",
+        "unidade": "UN",
+        "var_pct": -20.0
+      },
+      {
+        "insumo": "FITA ISOLANTE ADESIVA ANTICHAMA, USO ATE 750 V, EM ROLO DE 19 MM X 5 M",
+        "unidade": "UN",
+        "var_pct": -17.3
+      },
+      {
+        "insumo": "PARAFUSO DRY WALL, EM ACO FOSFATIZADO, CABECA TROMBETA E PONTA BROCA (TB), COMPRIMENTO 25 MM",
+        "unidade": "UN",
+        "var_pct": -13.3
+      },
+      {
+        "insumo": "REGISTRO DE PRESSAO PVC, ROSCAVEL, VOLANTE SIMPLES, DE 3/4\"",
+        "unidade": "UN",
+        "var_pct": -12.1
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 20 MM, COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": -12.0
+      },
+      {
+        "insumo": "REGISTRO DE PRESSAO PVC, ROSCAVEL, VOLANTE SIMPLES, DE 1/2\"",
+        "unidade": "UN",
+        "var_pct": -12.0
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA DE PASSEIO, PVC PARA POLIETILENO, 20 MM",
+        "unidade": "UN",
+        "var_pct": -12.0
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 1 1/2\", COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": -12.0
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 40 MM, COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": -12.0
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 60 MM, COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": -12.0
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 2\", COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": -12.0
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA PVC, COM BORBOLETA, COM ROSCA EXTERNA, DE 3/4\"",
+        "unidade": "UN",
+        "var_pct": -12.0
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 1 1/4\", COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": -12.0
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 50 MM, COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": -12.0
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 25 MM, COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": -12.0
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 1/2\", COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": -12.0
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA PVC, COM CABECA QUADRADA, COM ROSCA EXTERNA, 1/2\"",
+        "unidade": "UN",
+        "var_pct": -12.0
+      }
+    ]
+  },
+  "indicadores": {
+    "acumulados": {
+      "IGP-M": -0.73,
+      "INCC-M": 0.34,
+      "INPC": 0.56,
+      "IPCA": 0.7
+    },
+    "selic_aa": 15.0,
+    "selic_aa_anterior": 15.0,
+    "meses": 1
+  },
+  "revisoes": {
+    "coeficiente": 255,
+    "insumo_incluido": 48,
+    "insumo_excluido": 42,
+    "cabecalho": 312,
+    "total": 330
+  },
+  "revisoes_subgrupos": [
+    {
+      "subgrupo": "TRANSPORTE, CARGA E DESCARGA DE MATERIAIS",
+      "revisadas": 140
+    },
+    {
+      "subgrupo": "LOUÇAS E METAIS",
+      "revisadas": 101
+    },
+    {
+      "subgrupo": "PISOS",
+      "revisadas": 44
+    },
+    {
+      "subgrupo": "ESQUADRIAS - PORTAS",
+      "revisadas": 38
+    },
+    {
+      "subgrupo": "RASGOS E FIXAÇÕES",
+      "revisadas": 7
+    }
+  ],
+  "codigo": {
+    "numero": "14",
+    "rotulo": "#14"
+  },
+  "acumulado_ano": {
+    "fonte_pct": 0.09,
+    "comparaveis": 8070,
+    "indices": {
+      "INCC-M": 0.97,
+      "IPCA": 1.03
+    },
+    "desde": "2026-01-01"
+  },
+  "dispersao_uf": {
+    "todas": [
+      {
+        "uf": "PE",
+        "cpus": 8230,
+        "var_pct": 0.88
+      },
+      {
+        "uf": "AP",
+        "cpus": 8229,
+        "var_pct": 0.78
+      },
+      {
+        "uf": "GO",
+        "cpus": 8229,
+        "var_pct": 0.66
+      },
+      {
+        "uf": "BA",
+        "cpus": 8230,
+        "var_pct": 0.66
+      },
+      {
+        "uf": "RJ",
+        "cpus": 8230,
+        "var_pct": 0.56
+      },
+      {
+        "uf": "AC",
+        "cpus": 8230,
+        "var_pct": 0.53
+      },
+      {
+        "uf": "PA",
+        "cpus": 8230,
+        "var_pct": 0.35
+      },
+      {
+        "uf": "MT",
+        "cpus": 8230,
+        "var_pct": 0.22
+      },
+      {
+        "uf": "MG",
+        "cpus": 8230,
+        "var_pct": 0.2
+      },
+      {
+        "uf": "RO",
+        "cpus": 8229,
+        "var_pct": 0.19
+      },
+      {
+        "uf": "MA",
+        "cpus": 8231,
+        "var_pct": 0.18
+      },
+      {
+        "uf": "SC",
+        "cpus": 8229,
+        "var_pct": 0.18
+      },
+      {
+        "uf": "PB",
+        "cpus": 8230,
+        "var_pct": 0.16
+      },
+      {
+        "uf": "TO",
+        "cpus": 8231,
+        "var_pct": 0.15
+      },
+      {
+        "uf": "ES",
+        "cpus": 8230,
+        "var_pct": 0.14
+      },
+      {
+        "uf": "AM",
+        "cpus": 8230,
+        "var_pct": 0.12
+      },
+      {
+        "uf": "PR",
+        "cpus": 8230,
+        "var_pct": 0.11
+      },
+      {
+        "uf": "DF",
+        "cpus": 8230,
+        "var_pct": 0.11
+      },
+      {
+        "uf": "CE",
+        "cpus": 8231,
+        "var_pct": 0.11
+      },
+      {
+        "uf": "SP",
+        "cpus": 8230,
+        "var_pct": 0.11
+      },
+      {
+        "uf": "PI",
+        "cpus": 8230,
+        "var_pct": 0.1
+      },
+      {
+        "uf": "RR",
+        "cpus": 8230,
+        "var_pct": 0.1
+      },
+      {
+        "uf": "SE",
+        "cpus": 8230,
+        "var_pct": 0.03
+      },
+      {
+        "uf": "MS",
+        "cpus": 8231,
+        "var_pct": 0.01
+      },
+      {
+        "uf": "RS",
+        "cpus": 8231,
+        "var_pct": -0.03
+      },
+      {
+        "uf": "AL",
+        "cpus": 8230,
+        "var_pct": -0.03
+      },
+      {
+        "uf": "RN",
+        "cpus": 8230,
+        "var_pct": -0.22
+      }
+    ],
+    "altas": [
+      {
+        "uf": "PE",
+        "cpus": 8230,
+        "var_pct": 0.88
+      },
+      {
+        "uf": "AP",
+        "cpus": 8229,
+        "var_pct": 0.78
+      },
+      {
+        "uf": "GO",
+        "cpus": 8229,
+        "var_pct": 0.66
+      },
+      {
+        "uf": "BA",
+        "cpus": 8230,
+        "var_pct": 0.66
+      },
+      {
+        "uf": "RJ",
+        "cpus": 8230,
+        "var_pct": 0.56
+      },
+      {
+        "uf": "AC",
+        "cpus": 8230,
+        "var_pct": 0.53
+      },
+      {
+        "uf": "PA",
+        "cpus": 8230,
+        "var_pct": 0.35
+      },
+      {
+        "uf": "MT",
+        "cpus": 8230,
+        "var_pct": 0.22
+      },
+      {
+        "uf": "MG",
+        "cpus": 8230,
+        "var_pct": 0.2
+      },
+      {
+        "uf": "RO",
+        "cpus": 8229,
+        "var_pct": 0.19
+      }
+    ],
+    "baixas": [
+      {
+        "uf": "RN",
+        "cpus": 8230,
+        "var_pct": -0.22
+      },
+      {
+        "uf": "AL",
+        "cpus": 8230,
+        "var_pct": -0.03
+      },
+      {
+        "uf": "RS",
+        "cpus": 8231,
+        "var_pct": -0.03
+      },
+      {
+        "uf": "MS",
+        "cpus": 8231,
+        "var_pct": 0.01
+      },
+      {
+        "uf": "SE",
+        "cpus": 8230,
+        "var_pct": 0.03
+      },
+      {
+        "uf": "RR",
+        "cpus": 8230,
+        "var_pct": 0.1
+      },
+      {
+        "uf": "PI",
+        "cpus": 8230,
+        "var_pct": 0.1
+      },
+      {
+        "uf": "SP",
+        "cpus": 8230,
+        "var_pct": 0.11
+      },
+      {
+        "uf": "CE",
+        "cpus": 8231,
+        "var_pct": 0.11
+      },
+      {
+        "uf": "DF",
+        "cpus": 8230,
+        "var_pct": 0.11
+      }
+    ],
+    "ufs": 27
+  }
+}

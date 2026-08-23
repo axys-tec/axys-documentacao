@@ -1,0 +1,652 @@
+{
+  "fonte": "SINAPI",
+  "ref": "2025-05-01",
+  "ref_anterior": "2025-04-01",
+  "versao": "05-25",
+  "edi_id": 10,
+  "edi_anterior": 9,
+  "meses_intervalo": 1,
+  "modalidade": "SD",
+  "uf_foco": "SP",
+  "movimento": {
+    "incluidas": 43,
+    "inativadas": 6,
+    "reativadas": 0,
+    "alteradas": 13
+  },
+  "cobertura": {
+    "ufs": 27,
+    "cpus": 9723,
+    "sem_custo": 153023,
+    "linhas": 787563,
+    "pct_sem_custo": 19.4,
+    "insumos": 131652,
+    "insumos_sem_preco": 38846,
+    "pct_sem_preco": 29.5
+  },
+  "precos": {
+    "uf": "SP",
+    "comparaveis": 7794,
+    "media_pct": -0.08,
+    "mediana_pct": 0.0,
+    "subiram": 3067,
+    "cairam": 3131,
+    "estaveis": 1596
+  },
+  "subgrupos": {
+    "altas": [
+      {
+        "subgrupo": "PAVIMENTO INTERTRAVADO",
+        "cpus": 18,
+        "var_pct": 13.68,
+        "medio_anterior": 104.48,
+        "medio_atual": 118.78
+      },
+      {
+        "subgrupo": "GRAUTE E ARMAÇÃO",
+        "cpus": 21,
+        "var_pct": 2.99,
+        "medio_anterior": 338.63,
+        "medio_atual": 348.75
+      },
+      {
+        "subgrupo": "PRODUÇÃO DE CONCRETO",
+        "cpus": 29,
+        "var_pct": 2.74,
+        "medio_anterior": 482.64,
+        "medio_atual": 495.88
+      },
+      {
+        "subgrupo": "PISOS",
+        "cpus": 41,
+        "var_pct": 2.62,
+        "medio_anterior": 204.39,
+        "medio_atual": 209.74
+      },
+      {
+        "subgrupo": "CANALETAS, GRELHAS E CAIXAS COM GRELHA PARA DRENAGEM",
+        "cpus": 12,
+        "var_pct": 2.3,
+        "medio_anterior": 326.02,
+        "medio_atual": 333.53
+      },
+      {
+        "subgrupo": "ATERROS, BASES, SUB BASES E IMPRIMAÇÕES",
+        "cpus": 144,
+        "var_pct": 2.24,
+        "medio_anterior": 112.07,
+        "medio_atual": 114.58
+      },
+      {
+        "subgrupo": "GABIÕES - EXECUÇÃO DE MURO E PROTEÇÃO SUPERFICIAL",
+        "cpus": 16,
+        "var_pct": 1.97,
+        "medio_anterior": 865.66,
+        "medio_atual": 882.7
+      },
+      {
+        "subgrupo": "ESTRUTURAS DE MADEIRA",
+        "cpus": 34,
+        "var_pct": 1.86,
+        "medio_anterior": 157.24,
+        "medio_atual": 160.16
+      },
+      {
+        "subgrupo": "INSTALAÇÕES PARA CANTEIROS DE OBRAS",
+        "cpus": 25,
+        "var_pct": 1.83,
+        "medio_anterior": 1089.71,
+        "medio_atual": 1109.65
+      },
+      {
+        "subgrupo": "CAIXAS DE ÁGUA PARA EDIFICAÇÕES",
+        "cpus": 37,
+        "var_pct": 1.67,
+        "medio_anterior": 1236.63,
+        "medio_atual": 1257.34
+      }
+    ],
+    "baixas": [
+      {
+        "subgrupo": "ARMAÇÃO PARA ESTRUTURAS DE CONCRETO ARMADO",
+        "cpus": 56,
+        "var_pct": -4.68,
+        "medio_anterior": 11.77,
+        "medio_atual": 11.22
+      },
+      {
+        "subgrupo": "INSTALAÇÕES DE AR CONDICIONADO",
+        "cpus": 40,
+        "var_pct": -4.29,
+        "medio_anterior": 8655.97,
+        "medio_atual": 8284.56
+      },
+      {
+        "subgrupo": "ARMAÇÃO DE ESTACAS",
+        "cpus": 11,
+        "var_pct": -4.26,
+        "medio_anterior": 12.54,
+        "medio_atual": 12.0
+      },
+      {
+        "subgrupo": "LUMINÁRIAS EXTERNAS",
+        "cpus": 18,
+        "var_pct": -3.37,
+        "medio_anterior": 214.91,
+        "medio_atual": 207.67
+      },
+      {
+        "subgrupo": "PAREDES DE CONCRETO - ARMAÇÃO",
+        "cpus": 16,
+        "var_pct": -2.77,
+        "medio_anterior": 10.01,
+        "medio_atual": 9.73
+      },
+      {
+        "subgrupo": "TELHAMENTO PARA COBERTURA",
+        "cpus": 42,
+        "var_pct": -2.09,
+        "medio_anterior": 85.46,
+        "medio_atual": 83.67
+      },
+      {
+        "subgrupo": "DEPRECIAÇÃO, JUROS, IMPOSTOS E SEGUROS, MANUTENÇÃO E MATERIAIS NA OPERAÇÃO DOS EQUIPAMENTOS",
+        "cpus": 665,
+        "var_pct": -1.71,
+        "medio_anterior": 67.1,
+        "medio_atual": 65.96
+      },
+      {
+        "subgrupo": "VIDROS E ESPELHOS",
+        "cpus": 37,
+        "var_pct": -1.48,
+        "medio_anterior": 744.51,
+        "medio_atual": 733.49
+      },
+      {
+        "subgrupo": "TRANSPORTE, CARGA E DESCARGA DE MATERIAIS",
+        "cpus": 140,
+        "var_pct": -1.41,
+        "medio_anterior": 24.21,
+        "medio_atual": 23.87
+      },
+      {
+        "subgrupo": "TRANSFORMADORES",
+        "cpus": 12,
+        "var_pct": -1.41,
+        "medio_anterior": 37362.95,
+        "medio_atual": 36836.41
+      }
+    ],
+    "total_subgrupos": 109
+  },
+  "insumos": {
+    "comparaveis": 4835,
+    "media_pct": 0.16,
+    "altas": [
+      {
+        "insumo": "PROTETOR AUDITIVO TIPO CONCHA COM ABAFADOR DE RUIDOS, ATENUACAO ACIMA DE 22 DB",
+        "unidade": "UN",
+        "var_pct": 134.7
+      },
+      {
+        "insumo": "CINTURAO DE SEGURANCA TIPO PARAQUEDISTA, FIVELA EM ACO, AJUSTE NO SUSPENSORIO, CINTURA E PERNAS",
+        "unidade": "UN",
+        "var_pct": 125.9
+      },
+      {
+        "insumo": "MASCARA DE SEGURANCA PARA SOLDA COM ESCUDO DE CELERON E CARNEIRA DE PLASTICO COM REGULAGEM",
+        "unidade": "UN",
+        "var_pct": 99.9
+      },
+      {
+        "insumo": "ALICATE PARA ANEIS DE PISTAO, CAPACIDADE *50* A 100 MM",
+        "unidade": "UN",
+        "var_pct": 73.3
+      },
+      {
+        "insumo": "BALDE VERMELHO PARA SINALIZACAO DE VIAS",
+        "unidade": "UN",
+        "var_pct": 66.7
+      },
+      {
+        "insumo": "BLOQUETE/PISO INTERTRAVADO DE CONCRETO - MODELO ONDA/16 FACES/RETANGULAR/TIJOLINHO/PAVER/HOLANDES/PARALELEPIPEDO, *20 X 10* CM, E = 10 CM, RESISTENCIA DE 50 MPA, COR NATURAL",
+        "unidade": "M2",
+        "var_pct": 58.9
+      },
+      {
+        "insumo": "LADRILHO HIDRAULICO, *30 X 30* CM, E= 2 CM, PADRAO MILANO, COR NATURAL",
+        "unidade": "M2",
+        "var_pct": 49.7
+      },
+      {
+        "insumo": "TALHADEIRA COM PUNHO DE PROTECAO *20 X 250* MM",
+        "unidade": "UN",
+        "var_pct": 49.1
+      },
+      {
+        "insumo": "ALICATE DE CRIMPAR RJ11, RJ12 E RJ45, COM CATRACA",
+        "unidade": "UN",
+        "var_pct": 46.7
+      },
+      {
+        "insumo": "BLOQUETE/PISO INTERTRAVADO DE CONCRETO - MODELO RAQUETE, *22 X 13,5* CM, E = 6 CM, RESISTENCIA DE 35 MPA, COR NATURAL",
+        "unidade": "M2",
+        "var_pct": 42.0
+      },
+      {
+        "insumo": "LADRILHO HIDRAULICO, *25 X 25* CM, E= 2 CM, PADRAO RAMPA, COR NATURAL",
+        "unidade": "M2",
+        "var_pct": 41.6
+      },
+      {
+        "insumo": "BLOQUETE/PISO INTERTRAVADO DE CONCRETO - MODELO SEXTAVADO / HEXAGONAL, *25 X 25* CM, E = 10 CM, RESISTENCIA DE 35 MPA, COR NATURAL",
+        "unidade": "M2",
+        "var_pct": 35.9
+      },
+      {
+        "insumo": "ALICATE DE PRESSAO PARA SOLDA DE CHAPA 18\"",
+        "unidade": "UN",
+        "var_pct": 30.3
+      },
+      {
+        "insumo": "ENXADA ESTREITA, EM ACO, *25 X 23* CM, COM CABO DE MADEIRA DE *150* CM",
+        "unidade": "UN",
+        "var_pct": 29.6
+      },
+      {
+        "insumo": "BLOQUETE/PISO INTERTRAVADO DE CONCRETO - MODELO SEXTAVADO / HEXAGONAL, *25 X 25* CM, E = 6 CM, RESISTENCIA DE 35 MPA, COR NATURAL",
+        "unidade": "M2",
+        "var_pct": 29.5
+      },
+      {
+        "insumo": "BLOQUETE/PISO DE CONCRETO - MODELO PISOGRAMA/CONCREGRAMA 2 FUROS, DIMENSOES APROX. DE *35 X 15* CM E ESPESSURA DE 7 CM (+/- 1 CM), COR NATURAL",
+        "unidade": "M2",
+        "var_pct": 26.0
+      },
+      {
+        "insumo": "BLOQUETE/PISO INTERTRAVADO DE CONCRETO - MODELO ONDA/16 FACES/RETANGULAR/TIJOLINHO/PAVER/HOLANDES/PARALELEPIPEDO, *20 X 10* CM, E = 6 CM, RESISTENCIA DE 35 MPA, COLORIDO",
+        "unidade": "M2",
+        "var_pct": 24.8
+      },
+      {
+        "insumo": "BLOQUETE/PISO INTERTRAVADO DE CONCRETO - MODELO ONDA/16 FACES/RETANGULAR/TIJOLINHO/PAVER/HOLANDES/PARALELEPIPEDO, *20 X 10* CM, E = 8 CM, RESISTENCIA DE 35 MPA, COLORIDO",
+        "unidade": "M2",
+        "var_pct": 24.2
+      }
+    ],
+    "baixas": [
+      {
+        "insumo": "DISCO DE CORTE DIAMANTADO SEGMENTADO PARA CONCRETO/ASFALTO, DIAMETRO DE *350* MM, FURO DE 25,40 MM",
+        "unidade": "UN",
+        "var_pct": -56.8
+      },
+      {
+        "insumo": "KIT ACESSORIOS PARA COMPRESSOR DE AR, 5 PECAS (PISTOLAS PINTURA, LIMPEZA E PULVERIZACAO, CALIBRADOR E MANGUEIRA)",
+        "unidade": "UN",
+        "var_pct": -48.9
+      },
+      {
+        "insumo": "DISCO DE CORTE DIAMANTADO SEGMENTADO DIAMETRO DE 180 MM PARA ESMERILHADEIRA 7\"",
+        "unidade": "UN",
+        "var_pct": -43.1
+      },
+      {
+        "insumo": "ESPATULA EM ACO INOX COM CABO DE MADEIRA E LARGURA DE *8* CM",
+        "unidade": "UN",
+        "var_pct": -39.2
+      },
+      {
+        "insumo": "BLOQUETE/PISO DE CONCRETO - MODELO PISOGRAMA/CONCREGRAMA/PAVI-GRADE/GRAMEIRO, DIMENSOES APROXIMADAS DE *60 X 45* CM E ESPESSURA DE 8 CM (+/- 1 CM), COR NATURAL",
+        "unidade": "M2",
+        "var_pct": -38.4
+      },
+      {
+        "insumo": "ESCADA EXTENSIVEL EM ALUMINIO, COM SAPATAS DE BORRACHA, ALTURA FECHADA 3,60 M, ALTURA ESTENDIDA DE 6,0 A 6,30 M, LARGURA MINIMA DE 35 CM, CACIDADE *120* KG",
+        "unidade": "UN",
+        "var_pct": -38.2
+      },
+      {
+        "insumo": "ESTILETE DE METAL, LAMINA 18 MM",
+        "unidade": "UN",
+        "var_pct": -37.3
+      },
+      {
+        "insumo": "DESEMPENADEIRA DE ACO LISA 12 X *25* CM COM CABO FECHADO DE MADEIRA",
+        "unidade": "UN",
+        "var_pct": -37.1
+      },
+      {
+        "insumo": "ESQUADRO DE ACO 12\" (300 MM), CABO DE ALUMINIO",
+        "unidade": "UN",
+        "var_pct": -36.3
+      },
+      {
+        "insumo": "MISTURADOR MANUAL DE TINTAS PARA FURADEIRA, HASTE METALICA *60* CM, COM HELICE (MEXEDOR DE TINTA)",
+        "unidade": "UN",
+        "var_pct": -36.2
+      },
+      {
+        "insumo": "CORDA DE POLIAMIDA 12 MM TIPO BOMBEIRO, PARA TRABALHO EM ALTURA",
+        "unidade": "100M",
+        "var_pct": -34.4
+      },
+      {
+        "insumo": "ESCADA DUPLA DE ABRIR EM ALUMINIO, COM SAPATAS DE BORRACHA, *2,30* X *0,57* M (ALTURA UTIL X LARGURA MINIMA), MODELO PINTOR, 8 DEGRAUS, CAPACIDADE *100* KG",
+        "unidade": "UN",
+        "var_pct": -34.0
+      },
+      {
+        "insumo": "PRUMO DE CENTRO EM ACO *400* G, COM CORDAO EM NYLON E CALCO GUIA EM ACO OU MADEIRA",
+        "unidade": "UN",
+        "var_pct": -30.7
+      },
+      {
+        "insumo": "PRUMO DE PAREDE EM ACO 700 A 750 G, COM CORDAO EM NYLON E TACO",
+        "unidade": "UN",
+        "var_pct": -29.7
+      },
+      {
+        "insumo": "LUVA DE BORRACHA ISOLANTE PARA ALTA TENSAO, RESISTENTE A OZONIO, TENSAO DE ENSAIO 2,5 KV (PAR)",
+        "unidade": "PAR",
+        "var_pct": -27.5
+      },
+      {
+        "insumo": "CADEIRA SUSPENSA MANUAL / BALANCIM INDIVIDUAL (NBR 14751)",
+        "unidade": "UN",
+        "var_pct": -21.8
+      },
+      {
+        "insumo": "ESCOVA CIRCULAR EM ACO LATONADO, 6 X 1\" (DIAMETRO X ESPESSURA), FURO DE 1 1/4\", FIO ONDULADO *0,30* MM",
+        "unidade": "UN",
+        "var_pct": -19.3
+      },
+      {
+        "insumo": "DISCO DE CORTE PARA METAL COM DUAS TELAS 12 X 1/8 X 3/4\" (300 X 3,2 X 19,05 MM)",
+        "unidade": "UN",
+        "var_pct": -15.9
+      }
+    ]
+  },
+  "indicadores": {
+    "acumulados": {
+      "IGP-M": -0.49,
+      "INCC-M": 0.26,
+      "INPC": 0.35,
+      "IPCA": 0.26
+    },
+    "selic_aa": 14.75,
+    "selic_aa_anterior": 14.25,
+    "meses": 1
+  },
+  "revisoes": {
+    "coeficiente": 13,
+    "insumo_incluido": 4,
+    "insumo_excluido": 0,
+    "cabecalho": 13,
+    "total": 13
+  },
+  "revisoes_subgrupos": [
+    {
+      "subgrupo": "CANALETAS, GRELHAS E CAIXAS COM GRELHA PARA DRENAGEM",
+      "revisadas": 13
+    }
+  ],
+  "codigo": {
+    "numero": "05",
+    "rotulo": "#05"
+  },
+  "acumulado_ano": {
+    "fonte_pct": 0.85,
+    "comparaveis": 7789,
+    "indices": {
+      "INCC-M": 2.47,
+      "IPCA": 2.75
+    },
+    "desde": "2025-01-01"
+  },
+  "dispersao_uf": {
+    "todas": [
+      {
+        "uf": "PE",
+        "cpus": 7794,
+        "var_pct": 1.48
+      },
+      {
+        "uf": "AC",
+        "cpus": 7794,
+        "var_pct": 0.35
+      },
+      {
+        "uf": "MG",
+        "cpus": 7794,
+        "var_pct": 0.34
+      },
+      {
+        "uf": "SC",
+        "cpus": 7794,
+        "var_pct": 0.26
+      },
+      {
+        "uf": "GO",
+        "cpus": 7794,
+        "var_pct": 0.23
+      },
+      {
+        "uf": "BA",
+        "cpus": 7794,
+        "var_pct": 0.23
+      },
+      {
+        "uf": "RN",
+        "cpus": 7794,
+        "var_pct": 0.2
+      },
+      {
+        "uf": "SE",
+        "cpus": 7794,
+        "var_pct": 0.17
+      },
+      {
+        "uf": "AP",
+        "cpus": 7794,
+        "var_pct": 0.15
+      },
+      {
+        "uf": "PI",
+        "cpus": 7794,
+        "var_pct": 0.14
+      },
+      {
+        "uf": "RJ",
+        "cpus": 7794,
+        "var_pct": 0.13
+      },
+      {
+        "uf": "ES",
+        "cpus": 7794,
+        "var_pct": 0.12
+      },
+      {
+        "uf": "MA",
+        "cpus": 7794,
+        "var_pct": 0.12
+      },
+      {
+        "uf": "RS",
+        "cpus": 7794,
+        "var_pct": 0.05
+      },
+      {
+        "uf": "AL",
+        "cpus": 7794,
+        "var_pct": 0.03
+      },
+      {
+        "uf": "DF",
+        "cpus": 7794,
+        "var_pct": -0.03
+      },
+      {
+        "uf": "RR",
+        "cpus": 7794,
+        "var_pct": -0.04
+      },
+      {
+        "uf": "SP",
+        "cpus": 7794,
+        "var_pct": -0.08
+      },
+      {
+        "uf": "TO",
+        "cpus": 7794,
+        "var_pct": -0.1
+      },
+      {
+        "uf": "CE",
+        "cpus": 7794,
+        "var_pct": -0.12
+      },
+      {
+        "uf": "PR",
+        "cpus": 7794,
+        "var_pct": -0.16
+      },
+      {
+        "uf": "MS",
+        "cpus": 7794,
+        "var_pct": -0.16
+      },
+      {
+        "uf": "AM",
+        "cpus": 7794,
+        "var_pct": -0.27
+      },
+      {
+        "uf": "MT",
+        "cpus": 7794,
+        "var_pct": -0.28
+      },
+      {
+        "uf": "PA",
+        "cpus": 7794,
+        "var_pct": -0.3
+      },
+      {
+        "uf": "PB",
+        "cpus": 7793,
+        "var_pct": -0.61
+      },
+      {
+        "uf": "RO",
+        "cpus": 7794,
+        "var_pct": -0.67
+      }
+    ],
+    "altas": [
+      {
+        "uf": "PE",
+        "cpus": 7794,
+        "var_pct": 1.48
+      },
+      {
+        "uf": "AC",
+        "cpus": 7794,
+        "var_pct": 0.35
+      },
+      {
+        "uf": "MG",
+        "cpus": 7794,
+        "var_pct": 0.34
+      },
+      {
+        "uf": "SC",
+        "cpus": 7794,
+        "var_pct": 0.26
+      },
+      {
+        "uf": "GO",
+        "cpus": 7794,
+        "var_pct": 0.23
+      },
+      {
+        "uf": "BA",
+        "cpus": 7794,
+        "var_pct": 0.23
+      },
+      {
+        "uf": "RN",
+        "cpus": 7794,
+        "var_pct": 0.2
+      },
+      {
+        "uf": "SE",
+        "cpus": 7794,
+        "var_pct": 0.17
+      },
+      {
+        "uf": "AP",
+        "cpus": 7794,
+        "var_pct": 0.15
+      },
+      {
+        "uf": "PI",
+        "cpus": 7794,
+        "var_pct": 0.14
+      }
+    ],
+    "baixas": [
+      {
+        "uf": "RO",
+        "cpus": 7794,
+        "var_pct": -0.67
+      },
+      {
+        "uf": "PB",
+        "cpus": 7793,
+        "var_pct": -0.61
+      },
+      {
+        "uf": "PA",
+        "cpus": 7794,
+        "var_pct": -0.3
+      },
+      {
+        "uf": "MT",
+        "cpus": 7794,
+        "var_pct": -0.28
+      },
+      {
+        "uf": "AM",
+        "cpus": 7794,
+        "var_pct": -0.27
+      },
+      {
+        "uf": "MS",
+        "cpus": 7794,
+        "var_pct": -0.16
+      },
+      {
+        "uf": "PR",
+        "cpus": 7794,
+        "var_pct": -0.16
+      },
+      {
+        "uf": "CE",
+        "cpus": 7794,
+        "var_pct": -0.12
+      },
+      {
+        "uf": "TO",
+        "cpus": 7794,
+        "var_pct": -0.1
+      },
+      {
+        "uf": "SP",
+        "cpus": 7794,
+        "var_pct": -0.08
+      }
+    ],
+    "ufs": 27
+  }
+}

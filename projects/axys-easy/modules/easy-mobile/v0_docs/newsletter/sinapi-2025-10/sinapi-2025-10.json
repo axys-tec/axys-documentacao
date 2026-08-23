@@ -1,0 +1,688 @@
+{
+  "fonte": "SINAPI",
+  "ref": "2025-10-01",
+  "ref_anterior": "2025-09-01",
+  "versao": "10-25",
+  "edi_id": 15,
+  "edi_anterior": 14,
+  "meses_intervalo": 1,
+  "modalidade": "SD",
+  "uf_foco": "SP",
+  "movimento": {
+    "incluidas": 219,
+    "inativadas": 33,
+    "reativadas": 0,
+    "alteradas": 444
+  },
+  "cobertura": {
+    "ufs": 27,
+    "cpus": 9969,
+    "sem_custo": 156738,
+    "linhas": 807489,
+    "pct_sem_custo": 19.4,
+    "insumos": 132165,
+    "insumos_sem_preco": 39830,
+    "pct_sem_preco": 30.1
+  },
+  "precos": {
+    "uf": "SP",
+    "comparaveis": 7934,
+    "media_pct": 0.57,
+    "mediana_pct": 0.0,
+    "subiram": 3010,
+    "cairam": 2586,
+    "estaveis": 2338
+  },
+  "subgrupos": {
+    "altas": [
+      {
+        "subgrupo": "INSTALAÇÕES PREDIAIS DE ÁGUAS PLUVIAIS - TUBOS, CONEXÕES, CAIXAS E RALOS",
+        "cpus": 86,
+        "var_pct": 6.1,
+        "medio_anterior": 80.31,
+        "medio_atual": 85.21
+      },
+      {
+        "subgrupo": "LIGAÇÕES PREDIAIS DE ÁGUA E ESGOTO",
+        "cpus": 36,
+        "var_pct": 5.29,
+        "medio_anterior": 48.62,
+        "medio_atual": 51.19
+      },
+      {
+        "subgrupo": "INSTALAÇÕES HIDRÁULICAS EM PPR",
+        "cpus": 95,
+        "var_pct": 5.05,
+        "medio_anterior": 54.79,
+        "medio_atual": 57.56
+      },
+      {
+        "subgrupo": "ESQUADRIAS - PORTAS",
+        "cpus": 120,
+        "var_pct": 4.87,
+        "medio_anterior": 900.09,
+        "medio_atual": 943.92
+      },
+      {
+        "subgrupo": "ESTRUTURA E TRAMA PARA COBERTURA",
+        "cpus": 106,
+        "var_pct": 4.84,
+        "medio_anterior": 1320.75,
+        "medio_atual": 1384.7
+      },
+      {
+        "subgrupo": "INSTALAÇÕES PREDIAIS DE ESGOTO - TUBOS E CONEXÕES",
+        "cpus": 90,
+        "var_pct": 4.53,
+        "medio_anterior": 37.32,
+        "medio_atual": 39.01
+      },
+      {
+        "subgrupo": "INSTALAÇÕES DE AR CONDICIONADO",
+        "cpus": 40,
+        "var_pct": 3.78,
+        "medio_anterior": 7690.16,
+        "medio_atual": 7980.6
+      },
+      {
+        "subgrupo": "LIVRO SINAPI: CÁLCULOS E PARÂMETROS",
+        "cpus": 372,
+        "var_pct": 2.51,
+        "medio_anterior": 2056.03,
+        "medio_atual": 2107.63
+      },
+      {
+        "subgrupo": "ILUMINAÇÃO PREDIAL E MONITORAMENTO",
+        "cpus": 13,
+        "var_pct": 2.5,
+        "medio_anterior": 54.1,
+        "medio_atual": 55.46
+      },
+      {
+        "subgrupo": "BOMBAS HIDRÁULICAS - CENTRÍFUGAS, HORIZONTAIS E SUBMERSÍVEIS",
+        "cpus": 18,
+        "var_pct": 2.36,
+        "medio_anterior": 1844.76,
+        "medio_atual": 1888.36
+      }
+    ],
+    "baixas": [
+      {
+        "subgrupo": "ASSENTAMENTO DE TUBOS DE ESGOTO OU DRENAGEM PLUVIAL EM CONCRETO",
+        "cpus": 78,
+        "var_pct": -8.83,
+        "medio_anterior": 361.02,
+        "medio_atual": 329.13
+      },
+      {
+        "subgrupo": "REDES DE LÓGICA, TELEFONIA E IMAGEM",
+        "cpus": 61,
+        "var_pct": -3.53,
+        "medio_anterior": 253.78,
+        "medio_atual": 244.82
+      },
+      {
+        "subgrupo": "PAVIMENTO INTERTRAVADO",
+        "cpus": 18,
+        "var_pct": -2.64,
+        "medio_anterior": 115.45,
+        "medio_atual": 112.41
+      },
+      {
+        "subgrupo": "VIDROS E ESPELHOS",
+        "cpus": 34,
+        "var_pct": -2.12,
+        "medio_anterior": 641.24,
+        "medio_atual": 627.64
+      },
+      {
+        "subgrupo": "PISOS",
+        "cpus": 41,
+        "var_pct": -1.69,
+        "medio_anterior": 209.87,
+        "medio_atual": 206.33
+      },
+      {
+        "subgrupo": "FOSSAS E SUMIDOUROS",
+        "cpus": 49,
+        "var_pct": -1.69,
+        "medio_anterior": 7927.09,
+        "medio_atual": 7793.49
+      },
+      {
+        "subgrupo": "REVESTIMENTOS CERÂMICOS INTERNOS",
+        "cpus": 42,
+        "var_pct": -1.24,
+        "medio_anterior": 93.1,
+        "medio_atual": 91.95
+      },
+      {
+        "subgrupo": "LOUÇAS E METAIS",
+        "cpus": 102,
+        "var_pct": -1.09,
+        "medio_anterior": 412.73,
+        "medio_atual": 408.22
+      },
+      {
+        "subgrupo": "CUSTOS HORÁRIOS PRODUTIVO E IMPRODUTIVO DOS EQUIPAMENTOS",
+        "cpus": 302,
+        "var_pct": -1.06,
+        "medio_anterior": 198.34,
+        "medio_atual": 196.24
+      },
+      {
+        "subgrupo": "ESCAVAÇÃO DE VALAS",
+        "cpus": 73,
+        "var_pct": -1.05,
+        "medio_anterior": 13.27,
+        "medio_atual": 13.13
+      }
+    ],
+    "total_subgrupos": 113
+  },
+  "insumos": {
+    "comparaveis": 4818,
+    "media_pct": 0.47,
+    "altas": [
+      {
+        "insumo": "PARAFUSO DE ACO ZINCADO COM ROSCA SOBERBA, CABECA CHATA E FENDA SIMPLES, DIAMETRO 2,5 MM, COMPRIMENTO * 9,5 * MM",
+        "unidade": "UN",
+        "var_pct": 25.0
+      },
+      {
+        "insumo": "CONE DE SINALIZACAO EM PVC FLEXIVEL, H = 70 / 76 CM (NBR 15071)",
+        "unidade": "UN",
+        "var_pct": 22.0
+      },
+      {
+        "insumo": "CONE DE SINALIZACAO EM PVC RIGIDO COM FAIXA REFLETIVA, H = 70 / 76 CM",
+        "unidade": "UN",
+        "var_pct": 22.0
+      },
+      {
+        "insumo": "CAL HIDRATADA PARA PINTURA",
+        "unidade": "KG",
+        "var_pct": 16.5
+      },
+      {
+        "insumo": "CAL HIDRATADA CH-I PARA ARGAMASSAS",
+        "unidade": "KG",
+        "var_pct": 15.8
+      },
+      {
+        "insumo": "PORCA ZINCADA, SEXTAVADA, DIAMETRO 5/16\"",
+        "unidade": "UN",
+        "var_pct": 15.4
+      },
+      {
+        "insumo": "PARAFUSO DE LATAO COM ROSCA SOBERBA, CABECA CHATA E FENDA SIMPLES, DIAMETRO 2,5 MM, COMPRIMENTO 12 MM",
+        "unidade": "UN",
+        "var_pct": 15.4
+      },
+      {
+        "insumo": "CAL VIRGEM COMUM PARA ARGAMASSAS (NBR 6453)",
+        "unidade": "KG",
+        "var_pct": 14.8
+      },
+      {
+        "insumo": "PARAFUSO DRY WALL, EM ACO FOSFATIZADO, CABECA TROMBETA E PONTA BROCA (TB), COMPRIMENTO 25 MM",
+        "unidade": "UN",
+        "var_pct": 14.3
+      },
+      {
+        "insumo": "PARAFUSO DRY WALL, EM ACO FOSFATIZADO, CABECA TROMBETA E PONTA BROCA (TB), COMPRIMENTO 45 MM",
+        "unidade": "UN",
+        "var_pct": 13.0
+      },
+      {
+        "insumo": "POSTE DECORATIVO PARA JARDIM EM ACO TUBULAR, SEM LUMINARIA, H = *2,5* M",
+        "unidade": "UN",
+        "var_pct": 11.8
+      },
+      {
+        "insumo": "POSTE CONICO CONTINUO EM ACO GALVANIZADO, CURVO, BRACO SIMPLES, FLANGEADO, H = 9 M, DIAMETRO INFERIOR = *135* MM",
+        "unidade": "UN",
+        "var_pct": 11.8
+      },
+      {
+        "insumo": "POSTE CONICO CONTINUO EM ACO GALVANIZADO, CURVO, BRACO DUPLO, ENGASTADO, H = 9 M, DIAMETRO INFERIOR/BASE = *135* MM",
+        "unidade": "UN",
+        "var_pct": 11.8
+      },
+      {
+        "insumo": "POSTE CONICO CONTINUO EM ACO GALVANIZADO, CURVO, BRACO SIMPLES, ENGASTADO, H = 9 M, DIAMETRO INFERIOR = *135* MM",
+        "unidade": "UN",
+        "var_pct": 11.8
+      },
+      {
+        "insumo": "CONJUNTO PARA QUADRA DE VOLEI COM POSTES EM TUBO DE ACO GALVANIZADO 3\", H = *255* CM, PINTURA EM TINTA ESMALTE SINTETICO, REDE DE NYLON COM 2 MM, MALHA 10 X 10 CM E ANTENAS OFICIAIS EM FIBRA DE VIDRO",
+        "unidade": "UN",
+        "var_pct": 11.8
+      },
+      {
+        "insumo": "POSTE CONICO CONTINUO EM ACO GALVANIZADO, CURVO, BRACO SIMPLES, FLANGEADO, H = 7 M, DIAMETRO INFERIOR = *125* MM",
+        "unidade": "UN",
+        "var_pct": 11.8
+      },
+      {
+        "insumo": "CONJUNTO PARA FUTSAL COM PAR DE TRAVES OFICIAIS DE 3,00 X 2,00 M EM TUBO DE ACO GALVANIZADO 3\" COM REQUADROS EM TUBO DE 1\", PINTURA EM PRIMER COM TINTA ESMALTE SINTETICO E REDES DE POLIETILENO FIO 4 MM",
+        "unidade": "UN",
+        "var_pct": 11.8
+      },
+      {
+        "insumo": "POSTE CONICO CONTINUO EM ACO GALVANIZADO, RETO, ENGASTADO, H = 9 M, DIAMETRO INFERIOR = *145* MM",
+        "unidade": "UN",
+        "var_pct": 11.8
+      }
+    ],
+    "baixas": [
+      {
+        "insumo": "TELHA DE FIBRA DE VIDRO ONDULADA, TRANSLUCIDA / INCOLOR, E = *0,6* MM, DE *0,50 X 2,44* M (L X C)",
+        "unidade": "M2",
+        "var_pct": -12.0
+      },
+      {
+        "insumo": "DOMOS / CLARABOIA INDIVIDUAL, EM ACRILICO BRANCO/LEITOSO, *95 X 95* CM, INCLUI ACESSORIOS DE FIXACAO, SEM INSTALACAO",
+        "unidade": "UN",
+        "var_pct": -12.0
+      },
+      {
+        "insumo": "PLACA DE ACRILICO TRANSPARENTE ADESIVADA PARA SINALIZACAO DE PORTAS, BORDA POLIDA, DE *25 X 8*, E = 6 MM (NAO INCLUI ACESSORIOS PARA FIXACAO)",
+        "unidade": "UN",
+        "var_pct": -12.0
+      },
+      {
+        "insumo": "CAIXA DE CONCRETO ARMADO PRE-MOLDADO, SEM FUNDO, QUADRADA, DIMENSOES DE 0,30 X 0,30 X 0,30 M",
+        "unidade": "UN",
+        "var_pct": -11.2
+      },
+      {
+        "insumo": "ANEL EM CONCRETO ARMADO, LISO, PARA POCOS DE INSPECAO, SEM FUNDO, DIAMETRO INTERNO DE 0,60 M E ALTURA DE 0,20 M",
+        "unidade": "UN",
+        "var_pct": -11.2
+      },
+      {
+        "insumo": "TUBO DE CONCRETO ARMADO PARA AGUAS PLUVIAIS, CLASSE PA-1, COM ENCAIXE PONTA E BOLSA, DIAMETRO NOMINAL DE 300 MM",
+        "unidade": "M",
+        "var_pct": -11.2
+      },
+      {
+        "insumo": "TUBO DE CONCRETO ARMADO PARA AGUAS PLUVIAIS, CLASSE PA-2, COM ENCAIXE PONTA E BOLSA, DIAMETRO NOMINAL DE 400 MM",
+        "unidade": "M",
+        "var_pct": -11.2
+      },
+      {
+        "insumo": "TUBO DE CONCRETO ARMADO PARA ESGOTO SANITARIO, CLASSE EA-2, COM ENCAIXE PONTA E BOLSA, COM JUNTA ELASTICA, DIAMETRO NOMINAL DE 400 MM",
+        "unidade": "M",
+        "var_pct": -11.2
+      },
+      {
+        "insumo": "CAIXA DE CONCRETO ARMADO PRE-MOLDADO, COM FUNDO E TAMPA, DIMENSOES DE 0,30 X 0,30 X 0,30 M",
+        "unidade": "UN",
+        "var_pct": -11.2
+      },
+      {
+        "insumo": "ANEL EM CONCRETO ARMADO, PERFURADO, PARA FOSSAS SEPTICAS E SUMIDOUROS, SEM FUNDO, DIAMETRO INTERNO DE 1,20 M E ALTURA DE 0,50 M",
+        "unidade": "UN",
+        "var_pct": -11.2
+      },
+      {
+        "insumo": "ANEL EM CONCRETO ARMADO, LISO, PARA POCOS DE VISITAS, POCOS DE INSPECAO, FOSSAS SEPTICAS E SUMIDOUROS, SEM FUNDO, DIAMETRO INTERNO DE 0,80 M E ALTURA DE 0,50 M",
+        "unidade": "UN",
+        "var_pct": -11.2
+      },
+      {
+        "insumo": "CAIXA DE GORDURA CILINDRICA EM CONCRETO SIMPLES, PRE-MOLDADA, COM DIAMETRO DE 40 CM E ALTURA DE 45 CM, COM TAMPA",
+        "unidade": "UN",
+        "var_pct": -11.2
+      },
+      {
+        "insumo": "TUBO DE CONCRETO ARMADO PARA AGUAS PLUVIAIS, CLASSE PA-2, COM ENCAIXE PONTA E BOLSA, DIAMETRO NOMINAL DE 600 MM",
+        "unidade": "M",
+        "var_pct": -11.2
+      },
+      {
+        "insumo": "TUBO DE CONCRETO ARMADO PARA AGUAS PLUVIAIS, CLASSE PA-2, COM ENCAIXE PONTA E BOLSA, DIAMETRO NOMINAL DE 500 MM",
+        "unidade": "M",
+        "var_pct": -11.2
+      },
+      {
+        "insumo": "TAMPA DE CONCRETO ARMADO PARA FOSSA, D = *1,10* M, E = 0,05 M",
+        "unidade": "UN",
+        "var_pct": -11.2
+      },
+      {
+        "insumo": "ANEL EM CONCRETO ARMADO, LISO, PARA POCOS DE VISITAS, POCOS DE INSPECAO, FOSSAS SEPTICAS E SUMIDOUROS, COM FUNDO, DIAMETRO INTERNO DE 0,80 M E ALTURA DE 0,50 M",
+        "unidade": "UN",
+        "var_pct": -11.2
+      },
+      {
+        "insumo": "CONJUNTO PRE-MOLDADO COMPOSTO POR GRELHA (0,99 X 0,45 M), QUADRO (1,10 X 0,52 M) E CANTONEIRA (1,10 X 0,35 M), EM CONCRETO ARMADO, COM FCK DE 21 MPA",
+        "unidade": "UN",
+        "var_pct": -11.2
+      },
+      {
+        "insumo": "TUBO DE CONCRETO ARMADO PARA AGUAS PLUVIAIS, CLASSE PA-2, COM ENCAIXE PONTA E BOLSA, DIAMETRO NOMINAL DE 700 MM",
+        "unidade": "M",
+        "var_pct": -11.2
+      }
+    ]
+  },
+  "indicadores": {
+    "acumulados": {
+      "IGP-M": -0.36,
+      "INCC-M": 0.21,
+      "INPC": 0.03,
+      "IPCA": 0.09
+    },
+    "selic_aa": 15.0,
+    "selic_aa_anterior": 15.0,
+    "meses": 1
+  },
+  "revisoes": {
+    "coeficiente": 316,
+    "insumo_incluido": 181,
+    "insumo_excluido": 101,
+    "cabecalho": 393,
+    "total": 444
+  },
+  "revisoes_subgrupos": [
+    {
+      "subgrupo": "ESQUADRIAS - PORTAS",
+      "revisadas": 121
+    },
+    {
+      "subgrupo": "ESTRUTURA E TRAMA PARA COBERTURA",
+      "revisadas": 106
+    },
+    {
+      "subgrupo": "VIDROS E ESPELHOS",
+      "revisadas": 47
+    },
+    {
+      "subgrupo": "LIVRO SINAPI: CÁLCULOS E PARÂMETROS",
+      "revisadas": 41
+    },
+    {
+      "subgrupo": "BOMBAS HIDRÁULICAS - CENTRÍFUGAS, HORIZONTAIS E SUBMERSÍVEIS",
+      "revisadas": 24
+    },
+    {
+      "subgrupo": "LIMPEZA DE OBRA",
+      "revisadas": 22
+    },
+    {
+      "subgrupo": "INSTALAÇÕES DE DIVISÓRIAS DIVERSAS",
+      "revisadas": 20
+    },
+    {
+      "subgrupo": "GUARDA-CORPO, CORRIMÃO E GRADE PARA ESQUADRIAS",
+      "revisadas": 17
+    },
+    {
+      "subgrupo": "INSTALAÇÕES ELÉTRICAS - REDE DE DISTRIBUIÇÃO",
+      "revisadas": 16
+    },
+    {
+      "subgrupo": "TRATAMENTOS SUPERFICIAIS",
+      "revisadas": 11
+    }
+  ],
+  "codigo": {
+    "numero": "10",
+    "rotulo": "#10"
+  },
+  "acumulado_ano": {
+    "fonte_pct": 3.04,
+    "comparaveis": 7731,
+    "indices": {
+      "INCC-M": 5.57,
+      "IPCA": 3.73
+    },
+    "desde": "2025-01-01"
+  },
+  "dispersao_uf": {
+    "todas": [
+      {
+        "uf": "PA",
+        "cpus": 7934,
+        "var_pct": 1.96
+      },
+      {
+        "uf": "SC",
+        "cpus": 7933,
+        "var_pct": 1.49
+      },
+      {
+        "uf": "TO",
+        "cpus": 7935,
+        "var_pct": 1.0
+      },
+      {
+        "uf": "PB",
+        "cpus": 7934,
+        "var_pct": 0.79
+      },
+      {
+        "uf": "DF",
+        "cpus": 7934,
+        "var_pct": 0.7
+      },
+      {
+        "uf": "BA",
+        "cpus": 7934,
+        "var_pct": 0.69
+      },
+      {
+        "uf": "AL",
+        "cpus": 7934,
+        "var_pct": 0.66
+      },
+      {
+        "uf": "PR",
+        "cpus": 7934,
+        "var_pct": 0.64
+      },
+      {
+        "uf": "ES",
+        "cpus": 7934,
+        "var_pct": 0.6
+      },
+      {
+        "uf": "PE",
+        "cpus": 7934,
+        "var_pct": 0.58
+      },
+      {
+        "uf": "SP",
+        "cpus": 7934,
+        "var_pct": 0.57
+      },
+      {
+        "uf": "RO",
+        "cpus": 7933,
+        "var_pct": 0.53
+      },
+      {
+        "uf": "MA",
+        "cpus": 7935,
+        "var_pct": 0.52
+      },
+      {
+        "uf": "PI",
+        "cpus": 7934,
+        "var_pct": 0.51
+      },
+      {
+        "uf": "MS",
+        "cpus": 7935,
+        "var_pct": 0.43
+      },
+      {
+        "uf": "CE",
+        "cpus": 7935,
+        "var_pct": 0.43
+      },
+      {
+        "uf": "MG",
+        "cpus": 7934,
+        "var_pct": 0.41
+      },
+      {
+        "uf": "RJ",
+        "cpus": 7934,
+        "var_pct": 0.4
+      },
+      {
+        "uf": "RR",
+        "cpus": 7934,
+        "var_pct": 0.35
+      },
+      {
+        "uf": "AP",
+        "cpus": 7933,
+        "var_pct": 0.26
+      },
+      {
+        "uf": "SE",
+        "cpus": 7934,
+        "var_pct": 0.25
+      },
+      {
+        "uf": "GO",
+        "cpus": 7934,
+        "var_pct": 0.19
+      },
+      {
+        "uf": "AC",
+        "cpus": 7934,
+        "var_pct": 0.16
+      },
+      {
+        "uf": "RS",
+        "cpus": 7935,
+        "var_pct": 0.14
+      },
+      {
+        "uf": "AM",
+        "cpus": 7934,
+        "var_pct": 0.07
+      },
+      {
+        "uf": "MT",
+        "cpus": 7934,
+        "var_pct": -0.01
+      },
+      {
+        "uf": "RN",
+        "cpus": 7934,
+        "var_pct": -0.12
+      }
+    ],
+    "altas": [
+      {
+        "uf": "PA",
+        "cpus": 7934,
+        "var_pct": 1.96
+      },
+      {
+        "uf": "SC",
+        "cpus": 7933,
+        "var_pct": 1.49
+      },
+      {
+        "uf": "TO",
+        "cpus": 7935,
+        "var_pct": 1.0
+      },
+      {
+        "uf": "PB",
+        "cpus": 7934,
+        "var_pct": 0.79
+      },
+      {
+        "uf": "DF",
+        "cpus": 7934,
+        "var_pct": 0.7
+      },
+      {
+        "uf": "BA",
+        "cpus": 7934,
+        "var_pct": 0.69
+      },
+      {
+        "uf": "AL",
+        "cpus": 7934,
+        "var_pct": 0.66
+      },
+      {
+        "uf": "PR",
+        "cpus": 7934,
+        "var_pct": 0.64
+      },
+      {
+        "uf": "ES",
+        "cpus": 7934,
+        "var_pct": 0.6
+      },
+      {
+        "uf": "PE",
+        "cpus": 7934,
+        "var_pct": 0.58
+      }
+    ],
+    "baixas": [
+      {
+        "uf": "RN",
+        "cpus": 7934,
+        "var_pct": -0.12
+      },
+      {
+        "uf": "MT",
+        "cpus": 7934,
+        "var_pct": -0.01
+      },
+      {
+        "uf": "AM",
+        "cpus": 7934,
+        "var_pct": 0.07
+      },
+      {
+        "uf": "RS",
+        "cpus": 7935,
+        "var_pct": 0.14
+      },
+      {
+        "uf": "AC",
+        "cpus": 7934,
+        "var_pct": 0.16
+      },
+      {
+        "uf": "GO",
+        "cpus": 7934,
+        "var_pct": 0.19
+      },
+      {
+        "uf": "SE",
+        "cpus": 7934,
+        "var_pct": 0.25
+      },
+      {
+        "uf": "AP",
+        "cpus": 7933,
+        "var_pct": 0.26
+      },
+      {
+        "uf": "RR",
+        "cpus": 7934,
+        "var_pct": 0.35
+      },
+      {
+        "uf": "RJ",
+        "cpus": 7934,
+        "var_pct": 0.4
+      }
+    ],
+    "ufs": 27
+  }
+}

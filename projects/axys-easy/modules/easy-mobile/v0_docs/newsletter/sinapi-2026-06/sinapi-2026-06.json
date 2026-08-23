@@ -1,0 +1,660 @@
+{
+  "fonte": "SINAPI",
+  "ref": "2026-06-01",
+  "ref_anterior": "2026-05-01",
+  "versao": "06-26",
+  "edi_id": 23,
+  "edi_anterior": 22,
+  "meses_intervalo": 1,
+  "modalidade": "SD",
+  "uf_foco": "SP",
+  "movimento": {
+    "incluidas": 46,
+    "inativadas": 5,
+    "reativadas": 0,
+    "alteradas": 109
+  },
+  "cobertura": {
+    "ufs": 27,
+    "cpus": 10454,
+    "sem_custo": 166129,
+    "linhas": 846774,
+    "pct_sem_custo": 19.6,
+    "insumos": 132354,
+    "insumos_sem_preco": 34534,
+    "pct_sem_preco": 26.1
+  },
+  "precos": {
+    "uf": "SP",
+    "comparaveis": 8375,
+    "media_pct": 1.95,
+    "mediana_pct": 1.32,
+    "subiram": 6554,
+    "cairam": 1343,
+    "estaveis": 478
+  },
+  "subgrupos": {
+    "altas": [
+      {
+        "subgrupo": "INSTALAÇÕES EM COBRE",
+        "cpus": 242,
+        "var_pct": 24.86,
+        "medio_anterior": 117.23,
+        "medio_atual": 146.38
+      },
+      {
+        "subgrupo": "GRAUTE E ARMAÇÃO",
+        "cpus": 21,
+        "var_pct": 16.74,
+        "medio_anterior": 390.53,
+        "medio_atual": 455.92
+      },
+      {
+        "subgrupo": "INSTALAÇÕES DE AR CONDICIONADO EM COBRE",
+        "cpus": 15,
+        "var_pct": 13.99,
+        "medio_anterior": 90.24,
+        "medio_atual": 102.87
+      },
+      {
+        "subgrupo": "REDES DE ÁGUA E ESGOTO EM PEAD LISO (TUBOS E CONEXÕES)",
+        "cpus": 61,
+        "var_pct": 12.42,
+        "medio_anterior": 1075.45,
+        "medio_atual": 1208.98
+      },
+      {
+        "subgrupo": "VERGAS, CONTRAVERGAS E FIXAÇÃO DE ALVENARIA",
+        "cpus": 30,
+        "var_pct": 8.32,
+        "medio_anterior": 48.23,
+        "medio_atual": 52.24
+      },
+      {
+        "subgrupo": "INSTALAÇÕES HIDRÁULICAS EM PPR",
+        "cpus": 95,
+        "var_pct": 5.52,
+        "medio_anterior": 57.53,
+        "medio_atual": 60.71
+      },
+      {
+        "subgrupo": "INSTALAÇÕES PREDIAIS DE ÁGUAS PLUVIAIS - TUBOS, CONEXÕES, CAIXAS E RALOS",
+        "cpus": 86,
+        "var_pct": 4.73,
+        "medio_anterior": 88.83,
+        "medio_atual": 93.03
+      },
+      {
+        "subgrupo": "GESSO",
+        "cpus": 24,
+        "var_pct": 4.55,
+        "medio_anterior": 39.92,
+        "medio_atual": 41.73
+      },
+      {
+        "subgrupo": "INSTALAÇÕES PREDIAIS DE ESGOTO - TUBOS E CONEXÕES",
+        "cpus": 90,
+        "var_pct": 4.48,
+        "medio_anterior": 40.24,
+        "medio_atual": 42.04
+      },
+      {
+        "subgrupo": "PAISAGISMO - PLANTIO",
+        "cpus": 12,
+        "var_pct": 4.2,
+        "medio_anterior": 69.24,
+        "medio_atual": 72.15
+      }
+    ],
+    "baixas": [
+      {
+        "subgrupo": "TELHAMENTO PARA COBERTURA",
+        "cpus": 42,
+        "var_pct": -8.35,
+        "medio_anterior": 93.28,
+        "medio_atual": 85.49
+      },
+      {
+        "subgrupo": "INSTALAÇÕES PREDIAIS DE ÁGUA QUENTE EM CPVC",
+        "cpus": 137,
+        "var_pct": -6.16,
+        "medio_anterior": 58.93,
+        "medio_atual": 55.3
+      },
+      {
+        "subgrupo": "VÁLVULAS E REGISTROS PARA SISTEMAS PREDIAIS",
+        "cpus": 84,
+        "var_pct": -3.95,
+        "medio_anterior": 240.36,
+        "medio_atual": 230.86
+      },
+      {
+        "subgrupo": "INSTALAÇÕES DE AR CONDICIONADO",
+        "cpus": 35,
+        "var_pct": -2.74,
+        "medio_anterior": 8120.58,
+        "medio_atual": 7898.03
+      },
+      {
+        "subgrupo": "ASSENTAMENTO DE TUBOS DE ESGOTO EM PVC E PEAD",
+        "cpus": 56,
+        "var_pct": -2.25,
+        "medio_anterior": 235.24,
+        "medio_atual": 229.94
+      },
+      {
+        "subgrupo": "ESQUADRIAS - PORTAS",
+        "cpus": 127,
+        "var_pct": -1.43,
+        "medio_anterior": 932.35,
+        "medio_atual": 919.06
+      },
+      {
+        "subgrupo": "TRANSFORMADORES",
+        "cpus": 12,
+        "var_pct": -1.23,
+        "medio_anterior": 36746.0,
+        "medio_atual": 36294.42
+      },
+      {
+        "subgrupo": "DEPRECIAÇÃO, JUROS, IMPOSTOS E SEGUROS, MANUTENÇÃO E MATERIAIS NA OPERAÇÃO DOS EQUIPAMENTOS",
+        "cpus": 714,
+        "var_pct": -0.97,
+        "medio_anterior": 73.98,
+        "medio_atual": 73.26
+      },
+      {
+        "subgrupo": "ESGOTAMENTO DE VALA E REBAIXAMENTO DO LENÇOL FREÁTICO",
+        "cpus": 13,
+        "var_pct": -0.97,
+        "medio_anterior": 334.59,
+        "medio_atual": 331.34
+      },
+      {
+        "subgrupo": "PAREDES DE CONCRETO - ARMAÇÃO",
+        "cpus": 16,
+        "var_pct": -0.84,
+        "medio_anterior": 9.42,
+        "medio_atual": 9.35
+      }
+    ],
+    "total_subgrupos": 120
+  },
+  "insumos": {
+    "comparaveis": 4876,
+    "media_pct": 1.52,
+    "altas": [
+      {
+        "insumo": "POLIESTIRENO EXPANDIDO/EPS (ISOPOR), TIPO 2F, PLACA, ISOLAMENTO TERMOACUSTICO, E = 10 MM, 1000 X 500 MM",
+        "unidade": "M2",
+        "var_pct": 33.5
+      },
+      {
+        "insumo": "PAINEL DE LA DE VIDRO SEM REVESTIMENTO PSI 20, E = 25 MM, DE 1200 X 600 MM",
+        "unidade": "M2",
+        "var_pct": 33.4
+      },
+      {
+        "insumo": "POLIESTIRENO EXPANDIDO/EPS (ISOPOR), TIPO 2F, PLACA, ISOLAMENTO TERMOACUSTICO, E = 50 MM, 1000 X 500 MM",
+        "unidade": "M2",
+        "var_pct": 33.4
+      },
+      {
+        "insumo": "PAINEL DE LA DE VIDRO SEM REVESTIMENTO PSI 40, E = 50 MM, DE 1200 X 600 MM",
+        "unidade": "M2",
+        "var_pct": 33.4
+      },
+      {
+        "insumo": "PAINEL DE LA DE VIDRO SEM REVESTIMENTO PSI 20, E = 50 MM, DE 1200 X 600 MM",
+        "unidade": "M2",
+        "var_pct": 33.4
+      },
+      {
+        "insumo": "POLIESTIRENO EXPANDIDO/EPS (ISOPOR), PEROLAS, PARA CONCRETO LEVE",
+        "unidade": "KG",
+        "var_pct": 33.4
+      },
+      {
+        "insumo": "POLIESTIRENO EXPANDIDO/EPS (ISOPOR), TIPO 2F, BLOCO",
+        "unidade": "M3",
+        "var_pct": 33.4
+      },
+      {
+        "insumo": "POLIESTIRENO EXPANDIDO/EPS (ISOPOR), TIPO 2F, PLACA, ISOLAMENTO TERMOACUSTICO, E = 20 MM, 1000 X 500 MM",
+        "unidade": "M2",
+        "var_pct": 33.4
+      },
+      {
+        "insumo": "POLVORA NEGRA",
+        "unidade": "KG",
+        "var_pct": 33.4
+      },
+      {
+        "insumo": "EMULSAO EXPLOSIVA EM CARTUCHOS DE 1\" X 12\", DENSIDADE 1.15 G/CM3, INICIACAO ESPOLETA N. 8 / CORDEL",
+        "unidade": "KG",
+        "var_pct": 33.4
+      },
+      {
+        "insumo": "EMULSAO EXPLOSIVA EM CARTUCHOS DE 1\" X 24\", DENSIDADE 1.15 G/CM3, INICIACAO ESPOLETA N. 8 / CORDEL",
+        "unidade": "KG",
+        "var_pct": 33.4
+      },
+      {
+        "insumo": "EMULSAO EXPLOSIVA EM CARTUCHOS DE 1\" X 8\", DENSIDADE 1.15 G/CM3, INICIACAO ESPOLETA N. 8 / CORDEL",
+        "unidade": "KG",
+        "var_pct": 33.4
+      },
+      {
+        "insumo": "EMULSAO EXPLOSIVA EM CARTUCHOS DE 2 1/2\" X 24\", DENSIDADE 1.15 G/CM3, INICIACAO ESPOLETA N. 8 / CORDEL",
+        "unidade": "KG",
+        "var_pct": 33.4
+      },
+      {
+        "insumo": "EMULSAO EXPLOSIVA EM CARTUCHOS DE 2\" X 24\", DENSIDADE 1.15 G/CM3, INICIACAO ESPOLETA N. 8 / CORDEL",
+        "unidade": "KG",
+        "var_pct": 33.4
+      },
+      {
+        "insumo": "EMULSAO EXPLOSIVA EM CARTUCHOS DE 2 1/4\" X 24\", DENSIDADE 1.15 G/CM3, INICIACAO ESPOLETA N. 8 / CORDEL",
+        "unidade": "KG",
+        "var_pct": 33.4
+      },
+      {
+        "insumo": "PAINEL DE LA DE VIDRO SEM REVESTIMENTO PSI 40, E = 25 MM, DE 1200 X 600 MM",
+        "unidade": "M2",
+        "var_pct": 33.4
+      },
+      {
+        "insumo": "COTOVELO DE COBRE 90 GRAUS SEM ANEL DE SOLDA, BOLSA X BOLSA, 15 MM",
+        "unidade": "UN",
+        "var_pct": 29.4
+      },
+      {
+        "insumo": "BUCHA DE REDUCAO DE COBRE SEM ANEL DE SOLDA, PONTA X BOLSA, 28 X 22 MM",
+        "unidade": "UN",
+        "var_pct": 29.3
+      }
+    ],
+    "baixas": [
+      {
+        "insumo": "TUBO PVC DE REVESTIMENTO GEOMECANICO NERVURADO STANDARD, DN = 154 MM, COMPRIMENTO = 2 M",
+        "unidade": "M",
+        "var_pct": -21.8
+      },
+      {
+        "insumo": "SAPATA DE PVC ADITIVADO NERVURADO D = 6 POLEGADAS",
+        "unidade": "UN",
+        "var_pct": -21.8
+      },
+      {
+        "insumo": "SAPATA DE PVC ADITIVADO NERVURADO D = 8 POLEGADAS",
+        "unidade": "UN",
+        "var_pct": -21.8
+      },
+      {
+        "insumo": "TUBO PVC DE REVESTIMENTO GEOMECANICO NERVURADO REFORCADO, DN = 200 MM, COMPRIMENTO = 2 M",
+        "unidade": "M",
+        "var_pct": -21.8
+      },
+      {
+        "insumo": "TUBO PVC DE REVESTIMENTO GEOMECANICO NERVURADO REFORCADO, DN = 150 MM, COMPRIMENTO = 2 M",
+        "unidade": "M",
+        "var_pct": -21.8
+      },
+      {
+        "insumo": "TUBO PVC DE REVESTIMENTO GEOMECANICO NERVURADO STANDARD, DN = 206 MM, COMPRIMENTO = 2 M",
+        "unidade": "M",
+        "var_pct": -21.8
+      },
+      {
+        "insumo": "PARAFUSO ROSCA SOBERBA ZINCADO CABECA CHATA FENDA SIMPLES 3,8 X 30 MM (1.1/4\")",
+        "unidade": "UN",
+        "var_pct": -12.5
+      },
+      {
+        "insumo": "COLAR TOMADA PVC, COM TRAVAS, SAIDA COM ROSCA, DE 40 MM X 1/2\" OU 40 MM X 3/4\", PARA LIGACAO PREDIAL DE AGUA",
+        "unidade": "UN",
+        "var_pct": -9.5
+      },
+      {
+        "insumo": "TUBO PVC PBA JEI, CLASSE 15, DN 50 MM, PARA REDE DE AGUA (NBR 5647)",
+        "unidade": "M",
+        "var_pct": -9.5
+      },
+      {
+        "insumo": "LUVA DE CORRER PVC PBA, JE, DN 50 / DE 60 MM, PARA REDE DE AGUA",
+        "unidade": "UN",
+        "var_pct": -9.5
+      },
+      {
+        "insumo": "COLAR TOMADA PVC, COM TRAVAS, SAIDA COM ROSCA, DE 85 MM X 1/2\" OU 85 MM X 3/4\", PARA LIGACAO PREDIAL DE AGUA",
+        "unidade": "UN",
+        "var_pct": -9.5
+      },
+      {
+        "insumo": "LUVA DE CORRER PVC PBA, JE, DN 75 / DE 85 MM, PARA REDE DE AGUA",
+        "unidade": "UN",
+        "var_pct": -9.5
+      },
+      {
+        "insumo": "TUBO PVC DEFOFO, JEI, 1 MPA, DN 100 MM, PARA REDE DE AGUA (NBR 7665)",
+        "unidade": "M",
+        "var_pct": -9.5
+      },
+      {
+        "insumo": "TE DE REDUCAO, PVC PBA, BBB, JE, DN 100 X 75 / DE 110 X 85 MM, PARA REDE DE AGUA",
+        "unidade": "UN",
+        "var_pct": -9.5
+      },
+      {
+        "insumo": "EXTREMIDADE/TUBETE PARA HIDROMETRO PVC, COM ROSCA, CURTA, COM BUCHA LATAO, 3/4\" OU 1/2\"",
+        "unidade": "UN",
+        "var_pct": -9.5
+      },
+      {
+        "insumo": "TUBO PVC PBA JEI, CLASSE 15, DN 100 MM, PARA REDE DE AGUA (NBR 5647)",
+        "unidade": "M",
+        "var_pct": -9.5
+      },
+      {
+        "insumo": "TE, PVC PBA, BBB, 90 GRAUS, DN 100 / DE 110 MM, PARA REDE DE AGUA",
+        "unidade": "UN",
+        "var_pct": -9.5
+      },
+      {
+        "insumo": "EXTREMIDADE PVC PBA, BF, JE, DN 75/ DE 85 MM",
+        "unidade": "UN",
+        "var_pct": -9.5
+      }
+    ]
+  },
+  "indicadores": {
+    "acumulados": {
+      "IGP-M": -0.5,
+      "INCC-M": 0.85,
+      "INPC": 0.14,
+      "IPCA": 0.16
+    },
+    "selic_aa": 14.25,
+    "selic_aa_anterior": 14.5,
+    "meses": 1
+  },
+  "revisoes": {
+    "coeficiente": 109,
+    "insumo_incluido": 17,
+    "insumo_excluido": 14,
+    "cabecalho": 109,
+    "total": 109
+  },
+  "revisoes_subgrupos": [
+    {
+      "subgrupo": "INSTALAÇÕES DE AR CONDICIONADO",
+      "revisadas": 44
+    },
+    {
+      "subgrupo": "TELHAMENTO PARA COBERTURA",
+      "revisadas": 44
+    },
+    {
+      "subgrupo": "GRAUTE E ARMAÇÃO",
+      "revisadas": 21
+    }
+  ],
+  "codigo": {
+    "numero": "18",
+    "rotulo": "#18"
+  },
+  "acumulado_ano": {
+    "fonte_pct": 2.82,
+    "comparaveis": 8064,
+    "indices": {
+      "INCC-M": 4.05,
+      "IPCA": 3.36
+    },
+    "desde": "2026-01-01"
+  },
+  "dispersao_uf": {
+    "todas": [
+      {
+        "uf": "PE",
+        "cpus": 8375,
+        "var_pct": 2.96
+      },
+      {
+        "uf": "CE",
+        "cpus": 8376,
+        "var_pct": 2.32
+      },
+      {
+        "uf": "RO",
+        "cpus": 8375,
+        "var_pct": 2.06
+      },
+      {
+        "uf": "SP",
+        "cpus": 8375,
+        "var_pct": 1.95
+      },
+      {
+        "uf": "GO",
+        "cpus": 8374,
+        "var_pct": 1.72
+      },
+      {
+        "uf": "RN",
+        "cpus": 8375,
+        "var_pct": 1.61
+      },
+      {
+        "uf": "ES",
+        "cpus": 8374,
+        "var_pct": 1.56
+      },
+      {
+        "uf": "AL",
+        "cpus": 8375,
+        "var_pct": 1.53
+      },
+      {
+        "uf": "SE",
+        "cpus": 8375,
+        "var_pct": 1.43
+      },
+      {
+        "uf": "MA",
+        "cpus": 8376,
+        "var_pct": 1.41
+      },
+      {
+        "uf": "MS",
+        "cpus": 8376,
+        "var_pct": 1.36
+      },
+      {
+        "uf": "PI",
+        "cpus": 8375,
+        "var_pct": 1.31
+      },
+      {
+        "uf": "AC",
+        "cpus": 8375,
+        "var_pct": 1.27
+      },
+      {
+        "uf": "SC",
+        "cpus": 8374,
+        "var_pct": 1.25
+      },
+      {
+        "uf": "PR",
+        "cpus": 8375,
+        "var_pct": 1.25
+      },
+      {
+        "uf": "TO",
+        "cpus": 8376,
+        "var_pct": 1.19
+      },
+      {
+        "uf": "DF",
+        "cpus": 8375,
+        "var_pct": 1.1
+      },
+      {
+        "uf": "RS",
+        "cpus": 8375,
+        "var_pct": 1.09
+      },
+      {
+        "uf": "MT",
+        "cpus": 8375,
+        "var_pct": 1.08
+      },
+      {
+        "uf": "AP",
+        "cpus": 8374,
+        "var_pct": 1.0
+      },
+      {
+        "uf": "PB",
+        "cpus": 8376,
+        "var_pct": 0.9
+      },
+      {
+        "uf": "PA",
+        "cpus": 8375,
+        "var_pct": 0.88
+      },
+      {
+        "uf": "AM",
+        "cpus": 8376,
+        "var_pct": 0.75
+      },
+      {
+        "uf": "RR",
+        "cpus": 8375,
+        "var_pct": 0.57
+      },
+      {
+        "uf": "RJ",
+        "cpus": 8375,
+        "var_pct": 0.53
+      },
+      {
+        "uf": "BA",
+        "cpus": 8375,
+        "var_pct": 0.39
+      },
+      {
+        "uf": "MG",
+        "cpus": 8374,
+        "var_pct": 0.25
+      }
+    ],
+    "altas": [
+      {
+        "uf": "PE",
+        "cpus": 8375,
+        "var_pct": 2.96
+      },
+      {
+        "uf": "CE",
+        "cpus": 8376,
+        "var_pct": 2.32
+      },
+      {
+        "uf": "RO",
+        "cpus": 8375,
+        "var_pct": 2.06
+      },
+      {
+        "uf": "SP",
+        "cpus": 8375,
+        "var_pct": 1.95
+      },
+      {
+        "uf": "GO",
+        "cpus": 8374,
+        "var_pct": 1.72
+      },
+      {
+        "uf": "RN",
+        "cpus": 8375,
+        "var_pct": 1.61
+      },
+      {
+        "uf": "ES",
+        "cpus": 8374,
+        "var_pct": 1.56
+      },
+      {
+        "uf": "AL",
+        "cpus": 8375,
+        "var_pct": 1.53
+      },
+      {
+        "uf": "SE",
+        "cpus": 8375,
+        "var_pct": 1.43
+      },
+      {
+        "uf": "MA",
+        "cpus": 8376,
+        "var_pct": 1.41
+      }
+    ],
+    "baixas": [
+      {
+        "uf": "MG",
+        "cpus": 8374,
+        "var_pct": 0.25
+      },
+      {
+        "uf": "BA",
+        "cpus": 8375,
+        "var_pct": 0.39
+      },
+      {
+        "uf": "RJ",
+        "cpus": 8375,
+        "var_pct": 0.53
+      },
+      {
+        "uf": "RR",
+        "cpus": 8375,
+        "var_pct": 0.57
+      },
+      {
+        "uf": "AM",
+        "cpus": 8376,
+        "var_pct": 0.75
+      },
+      {
+        "uf": "PA",
+        "cpus": 8375,
+        "var_pct": 0.88
+      },
+      {
+        "uf": "PB",
+        "cpus": 8376,
+        "var_pct": 0.9
+      },
+      {
+        "uf": "AP",
+        "cpus": 8374,
+        "var_pct": 1.0
+      },
+      {
+        "uf": "MT",
+        "cpus": 8375,
+        "var_pct": 1.08
+      },
+      {
+        "uf": "RS",
+        "cpus": 8375,
+        "var_pct": 1.09
+      }
+    ],
+    "ufs": 27
+  }
+}

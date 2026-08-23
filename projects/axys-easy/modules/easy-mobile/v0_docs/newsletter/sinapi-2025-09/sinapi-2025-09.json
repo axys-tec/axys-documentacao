@@ -1,0 +1,672 @@
+{
+  "fonte": "SINAPI",
+  "ref": "2025-09-01",
+  "ref_anterior": "2025-08-01",
+  "versao": "09-25",
+  "edi_id": 14,
+  "edi_anterior": 13,
+  "meses_intervalo": 1,
+  "modalidade": "SD",
+  "uf_foco": "SP",
+  "movimento": {
+    "incluidas": 17,
+    "inativadas": 8,
+    "reativadas": 0,
+    "alteradas": 69
+  },
+  "cobertura": {
+    "ufs": 27,
+    "cpus": 9783,
+    "sem_custo": 147909,
+    "linhas": 792423,
+    "pct_sem_custo": 18.7,
+    "insumos": 134568,
+    "insumos_sem_preco": 41010,
+    "pct_sem_preco": 30.5
+  },
+  "precos": {
+    "uf": "SP",
+    "comparaveis": 7939,
+    "media_pct": 0.17,
+    "mediana_pct": 0.07,
+    "subiram": 5374,
+    "cairam": 1460,
+    "estaveis": 1105
+  },
+  "subgrupos": {
+    "altas": [
+      {
+        "subgrupo": "INSTALAÇÕES DE GÁS EM PEX MULTICAMADAS",
+        "cpus": 16,
+        "var_pct": 4.88,
+        "medio_anterior": 36.06,
+        "medio_atual": 37.82
+      },
+      {
+        "subgrupo": "INSTALAÇÕES PREDIAIS DE ÁGUA FRIA EM PVC",
+        "cpus": 235,
+        "var_pct": 3.25,
+        "medio_anterior": 25.27,
+        "medio_atual": 26.09
+      },
+      {
+        "subgrupo": "REVESTIMENTOS CERÂMICOS INTERNOS",
+        "cpus": 42,
+        "var_pct": 2.3,
+        "medio_anterior": 91.01,
+        "medio_atual": 93.1
+      },
+      {
+        "subgrupo": "INSTALAÇÕES ELÉTRICAS - ELETRODUTOS EMBUTIDOS, CABOS, CAIXAS, TOMADAS E INTERRUPTORES",
+        "cpus": 193,
+        "var_pct": 2.13,
+        "medio_anterior": 42.94,
+        "medio_atual": 43.85
+      },
+      {
+        "subgrupo": "GRAUTE E ARMAÇÃO",
+        "cpus": 21,
+        "var_pct": 1.49,
+        "medio_anterior": 356.59,
+        "medio_atual": 361.9
+      },
+      {
+        "subgrupo": "USINAGENS",
+        "cpus": 16,
+        "var_pct": 1.44,
+        "medio_anterior": 133.86,
+        "medio_atual": 135.78
+      },
+      {
+        "subgrupo": "PRODUÇÃO DE CONCRETO",
+        "cpus": 29,
+        "var_pct": 1.38,
+        "medio_anterior": 505.18,
+        "medio_atual": 512.17
+      },
+      {
+        "subgrupo": "DRENAGEM DE AR CONDICIONADO",
+        "cpus": 15,
+        "var_pct": 1.21,
+        "medio_anterior": 13.77,
+        "medio_atual": 13.94
+      },
+      {
+        "subgrupo": "LIGAÇÕES PREDIAIS DE ÁGUA E ESGOTO",
+        "cpus": 36,
+        "var_pct": 1.18,
+        "medio_anterior": 48.05,
+        "medio_atual": 48.62
+      },
+      {
+        "subgrupo": "ATERROS, BASES, SUB BASES E IMPRIMAÇÕES",
+        "cpus": 228,
+        "var_pct": 1.16,
+        "medio_anterior": 125.5,
+        "medio_atual": 126.96
+      }
+    ],
+    "baixas": [
+      {
+        "subgrupo": "CONCRETO PROJETADO",
+        "cpus": 32,
+        "var_pct": -15.16,
+        "medio_anterior": 285.16,
+        "medio_atual": 241.93
+      },
+      {
+        "subgrupo": "INSTALAÇÕES DE AR CONDICIONADO",
+        "cpus": 40,
+        "var_pct": -6.85,
+        "medio_anterior": 8255.69,
+        "medio_atual": 7690.16
+      },
+      {
+        "subgrupo": "LUMINÁRIAS EXTERNAS",
+        "cpus": 18,
+        "var_pct": -6.49,
+        "medio_anterior": 217.31,
+        "medio_atual": 203.21
+      },
+      {
+        "subgrupo": "ILUMINAÇÃO PREDIAL E MONITORAMENTO",
+        "cpus": 13,
+        "var_pct": -4.6,
+        "medio_anterior": 56.71,
+        "medio_atual": 54.1
+      },
+      {
+        "subgrupo": "BOMBAS HIDRÁULICAS - CENTRÍFUGAS, HORIZONTAIS E SUBMERSÍVEIS",
+        "cpus": 18,
+        "var_pct": -4.08,
+        "medio_anterior": 1923.22,
+        "medio_atual": 1844.76
+      },
+      {
+        "subgrupo": "PAVIMENTO INTERTRAVADO",
+        "cpus": 18,
+        "var_pct": -3.22,
+        "medio_anterior": 119.3,
+        "medio_atual": 115.45
+      },
+      {
+        "subgrupo": "SISTEMA DE PROTEÇÃO CONTRA DESCARGAS ATMOSFÉRICAS - SPDA",
+        "cpus": 22,
+        "var_pct": -1.96,
+        "medio_anterior": 82.67,
+        "medio_atual": 81.05
+      },
+      {
+        "subgrupo": "ESQUADRIAS - JANELAS",
+        "cpus": 21,
+        "var_pct": -1.89,
+        "medio_anterior": 619.01,
+        "medio_atual": 607.31
+      },
+      {
+        "subgrupo": "PAREDES DE CONCRETO - CONCRETAGEM",
+        "cpus": 12,
+        "var_pct": -1.62,
+        "medio_anterior": 663.01,
+        "medio_atual": 652.26
+      },
+      {
+        "subgrupo": "GUIAS E SARJETAS",
+        "cpus": 32,
+        "var_pct": -1.59,
+        "medio_anterior": 60.67,
+        "medio_atual": 59.7
+      }
+    ],
+    "total_subgrupos": 112
+  },
+  "insumos": {
+    "comparaveis": 4893,
+    "media_pct": -0.12,
+    "altas": [
+      {
+        "insumo": "COTOVELO/JOELHO COM ADAPTADOR, 90 GRAUS, EM POLIPROPILENO, PN 16, PARA TUBOS PEAD, 20 MM X 1/2\" - LIGACAO PREDIAL DE AGUA",
+        "unidade": "UN",
+        "var_pct": 15.9
+      },
+      {
+        "insumo": "ADAPTADOR DE COMPRESSAO EM POLIPROPILENO (PP), PARA TUBO EM PEAD, 20 MM X 3/4\", PARA LIGACAO PREDIAL DE AGUA (NTS 179)",
+        "unidade": "UN",
+        "var_pct": 15.9
+      },
+      {
+        "insumo": "ADAPTADOR DE COMPRESSAO EM POLIPROPILENO (PP), PARA TUBO EM PEAD, 32 MM X 1\", PARA LIGACAO PREDIAL DE AGUA (NTS 179)",
+        "unidade": "UN",
+        "var_pct": 15.8
+      },
+      {
+        "insumo": "COTOVELO/JOELHO COM ADAPTADOR, 90 GRAUS, EM POLIPROPILENO, PN 16, PARA TUBOS PEAD, 32 MM X 1\" - LIGACAO PREDIAL DE AGUA",
+        "unidade": "UN",
+        "var_pct": 15.8
+      },
+      {
+        "insumo": "UNIAO EM POLIPROPILENO (PP), PARA TUBO EM PEAD, 20 MM - LIGACAO PREDIAL DE AGUA",
+        "unidade": "UN",
+        "var_pct": 15.8
+      },
+      {
+        "insumo": "COTOVELO/JOELHO 90 GRAUS, EM POLIPROPILENO, PN 16, PARA TUBOS PEAD, 20 X 20 MM - LIGACAO PREDIAL DE AGUA",
+        "unidade": "UN",
+        "var_pct": 15.8
+      },
+      {
+        "insumo": "TE DE SERVICO INTEGRADO, EM POLIPROPILENO (PP), PARA TUBOS EM PEAD/PVC, 60 X 20 MM - LIGACAO PREDIAL DE AGUA",
+        "unidade": "UN",
+        "var_pct": 15.8
+      },
+      {
+        "insumo": "COLAR DE TOMADA EM POLIPROPILENO, PP, COM PARAFUSOS, PARA PEAD, 63 X 1/2\" - LIGACAO PREDIAL DE AGUA",
+        "unidade": "UN",
+        "var_pct": 15.8
+      },
+      {
+        "insumo": "UNIAO EM POLIPROPILENO (PP), PARA TUBO EM PEAD, 32 MM - LIGACAO PREDIAL DE AGUA",
+        "unidade": "UN",
+        "var_pct": 15.8
+      },
+      {
+        "insumo": "TE DE SERVICO INTEGRADO, EM POLIPROPILENO (PP), PARA TUBOS EM PEAD, 63 X 20 MM - LIGACAO PREDIAL DE AGUA",
+        "unidade": "UN",
+        "var_pct": 15.7
+      },
+      {
+        "insumo": "TE DE SERVICO INTEGRADO, EM POLIPROPILENO (PP), PARA TUBOS EM PEAD/PVC, 60 X 32 MM - LIGACAO PREDIAL DE AGUA",
+        "unidade": "UN",
+        "var_pct": 15.7
+      },
+      {
+        "insumo": "ADAPTADOR DE COMPRESSAO EM POLIPROPILENO (PP), PARA TUBO EM PEAD, 20 MM X 1/2\", PARA LIGACAO PREDIAL DE AGUA (NTS 179)",
+        "unidade": "UN",
+        "var_pct": 15.7
+      },
+      {
+        "insumo": "COTOVELO/JOELHO 90 GRAUS, EM POLIPROPILENO, PN 16, PARA TUBOS PEAD, 32 X 32 MM - LIGACAO PREDIAL DE AGUA",
+        "unidade": "UN",
+        "var_pct": 15.7
+      },
+      {
+        "insumo": "COLAR DE TOMADA EM POLIPROPILENO, PP, COM PARAFUSOS, PARA PEAD, 63 X 3/4\" - LIGACAO PREDIAL DE AGUA",
+        "unidade": "UN",
+        "var_pct": 15.7
+      },
+      {
+        "insumo": "COTOVELO/JOELHO COM ADAPTADOR, 90 GRAUS, EM POLIPROPILENO, PN 16, PARA TUBOS PEAD, 20 MM X 3/4\" - LIGACAO PREDIAL DE AGUA",
+        "unidade": "UN",
+        "var_pct": 15.7
+      },
+      {
+        "insumo": "ADAPTADOR PVC, COM REGISTRO, PARA PEAD, 20 MM X 3/4\", PARA LIGACAO PREDIAL DE AGUA",
+        "unidade": "UN",
+        "var_pct": 15.7
+      },
+      {
+        "insumo": "MANOMETRO COM CAIXA EM ACO PINTADO, ESCALA *10* KGF/CM2 (*10* BAR), DIAMETRO NOMINAL DE 100 MM, CONEXAO DE 1/2\"",
+        "unidade": "UN",
+        "var_pct": 10.0
+      },
+      {
+        "insumo": "MANOMETRO COM CAIXA EM ACO PINTADO, ESCALA *10* KGF/CM2 (*10* BAR), DIAMETRO NOMINAL DE *63* MM, CONEXAO DE 1/4\"",
+        "unidade": "UN",
+        "var_pct": 10.0
+      }
+    ],
+    "baixas": [
+      {
+        "insumo": "BARRA DE ACO CHATO, RETANGULAR, 25,4 MM X 4,76 MM (L X E), 0,94 KG/M",
+        "unidade": "M",
+        "var_pct": -50.1
+      },
+      {
+        "insumo": "PARAFUSO DE ACO ZINCADO COM ROSCA SOBERBA, CABECA CHATA E FENDA SIMPLES, DIAMETRO 2,5 MM, COMPRIMENTO * 9,5 * MM",
+        "unidade": "UN",
+        "var_pct": -20.0
+      },
+      {
+        "insumo": "PARAFUSO DE LATAO COM ROSCA SOBERBA, CABECA CHATA E FENDA SIMPLES, DIAMETRO 2,5 MM, COMPRIMENTO 12 MM",
+        "unidade": "UN",
+        "var_pct": -13.3
+      },
+      {
+        "insumo": "PORCA ZINCADA, SEXTAVADA, DIAMETRO 5/16\"",
+        "unidade": "UN",
+        "var_pct": -13.3
+      },
+      {
+        "insumo": "PARAFUSO DRY WALL, EM ACO FOSFATIZADO, CABECA TROMBETA E PONTA BROCA (TB), COMPRIMENTO 25 MM",
+        "unidade": "UN",
+        "var_pct": -12.5
+      },
+      {
+        "insumo": "PARAFUSO DRY WALL, EM ACO FOSFATIZADO, CABECA TROMBETA E PONTA BROCA (TB), COMPRIMENTO 45 MM",
+        "unidade": "UN",
+        "var_pct": -11.5
+      },
+      {
+        "insumo": "PARAFUSO DE ACO ZINCADO COM ROSCA SOBERBA, CABECA CHATA E FENDA SIMPLES, DIAMETRO 4,2 MM, COMPRIMENTO * 32 * MM",
+        "unidade": "UN",
+        "var_pct": -10.5
+      },
+      {
+        "insumo": "PARAFUSO DRY WALL, EM ACO FOSFATIZADO, CABECA TROMBETA E PONTA BROCA (TB), COMPRIMENTO 35 MM",
+        "unidade": "UN",
+        "var_pct": -10.0
+      },
+      {
+        "insumo": "PARAFUSO DRY WALL, EM ACO FOSFATIZADO, CABECA TROMBETA E PONTA AGULHA (TA), COMPRIMENTO 25 MM",
+        "unidade": "UN",
+        "var_pct": -10.0
+      },
+      {
+        "insumo": "LAMPADA LED TUBULAR BIVOLT 9/10 W, BASE G13",
+        "unidade": "UN",
+        "var_pct": -9.9
+      },
+      {
+        "insumo": "LAMPADA LED TUBULAR BIVOLT 18/20 W, BASE G13",
+        "unidade": "UN",
+        "var_pct": -9.9
+      },
+      {
+        "insumo": "LUMINARIA LED PLAFON REDONDO DE SOBREPOR BIVOLT 12/13 W, D = *17* CM",
+        "unidade": "UN",
+        "var_pct": -9.8
+      },
+      {
+        "insumo": "LUMINARIA LED REFLETOR RETANGULAR BIVOLT, LUZ BRANCA, 30 W",
+        "unidade": "UN",
+        "var_pct": -9.8
+      },
+      {
+        "insumo": "APARELHO SINALIZADOR LUMINOSO COM LED, PARA SAIDA GARAGEM, COM 2 LENTES EM POLICARBONATO, BIVOLT (INCLUI SUPORTE DE FIXACAO)",
+        "unidade": "UN",
+        "var_pct": -9.8
+      },
+      {
+        "insumo": "LUMINARIA DE LED PARA ILUMINACAO PUBLICA, DE 33 W ATE 50 W, INVOLUCRO EM ALUMINIO OU ACO INOX",
+        "unidade": "UN",
+        "var_pct": -9.8
+      },
+      {
+        "insumo": "LUMINARIA LED REFLETOR RETANGULAR BIVOLT, LUZ BRANCA, 50 W",
+        "unidade": "UN",
+        "var_pct": -9.8
+      },
+      {
+        "insumo": "LUMINARIA DE EMERGENCIA 30 LEDS, POTENCIA 2 W, BATERIA DE LITIO, AUTONOMIA DE 6 HORAS",
+        "unidade": "UN",
+        "var_pct": -9.8
+      },
+      {
+        "insumo": "LUMINARIA DE LED PARA ILUMINACAO PUBLICA, DE 138 W ATE 180 W, INVOLUCRO EM ALUMINIO OU ACO INOX",
+        "unidade": "UN",
+        "var_pct": -9.8
+      }
+    ]
+  },
+  "indicadores": {
+    "acumulados": {
+      "IGP-M": 0.42,
+      "INCC-M": 0.21,
+      "INPC": 0.52,
+      "IPCA": 0.48
+    },
+    "selic_aa": 15.0,
+    "selic_aa_anterior": 15.0,
+    "meses": 1
+  },
+  "revisoes": {
+    "coeficiente": 1,
+    "insumo_incluido": 48,
+    "insumo_excluido": 50,
+    "cabecalho": 51,
+    "total": 69
+  },
+  "revisoes_subgrupos": [
+    {
+      "subgrupo": "CONCRETO PROJETADO",
+      "revisadas": 32
+    },
+    {
+      "subgrupo": "CANALETAS, GRELHAS E CAIXAS COM GRELHA PARA DRENAGEM",
+      "revisadas": 18
+    },
+    {
+      "subgrupo": "EXECUÇÃO DE TIRANTES",
+      "revisadas": 9
+    },
+    {
+      "subgrupo": "EXECUÇÃO DE GRAMPO PARA SOLO GRAMPEADO",
+      "revisadas": 6
+    },
+    {
+      "subgrupo": "ESQUADRIAS - JANELAS",
+      "revisadas": 3
+    },
+    {
+      "subgrupo": "FORROS",
+      "revisadas": 1
+    }
+  ],
+  "codigo": {
+    "numero": "09",
+    "rotulo": "#09"
+  },
+  "acumulado_ano": {
+    "fonte_pct": 2.59,
+    "comparaveis": 7754,
+    "indices": {
+      "INCC-M": 5.35,
+      "IPCA": 3.64
+    },
+    "desde": "2025-01-01"
+  },
+  "dispersao_uf": {
+    "todas": [
+      {
+        "uf": "MT",
+        "cpus": 7940,
+        "var_pct": 3.36
+      },
+      {
+        "uf": "PB",
+        "cpus": 7940,
+        "var_pct": 2.35
+      },
+      {
+        "uf": "RO",
+        "cpus": 7939,
+        "var_pct": 0.44
+      },
+      {
+        "uf": "AP",
+        "cpus": 7939,
+        "var_pct": 0.42
+      },
+      {
+        "uf": "SC",
+        "cpus": 7939,
+        "var_pct": 0.42
+      },
+      {
+        "uf": "DF",
+        "cpus": 7939,
+        "var_pct": 0.39
+      },
+      {
+        "uf": "PI",
+        "cpus": 7939,
+        "var_pct": 0.37
+      },
+      {
+        "uf": "ES",
+        "cpus": 7940,
+        "var_pct": 0.3
+      },
+      {
+        "uf": "RN",
+        "cpus": 7939,
+        "var_pct": 0.25
+      },
+      {
+        "uf": "AC",
+        "cpus": 7939,
+        "var_pct": 0.23
+      },
+      {
+        "uf": "BA",
+        "cpus": 7940,
+        "var_pct": 0.22
+      },
+      {
+        "uf": "SP",
+        "cpus": 7939,
+        "var_pct": 0.17
+      },
+      {
+        "uf": "MG",
+        "cpus": 7940,
+        "var_pct": 0.15
+      },
+      {
+        "uf": "CE",
+        "cpus": 7941,
+        "var_pct": 0.12
+      },
+      {
+        "uf": "SE",
+        "cpus": 7939,
+        "var_pct": 0.03
+      },
+      {
+        "uf": "PE",
+        "cpus": 7939,
+        "var_pct": 0.01
+      },
+      {
+        "uf": "PA",
+        "cpus": 7940,
+        "var_pct": -0.0
+      },
+      {
+        "uf": "AM",
+        "cpus": 7939,
+        "var_pct": -0.04
+      },
+      {
+        "uf": "RJ",
+        "cpus": 7940,
+        "var_pct": -0.04
+      },
+      {
+        "uf": "TO",
+        "cpus": 7941,
+        "var_pct": -0.06
+      },
+      {
+        "uf": "PR",
+        "cpus": 7940,
+        "var_pct": -0.07
+      },
+      {
+        "uf": "MS",
+        "cpus": 7941,
+        "var_pct": -0.08
+      },
+      {
+        "uf": "AL",
+        "cpus": 7939,
+        "var_pct": -0.1
+      },
+      {
+        "uf": "RR",
+        "cpus": 7939,
+        "var_pct": -0.1
+      },
+      {
+        "uf": "MA",
+        "cpus": 7941,
+        "var_pct": -0.15
+      },
+      {
+        "uf": "RS",
+        "cpus": 7941,
+        "var_pct": -0.25
+      },
+      {
+        "uf": "GO",
+        "cpus": 7939,
+        "var_pct": -0.3
+      }
+    ],
+    "altas": [
+      {
+        "uf": "MT",
+        "cpus": 7940,
+        "var_pct": 3.36
+      },
+      {
+        "uf": "PB",
+        "cpus": 7940,
+        "var_pct": 2.35
+      },
+      {
+        "uf": "RO",
+        "cpus": 7939,
+        "var_pct": 0.44
+      },
+      {
+        "uf": "AP",
+        "cpus": 7939,
+        "var_pct": 0.42
+      },
+      {
+        "uf": "SC",
+        "cpus": 7939,
+        "var_pct": 0.42
+      },
+      {
+        "uf": "DF",
+        "cpus": 7939,
+        "var_pct": 0.39
+      },
+      {
+        "uf": "PI",
+        "cpus": 7939,
+        "var_pct": 0.37
+      },
+      {
+        "uf": "ES",
+        "cpus": 7940,
+        "var_pct": 0.3
+      },
+      {
+        "uf": "RN",
+        "cpus": 7939,
+        "var_pct": 0.25
+      },
+      {
+        "uf": "AC",
+        "cpus": 7939,
+        "var_pct": 0.23
+      }
+    ],
+    "baixas": [
+      {
+        "uf": "GO",
+        "cpus": 7939,
+        "var_pct": -0.3
+      },
+      {
+        "uf": "RS",
+        "cpus": 7941,
+        "var_pct": -0.25
+      },
+      {
+        "uf": "MA",
+        "cpus": 7941,
+        "var_pct": -0.15
+      },
+      {
+        "uf": "RR",
+        "cpus": 7939,
+        "var_pct": -0.1
+      },
+      {
+        "uf": "AL",
+        "cpus": 7939,
+        "var_pct": -0.1
+      },
+      {
+        "uf": "MS",
+        "cpus": 7941,
+        "var_pct": -0.08
+      },
+      {
+        "uf": "PR",
+        "cpus": 7940,
+        "var_pct": -0.07
+      },
+      {
+        "uf": "TO",
+        "cpus": 7941,
+        "var_pct": -0.06
+      },
+      {
+        "uf": "RJ",
+        "cpus": 7940,
+        "var_pct": -0.04
+      },
+      {
+        "uf": "AM",
+        "cpus": 7939,
+        "var_pct": -0.04
+      }
+    ],
+    "ufs": 27
+  }
+}

@@ -1,0 +1,652 @@
+{
+  "fonte": "SINAPI",
+  "ref": "2025-03-01",
+  "ref_anterior": "2025-02-01",
+  "versao": "03-25",
+  "edi_id": 8,
+  "edi_anterior": 7,
+  "meses_intervalo": 1,
+  "modalidade": "SD",
+  "uf_foco": "SP",
+  "movimento": {
+    "incluidas": 6,
+    "inativadas": 0,
+    "reativadas": 0,
+    "alteradas": 1
+  },
+  "cobertura": {
+    "ufs": 27,
+    "cpus": 9653,
+    "sem_custo": 150350,
+    "linhas": 781893,
+    "pct_sem_custo": 19.2,
+    "insumos": 130734,
+    "insumos_sem_preco": 39059,
+    "pct_sem_preco": 29.9
+  },
+  "precos": {
+    "uf": "SP",
+    "comparaveis": 7797,
+    "media_pct": 0.44,
+    "mediana_pct": 0.07,
+    "subiram": 4855,
+    "cairam": 1395,
+    "estaveis": 1547
+  },
+  "subgrupos": {
+    "altas": [
+      {
+        "subgrupo": "REDES DE ÁGUA E ESGOTO EM PEAD LISO (TUBOS E CONEXÕES)",
+        "cpus": 58,
+        "var_pct": 7.15,
+        "medio_anterior": 588.37,
+        "medio_atual": 630.44
+      },
+      {
+        "subgrupo": "INSTALAÇÕES PREDIAIS DE ÁGUA FRIA EM PVC",
+        "cpus": 235,
+        "var_pct": 4.85,
+        "medio_anterior": 23.63,
+        "medio_atual": 24.77
+      },
+      {
+        "subgrupo": "VÁLVULAS E REGISTROS PARA SISTEMAS PREDIAIS",
+        "cpus": 84,
+        "var_pct": 3.87,
+        "medio_anterior": 191.84,
+        "medio_atual": 199.26
+      },
+      {
+        "subgrupo": "PAVIMENTO INTERTRAVADO",
+        "cpus": 18,
+        "var_pct": 3.85,
+        "medio_anterior": 100.6,
+        "medio_atual": 104.48
+      },
+      {
+        "subgrupo": "ARMAÇÃO PARA ESTRUTURAS DE CONCRETO ARMADO",
+        "cpus": 56,
+        "var_pct": 3.36,
+        "medio_anterior": 11.2,
+        "medio_atual": 11.57
+      },
+      {
+        "subgrupo": "ATERRO E REATERRO DE VALAS",
+        "cpus": 37,
+        "var_pct": 3.24,
+        "medio_anterior": 40.44,
+        "medio_atual": 41.75
+      },
+      {
+        "subgrupo": "ARMAÇÃO DE ESTACAS",
+        "cpus": 11,
+        "var_pct": 3.01,
+        "medio_anterior": 11.97,
+        "medio_atual": 12.34
+      },
+      {
+        "subgrupo": "PAISAGISMO - PLANTIO",
+        "cpus": 12,
+        "var_pct": 2.67,
+        "medio_anterior": 64.15,
+        "medio_atual": 65.86
+      },
+      {
+        "subgrupo": "INSTALAÇÕES DE AR CONDICIONADO",
+        "cpus": 40,
+        "var_pct": 2.29,
+        "medio_anterior": 8415.24,
+        "medio_atual": 8608.06
+      },
+      {
+        "subgrupo": "DRENAGEM DE AR CONDICIONADO",
+        "cpus": 15,
+        "var_pct": 1.8,
+        "medio_anterior": 13.07,
+        "medio_atual": 13.31
+      }
+    ],
+    "baixas": [
+      {
+        "subgrupo": "ASSENTAMENTO DE TUBOS DE ESGOTO EM PVC E PEAD",
+        "cpus": 56,
+        "var_pct": -4.44,
+        "medio_anterior": 212.9,
+        "medio_atual": 203.44
+      },
+      {
+        "subgrupo": "REVESTIMENTOS CERÂMICOS INTERNOS",
+        "cpus": 42,
+        "var_pct": -3.52,
+        "medio_anterior": 95.28,
+        "medio_atual": 91.92
+      },
+      {
+        "subgrupo": "VIDROS E ESPELHOS",
+        "cpus": 37,
+        "var_pct": -2.41,
+        "medio_anterior": 757.29,
+        "medio_atual": 739.07
+      },
+      {
+        "subgrupo": "LUMINÁRIAS EXTERNAS",
+        "cpus": 18,
+        "var_pct": -2.13,
+        "medio_anterior": 227.16,
+        "medio_atual": 222.32
+      },
+      {
+        "subgrupo": "GABIÕES - EXECUÇÃO DE MURO E PROTEÇÃO SUPERFICIAL",
+        "cpus": 16,
+        "var_pct": -2.1,
+        "medio_anterior": 883.9,
+        "medio_atual": 865.37
+      },
+      {
+        "subgrupo": "PAREDES DE CONCRETO - ARMAÇÃO",
+        "cpus": 16,
+        "var_pct": -1.76,
+        "medio_anterior": 10.26,
+        "medio_atual": 10.08
+      },
+      {
+        "subgrupo": "RADIER, PISO DE CONCRETO E LAJE SOBRE SOLO",
+        "cpus": 25,
+        "var_pct": -1.12,
+        "medio_anterior": 145.56,
+        "medio_atual": 143.92
+      },
+      {
+        "subgrupo": "GUIAS E SARJETAS",
+        "cpus": 32,
+        "var_pct": -0.8,
+        "medio_anterior": 58.49,
+        "medio_atual": 58.02
+      },
+      {
+        "subgrupo": "IMPERMEABILIZAÇÃO, PROTEÇÃO MECÂNICA E TRATAMENTO DE JUNTA",
+        "cpus": 24,
+        "var_pct": -0.7,
+        "medio_anterior": 71.23,
+        "medio_atual": 70.74
+      },
+      {
+        "subgrupo": "SISTEMA DE PROTEÇÃO CONTRA DESCARGAS ATMOSFÉRICAS - SPDA",
+        "cpus": 22,
+        "var_pct": -0.64,
+        "medio_anterior": 84.44,
+        "medio_atual": 83.9
+      }
+    ],
+    "total_subgrupos": 109
+  },
+  "insumos": {
+    "comparaveis": 4835,
+    "media_pct": 0.41,
+    "altas": [
+      {
+        "insumo": "ABRACADEIRA DE NYLON PARA AMARRACAO DE CABOS, COMPRIMENTO DE 100 X 2,5 MM",
+        "unidade": "UN",
+        "var_pct": 16.7
+      },
+      {
+        "insumo": "ABRACADEIRA DE NYLON PARA AMARRACAO DE CABOS, COMPRIMENTO DE 150 X *3,6* MM",
+        "unidade": "UN",
+        "var_pct": 13.3
+      },
+      {
+        "insumo": "TUBO ACO CARBONO SEM COSTURA 1/2\", E= *2,77 MM, SCHEDULE 40, *1,27 KG/M",
+        "unidade": "M",
+        "var_pct": 11.0
+      },
+      {
+        "insumo": "TUBO ACO CARBONO SEM COSTURA 2 1/2\", E = 5,16 MM, SCHEDULE 40 (8,62 KG/M)",
+        "unidade": "M",
+        "var_pct": 11.0
+      },
+      {
+        "insumo": "TUBO ACO CARBONO SEM COSTURA 1\", E= *3,38 MM, SCHEDULE 40, *2,50* KG/M",
+        "unidade": "M",
+        "var_pct": 11.0
+      },
+      {
+        "insumo": "TUBO ACO CARBONO SEM COSTURA 4\", E= *6,02 MM, SCHEDULE 40, *16,06 KG/M",
+        "unidade": "M",
+        "var_pct": 11.0
+      },
+      {
+        "insumo": "TUBO ACO CARBONO SEM COSTURA 5\", E= *6,55 MM, SCHEDULE 40, *21,75* KG/M",
+        "unidade": "M",
+        "var_pct": 11.0
+      },
+      {
+        "insumo": "TUBO ACO CARBONO SEM COSTURA 4\", E= *8,56 MM, SCHEDULE 80, *22,31 KG/M",
+        "unidade": "M",
+        "var_pct": 11.0
+      },
+      {
+        "insumo": "TUBO ACO CARBONO SEM COSTURA 3\", E= *5,49 MM, SCHEDULE 40, *11,28* KG/M",
+        "unidade": "M",
+        "var_pct": 11.0
+      },
+      {
+        "insumo": "TUBO ACO CARBONO SEM COSTURA 8\", E= *12,70 MM, SCHEDULE 80, *64,64 KG/M",
+        "unidade": "M",
+        "var_pct": 11.0
+      },
+      {
+        "insumo": "TUBO ACO CARBONO SEM COSTURA 8\", E= *8,18 MM, SCHEDULE 40, *42,55 KG/M",
+        "unidade": "M",
+        "var_pct": 11.0
+      },
+      {
+        "insumo": "TUBO ACO CARBONO SEM COSTURA 8\", E= *7,04 MM, SCHEDULE 30, *36,75 KG/M",
+        "unidade": "M",
+        "var_pct": 11.0
+      },
+      {
+        "insumo": "TUBO DE REVESTIMENTO, EM ACO, CORPO SCHEDULE 40, PONTEIRA SCHEDULE 80, ROSQUEAVEL E SEGMENTADO PARA PERFURACAO, DIAMETRO 4\" (450 MM)",
+        "unidade": "M",
+        "var_pct": 11.0
+      },
+      {
+        "insumo": "TUBO DE REVESTIMENTO, EM ACO, CORPO SCHEDULE 40, PONTEIRA SCHEDULE 80, ROSQUEAVEL E SEGMENTADO PARA PERFURACAO, DIAMETRO 8\" (200 MM)",
+        "unidade": "M",
+        "var_pct": 11.0
+      },
+      {
+        "insumo": "TUBO ACO CARBONO SEM COSTURA 6\", E= *10,97 MM, SCHEDULE 80, *42,56 KG/M",
+        "unidade": "M",
+        "var_pct": 11.0
+      },
+      {
+        "insumo": "TUBO 30\" EM CHAPA PRETA, E= 3/8\", 177 KG/6 M",
+        "unidade": "M",
+        "var_pct": 11.0
+      },
+      {
+        "insumo": "TUBO DE REVESTIMENTO, EM ACO, CORPO SCHEDULE 40, PONTEIRA SCHEDULE 80, ROSQUEAVEL E SEGMENTADO PARA PERFURACAO, DIAMETRO 12\" (320 MM)",
+        "unidade": "M",
+        "var_pct": 11.0
+      },
+      {
+        "insumo": "TUBO ACO CARBONO SEM COSTURA 14\", E= *11,13 MM, SCHEDULE 40, *94,55 KG/M",
+        "unidade": "M",
+        "var_pct": 11.0
+      }
+    ],
+    "baixas": [
+      {
+        "insumo": "PARAFUSO ZINCADO, SEXTAVADO, COM ROSCA INTEIRA, DIAMETRO 1/4\", COMPRIMENTO 1/2\"",
+        "unidade": "UN",
+        "var_pct": -12.0
+      },
+      {
+        "insumo": "PORCA ZINCADA, SEXTAVADA, DIAMETRO 3/8\"",
+        "unidade": "UN",
+        "var_pct": -12.0
+      },
+      {
+        "insumo": "TELHA DE FIBRA DE VIDRO ONDULADA, TRANSLUCIDA / INCOLOR, E = *0,6* MM, DE *0,50 X 2,44* M (L X C)",
+        "unidade": "M2",
+        "var_pct": -12.0
+      },
+      {
+        "insumo": "DOMOS / CLARABOIA INDIVIDUAL, EM ACRILICO BRANCO/LEITOSO, *95 X 95* CM, INCLUI ACESSORIOS DE FIXACAO, SEM INSTALACAO",
+        "unidade": "UN",
+        "var_pct": -12.0
+      },
+      {
+        "insumo": "PLACA DE ACRILICO TRANSPARENTE ADESIVADA PARA SINALIZACAO DE PORTAS, BORDA POLIDA, DE *25 X 8*, E = 6 MM (NAO INCLUI ACESSORIOS PARA FIXACAO)",
+        "unidade": "UN",
+        "var_pct": -12.0
+      },
+      {
+        "insumo": "PARAFUSO DRY WALL, EM ACO ZINCADO, CABECA LENTILHA E PONTA BROCA (LB), LARGURA 4,2 MM, COMPRIMENTO 13 MM",
+        "unidade": "UN",
+        "var_pct": -11.1
+      },
+      {
+        "insumo": "PARAFUSO DRY WALL, EM ACO FOSFATIZADO, CABECA TROMBETA E PONTA AGULHA (TA), COMPRIMENTO 35 MM",
+        "unidade": "UN",
+        "var_pct": -10.5
+      },
+      {
+        "insumo": "PARAFUSO DE ACO ZINCADO COM ROSCA SOBERBA, CABECA CHATA E FENDA SIMPLES, DIAMETRO 4,8 MM, COMPRIMENTO 45 MM",
+        "unidade": "UN",
+        "var_pct": -10.3
+      },
+      {
+        "insumo": "PARAFUSO DE LATAO COM ROSCA SOBERBA, CABECA CHATA E FENDA SIMPLES, DIAMETRO 3,2 MM, COMPRIMENTO 16 MM",
+        "unidade": "UN",
+        "var_pct": -10.3
+      },
+      {
+        "insumo": "PARAFUSO CABECA TROMBETA E PONTA AGULHA (GN55), COMPRIMENTO 55 MM, EM ACO FOSFATIZADO, PARA FIXAR CHAPA DE GESSO EM PERFIL DRYWALL METALICO MAXIMO 0,7 MM",
+        "unidade": "UN",
+        "var_pct": -10.3
+      },
+      {
+        "insumo": "PARAFUSO DE ACO ZINCADO, SEXTAVADO, COM ROSCA INTEIRA, DIAMETRO 5/16\", COMPRIMENTO 3/4\", COM PORCA E ARRUELA LISA LEVE",
+        "unidade": "UN",
+        "var_pct": -10.0
+      },
+      {
+        "insumo": "PARAFUSO DRY WALL, EM ACO ZINCADO, CABECA LENTILHA E PONTA AGULHA (LA), LARGURA 4,2 MM, COMPRIMENTO 13 MM",
+        "unidade": "UN",
+        "var_pct": -10.0
+      },
+      {
+        "insumo": "PARAFUSO ZINCADO, SEXTAVADO, COM ROSCA SOBERBA, DIAMETRO 5/16\", COMPRIMENTO 40 MM",
+        "unidade": "UN",
+        "var_pct": -9.3
+      },
+      {
+        "insumo": "VIDRO TEMPERADO VERDE E = 6 MM, SEM COLOCACAO",
+        "unidade": "M2",
+        "var_pct": -9.1
+      },
+      {
+        "insumo": "VIDRO TEMPERADO INCOLOR E = 6 MM, SEM COLOCACAO",
+        "unidade": "M2",
+        "var_pct": -9.1
+      },
+      {
+        "insumo": "VIDRO TEMPERADO INCOLOR E = 10 MM, SEM COLOCACAO",
+        "unidade": "M2",
+        "var_pct": -9.1
+      },
+      {
+        "insumo": "VIDRO TEMPERADO INCOLOR E = 8 MM, SEM COLOCACAO",
+        "unidade": "M2",
+        "var_pct": -9.1
+      },
+      {
+        "insumo": "PORTA VIDRO TEMPERADO INCOLOR, 2 FOLHAS DE CORRER, E = 10 MM (SEM FERRAGENS E SEM COLOCACAO)",
+        "unidade": "M2",
+        "var_pct": -9.1
+      }
+    ]
+  },
+  "indicadores": {
+    "acumulados": {
+      "IGP-M": -0.34,
+      "INCC-M": 0.38,
+      "INPC": 0.51,
+      "IPCA": 0.56
+    },
+    "selic_aa": 14.25,
+    "selic_aa_anterior": 13.25,
+    "meses": 1
+  },
+  "revisoes": {
+    "coeficiente": 1,
+    "insumo_incluido": 0,
+    "insumo_excluido": 0,
+    "cabecalho": 0,
+    "total": 1
+  },
+  "revisoes_subgrupos": [
+    {
+      "subgrupo": "DEPRECIAÇÃO, JUROS, IMPOSTOS E SEGUROS, MANUTENÇÃO E MATERIAIS NA OPERAÇÃO DOS EQUIPAMENTOS",
+      "revisadas": 1
+    }
+  ],
+  "codigo": {
+    "numero": "03",
+    "rotulo": "#03"
+  },
+  "acumulado_ano": {
+    "fonte_pct": 0.57,
+    "comparaveis": 7795,
+    "indices": {
+      "INCC-M": 1.61,
+      "IPCA": 2.04
+    },
+    "desde": "2025-01-01"
+  },
+  "dispersao_uf": {
+    "todas": [
+      {
+        "uf": "AC",
+        "cpus": 7797,
+        "var_pct": 1.89
+      },
+      {
+        "uf": "PE",
+        "cpus": 7797,
+        "var_pct": 0.78
+      },
+      {
+        "uf": "GO",
+        "cpus": 7797,
+        "var_pct": 0.66
+      },
+      {
+        "uf": "AP",
+        "cpus": 7797,
+        "var_pct": 0.48
+      },
+      {
+        "uf": "SP",
+        "cpus": 7797,
+        "var_pct": 0.44
+      },
+      {
+        "uf": "MA",
+        "cpus": 7797,
+        "var_pct": 0.34
+      },
+      {
+        "uf": "DF",
+        "cpus": 7797,
+        "var_pct": 0.34
+      },
+      {
+        "uf": "AL",
+        "cpus": 7797,
+        "var_pct": 0.27
+      },
+      {
+        "uf": "PR",
+        "cpus": 7797,
+        "var_pct": 0.25
+      },
+      {
+        "uf": "MG",
+        "cpus": 7797,
+        "var_pct": 0.23
+      },
+      {
+        "uf": "SC",
+        "cpus": 7797,
+        "var_pct": 0.2
+      },
+      {
+        "uf": "PA",
+        "cpus": 7797,
+        "var_pct": 0.17
+      },
+      {
+        "uf": "MT",
+        "cpus": 7797,
+        "var_pct": 0.15
+      },
+      {
+        "uf": "SE",
+        "cpus": 7797,
+        "var_pct": 0.12
+      },
+      {
+        "uf": "PB",
+        "cpus": 7796,
+        "var_pct": 0.09
+      },
+      {
+        "uf": "MS",
+        "cpus": 7797,
+        "var_pct": 0.07
+      },
+      {
+        "uf": "AM",
+        "cpus": 7797,
+        "var_pct": 0.04
+      },
+      {
+        "uf": "RN",
+        "cpus": 7797,
+        "var_pct": 0.04
+      },
+      {
+        "uf": "ES",
+        "cpus": 7797,
+        "var_pct": -0.01
+      },
+      {
+        "uf": "RO",
+        "cpus": 7797,
+        "var_pct": -0.02
+      },
+      {
+        "uf": "RJ",
+        "cpus": 7797,
+        "var_pct": -0.06
+      },
+      {
+        "uf": "CE",
+        "cpus": 7797,
+        "var_pct": -0.1
+      },
+      {
+        "uf": "RR",
+        "cpus": 7797,
+        "var_pct": -0.11
+      },
+      {
+        "uf": "PI",
+        "cpus": 7797,
+        "var_pct": -0.13
+      },
+      {
+        "uf": "RS",
+        "cpus": 7797,
+        "var_pct": -0.14
+      },
+      {
+        "uf": "TO",
+        "cpus": 7797,
+        "var_pct": -0.15
+      },
+      {
+        "uf": "BA",
+        "cpus": 7797,
+        "var_pct": -0.36
+      }
+    ],
+    "altas": [
+      {
+        "uf": "AC",
+        "cpus": 7797,
+        "var_pct": 1.89
+      },
+      {
+        "uf": "PE",
+        "cpus": 7797,
+        "var_pct": 0.78
+      },
+      {
+        "uf": "GO",
+        "cpus": 7797,
+        "var_pct": 0.66
+      },
+      {
+        "uf": "AP",
+        "cpus": 7797,
+        "var_pct": 0.48
+      },
+      {
+        "uf": "SP",
+        "cpus": 7797,
+        "var_pct": 0.44
+      },
+      {
+        "uf": "MA",
+        "cpus": 7797,
+        "var_pct": 0.34
+      },
+      {
+        "uf": "DF",
+        "cpus": 7797,
+        "var_pct": 0.34
+      },
+      {
+        "uf": "AL",
+        "cpus": 7797,
+        "var_pct": 0.27
+      },
+      {
+        "uf": "PR",
+        "cpus": 7797,
+        "var_pct": 0.25
+      },
+      {
+        "uf": "MG",
+        "cpus": 7797,
+        "var_pct": 0.23
+      }
+    ],
+    "baixas": [
+      {
+        "uf": "BA",
+        "cpus": 7797,
+        "var_pct": -0.36
+      },
+      {
+        "uf": "TO",
+        "cpus": 7797,
+        "var_pct": -0.15
+      },
+      {
+        "uf": "RS",
+        "cpus": 7797,
+        "var_pct": -0.14
+      },
+      {
+        "uf": "PI",
+        "cpus": 7797,
+        "var_pct": -0.13
+      },
+      {
+        "uf": "RR",
+        "cpus": 7797,
+        "var_pct": -0.11
+      },
+      {
+        "uf": "CE",
+        "cpus": 7797,
+        "var_pct": -0.1
+      },
+      {
+        "uf": "RJ",
+        "cpus": 7797,
+        "var_pct": -0.06
+      },
+      {
+        "uf": "RO",
+        "cpus": 7797,
+        "var_pct": -0.02
+      },
+      {
+        "uf": "ES",
+        "cpus": 7797,
+        "var_pct": -0.01
+      },
+      {
+        "uf": "RN",
+        "cpus": 7797,
+        "var_pct": 0.04
+      }
+    ],
+    "ufs": 27
+  }
+}

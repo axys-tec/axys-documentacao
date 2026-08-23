@@ -1,0 +1,656 @@
+{
+  "fonte": "SINAPI",
+  "ref": "2026-05-01",
+  "ref_anterior": "2026-04-01",
+  "versao": "05-26",
+  "edi_id": 22,
+  "edi_anterior": 21,
+  "meses_intervalo": 1,
+  "modalidade": "SD",
+  "uf_foco": "SP",
+  "movimento": {
+    "incluidas": 35,
+    "inativadas": 0,
+    "reativadas": 0,
+    "alteradas": 6
+  },
+  "cobertura": {
+    "ufs": 27,
+    "cpus": 10413,
+    "sem_custo": 164668,
+    "linhas": 843453,
+    "pct_sem_custo": 19.5,
+    "insumos": 131652,
+    "insumos_sem_preco": 34629,
+    "pct_sem_preco": 26.3
+  },
+  "precos": {
+    "uf": "SP",
+    "comparaveis": 8242,
+    "media_pct": 0.48,
+    "mediana_pct": 0.07,
+    "subiram": 4385,
+    "cairam": 2575,
+    "estaveis": 1282
+  },
+  "subgrupos": {
+    "altas": [
+      {
+        "subgrupo": "VÁLVULAS E REGISTROS PARA SISTEMAS PREDIAIS",
+        "cpus": 84,
+        "var_pct": 9.09,
+        "medio_anterior": 220.34,
+        "medio_atual": 240.36
+      },
+      {
+        "subgrupo": "INSTALAÇÕES PREDIAIS DE ÁGUA QUENTE EM CPVC",
+        "cpus": 137,
+        "var_pct": 8.49,
+        "medio_anterior": 54.32,
+        "medio_atual": 58.93
+      },
+      {
+        "subgrupo": "CAIXAS DE ÁGUA PARA EDIFICAÇÕES",
+        "cpus": 37,
+        "var_pct": 6.36,
+        "medio_anterior": 1265.34,
+        "medio_atual": 1345.79
+      },
+      {
+        "subgrupo": "INSTALAÇÕES PREDIAIS DE ÁGUAS PLUVIAIS - TUBOS, CONEXÕES, CAIXAS E RALOS",
+        "cpus": 86,
+        "var_pct": 4.98,
+        "medio_anterior": 84.61,
+        "medio_atual": 88.83
+      },
+      {
+        "subgrupo": "INSTALAÇÕES PREDIAIS DE ESGOTO - TUBOS E CONEXÕES",
+        "cpus": 90,
+        "var_pct": 4.2,
+        "medio_anterior": 38.61,
+        "medio_atual": 40.24
+      },
+      {
+        "subgrupo": "PAVIMENTO INTERTRAVADO",
+        "cpus": 18,
+        "var_pct": 4.01,
+        "medio_anterior": 119.92,
+        "medio_atual": 124.73
+      },
+      {
+        "subgrupo": "INSTALAÇÕES PREDIAIS DE ÁGUA FRIA EM PVC",
+        "cpus": 235,
+        "var_pct": 3.79,
+        "medio_anterior": 26.91,
+        "medio_atual": 27.93
+      },
+      {
+        "subgrupo": "LAJES PRÉ-MOLDADAS",
+        "cpus": 43,
+        "var_pct": 3.76,
+        "medio_anterior": 244.99,
+        "medio_atual": 254.21
+      },
+      {
+        "subgrupo": "INSTALAÇÕES HIDRÁULICAS - RESERVAÇÃO E BOMBAS DE RECALQUE",
+        "cpus": 286,
+        "var_pct": 3.75,
+        "medio_anterior": 153.57,
+        "medio_atual": 159.33
+      },
+      {
+        "subgrupo": "LIGAÇÕES PREDIAIS DE ÁGUA E ESGOTO",
+        "cpus": 36,
+        "var_pct": 3.64,
+        "medio_anterior": 51.44,
+        "medio_atual": 53.31
+      }
+    ],
+    "baixas": [
+      {
+        "subgrupo": "INSTALAÇÕES DE AR CONDICIONADO",
+        "cpus": 40,
+        "var_pct": -8.51,
+        "medio_anterior": 7772.8,
+        "medio_atual": 7111.69
+      },
+      {
+        "subgrupo": "MONOCAPA",
+        "cpus": 12,
+        "var_pct": -7.19,
+        "medio_anterior": 180.83,
+        "medio_atual": 167.83
+      },
+      {
+        "subgrupo": "REDES DE ÁGUA E ESGOTO EM PEAD LISO (TUBOS E CONEXÕES)",
+        "cpus": 58,
+        "var_pct": -6.87,
+        "medio_anterior": 643.27,
+        "medio_atual": 599.06
+      },
+      {
+        "subgrupo": "LUMINÁRIAS EXTERNAS",
+        "cpus": 18,
+        "var_pct": -4.78,
+        "medio_anterior": 211.66,
+        "medio_atual": 201.54
+      },
+      {
+        "subgrupo": "CONTRAPISO",
+        "cpus": 59,
+        "var_pct": -4.36,
+        "medio_anterior": 94.87,
+        "medio_atual": 90.73
+      },
+      {
+        "subgrupo": "DEPRECIAÇÃO, JUROS, IMPOSTOS E SEGUROS, MANUTENÇÃO E MATERIAIS NA OPERAÇÃO DOS EQUIPAMENTOS",
+        "cpus": 714,
+        "var_pct": -2.74,
+        "medio_anterior": 76.06,
+        "medio_atual": 73.98
+      },
+      {
+        "subgrupo": "ESCAVAÇÃO VERTICAL A CÉU ABERTO",
+        "cpus": 72,
+        "var_pct": -2.31,
+        "medio_anterior": 23.01,
+        "medio_atual": 22.47
+      },
+      {
+        "subgrupo": "CHAPISCO",
+        "cpus": 28,
+        "var_pct": -2.3,
+        "medio_anterior": 10.64,
+        "medio_atual": 10.4
+      },
+      {
+        "subgrupo": "FÔRMAS PARA ESTRUTURAS DE CONCRETO ARMADO",
+        "cpus": 101,
+        "var_pct": -2.14,
+        "medio_anterior": 136.97,
+        "medio_atual": 134.03
+      },
+      {
+        "subgrupo": "ESCAVAÇÃO HORIZONTAL",
+        "cpus": 40,
+        "var_pct": -2.12,
+        "medio_anterior": 15.02,
+        "medio_atual": 14.71
+      }
+    ],
+    "total_subgrupos": 116
+  },
+  "insumos": {
+    "comparaveis": 4855,
+    "media_pct": 1.26,
+    "altas": [
+      {
+        "insumo": "FITA PLASTICA ZEBRADA PARA DEMARCACAO DE AREAS, LARGURA = 7 CM, SEM ADESIVO",
+        "unidade": "M",
+        "var_pct": 14.3
+      },
+      {
+        "insumo": "RODAPE PRE-MOLDADO DE GRANILITE, MARMORITE OU GRANITINA L = 10 CM",
+        "unidade": "M",
+        "var_pct": 12.7
+      },
+      {
+        "insumo": "REVESTIMENTO PARA ESCADA EM GRANILITE, MARMORITE OU GRANITINA ESP = 8 MM (INCLUSO EXECUCAO)",
+        "unidade": "M2",
+        "var_pct": 12.7
+      },
+      {
+        "insumo": "SOLEIRA PRE-MOLDADA EM GRANILITE, MARMORITE OU GRANITINA, L = *15 CM",
+        "unidade": "M",
+        "var_pct": 12.7
+      },
+      {
+        "insumo": "DIVISORIA, PLACA PRE-MOLDADA EM GRANILITE, MARMORITE OU GRANITINA, E = *3 CM",
+        "unidade": "M2",
+        "var_pct": 12.7
+      },
+      {
+        "insumo": "REVESTIMENTO DE PAREDE EM GRANILITE, MARMORITE OU GRANITINA - ESP = 5 MM (INCLUSO EXECUCAO)",
+        "unidade": "M2",
+        "var_pct": 12.7
+      },
+      {
+        "insumo": "PISO INDUSTRIAL EM CONCRETO ARMADO DE ACABAMENTO POLIDO, ESPESSURA 12 CM (CIMENTO QUEIMADO) (INCLUSO EXECUCAO)",
+        "unidade": "M2",
+        "var_pct": 12.7
+      },
+      {
+        "insumo": "PISO FULGET (GRANITO LAVADO) MOLDADO IN LOCO (INCLUSO EXECUCAO)",
+        "unidade": "M2",
+        "var_pct": 12.7
+      },
+      {
+        "insumo": "PISO FULGET (GRANITO LAVADO) EM PLACAS DE *75 X 75* CM, E = 2,0 CM (SEM COLOCACAO)",
+        "unidade": "M2",
+        "var_pct": 12.7
+      },
+      {
+        "insumo": "PISO URETANO, VERSAO REVESTIMENTO AUTONIVELANTE, ESPESSURA VARIAVEL DE 3 A 4 MM (INCLUSO EXECUCAO)",
+        "unidade": "M2",
+        "var_pct": 12.7
+      },
+      {
+        "insumo": "PISO KORODUR (INCLUSO EXECUCAO)",
+        "unidade": "M2",
+        "var_pct": 12.7
+      },
+      {
+        "insumo": "PISO EPOXI AUTONIVELANTE, ESPESSURA *4* MM (INCLUSO EXECUCAO)",
+        "unidade": "M2",
+        "var_pct": 12.7
+      },
+      {
+        "insumo": "PISO FULGET (GRANITO LAVADO) EM PLACAS DE *40 X 40* CM, E = 2,0 CM (SEM COLOCACAO)",
+        "unidade": "M2",
+        "var_pct": 12.7
+      },
+      {
+        "insumo": "PISO EM GRANILITE, MARMORITE OU GRANITINA, AGREGADO COR PRETO, CINZA, PALHA OU BRANCO, E= *8* MM (INCLUSO EXECUCAO)",
+        "unidade": "M2",
+        "var_pct": 12.7
+      },
+      {
+        "insumo": "REVESTIMENTO DE PAREDE EM GRANILITE, MARMORITE OU GRANITINA COLORIDO - ESP = 5 MM (INCLUSO EXECUCAO)",
+        "unidade": "M2",
+        "var_pct": 12.7
+      },
+      {
+        "insumo": "PEITORIL PRE-MOLDADO EM GRANILITE, MARMORITE OU GRANITINA, L = *15* CM",
+        "unidade": "M2",
+        "var_pct": 12.7
+      },
+      {
+        "insumo": "PISO EPOXI MULTILAYER, ESPESSURA *2* MM (INCLUSO EXECUCAO)",
+        "unidade": "M2",
+        "var_pct": 12.7
+      },
+      {
+        "insumo": "VALVULA DE RETENCAO VERTICAL, DE BRONZE (PN-16), 1/2\", 200 PSI, EXTREMIDADES COM ROSCA",
+        "unidade": "UN",
+        "var_pct": 12.6
+      }
+    ],
+    "baixas": [
+      {
+        "insumo": "ARGAMASSA PRONTA PARA CONTRAPISO",
+        "unidade": "KG",
+        "var_pct": -9.6
+      },
+      {
+        "insumo": "ARGAMASSA COLANTE AC II",
+        "unidade": "KG",
+        "var_pct": -9.4
+      },
+      {
+        "insumo": "ARGAMASSA INDUSTRIALIZADA MULTIUSO, PARA REVESTIMENTO INTERNO E EXTERNO E ASSENTAMENTO DE BLOCOS DIVERSOS",
+        "unidade": "KG",
+        "var_pct": -9.2
+      },
+      {
+        "insumo": "MANGUEIRA DE INCENDIO, TIPO 2, DE 2 1/2\", COMPRIMENTO = 15 M, TECIDO EM FIO DE POLIESTER E TUBO INTERNO EM BORRACHA SINTETICA, COM UNIOES ENGATE RAPIDO",
+        "unidade": "UN",
+        "var_pct": -9.1
+      },
+      {
+        "insumo": "MANGUEIRA DE INCENDIO, TIPO 2, DE 1 1/2\", COMPRIMENTO = 15 M, TECIDO EM FIO DE POLIESTER E TUBO INTERNO EM BORRACHA SINTETICA, COM UNIOES ENGATE RAPIDO",
+        "unidade": "UN",
+        "var_pct": -9.1
+      },
+      {
+        "insumo": "MANGUEIRA DE INCENDIO, TIPO 2, DE 1 1/2\", COMPRIMENTO = 25 M, TECIDO EM FIO DE POLIESTER E TUBO INTERNO EM BORRACHA SINTETICA, COM UNIOES",
+        "unidade": "UN",
+        "var_pct": -9.1
+      },
+      {
+        "insumo": "MANGUEIRA DE INCENDIO, TIPO 2, DE 1 1/2\", COMPRIMENTO = 30 M, TECIDO EM FIO DE POLIESTER E TUBO INTERNO EM BORRACHA SINTETICA, COM UNIOES",
+        "unidade": "UN",
+        "var_pct": -9.1
+      },
+      {
+        "insumo": "MANGUEIRA DE INCENDIO, TIPO 1, DE 1 1/2\", COMPRIMENTO = 20 M, TECIDO EM FIO DE POLIESTER E TUBO INTERNO EM BORRACHA SINTETICA, COM UNIOES ENGATE RAPIDO",
+        "unidade": "UN",
+        "var_pct": -9.1
+      },
+      {
+        "insumo": "MANGUEIRA DE INCENDIO, TIPO 2, DE 2 1/2\", COMPRIMENTO = 30 M, TECIDO EM FIO DE POLIESTER E TUBO INTERNO EM BORRACHA SINTETICA, COM UNIOES ENGATE RAPIDO",
+        "unidade": "UN",
+        "var_pct": -9.1
+      },
+      {
+        "insumo": "MANGUEIRA DE INCENDIO, TIPO 1, DE 1 1/2\", COMPRIMENTO = 25 M, TECIDO EM FIO DE POLIESTER E TUBO INTERNO EM BORRACHA SINTETICA, COM UNIOES ENGATE RAPIDO",
+        "unidade": "UN",
+        "var_pct": -9.1
+      },
+      {
+        "insumo": "MANGUEIRA DE INCENDIO, TIPO 1, DE 1 1/2\", COMPRIMENTO = 15 M, TECIDO EM FIO DE POLIESTER E TUBO INTERNO EM BORRACHA SINTETICA, COM UNIOES ENGATE RAPIDO",
+        "unidade": "UN",
+        "var_pct": -9.1
+      },
+      {
+        "insumo": "MANGUEIRA DE INCENDIO, TIPO 2, DE 2 1/2\", COMPRIMENTO = 20 M, TECIDO EM FIO DE POLIESTER E TUBO INTERNO EM BORRACHA SINTETICA, COM UNIOES",
+        "unidade": "UN",
+        "var_pct": -9.1
+      },
+      {
+        "insumo": "MANGUEIRA DE INCENDIO, TIPO 1, DE 1 1/2\", COMPRIMENTO = 30 M, TECIDO EM FIO DE POLIESTER E TUBO INTERNO EM BORRACHA SINTETICA, COM UNIOES ENGATE RAPIDO",
+        "unidade": "UN",
+        "var_pct": -9.1
+      },
+      {
+        "insumo": "MANGUEIRA DE INCENDIO, TIPO 2, DE 1 1/2\", COMPRIMENTO = 20 M, TECIDO EM FIO DE POLIESTER E TUBO INTERNO EM BORRACHA SINTETICA, COM UNIOES",
+        "unidade": "UN",
+        "var_pct": -9.1
+      },
+      {
+        "insumo": "MANGUEIRA DE INCENDIO, TIPO 2, DE 2 1/2\", COMPRIMENTO = 25 M, TECIDO EM FIO DE POLIESTER E TUBO INTERNO EM BORRACHA SINTETICA, COM UNIOES ENGATE RAPIDO",
+        "unidade": "UN",
+        "var_pct": -9.1
+      },
+      {
+        "insumo": "ARGAMASSA PISO SOBRE PISO",
+        "unidade": "KG",
+        "var_pct": -9.1
+      },
+      {
+        "insumo": "ARGAMASSA INDUSTRIALIZADA PARA CHAPISCO ROLADO",
+        "unidade": "KG",
+        "var_pct": -9.1
+      },
+      {
+        "insumo": "ARGAMASSA PARA REVESTIMENTO DECORATIVO MONOCAMADA",
+        "unidade": "KG",
+        "var_pct": -9.0
+      }
+    ]
+  },
+  "indicadores": {
+    "acumulados": {
+      "IGP-M": 0.84,
+      "INCC-M": 0.77,
+      "INPC": 0.65,
+      "IPCA": 0.58
+    },
+    "selic_aa": 14.5,
+    "selic_aa_anterior": 14.5,
+    "meses": 1
+  },
+  "revisoes": {
+    "coeficiente": 5,
+    "insumo_incluido": 0,
+    "insumo_excluido": 0,
+    "cabecalho": 6,
+    "total": 6
+  },
+  "revisoes_subgrupos": [
+    {
+      "subgrupo": "ESTACAS ESCAVADAS SEM FLUIDO ESTABILIZANTE",
+      "revisadas": 5
+    },
+    {
+      "subgrupo": "PISOS",
+      "revisadas": 1
+    }
+  ],
+  "codigo": {
+    "numero": "17",
+    "rotulo": "#17"
+  },
+  "acumulado_ano": {
+    "fonte_pct": 1.7,
+    "comparaveis": 8069,
+    "indices": {
+      "INCC-M": 3.18,
+      "IPCA": 3.2
+    },
+    "desde": "2026-01-01"
+  },
+  "dispersao_uf": {
+    "todas": [
+      {
+        "uf": "AL",
+        "cpus": 8242,
+        "var_pct": 1.08
+      },
+      {
+        "uf": "AM",
+        "cpus": 8243,
+        "var_pct": 0.7
+      },
+      {
+        "uf": "AP",
+        "cpus": 8241,
+        "var_pct": 0.69
+      },
+      {
+        "uf": "RN",
+        "cpus": 8242,
+        "var_pct": 0.69
+      },
+      {
+        "uf": "BA",
+        "cpus": 8242,
+        "var_pct": 0.6
+      },
+      {
+        "uf": "MA",
+        "cpus": 8243,
+        "var_pct": 0.52
+      },
+      {
+        "uf": "RO",
+        "cpus": 8242,
+        "var_pct": 0.49
+      },
+      {
+        "uf": "SP",
+        "cpus": 8242,
+        "var_pct": 0.48
+      },
+      {
+        "uf": "TO",
+        "cpus": 8243,
+        "var_pct": 0.48
+      },
+      {
+        "uf": "PB",
+        "cpus": 8243,
+        "var_pct": 0.43
+      },
+      {
+        "uf": "AC",
+        "cpus": 8242,
+        "var_pct": 0.43
+      },
+      {
+        "uf": "RR",
+        "cpus": 8242,
+        "var_pct": 0.41
+      },
+      {
+        "uf": "PE",
+        "cpus": 8242,
+        "var_pct": 0.38
+      },
+      {
+        "uf": "MG",
+        "cpus": 8242,
+        "var_pct": 0.3
+      },
+      {
+        "uf": "PA",
+        "cpus": 8242,
+        "var_pct": 0.2
+      },
+      {
+        "uf": "PI",
+        "cpus": 8242,
+        "var_pct": 0.2
+      },
+      {
+        "uf": "SE",
+        "cpus": 8242,
+        "var_pct": 0.19
+      },
+      {
+        "uf": "MT",
+        "cpus": 8242,
+        "var_pct": 0.19
+      },
+      {
+        "uf": "MS",
+        "cpus": 8243,
+        "var_pct": 0.01
+      },
+      {
+        "uf": "CE",
+        "cpus": 8243,
+        "var_pct": 0.01
+      },
+      {
+        "uf": "RS",
+        "cpus": 8242,
+        "var_pct": 0.0
+      },
+      {
+        "uf": "GO",
+        "cpus": 8241,
+        "var_pct": -0.02
+      },
+      {
+        "uf": "SC",
+        "cpus": 8241,
+        "var_pct": -0.05
+      },
+      {
+        "uf": "ES",
+        "cpus": 8241,
+        "var_pct": -0.08
+      },
+      {
+        "uf": "PR",
+        "cpus": 8242,
+        "var_pct": -0.16
+      },
+      {
+        "uf": "DF",
+        "cpus": 8242,
+        "var_pct": -0.17
+      },
+      {
+        "uf": "RJ",
+        "cpus": 8242,
+        "var_pct": -0.58
+      }
+    ],
+    "altas": [
+      {
+        "uf": "AL",
+        "cpus": 8242,
+        "var_pct": 1.08
+      },
+      {
+        "uf": "AM",
+        "cpus": 8243,
+        "var_pct": 0.7
+      },
+      {
+        "uf": "AP",
+        "cpus": 8241,
+        "var_pct": 0.69
+      },
+      {
+        "uf": "RN",
+        "cpus": 8242,
+        "var_pct": 0.69
+      },
+      {
+        "uf": "BA",
+        "cpus": 8242,
+        "var_pct": 0.6
+      },
+      {
+        "uf": "MA",
+        "cpus": 8243,
+        "var_pct": 0.52
+      },
+      {
+        "uf": "RO",
+        "cpus": 8242,
+        "var_pct": 0.49
+      },
+      {
+        "uf": "SP",
+        "cpus": 8242,
+        "var_pct": 0.48
+      },
+      {
+        "uf": "TO",
+        "cpus": 8243,
+        "var_pct": 0.48
+      },
+      {
+        "uf": "PB",
+        "cpus": 8243,
+        "var_pct": 0.43
+      }
+    ],
+    "baixas": [
+      {
+        "uf": "RJ",
+        "cpus": 8242,
+        "var_pct": -0.58
+      },
+      {
+        "uf": "DF",
+        "cpus": 8242,
+        "var_pct": -0.17
+      },
+      {
+        "uf": "PR",
+        "cpus": 8242,
+        "var_pct": -0.16
+      },
+      {
+        "uf": "ES",
+        "cpus": 8241,
+        "var_pct": -0.08
+      },
+      {
+        "uf": "SC",
+        "cpus": 8241,
+        "var_pct": -0.05
+      },
+      {
+        "uf": "GO",
+        "cpus": 8241,
+        "var_pct": -0.02
+      },
+      {
+        "uf": "RS",
+        "cpus": 8242,
+        "var_pct": 0.0
+      },
+      {
+        "uf": "CE",
+        "cpus": 8243,
+        "var_pct": 0.01
+      },
+      {
+        "uf": "MS",
+        "cpus": 8243,
+        "var_pct": 0.01
+      },
+      {
+        "uf": "MT",
+        "cpus": 8242,
+        "var_pct": 0.19
+      }
+    ],
+    "ufs": 27
+  }
+}

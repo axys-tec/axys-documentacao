@@ -1,0 +1,652 @@
+{
+  "fonte": "SINAPI",
+  "ref": "2026-04-01",
+  "ref_anterior": "2026-03-01",
+  "versao": "04-26",
+  "edi_id": 21,
+  "edi_anterior": 20,
+  "meses_intervalo": 1,
+  "modalidade": "SD",
+  "uf_foco": "SP",
+  "movimento": {
+    "incluidas": 4,
+    "inativadas": 0,
+    "reativadas": 90,
+    "alteradas": 93
+  },
+  "cobertura": {
+    "ufs": 27,
+    "cpus": 10378,
+    "sem_custo": 173008,
+    "linhas": 840618,
+    "pct_sem_custo": 20.6,
+    "insumos": 131112,
+    "insumos_sem_preco": 34274,
+    "pct_sem_preco": 26.1
+  },
+  "precos": {
+    "uf": "SP",
+    "comparaveis": 8238,
+    "media_pct": 0.92,
+    "mediana_pct": 0.03,
+    "subiram": 4182,
+    "cairam": 3348,
+    "estaveis": 708
+  },
+  "subgrupos": {
+    "altas": [
+      {
+        "subgrupo": "TRANSPORTE DE MATERIAIS DENTRO DO CANTEIRO DE OBRAS",
+        "cpus": 93,
+        "var_pct": 13.84,
+        "medio_anterior": 64.45,
+        "medio_atual": 73.37
+      },
+      {
+        "subgrupo": "USINAGENS",
+        "cpus": 16,
+        "var_pct": 8.33,
+        "medio_anterior": 138.17,
+        "medio_atual": 149.69
+      },
+      {
+        "subgrupo": "ATERROS, BASES, SUB BASES E IMPRIMAÇÕES",
+        "cpus": 228,
+        "var_pct": 7.5,
+        "medio_anterior": 128.6,
+        "medio_atual": 138.25
+      },
+      {
+        "subgrupo": "PAREDES DE CONCRETO - CONCRETAGEM",
+        "cpus": 12,
+        "var_pct": 6.55,
+        "medio_anterior": 665.01,
+        "medio_atual": 708.58
+      },
+      {
+        "subgrupo": "PRODUÇÃO DE CONCRETO",
+        "cpus": 29,
+        "var_pct": 5.77,
+        "medio_anterior": 520.06,
+        "medio_atual": 550.06
+      },
+      {
+        "subgrupo": "REVESTIMENTOS CERÂMICOS INTERNOS",
+        "cpus": 42,
+        "var_pct": 5.33,
+        "medio_anterior": 96.23,
+        "medio_atual": 101.37
+      },
+      {
+        "subgrupo": "ESTACAS EM HÉLICE CONTÍNUA",
+        "cpus": 20,
+        "var_pct": 4.8,
+        "medio_anterior": 352.05,
+        "medio_atual": 368.94
+      },
+      {
+        "subgrupo": "CONCRETAGEM PARA ESTRUTURAS DE CONCRETO ARMADO",
+        "cpus": 20,
+        "var_pct": 4.65,
+        "medio_anterior": 765.45,
+        "medio_atual": 801.04
+      },
+      {
+        "subgrupo": "DRENOS",
+        "cpus": 49,
+        "var_pct": 4.61,
+        "medio_anterior": 99.8,
+        "medio_atual": 104.4
+      },
+      {
+        "subgrupo": "LASTRO",
+        "cpus": 13,
+        "var_pct": 4.51,
+        "medio_anterior": 230.84,
+        "medio_atual": 241.24
+      }
+    ],
+    "baixas": [
+      {
+        "subgrupo": "ILUMINAÇÃO PREDIAL E MONITORAMENTO",
+        "cpus": 13,
+        "var_pct": -3.25,
+        "medio_anterior": 52.06,
+        "medio_atual": 50.37
+      },
+      {
+        "subgrupo": "PAREDES EM DRYWALL",
+        "cpus": 23,
+        "var_pct": -2.31,
+        "medio_anterior": 132.75,
+        "medio_atual": 129.68
+      },
+      {
+        "subgrupo": "QUADROS DE AUTOMAÇÃO DE BOMBAS",
+        "cpus": 18,
+        "var_pct": -2.08,
+        "medio_anterior": 272.82,
+        "medio_atual": 267.15
+      },
+      {
+        "subgrupo": "PINTURA EXTERNA",
+        "cpus": 31,
+        "var_pct": -2.06,
+        "medio_anterior": 26.95,
+        "medio_atual": 26.4
+      },
+      {
+        "subgrupo": "PAREDES DE CONCRETO - ARMAÇÃO",
+        "cpus": 16,
+        "var_pct": -1.98,
+        "medio_anterior": 9.39,
+        "medio_atual": 9.21
+      },
+      {
+        "subgrupo": "MONOCAPA",
+        "cpus": 12,
+        "var_pct": -1.77,
+        "medio_anterior": 184.08,
+        "medio_atual": 180.83
+      },
+      {
+        "subgrupo": "PINTURA INTERNA",
+        "cpus": 14,
+        "var_pct": -1.54,
+        "medio_anterior": 17.31,
+        "medio_atual": 17.04
+      },
+      {
+        "subgrupo": "INSTALAÇÕES DE AR CONDICIONADO",
+        "cpus": 40,
+        "var_pct": -1.36,
+        "medio_anterior": 7880.14,
+        "medio_atual": 7772.8
+      },
+      {
+        "subgrupo": "ARMAÇÃO PARA ESTRUTURAS DE CONCRETO ARMADO",
+        "cpus": 56,
+        "var_pct": -1.29,
+        "medio_anterior": 10.0,
+        "medio_atual": 9.87
+      },
+      {
+        "subgrupo": "ARMAÇÃO DE ESTACAS",
+        "cpus": 11,
+        "var_pct": -1.15,
+        "medio_anterior": 10.83,
+        "medio_atual": 10.7
+      }
+    ],
+    "total_subgrupos": 116
+  },
+  "insumos": {
+    "comparaveis": 4855,
+    "media_pct": 0.75,
+    "altas": [
+      {
+        "insumo": "PLACA DE SINALIZACAO DE SEGURANCA CONTRA INCENDIO - ALERTA, TRIANGULAR, BASE DE *30* CM, EM PVC *2* MM ANTI-CHAMAS (SIMBOLOS, CORES E PICTOGRAMAS CONFORME NBR 16820)",
+        "unidade": "UN",
+        "var_pct": 26.9
+      },
+      {
+        "insumo": "PLACA DE SINALIZACAO DE SEGURANCA CONTRA INCENDIO, FOTOLUMINESCENTE, RETANGULAR, *12 X 40* CM, EM PVC *2* MM ANTI-CHAMAS (SIMBOLOS, CORES E PICTOGRAMAS CONFORME NBR 16820)",
+        "unidade": "UN",
+        "var_pct": 26.9
+      },
+      {
+        "insumo": "PLACA DE SINALIZACAO DE SEGURANCA CONTRA INCENDIO, FOTOLUMINESCENTE, RETANGULAR, *13 X 26* CM, EM PVC *2* MM ANTI-CHAMAS (SIMBOLOS, CORES E PICTOGRAMAS CONFORME NBR 16820)",
+        "unidade": "UN",
+        "var_pct": 26.9
+      },
+      {
+        "insumo": "PLACA DE SINALIZACAO DE SEGURANCA CONTRA INCENDIO, FOTOLUMINESCENTE, RETANGULAR, *20 X 40* CM, EM PVC *2* MM ANTI-CHAMAS (SIMBOLOS, CORES E PICTOGRAMAS CONFORME NBR 16820)",
+        "unidade": "UN",
+        "var_pct": 26.9
+      },
+      {
+        "insumo": "PLACA DE SINALIZACAO DE SEGURANCA CONTRA INCENDIO, FOTOLUMINESCENTE, QUADRADA, *14 X 14* CM, EM PVC *2* MM ANTI-CHAMAS (SIMBOLOS, CORES E PICTOGRAMAS CONFORME NBR 16820)",
+        "unidade": "UN",
+        "var_pct": 26.9
+      },
+      {
+        "insumo": "PLACA DE SINALIZACAO DE SEGURANCA CONTRA INCENDIO, FOTOLUMINESCENTE, QUADRADA, *20 X 20* CM, EM PVC *2* MM ANTI-CHAMAS (SIMBOLOS, CORES E PICTOGRAMAS CONFORME NBR 16820)",
+        "unidade": "UN",
+        "var_pct": 26.9
+      },
+      {
+        "insumo": "DETERGENTE NEUTRO USO GERAL, CONCENTRADO",
+        "unidade": "L",
+        "var_pct": 12.7
+      },
+      {
+        "insumo": "DESINFETANTE PRONTO USO",
+        "unidade": "L",
+        "var_pct": 12.7
+      },
+      {
+        "insumo": "ACIDO CLORIDRICO / ACIDO MURIATICO, DILUICAO 10% A 12% PARA USO EM LIMPEZA",
+        "unidade": "L",
+        "var_pct": 12.7
+      },
+      {
+        "insumo": "CERA LIQUIDA INCOLOR MULTIPISO",
+        "unidade": "L",
+        "var_pct": 12.7
+      },
+      {
+        "insumo": "DILUENTE EPOXI",
+        "unidade": "L",
+        "var_pct": 12.7
+      },
+      {
+        "insumo": "DILUENTE AGUARRAS",
+        "unidade": "L",
+        "var_pct": 12.7
+      },
+      {
+        "insumo": "LIMPA VIDROS COM PULVERIZADOR",
+        "unidade": "L",
+        "var_pct": 12.7
+      },
+      {
+        "insumo": "ESPOLETA SIMPLES N 8.",
+        "unidade": "UN",
+        "var_pct": 12.4
+      },
+      {
+        "insumo": "ACESSORIO DE LIGACAO NAO ELETRICO PARA CARGAS EXPLOSIVAS, TUBO DE 6 M",
+        "unidade": "UN",
+        "var_pct": 12.4
+      },
+      {
+        "insumo": "CORDEL DETONANTE, NP 10 G/M",
+        "unidade": "M",
+        "var_pct": 12.3
+      },
+      {
+        "insumo": "CONJUNTO MONTADO ESTOPIM COM ESPOLETA COMUM NUMERO 8, COM CABECA ACENDEDORA, 1,5 M",
+        "unidade": "UN",
+        "var_pct": 12.3
+      },
+      {
+        "insumo": "RETARDO PARA CORDEL DETONANTE",
+        "unidade": "UN",
+        "var_pct": 12.3
+      }
+    ],
+    "baixas": [
+      {
+        "insumo": "CONE DE SINALIZACAO EM PVC FLEXIVEL, H = 70 / 76 CM (NBR 15071)",
+        "unidade": "UN",
+        "var_pct": -15.4
+      },
+      {
+        "insumo": "CONE DE SINALIZACAO EM PVC RIGIDO COM FAIXA REFLETIVA, H = 70 / 76 CM",
+        "unidade": "UN",
+        "var_pct": -15.4
+      },
+      {
+        "insumo": "CURVA 90 GRAUS RANHURADA EM FERRO FUNDIDO, DN 50 MM (2\")",
+        "unidade": "UN",
+        "var_pct": -10.2
+      },
+      {
+        "insumo": "TE RANHURADO EM FERRO FUNDIDO, DN 50 (2\")",
+        "unidade": "UN",
+        "var_pct": -10.2
+      },
+      {
+        "insumo": "CURVA 45 GRAUS RANHURADA EM FERRO FUNDIDO, DN 50 MM (2\")",
+        "unidade": "UN",
+        "var_pct": -10.2
+      },
+      {
+        "insumo": "TE RANHURADO EM FERRO FUNDIDO, DN 65 (2 1/2\")",
+        "unidade": "UN",
+        "var_pct": -10.2
+      },
+      {
+        "insumo": "ACOPLAMENTO RIGIDO EM FERRO FUNDIDO PARA SISTEMA DE TUBULACAO RANHURADA, DN 65 MM (2 1/2\")",
+        "unidade": "UN",
+        "var_pct": -10.2
+      },
+      {
+        "insumo": "ACOPLAMENTO RIGIDO EM FERRO FUNDIDO PARA SISTEMA DE TUBULACAO RANHURADA, DN 80 MM (3\")",
+        "unidade": "UN",
+        "var_pct": -10.2
+      },
+      {
+        "insumo": "ACOPLAMENTO RIGIDO EM FERRO FUNDIDO PARA SISTEMA DE TUBULACAO RANHURADA, DN 50 MM (2\")",
+        "unidade": "UN",
+        "var_pct": -10.2
+      },
+      {
+        "insumo": "CURVA 90 GRAUS RANHURADA EM FERRO FUNDIDO, DN 80 MM (3\")",
+        "unidade": "UN",
+        "var_pct": -10.2
+      },
+      {
+        "insumo": "TE RANHURADO EM FERRO FUNDIDO, DN 80 (3\")",
+        "unidade": "UN",
+        "var_pct": -10.2
+      },
+      {
+        "insumo": "CURVA 90 GRAUS RANHURADA EM FERRO FUNDIDO, DN 65 MM (2 1/2\")",
+        "unidade": "UN",
+        "var_pct": -10.2
+      },
+      {
+        "insumo": "CURVA 45 GRAUS RANHURADA EM FERRO FUNDIDO, DN 65 MM (2 1/2\")",
+        "unidade": "UN",
+        "var_pct": -10.2
+      },
+      {
+        "insumo": "CURVA 45 GRAUS RANHURADA EM FERRO FUNDIDO, DN 80 MM (3\")",
+        "unidade": "UN",
+        "var_pct": -10.1
+      },
+      {
+        "insumo": "ELETRODO REVESTIDO AWS - E7018, DIAMETRO IGUAL A 4,00 MM",
+        "unidade": "KG",
+        "var_pct": -9.6
+      },
+      {
+        "insumo": "SOLDA EM BARRA DE ESTANHO-CHUMBO 50/50",
+        "unidade": "KG",
+        "var_pct": -9.6
+      },
+      {
+        "insumo": "ELETRODO REVESTIDO AWS - E-6010, DIAMETRO IGUAL A 4,00 MM",
+        "unidade": "KG",
+        "var_pct": -9.6
+      },
+      {
+        "insumo": "ELETRODO REVESTIDO AWS - E6013, DIAMETRO IGUAL A 2,50 MM",
+        "unidade": "KG",
+        "var_pct": -9.6
+      }
+    ]
+  },
+  "indicadores": {
+    "acumulados": {
+      "IGP-M": 2.73,
+      "INCC-M": 1.04,
+      "INPC": 0.81,
+      "IPCA": 0.67
+    },
+    "selic_aa": 14.5,
+    "selic_aa_anterior": 14.75,
+    "meses": 1
+  },
+  "revisoes": {
+    "coeficiente": 93,
+    "insumo_incluido": 0,
+    "insumo_excluido": 0,
+    "cabecalho": 93,
+    "total": 93
+  },
+  "revisoes_subgrupos": [
+    {
+      "subgrupo": "TRANSPORTE DE MATERIAIS DENTRO DO CANTEIRO DE OBRAS",
+      "revisadas": 93
+    }
+  ],
+  "codigo": {
+    "numero": "16",
+    "rotulo": "#16"
+  },
+  "acumulado_ano": {
+    "fonte_pct": 1.59,
+    "comparaveis": 8069,
+    "indices": {
+      "INCC-M": 2.39,
+      "IPCA": 2.6
+    },
+    "desde": "2026-01-01"
+  },
+  "dispersao_uf": {
+    "todas": [
+      {
+        "uf": "SC",
+        "cpus": 8237,
+        "var_pct": 2.56
+      },
+      {
+        "uf": "MG",
+        "cpus": 8238,
+        "var_pct": 2.45
+      },
+      {
+        "uf": "RJ",
+        "cpus": 8238,
+        "var_pct": 2.28
+      },
+      {
+        "uf": "AC",
+        "cpus": 8238,
+        "var_pct": 2.06
+      },
+      {
+        "uf": "MA",
+        "cpus": 8239,
+        "var_pct": 2.01
+      },
+      {
+        "uf": "PI",
+        "cpus": 8238,
+        "var_pct": 1.95
+      },
+      {
+        "uf": "BA",
+        "cpus": 8238,
+        "var_pct": 1.93
+      },
+      {
+        "uf": "RN",
+        "cpus": 8238,
+        "var_pct": 1.73
+      },
+      {
+        "uf": "RO",
+        "cpus": 8237,
+        "var_pct": 1.19
+      },
+      {
+        "uf": "SE",
+        "cpus": 8238,
+        "var_pct": 1.11
+      },
+      {
+        "uf": "CE",
+        "cpus": 8239,
+        "var_pct": 1.08
+      },
+      {
+        "uf": "AL",
+        "cpus": 8238,
+        "var_pct": 1.01
+      },
+      {
+        "uf": "SP",
+        "cpus": 8238,
+        "var_pct": 0.92
+      },
+      {
+        "uf": "PE",
+        "cpus": 8238,
+        "var_pct": 0.92
+      },
+      {
+        "uf": "AM",
+        "cpus": 8239,
+        "var_pct": 0.86
+      },
+      {
+        "uf": "DF",
+        "cpus": 8238,
+        "var_pct": 0.84
+      },
+      {
+        "uf": "AP",
+        "cpus": 8237,
+        "var_pct": 0.83
+      },
+      {
+        "uf": "PB",
+        "cpus": 8238,
+        "var_pct": 0.82
+      },
+      {
+        "uf": "MS",
+        "cpus": 8239,
+        "var_pct": 0.81
+      },
+      {
+        "uf": "GO",
+        "cpus": 8237,
+        "var_pct": 0.78
+      },
+      {
+        "uf": "ES",
+        "cpus": 8237,
+        "var_pct": 0.78
+      },
+      {
+        "uf": "RR",
+        "cpus": 8238,
+        "var_pct": 0.67
+      },
+      {
+        "uf": "PR",
+        "cpus": 8238,
+        "var_pct": 0.54
+      },
+      {
+        "uf": "PA",
+        "cpus": 8238,
+        "var_pct": 0.48
+      },
+      {
+        "uf": "MT",
+        "cpus": 8238,
+        "var_pct": 0.33
+      },
+      {
+        "uf": "TO",
+        "cpus": 8239,
+        "var_pct": 0.33
+      },
+      {
+        "uf": "RS",
+        "cpus": 8239,
+        "var_pct": 0.09
+      }
+    ],
+    "altas": [
+      {
+        "uf": "SC",
+        "cpus": 8237,
+        "var_pct": 2.56
+      },
+      {
+        "uf": "MG",
+        "cpus": 8238,
+        "var_pct": 2.45
+      },
+      {
+        "uf": "RJ",
+        "cpus": 8238,
+        "var_pct": 2.28
+      },
+      {
+        "uf": "AC",
+        "cpus": 8238,
+        "var_pct": 2.06
+      },
+      {
+        "uf": "MA",
+        "cpus": 8239,
+        "var_pct": 2.01
+      },
+      {
+        "uf": "PI",
+        "cpus": 8238,
+        "var_pct": 1.95
+      },
+      {
+        "uf": "BA",
+        "cpus": 8238,
+        "var_pct": 1.93
+      },
+      {
+        "uf": "RN",
+        "cpus": 8238,
+        "var_pct": 1.73
+      },
+      {
+        "uf": "RO",
+        "cpus": 8237,
+        "var_pct": 1.19
+      },
+      {
+        "uf": "SE",
+        "cpus": 8238,
+        "var_pct": 1.11
+      }
+    ],
+    "baixas": [
+      {
+        "uf": "RS",
+        "cpus": 8239,
+        "var_pct": 0.09
+      },
+      {
+        "uf": "TO",
+        "cpus": 8239,
+        "var_pct": 0.33
+      },
+      {
+        "uf": "MT",
+        "cpus": 8238,
+        "var_pct": 0.33
+      },
+      {
+        "uf": "PA",
+        "cpus": 8238,
+        "var_pct": 0.48
+      },
+      {
+        "uf": "PR",
+        "cpus": 8238,
+        "var_pct": 0.54
+      },
+      {
+        "uf": "RR",
+        "cpus": 8238,
+        "var_pct": 0.67
+      },
+      {
+        "uf": "ES",
+        "cpus": 8237,
+        "var_pct": 0.78
+      },
+      {
+        "uf": "GO",
+        "cpus": 8237,
+        "var_pct": 0.78
+      },
+      {
+        "uf": "MS",
+        "cpus": 8239,
+        "var_pct": 0.81
+      },
+      {
+        "uf": "PB",
+        "cpus": 8238,
+        "var_pct": 0.82
+      }
+    ],
+    "ufs": 27
+  }
+}

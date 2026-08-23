@@ -1,0 +1,24 @@
+{
+  "grupo": "NEWSLETTER",
+  "gerado_em": null,
+  "itens": [
+    {
+      "id": "sinapi-2025-01",
+      "titulo": "SINAPI · janeiro de 2025",
+      "edicao": "#01",
+      "fonte": "SINAPI",
+      "ref": "2025-01-01",
+      "chamada": "Variação média de +0,41% em SP, com 7 composições incluídas e 30 inativadas.",
+      "variacao_media_pct": 0.41,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "sinapi"
+      ],
+      "pdf": "easy-mobile/newsletter/sinapi-2025-01/sinapi-2025-01.pdf",
+      "pdf_bytes": 492972,
+      "paginas": 7,
+      "publicado_em": "2025-01-01"
+    }
+  ]
+}

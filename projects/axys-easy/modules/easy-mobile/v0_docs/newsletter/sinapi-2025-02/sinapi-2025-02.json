@@ -1,0 +1,688 @@
+{
+  "fonte": "SINAPI",
+  "ref": "2025-02-01",
+  "ref_anterior": "2025-01-01",
+  "versao": "02-25",
+  "edi_id": 7,
+  "edi_anterior": 6,
+  "meses_intervalo": 1,
+  "modalidade": "SD",
+  "uf_foco": "SP",
+  "movimento": {
+    "incluidas": 12,
+    "inativadas": 33,
+    "reativadas": 0,
+    "alteradas": 253
+  },
+  "cobertura": {
+    "ufs": 27,
+    "cpus": 9647,
+    "sem_custo": 149864,
+    "linhas": 781407,
+    "pct_sem_custo": 19.2,
+    "insumos": 130734,
+    "insumos_sem_preco": 39049,
+    "pct_sem_preco": 29.9
+  },
+  "precos": {
+    "uf": "SP",
+    "comparaveis": 7796,
+    "media_pct": 0.53,
+    "mediana_pct": 0.0,
+    "subiram": 3302,
+    "cairam": 2734,
+    "estaveis": 1760
+  },
+  "subgrupos": {
+    "altas": [
+      {
+        "subgrupo": "ASSENTAMENTO DE TUBOS DE ESGOTO OU DRENAGEM PLUVIAL EM CONCRETO",
+        "cpus": 78,
+        "var_pct": 6.41,
+        "medio_anterior": 282.66,
+        "medio_atual": 300.79
+      },
+      {
+        "subgrupo": "INSTALAÇÕES EM COBRE",
+        "cpus": 242,
+        "var_pct": 6.04,
+        "medio_anterior": 108.9,
+        "medio_atual": 115.48
+      },
+      {
+        "subgrupo": "VÁLVULAS E REGISTROS PARA SISTEMAS PREDIAIS",
+        "cpus": 84,
+        "var_pct": 5.57,
+        "medio_anterior": 181.71,
+        "medio_atual": 191.84
+      },
+      {
+        "subgrupo": "CANALETAS, GRELHAS E CAIXAS COM GRELHA PARA DRENAGEM",
+        "cpus": 18,
+        "var_pct": 4.13,
+        "medio_anterior": 225.74,
+        "medio_atual": 235.06
+      },
+      {
+        "subgrupo": "ESQUADRIAS - JANELAS",
+        "cpus": 21,
+        "var_pct": 3.47,
+        "medio_anterior": 627.36,
+        "medio_atual": 649.14
+      },
+      {
+        "subgrupo": "INSTALAÇÕES HIDRÁULICAS EM PPR",
+        "cpus": 95,
+        "var_pct": 3.19,
+        "medio_anterior": 47.95,
+        "medio_atual": 49.48
+      },
+      {
+        "subgrupo": "VIDROS E ESPELHOS",
+        "cpus": 37,
+        "var_pct": 2.94,
+        "medio_anterior": 735.65,
+        "medio_atual": 757.29
+      },
+      {
+        "subgrupo": "DEPRECIAÇÃO, JUROS, IMPOSTOS E SEGUROS, MANUTENÇÃO E MATERIAIS NA OPERAÇÃO DOS EQUIPAMENTOS",
+        "cpus": 665,
+        "var_pct": 2.74,
+        "medio_anterior": 66.06,
+        "medio_atual": 67.87
+      },
+      {
+        "subgrupo": "ESCAVAÇÃO VERTICAL A CÉU ABERTO",
+        "cpus": 72,
+        "var_pct": 2.5,
+        "medio_anterior": 20.81,
+        "medio_atual": 21.33
+      },
+      {
+        "subgrupo": "TRANSPORTE, CARGA E DESCARGA DE MATERIAIS",
+        "cpus": 140,
+        "var_pct": 2.26,
+        "medio_anterior": 23.86,
+        "medio_atual": 24.4
+      }
+    ],
+    "baixas": [
+      {
+        "subgrupo": "TRANSFORMADORES",
+        "cpus": 12,
+        "var_pct": -3.66,
+        "medio_anterior": 37956.72,
+        "medio_atual": 36566.84
+      },
+      {
+        "subgrupo": "PAVIMENTO INTERTRAVADO",
+        "cpus": 18,
+        "var_pct": -3.34,
+        "medio_anterior": 104.08,
+        "medio_atual": 100.6
+      },
+      {
+        "subgrupo": "ASSENTAMENTO DE TUBOS DE ESGOTO EM PVC E PEAD",
+        "cpus": 56,
+        "var_pct": -3.09,
+        "medio_anterior": 219.69,
+        "medio_atual": 212.9
+      },
+      {
+        "subgrupo": "INSTALAÇÕES HIDRÁULICAS EM PEX",
+        "cpus": 82,
+        "var_pct": -2.66,
+        "medio_anterior": 55.18,
+        "medio_atual": 53.71
+      },
+      {
+        "subgrupo": "BOMBAS HIDRÁULICAS - CENTRÍFUGAS, HORIZONTAIS E SUBMERSÍVEIS",
+        "cpus": 14,
+        "var_pct": -2.56,
+        "medio_anterior": 1514.94,
+        "medio_atual": 1476.17
+      },
+      {
+        "subgrupo": "ARMAÇÃO PARA ESTRUTURAS DE CONCRETO ARMADO",
+        "cpus": 56,
+        "var_pct": -1.7,
+        "medio_anterior": 11.39,
+        "medio_atual": 11.2
+      },
+      {
+        "subgrupo": "LOUÇAS E METAIS",
+        "cpus": 102,
+        "var_pct": -1.61,
+        "medio_anterior": 415.43,
+        "medio_atual": 408.73
+      },
+      {
+        "subgrupo": "GRAUTE E ARMAÇÃO",
+        "cpus": 21,
+        "var_pct": -1.58,
+        "medio_anterior": 341.6,
+        "medio_atual": 336.19
+      },
+      {
+        "subgrupo": "ARMAÇÃO DE ESTACAS",
+        "cpus": 11,
+        "var_pct": -1.58,
+        "medio_anterior": 12.17,
+        "medio_atual": 11.97
+      },
+      {
+        "subgrupo": "CAIXAS DE ÁGUA PARA EDIFICAÇÕES",
+        "cpus": 37,
+        "var_pct": -1.46,
+        "medio_anterior": 1267.01,
+        "medio_atual": 1248.51
+      }
+    ],
+    "total_subgrupos": 109
+  },
+  "insumos": {
+    "comparaveis": 4835,
+    "media_pct": 0.28,
+    "altas": [
+      {
+        "insumo": "RALO FOFO SEMIESFERICO, 75 MM, PARA LAJES/ CALHAS",
+        "unidade": "UN",
+        "var_pct": 16.3
+      },
+      {
+        "insumo": "RALO FOFO SEMIESFERICO, 100 MM, PARA LAJES/ CALHAS",
+        "unidade": "UN",
+        "var_pct": 16.2
+      },
+      {
+        "insumo": "RALO FOFO COM REQUADRO, QUADRADO 200 X 200 MM",
+        "unidade": "UN",
+        "var_pct": 16.2
+      },
+      {
+        "insumo": "TAMPAO FOFO SIMPLES COM BASE / REQUADRO, CLASSE A15 CARGA MAX. 1,5 T, 300 X 300 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
+        "unidade": "UN",
+        "var_pct": 16.2
+      },
+      {
+        "insumo": "RALO FOFO COM REQUADRO, QUADRADO 250 X 250 MM",
+        "unidade": "UN",
+        "var_pct": 16.2
+      },
+      {
+        "insumo": "RALO FOFO SEMIESFERICO, 150 MM, PARA LAJES/ CALHAS",
+        "unidade": "UN",
+        "var_pct": 16.2
+      },
+      {
+        "insumo": "TAMPAO FOFO ARTICULADO P/ REGISTRO, COM BASE / REQUADRO, CLASSE A15 CARGA MAX 1,5 T, *200 X 200* MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
+        "unidade": "UN",
+        "var_pct": 16.2
+      },
+      {
+        "insumo": "TAMPAO FOFO SIMPLES COM BASE / REQUADRO, CLASSE A15 CARGA MAX. 1,5 T, 400 X 400 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
+        "unidade": "UN",
+        "var_pct": 16.2
+      },
+      {
+        "insumo": "TAMPAO FOFO ARTICULADO, COM BASE / REQUADRO, CLASSE B125 CARGA MAX 12,5 T, REDONDO, TAMPA 600 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
+        "unidade": "UN",
+        "var_pct": 16.2
+      },
+      {
+        "insumo": "TAMPAO FOFO ARTICULADO, COM BASE / REQUADRO, CLASSE D400 CARGA MAX 40 T, REDONDO, TAMPA 600 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
+        "unidade": "UN",
+        "var_pct": 16.2
+      },
+      {
+        "insumo": "TAMPAO FOFO SIMPLES COM BASE / REQUADRO, CLASSE B125 CARGA MAX. 12,5 T, REDONDO, TAMPA 600 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
+        "unidade": "UN",
+        "var_pct": 16.2
+      },
+      {
+        "insumo": "TAMPAO FOFO SIMPLES COM BASE / REQUADRO, CLASSE D400 CARGA MAX. 40 T, REDONDO, TAMPA 600 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
+        "unidade": "UN",
+        "var_pct": 16.2
+      },
+      {
+        "insumo": "TAMPAO FOFO SIMPLES COM BASE / REQUADRO, CLASSE D400 CARGA MAX. 40 T, REDONDO, TAMPA 900 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
+        "unidade": "UN",
+        "var_pct": 16.2
+      },
+      {
+        "insumo": "RALO FOFO COM REQUADRO, QUADRADO 400 X 400 MM",
+        "unidade": "UN",
+        "var_pct": 16.2
+      },
+      {
+        "insumo": "TAMPAO FOFO SIMPLES COM BASE / REQUADRO, R-2, CLASSE A15 CARGA MAX. 1,5 T, 550 X 1100 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
+        "unidade": "UN",
+        "var_pct": 16.2
+      },
+      {
+        "insumo": "TAMPAO FOFO SIMPLES COM BASE / REQUADRO, CLASSE B125 CARGA MAX. 12,5 T, REDONDO, TAMPA 500 MM (COM INSCRICAO EM RELEVO DO TIPO DE REDE)",
+        "unidade": "UN",
+        "var_pct": 16.2
+      },
+      {
+        "insumo": "GRELHA FOFO SIMPLES COM REQUADRO, CARGA MAXIMA 1,5 T, 200 X 1000 MM, E= *15* MM",
+        "unidade": "UN",
+        "var_pct": 16.2
+      },
+      {
+        "insumo": "GRELHA FOFO SIMPLES COM REQUADRO, CARGA MAXIMA 12,5 T, *300 X 1000* MM, E= *15* MM, AREA ESTACIONAMENTO CARRO PASSEIO",
+        "unidade": "UN",
+        "var_pct": 16.2
+      }
+    ],
+    "baixas": [
+      {
+        "insumo": "PARAFUSO DE ACO ZINCADO COM ROSCA SOBERBA, CABECA CHATA E FENDA SIMPLES, DIAMETRO 2,5 MM, COMPRIMENTO * 9,5 * MM",
+        "unidade": "UN",
+        "var_pct": -16.7
+      },
+      {
+        "insumo": "GRANALHA DE ACO, ANGULAR (GRIT), PARA JATEAMENTO, PENEIRA 1,41 A 1,19 MM (SAE G16)",
+        "unidade": "SC25KG",
+        "var_pct": -13.7
+      },
+      {
+        "insumo": "GRANALHA DE ACO, ESFERICA (SHOT), PARA JATEAMENTO, PENEIRA 0,40 A 1,00 MM (SAE S-170 A S-280)",
+        "unidade": "SC25KG",
+        "var_pct": -13.7
+      },
+      {
+        "insumo": "GRANALHA DE ACO, ESFERICA (SHOT), PARA JATEAMENTO, PENEIRA 1,19 A 1,00 MM (SAE S390)",
+        "unidade": "SC25KG",
+        "var_pct": -13.7
+      },
+      {
+        "insumo": "GRANALHA DE ACO, ANGULAR (GRIT), PARA JATEAMENTO, PENEIRA 0,117 A 1,00 MM, (SAE G-40 A G-80)",
+        "unidade": "SC25KG",
+        "var_pct": -13.7
+      },
+      {
+        "insumo": "TUBO ACO CARBONO SEM COSTURA 1/2\", E= *2,77 MM, SCHEDULE 40, *1,27 KG/M",
+        "unidade": "M",
+        "var_pct": -9.9
+      },
+      {
+        "insumo": "TUBO ACO CARBONO SEM COSTURA 2 1/2\", E = 5,16 MM, SCHEDULE 40 (8,62 KG/M)",
+        "unidade": "M",
+        "var_pct": -9.9
+      },
+      {
+        "insumo": "TUBO ACO CARBONO SEM COSTURA 1\", E= *3,38 MM, SCHEDULE 40, *2,50* KG/M",
+        "unidade": "M",
+        "var_pct": -9.9
+      },
+      {
+        "insumo": "TUBO ACO CARBONO SEM COSTURA 4\", E= *6,02 MM, SCHEDULE 40, *16,06 KG/M",
+        "unidade": "M",
+        "var_pct": -9.9
+      },
+      {
+        "insumo": "TUBO ACO CARBONO SEM COSTURA 5\", E= *6,55 MM, SCHEDULE 40, *21,75* KG/M",
+        "unidade": "M",
+        "var_pct": -9.9
+      },
+      {
+        "insumo": "TUBO ACO CARBONO SEM COSTURA 4\", E= *8,56 MM, SCHEDULE 80, *22,31 KG/M",
+        "unidade": "M",
+        "var_pct": -9.9
+      },
+      {
+        "insumo": "TUBO ACO CARBONO SEM COSTURA 3\", E= *5,49 MM, SCHEDULE 40, *11,28* KG/M",
+        "unidade": "M",
+        "var_pct": -9.9
+      },
+      {
+        "insumo": "TUBO ACO CARBONO SEM COSTURA 8\", E= *12,70 MM, SCHEDULE 80, *64,64 KG/M",
+        "unidade": "M",
+        "var_pct": -9.9
+      },
+      {
+        "insumo": "TUBO ACO CARBONO SEM COSTURA 8\", E= *8,18 MM, SCHEDULE 40, *42,55 KG/M",
+        "unidade": "M",
+        "var_pct": -9.9
+      },
+      {
+        "insumo": "TUBO ACO CARBONO SEM COSTURA 8\", E= *7,04 MM, SCHEDULE 30, *36,75 KG/M",
+        "unidade": "M",
+        "var_pct": -9.9
+      },
+      {
+        "insumo": "TUBO DE REVESTIMENTO, EM ACO, CORPO SCHEDULE 40, PONTEIRA SCHEDULE 80, ROSQUEAVEL E SEGMENTADO PARA PERFURACAO, DIAMETRO 4\" (450 MM)",
+        "unidade": "M",
+        "var_pct": -9.9
+      },
+      {
+        "insumo": "TUBO DE REVESTIMENTO, EM ACO, CORPO SCHEDULE 40, PONTEIRA SCHEDULE 80, ROSQUEAVEL E SEGMENTADO PARA PERFURACAO, DIAMETRO 8\" (200 MM)",
+        "unidade": "M",
+        "var_pct": -9.9
+      },
+      {
+        "insumo": "TUBO ACO CARBONO SEM COSTURA 6\", E= *10,97 MM, SCHEDULE 80, *42,56 KG/M",
+        "unidade": "M",
+        "var_pct": -9.9
+      }
+    ]
+  },
+  "indicadores": {
+    "acumulados": {
+      "IGP-M": 1.06,
+      "INCC-M": 0.51,
+      "INPC": 1.48,
+      "IPCA": 1.31
+    },
+    "selic_aa": 13.25,
+    "selic_aa_anterior": 13.25,
+    "meses": 1
+  },
+  "revisoes": {
+    "coeficiente": 39,
+    "insumo_incluido": 37,
+    "insumo_excluido": 13,
+    "cabecalho": 250,
+    "total": 253
+  },
+  "revisoes_subgrupos": [
+    {
+      "subgrupo": "POÇOS DE VISITA E CAIXAS PARA BOCAS DE LOBO",
+      "revisadas": 81
+    },
+    {
+      "subgrupo": "ESQUADRIAS - JANELAS",
+      "revisadas": 29
+    },
+    {
+      "subgrupo": "LUMINÁRIAS EXTERNAS",
+      "revisadas": 21
+    },
+    {
+      "subgrupo": "LAJES PRÉ-MOLDADAS",
+      "revisadas": 18
+    },
+    {
+      "subgrupo": "TUBULÕES",
+      "revisadas": 16
+    },
+    {
+      "subgrupo": "FOSSAS E SUMIDOUROS",
+      "revisadas": 14
+    },
+    {
+      "subgrupo": "ESTRUTURAS DE CONTENÇÃO - ESTACAS, PAREDES DIAFRAGMA E MURETA GUIA",
+      "revisadas": 11
+    },
+    {
+      "subgrupo": "INSTALAÇÕES ELÉTRICAS - ELETRODUTOS EMBUTIDOS, CABOS, CAIXAS, TOMADAS E INTERRUPTORES",
+      "revisadas": 10
+    },
+    {
+      "subgrupo": "ESTACAS BROCA, STRAUSS E ESCAVADA COM FLUIDO ESTABILIZANTE",
+      "revisadas": 9
+    },
+    {
+      "subgrupo": "ESCADAS",
+      "revisadas": 8
+    }
+  ],
+  "codigo": {
+    "numero": "02",
+    "rotulo": "#02"
+  },
+  "acumulado_ano": {
+    "fonte_pct": 0.32,
+    "comparaveis": 7795,
+    "indices": {
+      "INCC-M": 1.22,
+      "IPCA": 1.47
+    },
+    "desde": "2025-01-01"
+  },
+  "dispersao_uf": {
+    "todas": [
+      {
+        "uf": "AC",
+        "cpus": 7796,
+        "var_pct": 1.37
+      },
+      {
+        "uf": "RS",
+        "cpus": 7796,
+        "var_pct": 1.25
+      },
+      {
+        "uf": "TO",
+        "cpus": 7796,
+        "var_pct": 1.24
+      },
+      {
+        "uf": "SC",
+        "cpus": 7796,
+        "var_pct": 1.17
+      },
+      {
+        "uf": "AM",
+        "cpus": 7796,
+        "var_pct": 1.02
+      },
+      {
+        "uf": "AL",
+        "cpus": 7796,
+        "var_pct": 0.94
+      },
+      {
+        "uf": "BA",
+        "cpus": 7796,
+        "var_pct": 0.92
+      },
+      {
+        "uf": "PB",
+        "cpus": 7795,
+        "var_pct": 0.8
+      },
+      {
+        "uf": "RN",
+        "cpus": 7796,
+        "var_pct": 0.78
+      },
+      {
+        "uf": "PI",
+        "cpus": 7796,
+        "var_pct": 0.78
+      },
+      {
+        "uf": "ES",
+        "cpus": 7796,
+        "var_pct": 0.78
+      },
+      {
+        "uf": "PA",
+        "cpus": 7796,
+        "var_pct": 0.72
+      },
+      {
+        "uf": "RR",
+        "cpus": 7796,
+        "var_pct": 0.71
+      },
+      {
+        "uf": "RO",
+        "cpus": 7796,
+        "var_pct": 0.7
+      },
+      {
+        "uf": "CE",
+        "cpus": 7796,
+        "var_pct": 0.68
+      },
+      {
+        "uf": "SE",
+        "cpus": 7796,
+        "var_pct": 0.67
+      },
+      {
+        "uf": "MT",
+        "cpus": 7796,
+        "var_pct": 0.6
+      },
+      {
+        "uf": "AP",
+        "cpus": 7796,
+        "var_pct": 0.58
+      },
+      {
+        "uf": "MG",
+        "cpus": 7796,
+        "var_pct": 0.56
+      },
+      {
+        "uf": "SP",
+        "cpus": 7796,
+        "var_pct": 0.53
+      },
+      {
+        "uf": "RJ",
+        "cpus": 7796,
+        "var_pct": 0.41
+      },
+      {
+        "uf": "GO",
+        "cpus": 7796,
+        "var_pct": 0.38
+      },
+      {
+        "uf": "PR",
+        "cpus": 7796,
+        "var_pct": 0.38
+      },
+      {
+        "uf": "MS",
+        "cpus": 7796,
+        "var_pct": 0.34
+      },
+      {
+        "uf": "MA",
+        "cpus": 7796,
+        "var_pct": 0.33
+      },
+      {
+        "uf": "DF",
+        "cpus": 7796,
+        "var_pct": 0.26
+      },
+      {
+        "uf": "PE",
+        "cpus": 7796,
+        "var_pct": -0.49
+      }
+    ],
+    "altas": [
+      {
+        "uf": "AC",
+        "cpus": 7796,
+        "var_pct": 1.37
+      },
+      {
+        "uf": "RS",
+        "cpus": 7796,
+        "var_pct": 1.25
+      },
+      {
+        "uf": "TO",
+        "cpus": 7796,
+        "var_pct": 1.24
+      },
+      {
+        "uf": "SC",
+        "cpus": 7796,
+        "var_pct": 1.17
+      },
+      {
+        "uf": "AM",
+        "cpus": 7796,
+        "var_pct": 1.02
+      },
+      {
+        "uf": "AL",
+        "cpus": 7796,
+        "var_pct": 0.94
+      },
+      {
+        "uf": "BA",
+        "cpus": 7796,
+        "var_pct": 0.92
+      },
+      {
+        "uf": "PB",
+        "cpus": 7795,
+        "var_pct": 0.8
+      },
+      {
+        "uf": "RN",
+        "cpus": 7796,
+        "var_pct": 0.78
+      },
+      {
+        "uf": "PI",
+        "cpus": 7796,
+        "var_pct": 0.78
+      }
+    ],
+    "baixas": [
+      {
+        "uf": "PE",
+        "cpus": 7796,
+        "var_pct": -0.49
+      },
+      {
+        "uf": "DF",
+        "cpus": 7796,
+        "var_pct": 0.26
+      },
+      {
+        "uf": "MA",
+        "cpus": 7796,
+        "var_pct": 0.33
+      },
+      {
+        "uf": "MS",
+        "cpus": 7796,
+        "var_pct": 0.34
+      },
+      {
+        "uf": "PR",
+        "cpus": 7796,
+        "var_pct": 0.38
+      },
+      {
+        "uf": "GO",
+        "cpus": 7796,
+        "var_pct": 0.38
+      },
+      {
+        "uf": "RJ",
+        "cpus": 7796,
+        "var_pct": 0.41
+      },
+      {
+        "uf": "SP",
+        "cpus": 7796,
+        "var_pct": 0.53
+      },
+      {
+        "uf": "MG",
+        "cpus": 7796,
+        "var_pct": 0.56
+      },
+      {
+        "uf": "AP",
+        "cpus": 7796,
+        "var_pct": 0.58
+      }
+    ],
+    "ufs": 27
+  }
+}

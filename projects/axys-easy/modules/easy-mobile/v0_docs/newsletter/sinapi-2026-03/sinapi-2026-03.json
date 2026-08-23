@@ -1,0 +1,660 @@
+{
+  "fonte": "SINAPI",
+  "ref": "2026-03-01",
+  "ref_anterior": "2026-02-01",
+  "versao": "03-26",
+  "edi_id": 20,
+  "edi_anterior": 19,
+  "meses_intervalo": 1,
+  "modalidade": "SD",
+  "uf_foco": "SP",
+  "movimento": {
+    "incluidas": 15,
+    "inativadas": 91,
+    "reativadas": 0,
+    "alteradas": 10
+  },
+  "cobertura": {
+    "ufs": 27,
+    "cpus": 10284,
+    "sem_custo": 165727,
+    "linhas": 833004,
+    "pct_sem_custo": 19.9,
+    "insumos": 131085,
+    "insumos_sem_preco": 35214,
+    "pct_sem_preco": 26.9
+  },
+  "precos": {
+    "uf": "SP",
+    "comparaveis": 8223,
+    "media_pct": 0.87,
+    "mediana_pct": 0.0,
+    "subiram": 3790,
+    "cairam": 2824,
+    "estaveis": 1609
+  },
+  "subgrupos": {
+    "altas": [
+      {
+        "subgrupo": "DEPRECIAÇÃO, JUROS, IMPOSTOS E SEGUROS, MANUTENÇÃO E MATERIAIS NA OPERAÇÃO DOS EQUIPAMENTOS",
+        "cpus": 714,
+        "var_pct": 10.59,
+        "medio_anterior": 68.54,
+        "medio_atual": 75.8
+      },
+      {
+        "subgrupo": "ESCAVAÇÃO VERTICAL A CÉU ABERTO",
+        "cpus": 72,
+        "var_pct": 8.18,
+        "medio_anterior": 21.19,
+        "medio_atual": 22.92
+      },
+      {
+        "subgrupo": "TRANSPORTE, CARGA E DESCARGA DE MATERIAIS",
+        "cpus": 209,
+        "var_pct": 6.8,
+        "medio_anterior": 50.51,
+        "medio_atual": 53.94
+      },
+      {
+        "subgrupo": "CUSTOS HORÁRIOS PRODUTIVO E IMPRODUTIVO DOS EQUIPAMENTOS",
+        "cpus": 320,
+        "var_pct": 6.73,
+        "medio_anterior": 198.97,
+        "medio_atual": 212.36
+      },
+      {
+        "subgrupo": "ESCAVAÇÃO HORIZONTAL",
+        "cpus": 40,
+        "var_pct": 6.3,
+        "medio_anterior": 14.11,
+        "medio_atual": 15.0
+      },
+      {
+        "subgrupo": "INSTALAÇÕES DE AR CONDICIONADO",
+        "cpus": 40,
+        "var_pct": 5.44,
+        "medio_anterior": 7473.89,
+        "medio_atual": 7880.14
+      },
+      {
+        "subgrupo": "TUBULAÇÃO FLANGEADA PARA REDES DE ÁGUA",
+        "cpus": 64,
+        "var_pct": 3.35,
+        "medio_anterior": 352.57,
+        "medio_atual": 364.39
+      },
+      {
+        "subgrupo": "PAREDES DE CONCRETO - CONCRETAGEM",
+        "cpus": 12,
+        "var_pct": 3.23,
+        "medio_anterior": 644.19,
+        "medio_atual": 665.01
+      },
+      {
+        "subgrupo": "ESQUADRIAS - JANELAS",
+        "cpus": 21,
+        "var_pct": 2.99,
+        "medio_anterior": 610.39,
+        "medio_atual": 628.65
+      },
+      {
+        "subgrupo": "ESCAVAÇÃO DE VALAS",
+        "cpus": 73,
+        "var_pct": 2.9,
+        "medio_anterior": 13.3,
+        "medio_atual": 13.69
+      }
+    ],
+    "baixas": [
+      {
+        "subgrupo": "REMOÇÃO DE ENTULHO E DESCARTE",
+        "cpus": 10,
+        "var_pct": -3.42,
+        "medio_anterior": 136.46,
+        "medio_atual": 131.79
+      },
+      {
+        "subgrupo": "REDES DE LÓGICA, TELEFONIA E IMAGEM",
+        "cpus": 61,
+        "var_pct": -3.1,
+        "medio_anterior": 233.13,
+        "medio_atual": 225.92
+      },
+      {
+        "subgrupo": "REVESTIMENTOS CERÂMICOS INTERNOS",
+        "cpus": 42,
+        "var_pct": -2.89,
+        "medio_anterior": 99.1,
+        "medio_atual": 96.23
+      },
+      {
+        "subgrupo": "ILUMINAÇÃO PREDIAL E MONITORAMENTO",
+        "cpus": 13,
+        "var_pct": -1.68,
+        "medio_anterior": 52.96,
+        "medio_atual": 52.06
+      },
+      {
+        "subgrupo": "ARGAMASSAS",
+        "cpus": 144,
+        "var_pct": -1.64,
+        "medio_anterior": 1323.8,
+        "medio_atual": 1302.09
+      },
+      {
+        "subgrupo": "BOMBAS HIDRÁULICAS - CENTRÍFUGAS, HORIZONTAIS E SUBMERSÍVEIS",
+        "cpus": 18,
+        "var_pct": -1.62,
+        "medio_anterior": 1785.08,
+        "medio_atual": 1756.2
+      },
+      {
+        "subgrupo": "INSTALAÇÕES PREDIAIS DE ÁGUA FRIA EM PVC",
+        "cpus": 235,
+        "var_pct": -1.51,
+        "medio_anterior": 27.1,
+        "medio_atual": 26.69
+      },
+      {
+        "subgrupo": "TRANSFORMADORES",
+        "cpus": 12,
+        "var_pct": -1.51,
+        "medio_anterior": 37315.21,
+        "medio_atual": 36752.97
+      },
+      {
+        "subgrupo": "INSTALAÇÕES EM COBRE",
+        "cpus": 242,
+        "var_pct": -1.31,
+        "medio_anterior": 119.04,
+        "medio_atual": 117.48
+      },
+      {
+        "subgrupo": "VIDROS E ESPELHOS",
+        "cpus": 37,
+        "var_pct": -1.2,
+        "medio_anterior": 773.59,
+        "medio_atual": 764.27
+      }
+    ],
+    "total_subgrupos": 115
+  },
+  "insumos": {
+    "comparaveis": 4855,
+    "media_pct": 0.0,
+    "altas": [
+      {
+        "insumo": "CONE DE SINALIZACAO EM PVC FLEXIVEL, H = 70 / 76 CM (NBR 15071)",
+        "unidade": "UN",
+        "var_pct": 19.3
+      },
+      {
+        "insumo": "CONE DE SINALIZACAO EM PVC RIGIDO COM FAIXA REFLETIVA, H = 70 / 76 CM",
+        "unidade": "UN",
+        "var_pct": 19.3
+      },
+      {
+        "insumo": "LUBRIFICANTE REDUTOR DE TORQUE E ARRASTO DE ALTO DESEMPENHO, PARA PERFURACAO HORIZONTAL DIRECIONAL, HDD",
+        "unidade": "KG",
+        "var_pct": 19.1
+      },
+      {
+        "insumo": "OLEO LUBRIFICANTE MINERAL MONOVISCOSO, SAE 40, PARA MOTORES DE EQUIPAMENTOS PESADOS (CAMINHOES, TRATORES, RETROS E ETC)",
+        "unidade": "L",
+        "var_pct": 19.1
+      },
+      {
+        "insumo": "GRAXA LUBRIFICANTE A BASE DE LITIO, DE MULTIPLAS APLICACOES E CONTENDO ADITIVOS DE EXTREMA PRESSAO (GRAU DE VISCOSIDADE NLGI 2)",
+        "unidade": "KG",
+        "var_pct": 19.1
+      },
+      {
+        "insumo": "OLEO DIESEL COMBUSTIVEL COMUM METROPOLITANO S-10 OU S-500",
+        "unidade": "L",
+        "var_pct": 19.1
+      },
+      {
+        "insumo": "TELHA TRAPEZOIDAL EM ACO ZINCADO, SEM PINTURA, ALTURA DE APROXIMADAMENTE 40 MM, ESPESSURA DE 0,50 MM E LARGURA UTIL DE 980 MM",
+        "unidade": "M2",
+        "var_pct": 11.1
+      },
+      {
+        "insumo": "TELHA TERMOISOLANTE REVESTIDA EM ACO GALVALUME, FACE SUPERIOR TRAPEZOIDAL E FACE INFERIOR PLANA (NAO INCLUI ACESSORIOS DE FIXACAO), REVEST COM ESPESSURA DE 0,50 MM, COM PRE-PINTURA DE COR BRANCA NAS DUAS FACES, NUCLEO EM POLIISOCIANURATO (PIR) COM ESPESSURA DE 50 MM",
+        "unidade": "M2",
+        "var_pct": 11.1
+      },
+      {
+        "insumo": "TELHA TERMOISOLANTE REVESTIDA EM ACO GALVANIZADO, FACES SUPERIOR E INFERIOR EM TELHA TRAPEZOIDAL (SEM ACESSORIOS DE FIXACAO), REVESTIMENTO COM ESPESSURA DE 0,50 MM COM PRE-PINTURA NAS DUAS FACES, NUCLEO EM POLIESTIRENO (EPS) DE 50 MM",
+        "unidade": "M2",
+        "var_pct": 11.1
+      },
+      {
+        "insumo": "CHAPA EM ACO GALVANIZADO PARA STEEL DECK, COM NERVURAS TRAPEZOIDAIS, LARGURA UTIL DE 915 MM E ESPESSURA DE 0,95 MM",
+        "unidade": "M2",
+        "var_pct": 11.1
+      },
+      {
+        "insumo": "TELHA TERMOISOLANTE REVESTIDA EM ACO GALVANIZADO, FACE SUPERIOR EM TELHA TRAPEZOIDAL E FACE INFERIOR EM CHAPA PLANA (SEM ACESSORIOS DE FIXACAO), REVESTIMENTO COM ESPESSURA DE 0,50 MM COM PRE-PINTURA NAS DUAS FACES, NUCLEO EM POLIESTIRENO (EPS) DE 50 MM",
+        "unidade": "M2",
+        "var_pct": 11.1
+      },
+      {
+        "insumo": "CHAPA EM ACO GALVANIZADO PARA STEEL DECK, COM NERVURAS TRAPEZOIDAIS, LARGURA UTIL DE 915 MM E ESPESSURA DE 1,25 MM",
+        "unidade": "M2",
+        "var_pct": 11.1
+      },
+      {
+        "insumo": "PAINEL TERMOISOLANTE PARA FECHAMENTOS VERTICAIS (INCLUI PARAFUSOS DE FIXACAO) REVESTIDO EM ACO GALVALUME, LARGURA UTIL DE 1100 MM, REVESTIMENTO COM ESPESSURA DE 0,50 MM, COM PRE-PINTURA NAS DUAS FACES, NUCLEO EM POLIURETANO (PUR) COM ESPESSURA 70/80 MM",
+        "unidade": "M2",
+        "var_pct": 11.1
+      },
+      {
+        "insumo": "TELHA ONDULADA EM ACO ZINCADO, ALTURA DE 17 MM, ESPESSURA DE 0,50 MM, LARGURA UTIL DE APROXIMADAMENTE 985 MM, SEM PINTURA",
+        "unidade": "M2",
+        "var_pct": 11.1
+      },
+      {
+        "insumo": "TELHA TERMOISOLANTE REVESTIDA EM ACO GALVANIZADO, FACE SUPERIOR EM TELHA TRAPEZOIDAL E FACE INFERIOR EM CHAPA PLANA (SEM ACESSORIOS DE FIXACAO), REVESTIMENTO COM ESPESSURA DE 0,50 MM COM PRE-PINTURA NAS DUAS FACES, NUCLEO EM POLIESTIRENO (EPS) DE 30 MM",
+        "unidade": "M2",
+        "var_pct": 11.1
+      },
+      {
+        "insumo": "PAINEL TERMOISOLANTE PARA FECHAMENTOS VERTICAIS (INCLUI PARAFUSOS DE FIXACAO) REVESTIDO EM ACO GALVALUME, LARGURA UTIL DE 1100 MM, REVESTIMENTO COM ESPESSURA DE 0,50 MM, COM PRE-PINTURA NAS DUAS FACES, NUCLEO EM POLIURETANO (PUR) COM ESPESSURA 40/50 MM",
+        "unidade": "M2",
+        "var_pct": 11.1
+      },
+      {
+        "insumo": "TELHA GALVALUME COM ISOLAMENTO TERMOACUSTICO EM ESPUMA RIGIDA DE POLIURETANO (PU) INJETADO, ESPESSURA DE 30 MM, DENSIDADE DE 35 KG/M3, REVESTIMENTO EM TELHA TRAPEZOIDAL NAS DUAS FACES COM ESPESSURA DE 0,50 MM CADA, ACABAMENTO NATURAL (NAO INCLUI ACESSORIOS DE FIXACAO)",
+        "unidade": "M2",
+        "var_pct": 11.1
+      },
+      {
+        "insumo": "CHAPA EM ACO GALVANIZADO PARA STEEL DECK, COM NERVURAS TRAPEZOIDAIS, LARGURA UTIL DE 915 MM E ESPESSURA DE 0,80 MM",
+        "unidade": "M2",
+        "var_pct": 11.1
+      }
+    ],
+    "baixas": [
+      {
+        "insumo": "TELA DE ANIAGEM (JUTA)",
+        "unidade": "M2",
+        "var_pct": -17.3
+      },
+      {
+        "insumo": "SISAL EM FIBRA / ESTOPA SISAL PARA GESSO",
+        "unidade": "KG",
+        "var_pct": -17.2
+      },
+      {
+        "insumo": "SACO DE RAFIA PARA ENTULHO, NOVO, LISO (SEM CLICHE), *60 X 90* CM",
+        "unidade": "UN",
+        "var_pct": -17.2
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA PVC, COM BORBOLETA, COM ROSCA EXTERNA, DE 1/2\"",
+        "unidade": "UN",
+        "var_pct": -13.7
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 25 MM, COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": -13.7
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA PVC, COM CABECA QUADRADA, COM ROSCA EXTERNA, 3/4\"",
+        "unidade": "UN",
+        "var_pct": -13.7
+      },
+      {
+        "insumo": "REGISTRO DE PRESSAO PVC, ROSCAVEL, VOLANTE SIMPLES, DE 3/4\"",
+        "unidade": "UN",
+        "var_pct": -13.7
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 32 MM, COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": -13.7
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 1 1/4\", COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": -13.7
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 50 MM, COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": -13.7
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA PVC, COM BORBOLETA, COM ROSCA EXTERNA, DE 3/4\"",
+        "unidade": "UN",
+        "var_pct": -13.7
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 1\", COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": -13.7
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 3/4\", COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": -13.7
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 40 MM, COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": -13.7
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 1 1/2\", COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": -13.7
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 2\", COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": -13.7
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, SOLDAVEL, DN 60 MM, COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": -13.7
+      },
+      {
+        "insumo": "REGISTRO DE ESFERA, PVC, COM VOLANTE, VS, ROSCAVEL, DN 1/2\", COM CORPO DIVIDIDO",
+        "unidade": "UN",
+        "var_pct": -13.7
+      }
+    ]
+  },
+  "indicadores": {
+    "acumulados": {
+      "IGP-M": 0.52,
+      "INCC-M": 0.36,
+      "INPC": 0.91,
+      "IPCA": 0.88
+    },
+    "selic_aa": 14.75,
+    "selic_aa_anterior": 15.0,
+    "meses": 1
+  },
+  "revisoes": {
+    "coeficiente": 5,
+    "insumo_incluido": 7,
+    "insumo_excluido": 7,
+    "cabecalho": 8,
+    "total": 10
+  },
+  "revisoes_subgrupos": [
+    {
+      "subgrupo": "ESTACAS EM HÉLICE CONTÍNUA",
+      "revisadas": 5
+    },
+    {
+      "subgrupo": "IMPERMEABILIZAÇÃO, PROTEÇÃO MECÂNICA E TRATAMENTO DE JUNTA",
+      "revisadas": 3
+    },
+    {
+      "subgrupo": "INSTALAÇÕES EM COBRE",
+      "revisadas": 2
+    }
+  ],
+  "codigo": {
+    "numero": "15",
+    "rotulo": "#15"
+  },
+  "acumulado_ano": {
+    "fonte_pct": 0.61,
+    "comparaveis": 8069,
+    "indices": {
+      "INCC-M": 1.34,
+      "IPCA": 1.92
+    },
+    "desde": "2026-01-01"
+  },
+  "dispersao_uf": {
+    "todas": [
+      {
+        "uf": "BA",
+        "cpus": 8223,
+        "var_pct": 2.57
+      },
+      {
+        "uf": "PB",
+        "cpus": 8223,
+        "var_pct": 2.33
+      },
+      {
+        "uf": "GO",
+        "cpus": 8222,
+        "var_pct": 2.04
+      },
+      {
+        "uf": "DF",
+        "cpus": 8223,
+        "var_pct": 1.38
+      },
+      {
+        "uf": "MA",
+        "cpus": 8224,
+        "var_pct": 1.27
+      },
+      {
+        "uf": "TO",
+        "cpus": 8224,
+        "var_pct": 1.22
+      },
+      {
+        "uf": "SE",
+        "cpus": 8223,
+        "var_pct": 1.19
+      },
+      {
+        "uf": "MG",
+        "cpus": 8223,
+        "var_pct": 1.07
+      },
+      {
+        "uf": "PE",
+        "cpus": 8223,
+        "var_pct": 1.06
+      },
+      {
+        "uf": "PR",
+        "cpus": 8223,
+        "var_pct": 1.06
+      },
+      {
+        "uf": "ES",
+        "cpus": 8222,
+        "var_pct": 1.0
+      },
+      {
+        "uf": "RS",
+        "cpus": 8224,
+        "var_pct": 0.99
+      },
+      {
+        "uf": "RR",
+        "cpus": 8223,
+        "var_pct": 0.94
+      },
+      {
+        "uf": "AL",
+        "cpus": 8223,
+        "var_pct": 0.91
+      },
+      {
+        "uf": "RN",
+        "cpus": 8223,
+        "var_pct": 0.89
+      },
+      {
+        "uf": "SC",
+        "cpus": 8222,
+        "var_pct": 0.87
+      },
+      {
+        "uf": "SP",
+        "cpus": 8223,
+        "var_pct": 0.87
+      },
+      {
+        "uf": "PI",
+        "cpus": 8223,
+        "var_pct": 0.83
+      },
+      {
+        "uf": "AC",
+        "cpus": 8223,
+        "var_pct": 0.8
+      },
+      {
+        "uf": "MT",
+        "cpus": 8223,
+        "var_pct": 0.78
+      },
+      {
+        "uf": "PA",
+        "cpus": 8223,
+        "var_pct": 0.75
+      },
+      {
+        "uf": "CE",
+        "cpus": 8224,
+        "var_pct": 0.75
+      },
+      {
+        "uf": "MS",
+        "cpus": 8224,
+        "var_pct": 0.67
+      },
+      {
+        "uf": "RJ",
+        "cpus": 8223,
+        "var_pct": 0.61
+      },
+      {
+        "uf": "RO",
+        "cpus": 8222,
+        "var_pct": 0.31
+      },
+      {
+        "uf": "AM",
+        "cpus": 8224,
+        "var_pct": 0.25
+      },
+      {
+        "uf": "AP",
+        "cpus": 8222,
+        "var_pct": -0.21
+      }
+    ],
+    "altas": [
+      {
+        "uf": "BA",
+        "cpus": 8223,
+        "var_pct": 2.57
+      },
+      {
+        "uf": "PB",
+        "cpus": 8223,
+        "var_pct": 2.33
+      },
+      {
+        "uf": "GO",
+        "cpus": 8222,
+        "var_pct": 2.04
+      },
+      {
+        "uf": "DF",
+        "cpus": 8223,
+        "var_pct": 1.38
+      },
+      {
+        "uf": "MA",
+        "cpus": 8224,
+        "var_pct": 1.27
+      },
+      {
+        "uf": "TO",
+        "cpus": 8224,
+        "var_pct": 1.22
+      },
+      {
+        "uf": "SE",
+        "cpus": 8223,
+        "var_pct": 1.19
+      },
+      {
+        "uf": "MG",
+        "cpus": 8223,
+        "var_pct": 1.07
+      },
+      {
+        "uf": "PE",
+        "cpus": 8223,
+        "var_pct": 1.06
+      },
+      {
+        "uf": "PR",
+        "cpus": 8223,
+        "var_pct": 1.06
+      }
+    ],
+    "baixas": [
+      {
+        "uf": "AP",
+        "cpus": 8222,
+        "var_pct": -0.21
+      },
+      {
+        "uf": "AM",
+        "cpus": 8224,
+        "var_pct": 0.25
+      },
+      {
+        "uf": "RO",
+        "cpus": 8222,
+        "var_pct": 0.31
+      },
+      {
+        "uf": "RJ",
+        "cpus": 8223,
+        "var_pct": 0.61
+      },
+      {
+        "uf": "MS",
+        "cpus": 8224,
+        "var_pct": 0.67
+      },
+      {
+        "uf": "CE",
+        "cpus": 8224,
+        "var_pct": 0.75
+      },
+      {
+        "uf": "PA",
+        "cpus": 8223,
+        "var_pct": 0.75
+      },
+      {
+        "uf": "MT",
+        "cpus": 8223,
+        "var_pct": 0.78
+      },
+      {
+        "uf": "AC",
+        "cpus": 8223,
+        "var_pct": 0.8
+      },
+      {
+        "uf": "PI",
+        "cpus": 8223,
+        "var_pct": 0.83
+      }
+    ],
+    "ufs": 27
+  }
+}

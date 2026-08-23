@@ -1,0 +1,668 @@
+{
+  "fonte": "SINAPI",
+  "ref": "2025-08-01",
+  "ref_anterior": "2025-07-01",
+  "versao": "08-25",
+  "edi_id": 13,
+  "edi_anterior": 12,
+  "meses_intervalo": 1,
+  "modalidade": "SD",
+  "uf_foco": "SP",
+  "movimento": {
+    "incluidas": 69,
+    "inativadas": 19,
+    "reativadas": 1,
+    "alteradas": 91
+  },
+  "cobertura": {
+    "ufs": 27,
+    "cpus": 9774,
+    "sem_custo": 148024,
+    "linhas": 791694,
+    "pct_sem_custo": 18.7,
+    "insumos": 132894,
+    "insumos_sem_preco": 39963,
+    "pct_sem_preco": 30.1
+  },
+  "precos": {
+    "uf": "SP",
+    "comparaveis": 7829,
+    "media_pct": 0.21,
+    "mediana_pct": 0.02,
+    "subiram": 4275,
+    "cairam": 2144,
+    "estaveis": 1410
+  },
+  "subgrupos": {
+    "altas": [
+      {
+        "subgrupo": "ASSENTAMENTO DE TUBOS DE ESGOTO OU DRENAGEM PLUVIAL EM CONCRETO",
+        "cpus": 78,
+        "var_pct": 10.72,
+        "medio_anterior": 326.06,
+        "medio_atual": 361.03
+      },
+      {
+        "subgrupo": "LUMINÁRIAS EXTERNAS",
+        "cpus": 18,
+        "var_pct": 6.03,
+        "medio_anterior": 204.96,
+        "medio_atual": 217.31
+      },
+      {
+        "subgrupo": "ASSENTAMENTO DE TUBOS DE ESGOTO EM PVC E PEAD",
+        "cpus": 56,
+        "var_pct": 4.08,
+        "medio_anterior": 205.24,
+        "medio_atual": 213.61
+      },
+      {
+        "subgrupo": "EQUIPAMENTOS DE PROTEÇÃO COLETIVA",
+        "cpus": 25,
+        "var_pct": 4.07,
+        "medio_anterior": 89.95,
+        "medio_atual": 93.61
+      },
+      {
+        "subgrupo": "ESTRUTURA E TRAMA PARA COBERTURA",
+        "cpus": 108,
+        "var_pct": 2.68,
+        "medio_anterior": 1267.19,
+        "medio_atual": 1301.11
+      },
+      {
+        "subgrupo": "INSTALAÇÕES PREDIAIS DE ÁGUAS PLUVIAIS - TUBOS, CONEXÕES, CAIXAS E RALOS",
+        "cpus": 86,
+        "var_pct": 2.64,
+        "medio_anterior": 78.42,
+        "medio_atual": 80.49
+      },
+      {
+        "subgrupo": "ESTRUTURAS DE MADEIRA",
+        "cpus": 34,
+        "var_pct": 2.35,
+        "medio_anterior": 161.51,
+        "medio_atual": 165.3
+      },
+      {
+        "subgrupo": "LIGAÇÕES PREDIAIS DE ÁGUA E ESGOTO",
+        "cpus": 36,
+        "var_pct": 2.34,
+        "medio_anterior": 46.95,
+        "medio_atual": 48.05
+      },
+      {
+        "subgrupo": "INSTALAÇÕES PREDIAIS DE ESGOTO - TUBOS E CONEXÕES",
+        "cpus": 90,
+        "var_pct": 2.21,
+        "medio_anterior": 36.57,
+        "medio_atual": 37.38
+      },
+      {
+        "subgrupo": "ESQUADRIAS - JANELAS",
+        "cpus": 21,
+        "var_pct": 2.07,
+        "medio_anterior": 606.48,
+        "medio_atual": 619.01
+      }
+    ],
+    "baixas": [
+      {
+        "subgrupo": "ARMAÇÃO PARA ESTRUTURAS DE CONCRETO ARMADO",
+        "cpus": 56,
+        "var_pct": -7.94,
+        "medio_anterior": 10.77,
+        "medio_atual": 9.92
+      },
+      {
+        "subgrupo": "ARMAÇÃO DE ESTACAS",
+        "cpus": 11,
+        "var_pct": -7.32,
+        "medio_anterior": 11.58,
+        "medio_atual": 10.74
+      },
+      {
+        "subgrupo": "REDES DE LÓGICA, TELEFONIA E IMAGEM",
+        "cpus": 60,
+        "var_pct": -4.66,
+        "medio_anterior": 269.24,
+        "medio_atual": 256.71
+      },
+      {
+        "subgrupo": "PAREDES DE CONCRETO - ARMAÇÃO",
+        "cpus": 16,
+        "var_pct": -2.86,
+        "medio_anterior": 9.26,
+        "medio_atual": 8.99
+      },
+      {
+        "subgrupo": "ARGAMASSAS",
+        "cpus": 144,
+        "var_pct": -2.43,
+        "medio_anterior": 1338.7,
+        "medio_atual": 1306.14
+      },
+      {
+        "subgrupo": "INSTALAÇÕES PREDIAIS DE ÁGUA QUENTE EM CPVC",
+        "cpus": 137,
+        "var_pct": -2.05,
+        "medio_anterior": 55.8,
+        "medio_atual": 54.65
+      },
+      {
+        "subgrupo": "PAREDES EM DRYWALL",
+        "cpus": 23,
+        "var_pct": -2.03,
+        "medio_anterior": 134.62,
+        "medio_atual": 131.89
+      },
+      {
+        "subgrupo": "CANALETAS, GRELHAS E CAIXAS COM GRELHA PARA DRENAGEM",
+        "cpus": 45,
+        "var_pct": -1.91,
+        "medio_anterior": 370.32,
+        "medio_atual": 363.26
+      },
+      {
+        "subgrupo": "SISTEMAS DE MEDIÇÃO",
+        "cpus": 46,
+        "var_pct": -1.37,
+        "medio_anterior": 841.44,
+        "medio_atual": 829.89
+      },
+      {
+        "subgrupo": "PISOS",
+        "cpus": 41,
+        "var_pct": -1.23,
+        "medio_anterior": 212.68,
+        "medio_atual": 210.06
+      }
+    ],
+    "total_subgrupos": 110
+  },
+  "insumos": {
+    "comparaveis": 4885,
+    "media_pct": 0.74,
+    "altas": [
+      {
+        "insumo": "PERFURATRIZ MANUAL, TORQUE MAXIMO 83 N.M, POTENCIA 5 CV, COM DIAMETRO MAXIMO 4\" (NAO INCLUI SUPORTE / CHASSI)",
+        "unidade": "UN",
+        "var_pct": 77.9
+      },
+      {
+        "insumo": "PERFURATRIZ MANUAL, TORQUE MAXIMO 83 N.M, POTENCIA 5 CV, COM DIAMETRO MAXIMO 4\", PARA SOLO GRAMPEADO (INCLUI SUPORTE OU CHASSI TIPO MESA)",
+        "unidade": "UN",
+        "var_pct": 22.5
+      },
+      {
+        "insumo": "DOBRADEIRA ELETROMECANICA DE VERGALHAO, PARA ACO DE DIAMETRO ATE 1 1/2\", MOTOR ELETRICO TRIFASICO, POTENCIA DE 3 HP ATE 5 HP",
+        "unidade": "UN",
+        "var_pct": 22.2
+      },
+      {
+        "insumo": "LOCACAO DE GRUPO GERADOR ACIMA DE * 125 ATE 180* KVA, MOTOR DIESEL, REBOCAVEL, ACIONAMENTO MANUAL",
+        "unidade": "H",
+        "var_pct": 22.1
+      },
+      {
+        "insumo": "LOCACAO DE GRUPO GERADOR *80 A 125* KVA, MOTOR DIESEL, REBOCAVEL, ACIONAMENTO MANUAL",
+        "unidade": "H",
+        "var_pct": 22.1
+      },
+      {
+        "insumo": "LOCACAO DE GRUPO GERADOR DE *260* KVA, DIESEL REBOCAVEL, ACIONAMENTO MANUAL",
+        "unidade": "H",
+        "var_pct": 22.1
+      },
+      {
+        "insumo": "CORTADEIRA HIDRAULICA DE VERGALHAO, PARA ACO DE DIAMETRO ATE 50 MM, MOTOR ELETRICO TRIFASICO, POTENCIA DE 5,5 HP A 7,5 HP",
+        "unidade": "UN",
+        "var_pct": 19.4
+      },
+      {
+        "insumo": "CAIXA DE GORDURA CILINDRICA EM CONCRETO SIMPLES, PRE-MOLDADA, COM DIAMETRO DE 40 CM E ALTURA DE 45 CM, COM TAMPA",
+        "unidade": "UN",
+        "var_pct": 14.3
+      },
+      {
+        "insumo": "ANEL EM CONCRETO ARMADO, LISO, PARA POCOS DE VISITAS, POCOS DE INSPECAO, FOSSAS SEPTICAS E SUMIDOUROS, SEM FUNDO, DIAMETRO INTERNO DE 0,80 M E ALTURA DE 0,50 M",
+        "unidade": "UN",
+        "var_pct": 14.3
+      },
+      {
+        "insumo": "TUBO DE CONCRETO ARMADO PARA ESGOTO SANITARIO, CLASSE EA-2, COM ENCAIXE PONTA E BOLSA, COM JUNTA ELASTICA, DIAMETRO NOMINAL DE 400 MM",
+        "unidade": "M",
+        "var_pct": 14.3
+      },
+      {
+        "insumo": "TUBO DE CONCRETO ARMADO PARA AGUAS PLUVIAIS, CLASSE PA-2, COM ENCAIXE PONTA E BOLSA, DIAMETRO NOMINAL DE 400 MM",
+        "unidade": "M",
+        "var_pct": 14.3
+      },
+      {
+        "insumo": "TAMPA DE CONCRETO ARMADO PARA POCO, COM FURO E TAMPINHA, D = *1,10* M, E = 0,05 M",
+        "unidade": "UN",
+        "var_pct": 14.3
+      },
+      {
+        "insumo": "TUBO DE CONCRETO ARMADO PARA AGUAS PLUVIAIS, CLASSE PA-3, COM ENCAIXE PONTA E BOLSA, DIAMETRO NOMINAL DE 500 MM",
+        "unidade": "M",
+        "var_pct": 14.3
+      },
+      {
+        "insumo": "TUBO DE CONCRETO ARMADO PARA AGUAS PLUVIAIS, CLASSE PA-2, COM ENCAIXE PONTA E BOLSA, DIAMETRO NOMINAL DE 500 MM",
+        "unidade": "M",
+        "var_pct": 14.3
+      },
+      {
+        "insumo": "TAMPA DE CONCRETO ARMADO PARA FOSSA, D = *1,10* M, E = 0,05 M",
+        "unidade": "UN",
+        "var_pct": 14.3
+      },
+      {
+        "insumo": "CAIXA DE CONCRETO ARMADO PRE-MOLDADO, SEM FUNDO, QUADRADA, DIMENSOES DE 0,40 X 0,40 X 0,40 M",
+        "unidade": "UN",
+        "var_pct": 14.3
+      },
+      {
+        "insumo": "ANEL EM CONCRETO ARMADO, LISO, PARA POCOS DE VISITAS, POCOS DE INSPECAO, FOSSAS SEPTICAS E SUMIDOUROS, SEM FUNDO, DIAMETRO INTERNO DE 1,00 M E ALTURA DE 0,50 M",
+        "unidade": "UN",
+        "var_pct": 14.3
+      },
+      {
+        "insumo": "TUBO DE CONCRETO ARMADO PARA AGUAS PLUVIAIS, CLASSE PA-2, COM ENCAIXE PONTA E BOLSA, DIAMETRO NOMINAL DE 300 MM",
+        "unidade": "M",
+        "var_pct": 14.3
+      }
+    ],
+    "baixas": [
+      {
+        "insumo": "MARTELO DEMOLIDOR PNEUMATICO MANUAL, PESO DE 28 KG, COM SILENCIADOR",
+        "unidade": "UN",
+        "var_pct": -74.1
+      },
+      {
+        "insumo": "LIXADEIRA ELETRICA ANGULAR PARA CONCRETO, POTENCIA 1.400 W, PRATO DIAMANTADO DE 5\"",
+        "unidade": "UN",
+        "var_pct": -60.1
+      },
+      {
+        "insumo": "CORTADEIRA DE PISO DE CONCRETO E ASFALTO, PARA DISCO PADRAO DE DIAMETRO 350 MM (14\") OU 450 MM (18\"), MOTOR A GASOLINA, POTENCIA 13 HP, SEM DISCO",
+        "unidade": "UN",
+        "var_pct": -56.8
+      },
+      {
+        "insumo": "TERMOFUSORA PARA TUBOS E CONEXOES EM PPR COM DIAMETROS DE 75 A 110 MM, POTENCIA DE *1100* W, TENSAO 220 V",
+        "unidade": "UN",
+        "var_pct": -56.2
+      },
+      {
+        "insumo": "TERMOFUSORA PARA TUBOS E CONEXOES EM PPR COM DIAMETROS DE 20 A 63 MM, POTENCIA DE 800 W, TENSAO 220 V",
+        "unidade": "UN",
+        "var_pct": -51.8
+      },
+      {
+        "insumo": "MARTELO DEMOLIDOR PNEUMATICO MANUAL, PADRAO, PESO DE 32 KG",
+        "unidade": "UN",
+        "var_pct": -41.1
+      },
+      {
+        "insumo": "ESMERILHADEIRA ANGULAR ELETRICA, DIAMETRO DO DISCO 7\" (180 MM), ROTACAO 8500 RPM, POTENCIA 2400 W",
+        "unidade": "UN",
+        "var_pct": -33.5
+      },
+      {
+        "insumo": "MARTELO DEMOLIDOR PNEUMATICO MANUAL, COM REDUCAO DE VIBRACAO, PESO DE 31,5 KG",
+        "unidade": "UN",
+        "var_pct": -30.8
+      },
+      {
+        "insumo": "MARTELO DEMOLIDOR PNEUMATICO MANUAL, COM REDUCAO DE VIBRACAO, PESO DE 21 KG",
+        "unidade": "UN",
+        "var_pct": -29.5
+      },
+      {
+        "insumo": "MARTELO PERFURADOR PNEUMATICO MANUAL, PESO DE 25 KG, COM SILENCIADOR",
+        "unidade": "UN",
+        "var_pct": -29.0
+      },
+      {
+        "insumo": "SERRA CIRCULAR DE BANCADA COM MOTOR ELETRICO, POTENCIA DE *1600* W, PARA DISCO DE DIAMETRO DE 10\" (250 MM)",
+        "unidade": "UN",
+        "var_pct": -17.6
+      },
+      {
+        "insumo": "PORCA ZINCADA, SEXTAVADA, DIAMETRO 3/8\"",
+        "unidade": "UN",
+        "var_pct": -12.0
+      },
+      {
+        "insumo": "PARAFUSO ZINCADO, SEXTAVADO, COM ROSCA INTEIRA, DIAMETRO 1/4\", COMPRIMENTO 1/2\"",
+        "unidade": "UN",
+        "var_pct": -12.0
+      },
+      {
+        "insumo": "ACO CA-50, 20,0 MM OU 25,0 MM, VERGALHAO",
+        "unidade": "KG",
+        "var_pct": -11.1
+      },
+      {
+        "insumo": "ACO CA-50, 10,0 MM, VERGALHAO",
+        "unidade": "KG",
+        "var_pct": -11.1
+      },
+      {
+        "insumo": "PARAFUSO DRY WALL, EM ACO ZINCADO, CABECA LENTILHA E PONTA BROCA (LB), LARGURA 4,2 MM, COMPRIMENTO 13 MM",
+        "unidade": "UN",
+        "var_pct": -11.1
+      },
+      {
+        "insumo": "ACO CA-25, 25,0 MM, BARRA DE TRANSFERENCIA",
+        "unidade": "KG",
+        "var_pct": -11.1
+      },
+      {
+        "insumo": "ACO CA-50, 6,3 MM, VERGALHAO",
+        "unidade": "KG",
+        "var_pct": -11.1
+      }
+    ]
+  },
+  "indicadores": {
+    "acumulados": {
+      "IGP-M": 0.36,
+      "INCC-M": 0.7,
+      "INPC": -0.21,
+      "IPCA": -0.11
+    },
+    "selic_aa": 15.0,
+    "selic_aa_anterior": 15.0,
+    "meses": 1
+  },
+  "revisoes": {
+    "coeficiente": 87,
+    "insumo_incluido": 14,
+    "insumo_excluido": 10,
+    "cabecalho": 86,
+    "total": 91
+  },
+  "revisoes_subgrupos": [
+    {
+      "subgrupo": "REDES DE LÓGICA, TELEFONIA E IMAGEM",
+      "revisadas": 60
+    },
+    {
+      "subgrupo": "LAJES PRÉ-MOLDADAS",
+      "revisadas": 15
+    },
+    {
+      "subgrupo": "USINAGENS",
+      "revisadas": 11
+    },
+    {
+      "subgrupo": "ESCAVAÇÃO EM MATERIAL DE 3ª CATEGORIA",
+      "revisadas": 4
+    },
+    {
+      "subgrupo": "DEPRECIAÇÃO, JUROS, IMPOSTOS E SEGUROS, MANUTENÇÃO E MATERIAIS NA OPERAÇÃO DOS EQUIPAMENTOS",
+      "revisadas": 1
+    }
+  ],
+  "codigo": {
+    "numero": "08",
+    "rotulo": "#08"
+  },
+  "acumulado_ano": {
+    "fonte_pct": 2.95,
+    "comparaveis": 7760,
+    "indices": {
+      "INCC-M": 5.13,
+      "IPCA": 3.15
+    },
+    "desde": "2025-01-01"
+  },
+  "dispersao_uf": {
+    "todas": [
+      {
+        "uf": "RS",
+        "cpus": 7831,
+        "var_pct": 2.16
+      },
+      {
+        "uf": "PR",
+        "cpus": 7830,
+        "var_pct": 1.76
+      },
+      {
+        "uf": "AM",
+        "cpus": 7829,
+        "var_pct": 1.55
+      },
+      {
+        "uf": "SE",
+        "cpus": 7829,
+        "var_pct": 1.55
+      },
+      {
+        "uf": "MS",
+        "cpus": 7831,
+        "var_pct": 1.13
+      },
+      {
+        "uf": "SC",
+        "cpus": 7829,
+        "var_pct": 0.93
+      },
+      {
+        "uf": "RJ",
+        "cpus": 7830,
+        "var_pct": 0.83
+      },
+      {
+        "uf": "MG",
+        "cpus": 7830,
+        "var_pct": 0.58
+      },
+      {
+        "uf": "MT",
+        "cpus": 7830,
+        "var_pct": 0.58
+      },
+      {
+        "uf": "GO",
+        "cpus": 7829,
+        "var_pct": 0.41
+      },
+      {
+        "uf": "DF",
+        "cpus": 7829,
+        "var_pct": 0.27
+      },
+      {
+        "uf": "BA",
+        "cpus": 7830,
+        "var_pct": 0.22
+      },
+      {
+        "uf": "SP",
+        "cpus": 7829,
+        "var_pct": 0.21
+      },
+      {
+        "uf": "AC",
+        "cpus": 7829,
+        "var_pct": 0.19
+      },
+      {
+        "uf": "PE",
+        "cpus": 7829,
+        "var_pct": 0.12
+      },
+      {
+        "uf": "AL",
+        "cpus": 7829,
+        "var_pct": 0.02
+      },
+      {
+        "uf": "AP",
+        "cpus": 7829,
+        "var_pct": 0.01
+      },
+      {
+        "uf": "PB",
+        "cpus": 7830,
+        "var_pct": -0.0
+      },
+      {
+        "uf": "TO",
+        "cpus": 7831,
+        "var_pct": -0.04
+      },
+      {
+        "uf": "RN",
+        "cpus": 7829,
+        "var_pct": -0.08
+      },
+      {
+        "uf": "MA",
+        "cpus": 7831,
+        "var_pct": -0.12
+      },
+      {
+        "uf": "PA",
+        "cpus": 7830,
+        "var_pct": -0.13
+      },
+      {
+        "uf": "CE",
+        "cpus": 7831,
+        "var_pct": -0.13
+      },
+      {
+        "uf": "PI",
+        "cpus": 7829,
+        "var_pct": -0.16
+      },
+      {
+        "uf": "ES",
+        "cpus": 7830,
+        "var_pct": -0.23
+      },
+      {
+        "uf": "RR",
+        "cpus": 7829,
+        "var_pct": -0.27
+      },
+      {
+        "uf": "RO",
+        "cpus": 7829,
+        "var_pct": -0.33
+      }
+    ],
+    "altas": [
+      {
+        "uf": "RS",
+        "cpus": 7831,
+        "var_pct": 2.16
+      },
+      {
+        "uf": "PR",
+        "cpus": 7830,
+        "var_pct": 1.76
+      },
+      {
+        "uf": "AM",
+        "cpus": 7829,
+        "var_pct": 1.55
+      },
+      {
+        "uf": "SE",
+        "cpus": 7829,
+        "var_pct": 1.55
+      },
+      {
+        "uf": "MS",
+        "cpus": 7831,
+        "var_pct": 1.13
+      },
+      {
+        "uf": "SC",
+        "cpus": 7829,
+        "var_pct": 0.93
+      },
+      {
+        "uf": "RJ",
+        "cpus": 7830,
+        "var_pct": 0.83
+      },
+      {
+        "uf": "MG",
+        "cpus": 7830,
+        "var_pct": 0.58
+      },
+      {
+        "uf": "MT",
+        "cpus": 7830,
+        "var_pct": 0.58
+      },
+      {
+        "uf": "GO",
+        "cpus": 7829,
+        "var_pct": 0.41
+      }
+    ],
+    "baixas": [
+      {
+        "uf": "RO",
+        "cpus": 7829,
+        "var_pct": -0.33
+      },
+      {
+        "uf": "RR",
+        "cpus": 7829,
+        "var_pct": -0.27
+      },
+      {
+        "uf": "ES",
+        "cpus": 7830,
+        "var_pct": -0.23
+      },
+      {
+        "uf": "PI",
+        "cpus": 7829,
+        "var_pct": -0.16
+      },
+      {
+        "uf": "CE",
+        "cpus": 7831,
+        "var_pct": -0.13
+      },
+      {
+        "uf": "PA",
+        "cpus": 7830,
+        "var_pct": -0.13
+      },
+      {
+        "uf": "MA",
+        "cpus": 7831,
+        "var_pct": -0.12
+      },
+      {
+        "uf": "RN",
+        "cpus": 7829,
+        "var_pct": -0.08
+      },
+      {
+        "uf": "TO",
+        "cpus": 7831,
+        "var_pct": -0.04
+      },
+      {
+        "uf": "PB",
+        "cpus": 7830,
+        "var_pct": -0.0
+      }
+    ],
+    "ufs": 27
+  }
+}
