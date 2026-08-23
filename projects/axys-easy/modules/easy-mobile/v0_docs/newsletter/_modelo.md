@@ -8,7 +8,7 @@ entre chaves são substituídos pelos números do dossiê da edição — se voc
 marcador que não existe, a geração falha na hora, em vez de publicar `{coisa}` na cara do
 leitor.
 
-**Marcadores disponíveis:** `{fonte}` `{codigo}` `{mes_extenso}` `{uf}` `{intervalo}`
+**Marcadores disponíveis:** `{fonte}` `{codigo}` `{numero}` `{mes_extenso}` `{uf}` `{intervalo}`
 `{meses}` `{media}` `{mediana}` `{comparaveis}` `{subiram}` `{cairam}` `{estaveis}`
 `{incluidas}` `{inativadas}` `{reativadas}` `{alteradas}` `{ufs}` `{cpus}`
 `{pct_sem_custo}` `{pct_sem_preco}` `{ipca}` `{selic}` `{veredito}` `{veredito_frase}`
@@ -30,7 +30,7 @@ Visão 360°
 
 ## titulo_360
 
-{fonte} {codigo}, em números
+{fonte} #{numero} · {mes_extenso}, em números
 
 ## indices_titulo
 
