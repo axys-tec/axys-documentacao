@@ -104,9 +104,9 @@ Insumos que mais se moveram
 ## insumos_nota
 
 Variação de preço em {uf}, sem encargos. São preços de mercado coletados pela
-fonte-base, e os extremos refletem o comportamento do item no período — não uma tendência
-do conjunto. Para entender melhor essas variações, recomendamos a avaliação dos
-respectivos insumos e das composições que os utilizam.
+fonte-base, e os extremos refletem o comportamento do item no período. Para entender
+melhor essas variações, recomendamos a avaliação dos respectivos insumos, das composições
+que os utilizam, bem como uma análise de mercado no período indicado.
 
 ## uf_titulo
 
