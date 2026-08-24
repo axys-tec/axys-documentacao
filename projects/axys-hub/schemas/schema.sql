@@ -186,6 +186,39 @@ CREATE INDEX IF NOT EXISTS idx_hub_tenant_profile_app_actor
     WHERE is_active = TRUE;
 
 -- ------------------------------------------------------------
+-- identity.hub_tenant_customization
+-- Função:
+--   Personalização visual versionada no nível do tenant. Na v0,
+--   expõe somente logo; settings_json reserva extensões futuras.
+-- ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS identity.hub_tenant_customization (
+    tenant_id       UUID        NOT NULL,
+    schema_version  INTEGER     NOT NULL DEFAULT 1,
+    revision        BIGINT      NOT NULL DEFAULT 1,
+    logo_json       JSONB,
+    settings_json   JSONB       NOT NULL DEFAULT '{}'::jsonb,
+    created_at      TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at      TIMESTAMPTZ NOT NULL DEFAULT now(),
+
+    CONSTRAINT hub_tenant_customization_pkey PRIMARY KEY (tenant_id),
+    CONSTRAINT fk_hub_tenant_customization_tenant FOREIGN KEY (tenant_id)
+        REFERENCES identity.hub_tenant (tenant_id) ON DELETE CASCADE,
+    CONSTRAINT ck_hub_tenant_customization_version CHECK (schema_version > 0),
+    CONSTRAINT ck_hub_tenant_customization_revision CHECK (revision > 0),
+    CONSTRAINT ck_hub_tenant_customization_settings CHECK (jsonb_typeof(settings_json) = 'object'),
+    CONSTRAINT ck_hub_tenant_customization_logo_json CHECK (
+        logo_json IS NULL OR (
+            jsonb_typeof(logo_json) = 'object'
+            AND logo_json ?& ARRAY['url', 'sha256', 'mime_type']
+            AND logo_json->>'url' ~ '^https://[^[:space:]]+$'
+            AND length(logo_json->>'url') <= 2048
+            AND logo_json->>'sha256' ~ '^[0-9a-f]{64}$'
+            AND logo_json->>'mime_type' IN ('image/png', 'image/svg+xml')
+        )
+    )
+);
+
+-- ------------------------------------------------------------
 -- identity.hub_user_tenant
 -- Função:
 --   Vínculo global usuário ↔ tenant. Regra geral de acesso.
@@ -1979,6 +2012,63 @@ CREATE TABLE IF NOT EXISTS billing.hub_user_app (
 );
 
 -- ------------------------------------------------------------
+-- billing.hub_ai_credit_account
+-- Função:
+--   Saldo corrente de créditos de IA por tenant. Contas ilimitadas
+--   podem ficar negativas para mensurar o consumo sem bloquear uso.
+-- ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS billing.hub_ai_credit_account (
+    account_id        UUID        NOT NULL DEFAULT gen_random_uuid(),
+    tenant_id         UUID        NOT NULL,
+    status            TEXT        NOT NULL DEFAULT 'active',
+    is_unlimited      BOOLEAN     NOT NULL DEFAULT FALSE,
+    balance_credits   BIGINT      NOT NULL DEFAULT 0,
+    tokens_per_credit INTEGER     NOT NULL DEFAULT 1000,
+    created_at        TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at        TIMESTAMPTZ NOT NULL DEFAULT now(),
+
+    CONSTRAINT hub_ai_credit_account_pkey PRIMARY KEY (account_id),
+    CONSTRAINT uq_hub_ai_credit_account_tenant UNIQUE (tenant_id),
+    CONSTRAINT fk_ai_credit_account_tenant FOREIGN KEY (tenant_id)
+        REFERENCES identity.hub_tenant (tenant_id) ON DELETE CASCADE,
+    CONSTRAINT ck_ai_credit_account_status CHECK (status IN ('active', 'suspended', 'closed')),
+    CONSTRAINT ck_ai_credit_tokens_per_credit CHECK (tokens_per_credit > 0),
+    CONSTRAINT ck_ai_credit_limited_balance CHECK (is_unlimited OR balance_credits >= 0)
+);
+
+-- ------------------------------------------------------------
+-- billing.hub_ai_credit_ledger
+-- Função:
+--   Livro-caixa imutável e idempotente das movimentações de crédito.
+-- ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS billing.hub_ai_credit_ledger (
+    entry_id          UUID        NOT NULL DEFAULT gen_random_uuid(),
+    account_id        UUID        NOT NULL,
+    entry_type        TEXT        NOT NULL,
+    quantity_credits  BIGINT      NOT NULL,
+    credits_delta     BIGINT      NOT NULL,
+    balance_after     BIGINT      NOT NULL,
+    reason            TEXT        NOT NULL,
+    idempotency_key   TEXT        NOT NULL,
+    metadata          JSONB       NOT NULL DEFAULT '{}'::jsonb,
+    occurred_at       TIMESTAMPTZ NOT NULL DEFAULT now(),
+    created_at        TIMESTAMPTZ NOT NULL DEFAULT now(),
+
+    CONSTRAINT hub_ai_credit_ledger_pkey PRIMARY KEY (entry_id),
+    CONSTRAINT uq_ai_credit_ledger_idempotency UNIQUE (account_id, idempotency_key),
+    CONSTRAINT fk_ai_credit_ledger_account FOREIGN KEY (account_id)
+        REFERENCES billing.hub_ai_credit_account (account_id) ON DELETE RESTRICT,
+    CONSTRAINT ck_ai_credit_ledger_type CHECK (
+        entry_type IN ('purchase', 'grant', 'debit', 'adjustment', 'refund', 'expiration')
+    ),
+    CONSTRAINT ck_ai_credit_ledger_quantity CHECK (quantity_credits > 0),
+    CONSTRAINT ck_ai_credit_ledger_key CHECK (length(idempotency_key) BETWEEN 1 AND 200)
+);
+
+CREATE INDEX IF NOT EXISTS idx_ai_credit_ledger_account_occurred
+    ON billing.hub_ai_credit_ledger (account_id, occurred_at DESC);
+
+-- ------------------------------------------------------------
 -- billing.hub_microapp_instance
 -- Função:
 --   Instância de app/produto habilitada para tenant.
@@ -2037,6 +2127,32 @@ ON CONFLICT (tenant_code) DO UPDATE SET
     is_active = EXCLUDED.is_active,
     updated_at = now();
 
+INSERT INTO identity.hub_tenant_customization (tenant_id, logo_json)
+SELECT
+    tenant_id,
+    CASE tenant_code
+        WHEN 'AXYS' THEN jsonb_build_object(
+            'url', 'https://public.axys-tec.com.br/assets/axys/axys_black-n-blue.png',
+            'sha256', '9abcdad50599da054f3fba35cb0da6b75041d017957e2a67df810eaa91ce7584',
+            'mime_type', 'image/png'
+        )
+        WHEN 'DIASECARDOZO' THEN jsonb_build_object(
+            'url', 'https://public.axys-tec.com.br/assets/tenants/71044850799d79bb.png',
+            'sha256', '71044850799d79bbc254885ab00a2291793af9543b6886d0e5d6dce58a86295a',
+            'mime_type', 'image/png'
+        )
+    END
+FROM identity.hub_tenant
+WHERE tenant_code IN ('AXYS', 'DIASECARDOZO')
+ON CONFLICT (tenant_id) DO UPDATE
+SET logo_json = EXCLUDED.logo_json,
+    revision = 1,
+    updated_at = CASE
+        WHEN hub_tenant_customization.logo_json IS DISTINCT FROM EXCLUDED.logo_json
+        THEN now()
+        ELSE hub_tenant_customization.updated_at
+    END;
+
 INSERT INTO identity.hub_user (
     user_id,
     name,
@@ -2058,6 +2174,7 @@ VALUES
     ('3464c27d-d4b4-41ba-a847-192465b2d37e', 'Julia Santana', 'eng.julia@diasecardozo.com.br', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '00000000006', '{}'::jsonb, 'user', 'active', TRUE),
     ('de059dca-0e0d-4690-9fb6-78ad4189f036', 'Vitoria', 'eng.vitoria@diasecardozo.com.br', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '00000000007', '{}'::jsonb, 'user', 'active', TRUE),
     ('c26f90c5-96d7-431b-8140-90058d88f122', 'Washington Keneddy', 'eng.washington@diasecardozo.com.br', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '00000000008', '{}'::jsonb, 'user', 'active', TRUE),
+    ('37ef521c-7d91-5648-9f01-75f9e2bbf376', 'Joel', 'eng.joel@diasecardozo.com.br', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', NULL, '{}'::jsonb, 'user', 'active', TRUE),
     ('83557f7e-e3f4-4002-a543-f09cc681f9ae', 'Lunalô Calcados', 'lunalocalcados@hotmail.com', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '00000000004', '{}'::jsonb, 'user', 'active', TRUE)
 ON CONFLICT (email) DO NOTHING;
 
@@ -2081,7 +2198,8 @@ FROM (
         ('DIASECARDOZO', 'eng.maicon@diasecardozo.com.br', 'admin'),
         ('DIASECARDOZO', 'eng.julia@diasecardozo.com.br', 'user'),
         ('DIASECARDOZO', 'eng.vitoria@diasecardozo.com.br', 'user'),
-        ('DIASECARDOZO', 'eng.washington@diasecardozo.com.br', 'user')
+        ('DIASECARDOZO', 'eng.washington@diasecardozo.com.br', 'user'),
+        ('DIASECARDOZO', 'eng.joel@diasecardozo.com.br', 'user')
 ) AS v(tenant_code, email, role)
 JOIN identity.hub_tenant t ON t.tenant_code = v.tenant_code
 JOIN identity.hub_user u ON u.email = v.email
@@ -2135,7 +2253,8 @@ FROM (
         ('DIASECARDOZO', 'eng.maicon@diasecardozo.com.br', 'DIASECARDOZO'),
         ('DIASECARDOZO', 'eng.julia@diasecardozo.com.br', 'DIASECARDOZO'),
         ('DIASECARDOZO', 'eng.vitoria@diasecardozo.com.br', 'DIASECARDOZO'),
-        ('DIASECARDOZO', 'eng.washington@diasecardozo.com.br', 'DIASECARDOZO')
+        ('DIASECARDOZO', 'eng.washington@diasecardozo.com.br', 'DIASECARDOZO'),
+        ('DIASECARDOZO', 'eng.joel@diasecardozo.com.br', 'DIASECARDOZO')
 ) AS v(tenant_code, email, store_code)
 JOIN identity.hub_tenant t ON t.tenant_code = v.tenant_code
 JOIN identity.hub_user u ON u.email = v.email
@@ -2225,7 +2344,8 @@ FROM (
         ('DIASECARDOZO', 'eng.maicon@diasecardozo.com.br'),
         ('DIASECARDOZO', 'eng.julia@diasecardozo.com.br'),
         ('DIASECARDOZO', 'eng.vitoria@diasecardozo.com.br'),
-        ('DIASECARDOZO', 'eng.washington@diasecardozo.com.br')
+        ('DIASECARDOZO', 'eng.washington@diasecardozo.com.br'),
+        ('DIASECARDOZO', 'eng.joel@diasecardozo.com.br')
 ) AS v(tenant_code, email)
 JOIN identity.hub_tenant t ON t.tenant_code = v.tenant_code
 JOIN identity.hub_user u ON u.email = v.email
@@ -2825,6 +2945,138 @@ CREATE TABLE IF NOT EXISTS audit.security_event (
         REFERENCES identity.hub_user (user_id) ON DELETE SET NULL,
     CONSTRAINT ck_security_event_severity CHECK (severity IN ('debug', 'info', 'warning', 'critical'))
 );
+
+-- ------------------------------------------------------------
+-- SEED — contas de créditos de IA
+-- Todos os tenants começam em zero. As contas internas/provisórias
+-- ilimitadas registram consumo como saldo negativo sem bloqueio.
+-- ------------------------------------------------------------
+INSERT INTO billing.hub_ai_credit_account (tenant_id, is_unlimited)
+SELECT tenant_id, tenant_code IN ('AXYS', 'DIASECARDOZO', 'LUNALO')
+FROM identity.hub_tenant
+ON CONFLICT (tenant_id) DO UPDATE
+SET is_unlimited = EXCLUDED.is_unlimited,
+    updated_at = now();
+
+-- ============================================================
+-- EASY MOBILE — identidade gratuita isolada e telemetria
+-- ============================================================
+CREATE TABLE IF NOT EXISTS identity.client_easy_mobile (
+    client_uuid UUID NOT NULL DEFAULT gen_random_uuid(),
+    client_hub_uuid UUID,
+    full_name TEXT NOT NULL,
+    phone TEXT NOT NULL,
+    email TEXT NOT NULL,
+    pending_email TEXT,
+    pending_phone TEXT,
+    password_hash TEXT NOT NULL,
+    cpf TEXT,
+    uf CHAR(2),
+    profession TEXT,
+    status TEXT NOT NULL DEFAULT 'pending_verification',
+    email_verified_at TIMESTAMPTZ,
+    phone_verified_at TIMESTAMPTZ,
+    notification_preferences JSONB NOT NULL DEFAULT '{"new_edition":true,"new_publication":true}'::jsonb,
+    deleted_at TIMESTAMPTZ,
+    last_login_at TIMESTAMPTZ,
+    failed_attempts SMALLINT NOT NULL DEFAULT 0,
+    locked_until TIMESTAMPTZ,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    CONSTRAINT client_easy_mobile_pkey PRIMARY KEY (client_uuid),
+    CONSTRAINT fk_client_easy_mobile_hub_user FOREIGN KEY (client_hub_uuid)
+        REFERENCES identity.hub_user (user_id) ON DELETE SET NULL,
+    CONSTRAINT ck_client_easy_mobile_status CHECK (
+        status IN ('pending_verification', 'active', 'converted', 'deleted', 'blocked')
+    ),
+    CONSTRAINT ck_client_easy_mobile_email CHECK (position('@' in email) > 1),
+    CONSTRAINT ck_client_easy_mobile_phone CHECK (phone ~ '^\d{10,15}$'),
+    CONSTRAINT ck_client_easy_mobile_cpf CHECK (cpf IS NULL OR cpf ~ '^\d{11}$'),
+    CONSTRAINT ck_client_easy_mobile_uf CHECK (uf IS NULL OR uf ~ '^[A-Z]{2}$'),
+    CONSTRAINT ck_client_easy_mobile_notifications CHECK (jsonb_typeof(notification_preferences) = 'object')
+);
+CREATE UNIQUE INDEX IF NOT EXISTS uq_client_easy_mobile_email_active
+    ON identity.client_easy_mobile (lower(email)) WHERE status <> 'deleted';
+CREATE UNIQUE INDEX IF NOT EXISTS uq_client_easy_mobile_phone_active
+    ON identity.client_easy_mobile (phone) WHERE status <> 'deleted';
+CREATE UNIQUE INDEX IF NOT EXISTS uq_client_easy_mobile_cpf_active
+    ON identity.client_easy_mobile (cpf) WHERE cpf IS NOT NULL AND status <> 'deleted';
+CREATE INDEX IF NOT EXISTS idx_client_easy_mobile_hub_user
+    ON identity.client_easy_mobile (client_hub_uuid) WHERE client_hub_uuid IS NOT NULL;
+
+CREATE TABLE IF NOT EXISTS auth.easy_mobile_mfa_challenge (
+    challenge_uuid UUID NOT NULL DEFAULT gen_random_uuid(),
+    client_uuid UUID NOT NULL,
+    channel TEXT NOT NULL,
+    code_hash CHAR(64) NOT NULL,
+    expires_at TIMESTAMPTZ NOT NULL,
+    attempts SMALLINT NOT NULL DEFAULT 0,
+    verified_at TIMESTAMPTZ,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    CONSTRAINT easy_mobile_mfa_challenge_pkey PRIMARY KEY (challenge_uuid),
+    CONSTRAINT fk_easy_mobile_mfa_client FOREIGN KEY (client_uuid)
+        REFERENCES identity.client_easy_mobile (client_uuid) ON DELETE CASCADE,
+    CONSTRAINT ck_easy_mobile_mfa_channel CHECK (channel IN ('email', 'whatsapp')),
+    CONSTRAINT ck_easy_mobile_mfa_attempts CHECK (attempts BETWEEN 0 AND 5)
+);
+CREATE INDEX IF NOT EXISTS idx_easy_mobile_mfa_pending
+    ON auth.easy_mobile_mfa_challenge (client_uuid, expires_at DESC) WHERE verified_at IS NULL;
+
+CREATE TABLE IF NOT EXISTS auth.easy_mobile_auth_code (
+    auth_code_uuid UUID NOT NULL DEFAULT gen_random_uuid(),
+    client_uuid UUID NOT NULL,
+    token_hash CHAR(64) NOT NULL,
+    expires_at TIMESTAMPTZ NOT NULL,
+    consumed_at TIMESTAMPTZ,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    CONSTRAINT easy_mobile_auth_code_pkey PRIMARY KEY (auth_code_uuid),
+    CONSTRAINT uq_easy_mobile_auth_code_hash UNIQUE (token_hash),
+    CONSTRAINT fk_easy_mobile_auth_code_client FOREIGN KEY (client_uuid)
+        REFERENCES identity.client_easy_mobile (client_uuid) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS auth.easy_mobile_rate_limit (
+    scope_key TEXT NOT NULL,
+    action TEXT NOT NULL,
+    window_started_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    attempts INTEGER NOT NULL DEFAULT 0,
+    blocked_until TIMESTAMPTZ,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    CONSTRAINT easy_mobile_rate_limit_pkey PRIMARY KEY (scope_key, action),
+    CONSTRAINT ck_easy_mobile_rate_limit_attempts CHECK (attempts >= 0)
+);
+CREATE INDEX IF NOT EXISTS idx_easy_mobile_rate_limit_blocked
+    ON auth.easy_mobile_rate_limit (blocked_until) WHERE blocked_until IS NOT NULL;
+
+CREATE TABLE IF NOT EXISTS analytics.easy_mobile_event (
+    event_id BIGINT GENERATED ALWAYS AS IDENTITY,
+    event_uuid UUID NOT NULL DEFAULT gen_random_uuid(),
+    ingestion_key TEXT NOT NULL,
+    event_name TEXT NOT NULL,
+    client_uuid UUID,
+    hub_user_uuid UUID,
+    anonymous_id TEXT,
+    session_id TEXT,
+    occurred_at TIMESTAMPTZ NOT NULL,
+    properties_json JSONB NOT NULL DEFAULT '{}'::jsonb,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    CONSTRAINT easy_mobile_event_pkey PRIMARY KEY (event_id),
+    CONSTRAINT uq_easy_mobile_event_uuid UNIQUE (event_uuid),
+    CONSTRAINT uq_easy_mobile_event_ingestion UNIQUE (ingestion_key),
+    CONSTRAINT fk_easy_mobile_event_client FOREIGN KEY (client_uuid)
+        REFERENCES identity.client_easy_mobile (client_uuid) ON DELETE SET NULL,
+    CONSTRAINT fk_easy_mobile_event_hub_user FOREIGN KEY (hub_user_uuid)
+        REFERENCES identity.hub_user (user_id) ON DELETE SET NULL,
+    CONSTRAINT ck_easy_mobile_event_name CHECK (btrim(event_name) <> ''),
+    CONSTRAINT ck_easy_mobile_event_actor CHECK (
+        client_uuid IS NOT NULL OR hub_user_uuid IS NOT NULL OR anonymous_id IS NOT NULL
+    ),
+    CONSTRAINT ck_easy_mobile_event_properties CHECK (jsonb_typeof(properties_json) = 'object')
+);
+CREATE INDEX IF NOT EXISTS idx_easy_mobile_event_name_occurred
+    ON analytics.easy_mobile_event (event_name, occurred_at DESC);
+CREATE INDEX IF NOT EXISTS idx_easy_mobile_event_client_occurred
+    ON analytics.easy_mobile_event (client_uuid, occurred_at DESC) WHERE client_uuid IS NOT NULL;
 
 -- ============================================================
 -- NOTAS DE VALIDAÇÃO FUTURA
