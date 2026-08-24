@@ -563,6 +563,73 @@ defesa, não portão: Redis fora do ar não derruba acesso legítimo). Espelha
 é minúsculo e expira sozinho, então convive com o `maxmemoryPolicy: noeviction` do Redis de
 produção, onde a fila de import continua sendo a prioridade.
 
+**5.7 — DECIDIDO (24/08/2026): a autenticação passa pela API (BFF).**
+
+**Substitui o desenho anterior**, em que o aplicativo falava direto com o Hub. Aquele mantinha
+a senha fora deste serviço — o que era bom — mas exigia o `client_secret` compilado no
+aplicativo. Binário de app é inspecionável: iOS e Android podem ser desmontados, e segredo
+embarcado é segredo publicado. Trocamos *"a senha não passa por este serviço"* por *"o segredo
+não sai do servidor"*, porque dos dois riscos o segundo é o maior: senha vazada é de um
+usuário, `client_secret` vazado é de todos.
+
+```
+antes:   Flutter ──────────────────────► Hub        (client_secret no binário)
+agora:   Flutter ──► Easy Mobile API ──► Hub        (client_secret só na Render)
+```
+
+**Oito rotas, cada uma com UMA correspondente no Hub** (mapa acordado com o time do Hub):
+
+| Easy Mobile API | Hub | Autenticação no Hub |
+|---|---|---|
+| `POST /v0/auth/login` | `POST /auth/login` | Basic |
+| `POST /v0/auth/cadastro` | `POST /api/easy-mobile/cadastro` | Basic |
+| `POST /v0/auth/verificar-mfa` | `POST /api/easy-mobile/verificar-mfa` | Basic |
+| `POST /v0/auth/reenviar-mfa` | `POST /api/easy-mobile/reenviar-mfa` | Basic |
+| `GET /v0/auth/me` | `GET /api/easy-mobile/me` | Bearer |
+| `PATCH /v0/auth/me` | `PATCH /api/easy-mobile/me` | Bearer |
+| `POST /v0/auth/alterar-senha` | `POST /api/easy-mobile/me/alterar-senha` | Bearer |
+| `POST /v0/auth/excluir` | `POST /api/easy-mobile/me/excluir` | Bearer |
+
+**O `app` do payload é acrescentado pela API, não aceito do cliente.** É ele que diz ao Hub
+qual produto está pedindo e, portanto, qual `aud` emitir — deixar o aplicativo mandá-lo seria
+deixá-lo escolher a própria audience.
+
+**A API confere o token antes de entregá-lo.** Assinatura, expiração e `aud=easy-mobile`. Se o
+Hub emitisse `aud=easy` por engano de configuração do cliente, o app gratuito sairia daqui com
+credencial do produto pago.
+
+**Cota de autenticação é FAIL-CLOSED** — ao contrário da cota de consulta do §5.6. Em consulta,
+derrubar acesso legítimo porque o Redis piscou é pior que o abuso evitado; em autenticação a
+conta se inverte, e um limitador que libera geral justamente quando a infra falha não protege
+no único momento em que precisa. Tetos: login 10/15min, cadastro 5/h, verificação de MFA
+6/15min, reenvio 3/15min — espelhando o que o Hub já aplica.
+
+**Por que limitar aqui se o Hub já limita:** de lá, todos os aparelhos chegam com o MESMO
+endereço — o nosso. O Hub não consegue separar um do outro. Sem esta camada, um único aparelho
+abusivo consome a cota do Hub e derruba o login de todo mundo. A chave é o IP real do aparelho
+(`CF-Connecting-IP`, que a Cloudflare reescreve e o cliente não forja) **somado** ao e-mail: só
+por IP, um prédio atrás de NAT divide a mesma cota; só por e-mail, trocar de e-mail a cada
+tentativa zera o contador.
+
+**Nada do corpo entra em log, nunca.** Senha, código de MFA e JWT passam por estas rotas. Por
+isso o erro que sobe do cliente HTTP é montado à mão a partir do status, e a exceção do `httpx`
+é engolida em vez de propagada — o `repr` dela carrega URL, cabeçalhos e, dependendo da versão,
+o corpo da requisição. Redirect não é seguido (`follow_redirects=False`): um 30x num POST
+autenticado levaria `Authorization` e senha para o destino do `Location`.
+
+**A resposta do Hub nunca é repassada crua.** Mensagem distinta para "e-mail não existe" e
+"senha errada" transforma o login num verificador de cadastro.
+
+Variáveis (só na Render, nunca no Flutter, no `pubspec`, no `--dart-define` ou no GitHub):
+`EASY_MOBILE_HUB_BASE_URL` (apex, **sem `www`** — redirect no meio de um POST perde corpo e
+`Authorization`), `EASY_MOBILE_HUB_CLIENT_ID` (`axys-easy-mobile`, público),
+`EASY_MOBILE_HUB_CLIENT_SECRET` (`sync: false`) e `EASY_MOBILE_SSO_AUDIENCE`. O serviço
+**recusa subir** sem o segredo — senão o catálogo funciona, só o login falha, e com 502 longe
+da causa.
+
+Implementação: `backend/api/mobile/routes_auth.py` e `hub_client.py`; cota em
+`rate_limit.py::consumir_auth`.
+
 **Claims que sustentam tudo isso**, entregues pelo Hub: `sub` (uuid), **`subject_type`**
 (`hub_user` | `mobile_client` — as duas bases de cadastro) e `client_hub_uuid` (o vínculo,
 quando o cadastro mobile vira cliente). O `subject_type` não é enfeite: é o que faz a métrica
