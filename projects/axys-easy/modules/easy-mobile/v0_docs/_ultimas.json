@@ -1,0 +1,53 @@
+{
+  "gerado_em": "2026-08-24T04:58:17Z",
+  "itens": [
+    {
+      "grupo": "NEWSLETTER",
+      "id": "sinapi-2026-07",
+      "titulo": "SINAPI · julho de 2026",
+      "chamada": "Variação média de +0,03% em SP, com 127 composições incluídas e 37 inativadas.",
+      "publicado_em": "2026-07-01",
+      "capa": "easy-mobile/newsletter/sinapi-2026-07/post/pagina-01.png",
+      "destino": "easy-mobile/newsletter/sinapi-2026-07/sinapi-2026-07.pdf",
+      "formato": "pdf"
+    },
+    {
+      "grupo": "ARTIGOS",
+      "id": "como-nasce-o-preco-de-uma-obra-publica",
+      "titulo": "Como nasce o preço de uma obra pública",
+      "chamada": "Projeto, quantidade, composição, produtividade e data-base. O total é a última coisa que aparece.",
+      "publicado_em": "2026-08-22",
+      "destino": "easy-mobile/artigos/como-nasce-o-preco-de-uma-obra-publica.md",
+      "formato": "md"
+    },
+    {
+      "grupo": "NEWSLETTER",
+      "id": "sinapi-2026-06",
+      "titulo": "SINAPI · junho de 2026",
+      "chamada": "Variação média de +1,95% em SP, com 46 composições incluídas e 5 inativadas.",
+      "publicado_em": "2026-06-01",
+      "capa": "easy-mobile/newsletter/sinapi-2026-06/post/pagina-01.png",
+      "destino": "easy-mobile/newsletter/sinapi-2026-06/sinapi-2026-06.pdf",
+      "formato": "pdf"
+    },
+    {
+      "grupo": "CASOS",
+      "id": "aditivo-em-planilha-separada",
+      "titulo": "Aditivo controlado em planilha separada",
+      "chamada": "Separar pode facilitar a montagem, mas não pode romper a visão consolidada do contrato.",
+      "publicado_em": "2026-08-22",
+      "destino": "easy-mobile/casos/aditivo-em-planilha-separada/conteudo.json",
+      "formato": "json"
+    },
+    {
+      "grupo": "NEWSLETTER",
+      "id": "cdhu-2026-05",
+      "titulo": "CDHU · maio de 2026",
+      "chamada": "Variação média de +2,75% em SP, com 12 composições incluídas e 6 inativadas.",
+      "publicado_em": "2026-05-01",
+      "capa": "easy-mobile/newsletter/cdhu-2026-05/post/pagina-01.png",
+      "destino": "easy-mobile/newsletter/cdhu-2026-05/cdhu-2026-05.pdf",
+      "formato": "pdf"
+    }
+  ]
+}
