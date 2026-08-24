@@ -2174,6 +2174,7 @@ VALUES
     ('3464c27d-d4b4-41ba-a847-192465b2d37e', 'Julia Santana', 'eng.julia@diasecardozo.com.br', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '00000000006', '{}'::jsonb, 'user', 'active', TRUE),
     ('de059dca-0e0d-4690-9fb6-78ad4189f036', 'Vitoria', 'eng.vitoria@diasecardozo.com.br', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '00000000007', '{}'::jsonb, 'user', 'active', TRUE),
     ('c26f90c5-96d7-431b-8140-90058d88f122', 'Washington Keneddy', 'eng.washington@diasecardozo.com.br', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '00000000008', '{}'::jsonb, 'user', 'active', TRUE),
+    ('37ef521c-7d91-5648-9f01-75f9e2bbf376', 'Joel', 'eng.joel@diasecardozo.com.br', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', NULL, '{}'::jsonb, 'user', 'active', TRUE),
     ('83557f7e-e3f4-4002-a543-f09cc681f9ae', 'Lunalô Calcados', 'lunalocalcados@hotmail.com', crypt('axys@seed2026', gen_salt('bf', 10)), NULL, 'pt-BR', '00000000004', '{}'::jsonb, 'user', 'active', TRUE)
 ON CONFLICT (email) DO NOTHING;
 
@@ -2197,7 +2198,8 @@ FROM (
         ('DIASECARDOZO', 'eng.maicon@diasecardozo.com.br', 'admin'),
         ('DIASECARDOZO', 'eng.julia@diasecardozo.com.br', 'user'),
         ('DIASECARDOZO', 'eng.vitoria@diasecardozo.com.br', 'user'),
-        ('DIASECARDOZO', 'eng.washington@diasecardozo.com.br', 'user')
+        ('DIASECARDOZO', 'eng.washington@diasecardozo.com.br', 'user'),
+        ('DIASECARDOZO', 'eng.joel@diasecardozo.com.br', 'user')
 ) AS v(tenant_code, email, role)
 JOIN identity.hub_tenant t ON t.tenant_code = v.tenant_code
 JOIN identity.hub_user u ON u.email = v.email
@@ -2251,7 +2253,8 @@ FROM (
         ('DIASECARDOZO', 'eng.maicon@diasecardozo.com.br', 'DIASECARDOZO'),
         ('DIASECARDOZO', 'eng.julia@diasecardozo.com.br', 'DIASECARDOZO'),
         ('DIASECARDOZO', 'eng.vitoria@diasecardozo.com.br', 'DIASECARDOZO'),
-        ('DIASECARDOZO', 'eng.washington@diasecardozo.com.br', 'DIASECARDOZO')
+        ('DIASECARDOZO', 'eng.washington@diasecardozo.com.br', 'DIASECARDOZO'),
+        ('DIASECARDOZO', 'eng.joel@diasecardozo.com.br', 'DIASECARDOZO')
 ) AS v(tenant_code, email, store_code)
 JOIN identity.hub_tenant t ON t.tenant_code = v.tenant_code
 JOIN identity.hub_user u ON u.email = v.email
@@ -2341,7 +2344,8 @@ FROM (
         ('DIASECARDOZO', 'eng.maicon@diasecardozo.com.br'),
         ('DIASECARDOZO', 'eng.julia@diasecardozo.com.br'),
         ('DIASECARDOZO', 'eng.vitoria@diasecardozo.com.br'),
-        ('DIASECARDOZO', 'eng.washington@diasecardozo.com.br')
+        ('DIASECARDOZO', 'eng.washington@diasecardozo.com.br'),
+        ('DIASECARDOZO', 'eng.joel@diasecardozo.com.br')
 ) AS v(tenant_code, email)
 JOIN identity.hub_tenant t ON t.tenant_code = v.tenant_code
 JOIN identity.hub_user u ON u.email = v.email
