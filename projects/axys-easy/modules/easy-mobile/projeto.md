@@ -617,6 +617,26 @@ isso o erro que sobe do cliente HTTP é montado à mão a partir do status, e a 
 o corpo da requisição. Redirect não é seguido (`follow_redirects=False`): um 30x num POST
 autenticado levaria `Authorization` e senha para o destino do `Location`.
 
+**MFA não passa pelo login** (confirmado pelo Hub em 24/08/2026). Ele começa no **201 de
+`/cadastro`**, que devolve `status=pending_verification` com `client_uuid` e
+`challenge_uuid`; o app guarda os dois, chama `/verificar-mfa`, e a verificação
+**bem-sucedida já devolve o JWT** — não há login depois do MFA. Um cadastro ainda pendente
+que tente logar recebe `401` igual a qualquer credencial inválida, **sem diferenciação**, e
+é assim que deve ser: distinguir "não existe" de "não ativo" de "senha errada" transforma o
+login num verificador de cadastro.
+
+Por isso o BFF **repassa o status do Hub**, não achata tudo em 200: o 201 do cadastro é o
+sinal que abre a tela de MFA, e perdê-lo esconderia justamente o estado que orienta o app.
+
+*Lacuna conhecida:* se o usuário abandonar o cadastro e o app perder `client_uuid` /
+`challenge_uuid`, não há como retomar. O Hub avalia um endpoint próprio de recuperação —
+deliberadamente **não** misturado ao login.
+
+**Cota do Hub usa chave composta `IP:email`**, não dois limites independentes. Como o Hub
+enxerga o IP de saída da Render, o isolamento lá fica na prática por e-mail — o que protege
+a conta, e **não** cria cota global compartilhada entre os usuários do app. A separação por
+aparelho continua sendo trabalho do limitador daqui (`CF-Connecting-IP` + e-mail).
+
 **A resposta do Hub nunca é repassada crua.** Mensagem distinta para "e-mail não existe" e
 "senha errada" transforma o login num verificador de cadastro.
 
