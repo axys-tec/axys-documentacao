@@ -3,16 +3,6 @@
   "gerado_em": null,
   "itens": [
     {
-      "id": "planilha-inteligente-orcamento",
-      "titulo": "Planilha inteligente para elaboração de orçamentos",
-      "tipo": "xlsx",
-      "resumo": "Preenchimento automatizado com validação de soma sobre uma EAP bem definida. Traz a SINAPI 07/2026 completa, nas 27 UFs e nos três regimes de encargos: escolhe-se o estado e o regime uma vez e todo o orçamento recalcula. Inclui BDI, Leis Sociais, cronograma e memórias de cálculo vinculadas à planilha orçamentária.",
-      "autoria": "Axys Tecnologia",
-      "data_documento": "agosto/2026",
-      "arquivo": "easy-mobile/downloads/planilha-inteligente-orcamento.xlsx",
-      "bytes": 16483601
-    },
-    {
       "id": "tcu-orientacoes-planilhas-orcamentarias",
       "titulo": "Orientações para elaboração de planilhas orçamentárias de obras públicas",
       "tipo": "pdf",
