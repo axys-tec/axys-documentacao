@@ -621,8 +621,9 @@ autenticado levaria `Authorization` e senha para o destino do `Location`.
 "senha errada" transforma o login num verificador de cadastro.
 
 Variáveis (só na Render, nunca no Flutter, no `pubspec`, no `--dart-define` ou no GitHub):
-`EASY_MOBILE_HUB_BASE_URL` (apex, **sem `www`** — redirect no meio de um POST perde corpo e
-`Authorization`), `EASY_MOBILE_HUB_CLIENT_ID` (`axys-easy-mobile`, público),
+`EASY_MOBILE_HUB_BASE_URL` (**com `www`** — medido em 24/08/2026, o apex devolve 307 no POST
+e 301 no GET; como o cliente não segue redirect, a chamada morre ali, e segui-lo seria pior,
+porque 307 preserva método, corpo e cabeçalhos e levaria a senha adiante), `EASY_MOBILE_HUB_CLIENT_ID` (`axys-easy-mobile`, público),
 `EASY_MOBILE_HUB_CLIENT_SECRET` (`sync: false`) e `EASY_MOBILE_SSO_AUDIENCE`. O serviço
 **recusa subir** sem o segredo — senão o catálogo funciona, só o login falha, e com 502 longe
 da causa.
