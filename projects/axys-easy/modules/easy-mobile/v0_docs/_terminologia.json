@@ -134,6 +134,25 @@
       "referencias": []
     },
     {
+      "id": "arredondar",
+      "termo": "Arredondar",
+      "expansao": null,
+      "conceito_md": "Aproximar um número da casa decimal desejada, para cima ou para baixo, conforme o algarismo seguinte. Com duas casas, 12,346 vira 12,35 e 12,344 vira 12,34.",
+      "funcao_pratica_md": "É o padrão da matemática e da maioria das planilhas. Em orçamento, arredondar para cima em muitas linhas faz o total subir em relação ao custo real — por isso o critério importa quando o mesmo item se repete milhares de vezes.",
+      "distincoes": [
+        {
+          "termo": "Truncar",
+          "diferenca_md": "Arredondar pode aumentar o valor; truncar nunca aumenta. Em 12,349, arredondar dá 12,35 e truncar dá 12,34."
+        }
+      ],
+      "ver_tambem": [
+        "truncar",
+        "sobrepreco",
+        "bdi"
+      ],
+      "referencias": []
+    },
+    {
       "id": "atraso",
       "termo": "Atraso",
       "expansao": null,
@@ -1744,6 +1763,25 @@
           "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
         }
       ]
+    },
+    {
+      "id": "truncar",
+      "termo": "Truncar",
+      "expansao": null,
+      "conceito_md": "Cortar o número na casa decimal desejada, descartando o que vem depois, sem olhar o algarismo seguinte. Com duas casas, tanto 12,346 quanto 12,344 viram 12,34.",
+      "funcao_pratica_md": "É o critério mais conservador: o valor obtido nunca supera o real. Em obras públicas, é o que o TCU indica para a formação de preços, justamente porque não introduz acréscimo por efeito de arredondamento ao longo de milhares de linhas.",
+      "distincoes": [
+        {
+          "termo": "Arredondar",
+          "diferenca_md": "Truncar só corta; arredondar pode elevar. A diferença é de centavos por linha, mas acumula no orçamento e sempre na mesma direção."
+        }
+      ],
+      "ver_tambem": [
+        "arredondar",
+        "sobrepreco",
+        "superfaturamento"
+      ],
+      "referencias": []
     }
   ]
 }

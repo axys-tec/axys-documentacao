@@ -559,6 +559,55 @@
       "publicado_em": "2026-08-22",
       "pdf": "easy-mobile/artigos/aditivos-e-reequilibrio-economico-financeiro.pdf",
       "pdf_bytes": 290686
+    },
+    {
+      "id": "truncar-ou-arredondar",
+      "titulo": "Truncar ou arredondar: por que centavos decidem um orçamento — e protegem o orçamentista",
+      "chamada": "Três centavos por metro quadrado viram seis mil reais numa planilha. E o auditor pode chamar isso de sobrepreço.",
+      "assuntos": [
+        "truncar",
+        "arredondar",
+        "sobrepreco",
+        "sinapi"
+      ],
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "rotulo": "Truncar",
+          "grupo": "TERMINOLOGIA",
+          "id": "truncar"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Arredondar",
+          "grupo": "TERMINOLOGIA",
+          "id": "arredondar"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Sobrepreço",
+          "grupo": "TERMINOLOGIA",
+          "id": "sobrepreco"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Superfaturamento",
+          "grupo": "TERMINOLOGIA",
+          "id": "superfaturamento"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "SINAPI",
+          "grupo": "TERMINOLOGIA",
+          "id": "sinapi"
+        }
+      ],
+      "conteudo": "easy-mobile/artigos/truncar-ou-arredondar.md",
+      "formato": "markdown",
+      "palavras": 839,
+      "publicado_em": "2026-09-11",
+      "pdf": "easy-mobile/artigos/truncar-ou-arredondar.pdf",
+      "pdf_bytes": 328035
     }
   ]
 }
