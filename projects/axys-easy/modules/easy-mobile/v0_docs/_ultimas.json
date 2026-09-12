@@ -1,5 +1,5 @@
 {
-  "gerado_em": "2026-08-24T04:58:17Z",
+  "gerado_em": "2026-09-12T14:07:23Z",
   "itens": [
     {
       "grupo": "NEWSLETTER",
@@ -13,11 +13,11 @@
     },
     {
       "grupo": "ARTIGOS",
-      "id": "como-nasce-o-preco-de-uma-obra-publica",
-      "titulo": "Como nasce o preço de uma obra pública",
-      "chamada": "Projeto, quantidade, composição, produtividade e data-base. O total é a última coisa que aparece.",
-      "publicado_em": "2026-08-22",
-      "destino": "easy-mobile/artigos/como-nasce-o-preco-de-uma-obra-publica.md",
+      "id": "truncar-ou-arredondar",
+      "titulo": "Truncar ou arredondar: por que centavos decidem um orçamento — e protegem o orçamentista",
+      "chamada": "Três centavos por metro quadrado viram seis mil reais numa planilha. E o auditor pode chamar isso de sobrepreço.",
+      "publicado_em": "2026-09-11",
+      "destino": "easy-mobile/artigos/truncar-ou-arredondar.md",
       "formato": "md"
     },
     {
