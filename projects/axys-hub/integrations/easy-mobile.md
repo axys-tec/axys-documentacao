@@ -101,11 +101,15 @@ responde HTTP 503.
 
 ## Credencial de telemetria
 
-A Easy Mobile API conecta diretamente ao PostgreSQL com um usuário `LOGIN`
-exclusivo, membro apenas de `easy_mobile_analytics_writer`. A role concede
-`USAGE` no schema `analytics`, `INSERT` em `analytics.easy_mobile_event` e uso da
-sequence da chave; não concede leitura nem acesso às tabelas de identidade,
-licença, produto ou billing.
+A Easy Mobile API conecta diretamente ao PostgreSQL com o usuário `LOGIN`
+exclusivo `easy_mobile_api`, membro apenas de `easy_mobile_analytics_writer`.
+A role concede `USAGE` no schema `analytics`, `SELECT`/`INSERT` somente em
+`analytics.easy_mobile_event` e `analytics.easy_mobile_lead`, e `UPDATE` apenas
+nas colunas operacionais `status`, `note` e `updated_at` do lead. Eventos são
+append-only; a role não recebe `UPDATE` ou `DELETE` neles, nem acesso às tabelas
+de identidade, licença, produto, billing ou às tabelas genéricas de analytics.
+O `client_uuid` ou `hub_user_uuid` e o tipo do ator são derivados pela API a
+partir do token autenticado; o aplicativo não escolhe a identidade persistida.
 
 Em desenvolvimento, carregue `.env.local` e execute:
 
@@ -113,5 +117,5 @@ Em desenvolvimento, carregue `.env.local` e execute:
 python scripts/setup_easy_mobile_analytics_user.py
 ```
 
-O serviço consumidor recebe `EASY_MOBILE_ANALYTICS_DB_URL`; nunca deve receber
-`HUB_DB_URL`.
+O serviço consumidor recebe `EASY_MOBILE_ANALYTICS_DB_URL`, montada com o LOGIN
+`easy_mobile_api`; nunca deve receber `HUB_DB_URL`.

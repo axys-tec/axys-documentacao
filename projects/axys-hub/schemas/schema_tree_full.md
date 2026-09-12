@@ -44,7 +44,8 @@ axys-hub
 │   ├── event_type (vocabulário de eventos)
 │   ├── event (evento analítico público)
 │   ├── visitor_identity_link (vínculo visitante ↔ identidade conhecida)
-│   └── easy_mobile_event (telemetria append-only do Easy Mobile)
+│   ├── easy_mobile_event (telemetria append-only do Easy Mobile)
+│   └── easy_mobile_lead (interesse comercial mutável do Easy Mobile)
 ├── commercial
 │   ├── partner (parceiro ou canal comercial)
 │   ├── lead (lead antes da conversão)
@@ -103,3 +104,7 @@ Tabelas auxiliares desse fluxo:
 - `auth.easy_mobile_rate_limit`: proteção persistente contra abuso e força bruta;
 - `analytics.easy_mobile_event`: eventos append-only, gravados pela role restrita
   `easy_mobile_analytics_writer`.
+- `analytics.easy_mobile_lead`: interesse em soluções originado no app, separado da
+  telemetria por possuir status e anotação mutáveis e retenção própria.
+- `easy_mobile_api`: LOGIN exclusivo da API, membro apenas da role NOLOGIN
+  `easy_mobile_analytics_writer`; acessa somente as duas tabelas acima.

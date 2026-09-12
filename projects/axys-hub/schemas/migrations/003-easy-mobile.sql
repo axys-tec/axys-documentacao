@@ -136,7 +136,7 @@ BEGIN
             FROM easy_mobile_analytics_writer;
         REVOKE ALL ON ALL TABLES IN SCHEMA analytics FROM easy_mobile_analytics_writer;
         GRANT USAGE ON SCHEMA analytics TO easy_mobile_analytics_writer;
-        GRANT INSERT ON analytics.easy_mobile_event TO easy_mobile_analytics_writer;
+        GRANT SELECT, INSERT ON analytics.easy_mobile_event TO easy_mobile_analytics_writer;
         GRANT USAGE, SELECT ON SEQUENCE analytics.easy_mobile_event_event_id_seq
             TO easy_mobile_analytics_writer;
     END IF;
