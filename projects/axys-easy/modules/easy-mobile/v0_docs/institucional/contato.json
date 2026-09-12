@@ -1,0 +1,27 @@
+{
+  "id": "contato",
+  "titulo": "Contato",
+  "site": "www.axys-tec.com.br",
+  "instagram": "@axys.tec",
+  "linkedin": "linkedin.com/company/axys-tec",
+  "mensagem_atendimento": "Olá, vim através do aplicativo EasyMobile e desejo atendimento",
+  "formulario_site": "https://www.axys-tec.com.br/#contato",
+  "contatos": [
+    {
+      "nome": "Axys Tecnologia",
+      "papel": null,
+      "email": "contato@axys-tec.com.br",
+      "telefone": "5517997412708",
+      "atendimento": true,
+      "linkedin": true
+    },
+    {
+      "nome": "Renan Dias",
+      "papel": "Diretoria",
+      "email": "diretoria@axys-tec.com.br",
+      "telefone": "5517996287465",
+      "atendimento": false,
+      "linkedin": false
+    }
+  ]
+}

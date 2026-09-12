@@ -50,7 +50,7 @@
     },
     {
       "tipo": "texto",
-      "texto_md": "- **Problema antes da funcionalidade:** começamos pela necessidade concreta.\n- **Resultado antes do volume:** quantidade de entregas não substitui impacto real.\n- **Contexto antes da automação:** automatizar um processo mal compreendido apenas acelera o erro.\n- **Clareza antes do jargão:** termos técnicos são usados quando acrescentam precisão.\n- **Evolução sem ruptura:** melhorias devem respeitar a continuidade do trabalho do usuário.\n\nSobre o conteúdo que publicamos, o critério está em *Como a gente escreve*."
+      "texto_md": "- **Problema antes da funcionalidade:** começamos pela necessidade concreta.\n- **Resultado antes do volume:** quantidade de entregas não substitui impacto real.\n- **Contexto antes da automação:** automatizar um processo mal compreendido apenas acelera o erro.\n- **Clareza antes do jargão:** termos técnicos são usados quando acrescentam precisão.\n- **Evolução sem ruptura:** melhorias devem respeitar a continuidade do trabalho do usuário.\n\nSobre o conteúdo que publicamos, o critério está em *Nosso Conteúdo*."
     }
   ]
 }
