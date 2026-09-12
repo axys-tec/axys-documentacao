@@ -1150,17 +1150,92 @@ Não espalhar SQL do Hub pelo código. Um ponto único — algo como `integratio
 
 > **Analytics nunca pode quebrar a experiência principal.** Falha de métrica é *best-effort*: registra-se no log e segue. Consulta válida jamais vira HTTP 500 por causa de telemetria.
 
-## O que guardar — a decidir
+## O que guardar — DECIDIDO (12/09/2026)
 
-O vocabulário de eventos será fechado **depois do mapeamento completo dos módulos**. Ponto de partida, a refinar:
+**Princípio de recorte:** registrar **intenção**, não navegação. Se um dado não muda uma
+decisão, não merece existir. Isso descarta tempo de tela por segundo, scroll e ping.
 
-`app_open` · `login` · `search` · `price_view` · `composition_view` · `history_view` · `simulation_run` · `newsletter_open` · `article_open` · `caderno_open` · `download` · `youtube_click` · `solution_click` · `notification_open`
+### Duas tabelas, não uma
 
-Métricas pretendidas: DAU/MAU, retenção 7/30/90, UF, profissão declarada, fontes mais consultadas, buscas por usuário, leitura de newsletter, consumo de conteúdo e funil para as soluções.
+A primeira versão deste desenho tinha tabela única, separando lead por `WHERE`. Está
+errado, e o motivo não é volume: **lead não é append-only**. Alguém marca como contatado,
+anota o que conversou, muda o status. Evento de uso nunca muda depois de gravado. Misturar
+registro mutável em tabela append-only é erro de modelagem.
 
-**Princípio de recorte:** registrar **intenção**, não navegação. Se um dado não muda uma decisão, não merece existir. Isso descarta tempo de tela por segundo, scroll e ping periódico.
+| | `eventos` | `interesses` |
+|---|---|---|
+| natureza | append-only | mutável |
+| finalidade | medir uso | **contatar alguém** |
+| volume | milhões | dezenas por mês |
+| retenção | 180 dias no detalhe, agregado depois | até a conta ser excluída ou o negócio fechar |
 
-**Item de maior valor isolado: termo buscado que não retornou resultado.** É o público dizendo o que procurou na Axys e não encontrou — pauta editorial pronta, e vale mais que qualquer contador de acesso.
+A separação é **fronteira física de privacidade**, não organização: na LGPD as finalidades
+são distintas, e dar acesso comercial ao lead não pode dar acesso ao histórico de
+navegação de ninguém. Com tabela única, seria a mesma permissão.
+
+**Retenção é POR EVENTO, nunca global.** Uma política de 180 dias aplicada ao banco
+apagaria o lead mais valioso — alguém que clicou "quero contratar" há sete meses.
+
+### Vocabulário mínimo — sete eventos
+
+| evento | payload | quem registra |
+|---|---|---|
+| `busca` | termo, tipo, fonte, uf, **resultados** | API |
+| `composicao_aberta` | cmp_id, fonte, codigo | API |
+| `insumo_aberto` | ins_id, fonte, codigo | API |
+| `conteudo_aberto` | **grupo**, id | app |
+| `busca_conhecimento` | termo, resultados | app |
+| `app_aberto` | — | app |
+| `solucao_interesse` | solucao_id, **acao** | app → `interesses` |
+
+**`conteudo_aberto` com `grupo` substitui seis eventos** do vocabulário anterior
+(`newsletter_open`, `article_open`, `caderno_open` e os acessos a missão, sobre, soluções
+e roadmap). Para saber quantas vezes alguém abriu "Missão e valores", filtra-se
+`grupo='institucional' AND id='missao-e-valores'`. Grupo novo deixa de exigir evento novo.
+
+**`acao` no payload do interesse** (`saber_mais` · `contratar` · `video` · `site`), e não
+quatro eventos. Acrescentar "agendar demonstração" passa a ser um valor, não migration.
+
+**`resultados` é o campo mais importante da tabela de eventos.** É ele que entrega o item
+de maior valor isolado: `WHERE resultados = 0` — o público dizendo o que procurou na Axys
+e não encontrou. Pauta editorial pronta, e vale mais que qualquer contador de acesso.
+
+### Três detalhes que não são óbvios
+
+**`chave` única, gerada no APP.** Com fila offline e retentativa, o mesmo evento chega
+duas vezes — rede que cai depois de o servidor gravar e antes de o app receber a
+confirmação. Sem chave, conta-se duas buscas onde houve uma. Em `interesses` é pior:
+alguém ligaria duas vezes para a mesma pessoa.
+
+**Duas datas: `ocorrido_em` e `registrado_em`.** Evento offline chega horas depois. Sem a
+primeira, todo o uso de quem estava sem sinal se concentra no momento em que o sinal
+voltou, e a métrica por hora do dia mente.
+
+**`int_contexto` guarda a jornada no INSTANTE do clique** — quantas buscas já havia feito,
+se abriu caderno técnico, há quantos dias usa o app. Um "contratar" de quem usou três
+semanas vale diferente de um de quem instalou há cinco minutos, e reconstruir isso depois
+exige varrer a tabela inteira.
+
+### Entrada única
+
+`POST /v0/eventos` recebe tudo; a API roteia pelo nome — `solucao_interesse` vai para
+`interesses`, o resto para `eventos`. O app não sabe que existem duas tabelas: para ele é
+sempre "registrar o que aconteceu".
+
+**Em lote, não por evento.** Um POST por toque gasta bateria e rede, e é o que faz
+analytics virar reclamação de usuário. A fila local resolve dois problemas com um
+mecanismo: guarda sem rede e permite o envio agrupado.
+
+**A busca da base de conhecimento é LOCAL e dispara a cada tecla** (`onChanged`). Registrar
+tudo geraria lixo — "orça" viraria quatro eventos. Debounce de 800ms sem digitação, e vai
+só o termo final.
+
+### Consequência para a política de privacidade
+
+`solucao_interesse` existe para **contatar alguém**; os demais, para medir uso. São bases
+legais distintas na LGPD, e a política precisa dizê-lo separadamente — "coletamos dados de
+uso" não cobre o lead. E, como excluir a conta desvincula a telemetria (exigência da App
+Store e da LGPD), **lead de conta excluída deixa de ser contatável**.
 
 ---
 
