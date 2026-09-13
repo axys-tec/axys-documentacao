@@ -2964,20 +2964,22 @@ SET is_unlimited = EXCLUDED.is_unlimited,
 CREATE TABLE IF NOT EXISTS identity.client_easy_mobile (
     client_uuid UUID NOT NULL DEFAULT gen_random_uuid(),
     client_hub_uuid UUID,
-    full_name TEXT NOT NULL,
-    phone TEXT NOT NULL,
-    email TEXT NOT NULL,
+    full_name TEXT,
+    phone TEXT,
+    email TEXT,
     pending_email TEXT,
     pending_phone TEXT,
-    password_hash TEXT NOT NULL,
+    password_hash TEXT,
     cpf TEXT,
     uf CHAR(2),
     profession TEXT,
     status TEXT NOT NULL DEFAULT 'pending_verification',
     email_verified_at TIMESTAMPTZ,
     phone_verified_at TIMESTAMPTZ,
-    notification_preferences JSONB NOT NULL DEFAULT '{"new_edition":true,"new_publication":true}'::jsonb,
+    notification_preferences JSONB DEFAULT '{"new_edition":true,"new_publication":true}'::jsonb,
     deleted_at TIMESTAMPTZ,
+    deletion_contact_consent_at TIMESTAMPTZ,
+    deletion_contact_retain_until TIMESTAMPTZ,
     last_login_at TIMESTAMPTZ,
     failed_attempts SMALLINT NOT NULL DEFAULT 0,
     locked_until TIMESTAMPTZ,
@@ -3077,6 +3079,23 @@ CREATE INDEX IF NOT EXISTS idx_easy_mobile_event_name_occurred
     ON analytics.easy_mobile_event (event_name, occurred_at DESC);
 CREATE INDEX IF NOT EXISTS idx_easy_mobile_event_client_occurred
     ON analytics.easy_mobile_event (client_uuid, occurred_at DESC) WHERE client_uuid IS NOT NULL;
+
+CREATE TABLE IF NOT EXISTS analytics.easy_mobile_deletion_feedback (
+    feedback_uuid UUID NOT NULL DEFAULT gen_random_uuid(),
+    reason TEXT NOT NULL,
+    reason_detail TEXT,
+    accepts_contact BOOLEAN NOT NULL DEFAULT FALSE,
+    days_of_use INTEGER NOT NULL DEFAULT 0,
+    uf CHAR(2),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    CONSTRAINT easy_mobile_deletion_feedback_pkey PRIMARY KEY (feedback_uuid),
+    CONSTRAINT ck_easy_mobile_deletion_feedback_reason CHECK (btrim(reason) <> ''),
+    CONSTRAINT ck_easy_mobile_deletion_feedback_detail CHECK (
+        reason_detail IS NULL OR char_length(reason_detail) <= 280
+    ),
+    CONSTRAINT ck_easy_mobile_deletion_feedback_days CHECK (days_of_use >= 0),
+    CONSTRAINT ck_easy_mobile_deletion_feedback_uf CHECK (uf IS NULL OR uf ~ '^[A-Z]{2}$')
+);
 
 -- Interesse comercial originado no Easy Mobile. Fica separado da telemetria de uso
 -- porque possui ciclo de vida mutável (status e anotação) e retenção própria.

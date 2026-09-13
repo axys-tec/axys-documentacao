@@ -99,6 +99,30 @@ responde HTTP 503.
 - Reenvio: 3 requisições por IP/cliente em 15 minutos.
 - Um reenvio expira todos os desafios anteriores ainda ativos.
 
+## Exclusão de conta
+
+`POST /api/easy-mobile/me/excluir` (também disponível pelo alias legado
+`POST /auth/excluir`) aceita a senha e, opcionalmente, `motivo`,
+`motivo_detalhe` (até 280 caracteres) e `aceita_contato`.
+
+A exclusão é lógica: preserva `client_uuid`, `status=deleted` e `deleted_at`,
+desvincula `client_hub_uuid` e anula os demais dados pessoais, credenciais,
+verificações e preferências. O feedback é agregado em tabela sem FK para a
+identidade. Com opt-in de contato, somente nome e telefone permanecem por até
+30 dias; o prazo é configurado por
+`EASY_MOBILE_DELETION_CONTACT_RETENTION_DAYS`.
+O aquecimento noturno de `/sitemap.xml` executa também o expurgo idempotente
+dos contatos cujo prazo consentido já terminou.
+
+O alerta operacional usa `EASY_MOBILE_DELETION_ALERT_PHONE`. Sem opt-in, a
+mensagem não contém nome, telefone ou UUID. Falha no alerta não desfaz a
+exclusão já confirmada.
+
+As FKs de `analytics.easy_mobile_event` continuam com `ON DELETE SET NULL`
+apenas como proteção para eventual exclusão física. Na exclusão lógica elas não
+disparam, e `client_uuid` permanece para coerência histórica sem identidade
+cadastral associada.
+
 ## Credencial de telemetria
 
 A Easy Mobile API conecta diretamente ao PostgreSQL com o usuário `LOGIN`
