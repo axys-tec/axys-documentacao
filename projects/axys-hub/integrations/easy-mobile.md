@@ -143,3 +143,17 @@ python scripts/setup_easy_mobile_analytics_user.py
 
 O serviço consumidor recebe `EASY_MOBILE_ANALYTICS_DB_URL`, montada com o LOGIN
 `easy_mobile_api`; nunca deve receber `HUB_DB_URL`.
+
+## Mídias públicas
+
+Os ativos públicos do EasyMobile ficam no bucket `axys-public`, sob o prefixo
+`easy-mobile/media/`:
+
+- `site/`: imagens e vídeos consumidos pela landing `/easy-mobile`;
+- `app-store/screenshots/`: screenshots finais em 1284 × 2778 px;
+- `app-store/previews/`: previews finais em 886 × 1920 px;
+- `archive/original-screenshots/` e `archive/original-videos/`: cópias dos arquivos recebidos.
+
+O futuro vídeo de apresentação deve ser publicado em
+`easy-mobile/media/presentation/` e referenciado pela landing somente após a
+validação pública do objeto.
