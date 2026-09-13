@@ -153,7 +153,3 @@ Os ativos públicos do EasyMobile ficam no bucket `axys-public`, sob o prefixo
 - `app-store/screenshots/`: screenshots finais em 1284 × 2778 px;
 - `app-store/previews/`: previews finais em 886 × 1920 px;
 - `archive/original-screenshots/` e `archive/original-videos/`: cópias dos arquivos recebidos.
-
-O futuro vídeo de apresentação deve ser publicado em
-`easy-mobile/media/presentation/` e referenciado pela landing somente após a
-validação pública do objeto.
