@@ -35,7 +35,7 @@ Encargos sociais incidem **só sobre mão de obra**, e o preço "com encargos" p
 ### 2.2 Custo da composição — `composicoes_custo` é a casa única dos números
 - **Custo é montado pela app** a partir dos preços de insumo na UF/modalidade — a fonte é referência/conferência, não verdade de cálculo.
 - **SEM CUSTO** ⟺ a composição contém algum insumo SEM PREÇO ou subcomposição SEM CUSTO. A indisponibilidade **propaga pela árvore**.
-- Os **números** (`cc_custo_fonte`, `cc_custo_calculado`, diferença, `cc_status_conferencia`, `cc_pct_sp`) vivem **só** em `composicoes_custo` (1 linha por cmp/uf/modalidade). `composicoes_custo_alerta` guarda **só a causa** (tipo + item culpado + observação), sem repetir custo, só p/ casos relevantes.
+- Os **números** (`cc_custo_fonte`, `cc_custo_calculado`, diferença, `cc_status_conferencia`, `cc_pct_sp`) vivem **só** em `composicoes_custo` (1 linha por cmp/uf/modalidade). (A `composicoes_custo_alerta` — "fila de revisão" com a causa item-a-item — foi **removida em 2026-09-14**: a app nunca a consumiu e o motor único deixou `DIVERGENTE_RELEVANTE` raríssimo, coberto pela tela `diff-fonte-app`. Se voltar a fazer falta, recriar por migration.)
 - **Exibição:** a app mostra `cc_custo_calculado` (processado pela app); `COALESCE(cc_custo_calculado, cc_custo_fonte)` (fonte só fallback). A semântica de `cc_custo_fonte` cru / fontes com BDI (FDE) é da conferência de import — ver [imports/fde.md](imports/fde.md).
 - **Fidelidade dos itens:** a receita é gravada **exatamente como a fonte apresenta** (N itens, código/descrição/unidade/coef/ordem). Coeficiente 0 é válido (item presente, quantidade não atribuída) — `CHECK ci_coef >= 0`. Insumo SEM PREÇO com coef 0 **ainda propaga SEM CUSTO** (basta a presença na árvore).
 
