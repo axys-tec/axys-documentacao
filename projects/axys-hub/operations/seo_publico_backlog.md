@@ -34,8 +34,17 @@ temporariamente.
 Se ninguém acessar a central, a página individual ou o sitemap, nenhuma consulta nova é
 executada e uma publicação recém-adicionada ainda não é incorporada à cópia em memória.
 Uma visita do Google ao sitemap também é uma requisição e pode provocar a atualização.
-Para descoberta determinística, a arquitetura futura deve usar sinal explícito do projeto
-publicador (webhook/fila) ou um job externo de atualização, e não depender de visita humana.
+
+Para não depender de visita humana, o worker noturno do projeto Easy faz uma requisição
+ao `/sitemap.xml` do Hub depois de concluir a atualização dos índices inflacionários. Essa
+requisição revalida os manifests, atualiza a relação de URLs publicada ao Google e também
+aciona o expurgo idempotente dos contatos temporariamente retidos após exclusão de conta.
+Não foi criada API, webhook nem fila específica no Hub.
+
+O aquecimento diário reduz o atraso de descoberta, mas não transforma o Hub em gerador
+estático: as páginas individuais continuam sendo montadas quando solicitadas. Uma URL não
+deixa de existir quando o cache expira; a rota genérica e o material no bucket permanecem
+disponíveis.
 
 ## Fronteira de responsabilidade
 
@@ -66,9 +75,8 @@ antes de existir solução pronta para venda e posicionamento aprovado:
 5. Expandir a linkagem contextual entre Knowledge, futuras Soluções e produtos Easy.
 6. Criar relatórios de aquisição orgânica: origem/UTM, landing page, conteúdo visitado,
    download, lead, cadastro, teste e conversão.
-7. Avaliar invalidação/aquecimento explícito do cache após publicação. Isso exige um
-   contrato de integração com o projeto produtor (webhook, fila ou chamada autenticada),
-   não uma alteração unilateral do Hub.
+7. Monitorar o aquecimento noturno já implantado e decidir futuramente se publicações
+   urgentes justificam invalidação explícita. Por ora, não criar webhook ou API adicional.
 
 ### Árvore comercial candidata — não publicada
 

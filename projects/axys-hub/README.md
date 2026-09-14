@@ -76,6 +76,7 @@ Veja [integrations/](../../integrations/) para mapa completo.
 | [api/](api/) | Endpoints e fluxos |
 | [schemas/](schemas/) | Banco de dados |
 | [operations/](operations/) | Deploy e monitoramento |
+| [operations/easy_mobile_publicacao_app_store.md](operations/easy_mobile_publicacao_app_store.md) | Landing, páginas públicas, mídias, App Store e checklist de produção do Easy Mobile |
 
 ---
 

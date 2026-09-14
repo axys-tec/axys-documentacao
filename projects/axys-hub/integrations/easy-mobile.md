@@ -1,4 +1,4 @@
-# Easy Mobile — autenticação e MFA
+# Easy Mobile — integração, ciclo da conta e presença pública
 
 ## Autenticação do cliente
 
@@ -153,3 +153,37 @@ Os ativos públicos do EasyMobile ficam no bucket `axys-public`, sob o prefixo
 - `app-store/screenshots/`: screenshots finais em 1284 × 2778 px;
 - `app-store/previews/`: previews finais em 886 × 1920 px;
 - `archive/original-screenshots/` e `archive/original-videos/`: cópias dos arquivos recebidos.
+
+Os arquivos de App Store são derivados dos originais, que nunca devem ser
+sobrescritos. Os screenshots finais usam 1284 × 2778 px, mantendo proporção,
+sem corte ou deformação. Os previews finais usam 886 × 1920 px, H.264 High
+Profile Level 4.0, `yuv420p`, áudio AAC estéreo a 44,1 kHz e frame rate
+constante de 30 fps. Cada preview deve permanecer entre 15 e 30 segundos; o
+terceiro vídeo atual foi limitado a 29,9 segundos.
+
+O pacote local de preparação fica fora do repositório, em
+`Axys/EasyMobile/AppStore`, organizado em originais, screenshots processados e
+previews processados. As cópias rejeitadas por frame rate alto foram preservadas
+em `04-previews-886x1920/rejeitados-frame-rate-alto/`.
+
+## Presença pública no Hub
+
+O Hub mantém as seguintes rotas próprias:
+
+- `/easy-mobile`: landing pública do aplicativo;
+- `/easy-mobile/privacidade`: política de privacidade específica;
+- `/easy-mobile/termos`: termos de uso específicos;
+- `/easy-mobile/suporte`: URL pública de suporte testável pela Apple.
+
+As quatro rotas entram no `sitemap.xml`. A landing consome suas mídias do bucket
+público e apresenta Central de Custos, Base de Conhecimento e demonstrações do
+aplicativo. O rodapé aponta para o suporte institucional `/suporte`; o suporte
+específico do app permanece disponível na landing e em sua URL própria.
+
+Na home, Easy Mobile é o primeiro item do carrossel AxysEasy. O botão
+`Conheça mais` abre o modal de resumo, e o único CTA desse modal é
+`Ver Funcionalidades`, direcionado para `/easy-mobile`. Por ser gratuito, não
+exibe `Acessar` nem `Ver planos` nesse contexto.
+
+Veja o checklist consolidado em
+[`../operations/easy_mobile_publicacao_app_store.md`](../operations/easy_mobile_publicacao_app_store.md).
