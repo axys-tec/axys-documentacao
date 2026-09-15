@@ -15,6 +15,19 @@ O campo `mfa_canal` no cadastro e o campo `canal` no reenvio aceitam `email` ou
 `whatsapp`. Para WhatsApp, números nacionais de 10 ou 11 dígitos recebem o DDI
 `55` antes do envio à Z-API. Números já informados com `55` são preservados.
 
+O cadastro não grava uma identidade antes da confirmação. O Hub gera um UUID v4,
+devolve o mesmo valor como `client_uuid` e `challenge_uuid` e mantém nome,
+contatos, hash da senha e hash do código por cinco minutos no Key Value exclusivo
+do AxysHub. O reenvio preserva esse contrato e renova o desafio. Se ele expirar,
+o usuário inicia novamente o cadastro.
+
+Somente depois do código correto o Hub repete as verificações de unicidade e cria
+`identity.client_easy_mobile`, já com `status=active`, usando o UUID antecipado.
+A confirmação é idempotente: se o PostgreSQL tiver confirmado a identidade e a
+atualização do cache falhar, uma repetição com o mesmo desafio e código devolve o
+mesmo sucesso. Após a conclusão, os dados pessoais e o hash da senha são removidos
+do cache; o comprovante mínimo do desafio permanece apenas durante seu TTL.
+
 Após a confirmação correta, `POST /api/easy-mobile/verificar-mfa` preserva os
 campos históricos `client_uuid` e `status` e acrescenta a autenticação:
 
@@ -98,6 +111,10 @@ responde HTTP 503.
 - Um desafio aceita no máximo 5 códigos incorretos.
 - Reenvio: 3 requisições por IP/cliente em 15 minutos.
 - Um reenvio expira todos os desafios anteriores ainda ativos.
+
+O cache de pré-cadastro usa `EASY_MOBILE_SIGNUP_CACHE_URL`. Em produção, o
+Blueprint injeta a conexão do Key Value `axys-hub-signup-cache`. O TTL usa
+`EASY_MOBILE_SIGNUP_CHALLENGE_TTL_SECONDS=300` e aceita de 60 a 900 segundos.
 
 ## Exclusão de conta
 
