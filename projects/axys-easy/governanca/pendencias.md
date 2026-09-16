@@ -63,3 +63,18 @@ canônico é a **união** (mata o "não tem no SINAPI").
 re-curadas **a cada edição**). Precisa de estratégia de curadoria viável (IA-assistida com confiança
 alta, que hoje não há) antes de valer a pena. Adiado junto com a revisão geral da bancada.
 Ver: `../modules/catalogo/CATALOGO_VINCULACOES_INTRA_FONTES.md`, favoritar-fonte na bancada.
+
+---
+
+## Desempenho — investigar infraestrutura de back (não é o servidor)
+
+**Sintoma (Renan, 2026-09-16):** stacks/ambientes **antigos com MAIS dados** respondem **mais rápido**
+que os atuais — o que descarta "faltou servidor/CPU". A suspeita é **infraestrutura de back** (não a
+máquina): candidatos a investigar — plano/conexão do Postgres (pooler, latência web↔DB, região),
+ausência/decaimento de índices, planos de query degradados (estatísticas/VACUUM/ANALYZE), N+1 nas
+telas, cache frio (Redis TTL/eviction), cold start dos serviços Render. 
+- [ ] Medir latência real por camada (web→DB, query pura, render de template) num endpoint lento
+      conhecido, comparando o ambiente rápido (antigo) × o atual — isolar ONDE está o tempo.
+- [ ] Conferir índices e `EXPLAIN ANALYZE` das queries quentes; rodar `ANALYZE` e comparar planos.
+- [ ] Revisar pooler/região dos 3 serviços (web/worker/mobile) × banco — RTT por round-trip.
+- [ ] Cache do catálogo: hit-rate e se o rewarm pós-restart está acontecendo.

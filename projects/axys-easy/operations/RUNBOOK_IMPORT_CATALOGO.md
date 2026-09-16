@@ -101,11 +101,13 @@ PY
 
 ### 3.3 Importar o dist
 
-- Semear a edição FDE da versão (ex.: `07-26`, mês-ref 2026-07-01) → pega o `edi_id`.
-- Pela tela **`/import/fde-dist`** (portal-free): subir o `2026_07.zip`. No estágio Dados aparece
-  `fichas: N nova(s)`. O `parser_fde.calcular_custos` delega ao motor único (TRUNC + oráculo des-BDI).
-- Alternativa por script: `python z_scripts_apoio/importacao/importar_fde_dist.py <edi_id> <dist.zip>`
-  (roda o pipeline EAGER, sem worker).
+- Semear a edição FDE da versão (ex.: `07-26`, mês-ref 2026-07-01) → em RASCUNHO.
+- Pela **tela padrão** `/edicoes/importar` (portal-free): escolher fonte **FDE**, a edição, e no radio
+  **`dist`** (em vez de `convencional`) subir o `2026_07.zip`. Segue os **estágios convencionais** do painel:
+  Preparar → Preços → Dados → Documentos (clicando cada chip). No estágio Dados aparece `fichas: N nova(s)`
+  e a curadoria de vinculação (`pendente_user`). O `parser_fde.calcular_custos` delega ao motor único
+  (TRUNC + oráculo des-BDI). (A antiga página dedicada `/import/fde-dist` foi aposentada; a rota POST
+  `/api/import/fde-dist` continua, agora acionada por essa tela.)
 - Validar (§6). FDE publica **COM BDI** → a conferência des-BDIniza (`fonte ÷ (1+BDI%)`); o `calc` é limpo.
 
 ---
@@ -165,8 +167,9 @@ psql "$DBURL" -tAc "SELECT cc_status_conferencia, count(*) FROM catalogo.composi
   (há também LOGIN_FDE/SENHA_FDE, que o script NÃO usa).
 - **Import não recalcula em prod:** deploy não recalcula o gravado. Import NOVO já sai trunc; para
   edição ANTIGA usar a retroação (§5).
-- **`composicoes_custo_alerta`:** o motor único NÃO gera mais alerta (a app nunca leu essa tabela).
-  Fica sempre vazia. (Decisão pendente: dropar do schema ou restaurar a geração.)
+- **`composicoes_custo_alerta`:** RESOLVIDO (2026-09) — a tabela foi **dropada** do schema (a app nunca
+  a leu e o motor único não gera alerta). Os parsers não referenciam mais. Se algum dia fizer falta, é um
+  `create table` novo.
 
 ---
 
