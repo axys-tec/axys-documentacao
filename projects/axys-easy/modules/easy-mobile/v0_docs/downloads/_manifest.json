@@ -3,19 +3,35 @@
   "gerado_em": null,
   "itens": [
     {
-      "id": "tcu-orientacoes-planilhas-orcamentarias",
-      "titulo": "Orientações para elaboração de planilhas orçamentárias de obras públicas",
+      "id": "tcu-engenharia-custos-perguntas-respostas",
       "tipo": "pdf",
-      "resumo": "Referência do TCU sobre como montar a planilha orçamentária: composição de custos, BDI, encargos sociais, critérios de medição e os erros que mais aparecem em auditoria. É o documento que sustenta boa parte do que se cobra em fiscalização.",
+      "titulo": "Engenharia de Custos em Obras Públicas · Guia de perguntas e respostas",
+      "resumo": "Revisão ampla da cartilha de 2014 do TCU, agora sob a Lei 14.133/2021. Cobre quantificação de serviços, custos unitários, BDI e preço de venda, execução contratual e aditivos, medição em empreitada por preço global e orçamento de engenharia consultiva. Traz jurisprudência atualizada e entra em risco, produtividade, cronograma e reequilíbrio.",
+      "autoria": "Tribunal de Contas da União",
+      "data_documento": "2026",
+      "licenca": "Permite-se a reprodução desta publicação, em parte ou no todo, sem alteração do conteúdo, desde que citada a fonte e sem fins comerciais.",
+      "fonte": {
+        "pagina": "https://portal.tcu.gov.br/publicacoes-institucionais/cartilha-manual-ou-tutorial/cartilha-engenharia-de-custos-de-obras-publicas-perguntas-e-respostas",
+        "arquivo": "https://portal.tcu.gov.br/uploads/cartilha_engenharia_custos_obras_publicas_perguntas_respostas_eb964dd641.pdf"
+      },
+      "arquivo": "easy-mobile/downloads/tcu-engenharia-custos-perguntas-respostas.pdf",
+      "bytes": 4105553
+    },
+    {
+      "id": "tcu-orientacoes-planilhas-orcamentarias",
+      "tipo": "pdf",
+      "titulo": "Orientações para elaboração de planilhas orçamentárias de obras públicas",
+      "resumo": "Referência do TCU sobre como montar a planilha orçamentária: composição de custos, BDI, encargos sociais, critérios de medição e os erros que mais aparecem em auditoria. Escrita sob a Lei 8.666/1993 e SUPERADA pela edição de 2026; permanece publicada porque auditoria de contrato antigo se faz pela regra vigente à época.",
       "autoria": "Tribunal de Contas da União",
       "data_documento": "2014",
+      "licenca": "Permite-se a reprodução desta publicação, em parte ou no todo, sem alteração do conteúdo, desde que citada a fonte e sem fins comerciais.",
       "arquivo": "easy-mobile/downloads/tcu-orientacoes-planilhas-orcamentarias.pdf",
       "bytes": 7870876
     },
     {
       "id": "ibraop-ot-005-sobrepreco-superfaturamento",
-      "titulo": "OT-IBR 005/2012 · Apuração de sobrepreço e superfaturamento",
       "tipo": "pdf",
+      "titulo": "OT-IBR 005/2012 · Apuração de sobrepreço e superfaturamento",
       "resumo": "Orientação técnica que separa os dois conceitos e fixa o método de apuração de cada um. Sobrepreço olha o preço contratado; superfaturamento exige demonstrar dano na execução ou no pagamento.",
       "autoria": "IBRAOP · Instituto Brasileiro de Auditoria de Obras Públicas",
       "data_documento": "setembro/2012",
@@ -24,8 +40,8 @@
     },
     {
       "id": "ibraop-ot-009-reequilibrio",
-      "titulo": "OT-IBR 009/2024 · Reequilíbrio econômico-financeiro",
       "tipo": "pdf",
+      "titulo": "OT-IBR 009/2024 · Reequilíbrio econômico-financeiro",
       "resumo": "Diretrizes para pedidos de reequilíbrio em contratos de obras e serviços de engenharia: o que caracteriza desequilíbrio, o que precisa ser demonstrado e onde termina o risco ordinário da contratada.",
       "autoria": "IBRAOP · Instituto Brasileiro de Auditoria de Obras Públicas",
       "data_documento": "abril/2024",
@@ -34,8 +50,8 @@
     },
     {
       "id": "ibraop-irb-008-alteracoes-contratuais",
-      "titulo": "PROC-IBR-GER 008/2016 · Análise de alterações contratuais",
       "tipo": "pdf",
+      "titulo": "PROC-IBR-GER 008/2016 · Análise de alterações contratuais",
       "resumo": "Procedimento para examinar aditivos: motivação, limites quantitativos e qualitativos, formação de preço novo e manutenção do desconto contratual.",
       "autoria": "IBRAOP e Instituto Rui Barbosa · Comitê de Obras Públicas",
       "data_documento": "junho/2016",
