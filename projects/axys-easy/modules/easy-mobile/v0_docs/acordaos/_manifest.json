@@ -3,6 +3,94 @@
   "gerado_em": "2026-08-22T00:00:00-03:00",
   "itens": [
     {
+      "id": "tcu-1054-2001",
+      "orgao": "TCU",
+      "numero": "1054/2001",
+      "data": "2001-12-11",
+      "titulo": "Acórdão TCU 1054/2001",
+      "assuntos": [
+        "jogo-de-planilha",
+        "projeto-basico",
+        "aditivo-contratual",
+        "preco-unitario",
+        "preco-de-referencia"
+      ],
+      "tese_curta": "A celebração de aditamentos contratuais com alteração de quantitativos deve ser condicionada à adoção, para os itens aditivados, dos preços constantes",
+      "conteudo": "easy-mobile/acordaos/tcu-1054-2001/conteudo.json"
+    },
+    {
+      "id": "tcu-1085-2015",
+      "orgao": "TCU",
+      "numero": "1085/2015",
+      "data": "2015-05-06",
+      "titulo": "Acórdão TCU 1085/2015",
+      "assuntos": [
+        "reequilibrio-economico-financeiro",
+        "aditivo-contratual",
+        "produtividade",
+        "fiscalizacao",
+        "servico-novo"
+      ],
+      "tese_curta": "A mera variação de preços, para mais ou para menos, não é suficiente para determinar a realização de reequilíbrio econômico-financeiro do contrato, qu",
+      "conteudo": "easy-mobile/acordaos/tcu-1085-2015/conteudo.json"
+    },
+    {
+      "id": "tcu-1151-2024",
+      "orgao": "TCU",
+      "numero": "1151/2024",
+      "data": "2024-06-12",
+      "titulo": "Acórdão TCU 1151/2024",
+      "assuntos": [
+        "preco",
+        "cotacao-de-mercado",
+        "sobrepreco",
+        "superfaturamento"
+      ],
+      "tese_curta": "As empresas contratadas pela Administração devem ofertar preços compatíveis com os de mercado e sujeitam-se à responsabilização por eventual sobrepreç",
+      "conteudo": "easy-mobile/acordaos/tcu-1151-2024/conteudo.json"
+    },
+    {
+      "id": "tcu-1153-2015",
+      "orgao": "TCU",
+      "numero": "1153/2015",
+      "data": "2015-05-13",
+      "titulo": "Acórdão TCU 1153/2015",
+      "assuntos": [
+        "jurisprudencia",
+        "acordao"
+      ],
+      "tese_curta": "A aplicação da Súmula TCU 37 deve restringir-se às aposentadorias por invalidez, não alcançando a aposentadoria voluntária",
+      "conteudo": "easy-mobile/acordaos/tcu-1153-2015/conteudo.json"
+    },
+    {
+      "id": "tcu-1160-2007",
+      "orgao": "TCU",
+      "numero": "1160/2007",
+      "data": "2007-06-13",
+      "titulo": "Acórdão TCU 1160/2007",
+      "assuntos": [
+        "reajuste",
+        "aditivo-contratual",
+        "reequilibrio-economico-financeiro"
+      ],
+      "tese_curta": "Os reajustes contratuais devem obedecer à periodicidade mínima de um ano, inclusive nos contratos firmados com empresas prestadoras de serviços de saú",
+      "conteudo": "easy-mobile/acordaos/tcu-1160-2007/conteudo.json"
+    },
+    {
+      "id": "tcu-117-2014",
+      "orgao": "TCU",
+      "numero": "117/2014",
+      "data": "2014-01-29",
+      "titulo": "Acórdão TCU 117/2014",
+      "assuntos": [
+        "composicao-de-custo-unitario",
+        "custo-unitario",
+        "sobrepreco"
+      ],
+      "tese_curta": "A correção de composição vigente, para refletir os custos necessários e efetivamente incorridos na execução do serviço, deve ser aplicada aos contrato",
+      "conteudo": "easy-mobile/acordaos/tcu-117-2014/conteudo.json"
+    },
+    {
       "id": "tcu-1182-2025",
       "orgao": "TCU",
       "numero": "1182/2025",
@@ -33,6 +121,267 @@
       "conteudo": "easy-mobile/acordaos/tcu-1200-2010/conteudo.json"
     },
     {
+      "id": "tcu-1210-2024",
+      "orgao": "TCU",
+      "numero": "1210/2024",
+      "data": "2024-06-19",
+      "titulo": "Acórdão TCU 1210/2024",
+      "assuntos": [
+        "reequilibrio-economico-financeiro",
+        "matriz-de-riscos",
+        "reajuste",
+        "edital"
+      ],
+      "tese_curta": "É lícito que o contrato administrativo estabeleça divisão de riscos entre as partes, inclusive no que tange a faixas de variação nos custos de determi",
+      "conteudo": "easy-mobile/acordaos/tcu-1210-2024/conteudo.json"
+    },
+    {
+      "id": "tcu-1213-2021",
+      "orgao": "TCU",
+      "numero": "1213/2021",
+      "data": "2021-05-26",
+      "titulo": "Acórdão TCU 1213/2021",
+      "assuntos": [
+        "jurisprudencia",
+        "projeto",
+        "planilha-orcamentaria",
+        "pesquisa-de-precos",
+        "fiscalizacao"
+      ],
+      "tese_curta": "Não se considera irregular o recurso ao Decreto 7.892/2013 para integrar a ausência de regulamentação do Sistema de Registro de Preços prevista no art",
+      "conteudo": "easy-mobile/acordaos/tcu-1213-2021/conteudo.json"
+    },
+    {
+      "id": "tcu-1218-2026",
+      "orgao": "TCU",
+      "numero": "1218/2026",
+      "data": "2026-05-13",
+      "titulo": "Acórdão TCU 1218/2026",
+      "assuntos": [
+        "contingencia",
+        "matriz-de-riscos",
+        "orcamento-estimado",
+        "contratacao-semi-integrada"
+      ],
+      "tese_curta": "A parcela orçamentária destinada à contingência deve guardar aderência com o estágio de maturidade do projeto, com a matriz de alocação de riscos da c",
+      "conteudo": "easy-mobile/acordaos/tcu-1218-2026/conteudo.json"
+    },
+    {
+      "id": "tcu-1227-2012",
+      "orgao": "TCU",
+      "numero": "1227/2012",
+      "data": "2012-05-23",
+      "titulo": "Acórdão TCU 1227/2012",
+      "assuntos": [
+        "aditivo-contratual",
+        "contrato-verbal",
+        "alteracao-qualitativa",
+        "cronograma-fisico-financeiro",
+        "atraso"
+      ],
+      "tese_curta": "As alterações das condições inicialmente pactuadas devem ser formalizadas por termo aditivo antes da execução dos serviços",
+      "conteudo": "easy-mobile/acordaos/tcu-1227-2012/conteudo.json"
+    },
+    {
+      "id": "tcu-1262-2020",
+      "orgao": "TCU",
+      "numero": "1262/2020",
+      "data": "2020-05-20",
+      "titulo": "Acórdão TCU 1262/2020",
+      "assuntos": [
+        "orcamento",
+        "medicao",
+        "preco",
+        "produtividade",
+        "fiscalizacao"
+      ],
+      "tese_curta": "Previamente a cada demanda por serviço, deve ser fixado o quantitativo de horas necessárias para executá-la, condizente com a complexidade de cada tra",
+      "conteudo": "easy-mobile/acordaos/tcu-1262-2020/conteudo.json"
+    },
+    {
+      "id": "tcu-1266-2011",
+      "orgao": "TCU",
+      "numero": "1266/2011",
+      "data": "2011-05-18",
+      "titulo": "Acórdão TCU 1266/2011",
+      "assuntos": [
+        "cotacao-de-mercado",
+        "pesquisa-de-precos",
+        "fonte-de-precos",
+        "orcamento-estimado"
+      ],
+      "tese_curta": "Na estimativa de custos que anteceder os processos licitatórios, deve ser realizada pesquisa de preços contendo o mínimo de três cotações de empresas ",
+      "conteudo": "easy-mobile/acordaos/tcu-1266-2011/conteudo.json"
+    },
+    {
+      "id": "tcu-127-2016",
+      "orgao": "TCU",
+      "numero": "127/2016",
+      "data": "2016-01-27",
+      "titulo": "Acórdão TCU 127/2016",
+      "assuntos": [
+        "aditivo-contratual",
+        "cronograma-fisico-financeiro",
+        "regime-de-execucao",
+        "jurisprudencia"
+      ],
+      "tese_curta": "A prorrogação do contrato administrativo deve ser formalizada mediante o respectivo termo aditivo antes do término do prazo de vigência do ajuste, ain",
+      "conteudo": "easy-mobile/acordaos/tcu-127-2016/conteudo.json"
+    },
+    {
+      "id": "tcu-1302-2013",
+      "orgao": "TCU",
+      "numero": "1302/2013",
+      "data": "2013-05-29",
+      "titulo": "Acórdão TCU 1302/2013",
+      "assuntos": [
+        "aditivo-contratual",
+        "atraso",
+        "reequilibrio-economico-financeiro",
+        "administracao-local",
+        "canteiro-de-obras"
+      ],
+      "tese_curta": "A dilação do prazo contratual deve ser precedida de avaliação objetiva das razões do atraso",
+      "conteudo": "easy-mobile/acordaos/tcu-1302-2013/conteudo.json"
+    },
+    {
+      "id": "tcu-136-2025",
+      "orgao": "TCU",
+      "numero": "136/2025",
+      "data": "2025-01-29",
+      "titulo": "Acórdão TCU 136/2025",
+      "assuntos": [
+        "cotacao-de-mercado",
+        "pesquisa-de-precos",
+        "sicro",
+        "preco-de-referencia",
+        "orcamento-estimado"
+      ],
+      "tese_curta": "A ausência de previsão expressa de cotação local no caso de contratação de obras e serviços de engenharia não deve obstar, por si só, a prática de pes",
+      "conteudo": "easy-mobile/acordaos/tcu-136-2025/conteudo.json"
+    },
+    {
+      "id": "tcu-1431-2017",
+      "orgao": "TCU",
+      "numero": "1431/2017",
+      "data": "2017-07-05",
+      "titulo": "Acórdão TCU 1431/2017",
+      "assuntos": [
+        "reequilibrio-economico-financeiro",
+        "reajuste",
+        "preco",
+        "jurisprudencia"
+      ],
+      "tese_curta": "A variação da taxa cambial, para mais ou para menos, não pode ser considerada suficiente para, isoladamente, fundamentar a necessidade de reequilíbrio",
+      "conteudo": "easy-mobile/acordaos/tcu-1431-2017/conteudo.json"
+    },
+    {
+      "id": "tcu-1441-2015",
+      "orgao": "TCU",
+      "numero": "1441/2015",
+      "data": "2015-06-10",
+      "titulo": "Acórdão TCU 1441/2015",
+      "assuntos": [
+        "matriz-de-riscos",
+        "empreitada-por-preco-global",
+        "memoria-de-calculo",
+        "contingencia",
+        "planilha-orcamentaria"
+      ],
+      "tese_curta": "Nas contratações de obras e serviços de engenharia, em especial nas empreitadas por preço global, devem ser exigidos das empresas interessadas demonst",
+      "conteudo": "easy-mobile/acordaos/tcu-1441-2015/conteudo.json"
+    },
+    {
+      "id": "tcu-1466-2013",
+      "orgao": "TCU",
+      "numero": "1466/2013",
+      "data": "2013-06-12",
+      "titulo": "Acórdão TCU 1466/2013",
+      "assuntos": [
+        "reequilibrio-economico-financeiro",
+        "preco",
+        "insumo"
+      ],
+      "tese_curta": "O desequilíbrio econômico-financeiro não pode ser constatado a partir da variação de preços de apenas um serviço ou insumo",
+      "conteudo": "easy-mobile/acordaos/tcu-1466-2013/conteudo.json"
+    },
+    {
+      "id": "tcu-1488-2016",
+      "orgao": "TCU",
+      "numero": "1488/2016",
+      "data": "2016-06-08",
+      "titulo": "Acórdão TCU 1488/2016",
+      "assuntos": [
+        "planilha-orcamentaria",
+        "quantitativo",
+        "preco-unitario",
+        "reajuste"
+      ],
+      "tese_curta": "O orçamento do certame deve ser elaborado em planilhas de quantitativos e preços unitários, discriminando os itens de serviço e quantificando e precif",
+      "conteudo": "easy-mobile/acordaos/tcu-1488-2016/conteudo.json"
+    },
+    {
+      "id": "tcu-1510-2013",
+      "orgao": "TCU",
+      "numero": "1510/2013",
+      "data": "2013-06-19",
+      "titulo": "Acórdão TCU 1510/2013",
+      "assuntos": [
+        "orcamento-sintetico",
+        "anteprojeto",
+        "sinapi",
+        "sicro",
+        "orcamento-parametrico"
+      ],
+      "tese_curta": "Sempre que o anteprojeto, por seus elementos mínimos, assim o permitir, as estimativas de preço devem se basear em orçamento sintético tão detalhado q",
+      "conteudo": "easy-mobile/acordaos/tcu-1510-2013/conteudo.json"
+    },
+    {
+      "id": "tcu-1513-2010",
+      "orgao": "TCU",
+      "numero": "1513/2010",
+      "data": "2010-06-30",
+      "titulo": "Acórdão TCU 1513/2010",
+      "assuntos": [
+        "reajuste",
+        "preco-unitario",
+        "superfaturamento"
+      ],
+      "tese_curta": "Os contratos vigentes em 1º de abril de 1994, em que forem contratantes órgãos e entidades da Administração Pública direta e indireta, devem ser repac",
+      "conteudo": "easy-mobile/acordaos/tcu-1513-2010/conteudo.json"
+    },
+    {
+      "id": "tcu-1515-2010",
+      "orgao": "TCU",
+      "numero": "1515/2010",
+      "data": "2010-06-30",
+      "titulo": "Acórdão TCU 1515/2010",
+      "assuntos": [
+        "acrescimo-contratual",
+        "aditivo-contratual",
+        "jogo-de-planilha",
+        "sinapi",
+        "pesquisa-de-precos"
+      ],
+      "tese_curta": "Nos acréscimos de quantitativos em itens presentes na planilha orçamentária ou quando houver necessidade de acrescer serviços ou materiais/equipamento",
+      "conteudo": "easy-mobile/acordaos/tcu-1515-2010/conteudo.json"
+    },
+    {
+      "id": "tcu-1536-2016",
+      "orgao": "TCU",
+      "numero": "1536/2016",
+      "data": "2016-06-15",
+      "titulo": "Acórdão TCU 1536/2016",
+      "assuntos": [
+        "limite-de-alteracao",
+        "acrescimo-contratual",
+        "supressao-contratual",
+        "aditivo-contratual"
+      ],
+      "tese_curta": "Os acréscimos ou supressões nos montantes dos ajustes firmados pelos órgãos e pelas entidades da Administração Pública devem ser considerados de forma",
+      "conteudo": "easy-mobile/acordaos/tcu-1536-2016/conteudo.json"
+    },
+    {
       "id": "tcu-1541-2014",
       "orgao": "TCU",
       "numero": "1541/2014",
@@ -47,6 +396,94 @@
       "conteudo": "easy-mobile/acordaos/tcu-1541-2014/conteudo.json"
     },
     {
+      "id": "tcu-1549-2017",
+      "orgao": "TCU",
+      "numero": "1549/2017",
+      "data": "2017-07-19",
+      "titulo": "Acórdão TCU 1549/2017",
+      "assuntos": [
+        "sobrepreco",
+        "preco-de-referencia",
+        "cotacao-de-mercado",
+        "edital"
+      ],
+      "tese_curta": "O sobrepreço ou superfaturamento deve ser aferido com base no preço de mercado do bem ou serviço que se deseja contratar ou, dependendo da situação, c",
+      "conteudo": "easy-mobile/acordaos/tcu-1549-2017/conteudo.json"
+    },
+    {
+      "id": "tcu-1563-2004",
+      "orgao": "TCU",
+      "numero": "1563/2004",
+      "data": "2004-10-06",
+      "titulo": "Acórdão TCU 1563/2004",
+      "assuntos": [
+        "reequilibrio-economico-financeiro",
+        "reajuste",
+        "mao-de-obra",
+        "leis-sociais"
+      ],
+      "tese_curta": "Os incrementos dos custos de mão-de-obra ocasionados pela data-base de cada categoria profissional nos contratos de prestação de serviços de natureza ",
+      "conteudo": "easy-mobile/acordaos/tcu-1563-2004/conteudo.json"
+    },
+    {
+      "id": "tcu-157-2009",
+      "orgao": "TCU",
+      "numero": "157/2009",
+      "data": "2009-02-11",
+      "titulo": "Acórdão TCU 157/2009",
+      "assuntos": [
+        "sinapi",
+        "pesquisa-de-precos",
+        "curva-abc",
+        "preco-de-referencia",
+        "sobrepreco"
+      ],
+      "tese_curta": "A substituição do preço oficial deve ser empreendida somente em casos concretos em que, indiscutivelmente, houver incoerências grosseiras nos preços d",
+      "conteudo": "easy-mobile/acordaos/tcu-157-2009/conteudo.json"
+    },
+    {
+      "id": "tcu-1574-2015",
+      "orgao": "TCU",
+      "numero": "1574/2015",
+      "data": "2015-06-24",
+      "titulo": "Acórdão TCU 1574/2015",
+      "assuntos": [
+        "edital",
+        "jurisprudencia",
+        "acordao"
+      ],
+      "tese_curta": "Não se admite restringir temporalmente a autenticação de documentos necessários à habilitação quando a licitante comparecer à sessão munida dos origin",
+      "conteudo": "easy-mobile/acordaos/tcu-1574-2015/conteudo.json"
+    },
+    {
+      "id": "tcu-1580-2015",
+      "orgao": "TCU",
+      "numero": "1580/2015",
+      "data": "2015-06-24",
+      "titulo": "Acórdão TCU 1580/2015",
+      "assuntos": [
+        "desoneracao-da-folha",
+        "reequilibrio-economico-financeiro"
+      ],
+      "tese_curta": "A ausência de providências para repactuação do contrato em razão da desoneração da folha de pagamento promovida pela Lei 12.844/2013 configura irregul",
+      "conteudo": "easy-mobile/acordaos/tcu-1580-2015/conteudo.json"
+    },
+    {
+      "id": "tcu-1591-2008",
+      "orgao": "TCU",
+      "numero": "1591/2008",
+      "data": "2008-08-13",
+      "titulo": "Acórdão TCU 1591/2008",
+      "assuntos": [
+        "bdi",
+        "lucro",
+        "sobrepreco",
+        "edital"
+      ],
+      "tese_curta": "A indicação em destacado na composição do BDI do imposto de renda pessoa jurídica e da contribuição social sobre o lucro líquido não acarreta, por si ",
+      "conteudo": "easy-mobile/acordaos/tcu-1591-2008/conteudo.json"
+    },
+    {
       "id": "tcu-1597-2010",
       "orgao": "TCU",
       "numero": "1597/2010",
@@ -59,6 +496,20 @@
       ],
       "tese_curta": "Cada modificação do objeto deve ser relacionada à correspondente alteração de quantitativos.",
       "conteudo": "easy-mobile/acordaos/tcu-1597-2010/conteudo.json"
+    },
+    {
+      "id": "tcu-1604-2015",
+      "orgao": "TCU",
+      "numero": "1604/2015",
+      "data": "2015-07-01",
+      "titulo": "Acórdão TCU 1604/2015",
+      "assuntos": [
+        "reequilibrio-economico-financeiro",
+        "insumo",
+        "preco"
+      ],
+      "tese_curta": "A revisão de preços de itens isolados deve ser admitida, nos termos da lei, desde que preenchidos os requisitos da teoria da imprevisão, inclusive a d",
+      "conteudo": "easy-mobile/acordaos/tcu-1604-2015/conteudo.json"
     },
     {
       "id": "tcu-1606-2008",
@@ -76,6 +527,107 @@
       "conteudo": "easy-mobile/acordaos/tcu-1606-2008/conteudo.json"
     },
     {
+      "id": "tcu-1637-2016",
+      "orgao": "TCU",
+      "numero": "1637/2016",
+      "data": "2016-06-29",
+      "titulo": "Acórdão TCU 1637/2016",
+      "assuntos": [
+        "acrescimo-contratual",
+        "jogo-de-planilha",
+        "sobrepreco",
+        "sicro"
+      ],
+      "tese_curta": "Os acréscimos de serviços sobreprecificados devem ser remunerados pelo seu preço de mercado, aferido pelos meios idôneos disponíveis.",
+      "conteudo": "easy-mobile/acordaos/tcu-1637-2016/conteudo.json"
+    },
+    {
+      "id": "tcu-165-2023",
+      "orgao": "TCU",
+      "numero": "165/2023",
+      "data": "2023-02-08",
+      "titulo": "Acórdão TCU 165/2023",
+      "assuntos": [
+        "alteracao-qualitativa",
+        "limite-de-alteracao",
+        "aditivo-contratual",
+        "contrato-verbal"
+      ],
+      "tese_curta": "A alteração do objeto e do valor contratado deve ser formalizada por termo aditivo e observar o limite definido pelo art",
+      "conteudo": "easy-mobile/acordaos/tcu-165-2023/conteudo.json"
+    },
+    {
+      "id": "tcu-167-2015",
+      "orgao": "TCU",
+      "numero": "167/2015",
+      "data": "2015-02-04",
+      "titulo": "Acórdão TCU 167/2015",
+      "assuntos": [
+        "jurisprudencia",
+        "fiscalizacao"
+      ],
+      "tese_curta": "Não se admite a responsabilização de beneficiários ou segurados quando inexistirem, nos autos, provas de que agiram em conluio com os autores das frau",
+      "conteudo": "easy-mobile/acordaos/tcu-167-2015/conteudo.json"
+    },
+    {
+      "id": "tcu-1686-2023",
+      "orgao": "TCU",
+      "numero": "1686/2023",
+      "data": "2023-08-16",
+      "titulo": "Acórdão TCU 1686/2023",
+      "assuntos": [
+        "orcamento-estimado",
+        "cronograma-fisico-financeiro",
+        "equipamento"
+      ],
+      "tese_curta": "Os orçamentos estimativos de contratos de dragagem para execução com draga Hopper devem prever os custos diretos do serviço de praticagem, quando cabí",
+      "conteudo": "easy-mobile/acordaos/tcu-1686-2023/conteudo.json"
+    },
+    {
+      "id": "tcu-1689-2019",
+      "orgao": "TCU",
+      "numero": "1689/2019",
+      "data": "2019-07-24",
+      "titulo": "Acórdão TCU 1689/2019",
+      "assuntos": [
+        "projeto-basico",
+        "projeto",
+        "fiscalizacao"
+      ],
+      "tese_curta": "O projeto básico padrão deve ser aprovado com todos os elementos descritos no art",
+      "conteudo": "easy-mobile/acordaos/tcu-1689-2019/conteudo.json"
+    },
+    {
+      "id": "tcu-1727-2025",
+      "orgao": "TCU",
+      "numero": "1727/2025",
+      "data": "2025-07-30",
+      "titulo": "Acórdão TCU 1727/2025",
+      "assuntos": [
+        "contratacao-integrada",
+        "medicao",
+        "planilha-orcamentaria",
+        "regime-de-execucao"
+      ],
+      "tese_curta": "Na contratação integrada, a sistemática de pagamento deve estar associada ao atingimento de etapas específicas e individualizadas no contexto da obra",
+      "conteudo": "easy-mobile/acordaos/tcu-1727-2025/conteudo.json"
+    },
+    {
+      "id": "tcu-1753-2026",
+      "orgao": "TCU",
+      "numero": "1753/2026",
+      "data": "2026-07-01",
+      "titulo": "Acórdão TCU 1753/2026",
+      "assuntos": [
+        "aditivo-contratual",
+        "limite-de-alteracao",
+        "alteracao-qualitativa",
+        "desconto-contratual"
+      ],
+      "tese_curta": "As alterações contratuais quantitativas, que modificam a dimensão do objeto, e qualitativas, que mantêm intangível o objeto em natureza e em dimensão,",
+      "conteudo": "easy-mobile/acordaos/tcu-1753-2026/conteudo.json"
+    },
+    {
       "id": "tcu-178-2019",
       "orgao": "TCU",
       "numero": "178/2019",
@@ -91,6 +643,244 @@
       "conteudo": "easy-mobile/acordaos/tcu-178-2019/conteudo.json"
     },
     {
+      "id": "tcu-1785-2009",
+      "orgao": "TCU",
+      "numero": "1785/2009",
+      "data": "2009-08-12",
+      "titulo": "Acórdão TCU 1785/2009",
+      "assuntos": [
+        "bdi",
+        "bdi-diferenciado",
+        "planilha-orcamentaria",
+        "orcamento-analitico"
+      ],
+      "tese_curta": "Devem ser promovidos estudos técnicos demonstrando a viabilidade técnica e econômica de realizar licitação independente para a aquisição de equipament",
+      "conteudo": "easy-mobile/acordaos/tcu-1785-2009/conteudo.json"
+    },
+    {
+      "id": "tcu-1791-2008",
+      "orgao": "TCU",
+      "numero": "1791/2008",
+      "data": "2008-08-27",
+      "titulo": "Acórdão TCU 1791/2008",
+      "assuntos": [
+        "projeto-basico",
+        "edital",
+        "fiscalizacao"
+      ],
+      "tese_curta": "A licitação da obra deve ser precedida de projeto básico completo, em cumprimento ao disposto no art",
+      "conteudo": "easy-mobile/acordaos/tcu-1791-2008/conteudo.json"
+    },
+    {
+      "id": "tcu-1795-2009",
+      "orgao": "TCU",
+      "numero": "1795/2009",
+      "data": "2009-08-12",
+      "titulo": "Acórdão TCU 1795/2009",
+      "assuntos": [
+        "bdi",
+        "custo-direto",
+        "custo-indireto",
+        "administracao-local",
+        "mobilizacao-e-desmobilizacao"
+      ],
+      "tese_curta": "O BDI deve ser considerado inadequado somente após a análise pormenorizada de sua composição, pois não se devem estipular percentuais fixos para cada ",
+      "conteudo": "easy-mobile/acordaos/tcu-1795-2009/conteudo.json"
+    },
+    {
+      "id": "tcu-1799-2015",
+      "orgao": "TCU",
+      "numero": "1799/2015",
+      "data": "2015-07-22",
+      "titulo": "Acórdão TCU 1799/2015",
+      "assuntos": [
+        "acrescimo-contratual",
+        "supressao-contratual",
+        "limite-de-alteracao",
+        "aditivo-contratual"
+      ],
+      "tese_curta": "É juridicamente viável a compensação entre o conjunto de acréscimos e supressões ao objeto dos contratos referentes a obras de infraestrutura celebrad",
+      "conteudo": "easy-mobile/acordaos/tcu-1799-2015/conteudo.json"
+    },
+    {
+      "id": "tcu-1804-2012",
+      "orgao": "TCU",
+      "numero": "1804/2012",
+      "data": "2012-07-11",
+      "titulo": "Acórdão TCU 1804/2012",
+      "assuntos": [
+        "bdi",
+        "mao-de-obra",
+        "preco-global",
+        "preco-unitario",
+        "edital"
+      ],
+      "tese_curta": "A desclassificação de proposta de licitante que tenha apresentado BDI em percentual superior àquele informado em Acórdão desta Corte somente deve ocor",
+      "conteudo": "easy-mobile/acordaos/tcu-1804-2012/conteudo.json"
+    },
+    {
+      "id": "tcu-1826-2016",
+      "orgao": "TCU",
+      "numero": "1826/2016",
+      "data": "2016-07-13",
+      "titulo": "Acórdão TCU 1826/2016",
+      "assuntos": [
+        "aditivo-contratual",
+        "alteracao-qualitativa",
+        "limite-de-alteracao"
+      ],
+      "tese_curta": "A alteração contratual formalizada em situação excepcional atende aos pressupostos estabelecidos na Decisão 215/1999-TCU-Plenário.",
+      "conteudo": "easy-mobile/acordaos/tcu-1826-2016/conteudo.json"
+    },
+    {
+      "id": "tcu-1827-2008",
+      "orgao": "TCU",
+      "numero": "1827/2008",
+      "data": "2008-08-27",
+      "titulo": "Acórdão TCU 1827/2008",
+      "assuntos": [
+        "reajuste",
+        "reequilibrio-economico-financeiro",
+        "aditivo-contratual",
+        "data-base",
+        "edital"
+      ],
+      "tese_curta": "A repactuação de preços deve ser tratada como espécie de reajuste de preços, mediante a efetiva alteração dos custos contratuais, e não pela aplicação",
+      "conteudo": "easy-mobile/acordaos/tcu-1827-2008/conteudo.json"
+    },
+    {
+      "id": "tcu-1855-2018",
+      "orgao": "TCU",
+      "numero": "1855/2018",
+      "data": "2018-08-15",
+      "titulo": "Acórdão TCU 1855/2018",
+      "assuntos": [
+        "fiscalizacao",
+        "jurisprudencia"
+      ],
+      "tese_curta": "Os contratos administrativos devem ser publicados integralmente no sítio oficial na Internet, acompanhados dos respectivos anexos e aditivos",
+      "conteudo": "easy-mobile/acordaos/tcu-1855-2018/conteudo.json"
+    },
+    {
+      "id": "tcu-1870-2016",
+      "orgao": "TCU",
+      "numero": "1870/2016",
+      "data": "2016-07-20",
+      "titulo": "Acórdão TCU 1870/2016",
+      "assuntos": [
+        "acrescimo-contratual",
+        "bdi",
+        "sicro",
+        "sinapi",
+        "preco-unitario"
+      ],
+      "tese_curta": "Em contratos de obra pública, itens novos incluídos na planilha orçamentária ou serviços cujos quantitativos foram acrescidos devem limitar-se aos pre",
+      "conteudo": "easy-mobile/acordaos/tcu-1870-2016/conteudo.json"
+    },
+    {
+      "id": "tcu-1874-2007",
+      "orgao": "TCU",
+      "numero": "1874/2007",
+      "data": "2007-09-12",
+      "titulo": "Acórdão TCU 1874/2007",
+      "assuntos": [
+        "alteracao-qualitativa",
+        "aditivo-contratual",
+        "planilha-orcamentaria",
+        "projeto",
+        "quantitativo"
+      ],
+      "tese_curta": "As alterações de contratos de obras públicas devem guardar inteira consistência entre si e com os dados do projeto original da obra, não se admitindo ",
+      "conteudo": "easy-mobile/acordaos/tcu-1874-2007/conteudo.json"
+    },
+    {
+      "id": "tcu-1887-2010",
+      "orgao": "TCU",
+      "numero": "1887/2010",
+      "data": "2010-08-04",
+      "titulo": "Acórdão TCU 1887/2010",
+      "assuntos": [
+        "preco-global",
+        "sobrepreco",
+        "jogo-de-planilha",
+        "aditivo-contratual",
+        "reequilibrio-economico-financeiro"
+      ],
+      "tese_curta": "Quando os preços globais estiverem compatíveis com os de mercado, a existência de determinados itens com sobrepreço deve ser correspondida pela existê",
+      "conteudo": "easy-mobile/acordaos/tcu-1887-2010/conteudo.json"
+    },
+    {
+      "id": "tcu-1918-2013",
+      "orgao": "TCU",
+      "numero": "1918/2013",
+      "data": "2013-07-24",
+      "titulo": "Acórdão TCU 1918/2013",
+      "assuntos": [
+        "aditivo-contratual",
+        "alteracao-qualitativa",
+        "servico-novo"
+      ],
+      "tese_curta": "Deve-se abster do aditamento contratual de itens de natureza específica e diversa do objeto original, a exemplo de serviços elétricos em obras rodoviá",
+      "conteudo": "easy-mobile/acordaos/tcu-1918-2013/conteudo.json"
+    },
+    {
+      "id": "tcu-1936-2014",
+      "orgao": "TCU",
+      "numero": "1936/2014",
+      "data": "2014-07-23",
+      "titulo": "Acórdão TCU 1936/2014",
+      "assuntos": [
+        "jurisprudencia",
+        "fiscalizacao"
+      ],
+      "tese_curta": "A retomada de contrato cujo prazo de vigência encontra-se expirado configura recontratação sem licitação, o que infringe a Lei 8.666/1993, art",
+      "conteudo": "easy-mobile/acordaos/tcu-1936-2014/conteudo.json"
+    },
+    {
+      "id": "tcu-1941-2007",
+      "orgao": "TCU",
+      "numero": "1941/2007",
+      "data": "2007-09-19",
+      "titulo": "Acórdão TCU 1941/2007",
+      "assuntos": [
+        "aditivo-contratual",
+        "atraso"
+      ],
+      "tese_curta": "Em casos excepcionais, pode ser firmado termo aditivo para prorrogar contrato oriundo da dispensa de licitação prevista no art",
+      "conteudo": "easy-mobile/acordaos/tcu-1941-2007/conteudo.json"
+    },
+    {
+      "id": "tcu-1949-2011",
+      "orgao": "TCU",
+      "numero": "1949/2011",
+      "data": "2011-07-27",
+      "titulo": "Acórdão TCU 1949/2011",
+      "assuntos": [
+        "aditivo-contratual",
+        "alteracao-qualitativa",
+        "limite-de-alteracao",
+        "projeto-basico"
+      ],
+      "tese_curta": "Não se admite utilizar deficiências no projeto detectáveis quando da etapa das propostas como pretexto para supervenientes aditivos exorbitantes, aind",
+      "conteudo": "easy-mobile/acordaos/tcu-1949-2011/conteudo.json"
+    },
+    {
+      "id": "tcu-1957-2023",
+      "orgao": "TCU",
+      "numero": "1957/2023",
+      "data": "2023-09-20",
+      "titulo": "Acórdão TCU 1957/2023",
+      "assuntos": [
+        "orcamento-estimado",
+        "cotacao-de-mercado",
+        "composicao-de-custo-unitario",
+        "planilha-orcamentaria",
+        "preco-unitario"
+      ],
+      "tese_curta": "O orçamento estimativo da contratação não deve ser baseado unicamente em cotações globais do preço do objeto, pois esse procedimento inviabiliza a afe",
+      "conteudo": "easy-mobile/acordaos/tcu-1957-2023/conteudo.json"
+    },
+    {
       "id": "tcu-1977-2013",
       "orgao": "TCU",
       "numero": "1977/2013",
@@ -103,6 +893,172 @@
       ],
       "tese_curta": "O edital deve definir critérios objetivos para tratar erros relevantes de quantitativos em empreitada por preço global.",
       "conteudo": "easy-mobile/acordaos/tcu-1977-2013/conteudo.json"
+    },
+    {
+      "id": "tcu-1981-2009",
+      "orgao": "TCU",
+      "numero": "1981/2009",
+      "data": "2009-09-02",
+      "titulo": "Acórdão TCU 1981/2009",
+      "assuntos": [
+        "limite-de-alteracao",
+        "acrescimo-contratual",
+        "supressao-contratual",
+        "aditivo-contratual"
+      ],
+      "tese_curta": "O percentual previsto no artigo 65, § 1º, da Lei n",
+      "conteudo": "easy-mobile/acordaos/tcu-1981-2009/conteudo.json"
+    },
+    {
+      "id": "tcu-2009-2025",
+      "orgao": "TCU",
+      "numero": "2009/2025",
+      "data": "2025-09-03",
+      "titulo": "Acórdão TCU 2009/2025",
+      "assuntos": [
+        "composicao-de-custo-unitario",
+        "produtividade",
+        "planilha-orcamentaria",
+        "mao-de-obra",
+        "edital"
+      ],
+      "tese_curta": "Não se admite a desclassificação sumária da proposta mais vantajosa por erros ou falhas formais que não alterem a substância das propostas, inclusive ",
+      "conteudo": "easy-mobile/acordaos/tcu-2009-2025/conteudo.json"
+    },
+    {
+      "id": "tcu-2032-2009",
+      "orgao": "TCU",
+      "numero": "2032/2009",
+      "data": "2009-09-02",
+      "titulo": "Acórdão TCU 2032/2009",
+      "assuntos": [
+        "orcamento",
+        "composicao-de-custo-unitario",
+        "planilha-orcamentaria",
+        "quantitativo"
+      ],
+      "tese_curta": "Não se admite incluir, nos orçamentos de referência de licitações, serviços mensurados por meio de verbas",
+      "conteudo": "easy-mobile/acordaos/tcu-2032-2009/conteudo.json"
+    },
+    {
+      "id": "tcu-211-2018",
+      "orgao": "TCU",
+      "numero": "211/2018",
+      "data": "2018-02-07",
+      "titulo": "Acórdão TCU 211/2018",
+      "assuntos": [
+        "aditivo-contratual",
+        "desconto-contratual",
+        "jogo-de-planilha",
+        "sobrepreco"
+      ],
+      "tese_curta": "Em caso de aditivo contratual, deve ser mantido o desconto global inicialmente ofertado, de modo a evitar que o incremento em quantitativos de serviço",
+      "conteudo": "easy-mobile/acordaos/tcu-211-2018/conteudo.json"
+    },
+    {
+      "id": "tcu-2121-2024",
+      "orgao": "TCU",
+      "numero": "2121/2024",
+      "data": "2024-10-09",
+      "titulo": "Acórdão TCU 2121/2024",
+      "assuntos": [
+        "edital",
+        "orcamento-analitico",
+        "preco",
+        "fiscalizacao",
+        "jurisprudencia"
+      ],
+      "tese_curta": "Configura erro grosseiro a aprovação, pelo parecerista jurídico, de minuta de edital desacompanhada do orçamento detalhado e da justificativa do preço",
+      "conteudo": "easy-mobile/acordaos/tcu-2121-2024/conteudo.json"
+    },
+    {
+      "id": "tcu-2123-2017",
+      "orgao": "TCU",
+      "numero": "2123/2017",
+      "data": "2017-09-27",
+      "titulo": "Acórdão TCU 2123/2017",
+      "assuntos": [
+        "contratacao-integrada",
+        "planilha-orcamentaria",
+        "composicao-de-custo-unitario",
+        "encargos-sociais",
+        "bdi"
+      ],
+      "tese_curta": "Deve ser exigida das empresas contratadas no regime de contratação integrada, por ocasião da apresentação do projeto básico e/ou executivo, a apresent",
+      "conteudo": "easy-mobile/acordaos/tcu-2123-2017/conteudo.json"
+    },
+    {
+      "id": "tcu-2127-2017",
+      "orgao": "TCU",
+      "numero": "2127/2017",
+      "data": "2017-09-27",
+      "titulo": "Acórdão TCU 2127/2017",
+      "assuntos": [
+        "orcamento",
+        "memoria-de-calculo",
+        "fiscalizacao"
+      ],
+      "tese_curta": "O Plano Plurianual deve constituir instrumento efetivo de planejamento de médio prazo do Governo Federal, orientar a distribuição de recursos em seu p",
+      "conteudo": "easy-mobile/acordaos/tcu-2127-2017/conteudo.json"
+    },
+    {
+      "id": "tcu-2135-2023",
+      "orgao": "TCU",
+      "numero": "2135/2023",
+      "data": "2023-10-18",
+      "titulo": "Acórdão TCU 2135/2023",
+      "assuntos": [
+        "jurisprudencia",
+        "reequilibrio-economico-financeiro"
+      ],
+      "tese_curta": "Não cabe ao TCU definir uma metodologia que estipule o gatilho caracterizador ou o patamar mínimo que passa a configurar a onerosidade excessiva",
+      "conteudo": "easy-mobile/acordaos/tcu-2135-2023/conteudo.json"
+    },
+    {
+      "id": "tcu-214-2025",
+      "orgao": "TCU",
+      "numero": "214/2025",
+      "data": "2025-02-05",
+      "titulo": "Acórdão TCU 214/2025",
+      "assuntos": [
+        "edital",
+        "jurisprudencia",
+        "preco",
+        "orcamento-estimado"
+      ],
+      "tese_curta": "A inexequibilidade referida no § 4º do art",
+      "conteudo": "easy-mobile/acordaos/tcu-214-2025/conteudo.json"
+    },
+    {
+      "id": "tcu-2157-2013",
+      "orgao": "TCU",
+      "numero": "2157/2013",
+      "data": "2013-08-14",
+      "titulo": "Acórdão TCU 2157/2013",
+      "assuntos": [
+        "limite-de-alteracao",
+        "acrescimo-contratual",
+        "supressao-contratual",
+        "aditivo-contratual"
+      ],
+      "tese_curta": "O limite de 25% previsto no art",
+      "conteudo": "easy-mobile/acordaos/tcu-2157-2013/conteudo.json"
+    },
+    {
+      "id": "tcu-2161-2011",
+      "orgao": "TCU",
+      "numero": "2161/2011",
+      "data": "2011-08-17",
+      "titulo": "Acórdão TCU 2161/2011",
+      "assuntos": [
+        "aditivo-contratual",
+        "alteracao-qualitativa",
+        "memoria-de-calculo",
+        "composicao-de-custo-unitario",
+        "planilha-orcamentaria"
+      ],
+      "tese_curta": "As alterações das condições inicialmente pactuadas devem ser registradas em Termo Aditivo, com a devida publicidade",
+      "conteudo": "easy-mobile/acordaos/tcu-2161-2011/conteudo.json"
     },
     {
       "id": "tcu-2172-2013",
@@ -120,6 +1076,52 @@
       "conteudo": "easy-mobile/acordaos/tcu-2172-2013/conteudo.json"
     },
     {
+      "id": "tcu-2176-2022",
+      "orgao": "TCU",
+      "numero": "2176/2022",
+      "data": "2022-10-05",
+      "titulo": "Acórdão TCU 2176/2022",
+      "assuntos": [
+        "edital",
+        "projeto-basico",
+        "projeto",
+        "jurisprudencia"
+      ],
+      "tese_curta": "As obras e os serviços simples de engenharia contratados por meio de sistema de registro de preços devem ser padronizáveis e replicáveis",
+      "conteudo": "easy-mobile/acordaos/tcu-2176-2022/conteudo.json"
+    },
+    {
+      "id": "tcu-2191-2025",
+      "orgao": "TCU",
+      "numero": "2191/2025",
+      "data": "2025-09-17",
+      "titulo": "Acórdão TCU 2191/2025",
+      "assuntos": [
+        "matriz-de-riscos",
+        "contingencia",
+        "bdi",
+        "orcamento"
+      ],
+      "tese_curta": "Em obras de alta complexidade, deve ser aprimorado o gerenciamento de riscos, com metodologia de quantificação compatível com a complexidade da obra, ",
+      "conteudo": "easy-mobile/acordaos/tcu-2191-2025/conteudo.json"
+    },
+    {
+      "id": "tcu-2195-2016",
+      "orgao": "TCU",
+      "numero": "2195/2016",
+      "data": "2016-08-24",
+      "titulo": "Acórdão TCU 2195/2016",
+      "assuntos": [
+        "projeto-basico",
+        "projeto",
+        "alteracao-qualitativa",
+        "aditivo-contratual",
+        "limite-de-alteracao"
+      ],
+      "tese_curta": "Não se admite a revisão de projeto básico ou a elaboração de projeto executivo que transfigurem o objeto originalmente contratado em outro de natureza",
+      "conteudo": "easy-mobile/acordaos/tcu-2195-2016/conteudo.json"
+    },
+    {
       "id": "tcu-2203-2017",
       "orgao": "TCU",
       "numero": "2203/2017",
@@ -132,6 +1134,66 @@
       ],
       "tese_curta": "Mesmo sem efeito financeiro, a alteração precisa justificar preços novos e demonstrar a manutenção do desconto.",
       "conteudo": "easy-mobile/acordaos/tcu-2203-2017/conteudo.json"
+    },
+    {
+      "id": "tcu-2215-2012",
+      "orgao": "TCU",
+      "numero": "2215/2012",
+      "data": "2012-08-22",
+      "titulo": "Acórdão TCU 2215/2012",
+      "assuntos": [
+        "orcamento-estimado",
+        "mao-de-obra",
+        "encargos-sociais",
+        "custo-direto",
+        "contingencia"
+      ],
+      "tese_curta": "Na contratação de serviços de engenharia consultiva orçados pelo método da listagem de atividades e determinação das quantidades de horas, devem ser r",
+      "conteudo": "easy-mobile/acordaos/tcu-2215-2012/conteudo.json"
+    },
+    {
+      "id": "tcu-2262-2015",
+      "orgao": "TCU",
+      "numero": "2262/2015",
+      "data": "2015-09-09",
+      "titulo": "Acórdão TCU 2262/2015",
+      "assuntos": [
+        "sobrepreco",
+        "superfaturamento",
+        "preco-de-referencia",
+        "fiscalizacao"
+      ],
+      "tese_curta": "As empresas não devem tirar proveito de orçamentos superestimados, elaborados por órgãos públicos contratantes, nem têm direito adquirido à manutenção",
+      "conteudo": "easy-mobile/acordaos/tcu-2262-2015/conteudo.json"
+    },
+    {
+      "id": "tcu-2273-2024",
+      "orgao": "TCU",
+      "numero": "2273/2024",
+      "data": "2024-10-23",
+      "titulo": "Acórdão TCU 2273/2024",
+      "assuntos": [
+        "edital",
+        "projeto-basico"
+      ],
+      "tese_curta": "Não se exige a inclusão do Estudo Técnico Preliminar como anexo do instrumento convocatório.",
+      "conteudo": "easy-mobile/acordaos/tcu-2273-2024/conteudo.json"
+    },
+    {
+      "id": "tcu-2293-2013",
+      "orgao": "TCU",
+      "numero": "2293/2013",
+      "data": "2013-08-28",
+      "titulo": "Acórdão TCU 2293/2013",
+      "assuntos": [
+        "desoneracao-da-folha",
+        "encargos-sociais",
+        "mao-de-obra",
+        "bdi",
+        "orcamento"
+      ],
+      "tese_curta": "Na elaboração do orçamento da obra, deve ser considerada a desoneração do INSS nos encargos sociais sobre a mão de obra, nos termos da Lei 12.546/2011",
+      "conteudo": "easy-mobile/acordaos/tcu-2293-2013/conteudo.json"
     },
     {
       "id": "tcu-2341-2020",
@@ -163,6 +1225,98 @@
       "conteudo": "easy-mobile/acordaos/tcu-2348-2011/conteudo.json"
     },
     {
+      "id": "tcu-2369-2011",
+      "orgao": "TCU",
+      "numero": "2369/2011",
+      "data": "2011-08-31",
+      "titulo": "Acórdão TCU 2369/2011",
+      "assuntos": [
+        "bdi",
+        "administracao-local",
+        "canteiro-de-obras",
+        "mobilizacao-e-desmobilizacao",
+        "custo-direto"
+      ],
+      "tese_curta": "A administração local e os gastos com instalação de canteiro de obras, acampamento, mobilização e desmobilização não devem entrar no BDI, mas devem se",
+      "conteudo": "easy-mobile/acordaos/tcu-2369-2011/conteudo.json"
+    },
+    {
+      "id": "tcu-2380-2013",
+      "orgao": "TCU",
+      "numero": "2380/2013",
+      "data": "2013-09-04",
+      "titulo": "Acórdão TCU 2380/2013",
+      "assuntos": [
+        "pesquisa-de-precos",
+        "cotacao-de-mercado",
+        "preco-de-referencia"
+      ],
+      "tese_curta": "A realização de pesquisa de preços de mercado, previamente à fase externa da licitação, é exigência legal para todos os processos licitatórios, inclus",
+      "conteudo": "easy-mobile/acordaos/tcu-2380-2013/conteudo.json"
+    },
+    {
+      "id": "tcu-2391-2025",
+      "orgao": "TCU",
+      "numero": "2391/2025",
+      "data": "2025-10-15",
+      "titulo": "Acórdão TCU 2391/2025",
+      "assuntos": [
+        "aditivo-contratual",
+        "limite-de-alteracao",
+        "supressao-contratual",
+        "fiscalizacao",
+        "servico-novo"
+      ],
+      "tese_curta": "Não se admite o aditamento de contratos de supervisão de obras além do limite legal de 25%, ainda que tal aumento seja fruto de prorrogação de prazo n",
+      "conteudo": "easy-mobile/acordaos/tcu-2391-2025/conteudo.json"
+    },
+    {
+      "id": "tcu-2423-2024",
+      "orgao": "TCU",
+      "numero": "2423/2024",
+      "data": "2024-11-13",
+      "titulo": "Acórdão TCU 2423/2024",
+      "assuntos": [
+        "contratacao-integrada",
+        "matriz-de-riscos",
+        "anteprojeto",
+        "projeto"
+      ],
+      "tese_curta": "A utilização da opinião de especialistas não supre a necessidade de realização de estudo conclusivo quanto ao acompanhamento dos riscos nos contratos ",
+      "conteudo": "easy-mobile/acordaos/tcu-2423-2024/conteudo.json"
+    },
+    {
+      "id": "tcu-2429-2024",
+      "orgao": "TCU",
+      "numero": "2429/2024",
+      "data": "2024-11-13",
+      "titulo": "Acórdão TCU 2429/2024",
+      "assuntos": [
+        "reequilibrio-economico-financeiro",
+        "matriz-de-riscos",
+        "contratacao-integrada",
+        "contingencia",
+        "lucro"
+      ],
+      "tese_curta": "Devem ser suportadas pelas contratadas as imprecisões comuns, não excessivas, referentes a condições de contorno que onerem ou desonerem ordinariament",
+      "conteudo": "easy-mobile/acordaos/tcu-2429-2024/conteudo.json"
+    },
+    {
+      "id": "tcu-2432-2016",
+      "orgao": "TCU",
+      "numero": "2432/2016",
+      "data": "2016-09-21",
+      "titulo": "Acórdão TCU 2432/2016",
+      "assuntos": [
+        "empreitada-por-preco-global",
+        "empreitada-por-preco-unitario",
+        "projeto",
+        "quantitativo"
+      ],
+      "tese_curta": "A empreitada por preço global deve ser adotada quando for possível definir previamente no projeto, com boa margem de precisão, as quantidades dos serv",
+      "conteudo": "easy-mobile/acordaos/tcu-2432-2016/conteudo.json"
+    },
+    {
       "id": "tcu-2433-2016",
       "orgao": "TCU",
       "numero": "2433/2016",
@@ -176,6 +1330,21 @@
       ],
       "tese_curta": "A evolução normal do anteprojeto não é, por si, hipótese de aditamento.",
       "conteudo": "easy-mobile/acordaos/tcu-2433-2016/conteudo.json"
+    },
+    {
+      "id": "tcu-2438-2013",
+      "orgao": "TCU",
+      "numero": "2438/2013",
+      "data": "2013-09-11",
+      "titulo": "Acórdão TCU 2438/2013",
+      "assuntos": [
+        "fiscalizacao",
+        "preco-de-referencia",
+        "sobrepreco",
+        "medicao"
+      ],
+      "tese_curta": "Na fiscalização de contratos de consultoria, devem ser comparados os preços contratuais com os referenciados pela \"Tabela de Preços de Consultoria\" do",
+      "conteudo": "easy-mobile/acordaos/tcu-2438-2013/conteudo.json"
     },
     {
       "id": "tcu-2440-2014",
@@ -193,6 +1362,123 @@
       "conteudo": "easy-mobile/acordaos/tcu-2440-2014/conteudo.json"
     },
     {
+      "id": "tcu-2443-2017",
+      "orgao": "TCU",
+      "numero": "2443/2017",
+      "data": "2017-11-01",
+      "titulo": "Acórdão TCU 2443/2017",
+      "assuntos": [
+        "orcamento-estimado",
+        "pesquisa-de-precos",
+        "preco-de-referencia",
+        "edital"
+      ],
+      "tese_curta": "O orçamento estimativo deve refletir os preços praticados no mercado quando da deflagração do certame, não se admitindo posicioná-lo em qualquer marco",
+      "conteudo": "easy-mobile/acordaos/tcu-2443-2017/conteudo.json"
+    },
+    {
+      "id": "tcu-2467-2013",
+      "orgao": "TCU",
+      "numero": "2467/2013",
+      "data": "2013-09-11",
+      "titulo": "Acórdão TCU 2467/2013",
+      "assuntos": [
+        "fiscalizacao",
+        "jurisprudencia"
+      ],
+      "tese_curta": "A divulgação externa dos resultados de levantamentos sobre maturidade da gestão de riscos deve preservar a confidencialidade das respostas fornecidas ",
+      "conteudo": "easy-mobile/acordaos/tcu-2467-2013/conteudo.json"
+    },
+    {
+      "id": "tcu-2470-2025",
+      "orgao": "TCU",
+      "numero": "2470/2025",
+      "data": "2025-10-22",
+      "titulo": "Acórdão TCU 2470/2025",
+      "assuntos": [
+        "empreitada-por-preco-global",
+        "contratacao-integrada",
+        "contratacao-semi-integrada",
+        "medicao",
+        "preco-unitario"
+      ],
+      "tese_curta": "É irregular a adoção, nos regimes de empreitada por preço global, contratação integrada ou semi-integrada, de cláusulas de medição e pagamento baseada",
+      "conteudo": "easy-mobile/acordaos/tcu-2470-2025/conteudo.json"
+    },
+    {
+      "id": "tcu-2507-2024",
+      "orgao": "TCU",
+      "numero": "2507/2024",
+      "data": "2024-11-27",
+      "titulo": "Acórdão TCU 2507/2024",
+      "assuntos": [
+        "contratacao-integrada",
+        "projeto-basico",
+        "fiscalizacao"
+      ],
+      "tese_curta": "Na execução indireta de obras de engenharia pelo regime de contratação integrada, não se admite o início da execução das obras sem a prévia aprovação ",
+      "conteudo": "easy-mobile/acordaos/tcu-2507-2024/conteudo.json"
+    },
+    {
+      "id": "tcu-2581-2009",
+      "orgao": "TCU",
+      "numero": "2581/2009",
+      "data": "2009-11-04",
+      "titulo": "Acórdão TCU 2581/2009",
+      "assuntos": [
+        "fiscalizacao",
+        "medicao",
+        "contrato-verbal"
+      ],
+      "tese_curta": "Na inexistência, à época da contratação, de norma do Dnit sobre controle da irregularidade longitudinal de pavimentos rígidos, podem ser acolhidos, em",
+      "conteudo": "easy-mobile/acordaos/tcu-2581-2009/conteudo.json"
+    },
+    {
+      "id": "tcu-2582-2012",
+      "orgao": "TCU",
+      "numero": "2582/2012",
+      "data": "2012-09-26",
+      "titulo": "Acórdão TCU 2582/2012",
+      "assuntos": [
+        "bdi",
+        "sobrepreco",
+        "preco-global"
+      ],
+      "tese_curta": "Não se caracteriza sobrepreço no BDI quando o sobrepreço potencial de parcelas isoladas é compensado por outras parcelas integrantes do BDI, de tal fo",
+      "conteudo": "easy-mobile/acordaos/tcu-2582-2012/conteudo.json"
+    },
+    {
+      "id": "tcu-2591-2017",
+      "orgao": "TCU",
+      "numero": "2591/2017",
+      "data": "2017-11-22",
+      "titulo": "Acórdão TCU 2591/2017",
+      "assuntos": [
+        "contratacao-integrada",
+        "anteprojeto",
+        "bdi",
+        "aditivo-contratual"
+      ],
+      "tese_curta": "Na contratação integrada, não se deve cogitar que toda e qualquer modificação do anteprojeto seja absorvida pela contratada",
+      "conteudo": "easy-mobile/acordaos/tcu-2591-2017/conteudo.json"
+    },
+    {
+      "id": "tcu-2601-2016",
+      "orgao": "TCU",
+      "numero": "2601/2016",
+      "data": "2016-10-11",
+      "titulo": "Acórdão TCU 2601/2016",
+      "assuntos": [
+        "alteracao-qualitativa",
+        "projeto-basico",
+        "orcamento",
+        "medicao",
+        "fiscalizacao"
+      ],
+      "tese_curta": "A adoção, nos orçamentos-base e nos projetos executivos, de serviços antieconômicos em detrimento de alternativas menos onerosas deve ser precedida de",
+      "conteudo": "easy-mobile/acordaos/tcu-2601-2016/conteudo.json"
+    },
+    {
       "id": "tcu-2616-2020",
       "orgao": "TCU",
       "numero": "2616/2020",
@@ -208,6 +1494,21 @@
       "conteudo": "easy-mobile/acordaos/tcu-2616-2020/conteudo.json"
     },
     {
+      "id": "tcu-2619-2019",
+      "orgao": "TCU",
+      "numero": "2619/2019",
+      "data": "2019-10-30",
+      "titulo": "Acórdão TCU 2619/2019",
+      "assuntos": [
+        "sobrepreco",
+        "preco-de-referencia",
+        "jurisprudencia",
+        "fiscalizacao"
+      ],
+      "tese_curta": "Podem ser utilizados estudos econométricos para apurar os prejuízos resultantes da atuação de cartel nas contratações da Petrobras quando a utilização",
+      "conteudo": "easy-mobile/acordaos/tcu-2619-2019/conteudo.json"
+    },
+    {
       "id": "tcu-2622-2013",
       "orgao": "TCU",
       "numero": "2622/2013",
@@ -220,6 +1521,52 @@
       ],
       "tese_curta": "Consolida referências de BDI e orienta a composição tributária e a medição da administração local.",
       "conteudo": "easy-mobile/acordaos/tcu-2622-2013/conteudo.json"
+    },
+    {
+      "id": "tcu-2637-2015",
+      "orgao": "TCU",
+      "numero": "2637/2015",
+      "data": "2015-10-21",
+      "titulo": "Acórdão TCU 2637/2015",
+      "assuntos": [
+        "pesquisa-de-precos",
+        "cotacao-de-mercado",
+        "fonte-de-precos",
+        "preco-de-referencia"
+      ],
+      "tese_curta": "As estimativas de preços prévias às licitações devem estar baseadas em uma cesta de preços aceitáveis, com utilização de fontes de informação compatív",
+      "conteudo": "easy-mobile/acordaos/tcu-2637-2015/conteudo.json"
+    },
+    {
+      "id": "tcu-2641-2007",
+      "orgao": "TCU",
+      "numero": "2641/2007",
+      "data": "2007-12-05",
+      "titulo": "Acórdão TCU 2641/2007",
+      "assuntos": [
+        "bdi",
+        "administracao-local",
+        "custo-direto",
+        "planilha-orcamentaria"
+      ],
+      "tese_curta": "Os gastos indevidamente computados como despesas indiretas devem ser expurgados da taxa de BDI, e os itens referentes a administração local e despesas",
+      "conteudo": "easy-mobile/acordaos/tcu-2641-2007/conteudo.json"
+    },
+    {
+      "id": "tcu-266-2024",
+      "orgao": "TCU",
+      "numero": "266/2024",
+      "data": "2024-02-21",
+      "titulo": "Acórdão TCU 266/2024",
+      "assuntos": [
+        "acrescimo-contratual",
+        "aditivo-contratual",
+        "limite-de-alteracao",
+        "alteracao-qualitativa",
+        "fiscalizacao"
+      ],
+      "tese_curta": "As alterações nas quantidades de itens já existentes nos contratos de supervisão e gerenciamento de obras, expressas em homem/mês, entre outras unidad",
+      "conteudo": "easy-mobile/acordaos/tcu-266-2024/conteudo.json"
     },
     {
       "id": "tcu-2699-2019",
@@ -252,6 +1599,33 @@
       "conteudo": "easy-mobile/acordaos/tcu-2714-2015/conteudo.json"
     },
     {
+      "id": "tcu-2718-2025",
+      "orgao": "TCU",
+      "numero": "2718/2025",
+      "data": "2025-11-18",
+      "titulo": "Acórdão TCU 2718/2025",
+      "assuntos": [
+        "fiscalizacao",
+        "projeto"
+      ],
+      "tese_curta": "Deve ser incluída, como prática regular nas fiscalizações de obras de grande vulto, questão de auditoria voltada à aplicação do procedimento de apuraç",
+      "conteudo": "easy-mobile/acordaos/tcu-2718-2025/conteudo.json"
+    },
+    {
+      "id": "tcu-2738-2016",
+      "orgao": "TCU",
+      "numero": "2738/2016",
+      "data": "2016-10-26",
+      "titulo": "Acórdão TCU 2738/2016",
+      "assuntos": [
+        "sobrepreco",
+        "preco-de-referencia",
+        "jurisprudencia"
+      ],
+      "tese_curta": "A diferença correspondente a 0,78% do valor do contrato não configura sobrepreço.",
+      "conteudo": "easy-mobile/acordaos/tcu-2738-2016/conteudo.json"
+    },
+    {
       "id": "tcu-2777-2018",
       "orgao": "TCU",
       "numero": "2777/2018",
@@ -264,6 +1638,109 @@
       ],
       "tese_curta": "As soluções dos projetos básico e executivo devem alcançar desempenho igual ou superior ao previsto no anteprojeto.",
       "conteudo": "easy-mobile/acordaos/tcu-2777-2018/conteudo.json"
+    },
+    {
+      "id": "tcu-2786-2017",
+      "orgao": "TCU",
+      "numero": "2786/2017",
+      "data": "2017-12-06",
+      "titulo": "Acórdão TCU 2786/2017",
+      "assuntos": [
+        "projeto-basico",
+        "projeto",
+        "orcamento"
+      ],
+      "tese_curta": "O estudo de viabilidade técnico-econômica da obra ou serviço deve ser peça fundamental para a celebração do convênio, e o projeto básico deve conter t",
+      "conteudo": "easy-mobile/acordaos/tcu-2786-2017/conteudo.json"
+    },
+    {
+      "id": "tcu-2795-2013",
+      "orgao": "TCU",
+      "numero": "2795/2013",
+      "data": "2013-10-16",
+      "titulo": "Acórdão TCU 2795/2013",
+      "assuntos": [
+        "reequilibrio-economico-financeiro",
+        "preco",
+        "reajuste"
+      ],
+      "tese_curta": "O reequilíbrio econômico-financeiro deve ser condicionado à comprovação de que os custos do contrato sofreram alteração de tal monta que se tornou inv",
+      "conteudo": "easy-mobile/acordaos/tcu-2795-2013/conteudo.json"
+    },
+    {
+      "id": "tcu-2819-2011",
+      "orgao": "TCU",
+      "numero": "2819/2011",
+      "data": "2011-10-25",
+      "titulo": "Acórdão TCU 2819/2011",
+      "assuntos": [
+        "limite-de-alteracao",
+        "acrescimo-contratual",
+        "supressao-contratual",
+        "aditivo-contratual"
+      ],
+      "tese_curta": "As reduções ou supressões de quantitativos devem ser consideradas de forma isolada, e o conjunto de reduções e o conjunto de acréscimos devem ser semp",
+      "conteudo": "easy-mobile/acordaos/tcu-2819-2011/conteudo.json"
+    },
+    {
+      "id": "tcu-282-2008",
+      "orgao": "TCU",
+      "numero": "282/2008",
+      "data": "2008-02-27",
+      "titulo": "Acórdão TCU 282/2008",
+      "assuntos": [
+        "contrato-verbal",
+        "aditivo-contratual",
+        "reequilibrio-economico-financeiro",
+        "alteracao-qualitativa"
+      ],
+      "tese_curta": "Não se admitem a prestação de serviços e o fornecimento de bens sem cobertura contratual nem a atribuição de efeitos financeiros retroativos aos contr",
+      "conteudo": "easy-mobile/acordaos/tcu-282-2008/conteudo.json"
+    },
+    {
+      "id": "tcu-2857-2013",
+      "orgao": "TCU",
+      "numero": "2857/2013",
+      "data": "2013-10-23",
+      "titulo": "Acórdão TCU 2857/2013",
+      "assuntos": [
+        "empreitada-por-preco-global",
+        "preco-unitario",
+        "acrescimo-contratual",
+        "jogo-de-planilha"
+      ],
+      "tese_curta": "Devem ser estabelecidos critérios de aceitabilidade de preços unitários, inclusive nas contratações sob o regime de empreitada por preço global, pois ",
+      "conteudo": "easy-mobile/acordaos/tcu-2857-2013/conteudo.json"
+    },
+    {
+      "id": "tcu-287-2005",
+      "orgao": "TCU",
+      "numero": "287/2005",
+      "data": "2005-03-23",
+      "titulo": "Acórdão TCU 287/2005",
+      "assuntos": [
+        "fiscalizacao",
+        "mao-de-obra",
+        "projeto",
+        "jurisprudencia"
+      ],
+      "tese_curta": "Não se admite a contratação indireta de pessoal por intermédio de fundação de apoio para suprir a insuficiência de pessoal de hospitais universitários",
+      "conteudo": "easy-mobile/acordaos/tcu-287-2005/conteudo.json"
+    },
+    {
+      "id": "tcu-2901-2020",
+      "orgao": "TCU",
+      "numero": "2901/2020",
+      "data": "2020-10-28",
+      "titulo": "Acórdão TCU 2901/2020",
+      "assuntos": [
+        "reequilibrio-economico-financeiro",
+        "preco-unitario",
+        "servico-novo",
+        "aditivo-contratual"
+      ],
+      "tese_curta": "Não se admite a elevação do preço de serviço originalmente contratado em razão de sua inexequibilidade na proposta",
+      "conteudo": "easy-mobile/acordaos/tcu-2901-2020/conteudo.json"
     },
     {
       "id": "tcu-291-2016",
@@ -281,6 +1758,36 @@
       "conteudo": "easy-mobile/acordaos/tcu-291-2016/conteudo.json"
     },
     {
+      "id": "tcu-2923-2010",
+      "orgao": "TCU",
+      "numero": "2923/2010",
+      "data": "2010-11-03",
+      "titulo": "Acórdão TCU 2923/2010",
+      "assuntos": [
+        "reajuste",
+        "data-base",
+        "edital"
+      ],
+      "tese_curta": "O reajustamento dos contratos deve adotar como termo inicial a data-limite para apresentação das propostas ou a data do orçamento, conforme o critério",
+      "conteudo": "easy-mobile/acordaos/tcu-2923-2010/conteudo.json"
+    },
+    {
+      "id": "tcu-2976-2012",
+      "orgao": "TCU",
+      "numero": "2976/2012",
+      "data": "2012-10-31",
+      "titulo": "Acórdão TCU 2976/2012",
+      "assuntos": [
+        "planilha-orcamentaria",
+        "composicao-de-custo-unitario",
+        "bdi",
+        "encargos-sociais",
+        "edital"
+      ],
+      "tese_curta": "A planilha orçamentária deve ser acompanhada das composições de todos os custos unitários de seus serviços, do bdi e dos encargos sociais utilizados p",
+      "conteudo": "easy-mobile/acordaos/tcu-2976-2012/conteudo.json"
+    },
+    {
       "id": "tcu-2980-2015",
       "orgao": "TCU",
       "numero": "2980/2015",
@@ -293,6 +1800,80 @@
       ],
       "tese_curta": "A contratação integrada exige matriz de riscos detalhada no instrumento convocatório.",
       "conteudo": "easy-mobile/acordaos/tcu-2980-2015/conteudo.json"
+    },
+    {
+      "id": "tcu-2984-2013",
+      "orgao": "TCU",
+      "numero": "2984/2013",
+      "data": "2013-11-06",
+      "titulo": "Acórdão TCU 2984/2013",
+      "assuntos": [
+        "pesquisa-de-precos",
+        "sinapi",
+        "curva-abc",
+        "preco-de-referencia",
+        "orcamento-estimado"
+      ],
+      "tese_curta": "Na elaboração de orçamentos que servirão de base para procedimentos licitatórios de obras de maior vulto, devem ser realizadas pesquisas de mercado, p",
+      "conteudo": "easy-mobile/acordaos/tcu-2984-2013/conteudo.json"
+    },
+    {
+      "id": "tcu-299-2011",
+      "orgao": "TCU",
+      "numero": "299/2011",
+      "data": "2011-02-09",
+      "titulo": "Acórdão TCU 299/2011",
+      "assuntos": [
+        "pesquisa-de-precos",
+        "cotacao-de-mercado",
+        "edital",
+        "preco-de-referencia"
+      ],
+      "tese_curta": "As estimativas do valor de mercado dos bens e serviços de tecnologia da informação devem considerar, além de pesquisa de preços junto a fornecedores, ",
+      "conteudo": "easy-mobile/acordaos/tcu-299-2011/conteudo.json"
+    },
+    {
+      "id": "tcu-2993-2011",
+      "orgao": "TCU",
+      "numero": "2993/2011",
+      "data": "2011-11-16",
+      "titulo": "Acórdão TCU 2993/2011",
+      "assuntos": [
+        "jurisprudencia",
+        "edital"
+      ],
+      "tese_curta": "Configura fraude ao certame licitatório a utilização de prerrogativas expressamente reservadas a licitantes microempresas ou empresas de pequeno porte",
+      "conteudo": "easy-mobile/acordaos/tcu-2993-2011/conteudo.json"
+    },
+    {
+      "id": "tcu-3011-2014",
+      "orgao": "TCU",
+      "numero": "3011/2014",
+      "data": "2014-11-05",
+      "titulo": "Acórdão TCU 3011/2014",
+      "assuntos": [
+        "aditivo-contratual",
+        "preco",
+        "reajuste",
+        "reequilibrio-economico-financeiro"
+      ],
+      "tese_curta": "Não se admite a alteração dos preços de itens do contrato em termo aditivo para adequá-los aos preços de mercado, por inexistir base legal para essa m",
+      "conteudo": "easy-mobile/acordaos/tcu-3011-2014/conteudo.json"
+    },
+    {
+      "id": "tcu-3024-2013",
+      "orgao": "TCU",
+      "numero": "3024/2013",
+      "data": "2013-11-13",
+      "titulo": "Acórdão TCU 3024/2013",
+      "assuntos": [
+        "reequilibrio-economico-financeiro",
+        "reajuste",
+        "aditivo-contratual",
+        "pesquisa-de-precos"
+      ],
+      "tese_curta": "A mera variação de preços, para mais ou para menos, não é suficiente para determinar a realização de reequilíbrio econômico-financeiro do contrato, se",
+      "conteudo": "easy-mobile/acordaos/tcu-3024-2013/conteudo.json"
     },
     {
       "id": "tcu-3037-2009",
@@ -323,6 +1904,121 @@
       "conteudo": "easy-mobile/acordaos/tcu-3053-2016/conteudo.json"
     },
     {
+      "id": "tcu-3061-2011",
+      "orgao": "TCU",
+      "numero": "3061/2011",
+      "data": "2011-11-23",
+      "titulo": "Acórdão TCU 3061/2011",
+      "assuntos": [
+        "bdi",
+        "sobrepreco",
+        "custo-de-referencia"
+      ],
+      "tese_curta": "Deve ser adotado BDI médio aceitável, tomado a partir de obras de tipologia semelhante",
+      "conteudo": "easy-mobile/acordaos/tcu-3061-2011/conteudo.json"
+    },
+    {
+      "id": "tcu-3088-2014",
+      "orgao": "TCU",
+      "numero": "3088/2014",
+      "data": "2014-11-12",
+      "titulo": "Acórdão TCU 3088/2014",
+      "assuntos": [
+        "acrescimo-contratual",
+        "alteracao-qualitativa"
+      ],
+      "tese_curta": "Deve haver justificativa técnica para os acréscimos de serviços no contrato.",
+      "conteudo": "easy-mobile/acordaos/tcu-3088-2014/conteudo.json"
+    },
+    {
+      "id": "tcu-3089-2015",
+      "orgao": "TCU",
+      "numero": "3089/2015",
+      "data": "2015-12-02",
+      "titulo": "Acórdão TCU 3089/2015",
+      "assuntos": [
+        "sobrepreco",
+        "empresa-estatal",
+        "reequilibrio-economico-financeiro",
+        "acordao"
+      ],
+      "tese_curta": "Na ausência de dado mais robusto, o parâmetro de 17% de overcharge deve servir de base, em presunção juris tantum, para a avaliação de legalidade e le",
+      "conteudo": "easy-mobile/acordaos/tcu-3089-2015/conteudo.json"
+    },
+    {
+      "id": "tcu-3095-2014",
+      "orgao": "TCU",
+      "numero": "3095/2014",
+      "data": "2014-11-12",
+      "titulo": "Acórdão TCU 3095/2014",
+      "assuntos": [
+        "sobrepreco",
+        "sicro",
+        "sinapi",
+        "preco-de-referencia"
+      ],
+      "tese_curta": "Não existe percentual tolerável de sobrepreço global",
+      "conteudo": "easy-mobile/acordaos/tcu-3095-2014/conteudo.json"
+    },
+    {
+      "id": "tcu-3105-2013",
+      "orgao": "TCU",
+      "numero": "3105/2013",
+      "data": "2013-11-20",
+      "titulo": "Acórdão TCU 3105/2013",
+      "assuntos": [
+        "limite-de-alteracao",
+        "acrescimo-contratual",
+        "supressao-contratual",
+        "aditivo-contratual"
+      ],
+      "tese_curta": "Nas contratações dos órgãos e entidades vinculados ao Ministério dos Transportes ocorridas a partir da data do trânsito em julgado do Acórdão 749/2010",
+      "conteudo": "easy-mobile/acordaos/tcu-3105-2013/conteudo.json"
+    },
+    {
+      "id": "tcu-311-2011",
+      "orgao": "TCU",
+      "numero": "311/2011",
+      "data": "2011-02-09",
+      "titulo": "Acórdão TCU 311/2011",
+      "assuntos": [
+        "planilha-orcamentaria",
+        "preco-global",
+        "preco-unitario",
+        "bdi",
+        "reequilibrio-economico-financeiro"
+      ],
+      "tese_curta": "A previsão de valores adicionais sem vínculo específico a um objeto, item ou bem contratado é vedada para qualquer tipo de contrato, seja ele por preç",
+      "conteudo": "easy-mobile/acordaos/tcu-311-2011/conteudo.json"
+    },
+    {
+      "id": "tcu-324-2012",
+      "orgao": "TCU",
+      "numero": "324/2012",
+      "data": "2012-02-15",
+      "titulo": "Acórdão TCU 324/2012",
+      "assuntos": [
+        "edital",
+        "jurisprudencia"
+      ],
+      "tese_curta": "Podem ser admitidas em licitações as condições decorrentes de acordos, protocolos, convenções ou tratados internacionais aprovados pelo Congresso Naci",
+      "conteudo": "easy-mobile/acordaos/tcu-324-2012/conteudo.json"
+    },
+    {
+      "id": "tcu-327-2012",
+      "orgao": "TCU",
+      "numero": "327/2012",
+      "data": "2012-02-15",
+      "titulo": "Acórdão TCU 327/2012",
+      "assuntos": [
+        "alteracao-qualitativa",
+        "aditivo-contratual",
+        "limite-de-alteracao"
+      ],
+      "tese_curta": "Não se admite, nos casos de alteração qualitativa do objeto dos contratos públicos, a desfiguração completa do objeto pactuado",
+      "conteudo": "easy-mobile/acordaos/tcu-327-2012/conteudo.json"
+    },
+    {
       "id": "tcu-3289-2014",
       "orgao": "TCU",
       "numero": "3289/2014",
@@ -338,6 +2034,22 @@
       "conteudo": "easy-mobile/acordaos/tcu-3289-2014/conteudo.json"
     },
     {
+      "id": "tcu-3393-2013",
+      "orgao": "TCU",
+      "numero": "3393/2013",
+      "data": "2013-12-04",
+      "titulo": "Acórdão TCU 3393/2013",
+      "assuntos": [
+        "sobrepreco",
+        "curva-abc",
+        "acrescimo-contratual",
+        "aditivo-contratual",
+        "preco-de-referencia"
+      ],
+      "tese_curta": "Os preços unitários com sobrepreço devem ser avaliados em conjunto com os demais itens da contratação, para análise da economicidade dos preços pratic",
+      "conteudo": "easy-mobile/acordaos/tcu-3393-2013/conteudo.json"
+    },
+    {
       "id": "tcu-3443-2012",
       "orgao": "TCU",
       "numero": "3443/2012",
@@ -351,6 +2063,36 @@
       ],
       "tese_curta": "A causa do atraso define se há recomposição de prazo, sanção e eventual repercussão financeira.",
       "conteudo": "easy-mobile/acordaos/tcu-3443-2012/conteudo.json"
+    },
+    {
+      "id": "tcu-3495-2012",
+      "orgao": "TCU",
+      "numero": "3495/2012",
+      "data": "2012-12-10",
+      "titulo": "Acórdão TCU 3495/2012",
+      "assuntos": [
+        "reequilibrio-economico-financeiro",
+        "insumo",
+        "preco",
+        "jurisprudencia"
+      ],
+      "tese_curta": "Para ser caracterizado desequilíbrio econômico-financeiro do contrato, deve ser comprovada, inequivocamente, a alteração nos custos dos insumos do con",
+      "conteudo": "easy-mobile/acordaos/tcu-3495-2012/conteudo.json"
+    },
+    {
+      "id": "tcu-3569-2023",
+      "orgao": "TCU",
+      "numero": "3569/2023",
+      "data": "2023-05-23",
+      "titulo": "Acórdão TCU 3569/2023",
+      "assuntos": [
+        "pesquisa-de-precos",
+        "orcamento-estimado",
+        "quantitativo",
+        "sobrepreco"
+      ],
+      "tese_curta": "A elaboração do orçamento estimado da licitação deve observar o dimensionamento adequado dos quantitativos e não deve se restringir à pesquisa de merc",
+      "conteudo": "easy-mobile/acordaos/tcu-3569-2023/conteudo.json"
     },
     {
       "id": "tcu-3576-2019",
@@ -425,6 +2167,270 @@
       "conteudo": "easy-mobile/acordaos/tcu-467-2015/conteudo.json"
     },
     {
+      "id": "tcu-472-2011",
+      "orgao": "TCU",
+      "numero": "472/2011",
+      "data": "2011-02-23",
+      "titulo": "Acórdão TCU 472/2011",
+      "assuntos": [
+        "equipamento",
+        "edital",
+        "orcamento-estimado"
+      ],
+      "tese_curta": "Nos termos de referência atinentes a licitações que contenham locações de equipamentos, devem constar justificativas detalhadas a respeito da economic",
+      "conteudo": "easy-mobile/acordaos/tcu-472-2011/conteudo.json"
+    },
+    {
+      "id": "tcu-490-2005",
+      "orgao": "TCU",
+      "numero": "490/2005",
+      "data": "2005-04-27",
+      "titulo": "Acórdão TCU 490/2005",
+      "assuntos": [
+        "sicro",
+        "preco-unitario",
+        "orcamento-estimado",
+        "memoria-de-calculo"
+      ],
+      "tese_curta": "Os preços unitários dos orçamentos estimativos das obras rodoviárias sob controle do Dnit devem observar a tabela Sicro",
+      "conteudo": "easy-mobile/acordaos/tcu-490-2005/conteudo.json"
+    },
+    {
+      "id": "tcu-508-2018",
+      "orgao": "TCU",
+      "numero": "508/2018",
+      "data": "2018-03-14",
+      "titulo": "Acórdão TCU 508/2018",
+      "assuntos": [
+        "limite-de-alteracao",
+        "aditivo-contratual",
+        "acrescimo-contratual"
+      ],
+      "tese_curta": "Os contratos de supervisão de obras devem observar o limite legal de 25% para aditamentos, ainda que haja prorrogação de prazo na execução da obra sup",
+      "conteudo": "easy-mobile/acordaos/tcu-508-2018/conteudo.json"
+    },
+    {
+      "id": "tcu-538-2008",
+      "orgao": "TCU",
+      "numero": "538/2008",
+      "data": "2008-04-02",
+      "titulo": "Acórdão TCU 538/2008",
+      "assuntos": [
+        "bdi",
+        "planilha-orcamentaria",
+        "sobrepreco",
+        "custo-direto"
+      ],
+      "tese_curta": "A distribuição dos custos com serviços topográficos entre a planilha de serviços diretos e a composição do BDI não permite concluir, por si só, que ho",
+      "conteudo": "easy-mobile/acordaos/tcu-538-2008/conteudo.json"
+    },
+    {
+      "id": "tcu-5820-2011",
+      "orgao": "TCU",
+      "numero": "5820/2011",
+      "data": "2011-08-09",
+      "titulo": "Acórdão TCU 5820/2011",
+      "assuntos": [
+        "edital",
+        "jurisprudencia"
+      ],
+      "tese_curta": "Na elaboração de editais e contratos relativos a prestações de serviços contínuos, deve ser prevista a possibilidade de prorrogação do prazo de vigênc",
+      "conteudo": "easy-mobile/acordaos/tcu-5820-2011/conteudo.json"
+    },
+    {
+      "id": "tcu-596-2008",
+      "orgao": "TCU",
+      "numero": "596/2008",
+      "data": "2008-04-09",
+      "titulo": "Acórdão TCU 596/2008",
+      "assuntos": [
+        "projeto-basico",
+        "projeto",
+        "edital",
+        "jurisprudencia"
+      ],
+      "tese_curta": "A contratação de terceiros visando à elaboração de projeto básico deve ser precedida de certame licitatório, em obediência ao art",
+      "conteudo": "easy-mobile/acordaos/tcu-596-2008/conteudo.json"
+    },
+    {
+      "id": "tcu-606-2008",
+      "orgao": "TCU",
+      "numero": "606/2008",
+      "data": "2008-04-09",
+      "titulo": "Acórdão TCU 606/2008",
+      "assuntos": [
+        "medicao",
+        "edital",
+        "mao-de-obra",
+        "preco-unitario"
+      ],
+      "tese_curta": "O pagamento por serviços prestados medidos em horas trabalhadas deve ater-se ao estabelecido no edital",
+      "conteudo": "easy-mobile/acordaos/tcu-606-2008/conteudo.json"
+    },
+    {
+      "id": "tcu-616-2005",
+      "orgao": "TCU",
+      "numero": "616/2005",
+      "data": "2005-05-18",
+      "titulo": "Acórdão TCU 616/2005",
+      "assuntos": [
+        "planilha-orcamentaria",
+        "orcamento",
+        "fiscalizacao",
+        "projeto-basico"
+      ],
+      "tese_curta": "A responsabilidade pela lisura e correção das planilhas orçamentárias deve permanecer com o Dnit e as empresas projetistas contratadas, inclusive quan",
+      "conteudo": "easy-mobile/acordaos/tcu-616-2005/conteudo.json"
+    },
+    {
+      "id": "tcu-619-2024",
+      "orgao": "TCU",
+      "numero": "619/2024",
+      "data": "2024-04-03",
+      "titulo": "Acórdão TCU 619/2024",
+      "assuntos": [
+        "sicro",
+        "sinapi",
+        "fonte-de-precos",
+        "composicao-de-custo-unitario",
+        "custo-de-referencia"
+      ],
+      "tese_curta": "Podem ser adaptadas composições de custos dos sistemas oficiais de referência para fazer frente a eventuais peculiaridades do empreendimento, desde qu",
+      "conteudo": "easy-mobile/acordaos/tcu-619-2024/conteudo.json"
+    },
+    {
+      "id": "tcu-624-2007",
+      "orgao": "TCU",
+      "numero": "624/2007",
+      "data": "2007-04-18",
+      "titulo": "Acórdão TCU 624/2007",
+      "assuntos": [
+        "reequilibrio-economico-financeiro",
+        "preco",
+        "empresa-estatal"
+      ],
+      "tese_curta": "Não se admite o realinhamento de preços contratados sob o argumento de que o mercado, na forma de outros contratos firmados pela Empresa, está operand",
+      "conteudo": "easy-mobile/acordaos/tcu-624-2007/conteudo.json"
+    },
+    {
+      "id": "tcu-648-2016",
+      "orgao": "TCU",
+      "numero": "648/2016",
+      "data": "2016-03-23",
+      "titulo": "Acórdão TCU 648/2016",
+      "assuntos": [
+        "bdi",
+        "orcamento-estimado",
+        "preco"
+      ],
+      "tese_curta": "A inclusão de IRPJ e CSLL na composição do BDI da proposta do particular não acarreta, por si só, prejuízos ao erário, desde que os preços praticados ",
+      "conteudo": "easy-mobile/acordaos/tcu-648-2016/conteudo.json"
+    },
+    {
+      "id": "tcu-648-2025",
+      "orgao": "TCU",
+      "numero": "648/2025",
+      "data": "2025-03-26",
+      "titulo": "Acórdão TCU 648/2025",
+      "assuntos": [
+        "medicao",
+        "aditivo-contratual",
+        "limite-de-alteracao",
+        "fiscalizacao"
+      ],
+      "tese_curta": "A escolha do critério de medição nos processos licitatórios de contratos de supervisão e gerenciamento de obras deve ser justificada, especialmente qu",
+      "conteudo": "easy-mobile/acordaos/tcu-648-2025/conteudo.json"
+    },
+    {
+      "id": "tcu-671-2018",
+      "orgao": "TCU",
+      "numero": "671/2018",
+      "data": "2018-03-28",
+      "titulo": "Acórdão TCU 671/2018",
+      "assuntos": [
+        "desoneracao-da-folha",
+        "reequilibrio-economico-financeiro",
+        "encargos-sociais",
+        "regime-desonerado"
+      ],
+      "tese_curta": "Devem ser revisados os preços dos contratos de prestação de serviços ainda vigentes firmados pela Administração Pública Federal com empresas beneficia",
+      "conteudo": "easy-mobile/acordaos/tcu-671-2018/conteudo.json"
+    },
+    {
+      "id": "tcu-675-2022",
+      "orgao": "TCU",
+      "numero": "675/2022",
+      "data": "2022-03-30",
+      "titulo": "Acórdão TCU 675/2022",
+      "assuntos": [
+        "fiscalizacao",
+        "atraso",
+        "cronograma-fisico-financeiro"
+      ],
+      "tese_curta": "Não se caracteriza grave omissão na conduta dos fiscais que alertarem as instâncias superiores quanto aos atrasos na obra e atuarem de acordo com as a",
+      "conteudo": "easy-mobile/acordaos/tcu-675-2022/conteudo.json"
+    },
+    {
+      "id": "tcu-702-2008",
+      "orgao": "TCU",
+      "numero": "702/2008",
+      "data": "2008-04-23",
+      "titulo": "Acórdão TCU 702/2008",
+      "assuntos": [
+        "acrescimo-contratual",
+        "preco-unitario",
+        "preco-de-referencia",
+        "cotacao-de-mercado"
+      ],
+      "tese_curta": "Nos casos excepcionais em que a licitação se revele altamente competitiva, capaz de traduzir com fidelidade o estado de mercado em relação a determina",
+      "conteudo": "easy-mobile/acordaos/tcu-702-2008/conteudo.json"
+    },
+    {
+      "id": "tcu-719-2018",
+      "orgao": "TCU",
+      "numero": "719/2018",
+      "data": "2018-04-04",
+      "titulo": "Acórdão TCU 719/2018",
+      "assuntos": [
+        "composicao-de-custo-unitario",
+        "mao-de-obra",
+        "edital",
+        "acordao"
+      ],
+      "tese_curta": "A apresentação de composição de custo unitário contendo salário de categoria profissional inferior ao piso estabelecido em instrumento normativo negoc",
+      "conteudo": "easy-mobile/acordaos/tcu-719-2018/conteudo.json"
+    },
+    {
+      "id": "tcu-7290-2013",
+      "orgao": "TCU",
+      "numero": "7290/2013",
+      "data": "2013-11-26",
+      "titulo": "Acórdão TCU 7290/2013",
+      "assuntos": [
+        "cotacao-de-mercado",
+        "equipamento",
+        "preco-de-referencia",
+        "pesquisa-de-precos"
+      ],
+      "tese_curta": "Na pesquisa de preços de mercado para definição de valores referenciais de licitações, devem ser adotadas as cotações mínimas encontradas sempre que s",
+      "conteudo": "easy-mobile/acordaos/tcu-7290-2013/conteudo.json"
+    },
+    {
+      "id": "tcu-7487-2015",
+      "orgao": "TCU",
+      "numero": "7487/2015",
+      "data": "2015-11-17",
+      "titulo": "Acórdão TCU 7487/2015",
+      "assuntos": [
+        "aditivo-contratual",
+        "acrescimo-contratual",
+        "alteracao-qualitativa",
+        "fiscalizacao"
+      ],
+      "tese_curta": "As alterações quantitativas e qualitativas ao objeto licitado devem ser formalizadas mediante termo aditivo",
+      "conteudo": "easy-mobile/acordaos/tcu-7487-2015/conteudo.json"
+    },
+    {
       "id": "tcu-749-2010",
       "orgao": "TCU",
       "numero": "749/2010",
@@ -438,6 +2444,182 @@
       ],
       "tese_curta": "Acréscimos e supressões são calculados separadamente, sem compensação.",
       "conteudo": "easy-mobile/acordaos/tcu-749-2010/conteudo.json"
+    },
+    {
+      "id": "tcu-798-2008",
+      "orgao": "TCU",
+      "numero": "798/2008",
+      "data": "2008-04-30",
+      "titulo": "Acórdão TCU 798/2008",
+      "assuntos": [
+        "projeto",
+        "projeto-basico",
+        "orcamento-estimado"
+      ],
+      "tese_curta": "Em obras rodoviárias, quando for adotada solução técnica de pavimentação pouco utilizada dentre as opções comumente adotadas pelo Dnit, devem ser demo",
+      "conteudo": "easy-mobile/acordaos/tcu-798-2008/conteudo.json"
+    },
+    {
+      "id": "tcu-808-2025",
+      "orgao": "TCU",
+      "numero": "808/2025",
+      "data": "2025-04-16",
+      "titulo": "Acórdão TCU 808/2025",
+      "assuntos": [
+        "preco-de-referencia",
+        "pesquisa-de-precos",
+        "sobrepreco",
+        "fonte-de-precos"
+      ],
+      "tese_curta": "A correção ou a retração de referenciais de preços por longos períodos não se presta para a verificação da compatibilidade dos valores contratados com",
+      "conteudo": "easy-mobile/acordaos/tcu-808-2025/conteudo.json"
+    },
+    {
+      "id": "tcu-826-2015",
+      "orgao": "TCU",
+      "numero": "826/2015",
+      "data": "2015-04-15",
+      "titulo": "Acórdão TCU 826/2015",
+      "assuntos": [
+        "medicao",
+        "quantitativo",
+        "fiscalizacao",
+        "superfaturamento"
+      ],
+      "tese_curta": "Não se admite medir e pagar serviços executados em desconformidade com as normas do Dnit ou quantitativos de serviços não executados",
+      "conteudo": "easy-mobile/acordaos/tcu-826-2015/conteudo.json"
+    },
+    {
+      "id": "tcu-855-2016",
+      "orgao": "TCU",
+      "numero": "855/2016",
+      "data": "2016-04-13",
+      "titulo": "Acórdão TCU 855/2016",
+      "assuntos": [
+        "acrescimo-contratual",
+        "aditivo-contratual",
+        "desconto-contratual",
+        "jogo-de-planilha",
+        "preco-novo"
+      ],
+      "tese_curta": "Os aditivos contratuais devem manter o mesmo percentual de desconto obtido na licitação, de modo que a diferença percentual entre o valor global contr",
+      "conteudo": "easy-mobile/acordaos/tcu-855-2016/conteudo.json"
+    },
+    {
+      "id": "tcu-86-2013",
+      "orgao": "TCU",
+      "numero": "86/2013",
+      "data": "2013-01-30",
+      "titulo": "Acórdão TCU 86/2013",
+      "assuntos": [
+        "jogo-de-planilha",
+        "alteracao-qualitativa",
+        "limite-de-alteracao",
+        "desconto-contratual",
+        "sobrepreco"
+      ],
+      "tese_curta": "É irregular a alteração do projeto básico da obra em limites superiores ao estabelecido na Lei nº 8.666/1993 e em detrimento da vantagem econômica obt",
+      "conteudo": "easy-mobile/acordaos/tcu-86-2013/conteudo.json"
+    },
+    {
+      "id": "tcu-874-2018",
+      "orgao": "TCU",
+      "numero": "874/2018",
+      "data": "2018-04-25",
+      "titulo": "Acórdão TCU 874/2018",
+      "assuntos": [
+        "atraso",
+        "administracao-local",
+        "canteiro-de-obras",
+        "custo-indireto"
+      ],
+      "tese_curta": "Nos atrasos decorrentes de ação ou omissão da Administração, a recomposição dos custos indiretos deve limitar-se à parcela estritamente necessária à m",
+      "conteudo": "easy-mobile/acordaos/tcu-874-2018/conteudo.json"
+    },
+    {
+      "id": "tcu-883-2008",
+      "orgao": "TCU",
+      "numero": "883/2008",
+      "data": "2008-05-14",
+      "titulo": "Acórdão TCU 883/2008",
+      "assuntos": [
+        "acordao",
+        "jurisprudencia",
+        "projeto"
+      ],
+      "tese_curta": "Os contratos de empreitada ou de prestação de serviço celebrados pela Administração com terceiros e que tenham por objeto a produção de obra protegida",
+      "conteudo": "easy-mobile/acordaos/tcu-883-2008/conteudo.json"
+    },
+    {
+      "id": "tcu-890-2012",
+      "orgao": "TCU",
+      "numero": "890/2012",
+      "data": "2012-04-18",
+      "titulo": "Acórdão TCU 890/2012",
+      "assuntos": [
+        "sobrepreco",
+        "sicro",
+        "data-base"
+      ],
+      "tese_curta": "Nos casos em que houver demora expressiva para o início da execução do contrato, sem que a contratada tenha contribuído para o atraso, a avaliação do ",
+      "conteudo": "easy-mobile/acordaos/tcu-890-2012/conteudo.json"
+    },
+    {
+      "id": "tcu-926-2011",
+      "orgao": "TCU",
+      "numero": "926/2011",
+      "data": "2011-04-13",
+      "titulo": "Acórdão TCU 926/2011",
+      "assuntos": [
+        "orcamento",
+        "fiscalizacao",
+        "projeto"
+      ],
+      "tese_curta": "Na celebração de convênios com entidades privadas sem finalidade lucrativa, devem ser observados os requisitos impostos para a destinação de recursos ",
+      "conteudo": "easy-mobile/acordaos/tcu-926-2011/conteudo.json"
+    },
+    {
+      "id": "tcu-941-2010",
+      "orgao": "TCU",
+      "numero": "941/2010",
+      "data": "2010-05-05",
+      "titulo": "Acórdão TCU 941/2010",
+      "assuntos": [
+        "empreitada-por-preco-global",
+        "preco-global",
+        "curva-abc",
+        "sobrepreco"
+      ],
+      "tese_curta": "Variações de preços de até 10% em contratações de obras sob regime de empreitada por preço global são tecnicamente aceitáveis, considerando que o que ",
+      "conteudo": "easy-mobile/acordaos/tcu-941-2010/conteudo.json"
+    },
+    {
+      "id": "tcu-950-2008",
+      "orgao": "TCU",
+      "numero": "950/2008",
+      "data": "2008-05-28",
+      "titulo": "Acórdão TCU 950/2008",
+      "assuntos": [
+        "edital",
+        "equipamento",
+        "sicro"
+      ],
+      "tese_curta": "Nos editais de licitação para obras e serviços rodoviários que contem com aporte de recursos federais, devem ser desenvolvidos os estudos pertinentes ",
+      "conteudo": "easy-mobile/acordaos/tcu-950-2008/conteudo.json"
+    },
+    {
+      "id": "tcu-988-2022",
+      "orgao": "TCU",
+      "numero": "988/2022",
+      "data": "2022-05-04",
+      "titulo": "Acórdão TCU 988/2022",
+      "assuntos": [
+        "edital",
+        "fiscalizacao",
+        "jurisprudencia"
+      ],
+      "tese_curta": "Nos casos em que os documentos faltantes relativos à habilitação em pregões forem de fácil elaboração e consistirem em meras declarações sobre fatos p",
+      "conteudo": "easy-mobile/acordaos/tcu-988-2022/conteudo.json"
     },
     {
       "id": "tcu-decisao-215-1999",

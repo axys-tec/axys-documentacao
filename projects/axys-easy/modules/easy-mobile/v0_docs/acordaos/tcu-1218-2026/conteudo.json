@@ -1,0 +1,22 @@
+{
+  "id": "tcu-1218-2026",
+  "orgao": "TCU",
+  "numero": "1218/2026",
+  "data": "2026-05-13",
+  "colegiado": "Plenário",
+  "relator": "Jhonatan De Jesus",
+  "sumario_oficial": "RELATÓRIO DE AUDITORIA. FISCOBRAS. EDITAL DE LICITAÇÃO. CONTRATAÇÃO DAS OBRAS REMANESCENTES E ELABORAÇÃO DE PROJETO EXECUTIVO DO LOTE SPS 04 DA FERROVIA TRANSNORDESTINA (TRECHO SALGUEIRO/PE - PORTO DE SUAPE/PE). INCONSISTÊNCIAS NO ORÇAMENTO REFERENCIAL. PREVISÃO INDISCRIMINADA DE PRÉ-FISSURAMENTO. SUPERESTIMATIVA DA TAXA DE RISCO E DA RESERVA DE CONTINGÊNCIA. UTILIZAÇÃO EXCLUSIVA DE OPINIÃO DE ESPECIALISTAS EM DETRIMENTO DE DADOS HISTÓRICOS. DEFICIÊNCIAS NO PROJETO BÁSICO. ALTERAÇÃO DA SOLUÇÃO DE TERRAPLENAGEM SEM LASTRO TÉCNICO FORMAL SUFICIENTE. AUSÊNCIA DE REGISTRO, NO LBAP DA ANTIGA CONCESSIONÁRIA, DOS CUSTOS DE DEMOLIÇÃO E REEXECUÇÃO DOS ATERROS COMO PASSIVO CONSTRUTIVO. RISCO DE DESEQUILÍBRIO ECONÔMICO-FINANCEIRO EM DESFAVOR DA ADMINISTRAÇÃO, CASO A FUTURA CONTRATADA COMPROVE A VIABILIDADE DE REAPROVEITAMENTO DOS ATERROS REMANESCENTES. CIÊNCIAS. ENCAMINHAMENTOS. ARQUIVAMENTO.",
+  "pdf_oficial": "https://contas.tcu.gov.br/sagas/SvlVisualizarRelVotoAc?codFiltro=SAGAS-SESSAO-ENCERRADA&seOcultaPagina=S&item0=908300",
+  "assuntos": [
+    "contingencia",
+    "matriz-de-riscos",
+    "orcamento-estimado",
+    "contratacao-semi-integrada"
+  ],
+  "tese_md": "A parcela orçamentária destinada à contingência deve guardar aderência com o estágio de maturidade do projeto, com a matriz de alocação de riscos da contratação e com premissas empiricamente sustentáveis. A utilização exclusiva de oficinas de captura de opinião de especialistas para balizar as variáveis de probabilidade e impacto nas modelagens da taxa de risco não supre a necessidade de parametrização baseada em estudos empíricos e dados históricos conclusivos.",
+  "aplicacao_pratica_md": "Documente, no orçamento estimativo, o estágio de maturidade do projeto, a matriz de alocação de riscos e os estudos empíricos e dados históricos que fundamentam as variáveis de probabilidade e impacto. Registre a rastreabilidade das premissas utilizadas na simulação da taxa de risco e da reserva de contingência.",
+  "limites_md": "A crítica não recai sobre a utilização da simulação de Monte Carlo em si, mas sobre a ausência de base empírica própria e o recurso praticamente exclusivo à percepção de especialistas para arbitrar probabilidades e impactos. A parametrização deve considerar as condições da contratação e não se presume suficiente pela adoção de método matemático sofisticado.",
+  "dispositivos": [],
+  "referencias": [],
+  "publicado_em": "2026-09-19"
+}

@@ -1,0 +1,26 @@
+{
+  "id": "tcu-311-2011",
+  "orgao": "TCU",
+  "numero": "311/2011",
+  "data": "2011-02-09",
+  "colegiado": "Plenário",
+  "relator": "André De Carvalho",
+  "sumario_oficial": "FISCOBRAS 2008. OBRAS DE MODERNIZAÇÃO DA REFINARIA PRESIDENTE GETÚLIO VARGAS - REPAR, NO ESTADO DO PARANÁ. DETERMINAÇÕES. AUDIÊNCIA. REJEIÇÃO PARCIAL DAS RAZÕES DE JUSTIFICATIVA. EXPEDIÇÃO DE NOVAS DETERMINAÇÕES. MONITORAMENTO.",
+  "pdf_oficial": "https://contas.tcu.gov.br/sagas/SvlVisualizarRelVotoAc?codFiltro=SAGAS-SESSAO-ENCERRADA&seOcultaPagina=S&item0=54181",
+  "assuntos": [
+    "planilha-orcamentaria",
+    "preco-global",
+    "preco-unitario",
+    "bdi",
+    "reequilibrio-economico-financeiro"
+  ],
+  "tese_md": "A previsão de valores adicionais sem vínculo específico a um objeto, item ou bem contratado é vedada para qualquer tipo de contrato, seja ele por preço global, seja por preço unitário, cabendo ao BDI cobrir eventuais despesas indiretas ou custos que não possam ser apropriados especificamente a determinado item. Valores destinados a gastos relacionados a eventos futuros e incertos não devem ser inseridos, de antemão, nos termos originais do contrato, pois tais eventos devem ensejar o reequilíbrio econômico-financeiro do ajuste.",
+  "aplicacao_pratica_md": "Elimine da planilha orçamentária rubricas genéricas, como “Fornecimento de Serviços Complementares” e “Eventos Globais”, quando não estiverem vinculadas a serviços ou fornecimentos previamente definidos. Confira, em contratos por preço global ou por preço unitário, se cada valor corresponde a objeto, item ou bem contratado. Trate no BDI as despesas indiretas ou os custos que não possam ser apropriados especificamente a determinado item. Documente em processo próprio eventual pedido de reequilíbrio econômico-financeiro decorrente de evento futuro e incerto efetivamente ocorrido.",
+  "limites_md": "A tese foi aplicada às obras de modernização da Repar e aos itens orçamentários “Fornecimento de Serviços Complementares” e “Eventos Globais”. Não impede a adequada composição de custos dos riscos passíveis de previsão, inclusive com contratação de seguros, nem a exigência de garantias na forma de carta-fiança ou de seguros específicos. A decisão determinou a apuração de eventuais pagamentos indevidos no Contrato nº 0800.0035013.07.2, sem concluir, neste trecho, pela existência de valores indevidos em cada contrato.",
+  "dispositivos": [
+    "Lei nº 8.666, de 16 de junho de 1993, art. 6º, inciso IX",
+    "Decreto nº 2.745, de 24 de agosto de 1998"
+  ],
+  "referencias": [],
+  "publicado_em": "2026-09-19"
+}

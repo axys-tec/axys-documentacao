@@ -1,0 +1,26 @@
+{
+  "id": "tcu-2984-2013",
+  "orgao": "TCU",
+  "numero": "2984/2013",
+  "data": "2013-11-06",
+  "colegiado": "Plenário",
+  "relator": "José Mucio Monteiro",
+  "sumario_oficial": "AUDITORIA. PROCEDIMENTOS DE COLETA DE PREÇOS DE INSUMOS E O TRATAMENTO DESSES DADOS PARA A ELABORAÇÃO DAS TABELAS DO SINAPI. DISTORÇÕES EM RELAÇÃO AO PREÇO DE MERCADO. INCONSISTÊNCIAS NOS PROCEDIMENTOS ADOTADOS. OITIVA DO IBGE E DA CAIXA. DETERMINAÇÃO. RECOMENDAÇÃO. EMBARGOS DE DECLARAÇÃO. ALEGAÇÃO DE OBSCURIDADES E CONTRADIÇÕES. CONHECIMENTO. ACOLHIMENTO PARCIAL. MODIFICAÇÃO DA REDAÇÃO DO ACÓRDÃO.",
+  "pdf_oficial": "https://contas.tcu.gov.br/sagas/SvlVisualizarRelVotoAc?codFiltro=SAGAS-SESSAO-ENCERRADA&seOcultaPagina=S&item0=488590",
+  "assuntos": [
+    "pesquisa-de-precos",
+    "sinapi",
+    "curva-abc",
+    "preco-de-referencia",
+    "orcamento-estimado"
+  ],
+  "tese_md": "Na elaboração de orçamentos que servirão de base para procedimentos licitatórios de obras de maior vulto, devem ser realizadas pesquisas de mercado, preferencialmente adotando a base territorial do Sinapi, dos insumos de maior relevância econômica na obra, considerando, de forma apropriada, os descontos possíveis em face da escala da obra. Caso as pesquisas indiquem a impossibilidade de obtenção de descontos decorrentes de ganho de escala, deve ser adotado o preço de referência do Sinapi, que deve ser sempre a referência de preço máximo, admitidas somente variações a menor.",
+  "aplicacao_pratica_md": "Classifique os insumos pela relevância econômica, utilizando a curva ABC como critério de apoio, e pesquise os preços na base territorial adotada para a elaboração das tabelas do Sinapi. Documente as cotações, as negociações diretas com fabricantes ou grandes revendedores e a avaliação dos descontos decorrentes da escala da obra. Se não obtiver desconto, registre a pesquisa que demonstre essa impossibilidade e utilize o preço de referência do Sinapi, sem ultrapassá-lo.",
+  "limites_md": "A regra alcança obras de maior vulto, assim entendidas aquelas cujo valor é superior ao limite estabelecido no art. 23, inciso I, alínea ‘c’, da Lei nº 8.666/1993, e os insumos de maior relevância econômica. A adoção da base territorial do Sinapi é preferencial. Quando a natureza do produto ou serviço impedir a pesquisa na localidade dos serviços, utilize o mercado capaz de suprir a demanda, seja local, regional ou nacional. Não se exige que sempre se obtenha o desconto quando houver circunstância tecnicamente justificável que obste esse proveito econômico, mas é indispensável realizar pesquisa com esse objetivo.",
+  "dispositivos": [
+    "Lei nº 8.666/1993, art. 23, inciso I, alínea ‘c’",
+    "Decreto nº 7.983/2013, art. 17, § 2º, inciso I"
+  ],
+  "referencias": [],
+  "publicado_em": "2026-09-19"
+}
