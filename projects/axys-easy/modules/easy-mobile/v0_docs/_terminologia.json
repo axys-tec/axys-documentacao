@@ -205,6 +205,13 @@
           "rotulo": "Acórdão TCU 2622/2013 — BDI, Simples Nacional e administração local",
           "grupo": "ACORDAOS",
           "id": "tcu-2622-2013"
+        },
+        {
+          "tipo": "publicacao",
+          "grupo": "DOWNLOADS",
+          "id": "tcu-engenharia-custos-perguntas-respostas",
+          "pagina": 40,
+          "rotulo": "Cartilha TCU 2026 · BDI e preço de venda"
         }
       ]
     },

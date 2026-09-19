@@ -636,8 +636,33 @@ dentro**, em vez de jogar o usuário no navegador:
 | `ctc` | `fonte`, `codigo` | abre o caderno técnico |
 | `insumo` | `fonte`, `codigo` | abre o detalhe do insumo |
 | `indice` | `codigo` | abre a série do índice |
-| `publicacao` | `grupo`, `id` | abre outro conteúdo (`TERMINOLOGIA`, `DUVIDAS`, `CASOS`, `ACORDAOS`, `NEWSLETTER`, `ARTIGOS`) |
+| `publicacao` | `grupo`, `id`, `pagina?` | abre outro conteúdo (`TERMINOLOGIA`, `DUVIDAS`, `CASOS`, `ACORDAOS`, `NEWSLETTER`, `ARTIGOS`, `DOWNLOADS`) |
 | `acordao` · `url` | `url` | abre fora do app |
+
+### `pagina` — citar o documento na página, não o documento inteiro
+
+Só faz sentido com `grupo: "DOWNLOADS"`, onde o alvo é um PDF. Mandar o leitor a uma
+cartilha de 152 páginas para provar uma frase é o mesmo que não citar.
+
+```json
+{ "tipo": "publicacao", "grupo": "DOWNLOADS",
+  "id": "tcu-engenharia-custos-perguntas-respostas", "pagina": 40,
+  "rotulo": "Cartilha TCU 2026 · BDI e preço de venda" }
+```
+
+**A URL não se guarda.** Quem monta o link é quem exibe, juntando o `arquivo` do manifesto
+de downloads com `#page={pagina}`. Guardar a URL pronta em cada verbete seria replicar um
+caminho determinístico em dezenas de lugares — e esta cartilha mudou de nome no dia em que
+entrou (`cartilha_..._eb964dd641.pdf` → `tcu-engenharia-custos-perguntas-respostas.pdf`),
+o que teria quebrado todos eles de uma vez.
+
+**`pagina` é a página do PDF, não a impressa no papel.** São coisas diferentes, e o
+`#page=` do navegador conta a do PDF. Nesta cartilha o miolo está deslocado em 9 (o
+capítulo de BDI é "p. 31" no sumário e página 40 do arquivo) — mas a bibliografia está em
+8. Não existe fórmula: a página se descobre localizando o trecho no texto extraído por
+`z_scripts_apoio/genericos/pdf_para_markdown.py`, que marca cada página com `<!-- p.N -->`
+justamente para isso. Converter o número do sumário por aritmética é como o link passa a
+apontar para a página errada sem ninguém perceber.
 
 **O campo se chama `referencias` em TODA a Base de Conhecimento** — terminologia, dúvidas,
 casos e acórdãos. Houve uma versão em que os acórdãos usavam `vinculados`; foi unificado em
