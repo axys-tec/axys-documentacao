@@ -43,6 +43,12 @@
     },
     {
       "tipo": "publicacao",
+      "rotulo": "Acórdão TCU 46/2012",
+      "grupo": "ACORDAOS",
+      "id": "tcu-46-2012"
+    },
+    {
+      "tipo": "publicacao",
       "rotulo": "Acórdão TCU 2341/2020",
       "grupo": "ACORDAOS",
       "id": "tcu-2341-2020"

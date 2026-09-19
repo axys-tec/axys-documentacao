@@ -57,6 +57,12 @@
         },
         {
           "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 46/2012 — detalhamento dos custos unitários",
+          "grupo": "ACORDAOS",
+          "id": "tcu-46-2012"
+        },
+        {
+          "tipo": "publicacao",
           "rotulo": "Erro de quantitativo em contrato por preço global",
           "grupo": "CASOS",
           "id": "erro-de-quantitativo-em-preco-global"
@@ -394,6 +400,12 @@
           "rotulo": "Acórdão TCU 2341/2020 — composição dos custos unitários",
           "grupo": "ACORDAOS",
           "id": "tcu-2341-2020"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 3289/2014 — orçamento detalhado na inexigibilidade",
+          "grupo": "ACORDAOS",
+          "id": "tcu-3289-2014"
         },
         {
           "tipo": "publicacao",

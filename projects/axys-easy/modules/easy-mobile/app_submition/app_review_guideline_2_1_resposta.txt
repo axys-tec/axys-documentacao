@@ -1,0 +1,199 @@
+RESPOSTA A APP REVIEW - GUIDELINE 2.1 (INFORMATION NEEDED)
+App: Axys EasyMobile - Apple ID 6811626404 - build 1.0.0 (2)
+Submissao: 13/09/2026 - Submission ID 3cd2913f-73f2-4f47-8ee7-d72c56f603ac
+
+Texto abaixo em ingles, pronto para colar. Duas partes:
+  PARTE A - resposta no Resolution Center (itens 1 a 6)
+  PARTE B - versao curta para o campo Notes (App Review Information),
+            que fica salva para as proximas submissoes
+
+O item 1 (gravacao de tela) nao esta neste arquivo: e video, gravado em
+iPhone fisico. Roteiro no fim do arquivo.
+
+
+================================================================================
+PARTE A - RESPOSTA NO RESOLUTION CENTER
+================================================================================
+
+
+1. SCREEN RECORDING
+
+A screen recording captured on a physical iPhone running iOS 26.6 is attached.
+It begins with launching the app from the home screen and shows account
+registration with e-mail verification, sign-in, the main search and cost
+consultation flow, the technical description document, the editorial content
+section, and the complete in-app account deletion flow.
+
+The app has no user-generated content and no paid content or features.
+
+
+2. PURPOSE AND TARGET AUDIENCE
+
+AxysEasy Mobile is a free reference tool for construction cost estimation in
+Brazil. It gives engineers, architects, cost estimators, public procurement
+officers, contract auditors and students on-site access to construction cost
+references used in Brazilian public works.
+
+The problem it solves: these cost references are published as large
+spreadsheets and PDF documents, updated monthly. Professionals working on site,
+in meetings or in the field have no practical way to consult them. The app
+makes 12,234 supply items and 17,942 cost compositions searchable in seconds,
+with prices for all 27 Brazilian states and price history since November 2021.
+
+The app is free. It contains no advertising, no in-app purchases and no paid
+content.
+
+
+3. SETUP AND ACCESS
+
+An account is required because the app provides per-user features: price
+history charts, cost simulation with user-defined parameters (labour charges
+and BDI), and generation of PDF analysis documents.
+
+Registration is done inside the app (full name, e-mail, phone number) with
+verification by e-mail or WhatsApp. Demo credentials are provided in the App
+Review Information section.
+
+After signing in, the main features are reached from the bottom navigation bar:
+
+  Central de Custos  - search and consult cost items (the core feature)
+  Nosso Conteudo     - technical articles, newsletters and glossary
+  Mais               - account, contact and institutional information
+
+No sample files are required. To reach the core feature immediately, open
+Central de Custos and search for "alvenaria" or "concreto", then tap any
+result to see the detailed cost breakdown.
+
+Account deletion is available at Mais -> Minha Conta -> Excluir minha conta.
+
+
+4. EXTERNAL SERVICES
+
+The app communicates exclusively with infrastructure operated by Axys
+Engenharia e Tecnologia Ltda:
+
+  easy-mobile.axys-tec.com.br  - our own REST API (read-only catalogue access)
+  public.axys-tec.com.br       - our own static content delivery
+  www.axys-tec.com.br          - our own website (privacy policy, terms,
+                                 support pages)
+
+Authentication is handled by our own identity service, not by a third party.
+
+There are no payment processors, no advertising networks, no third-party
+analytics SDKs, and no AI services called by the app or by its API at runtime.
+
+The app's only third-party dependencies are standard open-source Flutter
+packages for HTTP requests, secure credential storage, PDF rendering and
+opening external URLs.
+
+Data sources are described in item 6.
+
+
+5. REGIONAL DIFFERENCES
+
+The app functions identically in all regions. Content is in Brazilian
+Portuguese only and the cost data is Brazilian by nature. The app is
+distributed in Brazil only. There are no region-gated features, no regional
+content variations and no regional pricing - the app is free everywhere it is
+available.
+
+
+6. THIRD-PARTY MATERIAL AND AUTHORISATION
+
+The app does not redistribute third-party cost tables. It presents Axys's own
+processed cost data - calculated, normalised and maintained by our engineering
+team - derived from reference systems used in Brazilian public procurement, in
+the same way every construction cost estimation system in this market operates.
+
+The reference systems are:
+
+  SINAPI - Sistema Nacional de Pesquisas de Custos e Indices da Construcao
+           Civil, maintained by Caixa Economica Federal and IBGE. Federal
+           Decree 7.983/2013 establishes SINAPI as the mandatory cost reference
+           for federally funded public works and requires its publication. It
+           is freely published at www.caixa.gov.br.
+
+  CDHU   - Companhia de Desenvolvimento Habitacional e Urbano do Estado de Sao
+           Paulo, a Sao Paulo state company.
+
+  FDE    - Fundacao para o Desenvolvimento da Educacao, Sao Paulo state.
+
+Axys Engenharia e Tecnologia Ltda maintains lawful access to these reference
+systems and performs its own processing, unit normalisation, historical series
+construction and cost calculation over them.
+
+The app states, in its App Store description and inside the app, that Axys is
+not the issuing body of these references and that the app does not replace
+their official publications.
+
+The app does not provide regulated professional, financial or medical services.
+
+
+ADDITIONAL NOTE ON SCREENSHOTS
+
+The App Store screenshots were captured from the submitted build running on a
+physical device and reproduce the app's current state. They show the app in
+use - the home screen with latest content, the cost catalogue with search
+results, and the detailed cost breakdown of a composition - not title art,
+login or splash screens.
+
+
+================================================================================
+PARTE B - CAMPO NOTES (APP REVIEW INFORMATION)
+================================================================================
+
+AxysEasy Mobile is a free construction cost reference tool for the Brazilian
+market. Engineers, estimators and procurement auditors search 12,234 supply
+items and 17,942 cost compositions, with prices for all 27 Brazilian states and
+price history since 2021.
+
+An account is required: the app provides per-user price history, cost
+simulation and PDF report generation. Demo credentials are provided above.
+Account deletion is available in-app at Mais -> Minha Conta -> Excluir minha
+conta.
+
+The app communicates only with Axys-operated infrastructure
+(easy-mobile.axys-tec.com.br for the API, public.axys-tec.com.br for static
+content, www.axys-tec.com.br for legal pages). Authentication is our own
+service. No payment processors, no advertising, no third-party analytics, no AI
+services at runtime.
+
+Cost data is Axys's own processed data, derived from reference systems used in
+Brazilian public procurement (SINAPI, CDHU, FDE). Axys is not the issuing body
+of these references.
+
+Portuguese (Brazil) only, distributed in Brazil, no regional feature
+differences. Free, no in-app purchases, no paid content.
+
+
+================================================================================
+ROTEIRO DA GRAVACAO (item 1) - fazer em iPhone fisico, sem cortes
+================================================================================
+
+1.  Comecar na tela inicial do iPhone e tocar no icone do app.
+    (A Apple pede explicitamente que comece pelo LANCAMENTO. Video que comeca
+    com o app ja aberto costuma voltar com o mesmo pedido.)
+
+2.  Tela de login. Tocar em criar conta.
+
+3.  Preencher o cadastro com um e-mail NOVO, nunca usado.
+    Atencao: e-mail ja cadastrado devolve HTTP 409 e o app mostra
+    "Requisicao recusada pelo servico de contas", que nao explica a causa.
+
+4.  Mostrar a verificacao (codigo por e-mail) e concluir o cadastro.
+
+5.  Central de Custos: buscar "alvenaria".
+
+6.  Abrir uma composicao e mostrar o detalhamento (composicao analitica).
+
+7.  Abrir o Caderno Tecnico da composicao.
+
+8.  Voltar e abrir Nosso Conteudo, depois um artigo.
+
+9.  Ir em Mais -> Minha Conta.
+
+10. Tocar em "Excluir minha conta" e CONCLUIR a exclusao.
+    Este e o trecho que a Apple mais quer ver: exclusao de conta e obrigatoria
+    em apps com cadastro (Guideline 5.1.1(v)).
+
+Gravar com a tela inteira visivel, sem pressa entre os toques.
