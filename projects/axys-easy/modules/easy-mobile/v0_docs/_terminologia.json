@@ -311,6 +311,38 @@
       "referencias": []
     },
     {
+      "id": "contingencia",
+      "termo": "Contingência",
+      "expansao": null,
+      "conceito_md": "Parcela do orçamento reservada para cobrir riscos **ordinários**: eventos previsíveis em conjunto, mas não identificáveis um a um no momento de orçar.",
+      "funcao_pratica_md": "É o que sustenta a taxa de risco do BDI. Não cobre cenário extraordinário, e por isso não se soma a qualquer percentual de risco tirado de outra fonte sem justificar: somar duas origens cria duplicidade ou deixa tipologia de risco sem cobertura.",
+      "distincoes": [
+        {
+          "termo": "Álea extraordinária",
+          "diferenca_md": "Contingência precifica o previsível. Evento extraordinário está fora dela e se resolve por reequilíbrio ou por seguro, não pelo BDI."
+        },
+        {
+          "termo": "Sobreconsumo de material",
+          "diferenca_md": "Acrescer quantitativo por perda técnica justificada é composição de custo. Inflar quantidade para cobrir incerteza é contingência disfarçada, e não se confunde com ela."
+        }
+      ],
+      "ver_tambem": [
+        "matriz-de-riscos",
+        "bdi",
+        "reequilibrio-economico-financeiro",
+        "jogo-de-planilha"
+      ],
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "grupo": "DOWNLOADS",
+          "id": "tcu-engenharia-custos-perguntas-respostas",
+          "pagina": 61,
+          "rotulo": "Cartilha TCU 2026 · estimativa da contingência"
+        }
+      ]
+    },
+    {
       "id": "contratacao-integrada",
       "termo": "Contratação integrada",
       "expansao": null,
@@ -1595,6 +1627,38 @@
         "regime-desonerado"
       ],
       "referencias": []
+    },
+    {
+      "id": "seguro",
+      "termo": "Seguro",
+      "expansao": null,
+      "conceito_md": "Apólice contratada para transferir ao mercado segurador riscos que a matriz de riscos aloca à contratada ou à Administração.",
+      "funcao_pratica_md": "O edital precisa estipular tipo de apólice, período, condições e um valor-limite ou faixa de cobertura. Sem esse limite não há baliza objetiva para separar o que é álea extraordinária. O custo da apólice entra no orçamento e não deve se diluir em aditivos.",
+      "distincoes": [
+        {
+          "termo": "Contingência",
+          "diferenca_md": "Contingência absorve risco ordinário dentro do preço. O seguro transfere risco a terceiro, e cobra prêmio por isso."
+        },
+        {
+          "termo": "Matriz de riscos",
+          "diferenca_md": "A matriz decide quem responde por cada risco. O seguro é um dos instrumentos com que a parte responsável se protege."
+        }
+      ],
+      "ver_tambem": [
+        "matriz-de-riscos",
+        "contingencia",
+        "edital",
+        "reequilibrio-economico-financeiro"
+      ],
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "grupo": "DOWNLOADS",
+          "id": "tcu-engenharia-custos-perguntas-respostas",
+          "pagina": 70,
+          "rotulo": "Cartilha TCU 2026 · cuidados com a estimativa dos seguros da obra"
+        }
+      ]
     },
     {
       "id": "servico-novo",

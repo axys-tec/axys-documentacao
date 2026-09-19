@@ -1,0 +1,46 @@
+{
+  "id": "tcu-1182-2025",
+  "orgao": "TCU",
+  "numero": "1182/2025",
+  "data": "2025",
+  "assuntos": [
+    "matriz-de-riscos",
+    "contingencia",
+    "seguro",
+    "edital"
+  ],
+  "tese_md": "Alocar o risco a uma das partes não basta: a matriz de riscos precisa trazer **balizas objetivas**. O Tribunal recomendou que as matrizes indiquem expressamente as premissas de alocação de cada risco, com a natureza (exógeno ou endógeno), a probabilidade de ocorrência, o impacto financeiro estimado e os mecanismos de mitigação, e que o contrato apresente a metodologia para definir alterações de cronograma ou de valor quando o risco se materializa. O voto reconhece que, em alocação de riscos, nem sempre existe certo e errado, mas decisão discricionária do gestor. É justamente por isso que a fundamentação tem de estar escrita.",
+  "aplicacao_pratica_md": "Ao montar a matriz de riscos do edital, preencha cada linha com as quatro informações que o acórdão cobra, e não apenas com o nome do risco e o responsável. A coluna de mitigação não é decorativa: é ela que sustenta o percentual de risco ordinário adotado no BDI. Para o seguro, especifique no edital o tipo de apólice, o período, as condições de cobertura e um valor-limite ou faixa admissível. Sem esse limite não há como separar objetivamente a álea extraordinária.",
+  "limites_md": "O acórdão fixa **como** fundamentar, não **quanto** alocar: a escolha de quem absorve cada risco permanece discricionária. Na quantificação da contingência não há metodologia única, e a cartilha do TCU lista opinião especializada, percentuais pré-determinados e outras, todas admissíveis desde que justificadas. Esta ficha foi redigida a partir do que a cartilha do TCU de 2026 reproduz do voto e do dispositivo, de modo que o inteiro teor do acórdão pode conter comandos adicionais.",
+  "dispositivos": [],
+  "referencias": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Matriz de riscos",
+      "grupo": "TERMINOLOGIA",
+      "id": "matriz-de-riscos"
+    },
+    {
+      "tipo": "publicacao",
+      "grupo": "DOWNLOADS",
+      "id": "tcu-engenharia-custos-perguntas-respostas",
+      "pagina": 27,
+      "rotulo": "Cartilha TCU 2026 · diretrizes para a matriz de riscos"
+    },
+    {
+      "tipo": "publicacao",
+      "grupo": "DOWNLOADS",
+      "id": "tcu-engenharia-custos-perguntas-respostas",
+      "pagina": 61,
+      "rotulo": "Cartilha TCU 2026 · metodologias de cálculo da contingência"
+    },
+    {
+      "tipo": "publicacao",
+      "grupo": "DOWNLOADS",
+      "id": "tcu-engenharia-custos-perguntas-respostas",
+      "pagina": 108,
+      "rotulo": "Cartilha TCU 2026 · seguro e álea extraordinária no edital"
+    }
+  ],
+  "publicado_em": "2026-09-19"
+}

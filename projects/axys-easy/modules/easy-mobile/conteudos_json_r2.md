@@ -591,7 +591,6 @@ PDF oficial qualquer um acha.
     { "tipo": "publicacao", "rotulo": "BDI", "grupo": "TERMINOLOGIA", "id": "bdi" },
     { "tipo": "publicacao", "rotulo": "BDI diferenciado para equipamentos", "grupo": "DUVIDAS", "id": "bdi-diferenciado-equipamentos" }
   ],
-  "pdf": null,
   "publicado_em": "2026-08-15"
 }
 ```
