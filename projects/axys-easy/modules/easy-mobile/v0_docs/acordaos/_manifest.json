@@ -323,21 +323,6 @@
       "conteudo": "easy-mobile/acordaos/tcu-3053-2016/conteudo.json"
     },
     {
-      "id": "tcu-3289-2014",
-      "orgao": "TCU",
-      "numero": "3289/2014",
-      "data": null,
-      "titulo": "Acórdão TCU 3289/2014 — orçamento detalhado na inexigibilidade",
-      "assuntos": [
-        "contratacao-direta",
-        "orcamento",
-        "custo-unitario",
-        "preco"
-      ],
-      "tese_curta": "A contratação direta também exige orçamento detalhado que permita avaliar os preços.",
-      "conteudo": "easy-mobile/acordaos/tcu-3289-2014/conteudo.json"
-    },
-    {
       "id": "tcu-3443-2012",
       "orgao": "TCU",
       "numero": "3443/2012",
@@ -351,20 +336,6 @@
       ],
       "tese_curta": "A causa do atraso define se há recomposição de prazo, sanção e eventual repercussão financeira.",
       "conteudo": "easy-mobile/acordaos/tcu-3443-2012/conteudo.json"
-    },
-    {
-      "id": "tcu-3576-2019",
-      "orgao": "TCU",
-      "numero": "3576/2019",
-      "data": null,
-      "titulo": "Acórdão TCU 3576/2019 — serviço do edital omitido da planilha",
-      "assuntos": [
-        "aditivo-contratual",
-        "planilha-orcamentaria",
-        "fato-superveniente"
-      ],
-      "tese_curta": "Serviço já imposto pelo edital não se torna automaticamente serviço novo por ter sido omitido da planilha.",
-      "conteudo": "easy-mobile/acordaos/tcu-3576-2019/conteudo.json"
     },
     {
       "id": "tcu-43-2015",
@@ -394,20 +365,6 @@
       ],
       "tese_curta": "Contratos de engenharia das estatais devem conter cláusula de matriz de riscos.",
       "conteudo": "easy-mobile/acordaos/tcu-4551-2020/conteudo.json"
-    },
-    {
-      "id": "tcu-46-2012",
-      "orgao": "TCU",
-      "numero": "46/2012",
-      "data": null,
-      "titulo": "Acórdão TCU 46/2012 — detalhamento dos custos unitários",
-      "assuntos": [
-        "orcamento",
-        "composicao-de-custo-unitario",
-        "preco-unitario"
-      ],
-      "tese_curta": "O orçamento-base deve detalhar os custos unitários e evitar itens agregados como verba, conjunto ou similares.",
-      "conteudo": "easy-mobile/acordaos/tcu-46-2012/conteudo.json"
     },
     {
       "id": "tcu-467-2015",

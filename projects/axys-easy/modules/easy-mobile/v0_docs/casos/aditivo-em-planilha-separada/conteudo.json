@@ -37,12 +37,6 @@
     },
     {
       "tipo": "publicacao",
-      "rotulo": "Acórdão TCU 3576/2019",
-      "grupo": "ACORDAOS",
-      "id": "tcu-3576-2019"
-    },
-    {
-      "tipo": "publicacao",
       "rotulo": "Acórdão TCU 2699/2019",
       "grupo": "ACORDAOS",
       "id": "tcu-2699-2019"
