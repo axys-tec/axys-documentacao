@@ -126,6 +126,64 @@ marcando cada página com `<!-- p.N -->`.
 
 ---
 
+## 4. `colegiado`, `relator` e `sumario_oficial` — nas fichas de acórdão
+
+**Onde:** `easy-mobile/acordaos/{id}/conteudo.json`.
+
+```json
+{
+  "id": "tcu-1182-2025",
+  "orgao": "TCU",
+  "numero": "1182/2025",
+  "data": "2025-05-28",
+  "colegiado": "Plenário",
+  "relator": "Benjamin Zymler",
+  "sumario_oficial": "RELATÓRIO DE AUDITORIA. FISCOBRAS/2025. CONSTRUÇÃO DO ARCO METROPOLITANO DE MACEIÓ/AL - BR-424/AL. […]",
+  "tese_md": "…",
+  "aplicacao_pratica_md": "…"
+}
+```
+
+Os três vêm da base pública de jurisprudência do TCU, **sem uma palavra nossa**.
+`sumario_oficial` é o sumário do Tribunal reproduzido como ele é.
+
+**Por que separamos:** quem lê uma ficha precisa distinguir o que o TCU decidiu do que nós
+explicamos. `sumario_oficial` é citação; `tese_md`, `aplicacao_pratica_md` e `limites_md`
+são redação nossa. Misturar as duas vozes num campo só é como paráfrase vira citação.
+
+Se vocês exibem acórdãos no site, vale renderizar `sumario_oficial` com marcação de
+citação, visualmente distinta do texto autoral. Para SEO é conteúdo verificável contra a
+fonte primária.
+
+**Os três são opcionais.** Ausente quer dizer "não obtivemos", nunca "não existe".
+
+### Atenção: valores de `data` vão MUDAR em fichas já publicadas
+
+Estamos padronizando `data` na **data da sessão**, que é a identidade que o TCU usa. Parte
+das fichas antigas trazia outra data, provavelmente a de publicação. Exemplo confirmado: o
+Acórdão 2622/2013 estava como `2013-10-02` e a sessão foi em `2013-09-25`.
+
+Se algo do lado de vocês usa `data` como chave de cache, âncora de URL, ordenação estável
+ou `datePublished` no schema.org, esses valores mudam na próxima publicação. É o único
+ponto desta leva que altera dado existente em vez de acrescentar campo.
+
+---
+
+## 5. Terminologia passou a citar PDF, o que antes não acontecia
+
+Vale destacar porque é **comportamento novo**, não apenas campo novo.
+
+Até agora, `referencias` da terminologia apontavam só para conteúdo interno da Base de
+Conhecimento (outro verbete, um acórdão, uma dúvida). Agora um verbete pode referenciar um
+**documento em PDF** do grupo `DOWNLOADS`, numa **página específica**.
+
+Na prática, o site passa a precisar de um caminho que provavelmente não existe hoje: do
+verbete para o PDF, ancorado. Se a renderização atual de `referencias` assume que todo
+alvo é uma página de conteúdo, ela vai gerar link quebrado ou simplesmente ignorar a
+referência.
+
+---
+
 ## O que sugerimos avaliar
 
 Nenhum destes é pedido — é o que nós faríamos, e vocês conhecem o site melhor.
@@ -144,13 +202,21 @@ Nenhum destes é pedido — é o que nós faríamos, e vocês conhecem o site me
 
 ## Compatibilidade
 
-- Os três campos são **opcionais**. Item sem eles continua válido.
-- Campo vazio não é publicado — ou existe com valor, ou não aparece no JSON.
-- Nenhum campo existente mudou de nome, tipo ou significado.
-- O grupo `DOWNLOADS` passou a ser destino válido de `referencias`. Antes nenhum conteúdo
-  referenciava downloads; agora referencia. Se o código de vocês tem uma lista fechada de
-  grupos, `DOWNLOADS` precisa entrar nela — **este é o único ponto que pode gerar erro**
-  do lado do site.
+**Aditivo, e portanto seguro:**
+
+- Todos os campos novos (`licenca`, `fonte`, `pagina`, `colegiado`, `relator`,
+  `sumario_oficial`) são **opcionais**. Item sem eles continua válido.
+- Campo vazio não é publicado. Ou existe com valor, ou não aparece no JSON.
+- Nenhum campo existente mudou de nome ou de tipo.
+
+**Os dois pontos que exigem ação de vocês:**
+
+1. **`DOWNLOADS` virou destino válido de `referencias`.** Antes nenhum conteúdo
+   referenciava downloads; agora terminologia e acórdãos referenciam. Se o código tem lista
+   fechada de grupos, ela precisa aceitar `DOWNLOADS`, e a renderização precisa saber que o
+   alvo é um PDF e não uma página de conteúdo.
+2. **Valores de `data` em fichas de acórdão vão mudar**, com a padronização na data de
+   sessão (ver seção 4). É a única alteração de dado existente nesta leva.
 
 ## Contrato
 
