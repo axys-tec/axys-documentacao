@@ -22,6 +22,16 @@ Aqui mora uma confusão frequente, e ela precisa ficar explícita.
 
 A vedação ao valor mensal fixo alcança os quatro itens. O **critério positivo**, porém, é diferente, porque a natureza dos custos é diferente. O Acórdão 2622/2013 do Plenário é preciso no ponto: ele manda estabelecer critério objetivo de medição **para a administração local**, com pagamentos proporcionais à execução financeira da obra, e se refere à vedação do valor mensal fixo **para esse item**.
 
+| Item | Natureza do custo | Critério de medição |
+|---|---|---|
+| Administração local | permanência | proporcional à execução financeira |
+| Instalação do canteiro | entrega física | quando executada |
+| Mobilização | evento | quando realizada |
+| Desmobilização | evento | quando removida |
+| Manutenção do canteiro | permanência | como a administração local |
+
+A primeira linha é determinação expressa do Acórdão 2622/2013 do Plenário. As demais decorrem da vedação ao valor mensal fixo, que alcança os quatro itens, combinada com a natureza de cada custo e com o tratamento que a própria cartilha do TCU dá à desmobilização nos exemplos de etapas de pagamento.
+
 **Administração local: proporcional à execução financeira.** É custo de permanência. A estrutura de gerenciamento existe enquanto a obra existe, e por isso acompanha o avanço. Obra que andou 40% remunerou 40% da estrutura de gerenciamento. Obra parada não gera medição.
 
 **Instalação do canteiro: quando executada.** Tapume, abrigo provisório, ligações de água e energia, portaria, almoxarifado. São serviços com entrega física, que se levantam por quantidade e se medem quando ficam prontos, como qualquer outro item da planilha. Ratear a construção de um tapume ao longo de dezoito meses de obra é medir por calendário aquilo que foi executado em uma semana.
@@ -37,6 +47,8 @@ A própria cartilha do TCU confirma esse tratamento no exemplo de etapas de paga
 Nada disso funciona por dedução na hora da medição. O edital precisa dizer, item por item, qual é o critério: o que é proporcional ao avanço, o que é medido contra execução física e o que é evento.
 
 Critério ausente vira disputa. E a disputa, na prática, costuma terminar no pior dos mundos, com valor mensal fixo aplicado a tudo porque é o mais fácil de operar na planilha de medição.
+
+Quem usa o Easy Orça™ ([https://www.axys-tec.com.br/easy-orca](https://www.axys-tec.com.br/easy-orca)) e o Easy Docs™ ([https://www.axys-tec.com.br/easy-docs](https://www.axys-tec.com.br/easy-docs)) gera, a partir do próprio orçamento, um caderno de encargos com os eventos e a forma de medição de cada item já destacados, ao lado do descritivo do orçamento e das memórias de cálculo. O critério deixa de ser algo a redigir no fim, quando o edital já está fechado, e passa a sair pronto de onde os itens foram criados.
 
 ## Quando a obra atrasa
 

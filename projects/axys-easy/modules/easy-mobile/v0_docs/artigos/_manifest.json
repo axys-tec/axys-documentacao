@@ -558,7 +558,7 @@
       "palavras": 752,
       "publicado_em": "2026-08-22",
       "pdf": "easy-mobile/artigos/aditivos-e-reequilibrio-economico-financeiro.pdf",
-      "pdf_bytes": 290685
+      "pdf_bytes": 290686
     },
     {
       "id": "truncar-ou-arredondar",
@@ -833,10 +833,10 @@
       ],
       "conteudo": "easy-mobile/artigos/administracao-local-o-que-e-e-como-medir.md",
       "formato": "markdown",
-      "palavras": 1144,
+      "palavras": 1329,
       "publicado_em": "2026-09-20",
       "pdf": "easy-mobile/artigos/administracao-local-o-que-e-e-como-medir.pdf",
-      "pdf_bytes": 298025
+      "pdf_bytes": 325108
     }
   ]
 }
