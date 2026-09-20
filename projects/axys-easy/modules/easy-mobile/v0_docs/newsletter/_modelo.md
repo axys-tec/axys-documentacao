@@ -60,7 +60,7 @@ O que entrou, saiu e voltou
 **Cobertura desta edição:** {ufs} UFs e {cpus} composições. Do total publicado, {pct_sem_custo}%
 das linhas de custo das composições e {pct_sem_preco}% dos preços de insumos foram
 disponibilizados pela fonte sem preço. Esses percentuais ajudam a dimensionar a cobertura
-efetiva da edição e a disponibilidade de preços para uso em orçamentos.
+efetiva da edição e a disponibilidade de preços para uso em orçamentos. {nota_custo}
 
 ## abre_subgrupos
 
