@@ -1,33 +1,33 @@
 {
-  "gerado_em": "2026-09-12T14:07:23Z",
+  "gerado_em": "2026-09-20T19:03:05Z",
   "itens": [
     {
       "grupo": "NEWSLETTER",
-      "id": "sinapi-2026-07",
-      "titulo": "SINAPI · julho de 2026",
-      "chamada": "Variação média de +0,03% em SP, com 127 composições incluídas e 37 inativadas.",
-      "publicado_em": "2026-07-01",
-      "capa": "easy-mobile/newsletter/sinapi-2026-07/post/pagina-01.png",
-      "destino": "easy-mobile/newsletter/sinapi-2026-07/sinapi-2026-07.pdf",
+      "id": "cdhu-2026-08",
+      "titulo": "CDHU · agosto de 2026",
+      "chamada": "Variação média de +1,40% em SP, com 2 composições incluídas e 19 inativadas.",
+      "publicado_em": "2026-08-01",
+      "capa": "easy-mobile/newsletter/cdhu-2026-08/post/pagina-01.png",
+      "destino": "easy-mobile/newsletter/cdhu-2026-08/cdhu-2026-08.pdf",
       "formato": "pdf"
     },
     {
       "grupo": "ARTIGOS",
-      "id": "truncar-ou-arredondar",
-      "titulo": "Truncar ou arredondar: por que centavos decidem um orçamento — e protegem o orçamentista",
-      "chamada": "Três centavos por metro quadrado viram seis mil reais numa planilha. E o auditor pode chamar isso de sobrepreço.",
-      "publicado_em": "2026-09-11",
-      "destino": "easy-mobile/artigos/truncar-ou-arredondar.md",
+      "id": "fases-de-projeto-e-a-precisao-orcamentaria",
+      "titulo": "Fases de projeto e a precisão orçamentária correspondente",
+      "chamada": "Estudo preliminar, anteprojeto, projeto básico e executivo. Cada fase sustenta um tipo de estimativa.",
+      "publicado_em": "2026-09-20",
+      "destino": "easy-mobile/artigos/fases-de-projeto-e-a-precisao-orcamentaria.md",
       "formato": "md"
     },
     {
       "grupo": "NEWSLETTER",
-      "id": "sinapi-2026-06",
-      "titulo": "SINAPI · junho de 2026",
-      "chamada": "Variação média de +1,95% em SP, com 46 composições incluídas e 5 inativadas.",
-      "publicado_em": "2026-06-01",
-      "capa": "easy-mobile/newsletter/sinapi-2026-06/post/pagina-01.png",
-      "destino": "easy-mobile/newsletter/sinapi-2026-06/sinapi-2026-06.pdf",
+      "id": "sinapi-2026-08",
+      "titulo": "SINAPI · agosto de 2026",
+      "chamada": "Variação média de +0,11% em SP, com 103 composições incluídas e 100 inativadas.",
+      "publicado_em": "2026-08-01",
+      "capa": "easy-mobile/newsletter/sinapi-2026-08/post/pagina-01.png",
+      "destino": "easy-mobile/newsletter/sinapi-2026-08/sinapi-2026-08.pdf",
       "formato": "pdf"
     },
     {
@@ -41,12 +41,12 @@
     },
     {
       "grupo": "NEWSLETTER",
-      "id": "cdhu-2026-05",
-      "titulo": "CDHU · maio de 2026",
-      "chamada": "Variação média de +2,75% em SP, com 12 composições incluídas e 6 inativadas.",
-      "publicado_em": "2026-05-01",
-      "capa": "easy-mobile/newsletter/cdhu-2026-05/post/pagina-01.png",
-      "destino": "easy-mobile/newsletter/cdhu-2026-05/cdhu-2026-05.pdf",
+      "id": "fde-2026-07",
+      "titulo": "FDE · julho de 2026",
+      "chamada": "Variação média de +3,29% em SP, com 19 composições incluídas e 14 inativadas.",
+      "publicado_em": "2026-07-01",
+      "capa": "easy-mobile/newsletter/fde-2026-07/post/pagina-01.png",
+      "destino": "easy-mobile/newsletter/fde-2026-07/fde-2026-07.pdf",
       "formato": "pdf"
     }
   ]
