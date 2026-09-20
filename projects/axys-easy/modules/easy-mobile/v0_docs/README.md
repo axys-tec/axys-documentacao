@@ -65,8 +65,18 @@ primeira semana. Quem gera: `z_scripts_apoio/publicacao/` e `z_scripts_apoio/new
 **`_ultimas.json` não sai do manifesto.** É a vitrine da home, tem script próprio
 (`gera_ultimas.py`), e esquecer de rodá-lo publica acervo novo com home velha.
 
-## Para produzir
+## Como se produz cada um
 
-- Revista: `newsletter_como_se_produz.md` (na pasta acima)
-- Formato dos campos: `conteudos_json_r2.md` (na pasta acima)
-- Publicar tudo: `z_scripts_apoio/publicacao/publica_conteudo_mobile.py --publicar`
+Um guia por tipo, todos na pasta acima (`modules/easy-mobile/`):
+
+| Conteúdo | Guia |
+|---|---|
+| revista | `newsletter_como_se_produz.md` |
+| acórdão | `acordaos_como_se_produz.md` |
+| artigo | `artigos_como_se_produz.md` |
+| verbete, caso, dúvida | `glossario_casos_duvidas_como_se_produz.md` |
+| download de terceiro | `downloads_como_se_produz.md` |
+
+Formato dos campos, para todos: `conteudos_json_r2.md`.
+
+Publicar tudo: `z_scripts_apoio/publicacao/publica_conteudo_mobile.py --publicar`
