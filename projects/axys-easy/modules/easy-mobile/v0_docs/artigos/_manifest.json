@@ -608,6 +608,204 @@
       "publicado_em": "2026-09-11",
       "pdf": "easy-mobile/artigos/truncar-ou-arredondar.pdf",
       "pdf_bytes": 328035
+    },
+    {
+      "id": "fases-de-projeto-e-o-orcamento-de-cada-uma",
+      "titulo": "Fases de projeto e o orçamento que cabe em cada uma",
+      "chamada": "Estudo preliminar, anteprojeto, projeto básico e executivo. Cada fase sustenta um tipo de estimativa.",
+      "assuntos": [
+        "projeto",
+        "projeto-basico",
+        "anteprojeto",
+        "orcamento-parametrico",
+        "regime-de-execucao"
+      ],
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "rotulo": "Anteprojeto",
+          "grupo": "TERMINOLOGIA",
+          "id": "anteprojeto"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Projeto básico",
+          "grupo": "TERMINOLOGIA",
+          "id": "projeto-basico"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Orçamento paramétrico",
+          "grupo": "TERMINOLOGIA",
+          "id": "orcamento-parametrico"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Contratação integrada",
+          "grupo": "TERMINOLOGIA",
+          "id": "contratacao-integrada"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Contratação semi-integrada",
+          "grupo": "TERMINOLOGIA",
+          "id": "contratacao-semi-integrada"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Cartilha TCU 2026 · etapas do desenvolvimento de um projeto",
+          "grupo": "DOWNLOADS",
+          "id": "tcu-engenharia-custos-perguntas-respostas",
+          "pagina": 13
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Cartilha TCU 2026 · anteprojeto na Lei 14.133/2021",
+          "grupo": "DOWNLOADS",
+          "id": "tcu-engenharia-custos-perguntas-respostas",
+          "pagina": 14
+        }
+      ],
+      "conteudo": "easy-mobile/artigos/fases-de-projeto-e-o-orcamento-de-cada-uma.md",
+      "formato": "markdown",
+      "palavras": 709,
+      "publicado_em": "2026-09-20",
+      "pdf": "easy-mobile/artigos/fases-de-projeto-e-o-orcamento-de-cada-uma.pdf",
+      "pdf_bytes": 270956
+    },
+    {
+      "id": "eap-e-a-medicao-por-etapas-na-lei-14133",
+      "titulo": "EAP e a medição por etapas na Lei 14.133/2021",
+      "chamada": "Paga-se pelo que ficou pronto, não pelo que foi consumido. E isso não dispensa levantar quantidade.",
+      "assuntos": [
+        "medicao",
+        "quantitativo",
+        "cronograma-fisico-financeiro",
+        "empreitada-por-preco-global",
+        "empreitada-por-preco-unitario"
+      ],
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "rotulo": "Medição",
+          "grupo": "TERMINOLOGIA",
+          "id": "medicao"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Quantitativo",
+          "grupo": "TERMINOLOGIA",
+          "id": "quantitativo"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Empreitada por preço global",
+          "grupo": "TERMINOLOGIA",
+          "id": "empreitada-por-preco-global"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Empreitada por preço unitário",
+          "grupo": "TERMINOLOGIA",
+          "id": "empreitada-por-preco-unitario"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 1727/2025",
+          "grupo": "ACORDAOS",
+          "id": "tcu-1727-2025"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Cartilha TCU 2026 · medição por etapas e o art. 46, § 9º",
+          "grupo": "DOWNLOADS",
+          "id": "tcu-engenharia-custos-perguntas-respostas",
+          "pagina": 19
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Cartilha TCU 2026 · refinamento progressivo da EAP",
+          "grupo": "DOWNLOADS",
+          "id": "tcu-engenharia-custos-perguntas-respostas",
+          "pagina": 23
+        }
+      ],
+      "conteudo": "easy-mobile/artigos/eap-e-a-medicao-por-etapas-na-lei-14133.md",
+      "formato": "markdown",
+      "palavras": 671,
+      "publicado_em": "2026-09-20",
+      "pdf": "easy-mobile/artigos/eap-e-a-medicao-por-etapas-na-lei-14133.pdf",
+      "pdf_bytes": 276409
+    },
+    {
+      "id": "administracao-local-o-que-e-e-como-medir",
+      "titulo": "Administração local: o que é e como medir",
+      "chamada": "Custo direto discriminado na planilha, medido proporcionalmente ao avanço. Nunca valor mensal fixo.",
+      "assuntos": [
+        "administracao-local",
+        "canteiro-de-obras",
+        "mobilizacao-e-desmobilizacao",
+        "custo-direto",
+        "medicao"
+      ],
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "rotulo": "Administração local",
+          "grupo": "TERMINOLOGIA",
+          "id": "administracao-local"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Canteiro de obras",
+          "grupo": "TERMINOLOGIA",
+          "id": "canteiro-de-obras"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Mobilização e desmobilização",
+          "grupo": "TERMINOLOGIA",
+          "id": "mobilizacao-e-desmobilizacao"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2622/2013",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2622-2013"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 178/2019",
+          "grupo": "ACORDAOS",
+          "id": "tcu-178-2019"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 874/2018",
+          "grupo": "ACORDAOS",
+          "id": "tcu-874-2018"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Cartilha TCU 2026 · critério de medição da administração local",
+          "grupo": "DOWNLOADS",
+          "id": "tcu-engenharia-custos-perguntas-respostas",
+          "pagina": 21
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Cartilha TCU 2026 · como medir e pagar a administração local",
+          "grupo": "DOWNLOADS",
+          "id": "tcu-engenharia-custos-perguntas-respostas",
+          "pagina": 83
+        }
+      ],
+      "conteudo": "easy-mobile/artigos/administracao-local-o-que-e-e-como-medir.md",
+      "formato": "markdown",
+      "palavras": 721,
+      "publicado_em": "2026-09-20",
+      "pdf": "easy-mobile/artigos/administracao-local-o-que-e-e-como-medir.pdf",
+      "pdf_bytes": 278164
     }
   ]
 }
