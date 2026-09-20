@@ -1124,6 +1124,31 @@
       "referencias": []
     },
     {
+      "id": "metodologia-executiva",
+      "termo": "Metodologia executiva",
+      "expansao": null,
+      "conceito_md": "Conjunto de processos, equipamentos e sequência de execução escolhidos para realizar o serviço.",
+      "funcao_pratica_md": "É ela que define quais composições entram na planilha e com que coeficientes. Metodologia diferente produz custo diferente para o mesmo resultado, e por isso a escolha precisa estar justificada no projeto.",
+      "distincoes": [
+        {
+          "termo": "Composição de custo unitário",
+          "diferenca_md": "A composição é o retrato de uma metodologia em insumos e coeficientes. Trocar a metodologia obriga a trocar a composição, não só o preço."
+        },
+        {
+          "termo": "Sobrepreço",
+          "diferenca_md": "Custo acima do referencial por metodologia mais cara não é sobrepreço quando a metodologia é a mais eficiente para o caso e está justificada."
+        }
+      ],
+      "ver_tambem": [
+        "composicao-de-custo-unitario",
+        "produtividade",
+        "projeto-basico",
+        "sobrepreco",
+        "coeficiente"
+      ],
+      "referencias": []
+    },
+    {
       "id": "mobilizacao-e-desmobilizacao",
       "termo": "Mobilização e desmobilização",
       "expansao": null,
@@ -1183,6 +1208,32 @@
       "ver_tambem": [
         "composicao-de-custo-unitario",
         "orcamento-sintetico"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "orcamento-de-referencia",
+      "termo": "Orçamento de referência",
+      "expansao": null,
+      "conceito_md": "Orçamento que a Administração elabora para servir de parâmetro do preço máximo da licitação, seguindo as regras do Decreto 7.983/2013.",
+      "funcao_pratica_md": "É o orçamento que vai ao edital e contra o qual a proposta é comparada. Seus custos unitários têm de ser regionalizados e sair, como regra, do Sinapi ou do Sicro.",
+      "distincoes": [
+        {
+          "termo": "Orçamento estimado",
+          "diferenca_md": "Todo orçamento de referência é estimado, mas nem todo estimado cumpre o Decreto 7.983/2013. O de referência é o que sustenta o preço máximo."
+        },
+        {
+          "termo": "Preço de referência",
+          "diferenca_md": "Preço de referência é o valor de um item. O orçamento de referência é a peça inteira, com todos os itens e o BDI."
+        }
+      ],
+      "ver_tambem": [
+        "orcamento-estimado",
+        "preco-de-referencia",
+        "custo-de-referencia",
+        "sinapi",
+        "sicro",
+        "planilha-orcamentaria"
       ],
       "referencias": []
     },
@@ -1625,6 +1676,28 @@
         "desoneracao-da-folha",
         "encargos-sociais",
         "regime-desonerado"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "regionalizacao",
+      "termo": "Regionalização",
+      "expansao": null,
+      "conceito_md": "Adoção do custo unitário vigente no local da obra, e não de uma média nacional ou do custo de outra unidade da federação.",
+      "funcao_pratica_md": "No Sinapi e no Sicro cada UF tem preço próprio, e a escolha da UF muda o valor de toda a planilha. Orçamento de referência com custo de outro estado é sobrepreço ou subpreço embutido na origem.",
+      "distincoes": [
+        {
+          "termo": "Data-base",
+          "diferenca_md": "Data-base responde QUANDO o preço foi coletado. Regionalização responde ONDE. Errar uma não é corrigido acertando a outra."
+        }
+      ],
+      "ver_tambem": [
+        "orcamento-de-referencia",
+        "sinapi",
+        "sicro",
+        "data-base",
+        "custo-unitario",
+        "fonte-de-precos"
       ],
       "referencias": []
     },

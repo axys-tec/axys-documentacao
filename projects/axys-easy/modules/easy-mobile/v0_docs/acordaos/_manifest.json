@@ -183,6 +183,19 @@
       "conteudo": "easy-mobile/acordaos/tcu-1227-2012/conteudo.json"
     },
     {
+      "id": "tcu-12460-2016",
+      "orgao": "TCU",
+      "numero": "12460/2016",
+      "data": "2016-11-16",
+      "titulo": "Acórdão TCU 12460/2016",
+      "assuntos": [
+        "reequilibrio-economico-financeiro",
+        "aditivo-contratual"
+      ],
+      "tese_curta": "O reequilíbrio econômico-financeiro de contrato deve estar lastreado em documentação que comprove, de forma inequívoca, a alteração dos custos dos ins",
+      "conteudo": "easy-mobile/acordaos/tcu-12460-2016/conteudo.json"
+    },
+    {
       "id": "tcu-1262-2020",
       "orgao": "TCU",
       "numero": "1262/2020",
@@ -542,6 +555,22 @@
       "conteudo": "easy-mobile/acordaos/tcu-1637-2016/conteudo.json"
     },
     {
+      "id": "tcu-1647-2016",
+      "orgao": "TCU",
+      "numero": "1647/2016",
+      "data": "2016-06-29",
+      "titulo": "Acórdão TCU 1647/2016",
+      "assuntos": [
+        "projeto",
+        "quantitativo",
+        "orcamento",
+        "fiscalizacao",
+        "sobrepreco"
+      ],
+      "tese_curta": "A responsabilidade última e efetiva por verificar a fidedignidade dos projetos, especialmente quanto aos quantitativos, não pode ser delegada ao dirig",
+      "conteudo": "easy-mobile/acordaos/tcu-1647-2016/conteudo.json"
+    },
+    {
       "id": "tcu-165-2023",
       "orgao": "TCU",
       "numero": "165/2023",
@@ -568,6 +597,22 @@
       ],
       "tese_curta": "Não se admite a responsabilização de beneficiários ou segurados quando inexistirem, nos autos, provas de que agiram em conluio com os autores das frau",
       "conteudo": "easy-mobile/acordaos/tcu-167-2015/conteudo.json"
+    },
+    {
+      "id": "tcu-1676-2011",
+      "orgao": "TCU",
+      "numero": "1676/2011",
+      "data": "2011-06-22",
+      "titulo": "Acórdão TCU 1676/2011",
+      "assuntos": [
+        "alteracao-qualitativa",
+        "aditivo-contratual",
+        "limite-de-alteracao",
+        "planilha-orcamentaria",
+        "preco-global"
+      ],
+      "tese_curta": "Deve ser firmado contrato cujo objeto corresponda ao descrito na planilha orçamentária da licitação, promovendo-se posteriormente as alterações contra",
+      "conteudo": "easy-mobile/acordaos/tcu-1676-2011/conteudo.json"
     },
     {
       "id": "tcu-1686-2023",
@@ -1002,6 +1047,22 @@
       "conteudo": "easy-mobile/acordaos/tcu-2127-2017/conteudo.json"
     },
     {
+      "id": "tcu-2131-2018",
+      "orgao": "TCU",
+      "numero": "2131/2018",
+      "data": "2018-09-12",
+      "titulo": "Acórdão TCU 2131/2018",
+      "assuntos": [
+        "composicao-de-custo-unitario",
+        "medicao",
+        "metodologia-executiva",
+        "quantitativo",
+        "reequilibrio-economico-financeiro"
+      ],
+      "tese_curta": "A composição de preço unitário e o critério de medição devem ser compatibilizados, de forma que os quantitativos medidos reflitam os quantitativos efe",
+      "conteudo": "easy-mobile/acordaos/tcu-2131-2018/conteudo.json"
+    },
+    {
       "id": "tcu-2135-2023",
       "orgao": "TCU",
       "numero": "2135/2023",
@@ -1150,6 +1211,21 @@
       ],
       "tese_curta": "Na contratação de serviços de engenharia consultiva orçados pelo método da listagem de atividades e determinação das quantidades de horas, devem ser r",
       "conteudo": "easy-mobile/acordaos/tcu-2215-2012/conteudo.json"
+    },
+    {
+      "id": "tcu-2219-2010",
+      "orgao": "TCU",
+      "numero": "2219/2010",
+      "data": "2010-09-01",
+      "titulo": "Acórdão TCU 2219/2010",
+      "assuntos": [
+        "empresa-estatal",
+        "reajuste",
+        "reequilibrio-economico-financeiro",
+        "custo-direto"
+      ],
+      "tese_curta": "As empresas estatais devem adotar a sistemática de repactuação dos contratos de prestação de serviço de duração continuada, com base na variação dos c",
+      "conteudo": "easy-mobile/acordaos/tcu-2219-2010/conteudo.json"
     },
     {
       "id": "tcu-2262-2015",
@@ -1377,6 +1453,20 @@
       "conteudo": "easy-mobile/acordaos/tcu-2443-2017/conteudo.json"
     },
     {
+      "id": "tcu-2459-2021",
+      "orgao": "TCU",
+      "numero": "2459/2021",
+      "data": "2021-10-13",
+      "titulo": "Acórdão TCU 2459/2021",
+      "assuntos": [
+        "quantitativo",
+        "memoria-de-calculo",
+        "jurisprudencia"
+      ],
+      "tese_curta": "Caracteriza erro grosseiro a elaboração de documentos que fundamentem a contratação sem justificativas para os quantitativos a serem adquiridos",
+      "conteudo": "easy-mobile/acordaos/tcu-2459-2021/conteudo.json"
+    },
+    {
       "id": "tcu-2467-2013",
       "orgao": "TCU",
       "numero": "2467/2013",
@@ -1492,6 +1582,22 @@
       ],
       "tese_curta": "Incertezas significativas recomendam matriz de riscos nas contratações das estatais.",
       "conteudo": "easy-mobile/acordaos/tcu-2616-2020/conteudo.json"
+    },
+    {
+      "id": "tcu-2618-2018",
+      "orgao": "TCU",
+      "numero": "2618/2018",
+      "data": "2018-11-14",
+      "titulo": "Acórdão TCU 2618/2018",
+      "assuntos": [
+        "anteprojeto",
+        "projeto-basico",
+        "preco-global",
+        "preco-unitario",
+        "contratacao-integrada"
+      ],
+      "tese_curta": "A adoção do sistema de registro de preços para obras deve ser precedida da existência de projetos de referência padronizados em nível básico ou execut",
+      "conteudo": "easy-mobile/acordaos/tcu-2618-2018/conteudo.json"
     },
     {
       "id": "tcu-2619-2019",
@@ -1818,6 +1924,22 @@
       "conteudo": "easy-mobile/acordaos/tcu-2984-2013/conteudo.json"
     },
     {
+      "id": "tcu-2986-2016",
+      "orgao": "TCU",
+      "numero": "2986/2016",
+      "data": "2016-11-23",
+      "titulo": "Acórdão TCU 2986/2016",
+      "assuntos": [
+        "metodologia-executiva",
+        "equipamento",
+        "produtividade",
+        "projeto-basico",
+        "superfaturamento"
+      ],
+      "tese_curta": "Quando o contratado executar o trabalho por sistema mais produtivo não por este ser uma inovação, mas porque o projeto básico previu metodologia antie",
+      "conteudo": "easy-mobile/acordaos/tcu-2986-2016/conteudo.json"
+    },
+    {
       "id": "tcu-299-2011",
       "orgao": "TCU",
       "numero": "299/2011",
@@ -2017,6 +2139,21 @@
       ],
       "tese_curta": "Não se admite, nos casos de alteração qualitativa do objeto dos contratos públicos, a desfiguração completa do objeto pactuado",
       "conteudo": "easy-mobile/acordaos/tcu-327-2012/conteudo.json"
+    },
+    {
+      "id": "tcu-3289-2011",
+      "orgao": "TCU",
+      "numero": "3289/2011",
+      "data": "2011-12-07",
+      "titulo": "Acórdão TCU 3289/2011",
+      "assuntos": [
+        "reequilibrio-economico-financeiro",
+        "aditivo-contratual",
+        "insumo",
+        "preco-unitario"
+      ],
+      "tese_curta": "A administração deve negociar com a contratada o fornecimento do insumo em novas condições decorrentes de fato imprevisível superveniente, promovendo ",
+      "conteudo": "easy-mobile/acordaos/tcu-3289-2011/conteudo.json"
     },
     {
       "id": "tcu-3289-2014",
