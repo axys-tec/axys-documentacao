@@ -16,11 +16,27 @@ Não se deve utilizar pagamento fixo mensal como critério de medição e pagame
 
 O motivo é direto. Quando o pagamento é mensal e fixo, ele deixa de ter relação com a obra e passa a ter relação com o calendário. Se a obra atrasa, a Administração continua pagando estrutura de canteiro por um avanço que não ocorreu, e o contrato desequilibra em favor de quem atrasou.
 
-## O critério correto
+## O critério não é o mesmo para os quatro itens
 
-O critério objetivo é o **pagamento proporcional à execução financeira global da obra**, conforme indica o Acórdão 2622/2013 do Plenário.
+Aqui mora uma confusão frequente, e ela precisa ficar explícita.
 
-Medindo assim, a administração local acompanha o avanço real. Obra que andou 40% remunerou 40% da estrutura de gerenciamento. Obra parada não gera medição de canteiro.
+A vedação ao valor mensal fixo alcança os quatro itens. O **critério positivo**, porém, é diferente, porque a natureza dos custos é diferente. O Acórdão 2622/2013 do Plenário é preciso no ponto: ele manda estabelecer critério objetivo de medição **para a administração local**, com pagamentos proporcionais à execução financeira da obra, e se refere à vedação do valor mensal fixo **para esse item**.
+
+**Administração local: proporcional à execução financeira.** É custo de permanência. A estrutura de gerenciamento existe enquanto a obra existe, e por isso acompanha o avanço. Obra que andou 40% remunerou 40% da estrutura de gerenciamento. Obra parada não gera medição.
+
+**Instalação do canteiro: quando executada.** Tapume, abrigo provisório, ligações de água e energia, portaria, almoxarifado. São serviços com entrega física, que se levantam por quantidade e se medem quando ficam prontos, como qualquer outro item da planilha. Ratear a construção de um tapume ao longo de dezoito meses de obra é medir por calendário aquilo que foi executado em uma semana.
+
+**Mobilização: quando realizada. Desmobilização: quando removida.** São eventos, com começo e fim identificáveis.
+
+A própria cartilha do TCU confirma esse tratamento no exemplo de etapas de pagamento de uma empreitada por preço global, em que a desmobilização aparece como etapa própria, com percentual próprio, ao lado da limpeza final e do *as built*.
+
+**Manutenção do canteiro é outra coisa.** O que se instala uma vez se mede uma vez; o que se mantém mês a mês (vigilância, limpeza, consumo, conservação) é custo de permanência e segue a mesma lógica da administração local.
+
+## O critério tem de estar escrito no edital
+
+Nada disso funciona por dedução na hora da medição. O edital precisa dizer, item por item, qual é o critério: o que é proporcional ao avanço, o que é medido contra execução física e o que é evento.
+
+Critério ausente vira disputa. E a disputa, na prática, costuma terminar no pior dos mundos, com valor mensal fixo aplicado a tudo porque é o mais fácil de operar na planilha de medição.
 
 ## Quando a obra atrasa
 
@@ -42,6 +58,8 @@ O demonstrativo detalhado dos custos com mobilização e desmobilização, admin
 
 Quando existe fonte de referência, as composições de administração local e canteiro podem ser buscadas no Sinapi e no Sicro, com os mesmos critérios de quantificação usados para os demais serviços.
 
+No ecossistema Axys, o Easy Orça™ ([https://www.axys-tec.com.br/easy-orca](https://www.axys-tec.com.br/easy-orca)) permite destacar a administração local no orçamento e, na montagem do cronograma, quantificá-la na mesma esteira da evolução física e financeira da obra. Em vez de arbitrar um valor mensal e defendê-lo depois, o critério proporcional nasce junto com o cronograma, já na forma que a lei e a jurisprudência pedem. Não identificamos precedente equivalente em outros sistemas de orçamento.
+
 ## Um argumento que não se aceita sozinho
 
 Empresas apresentam, em disputa sobre preço, razões legítimas para ter administração local menor: obra na cidade sede da empresa, compartilhamento de estrutura com outras obras em andamento, ganho de escala na administração central.
@@ -52,8 +70,8 @@ Esses argumentos são admissíveis, mas precisam vir com evidência. Argumentaç
 
 **No orçamento.** A administração local está discriminada em item próprio, ou embutida nos serviços? Existe histograma de equipe por trás do valor, ou é percentual arredondado?
 
-**No edital.** O critério de medição está escrito, e é proporcional à execução financeira? Ou ficou como valor mensal?
+**No edital.** O critério está escrito para cada item, ou há um critério só para tudo? A administração local é proporcional ao avanço? A instalação do canteiro é medida contra execução física? A mobilização e a desmobilização são eventos? Critério único para naturezas diferentes é o sinal de que ninguém enfrentou a questão.
 
-**Na medição.** O percentual medido de administração local acompanha o percentual físico e financeiro da obra? Divergência crescente entre os dois é o primeiro sinal de que o critério não está sendo aplicado.
+**Na medição.** O percentual medido de administração local acompanha o percentual físico e financeiro da obra? Divergência crescente entre os dois é o primeiro sinal de que o critério não está sendo aplicado. E o canteiro: foi pago quando ficou pronto, ou está sendo diluído mês a mês?
 
 **No aditivo.** O pedido identifica a causa do atraso? Separa o que é manutenção necessária do que é equipe integral? Sem isso, o pleito não tem como ser analisado.

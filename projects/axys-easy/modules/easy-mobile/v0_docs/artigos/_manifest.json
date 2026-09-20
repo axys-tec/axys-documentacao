@@ -558,7 +558,7 @@
       "palavras": 752,
       "publicado_em": "2026-08-22",
       "pdf": "easy-mobile/artigos/aditivos-e-reequilibrio-economico-financeiro.pdf",
-      "pdf_bytes": 290686
+      "pdf_bytes": 290685
     },
     {
       "id": "truncar-ou-arredondar",
@@ -610,15 +610,15 @@
       "pdf_bytes": 328035
     },
     {
-      "id": "fases-de-projeto-e-o-orcamento-de-cada-uma",
-      "titulo": "Fases de projeto e o orçamento que cabe em cada uma",
+      "id": "fases-de-projeto-e-a-precisao-orcamentaria",
+      "titulo": "Fases de projeto e a precisão orçamentária correspondente",
       "chamada": "Estudo preliminar, anteprojeto, projeto básico e executivo. Cada fase sustenta um tipo de estimativa.",
       "assuntos": [
         "projeto",
         "projeto-basico",
         "anteprojeto",
         "orcamento-parametrico",
-        "regime-de-execucao"
+        "orcamento-estimado"
       ],
       "referencias": [
         {
@@ -664,25 +664,31 @@
           "grupo": "DOWNLOADS",
           "id": "tcu-engenharia-custos-perguntas-respostas",
           "pagina": 14
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Regime de execução",
+          "grupo": "TERMINOLOGIA",
+          "id": "regime-de-execucao"
         }
       ],
-      "conteudo": "easy-mobile/artigos/fases-de-projeto-e-o-orcamento-de-cada-uma.md",
+      "conteudo": "easy-mobile/artigos/fases-de-projeto-e-a-precisao-orcamentaria.md",
       "formato": "markdown",
-      "palavras": 709,
+      "palavras": 937,
       "publicado_em": "2026-09-20",
-      "pdf": "easy-mobile/artigos/fases-de-projeto-e-o-orcamento-de-cada-uma.pdf",
-      "pdf_bytes": 270956
+      "pdf": "easy-mobile/artigos/fases-de-projeto-e-a-precisao-orcamentaria.pdf",
+      "pdf_bytes": 293018
     },
     {
       "id": "eap-e-a-medicao-por-etapas-na-lei-14133",
-      "titulo": "EAP e a medição por etapas na Lei 14.133/2021",
+      "titulo": "EAP e a medição por etapas destacadas pela Lei 14.133/2021",
       "chamada": "Paga-se pelo que ficou pronto, não pelo que foi consumido. E isso não dispensa levantar quantidade.",
       "assuntos": [
         "medicao",
         "quantitativo",
         "cronograma-fisico-financeiro",
-        "empreitada-por-preco-global",
-        "empreitada-por-preco-unitario"
+        "curva-abc",
+        "empreitada-por-preco-global"
       ],
       "referencias": [
         {
@@ -728,14 +734,26 @@
           "grupo": "DOWNLOADS",
           "id": "tcu-engenharia-custos-perguntas-respostas",
           "pagina": 23
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Curva ABC",
+          "grupo": "TERMINOLOGIA",
+          "id": "curva-abc"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Cronograma físico-financeiro",
+          "grupo": "TERMINOLOGIA",
+          "id": "cronograma-fisico-financeiro"
         }
       ],
       "conteudo": "easy-mobile/artigos/eap-e-a-medicao-por-etapas-na-lei-14133.md",
       "formato": "markdown",
-      "palavras": 671,
+      "palavras": 1111,
       "publicado_em": "2026-09-20",
       "pdf": "easy-mobile/artigos/eap-e-a-medicao-por-etapas-na-lei-14133.pdf",
-      "pdf_bytes": 276409
+      "pdf_bytes": 292680
     },
     {
       "id": "administracao-local-o-que-e-e-como-medir",
@@ -798,14 +816,27 @@
           "grupo": "DOWNLOADS",
           "id": "tcu-engenharia-custos-perguntas-respostas",
           "pagina": 83
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Cronograma físico-financeiro",
+          "grupo": "TERMINOLOGIA",
+          "id": "cronograma-fisico-financeiro"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Cartilha TCU 2026 · etapas de pagamento em empreitada por preço global",
+          "grupo": "DOWNLOADS",
+          "id": "tcu-engenharia-custos-perguntas-respostas",
+          "pagina": 131
         }
       ],
       "conteudo": "easy-mobile/artigos/administracao-local-o-que-e-e-como-medir.md",
       "formato": "markdown",
-      "palavras": 721,
+      "palavras": 1144,
       "publicado_em": "2026-09-20",
       "pdf": "easy-mobile/artigos/administracao-local-o-que-e-e-como-medir.pdf",
-      "pdf_bytes": 278164
+      "pdf_bytes": 298025
     }
   ]
 }

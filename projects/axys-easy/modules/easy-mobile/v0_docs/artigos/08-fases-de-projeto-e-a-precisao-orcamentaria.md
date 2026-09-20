@@ -1,4 +1,4 @@
-# Fases de projeto e o orçamento que cabe em cada uma
+# Fases de projeto e a precisão orçamentária correspondente
 
 Um empreendimento não nasce com projeto executivo. Ele é desenvolvido em etapas sequenciais, e cada etapa conhece o objeto com mais profundidade que a anterior. **O orçamento acompanha esse amadurecimento.** Cobrar de um estudo preliminar a precisão de um projeto executivo é exigir certeza onde ainda não há informação, e aceitar um orçamento raso quando o projeto já está pronto é abrir mão de controle.
 
@@ -8,9 +8,22 @@ Saber em que fase se está define que tipo de estimativa é legítima, que marge
 
 É a primeira etapa do planejamento da contratação. A Lei 14.133/2021, no art. 6º, inciso XX, define o estudo técnico preliminar como o documento que caracteriza o interesse público envolvido e a sua melhor solução, e que dá base ao anteprojeto, ao termo de referência ou ao projeto básico.
 
-Nele cabem o programa de necessidades, os levantamentos preliminares e o estudo de viabilidade. O resultado descreve a alternativa selecionada, suas características principais, os critérios e parâmetros adotados, as demandas a atender e o pré-dimensionamento dos principais elementos da obra.
+Nele cabem o programa de necessidades, os levantamentos preliminares e o estudo de viabilidade. O resultado descreve a alternativa selecionada, suas características principais, os critérios e parâmetros adotados, as demandas a atender e o pré-dimensionamento dos principais elementos da obra. Listam-se os destaques da cartilha do TCU (ENGENHARIA DE CUSTOS EM OBRAS PÚBLICAS -- Um guia de perguntas e respostas):
 
-O orçamento dessa fase é **paramétrico**. Ele trabalha com indicadores, áreas equivalentes e obras semelhantes, e serve para decidir se a contratação é viável, não para julgar proposta.
+ - levantamentos topográficos e cadastrais, sondagens, ensaios geotécnicos e laboratoriais, estudos socioambientais e demais informações necessárias;
+ - definição das soluções técnicas gerais e específicas, com detalhamento compatível com a complexidade do empreendimento;
+ - identificação dos serviços, materiais e equipamentos necessários, incluindo requisitos e especificações que assegurem desempenho, segurança e qualidade;
+ - informações para definição dos métodos construtivos, instalações provisórias, logística e organização da obra;
+ - subsídios para o planejamento, contratação e gestão da execução, incluindo programação, suprimentos, fiscalização e controles;
+ - orçamento fundamentado em quantitativos e custos adequadamente avaliados, conforme as características e o regime de execução adotado. 
+
+O orçamento dessa fase é **estimativo**. Uma das formas mais comuns é embasar-se em CUB. Todavia, essa prática muitas vezes não traz melhores resultados, no qual se destaca o **orçamento paramétrico**.
+
+O orçamento paramétrico é algo mais otimizado. Nele aplica-se um conceito denominado estado da arte onde, com base em paramêtros de obras análogas, quer seja no todo, ou na etapa construtiva, e estimam-se as quantidades com base nisso.
+
+As parametrizações podem ser inúmeras e sob várias frentes. Pontos elétricos, pontos hidráulicos e afins.  Esses indicadores, aplicando-se sobre áreas equivalentes e obras semelhantes, e serve para decidir se a contratação é viável, não para julgar proposta.
+
+Na Axys, temos a solução Easy Price™ ([https://www.axys-tec.com.br/easy-price](https://www.axys-tec.com.br/easy-price)), qual realiza para você tal estimativa. Temos observados resultados muito precisos e significantes quando comparado com orçamento final, em valor/escopo.
 
 ## Anteprojeto
 
@@ -32,7 +45,7 @@ O art. 46 da Lei 14.133/2021 lista os regimes de execução, e o orçamento deta
 
 Na prática, isso significa que a ausência de orçamento detalhado só se justifica onde a própria lei dispensa, e não como consequência de projeto insuficiente.
 
-## Precisão progressiva, não precisão fingida
+## Precisão progressiva: enquanto não há detalhamento final o preço é por estimativa
 
 Conforme o projeto avança, o detalhamento dos custos é aprimorado. O trabalho de curto prazo é planejado em detalhe nos níveis mais baixos da estrutura analítica do projeto, enquanto o trabalho mais distante permanece em nível mais alto.
 
