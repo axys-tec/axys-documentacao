@@ -1,0 +1,659 @@
+{
+  "fonte": "SINAPI",
+  "ref": "2026-08-01",
+  "ref_anterior": "2026-07-01",
+  "versao": "08-26",
+  "edi_id": 60,
+  "edi_anterior": 59,
+  "meses_intervalo": 1,
+  "modalidade": "SD",
+  "uf_foco": "SP",
+  "custo_origem": "cc_custo_fonte",
+  "custo_sem_bdi": false,
+  "movimento": {
+    "incluidas": 103,
+    "inativadas": 100,
+    "reativadas": 0,
+    "alteradas": 78
+  },
+  "cobertura": {
+    "ufs": 27,
+    "cpus": 10547,
+    "sem_custo": 173665,
+    "linhas": 854307,
+    "pct_sem_custo": 20.3,
+    "insumos": 131652,
+    "insumos_sem_preco": 32771,
+    "pct_sem_preco": 24.9
+  },
+  "precos": {
+    "uf": "SP",
+    "comparaveis": 8300,
+    "media_pct": 0.11,
+    "mediana_pct": -0.0,
+    "subiram": 2072,
+    "cairam": 4154,
+    "estaveis": 2074
+  },
+  "subgrupos": {
+    "altas": [
+      {
+        "subgrupo": "ARMAÇÃO DE ESTACAS",
+        "cpus": 13,
+        "var_pct": 14.66,
+        "medio_anterior": 10.95,
+        "medio_atual": 12.55
+      },
+      {
+        "subgrupo": "REDES DE LÓGICA, TELEFONIA E IMAGEM",
+        "cpus": 61,
+        "var_pct": 6.33,
+        "medio_anterior": 224.78,
+        "medio_atual": 239.0
+      },
+      {
+        "subgrupo": "PAVIMENTO RÍGIDO DE CONCRETO",
+        "cpus": 30,
+        "var_pct": 5.2,
+        "medio_anterior": 135.68,
+        "medio_atual": 142.74
+      },
+      {
+        "subgrupo": "INSTALAÇÕES EM COBRE",
+        "cpus": 242,
+        "var_pct": 4.9,
+        "medio_anterior": 146.78,
+        "medio_atual": 153.97
+      },
+      {
+        "subgrupo": "INSTALAÇÕES PREDIAIS DE ÁGUA FRIA EM PVC",
+        "cpus": 235,
+        "var_pct": 2.95,
+        "medio_anterior": 28.56,
+        "medio_atual": 29.4
+      },
+      {
+        "subgrupo": "TRANSFORMADORES",
+        "cpus": 12,
+        "var_pct": 2.88,
+        "medio_anterior": 36278.01,
+        "medio_atual": 37321.9
+      },
+      {
+        "subgrupo": "INSTALAÇÕES DE AR CONDICIONADO EM COBRE",
+        "cpus": 15,
+        "var_pct": 2.82,
+        "medio_anterior": 102.81,
+        "medio_atual": 105.71
+      },
+      {
+        "subgrupo": "ESTRUTURAS DE MADEIRA",
+        "cpus": 34,
+        "var_pct": 1.16,
+        "medio_anterior": 172.34,
+        "medio_atual": 174.34
+      },
+      {
+        "subgrupo": "INSTALAÇÕES HIDRÁULICAS - RESERVAÇÃO E BOMBAS DE RECALQUE",
+        "cpus": 286,
+        "var_pct": 1.13,
+        "medio_anterior": 166.16,
+        "medio_atual": 168.04
+      },
+      {
+        "subgrupo": "DRENAGEM DE AR CONDICIONADO",
+        "cpus": 15,
+        "var_pct": 1.09,
+        "medio_anterior": 14.73,
+        "medio_atual": 14.89
+      }
+    ],
+    "baixas": [
+      {
+        "subgrupo": "ESGOTAMENTO DE VALA E REBAIXAMENTO DO LENÇOL FREÁTICO",
+        "cpus": 13,
+        "var_pct": -28.05,
+        "medio_anterior": 331.25,
+        "medio_atual": 238.33
+      },
+      {
+        "subgrupo": "ASSENTAMENTO DE TUBOS DE ESGOTO EM PVC E PEAD",
+        "cpus": 56,
+        "var_pct": -4.23,
+        "medio_anterior": 221.87,
+        "medio_atual": 212.49
+      },
+      {
+        "subgrupo": "REDES DE ÁGUA E ESGOTO EM PEAD LISO (TUBOS E CONEXÕES)",
+        "cpus": 61,
+        "var_pct": -4.14,
+        "medio_anterior": 1189.25,
+        "medio_atual": 1140.02
+      },
+      {
+        "subgrupo": "ALVENARIA DE VEDAÇÃO",
+        "cpus": 28,
+        "var_pct": -2.53,
+        "medio_anterior": 112.42,
+        "medio_atual": 109.57
+      },
+      {
+        "subgrupo": "MONOCAPA",
+        "cpus": 12,
+        "var_pct": -2.26,
+        "medio_anterior": 167.69,
+        "medio_atual": 163.9
+      },
+      {
+        "subgrupo": "VÁLVULAS E REGISTROS PARA SISTEMAS PREDIAIS",
+        "cpus": 84,
+        "var_pct": -2.13,
+        "medio_anterior": 230.57,
+        "medio_atual": 225.65
+      },
+      {
+        "subgrupo": "INSTALAÇÕES ELÉTRICAS - ELETRODUTOS EMBUTIDOS, CABOS, CAIXAS, TOMADAS E INTERRUPTORES",
+        "cpus": 193,
+        "var_pct": -1.99,
+        "medio_anterior": 44.62,
+        "medio_atual": 43.73
+      },
+      {
+        "subgrupo": "LAJES PRÉ-MOLDADAS",
+        "cpus": 43,
+        "var_pct": -1.82,
+        "medio_anterior": 257.2,
+        "medio_atual": 252.52
+      },
+      {
+        "subgrupo": "ARGAMASSAS",
+        "cpus": 121,
+        "var_pct": -1.79,
+        "medio_anterior": 1177.11,
+        "medio_atual": 1156.04
+      },
+      {
+        "subgrupo": "PAISAGISMO - PLANTIO",
+        "cpus": 12,
+        "var_pct": -1.77,
+        "medio_anterior": 70.11,
+        "medio_atual": 68.87
+      }
+    ],
+    "total_subgrupos": 120
+  },
+  "grupos": null,
+  "insumos": {
+    "comparaveis": 4876,
+    "media_pct": 0.07,
+    "altas": [
+      {
+        "insumo": "BASTIDOR PARA BLOCO M10",
+        "unidade": "UN",
+        "var_pct": 10.0,
+        "preco": 7.01
+      },
+      {
+        "insumo": "BLOCO DE ENGATE RAPIDO PARA BASTIDOR TIPO M10",
+        "unidade": "UN",
+        "var_pct": 10.0,
+        "preco": 20.0
+      },
+      {
+        "insumo": "RACK DE PISO PARA SERVIDOR, FECHADO, 44U, COM PORTA, 44U X *570* MM",
+        "unidade": "UN",
+        "var_pct": 10.0,
+        "preco": 2484.07
+      },
+      {
+        "insumo": "PATCH PANEL, 48 PORTAS, CATEGORIA 5E, PARA FIXACAO EM RACKS DE 19\" DE LARGURA E 2 U DE ALTURA",
+        "unidade": "UN",
+        "var_pct": 10.0,
+        "preco": 1836.77
+      },
+      {
+        "insumo": "RACK DE PISO PARA SERVIDOR, ABERTO, EM COLUNA, 44U X *570* MM",
+        "unidade": "UN",
+        "var_pct": 10.0,
+        "preco": 1220.78
+      },
+      {
+        "insumo": "PATCH PANEL, 24 PORTAS, CATEGORIA 5E, PARA FIXACAO EM RACKS DE 19\" DE LARGURA E 1 U DE ALTURA",
+        "unidade": "UN",
+        "var_pct": 10.0,
+        "preco": 305.25
+      },
+      {
+        "insumo": "PATCH PANEL, 48 PORTAS, CATEGORIA 6, PARA FIXACAO EM RACKS DE 19\" DE LARGURA E 2 U DE ALTURA",
+        "unidade": "UN",
+        "var_pct": 10.0,
+        "preco": 2881.23
+      },
+      {
+        "insumo": "PATCH PANEL, 24 PORTAS, CATEGORIA 6, PARA FIXACAO EM RACKS DE 19\" DE LARGURA E 1 U DE ALTURA",
+        "unidade": "UN",
+        "var_pct": 10.0,
+        "preco": 817.48
+      },
+      {
+        "insumo": "REGUA VIBRADORA DUPLA PARA CONCRETO A GASOLINA 5,5 HP, PESO DE 60 KG, COMPRIMENTO 4 M",
+        "unidade": "UN",
+        "var_pct": 9.8,
+        "preco": 8472.32
+      },
+      {
+        "insumo": "ALISADORA DE CONCRETO COM MOTOR A GASOLINA DE 5,5 HP, PESO COM MOTOR DE 78 KG, 4 PAS",
+        "unidade": "UN",
+        "var_pct": 9.8,
+        "preco": 10099.9
+      },
+      {
+        "insumo": "POLIDORA DE PISO (POLITRIZ) ELETRICA, MOTOR MONOFASICO DE 4 HP, PESO DE 100 KG, DIAMETRO DO TRABALHO DE 450 MM",
+        "unidade": "UN",
+        "var_pct": 9.8,
+        "preco": 9289.82
+      },
+      {
+        "insumo": "RESPIRADOR DESCARTAVEL SEM VALVULA DE EXALACAO, PFF 1",
+        "unidade": "UN",
+        "var_pct": 8.6,
+        "preco": 2.01
+      },
+      {
+        "insumo": "PROTETOR AUDITIVO TIPO PLUG DE INSERCAO COM CORDAO, ATENUACAO SUPERIOR A 15 DB",
+        "unidade": "UN",
+        "var_pct": 8.5,
+        "preco": 2.55
+      },
+      {
+        "insumo": "FILTRO QUIMICO PARA RESPIRADOR SEMI FACIAL, PROTECAO CONTRA VAPORES ORGANICOS E GASES ACIDOS",
+        "unidade": "UN",
+        "var_pct": 8.4,
+        "preco": 21.32
+      }
+    ],
+    "baixas": [
+      {
+        "insumo": "PARAFUSO ROSCA SOBERBA ZINCADO CABECA CHATA FENDA SIMPLES 3,5 X 25 MM (1\")",
+        "unidade": "UN",
+        "var_pct": -14.3,
+        "preco": 0.06
+      },
+      {
+        "insumo": "PARAFUSO ROSCA SOBERBA ZINCADO CABECA CHATA FENDA SIMPLES 3,8 X 30 MM (1.1/4\")",
+        "unidade": "UN",
+        "var_pct": -12.5,
+        "preco": 0.07
+      },
+      {
+        "insumo": "ARRUELA LISA, REDONDA, ACO ZINCADO, M8, DIAMETRO EXTERNO 20 MM, DIAMETRO DO FURO 8 MM (5/16\")",
+        "unidade": "UN",
+        "var_pct": -12.5,
+        "preco": 0.07
+      },
+      {
+        "insumo": "COMPACTADOR DE SOLOS DE PERCURSAO (SOQUETE) COM MOTOR A GASOLINA 4 TEMPOS DE 4 HP (4 CV)",
+        "unidade": "UN",
+        "var_pct": -9.9,
+        "preco": 14140.63
+      },
+      {
+        "insumo": "COMPACTADOR DE SOLO A PERCUSSAO (SOQUETE), A GASOLINA 4 TEMPOS, PESO 55 A 65 KG, FORCA DE IMPACTO 1.000 A 1.500 KGF, FREQ. 600 A 700 GOLPES P/ MINUTO, VELOCIDADE TRABALHO DE 10 A 15 M/MIN, POT. DE 2,00 A 3,00 HP",
+        "unidade": "UN",
+        "var_pct": -9.9,
+        "preco": 11411.74
+      },
+      {
+        "insumo": "COMPACTADOR DE SOLO TIPO PLACA VIBRATORIA REVERSIVEL, A GASOLINA 4 TEMPOS, PESO 125 A 150 KG, FORCA CENTRIF. 2500 A 2800 KGF, LARG. TRABALHO 400 A 450 MM, FREQ. VIBRACAO 4300 A 4500 RPM, VELOC. TRABALHO 15 A 20 M/MIN, POT. 5,5 A 6,0 HP",
+        "unidade": "UN",
+        "var_pct": -9.9,
+        "preco": 9580.07
+      },
+      {
+        "insumo": "ELETRODUTO/DUTO PEAD FLEXIVEL PAREDE SIMPLES, CORRUGACAO HELICOIDAL, COR PRETA, SEM ROSCA, DE 1 1/4\", CRC 680 N, PARA CABEAMENTO SUBTERRANEO (NBR 15715)",
+        "unidade": "M",
+        "var_pct": -8.9,
+        "preco": 3.29
+      },
+      {
+        "insumo": "ELETRODUTO FLEXIVEL PLANO EM PEAD, COR PRETA E LARANJA, DIAMETRO 32 MM",
+        "unidade": "M",
+        "var_pct": -8.8,
+        "preco": 2.17
+      },
+      {
+        "insumo": "ELETRODUTO FLEXIVEL PLANO EM PEAD, COR PRETA E LARANJA, DIAMETRO 40 MM",
+        "unidade": "M",
+        "var_pct": -8.8,
+        "preco": 2.79
+      },
+      {
+        "insumo": "RODAFORRO EM PVC, PARA FORRO DE PVC, COMPRIMENTO 6 M",
+        "unidade": "M",
+        "var_pct": -8.8,
+        "preco": 5.39
+      },
+      {
+        "insumo": "TAMPAO / TERMINAL / PLUG, D = 4\", PARA DUTO CORRUGADO PEAD (CABEAMENTO SUBTERRANEO)",
+        "unidade": "UN",
+        "var_pct": -8.8,
+        "preco": 11.32
+      },
+      {
+        "insumo": "ELETRODUTO/DUTO PEAD FLEXIVEL PAREDE SIMPLES, CORRUGACAO HELICOIDAL, COR PRETA, SEM ROSCA, DE 4\", CRC 680 N, PARA CABEAMENTO SUBTERRANEO (NBR 15715)",
+        "unidade": "M",
+        "var_pct": -8.8,
+        "preco": 10.6
+      },
+      {
+        "insumo": "ELETRODUTO/DUTO PEAD FLEXIVEL PAREDE SIMPLES, CORRUGACAO HELICOIDAL, COR PRETA, SEM ROSCA, DE 3\", CRC 680 N, PARA CABEAMENTO SUBTERRANEO (NBR 15715)",
+        "unidade": "M",
+        "var_pct": -8.8,
+        "preco": 7.6
+      },
+      {
+        "insumo": "TAMPAO / TERMINAL / PLUG, D = 2\", PARA DUTO CORRUGADO PEAD (CABEAMENTO SUBTERRANEO)",
+        "unidade": "UN",
+        "var_pct": -8.7,
+        "preco": 6.26
+      }
+    ]
+  },
+  "indicadores": {
+    "acumulados": {
+      "IGP-M": -0.22,
+      "INCC-M": 0.85,
+      "INPC": -0.32,
+      "IPCA": -0.32
+    },
+    "selic_aa": 14.0,
+    "selic_aa_anterior": 14.25,
+    "meses": 1
+  },
+  "revisoes": {
+    "coeficiente": 75,
+    "insumo_incluido": 18,
+    "insumo_excluido": 7,
+    "cabecalho": 77,
+    "total": 78
+  },
+  "revisoes_subgrupos": [
+    {
+      "subgrupo": "PAVIMENTO RÍGIDO DE CONCRETO",
+      "revisadas": 35
+    },
+    {
+      "subgrupo": "ALVENARIA DE VEDAÇÃO",
+      "revisadas": 28
+    },
+    {
+      "subgrupo": "ARMAÇÃO DE ESTACAS",
+      "revisadas": 13
+    },
+    {
+      "subgrupo": "ESGOTAMENTO DE VALA E REBAIXAMENTO DO LENÇOL FREÁTICO",
+      "revisadas": 1
+    },
+    {
+      "subgrupo": "IMPERMEABILIZAÇÃO, PROTEÇÃO MECÂNICA E TRATAMENTO DE JUNTA",
+      "revisadas": 1
+    }
+  ],
+  "codigo": {
+    "numero": "33",
+    "rotulo": "#33"
+  },
+  "acumulado_ano": {
+    "fonte_pct": 3.58,
+    "comparaveis": 7927,
+    "indices": {
+      "INCC-M": 5.59,
+      "IPCA": 3.11
+    },
+    "desde": "2026-01-01"
+  },
+  "dispersao_uf": {
+    "todas": [
+      {
+        "uf": "MA",
+        "cpus": 8301,
+        "var_pct": 1.9
+      },
+      {
+        "uf": "AM",
+        "cpus": 8301,
+        "var_pct": 1.77
+      },
+      {
+        "uf": "DF",
+        "cpus": 8300,
+        "var_pct": 1.58
+      },
+      {
+        "uf": "PR",
+        "cpus": 8300,
+        "var_pct": 1.54
+      },
+      {
+        "uf": "MS",
+        "cpus": 8300,
+        "var_pct": 1.51
+      },
+      {
+        "uf": "PA",
+        "cpus": 8300,
+        "var_pct": 0.97
+      },
+      {
+        "uf": "SE",
+        "cpus": 8300,
+        "var_pct": 0.73
+      },
+      {
+        "uf": "RR",
+        "cpus": 8300,
+        "var_pct": 0.66
+      },
+      {
+        "uf": "BA",
+        "cpus": 8300,
+        "var_pct": 0.63
+      },
+      {
+        "uf": "RN",
+        "cpus": 8300,
+        "var_pct": 0.6
+      },
+      {
+        "uf": "RO",
+        "cpus": 8300,
+        "var_pct": 0.58
+      },
+      {
+        "uf": "GO",
+        "cpus": 8299,
+        "var_pct": 0.53
+      },
+      {
+        "uf": "PE",
+        "cpus": 8300,
+        "var_pct": 0.47
+      },
+      {
+        "uf": "TO",
+        "cpus": 8301,
+        "var_pct": 0.45
+      },
+      {
+        "uf": "ES",
+        "cpus": 8299,
+        "var_pct": 0.45
+      },
+      {
+        "uf": "MT",
+        "cpus": 8300,
+        "var_pct": 0.44
+      },
+      {
+        "uf": "PI",
+        "cpus": 8300,
+        "var_pct": 0.39
+      },
+      {
+        "uf": "AP",
+        "cpus": 8299,
+        "var_pct": 0.37
+      },
+      {
+        "uf": "RS",
+        "cpus": 8300,
+        "var_pct": 0.25
+      },
+      {
+        "uf": "CE",
+        "cpus": 8301,
+        "var_pct": 0.25
+      },
+      {
+        "uf": "AL",
+        "cpus": 8300,
+        "var_pct": 0.19
+      },
+      {
+        "uf": "SP",
+        "cpus": 8300,
+        "var_pct": 0.11
+      },
+      {
+        "uf": "SC",
+        "cpus": 8299,
+        "var_pct": 0.03
+      },
+      {
+        "uf": "RJ",
+        "cpus": 8300,
+        "var_pct": 0.03
+      },
+      {
+        "uf": "PB",
+        "cpus": 8301,
+        "var_pct": 0.03
+      },
+      {
+        "uf": "AC",
+        "cpus": 8300,
+        "var_pct": -0.09
+      },
+      {
+        "uf": "MG",
+        "cpus": 8299,
+        "var_pct": -0.15
+      }
+    ],
+    "altas": [
+      {
+        "uf": "MA",
+        "cpus": 8301,
+        "var_pct": 1.9
+      },
+      {
+        "uf": "AM",
+        "cpus": 8301,
+        "var_pct": 1.77
+      },
+      {
+        "uf": "DF",
+        "cpus": 8300,
+        "var_pct": 1.58
+      },
+      {
+        "uf": "PR",
+        "cpus": 8300,
+        "var_pct": 1.54
+      },
+      {
+        "uf": "MS",
+        "cpus": 8300,
+        "var_pct": 1.51
+      },
+      {
+        "uf": "PA",
+        "cpus": 8300,
+        "var_pct": 0.97
+      },
+      {
+        "uf": "SE",
+        "cpus": 8300,
+        "var_pct": 0.73
+      },
+      {
+        "uf": "RR",
+        "cpus": 8300,
+        "var_pct": 0.66
+      },
+      {
+        "uf": "BA",
+        "cpus": 8300,
+        "var_pct": 0.63
+      },
+      {
+        "uf": "RN",
+        "cpus": 8300,
+        "var_pct": 0.6
+      }
+    ],
+    "baixas": [
+      {
+        "uf": "MG",
+        "cpus": 8299,
+        "var_pct": -0.15
+      },
+      {
+        "uf": "AC",
+        "cpus": 8300,
+        "var_pct": -0.09
+      },
+      {
+        "uf": "PB",
+        "cpus": 8301,
+        "var_pct": 0.03
+      },
+      {
+        "uf": "RJ",
+        "cpus": 8300,
+        "var_pct": 0.03
+      },
+      {
+        "uf": "SC",
+        "cpus": 8299,
+        "var_pct": 0.03
+      },
+      {
+        "uf": "SP",
+        "cpus": 8300,
+        "var_pct": 0.11
+      },
+      {
+        "uf": "AL",
+        "cpus": 8300,
+        "var_pct": 0.19
+      },
+      {
+        "uf": "CE",
+        "cpus": 8301,
+        "var_pct": 0.25
+      },
+      {
+        "uf": "RS",
+        "cpus": 8300,
+        "var_pct": 0.25
+      },
+      {
+        "uf": "AP",
+        "cpus": 8299,
+        "var_pct": 0.37
+      }
+    ],
+    "ufs": 27
+  }
+}

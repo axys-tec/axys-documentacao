@@ -1,0 +1,531 @@
+{
+  "fonte": "FDE",
+  "ref": "2026-07-01",
+  "ref_anterior": "2026-04-01",
+  "versao": "07-26",
+  "edi_id": 62,
+  "edi_anterior": 58,
+  "meses_intervalo": 3,
+  "modalidade": "SD",
+  "uf_foco": "SP",
+  "custo_origem": "cc_custo_calculado",
+  "custo_sem_bdi": true,
+  "movimento": {
+    "incluidas": 19,
+    "inativadas": 14,
+    "reativadas": 0,
+    "alteradas": 101
+  },
+  "cobertura": {
+    "ufs": 1,
+    "cpus": 3380,
+    "sem_custo": 0,
+    "linhas": 6760,
+    "pct_sem_custo": 0.0,
+    "insumos": 2408,
+    "insumos_sem_preco": 0,
+    "pct_sem_preco": 0.0
+  },
+  "precos": {
+    "uf": "SP",
+    "comparaveis": 3361,
+    "media_pct": 3.29,
+    "mediana_pct": 3.0,
+    "subiram": 3103,
+    "cairam": 222,
+    "estaveis": 36
+  },
+  "subgrupos": {
+    "altas": [
+      {
+        "subgrupo": "CONSERVACAO - ELEMENTOS DE MADEIRA/COMPONENTES ESPECIAIS - PARTE 2",
+        "cpus": 24,
+        "var_pct": 8.66,
+        "medio_anterior": 358.29,
+        "medio_atual": 389.34
+      },
+      {
+        "subgrupo": "DRENAGEM DO TERRENO",
+        "cpus": 28,
+        "var_pct": 8.52,
+        "medio_anterior": 219.55,
+        "medio_atual": 238.25
+      },
+      {
+        "subgrupo": "CONSERVACAO - ELEMENTOS METALICOS/COMPONENTES ESPECIAIS",
+        "cpus": 23,
+        "var_pct": 8.43,
+        "medio_anterior": 518.29,
+        "medio_atual": 562.0
+      },
+      {
+        "subgrupo": "DEMOLICOES - APARELHOS E EQUIPAMENTOS",
+        "cpus": 16,
+        "var_pct": 6.78,
+        "medio_anterior": 118.24,
+        "medio_atual": 126.25
+      },
+      {
+        "subgrupo": "RECOLOCACOES - APARELHOS E EQUIPAMENTOS",
+        "cpus": 10,
+        "var_pct": 6.67,
+        "medio_anterior": 213.09,
+        "medio_atual": 227.3
+      },
+      {
+        "subgrupo": "RETIRADAS - APARELHOS E EQUIPAMENTOS",
+        "cpus": 11,
+        "var_pct": 6.57,
+        "medio_anterior": 153.97,
+        "medio_atual": 164.08
+      },
+      {
+        "subgrupo": "DEMOLICOES - BAIXA TENSAO",
+        "cpus": 26,
+        "var_pct": 6.55,
+        "medio_anterior": 63.97,
+        "medio_atual": 68.16
+      },
+      {
+        "subgrupo": "RECOLOCACOES - BAIXA TENSAO",
+        "cpus": 16,
+        "var_pct": 6.19,
+        "medio_anterior": 114.65,
+        "medio_atual": 121.75
+      },
+      {
+        "subgrupo": "RETIRADAS - BAIXA TENSAO",
+        "cpus": 15,
+        "var_pct": 6.06,
+        "medio_anterior": 88.37,
+        "medio_atual": 93.73
+      },
+      {
+        "subgrupo": "REDE DE AGUA FRIA: DEMAIS SERVICOS",
+        "cpus": 27,
+        "var_pct": 5.96,
+        "medio_anterior": 310.24,
+        "medio_atual": 328.74
+      }
+    ],
+    "baixas": [
+      {
+        "subgrupo": "APARELHOS E METAIS",
+        "cpus": 24,
+        "var_pct": -14.48,
+        "medio_anterior": 821.11,
+        "medio_atual": 702.23
+      },
+      {
+        "subgrupo": "VIDROS",
+        "cpus": 12,
+        "var_pct": -6.88,
+        "medio_anterior": 396.63,
+        "medio_atual": 369.33
+      },
+      {
+        "subgrupo": "PONTOS DE: INTERRUPTORES E TOMADAS",
+        "cpus": 72,
+        "var_pct": -6.84,
+        "medio_anterior": 257.79,
+        "medio_atual": 240.15
+      },
+      {
+        "subgrupo": "QUADRA DE ESPORTES",
+        "cpus": 13,
+        "var_pct": -1.88,
+        "medio_anterior": 9700.44,
+        "medio_atual": 9518.11
+      },
+      {
+        "subgrupo": "CONSERVACAO - REDE DE ESGOTO E AGUAS PLUVIAIS",
+        "cpus": 15,
+        "var_pct": -0.23,
+        "medio_anterior": 132.58,
+        "medio_atual": 132.27
+      },
+      {
+        "subgrupo": "SERVICOS COMPLEMENTARES - ELETRICA",
+        "cpus": 34,
+        "var_pct": -0.2,
+        "medio_anterior": 49016.43,
+        "medio_atual": 48918.88
+      }
+    ],
+    "total_subgrupos": 98
+  },
+  "grupos": {
+    "todos": [
+      {
+        "grupo": "ELEMENTOS DE MADEIRA/COMPONENTES ESPECIAIS",
+        "cpus": 169,
+        "var_pct": 4.23,
+        "medio_anterior": 1361.62,
+        "medio_atual": 1419.26
+      },
+      {
+        "grupo": "ALVENARIA E OUTROS ELEMENTOS DIVISORIOS",
+        "cpus": 75,
+        "var_pct": 3.81,
+        "medio_anterior": 298.49,
+        "medio_atual": 309.87
+      },
+      {
+        "grupo": "PINTURA",
+        "cpus": 147,
+        "var_pct": 3.41,
+        "medio_anterior": 65.46,
+        "medio_atual": 67.7
+      },
+      {
+        "grupo": "SUPER ESTRUTURA",
+        "cpus": 94,
+        "var_pct": 3.29,
+        "medio_anterior": 411.93,
+        "medio_atual": 425.49
+      },
+      {
+        "grupo": "IMPERMEABILIZACOES / JUNTAS DE DILATACAO",
+        "cpus": 50,
+        "var_pct": 3.25,
+        "medio_anterior": 177.56,
+        "medio_atual": 183.33
+      },
+      {
+        "grupo": "REVESTIMENTOS: TETO E PAREDE",
+        "cpus": 54,
+        "var_pct": 2.85,
+        "medio_anterior": 148.52,
+        "medio_atual": 152.75
+      },
+      {
+        "grupo": "INSTALACOES HIDRAULICAS",
+        "cpus": 419,
+        "var_pct": 2.8,
+        "medio_anterior": 1185.84,
+        "medio_atual": 1219.01
+      },
+      {
+        "grupo": "ELEMENTOS METALICOS/COMPONENTES ESPECIAIS",
+        "cpus": 186,
+        "var_pct": 2.75,
+        "medio_anterior": 2747.37,
+        "medio_atual": 2822.91
+      },
+      {
+        "grupo": "FORRO",
+        "cpus": 40,
+        "var_pct": 2.66,
+        "medio_anterior": 183.53,
+        "medio_atual": 188.4
+      },
+      {
+        "grupo": "PISOS INTERNOS / RODAPES / PEITORIS",
+        "cpus": 174,
+        "var_pct": 2.62,
+        "medio_anterior": 178.1,
+        "medio_atual": 182.77
+      },
+      {
+        "grupo": "COBERTURA",
+        "cpus": 187,
+        "var_pct": 2.3,
+        "medio_anterior": 186.64,
+        "medio_atual": 190.92
+      },
+      {
+        "grupo": "SERVICOS PRELIMINARES",
+        "cpus": 76,
+        "var_pct": 2.21,
+        "medio_anterior": 1776.05,
+        "medio_atual": 1815.23
+      },
+      {
+        "grupo": "INFRA ESTRUTURA",
+        "cpus": 121,
+        "var_pct": 1.87,
+        "medio_anterior": 1153.71,
+        "medio_atual": 1175.25
+      },
+      {
+        "grupo": "INSTALACOES ELETRICAS",
+        "cpus": 831,
+        "var_pct": 1.6,
+        "medio_anterior": 4248.89,
+        "medio_atual": 4316.85
+      },
+      {
+        "grupo": "SERVICOS COMPLEMENTARES",
+        "cpus": 718,
+        "var_pct": 0.46,
+        "medio_anterior": 3566.11,
+        "medio_atual": 3582.68
+      },
+      {
+        "grupo": "VIDROS",
+        "cpus": 20,
+        "var_pct": -2.79,
+        "medio_anterior": 400.52,
+        "medio_atual": 389.35
+      }
+    ],
+    "altas": [
+      {
+        "grupo": "ELEMENTOS DE MADEIRA/COMPONENTES ESPECIAIS",
+        "cpus": 169,
+        "var_pct": 4.23,
+        "medio_anterior": 1361.62,
+        "medio_atual": 1419.26
+      },
+      {
+        "grupo": "ALVENARIA E OUTROS ELEMENTOS DIVISORIOS",
+        "cpus": 75,
+        "var_pct": 3.81,
+        "medio_anterior": 298.49,
+        "medio_atual": 309.87
+      },
+      {
+        "grupo": "PINTURA",
+        "cpus": 147,
+        "var_pct": 3.41,
+        "medio_anterior": 65.46,
+        "medio_atual": 67.7
+      },
+      {
+        "grupo": "SUPER ESTRUTURA",
+        "cpus": 94,
+        "var_pct": 3.29,
+        "medio_anterior": 411.93,
+        "medio_atual": 425.49
+      },
+      {
+        "grupo": "IMPERMEABILIZACOES / JUNTAS DE DILATACAO",
+        "cpus": 50,
+        "var_pct": 3.25,
+        "medio_anterior": 177.56,
+        "medio_atual": 183.33
+      },
+      {
+        "grupo": "REVESTIMENTOS: TETO E PAREDE",
+        "cpus": 54,
+        "var_pct": 2.85,
+        "medio_anterior": 148.52,
+        "medio_atual": 152.75
+      },
+      {
+        "grupo": "INSTALACOES HIDRAULICAS",
+        "cpus": 419,
+        "var_pct": 2.8,
+        "medio_anterior": 1185.84,
+        "medio_atual": 1219.01
+      },
+      {
+        "grupo": "ELEMENTOS METALICOS/COMPONENTES ESPECIAIS",
+        "cpus": 186,
+        "var_pct": 2.75,
+        "medio_anterior": 2747.37,
+        "medio_atual": 2822.91
+      }
+    ],
+    "baixas": [
+      {
+        "grupo": "VIDROS",
+        "cpus": 20,
+        "var_pct": -2.79,
+        "medio_anterior": 400.52,
+        "medio_atual": 389.35
+      }
+    ],
+    "total": 16
+  },
+  "insumos": {
+    "comparaveis": 2402,
+    "media_pct": 2.34,
+    "altas": [
+      {
+        "insumo": "TUBO CONCRETO SIMPLES (PS-1) COM PONTA E BOLSA Ø 30CM NBR 8890/2007",
+        "unidade": "M",
+        "var_pct": 92.9,
+        "preco": 130.95
+      },
+      {
+        "insumo": "ABRIGO PARA HIDRANTE 0,60X0,90X0,17M COM FECHADURA CHAVE MESTRA OU TRANCA",
+        "unidade": "UN",
+        "var_pct": 54.1,
+        "preco": 563.79
+      },
+      {
+        "insumo": "TUBO CONCRETO SIMPLES (PS-1) COM PONTA E BOLSA Ø 40CM NBR 8890/2007",
+        "unidade": "M",
+        "var_pct": 53.1,
+        "preco": 129.98
+      },
+      {
+        "insumo": "VALVULA ESCOAMENTO LATAO CROMADO DN 1 1/2\"",
+        "unidade": "UN",
+        "var_pct": 50.1,
+        "preco": 110.53
+      },
+      {
+        "insumo": "SIFAO METALICO TIPO COPO DN 1 1/2X2\"",
+        "unidade": "UN",
+        "var_pct": 46.2,
+        "preco": 181.16
+      },
+      {
+        "insumo": "REGISTRO GAVETA C/ CANOPLA CROMADA DN 3/4\"",
+        "unidade": "UN",
+        "var_pct": 45.4,
+        "preco": 64.52
+      },
+      {
+        "insumo": "TUBO CONCRETO SIMPLES (PS-1) COM PONTA E BOLSA Ø 50CM NBR 8890/2007",
+        "unidade": "M",
+        "var_pct": 33.1,
+        "preco": 161.02
+      },
+      {
+        "insumo": "LIXA PARA MADEIRA",
+        "unidade": "UN",
+        "var_pct": 32.1,
+        "preco": 1.03
+      },
+      {
+        "insumo": "TRAFFIC",
+        "unidade": "L",
+        "var_pct": 30.5,
+        "preco": 68.77
+      }
+    ],
+    "baixas": [
+      {
+        "insumo": "TOMADA INDUSTRIAL DE PAREDE 2P+T 32 AMPERES 220/240V ESTANQUE IP65",
+        "unidade": "UN",
+        "var_pct": -91.6,
+        "preco": 60.51
+      },
+      {
+        "insumo": "PARAFUSO TROMBETA PHILIPS PONTA AGULHA 3,5 X 35MM",
+        "unidade": "UN",
+        "var_pct": -89.9,
+        "preco": 0.07
+      },
+      {
+        "insumo": "PURIFICADOR/BEBEDOURO AGUA REFRIGERADA FORNECIDO E INSTALADO",
+        "unidade": "UN",
+        "var_pct": -82.2,
+        "preco": 706.67
+      },
+      {
+        "insumo": "CALHA P/LUMINARIA EMBUTIR C/REFLETOR SEM ALETAS (IL-80) COM SOQUETES P/ DUAS LAMPADAS LED TUBULAR 120 CM",
+        "unidade": "UN",
+        "var_pct": -63.3,
+        "preco": 52.11
+      },
+      {
+        "insumo": "IL-100 PROJETOR LED <= 50W C/DIFUSOR DE VIDRO TEMPERADO",
+        "unidade": "UN",
+        "var_pct": -39.5,
+        "preco": 87.96
+      },
+      {
+        "insumo": "ÁRVORE MUTAMBO H=0,50M A 1,00M (NATIVA PIONEIRA-SP)",
+        "unidade": "UN",
+        "var_pct": -30.6,
+        "preco": 16.69
+      },
+      {
+        "insumo": "CALHA P/LUMIN SOBREPOR LÂMPADA LED VIDRO 2X18W TEMPERATURA COR 4000ºK E SOQUETES",
+        "unidade": "UN",
+        "var_pct": -29.5,
+        "preco": 62.64
+      },
+      {
+        "insumo": "LAMPADA LED TUBULAR VIDRO DE 18W C/TEMPERATURA DE COR 4000° K",
+        "unidade": "UN",
+        "var_pct": -29.3,
+        "preco": 13.06
+      },
+      {
+        "insumo": "REBITE TIPO POP 440 (CENTO)",
+        "unidade": "UN",
+        "var_pct": -26.4,
+        "preco": 5.09
+      }
+    ]
+  },
+  "indicadores": {
+    "acumulados": {
+      "IGP-M": -0.83,
+      "INCC-M": 2.26,
+      "INPC": 0.78,
+      "IPCA": 0.81
+    },
+    "selic_aa": 14.25,
+    "selic_aa_anterior": 14.5,
+    "meses": 3
+  },
+  "revisoes": {
+    "coeficiente": 0,
+    "insumo_incluido": 3,
+    "insumo_excluido": 3,
+    "cabecalho": 98,
+    "total": 101
+  },
+  "revisoes_subgrupos": [
+    {
+      "subgrupo": "SERVICOS COMPLEMENTARES - ELETRICA",
+      "revisadas": 4
+    },
+    {
+      "subgrupo": "CONSERVACAO - APARELHOS E EQUIPAMENTOS",
+      "revisadas": 4
+    },
+    {
+      "subgrupo": "REDE DE BAIXA TENSAO: DUTO/QUADROS PARCIAIS LUZ/QUADROS TELEFONE",
+      "revisadas": 4
+    },
+    {
+      "subgrupo": "CONSERVACAO - BAIXA TENSAO",
+      "revisadas": 3
+    },
+    {
+      "subgrupo": "GRAMADOS/PAISAGISMO",
+      "revisadas": 3
+    },
+    {
+      "subgrupo": "CONSERVACAO - ALTA TENSAO",
+      "revisadas": 3
+    },
+    {
+      "subgrupo": "CONSERVACAO - SERVICOS COMPLEMENTARES",
+      "revisadas": 3
+    },
+    {
+      "subgrupo": "CONCRETO",
+      "revisadas": 2
+    },
+    {
+      "subgrupo": "ENTRADA: INTERLIGACAO AO QUADRO GERAL",
+      "revisadas": 2
+    },
+    {
+      "subgrupo": "FORRO",
+      "revisadas": 2
+    }
+  ],
+  "codigo": {
+    "numero": "32",
+    "rotulo": "#32"
+  },
+  "acumulado_ano": {
+    "fonte_pct": 6.06,
+    "comparaveis": 3262,
+    "indices": {
+      "INCC-M": 4.7,
+      "IPCA": 3.44
+    },
+    "desde": "2026-01-01"
+  },
+  "dispersao_uf": null
+}

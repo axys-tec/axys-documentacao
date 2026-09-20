@@ -3,6 +3,87 @@
   "gerado_em": null,
   "itens": [
     {
+      "id": "cdhu-2026-08",
+      "titulo": "CDHU · agosto de 2026",
+      "edicao": "#34",
+      "fonte": "CDHU",
+      "ref": "2026-08-01",
+      "chamada": "Variação média de +1,40% em SP, com 2 composições incluídas e 19 inativadas.",
+      "variacao_media_pct": 1.4,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "cdhu"
+      ],
+      "pdf": "easy-mobile/newsletter/cdhu-2026-08/cdhu-2026-08.pdf",
+      "pdf_bytes": 503520,
+      "paginas": 7,
+      "imagens": [
+        "easy-mobile/newsletter/cdhu-2026-08/post/pagina-01.png",
+        "easy-mobile/newsletter/cdhu-2026-08/post/pagina-02.png",
+        "easy-mobile/newsletter/cdhu-2026-08/post/pagina-03.png",
+        "easy-mobile/newsletter/cdhu-2026-08/post/pagina-04.png",
+        "easy-mobile/newsletter/cdhu-2026-08/post/pagina-05.png",
+        "easy-mobile/newsletter/cdhu-2026-08/post/pagina-06.png",
+        "easy-mobile/newsletter/cdhu-2026-08/post/pagina-07.png"
+      ],
+      "publicado_em": "2026-08-01"
+    },
+    {
+      "id": "sinapi-2026-08",
+      "titulo": "SINAPI · agosto de 2026",
+      "edicao": "#33",
+      "fonte": "SINAPI",
+      "ref": "2026-08-01",
+      "chamada": "Variação média de +0,11% em SP, com 103 composições incluídas e 100 inativadas.",
+      "variacao_media_pct": 0.11,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "sinapi"
+      ],
+      "pdf": "easy-mobile/newsletter/sinapi-2026-08/sinapi-2026-08.pdf",
+      "pdf_bytes": 497184,
+      "paginas": 7,
+      "imagens": [
+        "easy-mobile/newsletter/sinapi-2026-08/post/pagina-01.png",
+        "easy-mobile/newsletter/sinapi-2026-08/post/pagina-02.png",
+        "easy-mobile/newsletter/sinapi-2026-08/post/pagina-03.png",
+        "easy-mobile/newsletter/sinapi-2026-08/post/pagina-04.png",
+        "easy-mobile/newsletter/sinapi-2026-08/post/pagina-05.png",
+        "easy-mobile/newsletter/sinapi-2026-08/post/pagina-06.png",
+        "easy-mobile/newsletter/sinapi-2026-08/post/pagina-07.png"
+      ],
+      "publicado_em": "2026-08-01"
+    },
+    {
+      "id": "fde-2026-07",
+      "titulo": "FDE · julho de 2026",
+      "edicao": "#32",
+      "fonte": "FDE",
+      "ref": "2026-07-01",
+      "chamada": "Variação média de +3,29% em SP, com 19 composições incluídas e 14 inativadas.",
+      "variacao_media_pct": 3.29,
+      "assuntos": [
+        "orcamento",
+        "custo-de-referencia",
+        "fde"
+      ],
+      "pdf": "easy-mobile/newsletter/fde-2026-07/fde-2026-07.pdf",
+      "pdf_bytes": 482698,
+      "paginas": 7,
+      "imagens": [
+        "easy-mobile/newsletter/fde-2026-07/post/pagina-01.png",
+        "easy-mobile/newsletter/fde-2026-07/post/pagina-02.png",
+        "easy-mobile/newsletter/fde-2026-07/post/pagina-03.png",
+        "easy-mobile/newsletter/fde-2026-07/post/pagina-04.png",
+        "easy-mobile/newsletter/fde-2026-07/post/pagina-05.png",
+        "easy-mobile/newsletter/fde-2026-07/post/pagina-06.png",
+        "easy-mobile/newsletter/fde-2026-07/post/pagina-07.png"
+      ],
+      "publicado_em": "2026-07-01"
+    },
+    {
       "id": "sinapi-2026-07",
       "titulo": "SINAPI · julho de 2026",
       "edicao": "#31",
