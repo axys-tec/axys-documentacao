@@ -23,7 +23,7 @@ O orçamento paramétrico é algo mais otimizado. Nele aplica-se um conceito den
 
 As parametrizações podem ser inúmeras e sob várias frentes. Pontos elétricos, pontos hidráulicos e afins.  Esses indicadores, aplicando-se sobre áreas equivalentes e obras semelhantes, e serve para decidir se a contratação é viável, não para julgar proposta.
 
-Na Axys, temos a solução Easy Price™ ([https://www.axys-tec.com.br/easy-price](https://www.axys-tec.com.br/easy-price)), qual realiza para você tal estimativa. Temos observados resultados muito precisos e significantes quando comparado com orçamento final, em valor/escopo.
+Na Axys, temos a solução [Easy Price™](https://www.axys-tec.com.br/easy-price), qual realiza para você tal estimativa. Temos observados resultados muito precisos e significantes quando comparado com orçamento final, em valor/escopo.
 
 ## Anteprojeto
 

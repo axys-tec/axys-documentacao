@@ -28,7 +28,7 @@ Pode parecer bobo mas a mudança é drástica. No exemplo, não se deve por exem
 
 Nessa esteira, tem sido comum, planilhas de serviços repetidas (repetindo mesma EAP e mesmos serviços), perfazendo as separações por pavimento. Isso permite uma separação clara e irrefutável das **metas e medições**.
 
-No ecossistema Axys, nosso produto Easy Orça™ (https://www.axys-tec.com.br/easy-orca) permite descer até 5 níveis em EAP e faz/orienta essa distinção. Essa funcionalidade faz a montagem de cronogramas muito mais fáceis e assertivas pois nascem pensando/obedecendo aos preceitos da lei.
+No ecossistema Axys, nosso produto [Easy Orça™](https://www.axys-tec.com.br/easy-orca) permite descer até 5 níveis em EAP e faz/orienta essa distinção. Essa funcionalidade faz a montagem de cronogramas muito mais fáceis e assertivas pois nascem pensando/obedecendo aos preceitos da lei.
 
 Além disso e, não menos importante. Quando se montam as curvas ABC de serviços, materiais, equipamentos e afins não se pode esquecer de, somar todas as repetições.
 

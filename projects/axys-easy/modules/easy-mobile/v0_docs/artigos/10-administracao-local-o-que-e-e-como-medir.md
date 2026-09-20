@@ -48,7 +48,7 @@ Nada disso funciona por dedução na hora da medição. O edital precisa dizer, 
 
 Critério ausente vira disputa. E a disputa, na prática, costuma terminar no pior dos mundos, com valor mensal fixo aplicado a tudo porque é o mais fácil de operar na planilha de medição.
 
-Quem usa o Easy Orça™ ([https://www.axys-tec.com.br/easy-orca](https://www.axys-tec.com.br/easy-orca)) e o Easy Docs™ ([https://www.axys-tec.com.br/easy-docs](https://www.axys-tec.com.br/easy-docs)) gera, a partir do próprio orçamento, um caderno de encargos com os eventos e a forma de medição de cada item já destacados, ao lado do descritivo do orçamento e das memórias de cálculo. O critério deixa de ser algo a redigir no fim, quando o edital já está fechado, e passa a sair pronto de onde os itens foram criados.
+Quem usa o [Easy Orça™](https://www.axys-tec.com.br/easy-orca) e o [Easy Docs™](https://www.axys-tec.com.br/easy-docs) gera, a partir do próprio orçamento, um caderno de encargos com os eventos e a forma de medição de cada item já destacados, ao lado do descritivo do orçamento e das memórias de cálculo. O critério deixa de ser algo a redigir no fim, quando o edital já está fechado, e passa a sair pronto de onde os itens foram criados.
 
 ## Quando a obra atrasa
 
@@ -70,7 +70,7 @@ O demonstrativo detalhado dos custos com mobilização e desmobilização, admin
 
 Quando existe fonte de referência, as composições de administração local e canteiro podem ser buscadas no Sinapi e no Sicro, com os mesmos critérios de quantificação usados para os demais serviços.
 
-No ecossistema Axys, o Easy Orça™ ([https://www.axys-tec.com.br/easy-orca](https://www.axys-tec.com.br/easy-orca)) permite destacar a administração local no orçamento e, na montagem do cronograma, quantificá-la na mesma esteira da evolução física e financeira da obra. Em vez de arbitrar um valor mensal e defendê-lo depois, o critério proporcional nasce junto com o cronograma, já na forma que a lei e a jurisprudência pedem. Não identificamos precedente equivalente em outros sistemas de orçamento.
+No ecossistema Axys, o [Easy Orça™](https://www.axys-tec.com.br/easy-orca) permite destacar a administração local no orçamento e, na montagem do cronograma, quantificá-la na mesma esteira da evolução física e financeira da obra. Em vez de arbitrar um valor mensal e defendê-lo depois, o critério proporcional nasce junto com o cronograma, já na forma que a lei e a jurisprudência pedem. Não identificamos precedente equivalente em outros sistemas de orçamento.
 
 ## Um argumento que não se aceita sozinho
 
