@@ -126,6 +126,10 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA catalogo
 -- unaccent: remove acentos p/ normalização; pg_trgm: similaridade/fuzzy + GIN.
 CREATE EXTENSION IF NOT EXISTS unaccent SCHEMA catalogo;
 CREATE EXTENSION IF NOT EXISTS pg_trgm  SCHEMA catalogo;
+-- Distância de edição, para a busca. Resolve o ponto cego do trigrama em palavra curta:
+-- word_similarity('PIZO', X) devolve 0,400 IGUAL para PISO, PISTOLA e PINTURA, porque os
+-- trigramas compartilhados são os mesmos. levenshtein separa: 1, 4 e 5 trocas.
+CREATE EXTENSION IF NOT EXISTS fuzzystrmatch SCHEMA catalogo;
 
 
 -- ============================================================
