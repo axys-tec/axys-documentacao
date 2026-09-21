@@ -22,7 +22,7 @@ com **precisão > recall** (sinônimo errado casa errado = regressão).
 Sinônimo multi-palavra NO ÍNDICE explode recall (`drywall`→`gesso acartonado` fazia drywall casar tudo
 com "gesso"). Por isso o sinônimo é aplicado como **grafo de frase no search-time**, não no índice.
 
-## Glossário (2379 grupos — curado por Renan 2026-09-21)
+## Glossário (2374 grupos — curado por Renan 2026-09-21)
 Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acento).
 
 - abaneiro, arbusto clusia
@@ -94,7 +94,6 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - alvenaria autoportante, parede autoportante
 - alvenaria de pedra, pedra argamassada
 - alvenaria de vedacao, parede de vedacao
-- alvenaria, parede
 - ancora mecanica, parabolt
 - andaime fachadeiro, locacao de andaime fachadeiro
 - andaime suspenso, balancim
@@ -175,6 +174,7 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - azulejista, assentador revestimentos
 - azulejista, ladrilheiro
 - azulejista, ladrilhista
+- azulejo, revestimento ceramico
 - azulzinha, evolvulo
 - bacia caixa, vaso caixa acoplada
 - bacia infantil sifonada, vaso infantil
@@ -335,6 +335,7 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - cabo de solda, extensao solda
 - cabo multipolar, cabo multicondutor
 - cabo unipolar, cabo monopolar
+- cabo, fio
 - cacamba de entulho, papa entulho
 - caiacao, pintura a cal
 - caiacao, pintura a cal, aplicacao de cal
@@ -718,7 +719,6 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - elemento vazado concreto, cobogo de concreto
 - elemento vazado vidro, cobogo de vidro
 - elemento vazado, cobogo
-- eletrica, instalacao eletrica
 - eletrocalha, calha condutora
 - eletrocalha, calha eletrica
 - eletrodo revestido, vareta revestida
@@ -1036,7 +1036,7 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - guarnicao de madeira, vista de madeira
 - guarnicao de porta, vista de porta
 - guarnicao moldura de arremate, moldura de acabamento
-- guarnicao, alizar
+- guarnicao, alizar, vista
 - guia centralizadora, centralizador de coluna
 - guia chapeu de boca, meio-fio de boca
 - guia com sarjeta, meio-fio com sarjeta
@@ -1065,7 +1065,6 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - hibisco, mimo de venus
 - hidrante de coluna, hidrante de rua
 - hidrante subterraneo, hidrante de passeio
-- hidraulica, instalacao hidraulica
 - hidrofugacao, aplicacao de pintura hidrof
 - hidrofugacao, aplicacao de pintura hidrofugante
 - hidrofugante, primer silano siloxano
@@ -1404,7 +1403,6 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - passadico, passarela
 - passante de forma, tirante de forma
 - passeio mosaico portugues, calcada portuguesa
-- passeio, calcada
 - pasta abrasiva limpeza, massa de polir
 - pasta de cimento, nata de cimento, leite de cimento
 - pasta de solda, fluxo de solda
@@ -1473,7 +1471,6 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - pigmento xadrez, corante xadrez
 - pigtail manometro, sifao manometro
 - pigtail, rabicho
-- pilar, coluna
 - pilea, planta-aluminio
 - pincel, trincha
 - pino de tiro, fincapino
@@ -1866,7 +1863,6 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - revestimento de marmore, revestimento marmoreo
 - revestimento monocamada, monocapa
 - revestimento pu quadra, piso poliuretano quadra
-- revestimento, acabamento
 - rincao, calha agua furtada
 - ripa cambara cedrinho, sarrafo cambara cedrinho
 - ripa imbuia, sarrafo imbuia
@@ -2352,7 +2348,6 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - veda junta pu, selante poliuretano
 - vedacao calha borracha, borracha de calha
 - vedacao elastica, junta elastica
-- vedacao, fechamento
 - vedelia, margarida-rasteira
 - veneziana aletas fibra, louver de fibra
 - veneziana aletas montada, louver montado
