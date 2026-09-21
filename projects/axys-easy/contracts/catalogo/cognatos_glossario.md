@@ -22,7 +22,7 @@ com **precisão > recall** (sinônimo errado casa errado = regressão).
 Sinônimo multi-palavra NO ÍNDICE explode recall (`drywall`→`gesso acartonado` fazia drywall casar tudo
 com "gesso"). Por isso o sinônimo é aplicado como **grafo de frase no search-time**, não no índice.
 
-## Glossário ('+str(len(grup))+' grupos — curado por Renan 2026-09-21)
+## Glossário (2379 grupos — curado por Renan 2026-09-21)
 Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acento).
 
 - abaneiro, arbusto clusia
@@ -94,6 +94,7 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - alvenaria autoportante, parede autoportante
 - alvenaria de pedra, pedra argamassada
 - alvenaria de vedacao, parede de vedacao
+- alvenaria, parede
 - ancora mecanica, parabolt
 - andaime fachadeiro, locacao de andaime fachadeiro
 - andaime suspenso, balancim
@@ -174,7 +175,6 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - azulejista, assentador revestimentos
 - azulejista, ladrilheiro
 - azulejista, ladrilhista
-- azulejo, ladrilho
 - azulzinha, evolvulo
 - bacia caixa, vaso caixa acoplada
 - bacia infantil sifonada, vaso infantil
@@ -192,6 +192,7 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - balancim individual, cadeira suspensa
 - bancada fraldario, trocador bebe
 - bancada laboratorio, mesa laboratorio
+- bancada, tampo
 - banco articulado aluminio, assento rebativel
 - banco articulado banho, assento banho
 - banco articulado inox, assento rebativel
@@ -241,6 +242,7 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - berco de areia, colchao de areia
 - betoneira, misturador de concreto
 - bica corrida, brita corrida
+- bica, torneira
 - bicicletario, paraciclo
 - bico escalonado de bronze, espigao de bronze
 - bico escalonado de latao, espigao de latao
@@ -267,6 +269,7 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - bloco u ceramico, canaleta estrutural ceramica
 - bloco u de concreto, canaleta estrutural de concreto
 - bloco vazado de gesso, cobogo de gesso
+- bloco, tijolo
 - bloquete de concreto, paver
 - bloquete intertravado, paver
 - bloquete, paver
@@ -338,7 +341,6 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - caixa 4x2, conjunto caixa retangular
 - caixa 4x4, conjunto caixa quadrada
 - caixa de aterramento, caixa de inspecao de aterramento
-- caixa de descarga, reservatorio de descarga
 - caixa de distribuicao, quadro de distribuicao
 - caixa de equalizacao, caixa equipotencial
 - caixa de gordura, separador de gordura
@@ -347,7 +349,6 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - caixa de inspecao de esgoto, caixa de visita
 - caixa de inspecao, caixa de visita
 - caixa de medicao, caixa de relogio
-- caixa de porta, marco de porta
 - caixa passa luvas, passa luvas
 - caixa sifonada, caixa com fecho hidrico
 - cal hidratada, cal apagada
@@ -698,7 +699,6 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - dimmer rotativo, variador luz
 - dinheiro-em-penca, tostao
 - dio, distribuidor interno optico
-- disjuntor, interruptor automatico
 - dispensador de sabonete, saboneteira dispenser
 - dispositivo de protecao contra surtos, dps
 - dispositivo de protecao contra surtos, protetor contra surtos
@@ -807,6 +807,7 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - esferas de vidro, microesferas vidro extra
 - esferas refletivas, microesferas vidro sinalizacao
 - esgotamento vala bomba, bombeamento vala
+- esgoto, sanitaria
 - esguicho sanitario com registro, ducha higienica com registro
 - esguicho sanitario cromado, ducha higienica cromada
 - esguicho sanitario metalico, ducha higienica metalica
@@ -835,6 +836,7 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - espuma expansiva, espuma pu
 - espuma flexivel, espuma soft
 - esquadria veneziana, janela veneziana
+- esquadria, porta, janela, caixilho
 - esquadro de pedreiro, esquadro cabo aluminio
 - estabilizador de tensao, regulador de voltagem
 - estaca escavada, estaca moldada in loco
@@ -933,6 +935,7 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - forro drywall, gesso acartonado
 - forro falso, forro suspenso
 - forro removivel, forro modular
+- forro, teto
 - fresadora de pavimento, fresadora de asfalto frio
 - frontao granito, rodabanca granito
 - frontao marmore, rodabanca marmore
@@ -947,7 +950,6 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - fundo para galvanizado, primer galvanizados galvite
 - fundo poliuretano, primer poliuretano
 - fundo preparador, preparador liquido
-- fundo preparador, primer
 - fusivel de rolha retardado, fusivel diazed retardado
 - fusivel de rolha, fusivel diazed
 - galvanizacao a quente, galvanizacao fogo
@@ -1075,6 +1077,7 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - identificacao de ambiente, placa de sinalizacao de ambiente
 - identificacao de corrimao, placa de sinalizacao de corrimao
 - identificador de disjuntor, placa alerta disjuntor
+- impermeabilizacao, estanqueamento
 - impermeabilizante acrilico, membrana impermeabilizante acrilica
 - impermeabilizante cristalizante, cimento cristalizante impermeabilizacao
 - impermeabilizante para baldrame, impermeabilizante de baldrame
@@ -1187,7 +1190,6 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - lampada halogena, lampada incandescente halogena
 - lampada tubular, lampada tubo
 - lancamento bombeado de concreto, concretagem bombeada
-- lancamento e adensamento de concreto, concretagem
 - lancamento manual de concreto, concretagem manual
 - lantana, cambara
 - lanterna chinesa, lanterna japonesa
@@ -1215,7 +1217,6 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - luminaria aberta, calha aberta
 - luminaria blindada oval, tartaruga
 - luminaria de calha, calha luminaria
-- luminaria de emergencia, iluminacao de emergencia
 - luminaria de parede, arandela de circulacao
 - luminaria dupla sinalizacao, bloco autonomo dupla face
 - luminaria emergencia led, bloco autonomo led
@@ -1418,6 +1419,7 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - patch panel, painel de conexao
 - pavimentacao articulada, piso intertravado
 - pavimentacao lajota concreto, bloquete
+- pavimentacao, pavimento
 - pavimento asfaltico, pavimento betuminoso
 - pedra britada pedrisco, pedrisco
 - pedra britada, brita
@@ -1739,6 +1741,7 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - quadro telebras embutido, caixa telefonica embutida
 - quadro telebras sobrepor, caixa telefonica de sobrepor
 - quadro telefonico embutido, caixa telefonica embutida
+- quadro, painel
 - rabicho com canopla, tubo ligacao canopla
 - rabicho cromado, tubo ligacao cromado
 - rabicho de cobre, tubo ligacao cobre
@@ -1863,6 +1866,7 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - revestimento de marmore, revestimento marmoreo
 - revestimento monocamada, monocapa
 - revestimento pu quadra, piso poliuretano quadra
+- revestimento, acabamento
 - rincao, calha agua furtada
 - ripa cambara cedrinho, sarrafo cambara cedrinho
 - ripa imbuia, sarrafo imbuia
@@ -2348,6 +2352,7 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - veda junta pu, selante poliuretano
 - vedacao calha borracha, borracha de calha
 - vedacao elastica, junta elastica
+- vedacao, fechamento
 - vedelia, margarida-rasteira
 - veneziana aletas fibra, louver de fibra
 - veneziana aletas montada, louver montado
