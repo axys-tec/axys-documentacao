@@ -1,0 +1,2401 @@
+# Glossário de COGNATOS da busca — catálogo AxysEasy
+
+Contrato irmão de [listagem.md](listagem.md). Este é o **registro durável** do glossário de sinônimos/
+cognatos usado na busca elástica (nunca perder). Aplicado como filtro `synonym_graph` no **search-time**
+do analisador `easy_pt_search` (ver `backend/core/search/opensearch_indexer.py`); canônico aplicado =
+`backend/core/search/cognatos.txt`.
+
+## Regra de ouro (fine-tuning)
+> NÃO promover uma **característica**, **aplicação** ou **hiperônimo** a sinônimo do objeto.
+Ex. proibidos: `impermeabilizante=hidrofugante` (característica), `chapisco=ponte de aderência`
+(aplicação/função), `esquadria=porta` (hiperônimo), `ferro=pau-ferro` (colisão homônima).
+Objetivo = **equivalência de INTENÇÃO DE BUSCA** em orçamento/engenharia (não sinônimo de dicionário),
+com **precisão > recall** (sinônimo errado casa errado = regressão).
+
+## Como cresce (pipeline, z_scripts_apoio/)
+1. `cognatos_ia.py` — IA sugere (modo `temas` = domínio; modo `catalogo` = famílias reais → completude).
+2. `cognatos_valida.py` — IA valida/normaliza (na dúvida rejeita).
+3. `cognatos_efetividade.py` — mantém só regra que faz o alvo surgir (medir; cuidado: mede só as fontes atuais).
+4. **Curadoria humana (Renan)** aplicando a Regra de ouro. → este arquivo + cognatos.txt → `recreate` do índice.
+
+## Multi-palavra é seguro? Sim, via synonym_graph
+Sinônimo multi-palavra NO ÍNDICE explode recall (`drywall`→`gesso acartonado` fazia drywall casar tudo
+com "gesso"). Por isso o sinônimo é aplicado como **grafo de frase no search-time**, não no índice.
+
+## Glossário ('+str(len(grup))+' grupos — curado por Renan 2026-09-21)
+Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acento).
+
+- abaneiro, arbusto clusia
+- abertura de vala, escavacao de vala
+- abertura em piso elevado, furacao piso elevado
+- abertura para torneira, furo para torneira
+- abracadeira com parafuso, grampo com parafuso
+- abracadeira cunha, grampo cunha
+- abracadeira de aluminio, cinta aluminio
+- abracadeira de eletroduto, presilha de eletroduto
+- abracadeira de nylon, enforca gato
+- abracadeira de poste, cinta zincado poste
+- abracadeira galvanizada, cinta circular galvanizado
+- abrigo de bujoes, armario de bujoes
+- abrigo de cavalete, caixa de cavalete
+- abrigo de cilindros, gaiola para cilindro
+- abrigo de hidrante, caixa de incendio
+- abrigo de medidor de gas, caixa de gas
+- abrigo de poco, casa de poco
+- abrigo de registro de recalque, caixa de recalque
+- acabamento de registro, canopla de registro
+- acabamento de valvula de descarga, acabamento de descarga
+- acelerante, acelerador de pega
+- acerola, cereja das antilhas
+- acido cloridrico, acido muriatico
+- acionador de quebra vidro, botoeira de quebra vidro
+- acionador manual de sirene, botoeira de alarme
+- acionador manual rearmavel, botoeira de incendio
+- acionamento de descarga, botao de descarga
+- aco patinavel, aco corten
+- acoplamento de ferro, luva de ferro
+- adaptador bolsa rosca, luva soldavel com rosca
+- adaptador de soquete, modulo adaptacao luminaria
+- adaptador flangeado, adaptador roscavel flanges
+- adaptador macho, adaptador ponta rosca
+- adesivo de contato, cola de contato
+- adesivo de contato, cola para chapas melaminicas
+- adesivo pu, cola de poliuretano
+- adesivo vinilico, cola para piso vinilico
+- adubacao, aplicacao de adubo
+- agapanto, lirio africano
+- agitador de lama, misturador preparo lama
+- agitador de tinta, misturador manual tintas
+- aglomerante, ligante
+- agregado reciclado, brita reciclada residuos
+- agrimensor, topografo
+- ajudante de azulejista, auxiliar de azulejista
+- ajudante de eletricista, auxiliar de eletricista
+- ajudante de encanador, auxiliar de encanador
+- ajudante de laboratorio de solos, auxiliar de laboratorista de solos
+- ajudante de laboratorio, auxiliar de laboratorio
+- ajudante de mecanico, auxiliar de mecanico
+- ajudante de serralheiro, auxiliar de serralheiro
+- alambrado com mourao, cerca com mourao
+- alambrado galvanizado, cerca de tela galvanizada
+- alambrado galvanizado, cerca galvanizada
+- alambrado metalico, cerca de tela metalica
+- alambrado, cerca de tela
+- alarme audiovisual, sirene com luz
+- alarme bitonal, sirene bitonal
+- alarme hidraulico, campainha hidraulica
+- alcapao, portinhola de acesso
+- alicate bico longo, alicate meia cana
+- alicate desencapador, decapador de fios
+- alisadora de concreto, helicoptero de concreto
+- alizar de porta, guarnicao de porta
+- alojamento modular, container alojamento
+- aluguel de cacamba, teleentulho
+- alvenaria autoportante, parede autoportante
+- alvenaria de pedra, pedra argamassada
+- alvenaria de vedacao, parede de vedacao
+- ancora mecanica, parabolt
+- andaime fachadeiro, locacao de andaime fachadeiro
+- andaime suspenso, balancim
+- anel de borracha epdm, o-ring epdm
+- anel de borracha para tubo, junta elastica
+- anel de concreto armado, manilha armada
+- anel de concreto, manilha
+- anel de prolongamento, acrescimo de poco de visita
+- anel de prolongamento, prolongador caixa passagem
+- anel de prolongamento, prolongamento caixa sifonada
+- anel de prolongamento, prolongamento prolongador caixa
+- anel de vedacao flexivel, junta elastica
+- aplique blindado, arandela blindada
+- aplique blindado, arandela de aluminio blindada
+- aplique inclinado, arandela de aluminio inclinada
+- apoio elastomerico, apoio de neoprene
+- ar condicionado cassete, condicionado split cassete
+- ar condicionado de janela, condicionado janela ciclo
+- ar condicionado dutado, condicionado split duto
+- ar condicionado inverter, condicionado split inverter
+- ar condicionado piso teto, condicionado split piso
+- ar condicionado split, condicionado frio split
+- ar condicionado split, split wall
+- ar condicionado splitao, condicionado frio splitao
+- ar condicionado splitao, splitao fornecimento
+- arame concertina, concertina simples galvanizada
+- arame farpado, arame de espinhos
+- arame galvanizado, arame zincado
+- arame recozido, arame queimado
+- arandela blindada, luminaria de parede
+- arandela tartaruga, luminaria tartaruga
+- arandela tartaruga, tartaruga
+- arandela, aplique
+- arandela, luminaria de parede
+- ardosia, lousa
+- areca, palmeira areca
+- argamassa autonivelante, massa autonivelante
+- argamassa colante, cimento cola
+- argamassa de assentamento, massa de assentamento
+- argamassa de rejuntamento, rejunte
+- argamassa de revestimento, massa de revestimento
+- argamassa impermeabilizante, argamassa hidrofuga
+- argamassa monomassa, monomassa
+- argamassadeira, misturador argamassa
+- argila expandida, leca
+- armacao escada, ferragem de escada
+- armacao laje, ferragem de laje
+- armacao pilar e viga, ferragem de pilar e viga
+- armacao sapata, ferragem de sapata
+- armacao verga e contraverga, ferragem de verga e contraverga
+- armador de ferragem, ferreiro armador
+- armadura barra, vergalhao
+- armadura, ferragem, armacao
+- aroeira salsa, pimenteira
+- arrasamento de estaca, corte de estaca
+- arremate meia cana, perfil meia cana
+- arruela de pressao, arruela elastica
+- arruela galvanizada, arruela zincada
+- arruela lisa inox, arruela plana inox
+- arruela lisa, arruela plana
+- asfalto diluido, cutback
+- asfalto oxidado, betume oxidado
+- asfalto usinado modificado, concreto asfaltico modificado
+- asfalto usinado, concreto asfaltico usinado
+- assoalho, soalho
+- aterramento, ligacao a terra
+- automatizador telescopico, operador de porta telescopica
+- auxiliar de aplicacao, ajudante aplicador
+- auxiliar de armador, ajudante armador
+- auxiliar de carpinteiro, ajudante carpinteiro
+- auxiliar de eletricista, ajudante eletricista
+- auxiliar de encanador, ajudante encanador
+- auxiliar de ferreiro, ajudante ferreiro
+- auxiliar de marceneiro, ajudante marceneiro
+- auxiliar de pintura, ajudante pintor
+- auxiliar topografo, ajudante topografia
+- avental raspa, avental couro
+- azulejista, assentador revestimentos
+- azulejista, ladrilheiro
+- azulejista, ladrilhista
+- azulejo, ladrilho
+- azulzinha, evolvulo
+- bacia caixa, vaso caixa acoplada
+- bacia infantil sifonada, vaso infantil
+- bacia louca branca, vaso louca
+- bacia pessoas mobilidade, vaso cadeirante
+- bacia sanitaria acessivel, vaso cadeirante
+- bacia sanitaria infantil, vaso infantil
+- bacia sanitaria louca, vaso louca
+- bacia sanitaria, vaso sanitario
+- bacia sifonada caixa, vaso caixa acoplada
+- bacia sifonada louca, vaso louca
+- bacia turca louca, vaso turco
+- bacia turca, vaso turco
+- balancim eletrico, andaime suspenso motorizado
+- balancim individual, cadeira suspensa
+- bancada fraldario, trocador bebe
+- bancada laboratorio, mesa laboratorio
+- banco articulado aluminio, assento rebativel
+- banco articulado banho, assento banho
+- banco articulado inox, assento rebativel
+- banco pufe, puff
+- banco reto tres, longarina tres lugares
+- banco retratil, assento articulado
+- bandeja deslizante rack, prateleira deslizante
+- bandeja fixa rack, prateleira rack
+- banheira inox, tina inox
+- banheiro de obra, sanitario vestiario provisorio
+- banheiro modular, container sanitario
+- banheiro quimico, sanitario quimico
+- banho bercario, banheira bebe
+- banner, placa de lona impressa
+- barbaca, dreno de muro de contencao
+- barbaca, dreno muro
+- barra antipanico, barra de emergencia
+- barra chata galvanizada, ferro chato galv
+- barra chata galvanizada, ferro chato galvanizado
+- barra de cobre, cobre eletrolitico
+- barra de transferencia, alca de transferencia
+- barra roscada zincada, vergalhao roscado
+- barra roscada zincada, vergalhao roscado zincado
+- barra roscada, haste roscada
+- barra roscada, tirante vergalhao rosca
+- barracao de obra, construcao provisoria madeira
+- barramento central trifasico, pente trifasico
+- barramento neutro e terra, barra neutro terra
+- barramento neutro, barra neutro
+- barreira de concreto, obstaculo de concreto
+- base de fusivel diazed, porta fusivel diazed
+- base de fusivel tripolar, porta fusivel tripolar
+- base de fusivel unipolar, porta fusivel unipolar
+- base de fusivel, porta fusivel
+- base de mastro, sapata de mastro
+- base de rele, soquete de rele
+- base epoxi, fundo primer epoxi
+- base seladora, fundo selador acrilico
+- bate estaca gravidade, cravador de estacas
+- bate estaca hidraulico, cravador de estacas
+- bate roda, limitador de estacionamento
+- batente de aluminio, marco de aluminio
+- batente de madeira, marco de madeira
+- batente de porta, marco de porta
+- batente metalico, marco metalico
+- batente, aduela, marco
+- berco de areia, colchao de areia
+- betoneira, misturador de concreto
+- bica corrida, brita corrida
+- bicicletario, paraciclo
+- bico escalonado de bronze, espigao de bronze
+- bico escalonado de latao, espigao de latao
+- bidim, manta geotextil
+- binder, massa asfaltica intermediaria
+- bitola, calibre
+- bloco aerado, bloco de concreto celular
+- bloco ceramico de vedacao, tijolo de vedacao
+- bloco ceramico estrutural, tijolo estrutural
+- bloco ceramico furado, tijolo baiano
+- bloco ceramico, tijolo baiano
+- bloco de concreto celular, bloco autoclavado
+- bloco de concreto estrutural, bloco de cimento estrutural
+- bloco de concreto para piso, paver
+- bloco de concreto para vedacao, bloco de cimento para vedacao
+- bloco de concreto, bloco cimenticio
+- bloco de concreto, bloco de cimento
+- bloco de coroamento, bloco sobre estacas
+- bloco de pead, bloco de polietileno de alta densidade
+- bloco estrutural ceramico, tijolo estrutural
+- bloco intertravado, bloquete
+- bloco macico de gesso, bloco de gesso compacto
+- bloco terminal, borne
+- bloco u ceramico, canaleta estrutural ceramica
+- bloco u de concreto, canaleta estrutural de concreto
+- bloco vazado de gesso, cobogo de gesso
+- bloquete de concreto, paver
+- bloquete intertravado, paver
+- bloquete, paver
+- bobina minima de disjuntor, bobina de minima tensao
+- boca de bueiro duplo, cabecote duplo de bueiro
+- boca de bueiro simples, cabecote de bueiro
+- boca de bueiro triplo, cabecote triplo de bueiro
+- boca de leao dupla, caixa coletora dupla
+- boca de leao simples, caixa coletora
+- boca de lobo dupla, caixa coletora dupla
+- boca de lobo simples, caixa coletora
+- boca de lobo tripla, caixa coletora tripla
+- bocal de calha, saida de calha
+- bocal, soquete
+- boiler solar, aquecedor solar compacto
+- boiler solar, reservatorio solar
+- boiler, aquecedor de acumulacao
+- bolsa de ferramentas, sacola de ferramentas
+- bomba circuladora de agua, circulador de agua
+- bomba circuladora de aquecimento, circulador de aquecimento
+- bomba de condensados, bomba de dreno
+- bomba submersa, bomba submersivel
+- bomba submersivel eletrica, bomba sapo
+- bomba submersivel trifasica, bomba sapo trifasica
+- bomba submersivel, bomba sapo
+- borracha clorada, tinta clorada
+- bota-fora, destinacao de material excedente
+- botao de campainha, pulsador de campainha
+- botao de cigarra, pulsador de cigarra
+- botao de comando duplo, pulsador duplo
+- botao de comando, pulsador
+- botao de emergencia cogumelo, parada de emergencia
+- botoeira cogumelo, botao de emergencia
+- botoeira de pedestre, acionador de pedestre
+- bracadeira circular de carbono, grampo u de carbono
+- bracadeira de cruzeta, grampo de cruzeta
+- bracadeira de eletroduto, grampo de eletroduto
+- bracadeira de poste, grampo de poste
+- bracadeira de tubo, grampo de tubo
+- braco com canopla, braco de chuveiro com canopla
+- braco de afastamento galvanizado, afastador galvanizado
+- braco de haste reta, braco reto
+- braco de iluminacao publica, suporte de luminaria publica
+- braco luminaria publica, suporte de luminaria publica
+- brise cimenticio, quebra-sol cimenticio
+- brise metalico curvo, quebra-sol metalico curvo
+- brise metalico fixo, quebra-sol metalico
+- brise, quebra-sol
+- brita graduada usinada, bgs
+- broca de widia, broca ponta videa
+- broca de widia, broca ponta vidia
+- bucha de reducao, adaptador de reducao
+- bucha excentrica, reducao excentrica esgoto
+- bueiro aberto, aduela galeria aberta
+- bueiro celular, aduela galeria moldada
+- bueiro fechado, aduela galeria fechada
+- bujao, plugue
+- cabide de banheiro, gancho de banheiro
+- cabide de parede, gancho de parede
+- cabide de porcelana, gancho de porcelana
+- cabine blindada, cubiculo blindado
+- cabo de rede, cabo ethernet
+- cabo de solda, extensao solda
+- cabo multipolar, cabo multicondutor
+- cabo unipolar, cabo monopolar
+- cacamba de entulho, papa entulho
+- caiacao, pintura a cal
+- caiacao, pintura a cal, aplicacao de cal
+- caixa 4x2, conjunto caixa retangular
+- caixa 4x4, conjunto caixa quadrada
+- caixa de aterramento, caixa de inspecao de aterramento
+- caixa de descarga, reservatorio de descarga
+- caixa de distribuicao, quadro de distribuicao
+- caixa de equalizacao, caixa equipotencial
+- caixa de gordura, separador de gordura
+- caixa de incendio, abrigo de mangueira
+- caixa de inspecao de aterramento, caixa de terra
+- caixa de inspecao de esgoto, caixa de visita
+- caixa de inspecao, caixa de visita
+- caixa de medicao, caixa de relogio
+- caixa de porta, marco de porta
+- caixa passa luvas, passa luvas
+- caixa sifonada, caixa com fecho hidrico
+- cal hidratada, cal apagada
+- cal virgem, cal viva
+- calagem, aplicacao de calcario
+- calco de roda, segregador bate roda
+- calco elastomerico, apoio de placa de neoprene
+- calda de cimento, nata de cimento
+- calha de zinco, calha galvanizada
+- calha embutir, calha de embutir
+- calha parshall, medidor vazao parshall
+- calha pvc, calha de pvc
+- calha sobrepor, calha de sobrepor
+- camera ptz, camera speed dome
+- caminhao munck, caminhao guindauto
+- caminhao pipa, caminhao irrigadeira
+- caminhao pipa, carro pipa
+- caminhao toco, caminhao 4x2
+- caminhao truck agregado, caminhao trucado terceiro
+- caminhao truck, caminhao trucado
+- campainha cigarra, buzzer
+- cana de macaco, arbusto dicorisandra
+- canaleta com grelha, ralo linear
+- canaleta de concreto, canaleta de cimento
+- canaleta de concreto, valeta de concreto
+- canaleta de drenagem, calha de drenagem
+- canaleta meia cana, valeta meia cana
+- canaleta passa fio, canaleta aparente
+- canalizacao, tubulacao, encanamento
+- cancela automatica, barreira automatica
+- cano de esgoto, tubo esgoto
+- cano galvanizado medio, tubo galvaniz media
+- cano galvanizado medio, tubo glavaniz media
+- cano galvanizado pesado, tubo galv pesada
+- cano galvanizado, tubo galvanizado
+- cano preto revestido, tubo preto revestimento
+- cano, tubo
+- canopla cromada, acabamento cromado de registro
+- canopla, espelho de registro
+- cantoneira de ferro, ferro cantoneira
+- cantoneira, perfil l, perfil angular
+- capacete com aba frontal, capacete de seguranca frontal
+- capim palmeira, arbusto curculigo
+- captor franklin, para raios franklin
+- carpete, piso textil carpete
+- carreta co2, extintor rodas carbonico
+- carreta extintora, extintor manual rodas
+- carreta po quimico, extintor rodas quimico
+- carreta prancha, carreta plataforma
+- cartucho de vidro, fusivel vidro
+- caulim, argila branca
+- cavalo mecanico, caminhao trator
+- cbuq, concreto betuminoso usinado a quente
+- cbuq, misturado quente
+- central de alarme, painel de alarme
+- central de deteccao, painel de deteccao
+- central de emergencia, painel de emergencia
+- central de incendio, painel de incendio
+- central pabx, central telefonica
+- cera virgem, cera de abelha
+- ceramica esmaltada azul, azulejo azul
+- ceramica esmaltada branca, azulejo branco
+- ceramica esmaltada laranja, azulejo laranja
+- ceramica esmaltada lisa, azulejo liso
+- cerca concertina dupla, concertina dupla clipada
+- cerca de mourao, cerca mourao
+- cesta de pedra, gabiao caixa malha
+- cesta de pedra, gabiao caixa tela
+- cesta trapezoidal, gabiao caixa trapezoidal
+- chapa compensada plastificada, madeirite plastificado
+- chapa de emenda de viga, placa de uniao
+- chapa de fibra de vidro, placa de poliester reforcada
+- chapa de montagem eletrica, placa de montagem de quadros
+- chapa expandida, metal expandido
+- chapa expandida, tela expandida
+- chapa galvanizada, chapa zincada
+- chapa inoxidavel, chapa inox
+- chapa laminado melaminico, formica
+- chapa melaminico texturizado, formica texturizada
+- chapa oriented strand, osb
+- chapa perfurada, chapa furada
+- chapa perfurada, tela perfurada
+- chapim, capeamento de muro
+- chapisco adesivo, ponte de aderencia
+- chapisco de parede, salpico de parede
+- chapisco de teto, salpico de teto
+- chapisco, salpico
+- chave ajustavel, chave inglesa
+- chave boia, automatico de boia polipropileno
+- chave boia, automatico de boia superior
+- chave boia, boia de nivel
+- chave comutadora amperimetro, seletor amperimetro
+- chave comutadora de posicoes, seletor rotativo
+- chave comutadora de reversao, reversor
+- chave comutadora seletora, seletor
+- chave comutadora tetrapolar, interruptor quatro polos
+- chave comutadora voltimetro, seletor voltimetro
+- chave faca blindada, interruptor faca blindado
+- chave faca seca, interruptor faca
+- chave fluxo agua, fluxostato hidraulico
+- chave fluxo palheta, fluxostato de palheta
+- chave fluxo, fluxostato
+- chave grifo, chave de cano
+- chave nivel boia, boia de nivel
+- chave seccionadora de carga, interruptor seccionador
+- chave seccionadora tripolar, seccionador tripolar
+- chave seccionadora, seccionador
+- chave seccionadora, seccionadora
+- chave seletora de amperimetro, comutador de amperimetro
+- chave seletora de voltimetro, comutador de voltimetro
+- chiller, unidade resfriadora
+- chumbador mecanico, parabolt
+- chumbador parabolt, parabolt
+- chumbador, ancora
+- chuveiro acessivel, ducha acessivel
+- chuveiro antivandalismo, ducha antivandalica
+- chuveiro articulado, ducha articulada
+- chuveiro com valvula, ducha com valvula
+- chuveiro eletrico com resistencia, ducha com resistencia
+- chuveiro eletrico comum, ducha eletrica simples
+- chuveiro eletrico eletronico, ducha eletronica
+- chuveiro eletrico, ducha eletrica
+- chuveiro eletronico, ducha eletronica
+- chuveiro frio com registro, ducha fria com registro
+- chuveiro frio, ducha fria
+- chuveiro simples articulado, ducha articulada
+- chuveiro simples, ducha simples
+- chuveiro, ducha
+- cigarra de embutir, campainha de embutir
+- cigarra escolar, campainha escolar
+- cigarra industrial, campainha industrial
+- cilindro bujao, botijao
+- cilindro de fechadura, miolo de fechadura
+- cilindro de gas, cilindro carga
+- cimbramento, escoramento
+- cinta inox, fita inox cintar
+- cinta inox, fita inoxidavel largura
+- cinto paraquedista, cinturao seguranca paraquedista
+- claraboia, domo acrilico
+- clorofito, gravatinha
+- cobertura com lona, aplicacao de lona plastica
+- cobogo ceramico, elemento vazado ceramico
+- coifa de cozinha, coifa inoxidavel
+- cola acrilica, adesivo acrilico
+- cola acrilica, adesivo base acrilica
+- cola cpvc, adesivo tubos cpvc
+- cola de sapateiro, adesivo cola contato
+- cola epoxi, adesivo base epoxi
+- cola estrutural, adesivo estrutural
+- cola pu, adesivo poliuretano
+- cola pva, cola branca
+- cola pvc, adesivo para pvc
+- cola pvc, adesivo plastico
+- cola pvc, adesivo tubos
+- colchao de areia, camada areia
+- colchao reno, gabiao manta colchao
+- compactacao de aterro, apiloamento de aterro
+- compactacao do solo, apiloamento simples
+- compactador de placa reversivel, placa vibratoria reversivel
+- compactador de placa, placa vibratoria
+- compensado naval, compensado maritimo
+- compensador de bronze, junta expansao bronze
+- compensador de cobre, junta expansao cobre
+- computador com impressora laser, microcomputador impressora laser
+- concreto asfaltico, concreto betuminoso
+- concreto auto adensante, concreto autoadensavel
+- concreto celular, concreto aerado
+- concreto com pedras, concreto ciclopico
+- concreto feito na obra, concreto preparado local
+- concreto projetado, shotcrete
+- concreto pronto bombeado, concreto dosado bombeado
+- concreto pronto bombeado, concreto usinado bombeado
+- concreto pronto bombeavel, concreto usinado bombeavel
+- concreto pronto com pedrisco, concreto usinado pedrisco
+- concreto pronto convencional, concreto usinado convencional
+- concreto pronto estrutural, concreto usinado estrutural
+- concreto pronto lancado, concreto dosado lancado
+- concreto pronto, concreto usinado
+- concreto rolado, concreto compactado a rolo
+- concreto usinado, concreto dosado em central
+- condensadora, condensadora de ar condicionado
+- condensadora, unidade externa
+- conduite, eletroduto, conduto
+- condutor pluvial, tubo de queda
+- condutor pluvial, tubo descida externo
+- conector paralelo, conector grampo paralelo
+- conexao de reducao invertida, juncao reducao invertida
+- conexao exotermica, solda exotermica
+- conexao galvanizada, conexao de ferro galvanizado
+- conexao invertida, juncao invertida soldavel
+- conexao ranhurada, acoplamento ranhurado
+- conjunto de tomada, tomada completa
+- conjunto mesa e bancos, mesa conjugada bancos
+- container sanitario, banheiro conteiner
+- contator auxiliar mini, minicontator auxiliar
+- contator magnetico, contator
+- contra fechadura, chapa testa
+- contra porca sextavada, porca de aperto
+- contramarco, marco auxiliar
+- contrapiso flutuante, contrapiso membrana
+- contrapiso, piso de regularizacao
+- controlador de temperatura digital, termostato digital
+- controlador diferencial de temperatura, termostato diferencial
+- controlador logico programavel, clp
+- coqueiro jeriva, palmeira jeriva
+- corda de poliamida, corda de nylon
+- cordao optico duplex, patch cord optico
+- cordel detonante, cordel explosivo
+- cordoalha cabo, cordoalha
+- cordoalha de cobre, cabo de cobre nu
+- cordoalha de estai galvanizada, cabo de aco galvanizado
+- cordoalha galvanizada, cabo de aco galvanizado
+- coroa perfuratriz, broca diamantada
+- corrente de elo curto galvanizada, corrente elo curto galvanizada
+- corrente de elo curto, corrente elo curto
+- corrente para pendente, corrente para luminaria
+- corrente pendente, corrente de pendente
+- corrimao bate maca, passa mao bate maca
+- corrimao duplo central, passa mao duplo central
+- corrimao duplo galvanizado, passa mao galvanizado
+- corrimao duplo inox, passa mao inox
+- corrimao duplo intermediario, passa mao duplo
+- corrimao duplo, passa mao duplo
+- corrimao inox, passa mao inox
+- corrimao simples galvanizado, passa mao galvanizado
+- corrimao simples inox, passa mao inox
+- corrimao simples, passa mao simples
+- corrimao tubular galvanizado, passa mao galvanizado
+- corrimao tubular, passa mao tubular
+- cortina de ar duas velocidades, cortina de ar
+- cotovelo de cobre, joelho de cobre
+- cotovelo de ferro galvanizado, joelho galvanizado
+- cotovelo de ferro, joelho de ferro
+- cotovelo de reducao, joelho de reducao
+- cotovelo galvanizado, joelho galvanizado
+- cotovelo pead, joelho pead
+- cotovelo polietileno, joelho polietileno
+- cotovelo polipropileno, joelho polipropileno
+- cotovelo, joelho
+- cruzeta soldavel, juncao dupla soldavel
+- cruzeta, conexao em cruz
+- cuba inox, pia de aco inox
+- cubiculo media tensao, cabine media tensao
+- cubiculo quadro geral, cabine quadro geral
+- cumeeira articulada inferior, capa articulada inferior
+- cumeeira articulada, capa articulada
+- cumeeira barro embocado, capa barro embocado
+- cumeeira ceramica, capa ceramica
+- cumeeira comum cimento, capa comum cimento
+- cumeeira comum fibrocimento, capa comum fibrocimento
+- cumeeira comum telhado, capa comum telhado
+- cumeeira concreto, capa concreto
+- cumeeira de acabamento, capa de acabamento
+- cumeeira espigao embocado, capa espigao embocado
+- cumeeira espigao, capa espigao
+- cumeeira fibrocimento, capa fibrocimento
+- cumeeira galvalume de acabamento, capa galvalume de acabamento
+- cumeeira galvalume perfilada, capa galvalume perfilada
+- cumeeira galvalume, capa galvalume
+- cumeeira galvanizada natural, capa galvanizada natural
+- cumeeira galvanizada perfilada, capa galvanizada perfilada
+- cumeeira galvanizada pintada, capa galvanizada pintada
+- cumeeira natural lisa, capa natural lisa
+- cumeeira pintada coil, capa pintada coil
+- cumeeira pintada, capa pintada
+- cumeeira poliester, capa telhado poliester
+- cumeeira shed, capa shed
+- cumeeira simples pintada, capa simples pintada
+- cumeeira universal cimento, capa universal cimento
+- cumeeira universal fibrocimento, capa universal fibrocimento
+- cumeeira universal, capa universal telhado
+- cumeeira vegetal, capa vegetal
+- cumeeira, cumeada
+- cura quimica concreto, curing compound
+- curculigo, capim-palmeira
+- curva agua, joelho agua
+- curva barra, cotovelo barra
+- curva cobre, cotovelo cobre
+- curva cpvc, cotovelo cpvc
+- curva curta, joelho curto
+- curva de aco carbono, cotovelo de aco carbono
+- curva de cobre, cotovelo de cobre
+- curva de cpvc, cotovelo de cpvc
+- curva de descarga, tubo descarga bengala
+- curva de eletroduto, joelho de eletroduto
+- curva de ferro, cotovelo de ferro
+- curva ferro fundido, joelho ferro fundido
+- curva galvanizada quente, joelho galvanizado quente
+- curva galvanizada roscavel, joelho galvanizado roscavel
+- curva horizontal de eletrocalha, cotovelo horizontal de eletrocalha
+- curva horizontal dupla, cotovelo horizontal duplo
+- curva horizontal, cotovelo horizontal
+- curva longa, joelho longo
+- curva ranhurada, cotovelo ranhurado
+- curva rigida, joelho rigido
+- curva roscavel, conector curvo rosca
+- curva roscavel, joelho roscavel
+- curva soldavel, joelho soldavel
+- damper corta fogo, comporta corta fogo
+- defensa metalica semimaleavel, guard rail
+- defensa, guard rail
+- demao, camada de tinta
+- demarcacao quadra, marcacao quadra
+- demolicao de assoalho, retirada de assoalho
+- demolicao de azulejo, retirada de azulejo
+- demolicao de concreto armado, quebra de concreto armado
+- demolicao de forro de madeira, retirada de forro de madeira
+- demolicao de forro, retirada de forro
+- demolicao de fundacao, quebra de fundacao
+- demolicao de guarda corpo, retirada de guarda corpo
+- demolicao de laje, quebra de laje
+- demolicao de parede, quebra de parede
+- demolicao de peitoris, retirada de peitoril
+- demolicao de piso granilite, retirada de piso marmorite
+- demolicao de piso vinilico, retirada de piso vinilico
+- demolicao de piso, quebra de piso
+- demolicao de rodapes, retirada de rodape
+- demolicao de soleiras, retirada de soleira
+- demolicao de tacos, retirada de tacos
+- demolicao equipamentos, desinstalacao equipamentos
+- demolicao instalacao eletrica, desmonte instalacao eletrica
+- demolicao telha fibrocimento, retirada telha fibrocimento
+- demolicao tubulacao, retirada tubulacao
+- deposito modular, container deposito
+- descarga de mictorio, valvula de descarga de mictorio
+- descarga dupla, descarga dual
+- descarga embutida, descarga incorporada
+- descida agua pluvial, tubo de queda
+- descida pluvial, condutor de aguas pluviais
+- descimbramento madeira, retirada escoramento
+- desempenadeira dentada, pente de cola
+- desentupimento ramal esgoto, desobstrucao ramal
+- desmobilizacao canteiro, retirada canteiro
+- desmoldante, oleo desmoldante
+- desmontagem estrutura metalica, desmonte estrutura metalica
+- desmontagem formas, retirada formas
+- desobstrucao de boca de lobo, desentupimento de boca de lobo
+- desobstrucao de canaletas, desentupimento de canaletas
+- desobstrucao manual, desentupimento manual
+- desviador ducha, valvula desviadora
+- detector fumaca optico, sensor fumaca
+- detector metais portal, portal detector
+- detector metais, sensor metais
+- detector tensao, caneta tensao
+- diluente aguarras, solvente mineral
+- diluente epoxi, solvente epoxi
+- diluente primer, solvente primer
+- dimmer rotativo, variador luz
+- dinheiro-em-penca, tostao
+- dio, distribuidor interno optico
+- disjuntor, interruptor automatico
+- dispensador de sabonete, saboneteira dispenser
+- dispositivo de protecao contra surtos, dps
+- dispositivo de protecao contra surtos, protetor contra surtos
+- dispositivo diferencial residual, dr
+- dispositivo diferencial residual, interruptor diferencial
+- distribuidor de asfalto, caminhao espargidor
+- divisoria de alambrado, fechamento alambrado
+- divisoria de grade, fechamento gradil
+- dobradica, charneira
+- dobradica, gonzo
+- drenagem pluvial, aguas pluviais drenagem
+- dreno de alivio, barbaca
+- dreno frances, dreno de brita
+- dreno plastico, tubo dreno plastico
+- ducha monocomando, misturador monocomando chuveiro
+- ducha termostatica, misturador termostato chuveiro
+- elemento vazado concreto, cobogo de concreto
+- elemento vazado vidro, cobogo de vidro
+- elemento vazado, cobogo
+- eletrica, instalacao eletrica
+- eletrocalha, calha condutora
+- eletrocalha, calha eletrica
+- eletrodo revestido, vareta revestida
+- eletroduto corrugado espiral, mangueira corrugada
+- eletroduto corrugado flexivel, mangueira corrugada
+- eletroduto corrugado polietileno, mangueira pead corrugada
+- eletroduto corrugado, conduite corrugado
+- eletroduto corrugado, kanalex
+- eletroduto costura galvanizado, conduite galvanizado
+- eletroduto eletrogalvanizado, conduite eletrogalvanizado
+- eletroduto flexivel corrugado, mangueira corrugada
+- eletroduto flexivel fita, mangueira metalica
+- eletroduto flexivel liso, mangueira lisa
+- eletroduto flexivel plano, mangueira plana
+- eletroduto flexivel, conduite flexivel
+- eletroduto galvanizado a fogo, conduite galvanizado a fogo
+- eletroduto galvanizado eletrolitico, conduite eletrogalvanizado
+- eletroduto galvanizado imersao, conduite galvanizado a fogo
+- eletroduto metalico flexivel, mangueira metalica
+- eletroduto metalico zincado, conduite zincado
+- eletroduto polietileno, mangueira pead
+- eletroduto rigido roscavel, conduite roscavel
+- eletroduto rigido soldavel, tubo eletrico soldavel
+- eletroduto rigido, conduite rigido
+- eletroduto, conduite
+- elevacao de alvenaria, levantamento de parede
+- emassamento, aplicacao de massa
+- embocamento beiral telha, arremate de beiral
+- embocamento beiral telhas, arremate de beiral
+- emboco argamassa industrializada, reboco pronto
+- emboco argamassa traco, reboco
+- emboco comum, reboco comum
+- emboco desempenado argamassa, reboco liso
+- emboco desempenado espuma, reboco liso
+- emboco desempenado, reboco liso
+- emboco massa unica, reboco paulista
+- emboco, reboco
+- emenda calha pluvial, luva para calha
+- emulsao acrilica, impermeabilizante acrilico
+- emulsao asfaltica, emulsao betuminosa
+- encanador, bombeiro hidraulico
+- encunhamento, acunhamento
+- engate flexivel inox, rabicho inox
+- engate flexivel metalico, rabicho metalico
+- engate flexivel plastico, rabicho plastico
+- engate flexivel, conjunto ligacao ajustavel
+- engate flexivel, conjunto ligacao vaso
+- engate flexivel, ligacao flexivel
+- engate flexivel, rabicho
+- engate flexivel, rabicho flexivel
+- engate rapido de latao, adaptador rapido de latao
+- entarugamento de forro, tarugamento
+- envolvimento de tubulacao, protecao de tubulacao
+- epoxi de baixa viscosidade, epoxi fluida
+- escada caracol, escada helicoidal
+- escada dupla, escada tipo tesoura
+- escada marinheiro com guarda, escada vertical com gaiola
+- escada marinheiro tubular, escada vertical tubular
+- escada marinheiro, escada vertical
+- escarificador, fresadora escarificadora mecanica
+- escarradeira, cuspidaria
+- escavacao e carga, corte e carga
+- escavacao manual de solo, cava manual
+- escavacao manual de terra, cava manual
+- escavacao manual de tunel, abertura de tunel
+- escavacao manual de vala, abertura de vala
+- escavacao manual para viga, cava para viga
+- escavacao manual profunda, cava manual profunda
+- escavacao mecanizada de vala, abertura mecanizada de vala
+- escavacao mecanizada para viga, cava mecanizada para viga
+- escavacao vertical, cava vertical
+- escavacao, cava
+- escavadeira compacta, miniescavadeira esteiras
+- escavadeira hidraulica de esteira, escavadeira de esteira
+- escoramento com estronca, cimbramento madeira estroncas
+- escoramento de madeira, cimbramento madeira
+- escoramento estacas prancha, contencao estacas prancha
+- escoramento formas, suporte formas
+- escoramento metalico lajes, cimbramento metalico
+- escoramento metalico, cimbramento perfil metalico
+- escoramento tubular, cimbramento tubular
+- escoramento tubular, cimbramento tubular metalico
+- escoramento vala blindagem, escudo vala
+- escova circular latao, escova latao
+- escritorio modular, container escritorio
+- esferas de vidro, microesferas vidro extra
+- esferas refletivas, microesferas vidro sinalizacao
+- esgotamento vala bomba, bombeamento vala
+- esguicho sanitario com registro, ducha higienica com registro
+- esguicho sanitario cromado, ducha higienica cromada
+- esguicho sanitario metalico, ducha higienica metalica
+- esguicho sanitario plastico, ducha higienica plastica
+- esguicho sanitario, ducha higienica
+- esmalte alquidico, esmalte sintetico
+- esmalte esquadrias ferro, tinta metal
+- esmalte esquadrias madeira, tinta madeira
+- esmalte estrutura metalica, tinta metal
+- esmalte forro madeira, tinta madeira
+- esmalte superficie madeira, tinta madeira
+- espacador circular, rolete
+- espacador garra, caranguejo
+- espacador trelicado, cadeirinha
+- espargidor asfalto, distribuidor asfalto
+- espelho cego branco, placa cega branco
+- espelho cego de ferro, placa cega ferro
+- espelho cego, placa de tampa cega
+- espelho de latao, placa espelho latao
+- espelho, vidro espelhado
+- espelho, vidro espelho
+- espicula antipombo, espeto antipombo
+- esponjinha, arbusto caliandra
+- espuma acustica, placa acustica espuma
+- espuma de poliuretano, espuma expansiva
+- espuma expansiva, espuma pu
+- espuma flexivel, espuma soft
+- esquadria veneziana, janela veneziana
+- esquadro de pedreiro, esquadro cabo aluminio
+- estabilizador de tensao, regulador de voltagem
+- estaca escavada, estaca moldada in loco
+- estaca metalica, estaca de aco
+- estaca pre-moldada, estaca pre-fabricada
+- estaca vazada, estaca oca
+- estacao de monitoramento, computador de monitoramento
+- estacao de trabalho, computador de trabalho
+- estaiamento de postes, tirantamento
+- esticador de cabo, tensor
+- estopa, trapo
+- estrado de madeira, pallet
+- estrado de polipropileno, pallet plastico
+- estrado isolante, tapete isolante
+- estribo, armadura transversal
+- estronca de madeira, escora de madeira
+- estudo impacto vizinhanca, eiv
+- exaustor axial, ventilador axial
+- expansor de argamassa, aditivo expansor
+- extensor regulavel, prolongador extensor telescopico
+- extintor ap, extintor agua pressurizado
+- extintor ap, extintor incendio agua
+- extintor ap, extintor manual agua
+- extintor co2, extintor carbonico
+- extintor co2, extintor manual carbonico
+- extintor po quimico, extintor manual quimico
+- extintor po quimico, extintor portatil quimico
+- extintor pqs, extintor quimico
+- falso-iris, moreia
+- fechador de piso, mola hidraulica piso
+- fechador de piso, mola piso porta
+- fechador de porta, mola aerea porta
+- fechador hidraulico de porta, mola aerea hidraulica
+- fechador hidraulico de porta, mola hidraulica aerea
+- fechadura caixao, fechadura sobrepor caixao
+- fechadura cilindrica cromada, fechadura yale cromada
+- fechadura cilindrica, fechadura yale
+- fechadura embutir, fechadura completa gorge
+- fechadura embutir, fechadura gorge
+- fechadura tubular, fechadura cilindrica
+- fechadura tubular, fechadura completa cilindrica
+- fecho de janela guilhotina, fecho borboleta
+- feijoa, goiaba serrana
+- ferragens para porta, conjunto ferragens porta
+- ferro chato, barra chata
+- ferro forjado, ferro trabalhado
+- ferro zincado, ferro galvanizado
+- fertilizante, adubo
+- fibra para concreto, fibra reforco concreto
+- filodendro, imbe
+- filtro anaerobio, filtro biologico anaerobio
+- filtro de bronze, filtro corpo bronze
+- filtro de combustivel, filtro bronze combustivel
+- filtro tipo cesto, filtro cesto corpo
+- fio de cobre, arame de cobre
+- fio de cobre, cobre solido
+- fio espiral inox, arame espiral inoxidavel
+- fio galvanizado, arame galvanizado
+- fio recozido, arame recozido
+- fio revestido, arame protegido por polimero
+- fita anticorrosiva, protecao anticorrosiva fita
+- fita antiderrapante, faixa antiderrapante definitiva
+- fita antideslizante, fita adesiva antiderrapante
+- fita de advertencia subterranea, fita sinalizacao subterranea
+- fita de advertencia, fita plastica zebrada
+- fita de arquear, fita plastica arquear
+- fita de dilatacao, junta dilatacao fugemband
+- fita de dilatacao, juntas dilatacao fugenbanb
+- fita de dilatacao, juntas dilatacao fugenband
+- fita de mascaramento, fita crepe
+- fita de mascaramento, fita crepe rolo
+- fita eletrica, fita isolante adesiva
+- fita eletrica, fita isolante scoth
+- fita para junta, fita papel microperfurado
+- fita para para-raios, fita aluminio spda
+- fita veda rosca, fita teflon
+- fita veda rosca, fita vedante rosca
+- fixador de parede, fundo preparador acrilico
+- fixador de parede, fundo preparador parede
+- flange com anel, adaptador flange anel
+- flange livre, flange solto
+- flange soldavel, adaptador soldavel flange
+- flor-leopardo, iris-leopardo
+- folha de janela de correr, folha caixilho correr
+- folha de janela, folha caixilho
+- fonte para fita led, driver para fita led
+- forma curva, molde curvo
+- forma de madeira macica, molde de madeira macica
+- forma plana, molde plano
+- forma plastica, molde plastico
+- forma tubo, tubo forma
+- formao, cinzel
+- forro de gesso acartonado, forro drywall
+- forro de madeira, forro de tabuas aparelhadas
+- forro de placas, forro modular
+- forro drywall, gesso acartonado
+- forro falso, forro suspenso
+- forro removivel, forro modular
+- fresadora de pavimento, fresadora de asfalto frio
+- frontao granito, rodabanca granito
+- frontao marmore, rodabanca marmore
+- fundacao direta, fundacao rasa
+- fundacao indireta, fundacao profunda
+- fundacao, alicerce
+- fundo acrilico, primer acrilico
+- fundo acrilico, primer resina acrilica
+- fundo anticorrosivo, primer antioxidante
+- fundo epoxi, primer epoxi epoxidico
+- fundo para galvanizado, primer galvanizados galvit
+- fundo para galvanizado, primer galvanizados galvite
+- fundo poliuretano, primer poliuretano
+- fundo preparador, preparador liquido
+- fundo preparador, primer
+- fusivel de rolha retardado, fusivel diazed retardado
+- fusivel de rolha, fusivel diazed
+- galvanizacao a quente, galvanizacao fogo
+- gardenia, jasmim do cabo
+- gasolina comum, gasolina regular
+- gengibre ornamental, arbusto alpinia
+- geocomposto drenante, geodreno
+- geocomposto duas faces, geodreno dupla face
+- geogrelha, geogrid
+- geotextil agulhado, bidim
+- gerador diesel carenado, grupo gerador cabinado
+- gesseiro, aplicador de gesso
+- gesso acartonado, drywall
+- gesso cola, cola para gesso
+- gonzo, dobradica pivotante
+- gota-de-orvalho, rosario
+- grade basculante, portao basculante gradil
+- grade de discos, grade aradora
+- grade divisoria, gradil divisorio
+- grade protecao guiche, grade de atendimento
+- grade seguranca janela, grade antirroubo
+- gradil ferro perfilado, grade de ferro
+- gradil ferro, grade de ferro
+- gradil protecao guiche, grade de atendimento
+- grama esmeralda, grama japonesa
+- grama sintetica, grama artificial
+- grama-amendoim, amendoim-forrageiro
+- grama-esmeralda, grama-japonesa
+- gramado artificial, piso de grama sintetica
+- grampo ancoragem, abracadeira de ancoragem
+- grampo aperto rapido, sargento rapido
+- grampo balancim, abracadeira de balancim
+- grampo com haste, presilha com haste
+- grampo de aterramento, conector aterramento telas
+- grampo de aterramento, conector cabo haste
+- grampo de aterramento, conector haste terra
+- grampo de telha, fixador abas telhas
+- grampo de telha, gancho acessorios telha
+- grampo de vergalhao, clips fixacao vergalhao
+- grampo paralelo, conector paralelo
+- granilite cinza, terrazzo cinza
+- granilite moldado, granilite feito no local
+- granilite preto, terrazzo preto
+- granilite, terrazzo
+- granito cinza andorinha, pedra andorinha
+- granito lavado, fulget
+- graute autonivelante, grout autonivelante
+- graute fluido, grout fluido
+- graute, grout
+- greenboard, drywall verde
+- grelha articulada ferro, grade articulada
+- grelha arvoreira ferro, grade de arvore
+- grelha calha cesto, ralo cesto
+- grelha calha piso, ralo linear
+- grelha ferro chato, grade de barra chata
+- grelha ferro galv, grade galvanizada
+- grelha ferro, grade de ferro
+- grelha fofo articulada, ralo articulado de ferro fundido
+- grelha fofo simples, ralo de ferro fundido
+- grelha hemisferica ferro, ralo abacaxi
+- grelha malha quadriculada, grade quadriculada
+- grelha ranhurada, grelha estriada
+- grout, grauth
+- grua ascensional, grua trepante
+- grumixaba, grumixama
+- grupo gerador carenado, gerador cabinado
+- grupo gerador carenagem, gerador cabinado
+- grupo gerador diesel, gerador a diesel
+- grupo gerador estacionario, gerador fixo
+- grupo gerador rebocavel, gerador sobre carreta
+- grupo gerador solda, gerador de solda
+- grupo gerador, gerador eletrico
+- guabiroba, gabiroba
+- guaimbe, banana de macaco
+- guarda corpo de alvenaria, parapeito de alvenaria
+- guarda corpo de vidro, parapeito de vidro
+- guarda corpo fixado, parapeito
+- guarda corpo galvanizado, parapeito galvanizado
+- guarda corpo inox, parapeito inox
+- guarita modular, container guarita
+- guarnicao aparelhada, vista aparelhada
+- guarnicao de cedrinho, vista de cedrinho
+- guarnicao de madeira para portas, vista de porta
+- guarnicao de madeira, vista de madeira
+- guarnicao de porta, vista de porta
+- guarnicao moldura de arremate, moldura de acabamento
+- guarnicao, alizar
+- guia centralizadora, centralizador de coluna
+- guia chapeu de boca, meio-fio de boca
+- guia com sarjeta, meio-fio com sarjeta
+- guia de concreto, meio-fio de concreto
+- guia economica moldada, meio-fio
+- guia leve moldada, meio-fio leve
+- guia leve separadora, cordao separador
+- guia moldada curva, meio-fio curvo
+- guia moldada de concreto, meio-fio de concreto
+- guia moldada reta, meio-fio reto
+- guia moldada, meio-fio moldado
+- guia, meio-fio
+- guindaste derrick, grua derrick
+- guindaste sobre esteiras, grua sobre esteiras
+- guindaste spider, mini guindaste aranha
+- guindauto munck, munck
+- guindauto, caminhao munck
+- guindauto, munck
+- haste copperweld, haste cobreada
+- haste de aterramento copperweld, haste cobreada
+- haste de aterramento galvanizada, barra galvanizada
+- haste de aterramento trefilada, barra trefilada
+- haste de aterramento, barra de aterramento
+- hastes copperweld, haste cobreada
+- hera-inglesa, hera-europeia
+- hibisco, mimo de venus
+- hidrante de coluna, hidrante de rua
+- hidrante subterraneo, hidrante de passeio
+- hidraulica, instalacao hidraulica
+- hidrofugacao, aplicacao de pintura hidrof
+- hidrofugacao, aplicacao de pintura hidrofugante
+- hidrofugante, primer silano siloxano
+- hidrolavagem, lavagem sob pressao
+- holofote com grade, refletor grade lampada
+- holofote industrial com grade, refletor industrial grade
+- holofote industrial, refletor industrial
+- holofote vapor, refletor lampada vapor
+- identificacao de ambiente, placa de sinalizacao de ambiente
+- identificacao de corrimao, placa de sinalizacao de corrimao
+- identificador de disjuntor, placa alerta disjuntor
+- impermeabilizante acrilico, membrana impermeabilizante acrilica
+- impermeabilizante cristalizante, cimento cristalizante impermeabilizacao
+- impermeabilizante para baldrame, impermeabilizante de baldrame
+- imprimacao betuminosa impermeabilizante, primer asfaltico
+- imprimacao betuminosa ligante, primer asfaltico
+- imprimacao, pintura de impregnacao, imprimadura
+- imunizante de madeira, preservativo de madeira
+- imunizante madeira cupinicida, anti cupim
+- imunizante madeira incolor, anti cupim incolor
+- inga nativa, ingazeiro
+- inoxidavel, inox
+- interfone coletivo, porteiro eletronico
+- interruptor bipolar, chave bipolar
+- interruptor crepuscular, rele fotoeletrico
+- interruptor diferencial, disjuntor dr
+- interruptor diferencial, dr
+- interruptor paralelo, three way
+- interruptor simples, chave de luz
+- interruptor, chave de luz
+- ipomeia, gloria da manha
+- isolacao termoacustica rocha, la de rocha
+- isolacao termoacustica vidro, la de vidro
+- isolador disco, isolador suspensao
+- isolamento acustico, insonorizacao
+- isolamento termoacustico mineral, la mineral
+- isolante termico polietileno, espuma de polietileno
+- isopor, poliestireno expandido
+- jabuticaba, jabuticabeira
+- jambolao, jamelao
+- janela basculante aluminio, basculante de aluminio
+- janela basculante madeira, basculante de madeira
+- janela de atendimento, caixilho guiche
+- janela de correr, janela deslizante
+- janela de ventilacao, veneziana
+- janela guilhotina, caixilho guilhotina
+- janela maxim aluminio, maxim-ar
+- janela maxim galvanizado, maxim-ar
+- janela maxim madeira, maxim-ar
+- janela projetante, janela maxim
+- janela projetante, janela maximar
+- jaqueta de aluminio, protecao aluminio corrugado
+- jardineira de concreto, floreira concreto fabricado
+- jardineira de concreto, floreira fabricado concreto
+- jasmim amarelo, jasmim carolina
+- jasmim azul, arbusto bela emilia
+- jateadora de areia, jateadora
+- jateamento com granalha, granalhagem
+- jato de alta pressao, hidrojateamento
+- jenipapeiro, genipapo
+- jiboia-verde, hera-do-diabo
+- joelho aco carbono soldavel, grau carbono soldavel
+- joelho de inspecao, cotovelo de inspecao
+- joelho esgoto, grau rede coletora
+- joelho ferro galvanizado, grau ferro galvanizado
+- joelho reducao angular, cotovelo de reducao angular
+- joelho reducao roscavel, cotovelo de reducao roscavel
+- joelho reducao soldavel, cotovelo de reducao soldavel
+- joelho redutor, reducao graus soldavel
+- joelho redutor, reducao soldavel graus
+- joelho rosca femea, cotovelo femea
+- joelho roscavel angular, cotovelo roscavel angular
+- joelho soldavel angular, cotovelo soldavel angular
+- joelho soldavel com bucha, cotovelo com bucha
+- joelho soldavel com rosca, cotovelo soldavel com rosca
+- joelho transicao angular, cotovelo de transicao angular
+- joelho transicao cpvc, cotovelo de transicao cpvc
+- jogo de chaves allen, kit allen
+- jogo de chaves de fenda, kit de chaves de fenda
+- jogo de serra copo, kit serra copo
+- junta de dilatacao, junta de movimentacao
+- junta de isopor, junta estrutural poliestireno
+- junta de movimentacao, junta dilatacao elastica
+- junta de movimentacao, junta elastica estrutural
+- junta de vedacao, guarnicao de vedacao
+- junta serrada, junta de retracao
+- kit de estaiamento, conjunto estaiamento mastro
+- kit de ferragem para porta, ferragem completa porta
+- kit de macaneta, ferragem macaneta
+- kit de tomadas, conjunto tomadas completo
+- kit oxicorte, aparelho de corte e solda
+- kit oxicorte, corte acetileno
+- kit oxicorte, corte oxiacetileno
+- kit telefonico, conjunto entrada telefone
+- kit tomada interruptor, interruptor simples tomada
+- kit tv, conjunto entrada tv
+- ladrilho esmaltado, placa ceramica esmaltada
+- ladrilho extrudado, placa ceramica extrudada
+- laje com trelica, laje moldada trelicada
+- laje de vigotas, laje moldada vigota
+- laje macica, laje moldada convencional
+- laje pre moldada de vigotas, laje fabr vigota
+- laje pre moldada de vigotas, laje fabric vigota
+- laje pre moldada de vigotas, laje fabricada vigota
+- laje pre moldada painel, laje fabr painel
+- laje pre moldada painel, laje fabricada painel
+- laje pre moldada painel, laje painel fabricado
+- laje pre moldada unidirecional, laje fabr unidir
+- laje pre moldada unidirecional, laje fabricada unid
+- laje pre moldada unidirecional, laje fabricada unidirecional
+- laje pre moldada, laje fabricada laje
+- laje trelicada bidirecional, laje trelica bidirecional
+- laje trelicada unidirecional, laje trelica unidirecional
+- lama asfaltica, slurry seal
+- lambari-roxo, trapoeraba-roxa
+- lambril frisado, forro de reguas frisado
+- lambril liso, forro de reguas liso
+- lampada de vapor metalico, lampada de iodeto metalico
+- lampada fluorescente compacta, lampada economica
+- lampada halogena palito, lampada palito
+- lampada halogena, lampada incandescente halogena
+- lampada tubular, lampada tubo
+- lancamento bombeado de concreto, concretagem bombeada
+- lancamento e adensamento de concreto, concretagem
+- lancamento manual de concreto, concretagem manual
+- lantana, cambara
+- lanterna chinesa, lanterna japonesa
+- lastro de areia, colchao de areia
+- lastro de brita, colchao de brita
+- lastro de concreto impermeabilizado, concreto impermeavel
+- lastro de concreto magro, concreto de regularizacao
+- lastro de concreto, concreto magro lastro
+- lastro de pedra britada, brita
+- lastro de pedra rachao, rachao
+- lastro de rachao para fundacao, enrocamento de fundacao
+- lastro granular, colchao granular
+- lavadora de alta pressao, hidrolavadora
+- leito para cabos, eletrocalha tipo escada
+- ligacao flexivel cromado, rabicho cromado
+- ligacao predial, ramal predial
+- limpeza com solvente, aplicacao de solvente
+- limpeza de superficie, lavagem de superficie
+- lirio-amarelo, hemerocalis
+- lixa ferro, lixa de metal
+- lombada, quebra-molas
+- lombofaixa, faixa elevada travessia
+- louca sanitaria, ceramica sanitaria
+- lubrificacao, aplicacao de graxa
+- luminaria aberta, calha aberta
+- luminaria blindada oval, tartaruga
+- luminaria de calha, calha luminaria
+- luminaria de emergencia, iluminacao de emergencia
+- luminaria de parede, arandela de circulacao
+- luminaria dupla sinalizacao, bloco autonomo dupla face
+- luminaria emergencia led, bloco autonomo led
+- luminaria emergencia sobrepor, bloco autonomo de sobrepor
+- luminaria estanque, luminaria a prova de tempo
+- luminaria hermetica, luminaria estanque
+- luminaria industrial pendente, campana industrial
+- luminaria publica, luminaria de rua
+- luminaria sinalizadora, balizador
+- luminaria, artefato de iluminacao
+- luva corrugada, conexao tubo corrugado
+- luva de eletroduto, emenda de eletroduto
+- luva de emenda, conector emenda cabo
+- luva de ferro galvanizado, manguito galvanizado
+- luva de latex multiuso, luva domestica
+- luva de pressao, emenda de pressao
+- luva de reducao de ferro, reducao roscavel
+- luva de reducao galvanizada, reducao roscavel galvanizada
+- luva excentrica ferro, reducao excentrica ferro
+- luva galvanizada a fogo, manguito galvanizado a fogo
+- luva gibault, junta gibault ferro
+- luva mecanica, junta mecanica luva
+- luva pead eletrofusao, conexao pead eletrofusao
+- luva rapida, junta rapid uniao
+- luva reducao cpvc, reducao cpvc agua
+- luva reducao cpvc, reducao cpvc soldavel
+- luva reducao ferro, reducao concentrica ferro
+- luva reducao galvanizada, reducao ferro galvanizado
+- luz de aviso, sinalizador luminoso
+- madeira compensada naval, compensado naval
+- madeira compensada, madeirite
+- malha de fibra de vidro, tela de fibra de vidro
+- malha galvanizada, tela galvanizado
+- malha pop, tela armadura
+- malha pop, tela soldada nervurada
+- mangueira acetileno, extensao solda acetileno
+- mangueira de incendio, conjunto mangueira combate
+- mangueira preta, tubo mangueira preta
+- manifold metalico, distribuidor metalico
+- manifold metalico, distribuidor metalico de saidas
+- manifold plastico, distribuidor plastico
+- manivela, braco de alavanca
+- manta aluminizada, subcobertura aluminizada
+- manta asfaltica, manta betuminosa
+- manta asfaltica, membrana asfalto modificado
+- manta de borracha, lencol de borracha
+- manta refletiva revestida, manta aluminizada
+- maquina de dobrar vergalhao, dobradeira eletromecanica de vergalhao
+- maquina de jato pressao, lavadora de alta pressao
+- maquina de solda termofusao, termofusora
+- maquina de solda, maquina solda
+- marcacao quadras, marcacao quadra
+- martelete perfurador rompedor, martelete combinado
+- martelete rompedor pneumatico, rompedor de ar
+- martelo demolidor eletrico, rompedor eletrico
+- martelo demolidor pneumatico, rompedor pneumatico
+- martelo picador de solda, picador de solda
+- mascara de solda automatica, mascara autoescurecedora
+- massa corrida, enduimento
+- massa corrida, massa pva
+- massa de vidraceiro, massa vidro
+- massa de vidraceiro, massa vidro comum
+- massa epoxi, compound epoxi
+- massa para rejunte pronta, rejunte pronto
+- massa raspada, textura raspada
+- mastique pu, selante poliuretano
+- mastique, selante para juntas
+- mastro de bandeira, poste de bandeira
+- medidor magnetico, medidor vazao eletromagnetico
+- meia mascara respiratoria, respirador mascara semi
+- meio-fio, guia, cordao
+- membrana asfaltica, membrana betuminosa
+- mesa de vibracao, mesa vibratoria
+- metais sanitarios, metais banheiro
+- microfibra para concreto, fibra polimerica
+- microfissuras, microtrincas
+- mictorio, urinol
+- misturador hospitalar, torneira misturador clinica
+- misturador, mesclador
+- modulo de tomada, tomada apenas modulo
+- molde de compensado, forma compensado encamisamento
+- molde de madeira macica, forma madeira macica
+- molde de madeira, forma madeira comum
+- molde escada, fabricacao forma escada
+- monstera, arbusto costela de adao
+- montante de gradil, poste de gradil
+- montante, ombreira
+- moreia, iris africana
+- mosaico hidraulico, piso ladrilho hidraulico
+- mosaico portugues, petit pave
+- mosquiteiro removivel, tela mosquiteira removivel
+- mosquiteiro, caixilho removivel tela
+- motobomba, conjunto motor bomba
+- motoniveladora, patrol
+- motor bomba, motobomba
+- motorista de caminhao basculante, cacambeiro
+- motorista de caminhao carreta, carreteiro
+- motorista de caminhao, caminhoneiro
+- motorista de veiculo leve, motorista de carro de passeio
+- motosserra a gasolina, serra a gasolina
+- motosserra, serra de corrente
+- mourao de concreto curvo, poste de concreto curvo
+- mourao de concreto reto, poste de concreto reto
+- mourao de concreto, poste de concreto
+- mufla, terminacao unipolar
+- muro de arrimo, parede de contencao
+- muro de bloco, fechamento de bloco
+- muro de concreto, fechamento de concreto
+- muro de fechamento, muro de vedacao
+- niple de reducao, prolongador de reducao
+- niple galvanizado, prolongador galvanizado
+- oleo de disjuntor, oleo isolante
+- oleo diesel, diesel
+- oleo esmalte, tinta esmalte
+- oleo isolante, oleo de transformador
+- oleo lubrificante mineral, lubrificante mineral
+- oleo lubrificante, lubrificante
+- olho magico de porta, visor de porta
+- olho magico, espia
+- ondulacao transversal, lombada
+- operador de munck, operador de guindauto
+- outorga de poco, outorga de agua subterranea
+- oxido aluminio, alumina
+- pa carregadeira compacta, minicarregadeira rodas
+- pa carregadeira, carregadeira de rodas
+- pa de lixo com cabo, pa de lixo
+- pa quadrada com cabo de madeira, pa quadrada
+- padrao coletivo, centro de medicao agrupada
+- painel cimenticio impermeavel, placa cimenticia impermeabilizada
+- painel cimenticio liso, placa cimenticia lisa
+- painel de exercicios, placa orientativa de exercicios
+- painel divisorio, divisoria cega painel
+- painel divisorio, placa divisoria
+- painel modular encaixavel, placa modular de encaixe
+- painel naval, divisoria cega naval
+- painel termoisolante, painel sanduiche
+- palmeira acai, acaizeiro
+- palmeira areca, areca bambu
+- palmeira guariroba, gueroba
+- palmeira pupunha, pupunheira
+- pano de juta, tela de juta
+- papel betumado kraft, papel alcatroado
+- papel kraft betumado, papel alcatroado
+- papeleira louca embutir, porta papel embutido
+- papeleira plastica dispenser, dispensador de papel
+- par de traves, conjunto futsal traves
+- para raios, conjunto raios franklin
+- parabolt, chumbador
+- parada de emergencia, botao cogumelo
+- parafuso abaulado galv, parafuso zincado cabeca redonda
+- parafuso abaulado, parafuso cabeca redonda
+- parafuso allen, parafuso sextavado interno
+- parafuso auto perf, parafuso brocante
+- parafuso autoatarraxante, parafuso autorroscante
+- parafuso autoperfurante, parafuso auto brocante
+- parafuso cabeca abaulada, parafuso panela
+- parafuso cabeca chata, parafuso escareado
+- parafuso cabeca trombeta, parafuso drywall
+- parafuso com bucha, kit bucha e parafuso
+- parafuso fendido, conector split bolt
+- parafuso fendido, conector split boolt
+- parafuso fixacao telha, parafuso telheiro
+- parafuso frances galvanizado, parafuso de carroceria
+- parafuso frances metrico, parafuso de carroceria
+- parafuso frances porca, parafuso de carroceria
+- parafuso frances porcas, parafuso de carroceria
+- parafuso frances zincado, parafuso de carroceria
+- parafuso galv, parafuso zincado
+- parafuso gancho fixacao, piton
+- parafuso gancho, piton
+- parafuso rosca soberba, parafuso de madeira
+- parafuso sext bucha, kit bucha e parafuso
+- parafuso sext porca, conjunto parafuso e porca
+- parafuso sextavado porca, conjunto parafuso e porca
+- parafuso sextavado, parafuso hexagonal
+- parafuso trombeta philips, parafuso drywall
+- parafuso wall fosfatizado, parafuso drywall
+- parafuso wall zincado, parafuso drywall
+- parede meia vez, parede de meio tijolo
+- parede uma vez, parede de um tijolo
+- partida suave, soft starter
+- passa fio, bucha passag neutro
+- passa fio, bucha passagem interna
+- passa fio, bucha passagem neutro
+- passadico, passarela
+- passante de forma, tirante de forma
+- passeio mosaico portugues, calcada portuguesa
+- passeio, calcada
+- pasta abrasiva limpeza, massa de polir
+- pasta de cimento, nata de cimento, leite de cimento
+- pasta de solda, fluxo de solda
+- pasta lubrificante tubos, sabao para tubos
+- pasta solda tubo, fluxo de solda
+- pasta veda juntas, selante de juntas
+- pastilha de porcelana, pastilha de porcelanato
+- pastilheiro, azulejista
+- pata, pata de vaca
+- patch cord montado, cabo de rede montado
+- patch cord, cabo de rede pronto
+- patch panel, painel de conexao
+- pavimentacao articulada, piso intertravado
+- pavimentacao lajota concreto, bloquete
+- pavimento asfaltico, pavimento betuminoso
+- pedra britada pedrisco, pedrisco
+- pedra britada, brita
+- pedra portuguesa, petit pave
+- pedra sao tome, piso pedra sao tome
+- pedrisco, brita zero
+- pele de vidro, fachada cortina vidro
+- pelicula adesiva jateada, filme jateado
+- pelicula refletiva, insulfilm espelhado
+- pendente, luminaria suspensa
+- pendurador de luminaria, gancho curto luminaria
+- pendural com mola, tirante com mola
+- pendural com presilha, tirante com presilha
+- peneira rotativa, filtro tambor
+- perfil abas iguais, cantoneira
+- perfil acabamento borracha, guarnicao de borracha
+- perfil cartola, perfil chapeu
+- perfil cartola, perfil omega
+- perfil de acabamento, cantoneira de sobrepor
+- perfil de dilatacao, friso de junta de dilatacao
+- perfil de junta, junta estrutural perfil
+- perfil de junta, junta estrutural perfilado
+- perfil de quina, cantoneira de aluminio para massa
+- perfil de quina, cantoneira de aluminio para reboco
+- perfil l antiderrapante, cantoneira de aluminio antiderrapante
+- perfil l galvanizado, cantoneira galvanizada
+- perfil l zincado, cantoneira zincada
+- perfil l, cantoneira de abas iguais
+- perfil l, cantoneira de aluminio
+- perfil sextavado aluminio, barra sextavada
+- perfil tubular galvanizado, tubo galvanizado
+- perfil u, canal u, perfil canal
+- perfuracao com broca de concreto, furacao broca videa
+- perfuracao direcional, furo direcional
+- perfuracao em concreto armado, furacao concreto armado
+- perfuracao em concreto armado, furo concreto armado
+- perfuracao em concreto, furo concreto
+- perfuracao manual em alvenaria, furo manual alvenaria
+- perfuracao mecanizada em alvenaria, furo mecanizado alvenaria
+- perfuracao mecanizada em concreto, furo mecanizado concreto
+- perfuracao profunda em concreto, furos concreto profundidade
+- perfuratriz diamantada, perfuradora diamantada
+- perneira raspa, caneleira raspa
+- pickup cabine simples, caminhonete cabine simples
+- pickup diesel, caminhonete diesel
+- picotamento de piso, apicoamento manual de piso
+- pictograma autoadesivo, adesivo sinalizacao
+- pictograma tinta, pintura simbolo
+- pictograma vaga, simbolo vaga
+- piezometro, medidor nivel estatico
+- pigmento xadrez, corante xadrez
+- pigtail manometro, sifao manometro
+- pigtail, rabicho
+- pilar, coluna
+- pilea, planta-aluminio
+- pincel, trincha
+- pino de tiro, fincapino
+- pino isolador, isolador pino
+- pino rosca externa, prisioneiro
+- pintor letreiros, pintor comunicacao visual
+- pintor, profissional pintura
+- pintura azulejo, pintura revestimento ceramico
+- pintura borracha clorada, revestimento borracha clorada
+- pintura de armadura, protecao armaduras tinta
+- pintura de fundo, imprimacao
+- pintura de ligacao, tack coat
+- pintura de parede externa, pintura de fachada
+- pintura de simbolos e textos, sinalizacao pintada
+- pintura esmalte especial, esmalte especial
+- pintura faixa pedestre, faixa pedestre
+- pintura rica em zinco, galvanizacao frio pintura
+- pintura, aplicacao de tinta
+- piso bloco, paver
+- piso borracha, piso emborrachado
+- piso ceramico esmaltado, ceramica esmaltada
+- piso de ardosia, ardosia
+- piso de borracha canelado, piso emborrachado canelado
+- piso de borracha frisado, piso emborrachado frisado
+- piso de borracha pastilhado, piso emborrachado pastilhado
+- piso de borracha permeavel, piso drenante emborrachado
+- piso de borracha sintetica, piso emborrachado
+- piso de borracha, piso emborrachado
+- piso de concreto armado, pavimento de concreto armado
+- piso de concreto com fibras, concreto reforcado com fibras
+- piso de concreto intertravado, bloquete de concreto
+- piso de concreto liso, concreto alisado
+- piso de concreto moldado, concreto feito no local
+- piso de concreto vassourado, concreto vassourado
+- piso de concreto, pavimento de concreto
+- piso de madeira, assoalho
+- piso de madeira, assoalho de madeira
+- piso drenante, piso permeavel
+- piso elevado telescopico, piso elevado regulavel
+- piso elevado, piso tecnico
+- piso epoxi autonivelante, revestimento epoxi autonivelante
+- piso epoxi multicamadas, revestimento epoxi multicamadas
+- piso esportivo de borracha, piso esportivo emborrachado
+- piso granilite cinza, piso marmorite
+- piso granilite, piso marmorite
+- piso granito polido, granito polido
+- piso hidraulico antiderrapante, ladrilho hidraulico antiderrapante
+- piso hidraulico colorido, ladrilho hidraulico cores
+- piso hidraulico liso, ladrilho hidraulico liso
+- piso hidraulico liso, ladrilhos hidraulicos lisos
+- piso hidraulico padrao, ladrilho hidraulico padrao
+- piso hidraulico, ladrilho hidraul piso
+- piso hidraulico, ladrilho hidraulico
+- piso hidraulico, ladrilho hidraulico piso
+- piso industrial de concreto, piso de concreto industrial
+- piso intertravado, pavimento intertravado
+- piso laminado, laminado de madeira
+- piso modular interno, piso modular removivel
+- piso provisorio, piso temporario
+- piso rustico canelado, cimentado aspero caneluras
+- piso tatil alerta, piso podotatil de alerta
+- piso tatil colorido, piso podotatil colorido
+- piso tatil concreto, piso podotatil de concreto
+- piso tatil de alerta, piso podotatil de alerta
+- piso tatil direcional, piso podotatil direcional
+- piso vinilico antiestatico, piso pvc antiestatico
+- piso vinilico autoportante, piso pvc solto
+- piso vinilico autoportante, piso vinilico solto
+- piso vinilico flexivel, piso pvc flexivel
+- piso vinilico manta, manta de pvc
+- piso vinilico transito, piso pvc alto trafego
+- piso vinilico, piso de pvc
+- piso vinilico, piso pvc
+- pistola agulha, agulheiro
+- pistola fixacao pinos, finca pinos
+- pistola higienica, ducha higienica manual
+- pistola pintura pulverizadora, pulverizador de tinta
+- pitanga, pitangueira
+- placa cega, tampa cega
+- placa comemorativa de bronze, placa de inauguracao de bronze
+- placa comemorativa metalica, placa de inauguracao metalica
+- placa de advertencia, sinalizacao de advertencia
+- placa de aluminio composto, acm
+- placa de estacionamento, sinalizacao de estacionamento
+- placa de forro modular, painel de forro modular
+- placa de granilite, piso granilite em placas
+- placa de granilite, placa de marmorite
+- placa de identificacao de aluminio, plaqueta de aluminio
+- placa de isopor perfurada, placa de poliestireno perfurada
+- placa de numero, placa de numeracao residencial
+- placa de obra, placa de identificacao de obra
+- placa de pvc expandido, placa de sinalizacao expandida
+- placa granilite polido, ladrilho granilite polido
+- placa granilite, ladrilho granilite
+- placa sinalizacao, sinalizacao parede
+- placa vibratoria, compactador de solo por placa
+- plafon de teto, luminaria de teto plafon
+- plafonier blindado, luminaria de teto
+- plaqueta esmaltada, placa esmaltada identificacao
+- plataforma elevatoria, plataforma aerea
+- playground de madeira, centro de atividades de madeira
+- pleomele, dracena
+- plug bujao ferro, tampao de ferro
+- plug ferro fundido, tampao de ferro fundido
+- plug tomada padrao, pino macho
+- plugue, pino macho
+- polimento, lustracao
+- ponteira filtrante, agulha de drenagem
+- ponto de acesso dados, ponto de rede
+- porca gaiola, porca clip
+- porca rebite, rebite roscado
+- porca sextavada, porca hexagonal
+- porcelanato, gres porcelanato
+- porta abrir giro, porta de batente
+- porta abrir mola, porta vaivem
+- porta abrir tela, porta mosquiteira
+- porta abrir vidro, porta de vidro
+- porta acustica madeira, porta antirruido
+- porta acustica, porta antirruido
+- porta almofadada madeira, porta com almofadas
+- porta articulada, porta camarao
+- porta basculante ferro, porta basculante
+- porta batente ferro, porta de giro
+- porta cadeado, ferrolho para cadeado
+- porta chapa aleta, porta veneziana
+- porta chapa batente, porta de batente
+- porta chapa galv, porta de aco galvanizado
+- porta chapa vent, porta veneziana
+- porta compens lisa, porta lisa de madeira
+- porta correr aluminio, porta deslizante de aluminio
+- porta correr ferro, porta deslizante
+- porta correr madeira, porta deslizante de madeira
+- porta correr veneziana, porta deslizante veneziana
+- porta correr vidro, porta deslizante de vidro
+- porta corta fogo, porta antifogo
+- porta de correr de vidro temperado, porta de correr de vidro
+- porta de correr de vidro, frontal correr vidro
+- porta de correr, porta deslizante
+- porta de enrolar, porta de grade de enrolar
+- porta de quadro, porta de painel
+- porta de seguranca, porta reforcada
+- porta deslizante seguranca, porta deslizante reforcada
+- porta enrolar articulada, porta de rolo
+- porta enrolar automatizada, porta de rolo automatica
+- porta enrolar chapa, porta de aco de enrolar
+- porta enrolar manual, porta de rolo
+- porta enrolar tiras, cortina de pvc
+- porta entrada abrir, porta de giro
+- porta entrada aluminio, porta social aluminio
+- porta envernizada madeira, porta envernizada
+- porta fenolica, porta laminado fenolico
+- porta ferro galvanizado, porta zincada
+- porta lampada porcelana, bocal de porcelana
+- porta lampada rosca, bocal de rosca
+- porta lisa batente, porta de giro
+- porta lisa correr, porta deslizante
+- porta macica, porta sarrafeada macica
+- porta papel higienico, dispenser papel higienico
+- porta papel toalha metalico, dispenser toalheiro metalico
+- porta papel toalha, dispenser de papel toalha
+- porta papel toalha, dispenser toalheiro de folhas
+- porta papel toalha, dispenser toalheiro policarbonato
+- porta papel, dispenser de papel
+- porta pronta madeira, kit porta pronta
+- porta semi-oca, porta sarrafeada semi
+- porta telada, porta tela
+- porta toalha, toalheiro plastico
+- porta veneziana ferro, porta de palhetas
+- porta veneziana madeira, porta de palhetas
+- porta veneziana, porta de palhetas
+- portao de giro, portao abrir folhas
+- portao de giro, portao abrir giro
+- portao de grades, portao abrir grade
+- portao de grades, portao abrir gradil
+- portao de grades, portao de gradil
+- portao de grades, portao gradil
+- portao deslizante de chapa, portao deslizante metalico
+- portao deslizante, portao de correr
+- portao elevatorio manual, portao basculante manual
+- portao elevatorio, portao basculante chapa
+- portao galvanizado, portao zincado
+- portao pivotante, portao de giro
+- portao telado, portao de tela
+- portao tubular, portao de tubos
+- portico rolante, guindaste portico
+- portinhola de chapa, portinhola metalica
+- portinhola de duas folhas, portinhola dupla
+- portinhola de giro, portinhola abrir
+- portinhola de palhetas, portinhola veneziana
+- portinhola deslizante de aluminio, portinhola de correr de aluminio
+- portinhola deslizante de palhetas, portinhola de correr veneziana
+- portinhola deslizante metalica, portinhola de correr de chapa
+- poste cilindrico, poste tubular
+- poste conico continuo, poste tronco conico
+- poste curvo de telecomunicacao, poste teleconico curvo
+- poste de semaforo, coluna semaforica simples
+- poste de telecomunicacao zincado, poste teleconico galvanizado
+- poste de volei, poste de voleibol
+- poste duplo, coluna dupla
+- poste duplo, poste de concreto duplo
+- poste galv, poste galvanizado
+- poste galvanizado reto, poste reto de aco zincado
+- poste galvanizado, poste de aco zincado
+- poste galvanizado, poste zincado
+- poste para bandeira, mastro bandeiras
+- poste redondo, poste circular
+- poste reto de telecomunicacao, poste teleconico reto
+- poste simples, coluna simples
+- pozolana, cinza vulcanica
+- prateleira de granilite, prateleira de marmorite
+- prego comum, prego polido cabeca
+- prego sortido, prego diversas bitolas
+- premisturado a frio, misturado frio
+- pressostato, interruptor de pressao
+- primavera, buganvilia
+- primer antioxidante, fundo anti oxidante
+- primer branco, fundo sintetico branco
+- primer fosfatizante, wash primer
+- primer nivelador, fundo sintetico nivelador
+- primer para galvanizado, fundo especial galvanizado
+- primer universal, fundo metais madeira
+- projetor de sobrepor, refletor de sobrepor
+- projetor jardim, refletor jardim
+- promotor de aderencia, primer adesivo contato
+- protecao termica, isolante termico
+- protetor auditivo concha, abafador de ruido
+- protetor auditivo plug, plug auricular
+- protetor contra surto hibrido, dps hibrido
+- protetor de fechadura, capa de protecao de fechadura
+- protetor de parede, parachoque de parede
+- protetor de ponta, ponteira de protecao
+- protetor de quina, cantoneira adesiva de vinil
+- protetor de quina, cantoneira de borracha
+- protetor de sifao, barra protecao sifao
+- protetor facial arco, viseira facial
+- protetor parede bate, bate-maca
+- protetor solar, filtro solar
+- pulsador de minuteria, botao temporizador
+- pulverizador de tinta eletrico, pistola de pintura eletrica
+- punho de manobra, manopla de comando
+- puxador concha embutido, tirador concha embutido
+- puxador concha, concha de latao cromado
+- puxador concha, tirador concha
+- puxador de alca, tirador de alca
+- puxador de porta, tirador de porta
+- puxador duplo inoxidavel, tirador duplo
+- puxador tubular reto, tirador tubular reto
+- quadra asfaltica, piso asfaltico
+- quadra poliesportiva, espaco multiesportivo
+- quadro de comando de bomba, painel de comando de bomba
+- quadro de comando de recirculacao, painel de recirculacao
+- quadro de distribuicao de sobrepor, centro de carga de sobrepor
+- quadro de distribuicao embutido, centro de carga embutido
+- quadro de distribuicao telefonica, caixa de distribuicao telefonica
+- quadro de distribuicao universal, centro de carga universal
+- quadro de distribuicao, centro de carga
+- quadro de distribuicao, quadro de luz
+- quadro de distribuicao, quadro eletrico
+- quadro de medicao, caixa de medicao
+- quadro eletrico de bomba, painel de bomba
+- quadro eletrico de bombas, painel de bombas
+- quadro geral, painel geral
+- quadro negro, lousa
+- quadro quadriculado, lousa quadriculada
+- quadro telebras embutido, caixa telefonica embutida
+- quadro telebras sobrepor, caixa telefonica de sobrepor
+- quadro telefonico embutido, caixa telefonica embutida
+- rabicho com canopla, tubo ligacao canopla
+- rabicho cromado, tubo ligacao cromado
+- rabicho de cobre, tubo ligacao cobre
+- rabicho de mictorio, tubo ligacao mictorio
+- rabicho sanitario, tubo ligacao sanitario
+- rabicho, tubo de ligacao
+- rack aberto, estante de rack
+- rack fechado de parede, armario rack de parede
+- rack fechado de piso, gabinete rack de piso
+- rack fechado servidor, gabinete de servidor
+- rack fechado, gabinete rack
+- rack servidor piso, gabinete servidor piso
+- radier, fundacao em laje
+- raizes remanescentes, limpeza de raizes
+- ralo fofo semiesferico, ralo abacaxi
+- ralo linear, canaleta linear
+- ralo seco com anel, ralo com anel
+- ralo seco de ferro, ralo de ferro
+- ralo seco fundido, ralo de ferro fundido
+- ralo sifonado com anel, caixa sifonada com anel
+- ralo sifonado de ferro, caixa sifonada de ferro
+- ralo sifonado fundido, caixa sifonada de ferro fundido
+- ralo sifonado quadrado, caixa sifonada quadrada
+- ralo sifonado redondo, caixa sifonada redonda
+- ralo sifonado, ralo com fecho hidrico
+- ralo, escoadouro
+- rampa de acessibilidade, rampa para cadeirante
+- rasgo de parede manual, corte de parede manual
+- rasgo de parede mecanizado, corte de parede mecanizado
+- raspagem de pintura, remocao de pintura
+- realimentador automatico, religador automatico
+- reassentamento de blocos retangulares, recolocacao de blocos
+- reassentamento de blocos sextavados, recolocacao de blocos
+- reassentamento de blocos, recolocacao de blocos
+- reassentamento de guia moldada, recolocacao de guia
+- reassentamento de lajotas, recolocacao de lajotas
+- reassentamento de paralelepipedos, recolocacao de paralelepipedos
+- reassentamento de pisograma, recolocacao de pisograma
+- reator de lampada, reator
+- reator, balastro
+- rebite galvanizado, rebite ferro zincado
+- rebite pop, rebite de repuxo
+- rebite pop, rebite repuxo aluminio
+- rebocadora, projetor argamassa capacidade
+- rebocadora, projetor pneumatico argamassa
+- rebolo abrasivo, pedra de esmeril
+- recarga de acetileno, carga de gas acetileno
+- recarga oxigenio cilindro, recarga de oxigenio
+- receptaculo, conector tomada femea
+- recorte de bancada, abertura para cuba
+- recorte para luminaria, abertura para luminaria
+- rede de esgoto condominial, rede coletora condominial
+- rede futsal, rede futebol salao
+- rede gol, rede trave
+- rede volei nylon, rede volei poliamida
+- rede volei, rede volei faixas
+- reducao concentrica eletrocalha, redutor eletrocalha
+- reducao, redutor
+- redutor eletrocalha, reducao eletrocalha lisa
+- refletor angular, projetor angular lampada
+- refletor de vapor metalico, projetor vapor metalico
+- refletor modular, projetor modular eficiencia
+- refletor modular, projetor modular fluxo
+- refletor retangular, projetor retangular
+- refletor retangular, projetor retangular potencia
+- refletor, projetor
+- refletor, projetor difusor vidro
+- refletor, projetor lamp vapor
+- refletor, projetor potencia lumens
+- registro de esfera, valvula de esfera
+- registro de gaveta, valvula de gaveta
+- registro de pressao, valvula de pressao
+- regulador ar, regulador pressao comprimido
+- regularizacao do subleito, conformacao do subleito
+- reinstalacao de unidade, desmontagem e remontagem de unidade
+- rele de corrente, rele amperimetrico
+- rele falta fase, monitor falta fase
+- rele fotoeletrico comando, fotocelula comando
+- rele fotoeletrico completo, fotocelula completa
+- rele fotoeletrico interno, fotocelula interna
+- rele fotoeletrico suporte, fotocelula com suporte
+- rele fotoeletrico, fotocelula
+- rele fotoeletronico, fotocelula
+- rele impulso bipolar, telerruptor bipolar
+- rele sobrecarga eletronico, protetor eletronico motor
+- rele tempo eletronico, temporizador eletronico
+- rele termico bimetal, protetor termico motor
+- remendo asfaltico, tapa-buraco
+- remocao de oleo, desengraxe
+- removedor de graxas, desengraxante
+- removedor de pichacao, removedor de grafite
+- removedor de tinta, decapante
+- reparo com argamassa, remendo com argamassa
+- reparo de caixa acoplada, conserto de caixa acoplada
+- reparo de caixa de descarga, conserto de caixa de descarga
+- reparo de granilite, recuperacao de granilite
+- reparo de junta de argamassa, conserto de junta de argamassa
+- reparo de piso de granilite, recuperacao de granilite
+- reparo de rodape de granilite, recuperacao de rodape de granilite
+- reparo de valvula de descarga, conserto de valvula de descarga
+- reparo de valvula hidra, conserto de valvula hidra
+- reparo de vigas, recuperacao de vigas
+- reparo estrutural, recuperacao estrutural
+- reparo profundo com graute, recuperacao com graute
+- reparo profundo com microconcreto, recuperacao com microconcreto
+- repetidor de sinal, amplificador de sinal
+- reservatorio de concreto, caixa d'agua de concreto
+- reservatorio de fibra, caixa d'agua de fibra
+- reservatorio de fibrocimento, caixa d agua
+- reservatorio de poliester reforcado, caixa d'agua de fibra
+- reservatorio de polietileno, caixa d'agua de pead
+- reservatorio metalico tipo taca, caixa d'agua tipo taca
+- reservatorio metalico tubular, caixa d'agua tubular
+- reservatorio termico horizontal, boiler horizontal
+- residuos de poda, galhada
+- resina epoxi de alcatrao, pintura epoxi betuminosa
+- retroescavadeira, retro carregadeira
+- revestimento ceramica esmaltada, azulejo
+- revestimento ceramico de parede, azulejo
+- revestimento de borracha, piso emborrachado
+- revestimento de granito, revestimento granitico
+- revestimento de marmore, revestimento marmoreo
+- revestimento monocamada, monocapa
+- revestimento pu quadra, piso poliuretano quadra
+- rincao, calha agua furtada
+- ripa cambara cedrinho, sarrafo cambara cedrinho
+- ripa imbuia, sarrafo imbuia
+- ripa macaranduba, sarrafo macaranduba
+- ripa, sarrafo
+- riscador de formica, cortador de formica
+- rocada, corte de mato
+- roda-teto, moldura de teto, sanca
+- rodaforro, moldura de forro
+- rodape, guarda-vassoura
+- rodateto, moldura de forro
+- rodateto, roda teto
+- rododendro, arbusto azaleia
+- roldana com rolamento, polia com rolamento
+- roldana concava dupla, polia de canal duplo
+- roldana de zamac e nylon, polia de zamac e nylon
+- roldana dupla de ferro, polia dupla de ferro
+- roldana, carretilha
+- rolo carneiro, pe de carneiro
+- rolo compactador carneiro, pe de carneiro
+- rolo compressor, rolo compactador
+- rompedor pneumatico, martelete pneumatico
+- roseta quadrada, canopla quadrada
+- roseta redonda, canopla redonda
+- rosmarino, arbusto alecrim
+- rufo de encosto, rufo de parede
+- saboneteira bancada, dispenser mesa sabonete
+- saco de juta, saco de aniagem
+- saco de pedra, gabiao saco malha
+- saco de rafia de entulho, big bag
+- sapata corrida, fundacao corrida
+- sapata isolada, fundacao isolada
+- sapatilha de cabo galvanizada, protetor de cabo
+- sapatilha de cabo, protetor de cabo
+- sapo compactador, compactador de solo por percussao
+- sarrafo aluminio, regua aluminio pedreiro
+- secador de mao, secador de maos
+- secador de maos fluxo, secador de jato de ar
+- segregador, separador de trafego
+- seixo rolado, pedra de rio
+- selador acrilico, primer acrilico
+- selador epoxi, primer epoxi
+- selagem, vedacao
+- selante acrilico, calafetador acrilico
+- selante de junta, juntas dilatacao mastique
+- selante de polissulfeto, juntas elastomeros polissulfetos
+- selante de silicone, mastique silicone
+- selante para calha, massa para calha
+- selante pu, mastique poliuretano
+- selante, vedante
+- selim com trava, colar tomada com trava
+- selim de derivacao, colar tomada de ferro
+- selim de derivacao, colar tomada de polipropileno
+- selim de tomada, colar de tomada
+- semirreboque de dois eixos, carreta de dois eixos
+- semirreboque de tres eixos, carreta de tres eixos
+- sensor de presenca, detector de movimento
+- sensor presenca infravermelho, detector movimento
+- sensor presenca teto, detector movimento teto
+- separador de mictorio, divisao de mictorio
+- serra circular bancada, serra mesa
+- serra circular manual, serra disco manual
+- serra circular, serra disco
+- serra copo diamantada, broca copo diamantada
+- servente de obras, auxiliar de pedreiro
+- servente de pedreiro, ajudante pedreiro
+- servente especializado, ajudante especializado
+- servente, ajudante geral
+- servico galvanizacao fogo, zincagem quente
+- servicos furos concreto, perfuracao concreto
+- servicos poco absorvente, sumidouro
+- silica ativa, microssilica
+- simbolo bicicleta, simbolo ciclovia
+- simbolo deficiente, simbolo acessibilidade
+- simulador cavalgada, cavalgador
+- simulador remo, remador
+- sinaleiro bomba, luz piloto
+- sinalizacao de cabine, placa aviso cabine
+- sinalizacao de perigo, placa aviso perigo
+- sinalizacao de seguranca, placa de sinalizacao de seguranca
+- sinalizacao horizontal termoplastica, pintura termoplastica
+- sinalizacao horizontal tinta, pintura viaria
+- sinalizacao horizontal vaga, demarcacao estacionamento
+- sinalizador audiovisual, alarme audiovisual
+- sinalizador lampada, sinaleiro luminoso
+- sinalizador noturno, balizador noturno
+- sinalizador obstaculo duplo, balizador duplo
+- sinalizador obstaculo simples, balizador simples
+- sinalizador obstaculo, luz obstaculo
+- sinalizador obstaculos topo, luz topo
+- sinalizador visual advertencia, luz alerta
+- singonio, planta-seta
+- sinteko, verniz piso
+- sistema aquecimento passagem, aquecedor passagem
+- sistema barramento blindado, busway
+- sistema ininterrupto energia, nobreak
+- sistema tratamento efluente, ete
+- soalho de madeira, piso de madeira
+- soalho macho e femea, piso macho e femea
+- soalho madeira, piso madeira
+- soalho tabua macho, piso macho femea
+- solda estanho cobre, solda branca
+- solda exotermica, conexao exotermica cabo
+- solda exotermica, solda aluminotermica
+- solda smaw, soldagem com eletrodo revestido
+- solo-cimento, solo estabilizado com cimento
+- solucao asfaltica elastomerica, impermeabilizante asfaltico
+- solucao limpadora, limpador de pvc
+- solvente mineral, aguarras mineral
+- sondagem com trado, perfuracao com trado
+- soquete de baquelite, bocal de baquelite
+- soquete de lampada, bocal de lampada
+- soquete de porcelana, bocal de porcelana
+- soquete porcelana parafuso, receptaculo porcelana parafuso
+- soquete porcelana, receptaculo porcelana
+- soquete termoplastico, bocal plastico
+- soquete, porta-lampada
+- soquete, receptaculo
+- sprinkler pendente, chuveiro automatico pendente
+- sprinkler, chuveiro automatico
+- string fotovoltaica, fileira de paineis solares
+- subcobertura aluminizada, cobertura manta aluminizada
+- subestacao de entrada de energia, cabine primaria
+- substituicao de lampada, troca de lampada
+- substituicao de luminaria, troca de luminaria
+- substituicao de reator, troca de reator
+- substituicao de refletor, troca de refletor
+- substituicao de registro, troca de registro
+- substituicao de rele fotoeletrico, troca de fotocelula
+- sumidouro, fossa absorvente
+- suporte bracket, mao francesa
+- suporte curto de luminaria, braco curto
+- suporte de ancoragem, conjunto ancoragem tubo
+- suporte de calha, mao francesa para calha
+- suporte de duto, pendurador de duto
+- suporte de eletrocalha, mao francesa
+- suporte de extintor de piso, pedestal
+- suporte de isolador, braquet isoladores
+- suporte de isolador, braquete isoladores
+- suporte de luminaria inclinavel, braco articulado
+- suporte de mastro, apoio de mastro
+- suporte de transformador em poste, plataforma de transformador
+- suporte frances com abas, mao francesa
+- suporte manual para lixa, taco de lixa
+- suporte metalico de calha, mao francesa
+- supressor de surto, dps
+- switch gigabit, comutador de rede
+- tabela de basquete, backboard
+- tabua aparelhada, prancha aparelhada
+- tabua de pinus, prancha de pinus
+- tabua de piso, assoalho
+- tabua, prancha
+- tacha refletiva, olho de gato
+- tacha viaria, tachinha viaria
+- tacha, olho de gato
+- tachao refletivo, segregador refletivo
+- tachao refletivo, tartaruga
+- tachao, tartaruga
+- tampa de acesso, tampa de visita
+- tampa de bacia, tampa de vaso
+- tampa de caixa de inspecao, tampa de visita
+- tampa de condulete, espelho
+- tampa de inspecao oval, tampa de visita oval
+- tampa de inspecao, tampa de visita
+- tampa de pressao, tampa de encaixe
+- tampa de vaso infantil, assento sanitario infantil
+- tampa de vaso universal, assento plastico universal
+- tampa de vaso universal, assento sanitario universal
+- tampa de vaso, assento plastico
+- tampa de vaso, assento sanitario convencional
+- tampa de vaso, assento sanitario plastico
+- tampa de vaso, assento tampa plastica
+- tampa de vaso, assento tampa resina
+- tampa de vaso, assento vaso sanitario
+- tampao com corrente, bujao com corrente
+- tampao concreto, tampa concreto
+- tampao de engate rapido, cap de engate rapido
+- tampao de esgoto, plug de esgoto
+- tampao de ferro fundido articulado, tampa de bueiro articulada
+- tampao de ferro fundido, tampa de bueiro
+- tampao rosca femea, bujhao femea
+- tampao rosca macho, bujhao macho
+- tampao soldavel, cap soldavel
+- tampao terminal, plug terminal
+- tanque asfalto, reservatorio asfalto
+- tanque compensacao pressurizado, vaso expansao
+- tanque cuba inox, tanque lavar roupa inox
+- tanque inox esfregador, tanque inox com esfregador
+- tanque inox suspenso, tanque inox de parede
+- tanque louca branca, tanque ceramico
+- tanque louca coluna, tanque ceramico com coluna
+- tanque septico, fossa septica
+- tapa buraco, remendo asfaltico
+- tapume de obra, vedacao provisoria de obra
+- tapume removivel, fechamento metalico removivel
+- tapume, cerca de obra
+- tapume, cerca provisoria
+- targeta sobrepor, trinco sobrepor
+- tarjeta livre ocupado, fecho livre ocupado
+- tarucel, cordao de espuma
+- tarucel, fundo junta
+- tc janela, transformador corrente janela
+- tc, transformador corrente
+- tee angular, juncao simples graus
+- tee de polipropileno, juncao simples polipropileno
+- tee de reducao, juncao simples reducao
+- tee, juncao simples serie
+- tela alambrado, cerca alambrada
+- tela aniagem juta, pano juta
+- tela arame ondulada, malha ondulada
+- tela de protecao predial, tela fachadeira
+- tela de sinalizacao, tela plastica laranja
+- tela deploye, tela estuque
+- tela deploye, tela metal estuque
+- tela fachadeira, protecao fachada tela
+- tela galvanizada, malha galvanizada
+- tela mosquiteira, mosquiteiro
+- tela mosquiteira, tela de protecao de caixilho
+- tela pop, tela piso concreto
+- tela soldada, tela eletrossoldada, malha pop
+- tela soldada, tela pop
+- telefone de teclas, telefone multifrequencial
+- telha barro, telha ceramica
+- telha capa e canal, telha barro colonial
+- telha capa e canal, telha ceramica colonial
+- telha capa e canal, telha ceramica paulista
+- telha capa e canal, telhas ceramica colonial
+- telha de barro, telha ceramica
+- telha de cimento, telha de concreto
+- telha de encaixe, telha ceramica americana
+- telha de fibrocimento, telha eternit
+- telha de luz, telha ondulada translucida
+- telha de ventilacao, placa de ventilacao de telha
+- telha fibro, telha fibrocimento
+- telha francesa, telha marselha
+- telha galvanizada, telha zincada
+- telha marselha, telha barro francesa
+- telha marselha, telha ceramica francesa
+- telha metalica curva, cobertura curva chapa
+- telha plana galvanizada, francesa plana galvanizada
+- telha plana, telha ceramica plan
+- telha portuguesa, telha lusa
+- telha termoacustica, telha sanduiche
+- telha translucida, telha transparente
+- terca, madre
+- terminal aereo, captor franklin
+- terminal aereo, ponteira para raios
+- terminal de compressao de cobre, sapata de cobre
+- terminal de compressao, sapata de cabo
+- terminal de ventilacao de esgoto, suspiro de esgoto
+- terminal de vergalhao, conector de aterramento
+- terminal eletrico, conector eletrico
+- terminal eletrico, conector terminal cabo
+- terminal estanhado, olhal estanhado
+- terminal modular, borne modular
+- terminal mufla, terminacao mufla
+- terminal olhal, conector olhal cabo
+- termofusora, maquina de solda ppr
+- termometro bimetalico, termometro analogico
+- termostato de seguranca, limitador de temperatura
+- terra vegetal a granel, terra preta a granel
+- terra vegetal ensacada, terra preta ensacada
+- terra vegetal, terra preta
+- terraplenagem, movimento de terra
+- tesoura de madeira, tesoura de telhado
+- tesoura para telha ceramica, tesoura de telhado
+- tesoura para telha plastica, tesoura de telhado
+- teste de estanqueidade, teste de vedacao
+- testeira de borracha de degrau, nariz de degrau
+- testeira de degrau vinilico, nariz de escada vinilico
+- textura acrilica com agregados, grafiato
+- tijolo ceramico furado, tijolo baiano
+- tijolo ceramico laminado, tijolo de acabamento
+- tijolo ceramico macico, tijolo comum
+- tijolo ceramico refratario, tijolo de forno
+- tijolo furado ceramico, tijolo baiano
+- tijolo furado, tijolo vazado, tijolo baiano
+- tijolo laminado, tijolo de acabamento
+- tijolo macico, tijolo comum
+- tijolo requeimado, tijolo klinker
+- tinta a base de agua, tinta aquosa
+- tinta a base de borracha, tinta emborrachada
+- tinta a oleo, pintura a oleo
+- tinta acabamento, tinta de acabamento
+- tinta acrilica de sinalizacao, tinta de demarcacao
+- tinta acrilica para faixas, tinta de demarcacao
+- tinta acrilica para pisos, tinta para piso
+- tinta alquidica, esmalte sintetico
+- tinta asfaltica impermeabilizante, impermeabilizante asfaltico
+- tinta betuminosa, tinta asfaltica
+- tinta latex acrilica, tinta acrilica
+- tinta lousa, tinta para lousa
+- tinta para piso, tinta latex piso
+- tinta rica em zinco, galvanizacao frio tinta
+- tira perfurada, fita metalica perfurada
+- toalheiro de rosto, porta toalha rosto
+- toalheiro, porta toalha banho
+- tomada coaxial, tomada antena cabo
+- tomada de canaleta, tomada canaleta perfilado
+- tomada de dados, tomada rede dados
+- tomada de sobrepor, tomada externa
+- tomada ethernet, tomada rede fornecimento
+- tomada rj11, tomada telefone fios
+- tomada, tomada de corrente
+- tomografia de arvore, tomografia sonica tronco
+- torneira com sensor, torneira mesa automatica
+- torneira de jardim, torn jardim tanque
+- torneira hospitalar, torneira clinica profissional
+- torneira misturadora, misturador agua quente
+- torneira temporizada, torneira fechamento automatica
+- torre de andaime, andaime torre
+- trafo de comando, transformador comando tensao
+- trafo redutor, transformador abaixador entrada
+- trafo, transformador
+- transformador de comando, trafo de comando
+- transformador de potencia, trafo de potencia
+- transformador de potencial com fusivel, tp com fusivel
+- transformador de potencial, tp
+- transformador de potencial, trafo de potencial
+- transformador potencia, trafo de potencia
+- transformador potencial, transformador de tensao
+- transformador seco, trafo seco
+- transicao cpvc, adaptador cpvc
+- tratamento contra cupim, aplicacao de cupinicida
+- trator de esteira com lamina, bulldozer
+- trava de porta, calco de porta
+- trava quimica, trava rosca
+- trave de futsal, baliza de futsal
+- trave oficial completa, gol completo
+- trave oficial de futebol, gol oficial
+- trelica espacadora, espacador trelicado
+- trelica nervurada, trelica de laje
+- trena, fita metrica
+- trilho de janela de correr, guia de janela
+- trincas, rachaduras
+- trincha de cerdas gris, pincel de cerdas gris
+- trincha de cerdas sinteticas, pincel sintetico
+- trinco batom, fecho batom
+- trinco de piso, batedor de porta
+- trinco quebra unha, fecho quebra unha
+- trinco unha, fecho unha embutir
+- trocador acessivel, fraldario acessivel
+- tubo carbono preto, cano preto
+- tubo concreto armado, manilha armada
+- tubo concreto esgoto, manilha de esgoto
+- tubo concreto simples, manilha simples
+- tubo concreto, manilha
+- tubo de agua quente, cano para agua quente
+- tubo de cobre, cano de cobre
+- tubo de concreto, manilha
+- tubo de concreto, manilha de concreto
+- tubo de drenagem, tubo dreno
+- tubo de entulho, duto coletor de entulho
+- tubo de esgoto, cano de esgoto
+- tubo de extravasao, ladrao
+- tubo de queda, condutor circular aquapluv
+- tubo de queda, condutor inclusive conexoes
+- tubo de queda, condutor pluvial circular
+- tubo de recalque, linha de recalque
+- tubo de succao, linha de succao
+- tubo de visita, tubo inspecao limpeza
+- tubo defofo, pvc defofo
+- tubo dreno corrugado, duto corrugado de dreno
+- tubo galvanizado, tubo zincado
+- tubo multicamada, tubo composto
+- tubo pead, tubo de polietileno de alta densidade
+- tubo pex, tubo de polietileno reticulado
+- tubo pvc branco, cano pvc branco
+- tubo pvc roscavel, cano pvc roscavel
+- tubo pvc soldavel, cano pvc soldavel
+- tubo soldavel agua fria, tubo marrom
+- tubo soldavel, pvc marrom
+- tubo soldavel, tubo marrom
+- tubo-forma, tubo papelao forma
+- tubulacao eletrica, eletroduto
+- tubulacao hidraulica, encanamento
+- tubulacao, encanamento
+- tubulao pneumatico, tubulao de ar comprimido
+- tumbergia, manto de rei
+- unha, pata de vaca
+- uniao inox, junta uniao inoxidavel
+- unidade condensadora, condensadora
+- unidade de disco rigido, hd
+- unidade evaporadora, evaporador sistema condicionado
+- unidade evaporadora, unidade interna
+- urinario auto sifonado, mictorio auto sifonado
+- urinario coletivo inox, mictorio coletivo inox
+- urinario com valvula, mictorio sifonado valvula
+- urinario inox, mictorio individual inox
+- urinario inox, mictorio inoxidavel
+- urinario sifonado, mictorio individual sifonado
+- urinario sifonado, mictorio louca sifonado
+- urinario sifonado, mictorio sifonado louca
+- urinol coletivo, mictorio coletivo
+- urucum, urucuzeiro
+- usina de asfalto, central de asfalto
+- usina de concreto, central de concreto
+- valvula boia balao, torneira boia balao
+- valvula boia de latao, torneira boia latao
+- valvula boia, torneira boia
+- valvula boia, torneira plastica boia
+- valvula borboleta, registro borboleta
+- valvula de agua fria, registro de agua
+- valvula de balanceamento, registro de balanceamento
+- valvula de boia, torneira de boia
+- valvula de cilindro de gas, registro de gas
+- valvula de duas vias, valvula de 2 vias
+- valvula de pe, valvula crivo
+- valvula de pe, valvula de fundo
+- valvula de pia americana, valvula de pia
+- valvula de pia cromada, valvula americana cromada
+- valvula de pia cromada, valvula de escoamento cromada
+- valvula de pia dupla, valvula dupla de bancada
+- valvula de pressao cromada, torneira pressao cromada
+- valvula de pressao, torneira pres alavanca
+- valvula de retencao, valvula antirretorno
+- valvula esfera borboleta, registro esfera borboleta
+- valvula esfera bruta, registro esfera bruto
+- valvula esfera de carbono, registro esfera carbono
+- valvula esfera de duas vias, registro esfera de duas vias
+- valvula esfera de entrada, registro de entrada
+- valvula esfera latao, registro esfera latao
+- valvula esfera metalica, registro esfera metalico
+- valvula esfera monobloco, registro esfera monobloco
+- valvula esfera motorizada, registro esfera motorizado
+- valvula esfera passeio, registro esfera passeio
+- valvula esfera roscada, registro esfera rosca
+- valvula esfera roscada, registro esfera roscavel
+- valvula esfera soldavel, registro esfera soldavel
+- valvula gaveta acabamento, registro gaveta acabamento
+- valvula gaveta amarela, registro gaveta amarelo
+- valvula gaveta bronze, registro gaveta bronze
+- valvula gaveta bruta, registro gaveta bruto
+- valvula gaveta com canopla, registro gaveta canopla
+- valvula gaveta cromada, registro gaveta cromado
+- valvula gaveta ferro, registro gaveta ferro
+- valvula gaveta latao, registro gaveta latao
+- valvula globo angular, registro globo angular
+- valvula globo automatica, registro globo automatico
+- valvula globo bronze, registro globo bronze
+- valvula globo carbono, registro globo carbono
+- valvula globo, registro valvula globo
+- valvula governo alarme, vga
+- valvula governo completa, vga completa
+- valvula plastico branco, registro plastico branco
+- valvula plastico cromado, registro plastico cromado
+- valvula pressao acabamento, registro pressao acabamento
+- valvula pressao amarela, registro pressao amarelo
+- valvula pressao bruta, registro pressao bruto
+- valvula pressao com canopla, registro pressao canopla
+- valvula pressao cromada, registro pressao cromado
+- valvula pressao latao, registro pressao latao
+- valvula pressao latao, torneira pressao latao
+- valvula pressao roscada, registro pressao roscavel
+- valvula pressao soldavel, registro pressao soldavel
+- valvula recalque hidrante, registro recalque hidrante
+- valvula recalque passeio, registro recalque passeio
+- valvula redutora de pressao, valvula reguladora de pressao
+- valvula redutora pressao, regulador de pressao
+- valvula reguladora oxigenio, regulador pressao oxigenio
+- valvula reguladora pressao, regulador de pressao
+- valvula retencao bronze, check valve bronze
+- valvula retencao com crivo, valvula de pe
+- valvula retencao ferro, check valve ferro
+- valvula retencao horizontal, check valve horizontal
+- valvula retencao vertical bronze, check valve vertical bronze
+- valvula retencao vertical, check valve vertical
+- valvula retencao, valvula anti-retorno
+- valvula seguranca temperatura, valvula de alivio termico
+- valvula ventosa eliminadora, purgador de ar
+- valvula ventosa ferro ductil, purgador de ar ferro ductil
+- valvula ventosa simples rosqueada, purgador de ar rosqueado
+- valvula ventosa triplice funcao, purgador de ar triplo
+- vara cremona, vareta de cremona
+- vara manobra cabine, haste de manobra
+- vara manobra fibra, bastao de manobra
+- varal toalheiro, toalheiro
+- vareta solda foscoper, solda foscoper
+- variador luminosidade rotativo, dimmer
+- variador velocidade ventilador, controlador de velocidade
+- vassoura mecanica rebocada, varredora mecanica
+- vassoura mecanica rebocavel, varredora mecanica
+- veda junta pu, selante poliuretano
+- vedacao calha borracha, borracha de calha
+- vedacao elastica, junta elastica
+- vedelia, margarida-rasteira
+- veneziana aletas fibra, louver de fibra
+- veneziana aletas montada, louver montado
+- veneziana de correr, veneziana deslizante
+- veneziana industrial aletas, louver industrial
+- veneziana industrial aluminio, louver de aluminio
+- veneziana industrial galvanizada, louver galvanizado
+- veneziana tela, louver de tela
+- veneziana vidro capelinha, janela capelinha
+- verga moldada no local, verga concretada no local
+- verga pre moldada, verga fabricada
+- verga pre moldada, verga moldada
+- vergalhao cobre eletrolitico, barra de cobre eletrolitico
+- vergalhao cobre, barra de cobre
+- vergalhao galvanizado, barra galvanizada
+- vergalhao liso galvanizado, barra lisa galvanizada
+- vergalhao, barra de aco
+- verniz antichama, verniz retardante de chama
+- verniz antipichacao incolor, anti graffiti incolor
+- verniz antipichacao, anti graffiti
+- verniz incolor, verniz transparente
+- verniz maritimo, verniz nautico
+- verniz para madeira, verniz superficie madeira
+- verniz para plastico, verniz plastico
+- verniz poliuretano alifatico, verniz pu alifatico
+- verniz poliuretano, verniz pu
+- vibroacabadora de asfalto, pavimentadora de asfalto
+- video porteiro, interfone com camera
+- vidraceiro, colocador de vidros
+- vidro aramado, vidro com tela
+- vidro colorido, vidro cristal colorido
+- vidro com tela, vidro plano aramado
+- vidro comum, vidro liso comum
+- vidro de fachada, pele de vidro
+- vidro duplo, vidro de isolamento
+- vidro fantasia incolor, vidro texturizado
+- vidro fantasia, vidro texturizado
+- vidro fume, vidro liso fume
+- vidro laminado, vidro de seguranca laminado
+- vidro laminado, vidro liso laminado
+- vidro liso, vidro comum
+- vidro temperado cinza, vidro fume
+- vidro temperado transparente, vidro temperado incolor
+- vidro transparente, vidro liso incolor
+- viga baldrame, viga de fundacao
+- viga de amarracao, cinta amarracao alvenaria
+- viga de amarracao, viga de travamento
+- viga de equilibrio, viga alavanca
+- volante cromado, manopla cromada
+- volante de registro, manopla de registro
+- volante, manopla
