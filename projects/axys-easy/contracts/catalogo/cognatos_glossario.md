@@ -22,7 +22,7 @@ com **precisão > recall** (sinônimo errado casa errado = regressão).
 Sinônimo multi-palavra NO ÍNDICE explode recall (`drywall`→`gesso acartonado` fazia drywall casar tudo
 com "gesso"). Por isso o sinônimo é aplicado como **grafo de frase no search-time**, não no índice.
 
-## Glossário (2374 grupos — curado por Renan 2026-09-21)
+## Glossário (2373 grupos — curado por Renan 2026-09-21)
 Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acento).
 
 - abaneiro, arbusto clusia
@@ -63,6 +63,7 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - adesivo pu, cola de poliuretano
 - adesivo vinilico, cola para piso vinilico
 - adubacao, aplicacao de adubo
+- aduela, batente, marco de porta
 - agapanto, lirio africano
 - agitador de lama, misturador preparo lama
 - agitador de tinta, misturador manual tintas
@@ -238,7 +239,6 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - batente de madeira, marco de madeira
 - batente de porta, marco de porta
 - batente metalico, marco metalico
-- batente, aduela, marco
 - berco de areia, colchao de areia
 - betoneira, misturador de concreto
 - bica corrida, brita corrida
@@ -2014,7 +2014,6 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - tabua aparelhada, prancha aparelhada
 - tabua de pinus, prancha de pinus
 - tabua de piso, assoalho
-- tabua, prancha
 - tacha refletiva, olho de gato
 - tacha viaria, tachinha viaria
 - tacha, olho de gato
