@@ -504,9 +504,11 @@ governança que já existe ali (`fte_ativa`, `fte_tem_catalogo_insumos`, `fte_ca
 é favoritável — logo a "tabela de pares habilitados" é derivável e **não deve existir**.
 
 - **SINAPI e SICRO são `TRUE` por lei**, não por escolha. Não se desmarca.
-- **Marcar uma fonte como favoritável obriga a passada de curadoria contra todas as outras** — com
-  `sem equivalente` valendo como resposta legítima. **Não é gate de 100% vinculado**: a §1.1 já decidiu
-  que publicar exige *revisado*, não completo. Gate duro aqui nunca abriria.
+- **NÃO existe gate de cobertura. A flag não obriga a popular nada.** Se não há associação, é
+  `sem equivalente` — ponto. Cobertura é **maturidade, não pré-requisito**: nascer com 10 associações e
+  chegar a 99% com o tempo, fine-tuning e modelos melhores é o caminho genuíno, não uma falha a corrigir
+  antes de ligar. O que foi curado por engenheiro, para engenheiro, já fica disponível desde a primeira
+  linha. Qualquer trava de completude aqui só serviria para impedir que a coisa comece.
 - **Não confundir as duas metades:** `fte_favoritavel` (catálogo) = *pode* ser escolhida; **favorita**
   (orçamento) = a que *foi* escolhida, e já existe como `ativo.orcamento_parametros.opa_default`.
 
@@ -521,10 +523,19 @@ convergir ao máximo para aquela fonte-base. Não é filtro de exibição; é de
 | âncora + 1 favoritável extra | 4 | 8 | 18 |
 | `TODAS→TODAS` (não se fará) | 3 | 10 | 45 |
 
-### 12.2. O que trava isso hoje
-O destino da conversão está **hardcoded**: `favorita="SINAPI"` em `orcamento_service.py:569` e `:1127`,
-e `conversao_detalhe.py:339`. Não é possível favoritar CDHU nem querendo. A flag sozinha não resolve —
-o hardcode sai junto (§13.5).
+### 12.2. O que a flag acrescenta (e o que já funciona)
+**Rotacionar para outra fonte JÁ funciona e foi testado.** O caminho é dinâmico: a favorita sai do que
+estiver marcado no Fontes tab (`orcamento_service.py:592` e `:1214` — `next(... if p.get("favorita"))`).
+
+O `favorita="SINAPI"` de `:569`/`:1127`/`:1212` **não é resquício a remover**: está confinado ao ramo
+**MENSALISTA**, e ali o SINAPI é obrigatório por construção — o par H↔MÊS
+(`composicoes_mapeamento_mdo`) só existe no SINAPI. Rotação de regime passa pelo SINAPI por natureza,
+não por descuido.
+
+Logo `fte_favoritavel` **não destrava** a rotação. O que ela acrescenta é o que hoje não existe:
+**declarar quais fontes são alvo legítimo**. Hoje qualquer fonte pode ser marcada favorita no Fontes
+tab sem que ninguém tenha se comprometido a manter equivalências contra ela — e a conversão sai pela
+metade, em silêncio, sem a tela saber distinguir "não habilitado" de "sem equivalente".
 
 ---
 
@@ -669,8 +680,9 @@ tem de perguntar também "é `[H]`?". Mesma trigger, uma condição a mais, cust
   saltando pelo SINAPI e **multiplicando os dois fatores**. É exatamente o que a §11.1 proíbe: inventa
   uma equivalência que ninguém afirmou, porque o par intermediário pode não ser válido. Ou há linha
   direta, ou a resposta é "não há equivalente".
-- **`favorita="SINAPI"` hardcoded** em `orcamento_service.py:569` e `:1127`, `conversao_detalhe.py:339`.
-  Sai junto com `fte_favoritavel` (§12.2) — senão a flag não tem efeito nenhum.
+- **A tela precisa distinguir "fonte não favoritável" de "item sem equivalente"** (§12.2). Hoje os dois
+  chegam como ausência de linha e a conversão sai pela metade, calada. Não é dívida de schema: é de UI
+  sobre um dado que `fte_favoritavel` passa a fornecer.
 - **`NULL` → `1.0` em `equivalencias.py:52,59`.** Fator `NULL` é a classe `especial` — "a app **não
   assume** a conversão". Hoje assume **1**, calado. **Corrigir junto, não depois.**
 - **`sem_equivalente` APAGA a linha** na curadoria em tela, contra a §1.1 ("estado terminal válido") e
