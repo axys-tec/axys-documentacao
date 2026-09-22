@@ -22,7 +22,7 @@ com **precisão > recall** (sinônimo errado casa errado = regressão).
 Sinônimo multi-palavra NO ÍNDICE explode recall (`drywall`→`gesso acartonado` fazia drywall casar tudo
 com "gesso"). Por isso o sinônimo é aplicado como **grafo de frase no search-time**, não no índice.
 
-## Glossário (2373 grupos — curado por Renan 2026-09-21)
+## Glossário (2374 grupos — curado por Renan 2026-09-21)
 Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acento).
 
 - abaneiro, arbusto clusia
@@ -1898,6 +1898,7 @@ Formato OpenSearch synonym (termos equivalentes por linha, minúsculas sem acent
 - sapatilha de cabo galvanizada, protetor de cabo
 - sapatilha de cabo, protetor de cabo
 - sapo compactador, compactador de solo por percussao
+- sapo, sapo mecanico, compactador de solo a percussao
 - sarrafo aluminio, regua aluminio pedreiro
 - secador de mao, secador de maos
 - secador de maos fluxo, secador de jato de ar
