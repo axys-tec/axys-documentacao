@@ -68,9 +68,14 @@ edição **pós-publicação já nasce conciliada**. É viável porque o **ID de
 sempre"** (get-or-create) → a conciliação vira **diff**, não re-curadoria.
 
 ### 1.1. Regra de completude (publicar)
-Publicar exige a conciliação **REVISADA**, não 100% vinculada. **"Sem equivalente" é estado terminal
-válido** (nem todo item SINAPI tem par CDHU). Trava-se a publicação se houver **delta pendente de revisão**,
-nunca por "faltar vínculo".
+Publicar exige a conciliação **REVISADA**, não 100% vinculada. Trava-se a publicação se houver **delta
+pendente de revisão**, nunca por "faltar vínculo".
+
+⚠️ **REVOGADO (2026-09-22):** a redação anterior chamava `sem_equivalente` de "estado terminal válido".
+**Não é estado — é ausência de linha.** Se não há equivalente, não se registra nada; não se guarda
+ausência. O `DELETE` que a curadoria em tela faz está **CERTO e fica**.
+**Consequência assumida:** o matcher exclui do universo apenas quem TEM linha, então um par rejeitado
+volta a ser proposto no import seguinte. Retrabalho conhecido e aceito — não é defeito a corrigir.
 
 ### 1.2. Ordem (produção)
 Importa-se **SINAPI 1..n-1 primeiro** (gera o header e o H↔MÊS), depois CDHU/FDE contra o header. Dentro do
@@ -97,10 +102,10 @@ publicada, override manual). **Não foi construído e não deve ser**: a equival
 
 Estados do vínculo **(reais, conferidos no código)**: `pendente` → `confirmado` · `revisar` (delta
 reabriu) · `refutado` (IA/usuário rejeitou — fica com `ativo=FALSE`, **não some**, para não ser
-reproposto). `ia_ok` **nunca existiu**. `sem_equivalente` é transitório na curadoria: hoje **APAGA a
-linha** (`aplicar_manifesto_vinculacao`, `curar_ins`) — o que contradiz a §1.1 ("estado terminal
-válido") e faz o par rejeitado voltar a ser proposto no próximo import. **Incoerência conhecida:** o
-caminho da IA (`importar_associacoes`) faz o certo, marcando `refutado` + `ativo=FALSE`.
+reproposto). `ia_ok` **nunca existiu**. `sem_equivalente` **não é estado** — a curadoria em tela **APAGA a linha**
+(`aplicar_manifesto_vinculacao`, `curar_ins`), e isso está **CERTO** (§1.1): ausência não se registra.
+**Quem diverge é o caminho da IA** (`importar_associacoes`), que marca `refutado` + `ativo=FALSE` — tem
+de passar a apagar também.
 
 ---
 
@@ -685,9 +690,8 @@ tem de perguntar também "é `[H]`?". Mesma trigger, uma condição a mais, cust
   sobre um dado que `fte_favoritavel` passa a fornecer.
 - **`NULL` → `1.0` em `equivalencias.py:52,59`.** Fator `NULL` é a classe `especial` — "a app **não
   assume** a conversão". Hoje assume **1**, calado. **Corrigir junto, não depois.**
-- **`sem_equivalente` APAGA a linha** na curadoria em tela, contra a §1.1 ("estado terminal válido") e
-  contra o caminho da IA, que marca `refutado` + `ativo=FALSE`. Par rejeitado volta a ser proposto no
-  import seguinte — trabalho negativo.
+- **Alinhar `importar_associacoes` à tela:** a tela apaga (correto, §1.1); o caminho da IA marca
+  `refutado` + `ativo=FALSE`. Os dois têm de apagar.
 - **`insumos_equivalencias` sobra** (§5.4). Decisão tomada: **as telas param de usá-la**. A tabela é
   removida quando a UI não a referenciar mais.
 - **Revalidação só de um lado** (§9.1) e **só de `confirmado`** (§9.2).
