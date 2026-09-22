@@ -336,6 +336,16 @@ CREATE TABLE IF NOT EXISTS catalogo.fontes (
     -- Catálogos de terceiros (SINAPI/CDHU) = FALSE → imutáveis por qualquer usuário
     -- (risco alto). Esta flag é o GATE consumido pelas telas de insumos/composições.
     fte_permite_manipular_dados BOOLEAN NOT NULL DEFAULT FALSE,
+    -- A fonte pode ser DESTINO de equivalência — ou seja, pode ser favoritada na bancada?
+    -- Contrato: contracts/catalogo/vinculacoes.md §12.1. O eixo é o DESTINO, não o par:
+    -- marcada TRUE, todas as outras fontes apontam para ela ("{todas} → CDHU habilitado").
+    -- Um par está habilitado SE E SÓ SE uma das pontas é favoritável → a "tabela de pares
+    -- habilitados" é derivável e NÃO deve existir.
+    -- SINAPI e SICRO são TRUE por LEI (14.133), não por escolha — não se desmarca.
+    -- NÃO é gate de cobertura: não obriga a popular nada. Sem equivalente = sem linha.
+    -- NÃO confundir com a favorita DO ORÇAMENTO (ativo.orcamento_parametros.opa_default):
+    -- esta diz quem PODE ser escolhida; aquela diz quem FOI escolhida.
+    fte_favoritavel    BOOLEAN NOT NULL DEFAULT FALSE,
     -- EXIBIÇÃO dos arquivos originais no caderno técnico da edição (seção "Arquivos originais",
     -- entre Dados e Encargos Sociais). É SÓ flag de VITRINE — NÃO define bucket público nem
     -- libera o blob: o armazenamento (public/private) é decidido no import, independente disto.
@@ -374,14 +384,18 @@ CREATE INDEX ix_fontes_ativa
 --   fte_permite_manipular_dados: SÓ AXYS (fonte própria) = TRUE; terceiros = FALSE (imutáveis).
 INSERT INTO catalogo.fontes (fte_id, fte_codigo, fte_nome, fte_ordem_edicao,
                              fte_tem_catalogo_insumos, fte_tem_caderno_metodologia,
-                             fte_catalogos_continuos, fte_permite_manipular_dados, fte_public, fte_criado_por)
-SELECT v.id, v.codigo, v.nome, v.ordem, v.tem_ins, v.tem_met, v.continuos, v.manipula, v.publico, 'Axys — seed inicial'
+                             fte_catalogos_continuos, fte_permite_manipular_dados, fte_public,
+                             fte_favoritavel, fte_criado_por)
+SELECT v.id, v.codigo, v.nome, v.ordem, v.tem_ins, v.tem_met, v.continuos, v.manipula, v.publico,
+       v.favoritavel, 'Axys — seed inicial'
 FROM (VALUES
-    (1, 'AXYS',   'Composições Próprias',                               'DATA',   FALSE, FALSE, TRUE,  TRUE,  TRUE),
-    (2, 'SINAPI', 'Sistema Nacional de Pesquisa de Custos e Índices da Construção Civil', 'DATA', TRUE, TRUE, TRUE, FALSE, TRUE),
-    (3, 'CDHU',   'Companhia de Desenvolvimento Habitacional e Urbano', 'VERSAO', FALSE, TRUE, FALSE, FALSE, FALSE),
-    (4, 'FDE',    'Fundação para o Desenvolvimento da Educação',        'DATA',   FALSE, TRUE, FALSE, FALSE, FALSE)
-) AS v(id, codigo, nome, ordem, tem_ins, tem_met, continuos, manipula, publico)
+    -- favoritavel: SINAPI por LEI (14.133); CDHU e FDE por decisão de produto (vinculacoes.md §12.1).
+    -- AXYS (própria) não é destino de equivalência entre fontes-base.
+    (1, 'AXYS',   'Composições Próprias',                               'DATA',   FALSE, FALSE, TRUE,  TRUE,  TRUE,  FALSE),
+    (2, 'SINAPI', 'Sistema Nacional de Pesquisa de Custos e Índices da Construção Civil', 'DATA', TRUE, TRUE, TRUE, FALSE, TRUE, TRUE),
+    (3, 'CDHU',   'Companhia de Desenvolvimento Habitacional e Urbano', 'VERSAO', FALSE, TRUE, FALSE, FALSE, FALSE, TRUE),
+    (4, 'FDE',    'Fundação para o Desenvolvimento da Educação',        'DATA',   FALSE, TRUE, FALSE, FALSE, FALSE, TRUE)
+) AS v(id, codigo, nome, ordem, tem_ins, tem_met, continuos, manipula, publico, favoritavel)
 ON CONFLICT (fte_codigo) DO UPDATE
     SET fte_id             = EXCLUDED.fte_id,
         fte_nome           = EXCLUDED.fte_nome,
@@ -391,6 +405,7 @@ ON CONFLICT (fte_codigo) DO UPDATE
         fte_catalogos_continuos  = EXCLUDED.fte_catalogos_continuos,
         fte_permite_manipular_dados = EXCLUDED.fte_permite_manipular_dados,
         fte_public         = EXCLUDED.fte_public,
+        fte_favoritavel    = EXCLUDED.fte_favoritavel,
         fte_atualizado_em  = CURRENT_TIMESTAMP,
         fte_atualizado_por = 'Axys — seed inicial';
 SELECT setval(
@@ -2457,16 +2472,18 @@ ON CONFLICT (pn_codigo) DO NOTHING;
 -- única geraria colunas-nulas e FK polimórfica nos dois lados — dívida estilo
 -- ins_external_path). Mantidas separadas por CLAREZA DE PAPEL:
 --
---   • composicoes_mapeamento_mdo   comp↔comp · DETERMINÍSTICA N:1 (via insumo MO) · FONTE-LEVEL (cmp_id é identidade)
---       swap exato horista→mensalista (88316→101452). Fator h/mês vem de parametros_normativos (JORNADA_H_MES), não daqui.
---   • conversao_mo_fte_to_sinapi   insumo-fonte→comp-SINAPI · DETERMINÍSTICA N:1 · POR EDIÇÃO
---       normaliza MO de outra fonte (CDHU) para a língua MO-SINAPI.
---   • insumos_equivalencias        insumo↔insumo · DIFUSA (score/tipo) · SEM edição (cadastral)
---       mapa de similaridade p/ busca/sugestão (não aplica swap; sugere ao curador).
+--   • composicoes_mapeamento_mdo   comp↔comp · DETERMINÍSTICA N:1 (via insumo MO) · INTRA-FONTE
+--       swap exato horista→mensalista (88316→101452). Fator h/mês vem de parametros_normativos
+--       (JORNADA_H_MES), não daqui. FORA do refactor de associações — outra finalidade.
+--   • equivalencias_mo             MDO entre fontes · assimétrica (INS↔CPU ou INS↔INS) · identity-level
+--       (era `conversao_mo_fte_to_sinapi`, renomeada; o prefixo `cmf_` nunca existiu no schema atual)
+--   • equivalencias_ins / _cpu     não-MDO · par simétrico · identity-level
 --
--- COMPLEMENTARES, não redundantes: equivalencias SUGERE (difusa) → curador promove
--- p/ conversao/mapeamento que APLICA (exata) na resolução. Pipeline de resolução de
--- MO: 1º normaliza FONTE (conversao_fte) → 2º normaliza REGIME (mapeamento_mdo).
+-- Pipeline de resolução de MO: 1º normaliza FONTE (equivalencias_mo, vira SINAPI-horista)
+-- → 2º normaliza REGIME (composicoes_mapeamento_mdo, horista→mensalista).
+--
+-- ⚠️ `insumos_equivalencias` (legada, insumo↔insumo difusa) NÃO entra mais nesta família:
+-- decisão 2026-09-21 — a tabela SOBRA e será removida quando as telas pararem de usá-la.
 -- ############################################################
 
 -- ============================================================
@@ -2513,123 +2530,289 @@ CREATE INDEX ix_composicoes_mapeamento_mdo_mes
 
 
 -- ============================================================
--- TABELA: catalogo.conversao_mo_fte_to_sinapi   (2026-06-16)
--- Normaliza MÃO DE OBRA de outras fontes para a MO-SINAPI, p/ o orçamento falar
--- UMA língua de MO (não misturar servente CDHU c/ servente SINAPI no mesmo orçamento).
+-- GUARDA de catalogo.composicoes_mapeamento_mdo (H↔MÊS)
+-- Contrato: contracts/catalogo/vinculacoes.md §0 (tabela FORA do refactor de associações)
 --
--- ASSIMETRIA: o lado ORIGEM é um INSUMO-MO da fonte (ex.: CDHU B.01.000.010146,
--- Servente, H — folha simples); o lado ALVO é uma COMPOSIÇÃO-MO da SINAPI (ex.:
--- 88316, SERVENTE COM ENCARGOS COMPLEMENTARES — que explode em EPI/ferramenta/curso/
--- salário). Por isso cmf_sinapi_cmp_id é COMPOSIÇÃO, não insumo.
+-- A tabela é INTRA-FONTE e CPU↔CPU: horista [H] → mensalista [MÊS] da MESMA fonte.
+-- Isso nunca esteve escrito no banco — só no comportamento do gerador (conciliar_mdo).
+-- A exposição real é a tela `hmes/curar`, onde um humano escolhe a composição à mão.
 --
--- AS-OF edição: o equivalente pode mudar quando a fonte ou a SINAPI rotaciona.
---
--- ENCADEIA com composicoes_mapeamento_mdo (NÃO precisa de de-para mensalista próprio
--- da fonte): pipeline de resolução = 1º normaliza FONTE (aqui, vira SINAPI-horista),
--- 2º normaliza REGIME (mapeamento_mdo horista→mensalista × cmm_fator_unidade).
--- Ordem fixa: fonte antes de regime (o de-para mensalista só conhece códigos SINAPI).
---
--- CURADORIA (check periódico, não runtime): todo cmf_sinapi_cmp_id deve existir como
--- cmm_cmp_id_h em composicoes_mapeamento_mdo (na mesma edição), senão o passo de
--- regime mensalista não acha o swap.
+-- NÃO se checa o subgrupo ('CÁLCULOS E PARÂMETROS'): é nome específico do SINAPI, muda
+-- quando a fonte renomeia, e é redundante — que outra composição vai de HORA para MÊS?
+-- A unidade carrega a semântica inteira e vale para qualquer fonte futura com H/MÊS.
 -- ============================================================
--- ============================================================
--- TABELA: catalogo.equivalencias_mo   (MDO fonte → header, ISOLADA)
--- Contrato: docs/.../contracts/catalogo/vinculacoes.md §3.2
--- Insumo-MO da fonte (função) → COMPOSIÇÃO-MO do header [H] ("... COM
--- ENCARGOS COMPLEMENTARES"). MDO é ESTÁTICO → back resolve 100%
--- (função+dicionário de sinônimos+preço). SEM edição, SEM hash, SEM coef,
--- SEM IA. Sobre o item VIGENTE (identity), não por edição.
--- ============================================================
-CREATE TABLE IF NOT EXISTS catalogo.equivalencias_mo (
-    mo_id            INTEGER GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
-    mo_ref_fonte     TEXT    NOT NULL,                   -- 'SINAPI' | 'SICRO' (header 14.133)
-    mo_ref_tipo      CHAR(3) NOT NULL DEFAULT 'CPU',     -- 'CPU' (MDO do header é composição)
-    mo_ref_item_id   BIGINT  NOT NULL,                   -- composição-MO do header (alvo). FK física.
-    mo_fte_codigo    TEXT    NOT NULL,                   -- 'CDHU' | 'FDE' | (futuras) — discriminador de fonte
-    mo_fte_tipo      CHAR(3) NOT NULL DEFAULT 'INS',     -- 'INS' hoje; 'CPU' futuro (fonte com MDO em CPU)
-    mo_fte_item_id   BIGINT  NOT NULL,                   -- insumo-MO da fonte. FK polimórfica via app.
-    mo_status        TEXT    NOT NULL DEFAULT 'pendente', -- confirmado | sem_equivalente | pendente
-    mo_score         NUMERIC(4,3),                       -- ratio função+preço (exibição)
-    mo_obs           TEXT,
-    mo_criado_em     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    mo_atualizado_em TIMESTAMPTZ,
-    mo_criado_por    TEXT,
-    mo_atualizado_por TEXT,
+CREATE OR REPLACE FUNCTION catalogo.trg_cmm_guarda() RETURNS trigger AS $$
+DECLARE
+    un_h TEXT; un_m TEXT; fte_h INTEGER; fte_m INTEGER;
+BEGIN
+    IF NEW.cmm_cmp_id_h = NEW.cmm_cmp_id_mes THEN
+        RAISE EXCEPTION 'H<->MES: horista e mensalista nao podem ser a mesma composicao (cmp_id=%)',
+            NEW.cmm_cmp_id_h;
+    END IF;
 
-    CONSTRAINT ck_mo_ref_fonte CHECK (mo_ref_fonte IN ('SINAPI', 'SICRO')),
-    CONSTRAINT ck_mo_ref_tipo  CHECK (mo_ref_tipo IN ('INS', 'CPU')),
-    CONSTRAINT ck_mo_fte_tipo  CHECK (mo_fte_tipo IN ('INS', 'CPU')),
-    -- alvo do header é composição → FK física garante integridade do lado ref
-    CONSTRAINT fk_equivalencias_mo_ref
-        FOREIGN KEY (mo_ref_item_id)
-        REFERENCES catalogo.composicoes (cmp_id)
-        ON UPDATE CASCADE ON DELETE CASCADE,
-    -- origem é insumo de FONTE variável → sem FK física (resolvida pelo app via mo_fte_codigo)
-    CONSTRAINT uq_equivalencias_mo
-        UNIQUE (mo_ref_fonte, mo_fte_codigo, mo_fte_item_id)
-);
+    SELECT upper(btrim(cmp_unidade)), cmp_fte_id INTO un_h, fte_h
+      FROM catalogo.composicoes WHERE cmp_id = NEW.cmm_cmp_id_h;
+    SELECT upper(btrim(cmp_unidade)), cmp_fte_id INTO un_m, fte_m
+      FROM catalogo.composicoes WHERE cmp_id = NEW.cmm_cmp_id_mes;
 
-CREATE INDEX ix_equivalencias_mo_ref ON catalogo.equivalencias_mo (mo_ref_fonte, mo_ref_item_id);
-CREATE INDEX ix_equivalencias_mo_fte ON catalogo.equivalencias_mo (mo_fte_codigo, mo_fte_item_id);
+    IF un_h IS DISTINCT FROM 'H' THEN
+        RAISE EXCEPTION 'H<->MES: o lado horista tem de ser [H] (cmp_id=%, unidade=%)',
+            NEW.cmm_cmp_id_h, COALESCE(un_h, '<inexistente>');
+    END IF;
+
+    IF catalogo.unaccent(COALESCE(un_m, '')) IS DISTINCT FROM 'MES' THEN
+        RAISE EXCEPTION 'H<->MES: o lado mensalista tem de ser [MES] (cmp_id=%, unidade=%)',
+            NEW.cmm_cmp_id_mes, COALESCE(un_m, '<inexistente>');
+    END IF;
+
+    IF fte_h IS DISTINCT FROM fte_m THEN
+        RAISE EXCEPTION 'H<->MES: os dois lados tem de ser da MESMA fonte (fte % <> fte %)',
+            fte_h, fte_m;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS t_cmm_guarda ON catalogo.composicoes_mapeamento_mdo;
+CREATE TRIGGER t_cmm_guarda
+    BEFORE INSERT OR UPDATE ON catalogo.composicoes_mapeamento_mdo
+    FOR EACH ROW EXECUTE FUNCTION catalogo.trg_cmm_guarda();
 
 
 -- ============================================================
 -- TABELAS: catalogo.equivalencias_ins  +  catalogo.equivalencias_cpu   (NÃO-MDO)
--- Contrato: docs/.../contracts/catalogo/vinculacoes.md §3.4
--- Equivalência fonte↔header (SINAPI/SICRO). DUAS tabelas (isolamento + FK real +
--- filtros limpos): INS↔INS e CPU↔CPU. A malandragem INS→CPU foi DESCARTADA
--- (idempotente com CPU↔CPU quando a CPU-fonte espelha o insumo). Sobre o item
--- VIGENTE (identity), NÃO por edição. Revalidação no import por HASH da desc (§9).
--- N:N nativo (1 linha/par; âncora ref indexada, SEM unique). metodo: TOKEN|IA|MANUAL.
--- Matcher insumo = FUNIL ti×ti restrito→relaxado (só mesmo ti_id); resíduo → IA.
--- Matcher CPU = dentro de grupos análogos (JSON-IA, §3.4) restrito→relaxado; resíduo → IA.
+-- Contrato: docs/.../contracts/catalogo/vinculacoes.md §11 · §12 · §13.3
+--
+-- REFACTOR 2026-09-22 — o que mudou e por quê:
+--  · Caiu o CHECK ref_fonte IN ('SINAPI','SICRO'): enquanto existia, fonte→fonte era
+--    PROIBIDO pelo banco, não apenas ausente do código.
+--  · Caíram ei_ref_fonte/ei_fte_codigo (e ec_*): redundância PROVADA — divergiam do
+--    ins_fte_id em 0 de 357 linhas e nenhuma constraint as usava. A fonte deriva do id.
+--  · ref/fte → a/b: sem âncora, "referência" e "fonte" não descrevem mais os lados.
+--  · A UNIQUE sobre a tupla ORDENADA saiu. Ela aceitava (A,B) E (B,A) como linhas
+--    distintas para o MESMO fato — a relação é SIMÉTRICA (§11.1). O índice funcional
+--    sobre LEAST/GREATEST garante UM par, UMA linha, e é à prova de corrida (checagem
+--    em trigger ou na aplicação não é: duas gravações simultâneas não se enxergam).
+--
+-- A relação é simétrica mas NÃO transitiva (§11.1): A=B e A=C nada dizem sobre B e C.
+-- Por isso NÃO HÁ PONTE — CDHU→FDE não se deriva de CDHU→SINAPI + FDE→SINAPI.
+-- A DIREÇÃO permanece nas colunas porque o fator tem sentido (GL → 3,6 L ≠ o inverso).
+-- Identity-level: a equivalência é fato sobre o ITEM, não sobre a edição.
+-- Revalidação por hash da descrição (§9). metodo: TOKEN|IA|MANUAL.
 -- ============================================================
 CREATE TABLE IF NOT EXISTS catalogo.equivalencias_ins (
     ei_id                INTEGER GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
-    ei_ref_fonte         TEXT    NOT NULL,                  -- 'SINAPI' | 'SICRO'
-    ei_ref_ins_id        BIGINT  NOT NULL,                  -- insumo do header (FK real)
-    ei_fte_codigo        TEXT    NOT NULL,                  -- 'CDHU' | 'FDE' | ...
-    ei_fte_ins_id        BIGINT  NOT NULL,                  -- insumo da fonte (FK real)
+    ei_a_ins_id          BIGINT  NOT NULL,                  -- um lado do par (FK real)
+    ei_b_ins_id          BIGINT  NOT NULL,                  -- o outro lado (FK real)
     ei_classe            TEXT,                              -- 'direta' | 'calculada' | 'especial'
     ei_fator_conversao   NUMERIC(12,6),                     -- NULL=especial · 1=direta · k=calculada
     ei_status            TEXT    NOT NULL DEFAULT 'pendente',
     ei_score             NUMERIC(4,3),
-    ei_metodo            TEXT,                              -- 'TOKEN/ti' | 'IA' | 'MANUAL'
+    ei_metodo            TEXT,
     ei_hash_origem       TEXT, ei_hash_equivalente TEXT,    -- revalidação §9
     ei_observacao        TEXT,
     ei_ativo             BOOLEAN NOT NULL DEFAULT TRUE,
     ei_criado_em         TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP, ei_atualizado_em TIMESTAMPTZ,
     ei_criado_por        TEXT, ei_atualizado_por TEXT,
-    CONSTRAINT ck_ei_ref_fonte CHECK (ei_ref_fonte IN ('SINAPI', 'SICRO')),
-    CONSTRAINT ck_ei_classe    CHECK (ei_classe IS NULL OR ei_classe IN ('direta', 'calculada', 'especial')),
-    CONSTRAINT fk_ei_ref FOREIGN KEY (ei_ref_ins_id) REFERENCES catalogo.insumos(ins_id) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT fk_ei_fte FOREIGN KEY (ei_fte_ins_id) REFERENCES catalogo.insumos(ins_id) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT uq_equivalencias_ins UNIQUE (ei_ref_fonte, ei_ref_ins_id, ei_fte_codigo, ei_fte_ins_id)
+    CONSTRAINT ck_ei_classe   CHECK (ei_classe IS NULL OR ei_classe IN ('direta', 'calculada', 'especial')),
+    CONSTRAINT ck_ei_nao_self CHECK (ei_a_ins_id <> ei_b_ins_id),
+    CONSTRAINT fk_ei_a FOREIGN KEY (ei_a_ins_id) REFERENCES catalogo.insumos(ins_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT fk_ei_b FOREIGN KEY (ei_b_ins_id) REFERENCES catalogo.insumos(ins_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
-CREATE INDEX ix_ei_ref ON catalogo.equivalencias_ins (ei_ref_fonte, ei_ref_ins_id);
-CREATE INDEX ix_ei_fte ON catalogo.equivalencias_ins (ei_fte_codigo, ei_fte_ins_id);
+-- UM par, UMA linha: a gravação espelhada é recusada pelo BANCO.
+CREATE UNIQUE INDEX uq_ei_par ON catalogo.equivalencias_ins
+    (LEAST(ei_a_ins_id, ei_b_ins_id), GREATEST(ei_a_ins_id, ei_b_ins_id));
+CREATE INDEX ix_ei_a ON catalogo.equivalencias_ins (ei_a_ins_id);
+CREATE INDEX ix_ei_b ON catalogo.equivalencias_ins (ei_b_ins_id);
 
 CREATE TABLE IF NOT EXISTS catalogo.equivalencias_cpu (
     ec_id                INTEGER GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
-    ec_ref_fonte         TEXT    NOT NULL,
-    ec_ref_cmp_id        BIGINT  NOT NULL,                  -- composição do header (FK real)
-    ec_fte_codigo        TEXT    NOT NULL,
-    ec_fte_cmp_id        BIGINT  NOT NULL,                  -- composição da fonte (FK real)
+    ec_a_cmp_id          BIGINT  NOT NULL,
+    ec_b_cmp_id          BIGINT  NOT NULL,
     ec_classe            TEXT, ec_fator_conversao NUMERIC(12,6),
     ec_status            TEXT    NOT NULL DEFAULT 'pendente', ec_score NUMERIC(4,3), ec_metodo TEXT,
     ec_hash_origem       TEXT, ec_hash_equivalente TEXT, ec_observacao TEXT,
     ec_ativo             BOOLEAN NOT NULL DEFAULT TRUE,
     ec_criado_em         TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP, ec_atualizado_em TIMESTAMPTZ,
     ec_criado_por        TEXT, ec_atualizado_por TEXT,
-    CONSTRAINT ck_ec_ref_fonte CHECK (ec_ref_fonte IN ('SINAPI', 'SICRO')),
-    CONSTRAINT ck_ec_classe    CHECK (ec_classe IS NULL OR ec_classe IN ('direta', 'calculada', 'especial')),
-    CONSTRAINT fk_ec_ref FOREIGN KEY (ec_ref_cmp_id) REFERENCES catalogo.composicoes(cmp_id) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT fk_ec_fte FOREIGN KEY (ec_fte_cmp_id) REFERENCES catalogo.composicoes(cmp_id) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT uq_equivalencias_cpu UNIQUE (ec_ref_fonte, ec_ref_cmp_id, ec_fte_codigo, ec_fte_cmp_id)
+    CONSTRAINT ck_ec_classe   CHECK (ec_classe IS NULL OR ec_classe IN ('direta', 'calculada', 'especial')),
+    CONSTRAINT ck_ec_nao_self CHECK (ec_a_cmp_id <> ec_b_cmp_id),
+    CONSTRAINT fk_ec_a FOREIGN KEY (ec_a_cmp_id) REFERENCES catalogo.composicoes(cmp_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT fk_ec_b FOREIGN KEY (ec_b_cmp_id) REFERENCES catalogo.composicoes(cmp_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
-CREATE INDEX ix_ec_ref ON catalogo.equivalencias_cpu (ec_ref_fonte, ec_ref_cmp_id);
-CREATE INDEX ix_ec_fte ON catalogo.equivalencias_cpu (ec_fte_codigo, ec_fte_cmp_id);
+CREATE UNIQUE INDEX uq_ec_par ON catalogo.equivalencias_cpu
+    (LEAST(ec_a_cmp_id, ec_b_cmp_id), GREATEST(ec_a_cmp_id, ec_b_cmp_id));
+CREATE INDEX ix_ec_a ON catalogo.equivalencias_cpu (ec_a_cmp_id);
+CREATE INDEX ix_ec_b ON catalogo.equivalencias_cpu (ec_b_cmp_id);
+
+
+-- ============================================================
+-- TABELA: catalogo.equivalencias_mo   (MÃO DE OBRA — isolada)
+-- Contrato: vinculacoes.md §13.3(d)
+--
+-- Por que é separada de equivalencias_ins: a MDO é ASSIMÉTRICA por natureza — nas fontes
+-- (CDHU/FDE) é INSUMO; no SINAPI é COMPOSIÇÃO ("… COM ENCARGOS COMPLEMENTARES"), porque
+-- ali moram os encargos.
+--
+-- REFACTOR 2026-09-22 — 4 colunas nuláveis no lugar do id polimórfico:
+--  · A FK física antiga (mo_ref_item_id -> composicoes) CONTRADIZIA o próprio mo_ref_tipo:
+--    obrigava o lado ref a ser CPU. MO fonte→fonte (pedreiro-CDHU ↔ pedreiro-FDE) tem os
+--    DOIS lados insumo → violava a FK na hora.
+--  · O id polimórfico não tinha FK do lado da fonte, e 12.216 ids existem ao mesmo tempo
+--    em insumos e composicoes: um id errado não falhava — apontava em silêncio para a
+--    linha errada do tipo errado. Agora cada id mora na coluna com FK à tabela certa.
+--  · mo_ref_tipo/mo_fte_tipo caíram: o tipo é derivável da coluna preenchida.
+--  · mo_ori_cpu fica SEM caso de uso hoje (a MDO das fontes é sempre insumo) — é
+--    deliberado: se surgir fonte no formato SINAPI, a app aguenta sem migração.
+--  · SEM coluna de fator: os dois lados são sempre [H] (garantido por trigger).
+-- ============================================================
+CREATE TABLE IF NOT EXISTS catalogo.equivalencias_mo (
+    mo_id            INTEGER GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+    mo_ori_ins       BIGINT NULL REFERENCES catalogo.insumos(ins_id)     ON UPDATE CASCADE ON DELETE CASCADE,
+    mo_ori_cpu       BIGINT NULL REFERENCES catalogo.composicoes(cmp_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    mo_dest_ins      BIGINT NULL REFERENCES catalogo.insumos(ins_id)     ON UPDATE CASCADE ON DELETE CASCADE,
+    mo_dest_cpu      BIGINT NULL REFERENCES catalogo.composicoes(cmp_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    -- fonte do DESTINO: desnormalização necessária — Postgres não expressa
+    -- "único por (origem, fonte_de(destino))" sem ela. Mantida honesta por trigger.
+    mo_dest_fte_id   INTEGER NOT NULL REFERENCES catalogo.fontes(fte_id),
+    mo_status        TEXT NOT NULL DEFAULT 'pendente',   -- confirmado | pendente
+    mo_score         NUMERIC(4,3),
+    mo_obs           TEXT,
+    mo_criado_em     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP, mo_atualizado_em TIMESTAMPTZ,
+    mo_criado_por    TEXT, mo_atualizado_por TEXT,
+    -- etiqueta canônica p/ o índice do par. O prefixo I/C é essencial: sem ele,
+    -- insumo 500 e composição 500 seriam o mesmo valor (12.216 ids colidem).
+    mo_a TEXT GENERATED ALWAYS AS (COALESCE('I' || mo_ori_ins,  'C' || mo_ori_cpu))  STORED,
+    mo_b TEXT GENERATED ALWAYS AS (COALESCE('I' || mo_dest_ins, 'C' || mo_dest_cpu)) STORED,
+    CONSTRAINT ck_mo_ori_um   CHECK (num_nonnulls(mo_ori_ins,  mo_ori_cpu)  = 1),
+    CONSTRAINT ck_mo_dest_um  CHECK (num_nonnulls(mo_dest_ins, mo_dest_cpu) = 1),
+    CONSTRAINT ck_mo_nao_self CHECK (mo_a <> mo_b)
+);
+CREATE UNIQUE INDEX uq_mo_par  ON catalogo.equivalencias_mo (LEAST(mo_a, mo_b), GREATEST(mo_a, mo_b));
+-- uma função, UM alvo por fonte-destino: não existem dois pedreiros com preço diferente.
+CREATE UNIQUE INDEX uq_mo_alvo ON catalogo.equivalencias_mo (mo_a, mo_dest_fte_id);
+CREATE INDEX ix_mo_dest_ins ON catalogo.equivalencias_mo (mo_dest_ins);
+CREATE INDEX ix_mo_dest_cpu ON catalogo.equivalencias_mo (mo_dest_cpu);
+
+
+-- ═══════════ FASE C — guardas de tipo das 3 tabelas ═══════════
+-- Contrato: vinculacoes.md §13.4 · Plano §2.4
+--
+-- Por que trigger e não CHECK: o tipo do item não está na linha gravada — está em
+-- `insumos.ins_ti_id` / `composicoes_subgrupos.sub_descricao`. CHECK só enxerga a
+-- própria linha. Custo: leitura por chave primária, microssegundos.
+-- Ganho: não existe caminho que escape — import, tela, IA, script ou psql.
+
+-- ── predicado único de "é composição MDO" (SINAPI/SICRO guardam MDO como CPU) ──
+CREATE OR REPLACE FUNCTION catalogo.cmp_e_mdo(p_cmp_id BIGINT) RETURNS BOOLEAN AS $$
+    SELECT EXISTS (
+        SELECT 1 FROM catalogo.composicoes c
+        JOIN catalogo.composicoes_subgrupos s ON s.sub_id = c.cmp_sub_id
+        WHERE c.cmp_id = p_cmp_id
+          AND catalogo.unaccent(upper(s.sub_descricao)) LIKE '%CALCULOS E PARAMETROS%');
+$$ LANGUAGE sql STABLE;
+
+CREATE OR REPLACE FUNCTION catalogo.ins_e_mo(p_ins_id BIGINT) RETURNS BOOLEAN AS $$
+    SELECT EXISTS (
+        SELECT 1 FROM catalogo.insumos i
+        JOIN catalogo.insumos_tipo t ON t.ti_id = i.ins_ti_id
+        WHERE i.ins_id = p_ins_id AND t.ti_codigo = 'MO');
+$$ LANGUAGE sql STABLE;
+
+-- ── (1) equivalencias_ins: mão de obra NÃO entra aqui ──
+-- Esta guarda fecha uma sobreposição que o PRÓPRIO refactor criou: antes, MO sempre
+-- tinha composição de um lado, o que não cabia nesta tabela — proteção ACIDENTAL.
+-- Com MO fonte→fonte (pedreiro-CDHU ↔ pedreiro-FDE) a mesma linha passou a caber nas duas.
+CREATE OR REPLACE FUNCTION catalogo.trg_eq_ins_guarda() RETURNS trigger AS $$
+BEGIN
+    IF catalogo.ins_e_mo(NEW.ei_a_ins_id) OR catalogo.ins_e_mo(NEW.ei_b_ins_id) THEN
+        RAISE EXCEPTION 'equivalencias_ins: mao de obra nao entra aqui - use equivalencias_mo (ins %, %)',
+            NEW.ei_a_ins_id, NEW.ei_b_ins_id;
+    END IF;
+    RETURN NEW;
+END; $$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS t_ei_guarda ON catalogo.equivalencias_ins;
+CREATE TRIGGER t_ei_guarda BEFORE INSERT OR UPDATE ON catalogo.equivalencias_ins
+    FOR EACH ROW EXECUTE FUNCTION catalogo.trg_eq_ins_guarda();
+
+-- ── (2) equivalencias_cpu: composição MDO do header JAMAIS entra aqui ──
+CREATE OR REPLACE FUNCTION catalogo.trg_eq_cpu_guarda() RETURNS trigger AS $$
+BEGIN
+    IF catalogo.cmp_e_mdo(NEW.ec_a_cmp_id) OR catalogo.cmp_e_mdo(NEW.ec_b_cmp_id) THEN
+        RAISE EXCEPTION 'equivalencias_cpu: composicao MDO nao entra aqui - use equivalencias_mo (cmp %, %)',
+            NEW.ec_a_cmp_id, NEW.ec_b_cmp_id;
+    END IF;
+    RETURN NEW;
+END; $$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS t_ec_guarda ON catalogo.equivalencias_cpu;
+CREATE TRIGGER t_ec_guarda BEFORE INSERT OR UPDATE ON catalogo.equivalencias_cpu
+    FOR EACH ROW EXECUTE FUNCTION catalogo.trg_eq_cpu_guarda();
+
+-- ── (3) equivalencias_mo: só MO, só [H], destino certo, fonte honesta ──
+CREATE OR REPLACE FUNCTION catalogo.trg_eq_mo_guarda() RETURNS trigger AS $$
+DECLARE
+    un_o TEXT; un_d TEXT; fte_d INTEGER;
+BEGIN
+    -- (a) os dois lados TÊM de ser mão de obra
+    IF NEW.mo_ori_ins IS NOT NULL AND NOT catalogo.ins_e_mo(NEW.mo_ori_ins) THEN
+        RAISE EXCEPTION 'equivalencias_mo: a origem (ins %) nao e mao de obra', NEW.mo_ori_ins;
+    END IF;
+    IF NEW.mo_ori_cpu IS NOT NULL AND NOT catalogo.cmp_e_mdo(NEW.mo_ori_cpu) THEN
+        RAISE EXCEPTION 'equivalencias_mo: a origem (cmp %) nao e composicao MDO', NEW.mo_ori_cpu;
+    END IF;
+    IF NEW.mo_dest_ins IS NOT NULL AND NOT catalogo.ins_e_mo(NEW.mo_dest_ins) THEN
+        RAISE EXCEPTION 'equivalencias_mo: o destino (ins %) nao e mao de obra', NEW.mo_dest_ins;
+    END IF;
+    IF NEW.mo_dest_cpu IS NOT NULL AND NOT catalogo.cmp_e_mdo(NEW.mo_dest_cpu) THEN
+        RAISE EXCEPTION 'equivalencias_mo: o destino (cmp %) nao e composicao MDO', NEW.mo_dest_cpu;
+    END IF;
+
+    -- (b) unidade [H] dos DOIS lados — é o que torna "MO nao tem fator" uma INVARIANTE.
+    -- O SINAPI tem 92 insumos e 184 composicoes MDO em [MES]; se uma entrasse, a ausencia
+    -- de fator nao daria erro: daria resultado 220x errado, calado.
+    SELECT upper(btrim(u)) INTO un_o FROM (
+        SELECT (SELECT ins_unidade FROM catalogo.insumos     WHERE ins_id = NEW.mo_ori_ins) AS u
+        UNION ALL
+        SELECT (SELECT cmp_unidade FROM catalogo.composicoes WHERE cmp_id = NEW.mo_ori_cpu)
+    ) z WHERE u IS NOT NULL LIMIT 1;
+    SELECT upper(btrim(u)), f INTO un_d, fte_d FROM (
+        SELECT (SELECT ins_unidade FROM catalogo.insumos     WHERE ins_id = NEW.mo_dest_ins) AS u,
+               (SELECT ins_fte_id  FROM catalogo.insumos     WHERE ins_id = NEW.mo_dest_ins) AS f
+        UNION ALL
+        SELECT (SELECT cmp_unidade FROM catalogo.composicoes WHERE cmp_id = NEW.mo_dest_cpu),
+               (SELECT cmp_fte_id  FROM catalogo.composicoes WHERE cmp_id = NEW.mo_dest_cpu)
+    ) z WHERE u IS NOT NULL LIMIT 1;
+
+    IF un_o IS DISTINCT FROM 'H' THEN
+        RAISE EXCEPTION 'equivalencias_mo: a origem tem de ser [H] (unidade=%)', COALESCE(un_o,'<inexistente>');
+    END IF;
+    IF un_d IS DISTINCT FROM 'H' THEN
+        RAISE EXCEPTION 'equivalencias_mo: o destino tem de ser [H] (unidade=%)', COALESCE(un_d,'<inexistente>');
+    END IF;
+
+    -- (c) se a fonte-destino modela MDO como COMPOSICAO, o destino nao pode ser o insumo.
+    -- Risco que nasceu das colunas nulaveis: o SINAPI tem 94 insumos MO [H] E 193 composicoes
+    -- MDO [H]. Apontar para o INSUMO entrega o preco PELADO, sem encargos - e passa em (a) e (b).
+    IF NEW.mo_dest_ins IS NOT NULL AND EXISTS (
+        SELECT 1 FROM catalogo.composicoes c
+        JOIN catalogo.composicoes_subgrupos s ON s.sub_id = c.cmp_sub_id
+        WHERE c.cmp_fte_id = fte_d
+          AND catalogo.unaccent(upper(s.sub_descricao)) LIKE '%CALCULOS E PARAMETROS%') THEN
+        RAISE EXCEPTION 'equivalencias_mo: a fonte-destino guarda MDO como COMPOSICAO - aponte para a composicao "... COM ENCARGOS COMPLEMENTARES", nao para o insumo % (preco pelado, sem encargos)',
+            NEW.mo_dest_ins;
+    END IF;
+
+    -- (d) mo_dest_fte_id e desnormalizacao: DERIVA, nao confia no chamador.
+    NEW.mo_dest_fte_id := fte_d;
+    RETURN NEW;
+END; $$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS t_mo_guarda ON catalogo.equivalencias_mo;
+CREATE TRIGGER t_mo_guarda BEFORE INSERT OR UPDATE ON catalogo.equivalencias_mo
+    FOR EACH ROW EXECUTE FUNCTION catalogo.trg_eq_mo_guarda();
 
 
 -- ============================================================

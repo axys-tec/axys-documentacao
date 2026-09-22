@@ -42,6 +42,45 @@ Referência: [../modules/catalogo/AXYS_CATALOGO_COLABORATIVO_v0.md](../modules/c
 
 ---
 
+## Conversão entre fontes — fator NULL, exceção e derivação (2026-09-22)
+
+> **Importa muito.** Nasce do refactor de associações (`REFACTOR_ASSOCIACOES_PLANO.md`), mas é
+> decisão de PRODUTO sobre a bancada, não de schema.
+
+### O caso da pia
+O fator de conversão tem três estados (`vinculacoes.md` §3.4): `1` direta · `k` calculada ·
+**`NULL` especial**. `NULL` = mesmo item, unidade diferente, e a conversão **depende de
+quantitativo que só a obra sabe** — limpeza de pia cobrada por **m²** contra o item por **un**.
+Quantas pias cabem num m²? Depende da obra.
+
+Na planilha da fonte está **1,2 m²**. Ao converter para a favorita, a app **não pode** trocar por
+1,2 un. O `NULL` não é uma limitação: é o que **devolve o poder de decisão ao usuário**.
+
+### Os dois caminhos — e por que dependem do que o item É
+- **Se é SERVIÇO** (linha de orçamento): o orçamento resolve — o usuário ajusta o quantitativo ali.
+- **Se é INSUMO ou SUBCOMPOSIÇÃO (filha)**: **não dá para resolver na bancada**. A quantidade está
+  dentro da receita de outra composição. Tem de ser gerada uma **composição própria**.
+
+Daí nascem dois motores que a bancada ainda não tem:
+
+- [ ] **Motor `exceção de conversão`** — caminho A: **não converte**. O item permanece o original,
+  da fonte original, e **não respeita a regra geral** de convergir para a favorita. É explícito e
+  auditável, não silencioso.
+- [ ] **Motor `derivar composição`** — caminho B: cria uma **composição própria** sobre o item; o
+  usuário tira os `1,2 m²` e põe `1 un`. É onde o quantitativo da obra entra.
+
+### O que falta na tela (a dívida que já existia e ficou visível)
+- [ ] **Distinguir "sem equivalente" de "equivalente que precisa de quantitativo".** Hoje os dois
+  deixam o item nativo, sem aviso — o usuário não fica sabendo que existe um equivalente esperando
+  por ele. Antes do refactor era pior (assumia fator **1**, calado, podendo errar por ordem de
+  grandeza); agora está **certo e calado**. Falta o **avisado**: "opa, aqui não vai direto — ou
+  você não converte, ou você deriva".
+- [ ] **Guardar a QUANTIDADE ANTERIOR à conversão.** Toda conversão tem de registrar o quantitativo
+  de origem, sempre. É auditoria: sem isso não se explica como `1,2 m²` virou `1 un`, nem se
+  reconstrói o orçamento. Vale para os dois motores acima e para a conversão direta.
+
+---
+
 ## Vinculação entre fontes — redesenho (pensar no próximo ajuste)
 
 Hoje: MDO-fonte→SINAPI (estrela com hub SINAPI) + pares curados. **Problema:** ligar todas as
