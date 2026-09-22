@@ -396,7 +396,11 @@ vínculo (§10.1).
 | CPU/FDE | 103 | 1 | 104 | 36 |
 | **TOTAL** | **495** | **133** | **628** | 349 |
 
-**~105 itens por transição.** É isto que torna "curadoria dentro do import" sustentável: a bronca é o
+**~105 itens por transição.** ⚠️ **Janela de 3 edições — não é constante.** Na série completa as medianas
+são CDHU 0,42% · FDE 0,54% · SINAPI 1,13%, com picos reais (SINAPI 04-25 = 7,6%, 736 CPUs tocadas). Usar
+como ordem de grandeza, nunca como previsão.
+
+É isto que torna "curadoria dentro do import" sustentável: a bronca é o
 **primeiro** import de cada fonte (3.562 CDHU · 3.170 FDE · 9.474 SINAPI); dali em diante é remendo.
 A SINAPI gera 312 dos 495 novos — é o motor do volume em qualquer desenho.
 
@@ -447,6 +451,25 @@ gerador perpétuo de falso-delta — conserta-se na origem, nunca no matcher.**
 
 Um item SINAPI **análogo** a 10 itens CDHU **não gera associação nenhuma**. Analogia não é igualdade.
 
+### 11.1. ⚠️ Simétrica, mas NÃO transitiva — e por isso NÃO HÁ PONTE
+"Igualdade" aqui é **rigor do match** (item igual, não parecido), **não** a propriedade matemática.
+A relação é reflexiva e simétrica mas **não transitiva** — em matemática, uma *relação de tolerância*,
+não uma relação de equivalência.
+
+**Por quê:** um serviço CDHU pode ser igual ao SINAPI por um critério e igual ao FDE por outro, **sem
+que FDE e SINAPI sejam iguais entre si**. Os critérios são avaliados **par a par**. A maior parte
+converge; a exceção existe e é real.
+
+Três consequências que governam o desenho:
+1. **`A=B` e `A=C` não afirmam NADA sobre `B` e `C`.** O "triângulo inconsistente" não é contradição —
+   é estado legítimo. Não há o que o banco deva impedir.
+2. **PROIBIDA a ponte/pivô.** Responder `CDHU→FDE` saltando pelo SINAPI **inventa** uma equivalência que
+   ninguém afirmou. Ou existe linha direta, ou a resposta é "não há equivalente". (Dívida: o salto duplo
+   está vivo em `equivalencias.py` — §13.5.)
+3. **Classes/grupos de equivalência estariam ERRADOS.** Agrupar forçaria transitividade, juntando FDE e
+   SINAPI só porque ambos batem com CDHU — o modelo afirmando o que o engenheiro não afirmou. Modelo de
+   **pares**, portanto, não por limitação: por correção.
+
 Consequência prática (curadoria Maicon, 1.218 pares): **474 (39%)** estavam num leque 1→N — um genérico
 da fonte apontando N específicos do header (`CHAPA DE AÇO ASTM A-36 DE 1/4"` → 17 chapas SINAPI de
 espessuras diferentes). Pela regra, **não entram**; no máximo sobrevive o **um** que é de fato igual
@@ -464,18 +487,44 @@ não tem representante no SINAPI se perde no caminho.
 de: **NOVOS / não-associados anteriores × remanescentes de associação / não-associados anteriores,
 fonte × fonte.**
 
-Custo assumido conscientemente — pares crescem `n(n−1)/2` contra `n−1` da âncora:
+### 12.1. O custo `n(n−1)/2` NÃO é obrigatório — quem é favoritável se escolhe
 
-| | n=3 (hoje) | n=5 (SBC + ORSE) | n=10 |
+Sem transitividade nenhum par pode ser **derivado** — mas daí não segue que todos tenham de **existir**.
+**Quantos pares existem é decisão de produto.**
+
+- **`TODAS → SINAPI` é LEI** (14.133). Não se escolhe. Idem SICRO para infraestrutura.
+- **`TODAS → TODAS` é cosmético de valor.** Só se paga onde vale.
+
+O eixo é o **destino**, não o par: marca-se a fonte que pode ser alvo, e todas as outras apontam para
+ela. O enunciado ao usuário é **"{todas} → CDHU habilitado"**, nunca "CDHU→FDE não habilitado".
+
+**`catalogo.fontes.fte_favoritavel BOOLEAN NOT NULL DEFAULT FALSE`** — próximo membro da família de
+governança que já existe ali (`fte_ativa`, `fte_tem_catalogo_insumos`, `fte_catalogos_continuos`,
+`fte_permite_manipular_dados`). **Zero objeto novo:** o par está habilitado **se e só se** uma das pontas
+é favoritável — logo a "tabela de pares habilitados" é derivável e **não deve existir**.
+
+- **SINAPI e SICRO são `TRUE` por lei**, não por escolha. Não se desmarca.
+- **Marcar uma fonte como favoritável obriga a passada de curadoria contra todas as outras** — com
+  `sem equivalente` valendo como resposta legítima. **Não é gate de 100% vinculado**: a §1.1 já decidiu
+  que publicar exige *revisado*, não completo. Gate duro aqui nunca abriria.
+- **Não confundir as duas metades:** `fte_favoritavel` (catálogo) = *pode* ser escolhida; **favorita**
+  (orçamento) = a que *foi* escolhida, e já existe como `ativo.orcamento_parametros.opa_default`.
+
+**O que favoritar significa:** tudo que está na bancada — composições **e seus insumos** — deve
+convergir ao máximo para aquela fonte-base. Não é filtro de exibição; é destino de conversão.
+
+**Custo real = |favoritáveis| × (n−1)**, linear em `n`, não quadrático:
+
+| | n=3 | n=5 (SBC + ORSE) | n=10 |
 |---|---|---|---|
-| âncora | 628 | 628 | 628 |
-| fonte→fonte | 1.256 | 2.512 | 5.652 |
+| só âncora (lei) | 2 | 4 | 9 |
+| âncora + 1 favoritável extra | 4 | 8 | 18 |
+| `TODAS→TODAS` (não se fará) | 3 | 10 | 45 |
 
-(associações por 3 edições; a âncora não cresce com `n` porque cada item novo se associa só ao header)
-
-A razão tende a `n/2`. O que se compra: independência do pivô e da volatilidade da SINAPI. O que se
-paga: 4× a 5 fontes. **Pagável porque o número absoluto é pequeno** (§10) — é o que justifica a decisão.
-A `insumos_equivalencias` (§5.4) já tem a forma certa para isso.
+### 12.2. O que trava isso hoje
+O destino da conversão está **hardcoded**: `favorita="SINAPI"` em `orcamento_service.py:569` e `:1127`,
+e `conversao_detalhe.py:339`. Não é possível favoritar CDHU nem querendo. A flag sozinha não resolve —
+o hardcode sai junto (§13.5).
 
 ---
 
@@ -524,6 +573,11 @@ A `insumos_equivalencias` (§5.4) já tem a forma certa para isso.
 ### 13.3. Schema pensado
 
 Três mudanças repetidas nas três tabelas, e o conserto estrutural do `mo` por cima.
+
+**(a0) Em `catalogo.fontes` — quem pode ser destino** (§12.1)
+```sql
+fte_favoritavel BOOLEAN NOT NULL DEFAULT FALSE   -- SINAPI/SICRO = TRUE por lei
+```
 
 **(a) Nas três — destravar a âncora**
 ```sql
@@ -588,17 +642,37 @@ some no ruído. **Ganho:** não existe caminho que escape (import, tela, IA, scr
 | **(a)** | `equivalencias_ins` | insumo com `ti_codigo = 'MO'` — mão de obra é de `mo` |
 | **(b)** | `equivalencias_cpu` | composição SINAPI do subgrupo `CÁLCULOS E PARÂMETROS` — MDO jamais cai aqui |
 | **(c)** | `equivalencias_mo` | o que **não** for mão de obra (insumo `ti='MO'` ou composição MDO do SINAPI) |
+| **(c2)** | `equivalencias_mo` | **item cuja unidade não seja `[H]`, dos DOIS lados** |
 | **(d)** | `equivalencias_mo` | mantém `mo_dest_fte_id` honesto (deriva do item de destino; não confia no que o chamador mandou) |
 
 (a)+(c) são o par que fecha a sobreposição criada pelo próprio refactor (13.2, último considerando).
-(b) é a sua regra declarada como absoluta. (d) existe porque `mo_dest_fte_id` é desnormalização — e
+(b) é a regra declarada como absoluta. (d) existe porque `mo_dest_fte_id` é desnormalização — e
 desnormalização sem guarda é o começo de uma coluna que mente.
+
+**(c2) é o que transforma a premissa 7 em invariante.** "MO não tem fator porque os dois lados são
+sempre `[H]`" é verdade **hoje só por sorte**:
+
+| | mão de obra | |
+|---|---|---|
+| CDHU | 45 insumos | 100% `[H]` |
+| FDE | 36 insumos | 100% `[H]` |
+| SINAPI | 94 insumos `[H]` | **+ 92 `[MÊS]`** |
+| SINAPI | 193 CPUs `[H]` | **+ 184 `[MÊS]`** |
+
+Nada impede uma das **184 composições `[MÊS]`** entrar em `equivalencias_mo`. E aí a ausência de fator
+não dá erro: dá resultado **220× errado, calado**. A trigger (c) sozinha só pergunta "é mão de obra?" —
+tem de perguntar também "é `[H]`?". Mesma trigger, uma condição a mais, custo zero.
 
 ### 13.5. Dívidas que entram no mesmo pacote (não são schema)
 
+- **A PONTE está viva e tem de morrer.** `equivalencias.equivalente_ins:60-64` resolve `CDHU→FDE`
+  saltando pelo SINAPI e **multiplicando os dois fatores**. É exatamente o que a §11.1 proíbe: inventa
+  uma equivalência que ninguém afirmou, porque o par intermediário pode não ser válido. Ou há linha
+  direta, ou a resposta é "não há equivalente".
+- **`favorita="SINAPI"` hardcoded** em `orcamento_service.py:569` e `:1127`, `conversao_detalhe.py:339`.
+  Sai junto com `fte_favoritavel` (§12.2) — senão a flag não tem efeito nenhum.
 - **`NULL` → `1.0` em `equivalencias.py:52,59`.** Fator `NULL` é a classe `especial` — "a app **não
-  assume** a conversão". Hoje assume **1**, calado. Com fonte→fonte o erro compõe em dois saltos e
-  multiplica. **Corrigir junto, não depois.**
+  assume** a conversão". Hoje assume **1**, calado. **Corrigir junto, não depois.**
 - **`sem_equivalente` APAGA a linha** na curadoria em tela, contra a §1.1 ("estado terminal válido") e
   contra o caminho da IA, que marca `refutado` + `ativo=FALSE`. Par rejeitado volta a ser proposto no
   import seguinte — trabalho negativo.
