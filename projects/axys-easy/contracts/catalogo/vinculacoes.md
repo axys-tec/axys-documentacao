@@ -718,3 +718,65 @@ Texto **literal** na tela de conversão entre-fontes do Ativo:
 > Recomendamos revisão cautelosa sobre as associações diretas e rigorosa sobre as associações com
 > necessidade de conversão. A Axys Engenharia e Tecnologia LTDA não se responsabiliza pelas planilhas
 > elaboradas, sendo que, atua pura e simplesmente como software/ferramenta de suporte.
+
+---
+
+## §14 · 1×1 DURO — a regra que a tabela existe para servir (2026-09-23)
+
+**Premissa que estava faltando, e que o Renan nomeou:** `equivalencias_ins` / `equivalencias_cpu`
+existem para UMA coisa — **converter um orçamento de uma fonte-base para outra**. Estou na bancada
+com um orçamento CDHU e quero o mesmo em SINAPI: a conversão tem de ser determinística.
+
+Disso decorre tudo: **se um item tivesse dois equivalentes na mesma fonte, o back teria de
+ESCOLHER** — uma decisão de máquina em cima de uma decisão humana, que é exatamente o que o motor
+inteiro proíbe. Logo: **um item tem NO MÁXIMO UM parceiro por fonte**.
+
+Exemplo real que fechou a discussão (CDHU `B.02.000.020508` CIMENTO CPII-E-32):
+
+```
+ACEITO   CIMENTO × SINAPI 1379            ← a vaga do SINAPI
+NEGADO   1379 × CIMENTO                   ← o par não entra duas vezes, nem invertido
+NEGADO   CIMENTO × SINAPI 34753           ← a vaga do SINAPI já está ocupada
+ACEITO   CIMENTO × FDE 2.05.08            ← a vaga do FDE é outra
+NEGADO   CIMENTO × FDE 2.05.09            ← e já foi ocupada
+ACEITO   SINAPI 1379 × FDE 2.05.08        ← outro par de fontes, outra vaga
+```
+
+### Como o banco garante
+
+**Ordem canônica** (`ck_ei_canonico` / `ck_ec_canonico`): o lado da fonte de MAIOR `fte_id` fica em
+`ori`, o da menor em `dest`. `ori`/`dest` é **posição de armazenamento, não sentido de conversão** —
+a conversão vale nos dois sentidos. A trigger NORMALIZA antes de gravar (troca os lados sozinha) e
+DERIVA `*_fte_id` dos próprios itens: quem escreve não precisa saber da regra, e o que o chamador
+mandar nessas colunas é ignorado.
+
+**Dois índices únicos**, um por direção de conversão:
+
+```sql
+UNIQUE (ei_ori_ins_id,  ei_dest_fte_id)   -- daqui para lá: um destino só
+UNIQUE (ei_dest_ins_id, ei_ori_fte_id)    -- de lá para cá: um destino só
+```
+
+**Por que dois, e por que largando um item em cada:** o que se proíbe é "o cimento ter dois
+parceiros no SINAPI". Pôr o parceiro na chave não proíbe nada — cada parceiro diferente vira uma
+chave diferente. Medido: um único índice sobre a tupla inteira `(fte_ori, fte_dest, ins_ori,
+ins_dest)` aceitou 5 linhas onde deviam entrar 3.
+
+**E por que a ordem canônica é obrigatória:** sem ela o item cairia ora num lado ora no outro e se
+esconderia ENTRE os dois índices (medido no dado antigo: 1.149 linhas com a fonte menor à esquerda
+e 552 com a maior). Uma `EXCLUDE ... USING gist` resolveria sem canonizar, mas exige `btree_gist` +
+`intarray` e troca B-tree por GiST na escrita — descartada por peso.
+
+### Escopo e consequências
+
+Vale **só para `equivalencias_ins` e `equivalencias_cpu`**. `equivalencias_mo` tem rito próprio, é
+menor e **já estava resolvida** — `uq_mo_alvo (mo_a, mo_dest_fte_id)` é esta mesma regra, e foi ela
+que serviu de modelo.
+
+- morre o `uq_ei_par`/`uq_ec_par` sobre `LEAST/GREATEST`: com a ordem canônica, o par invertido não
+  tem como ser gravado, e os dois índices já cobrem o resto;
+- **o matcher passa a ter de escolher UM candidato por item por fonte**, não emitir todos;
+- **a tela deixa de ser "sim/não" por linha e vira "escolha um entre N"** — a mesma informação da
+  coluna `disputa`, com outra semântica;
+- o dado anterior (dev e prod) foi **descartado**: 88 grupos confirmados violavam a regra, e
+  escolher sobrevivente em cada um seria curadoria retroativa sem critério.
