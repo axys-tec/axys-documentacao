@@ -329,6 +329,63 @@ do papel. Mantido como direção, não como schema vigente.
 
 ---
 
+## 6.2. Por que a equivalência entre fontes é 1×1 DURO (Renan, 2026-09-26)
+
+**A tabela existe para o usuário migrar dado de uma fonte para outra sem regressão nem prejuízo.**
+Esse é o propósito inteiro, e é dele que a regra se deduz — não de preferência de modelagem.
+
+Migrar sem regressão significa que a volta tem de ser a ida. Se A→B e depois B→A não devolve A, o
+orçamento perdeu informação no caminho, e perdeu **em silêncio**. Só a bijeção garante isso. Por
+isso a forma admissível é uma só:
+
+> **Isto equivale àquilo.** Nunca "isto equivale a isto, àquilo e àquele outro".
+
+### O que se segue disso
+
+**Não existe tabela com direção.** A abrangência tem direção — específico→genérico é verdade,
+genérico→específico não — mas a TABELA não pode ter. `CDHU → SINAPI` falha na armadura porque a
+SINAPI reparte por bitola; `SINAPI → CDHU` "funcionaria", porque a CDHU admite várias. Montar a
+tabela no sentido que funciona faz a ida e a volta pousarem em códigos diferentes, que é
+exatamente a regressão que ela deveria impedir.
+
+**Multiplicidade nega, não escolhe.** Se dois ou mais candidatos continuam admissíveis e a origem
+não traz o atributo que os distingue, a associação é **negada com parecer nomeando as
+alternativas**. Escolher o mais provável seria decidir por sorte o que o orçamento vai pagar.
+
+**N:1 no destino nega TODAS as origens envolvidas, não a pior.** Preservar a de maior confiança
+seria a mesma escolha arbitrária, só que disfarçada de critério.
+
+**Duplicata dentro da fonte nega os dois lados.** Quando uma fonte tem dois códigos com a mesma
+descrição, mesma unidade e mesmo analítico, nenhum deles pode reclamar o destino com exclusividade.
+Negar os dois é **simétrico e visível**; eleger um canônico é assimétrico e some — o orçamento que
+usou o código "errado" perde a conversão sem aviso, e qual é o errado depende do capítulo que o
+orçamentista estava folheando.
+
+> **A fonte se declara polêmica ao criar duas composições distintas com a mesma descrição.** O
+> defeito é dela, e o parecer da negativa é o que o devolve a quem o criou. Medido em 2026-09-26:
+> FDE tem 165 grupos duplicados em composições (379 itens, 11,2% do catálogo); CDHU tem 1 grupo em
+> insumos (2 itens); SINAPI não tem nenhum, em nada.
+
+### O que NÃO se perde ao negar
+
+Negar a equivalência **não** deixa o usuário sem saída — deixa-o com a saída correta, que é a
+bancada. Itens de descrição parecida têm insumo parecido, e a conversão na bancada migra os
+**insumos** da fonte A para a B **mantendo os coeficientes da origem**. Isso é mais fiel que um
+vínculo de composição escolhido no chute, e tem a mesma virtude do poder de escolher qual das
+composições que remuneram a mesma coisa usar: permite construir composições diversas com os
+insumos da fonte preferida.
+
+**A equivalência de composição é um atalho quando ela é indiscutível. Quando não é, o caminho
+pleno já existe e é melhor.**
+
+### Exceção: MDO não é 1×1, e por quê
+
+`equivalencias_mo` é **N:1 por natureza** (§3.2, §5.2): as fontes subdividem ofícios mais fino que
+a SINAPI — esgoteiro e poceiro caem os dois em encanador. Ali a unicidade é só `(origem, fonte
+destino)`, e nada nesta seção se aplica.
+
+---
+
 ## 7. Limites (o que NÃO faz)
 Não substitui curadoria humana · não recalcula estrutura oficial das fontes · não cria equivalência geral
 entre todas as fontes · não elimina revisão quando a edição muda · não recria vínculos automaticamente no
