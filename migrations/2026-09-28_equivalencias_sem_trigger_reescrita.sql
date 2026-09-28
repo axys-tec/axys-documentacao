@@ -1,0 +1,74 @@
+-- ═══════════════════════════════════════════════════════════════════════════════════════════
+-- EQUIVALÊNCIAS ENTRE FONTES — trigger deixa de reescrever; a garantia vira declarativa
+--
+-- PENDENTE EM PRODUÇÃO em 2026-09-28. Aplicado e validado em dev.
+-- Contrato: contracts/catalogo/vinculacoes.md §6.2 · §6.3 · ADR-022 §3.2
+--
+-- POR QUE
+-- As três triggers faziam duas coisas: RECUSAVAM (guardas que precisam de JOIN, legítimas) e
+-- REESCREVIAM (normalizavam a ordem dos lados e derivavam as colunas de fonte). A parte que
+-- reescrevia produziu dado errado em silêncio: ao trocar os lados, ela trocava os ids E os
+-- hashes, mas NÃO invertia o `fator_conversao`. Quem gravasse "SINAPI × 4 = CDHU" recebia
+-- "CDHU × 4 = SINAPI" guardado; o correto era 0,25. Erro de 16×, sem aviso, e invisível em code
+-- review porque o código que reescreve não está no arquivo que se está lendo.
+--
+-- Depois disto: TRIGGER PODE RECUSAR, TRIGGER NÃO PODE REESCREVER.
+--
+-- ═══ ORDEM DE APLICAÇÃO — LEIA ANTES ════════════════════════════════════════════════════════
+-- O CÓDIGO NOVO TEM DE ESTAR NO AR ANTES DESTE SQL.
+-- O código antigo de `propor_ins`/`propor_cpu` manda `0, 0` nas colunas de fonte e conta com a
+-- trigger para derivá-las. Rodando este SQL contra o deploy antigo, esses dois caminhos quebram
+-- no primeiro insert (NOT NULL e ck_canonico). Os demais aguentam: `confirmar_mo` e
+-- `conciliacao_mdo` já mandavam a fonte por subconsulta, e `aplicar_manifesto_vinculacao` /
+-- `importar_associacoes` já estavam quebrados em prod pelo `ON CONFLICT ON CONSTRAINT` que
+-- apontava para índice (e, num caso, para nome inexistente).
+--
+-- ═══ ESTADO DE PRODUÇÃO MEDIDO EM 2026-09-28 ════════════════════════════════════════════════
+--   equivalencias_mo              109 linhas · sequence 109 · 0 desperdício
+--   equivalencias_ins               0 linhas · sequence   4
+--   equivalencias_cpu               0 linhas · sequence   3
+--   composicoes_mapeamento_mdo     94 linhas · sequence  94 · NÃO SE TOCA (nasceu certa)
+-- As 109 de MDO são idênticas ao que `seed_equivalencias_mo.py` produz — conferidas linha a
+-- linha contra o dev reconstruído, e os 2.227 pares de ins/cpu saem inteiros dos JSONs (storage
+-- local + R2). Por isso DROP + CREATE, e não ALTER: o conteúdo é reconstruível por script em
+-- segundos, e chegar à estrutura nova por um caminho é mais seguro que chegar por dois. ALTER
+-- deixa a dúvida de "ficou igual?"; recriar do schema.sql não deixa. Decisão do Renan,
+-- 2026-09-28: "melhor a segurança do que uma ponta solta".
+-- ═══════════════════════════════════════════════════════════════════════════════════════════
+
+-- ═══════════════════════════════════════════════════════════════════════════════════════════
+-- COMO APLICAR
+--
+-- Este arquivo NÃO traz o DDL das tabelas: ele sairia de sincronia com o schema.sql no primeiro
+-- ajuste, e duas cópias da mesma verdade é exatamente o que o ADR-022 proíbe. O DDL é o bloco
+-- de `catalogo.equivalencias_ins` até a `t_mo_guarda` do
+-- `docs/projects/axys-easy/schemas/schema.sql` — a foto do banco de dev, já validada.
+--
+--   1. DEPLOY DO CÓDIGO PRIMEIRO. Ver o bloco acima.
+--   2. Guardar as 109 linhas de MDO num JSON (rede de segurança; são reconstruíveis, mas
+--      conferir depois vale mais que confiar antes).
+--   3. DROP TABLE catalogo.equivalencias_ins, catalogo.equivalencias_cpu,
+--                 catalogo.equivalencias_mo CASCADE;
+--   4. Rodar o bloco DDL do schema.sql (3 tabelas + índices + 6 FKs compostas + 3 triggers).
+--   5. As duas UNIQUE que as FKs exigem, se ainda não existirem em prod — estas SIM são ALTER,
+--      porque `insumos` e `composicoes` não se dropam:
+--
+--        ALTER TABLE catalogo.insumos
+--            ADD CONSTRAINT uq_insumos_id_fte UNIQUE (ins_id, ins_fte_id);
+--        ALTER TABLE catalogo.composicoes
+--            ADD CONSTRAINT uq_composicoes_id_fte UNIQUE (cmp_id, cmp_fte_id);
+--
+--      Redundantes como unicidade (o id já é PK) e de propósito: sem um UNIQUE declarado o
+--      Postgres recusa a FK composta, que é o que impede as tabelas de equivalência de guardarem
+--      uma fonte que não é a do item.
+--   6. seed_equivalencias_mo.py --aplicar --banco prod   → esperado `inserido: 109`
+--   7. seed_equivalencias.py    --aplicar --banco prod   → esperado `inserido: 2227`
+--
+-- ═══ CONFERIR DEPOIS ════════════════════════════════════════════════════════════════════════
+--   · rodar os dois seeds DE NOVO: tem de vir `atualizado`, e a sequence NÃO pode andar.
+--     É assim que se verifica que virou get-or-create e não voltou a ser UPSERT.
+--   · 1×1: origem duplicada 0 e destino disputado 0 em ins e cpu (em MO a colisão é esperada e
+--     legítima — a FDE tem ofício mais fino que as outras; ver contrato §6.3).
+--   · as 109 de MDO contra o JSON do passo 2, linha a linha.
+--   · classes em equivalencias_ins: 1.247 direta · 28 calculada · 3 especial · 0 fator nulo.
+--     Fator nulo deixa o par INERTE (a bancada não converte) e não deve existir.
