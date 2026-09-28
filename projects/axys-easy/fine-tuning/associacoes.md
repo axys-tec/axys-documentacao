@@ -215,6 +215,34 @@ Quando não houver insumo representativo dos dois lados, decidir por serviço e 
 
 *Origem: amostra CPU, os dois casos acima.*
 
+### O que a fonte diz que REMUNERA (só composição)
+
+Antes do analítico, há um texto em prosa em que a própria fonte declara o que a composição paga:
+`cmp_descritivo->'versoes'->0->>'remunera'`. É o campo mais decisivo que temos, e foi o último a
+ser achado — passou a maior parte da curadoria sem ser usado.
+
+Ele resolve exatamente o que o título cala: **escopo embutido, contagem e acabamento**. Uma
+tomada é o módulo ou o conjunto com placa e suporte? Um condulete traz tampa e parafusos? A
+luminária inclui a lâmpada? O título das três fontes é igualmente omisso nisso; o `remunera`, não.
+
+Foi o que desatou os homônimos de unidade `UN` × `CJ`, que tinham resistido a tudo: descrições
+quase idênticas, unidades diferentes, e nenhum jeito de saber se a diferença era de escopo ou de
+convenção de cadastro. Lidos os dois `remunera` lado a lado, cada caso levou segundos.
+
+A regra de leitura é **comparar `remunera` com `remunera`**, nunca `remunera` contra título. Um
+lado em prosa detalhada contra o outro em três palavras não é comparação, é assimetria de fonte.
+
+Cobertura medida em 2026-09-27: **CDHU 100%, FDE 100%, SINAPI 73,3%**. Média de 420 caracteres,
+contra 85 de uma descrição de insumo. A SINAPI espelha um caderno próprio; a FDE não tem caderno e
+o texto é montado a partir da composição e, quando existe, do caderno de serviços ou de detalhes —
+o que significa que, na FDE, o `remunera` é **nossa** leitura da composição, não a declaração da
+fonte. Vale como evidência, mas não como palavra oficial dela.
+
+Onde falta o campo — um quarto da SINAPI —, o analítico volta a ser o árbitro.
+
+*Origem: 2026-09-27, ao investigar os 172 quase-idênticos de unidade diferente do check final.
+Entrou no prompt de CPU na mesma data; nenhuma curadoria anterior o teve à vista.*
+
 ### Entrega igual × entrega diferente
 
 O critério que resolve faixa, adição e variante é **o que o item entrega**, não como o texto o

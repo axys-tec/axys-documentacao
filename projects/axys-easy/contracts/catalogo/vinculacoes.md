@@ -386,6 +386,56 @@ destino)`, e nada nesta seção se aplica.
 
 ---
 
+## 6.3. ESTADO EM 2026-09-27 — curadoria fechada, carga não construída
+
+**A curadoria entre as três fontes está completa.** 18.342 registros, zero pendentes.
+
+| | MO | INS | CPU | |
+|---|---|---|---|---|
+| CDHU→SINAPI | 39 | 496 | 290 | de 6.764 julgados |
+| FDE→SINAPI | 36 | 308 | 168 | de 5.789 |
+| FDE→CDHU | 34 | 474 | 491 | de 5.789 |
+| **total** | **109** | **1.278** | **949** | **2.336 pares em 18.342** |
+
+Recontado no fechamento, 2026-09-27. Zero erros de rodada nos nove conjuntos.
+
+Validada por três caminhos independentes: **triangulação** FDE→CDHU→SINAPI fechando 171/171 em
+insumo e 63/63 em composição; **check por insumo principal** confirmando 92% dos testáveis, com
+as 35 dúvidas investigadas uma a uma (31 confirmadas, 4 desassociadas); e o **1×1** sem colisão
+em nenhum dos nove conjuntos.
+
+### O que FALTA, em ordem de bloqueio
+
+**1. A carga de `equivalencias_ins` e `equivalencias_cpu` não existe.** As duas tabelas estão com
+ZERO linhas, em dev e em prod. Há `seed_equivalencias_mo.py` — que pôs as 109 linhas de MDO —, e
+nada equivalente para insumo e composição. **2.271 associações curadas não têm caminho para a
+app.** É o bloqueio real.
+
+**2. Dois `ON CONFLICT ON CONSTRAINT` quebrados** em `equivalencias_service.py`, linhas 1338 e
+1420, nas funções `aplicar_manifesto_vinculacao` e `importar_associacoes` — ambas alcançáveis por
+rota. A 1338 aponta `uq_ei_ori`/`uq_ec_ori`, que são ÍNDICES e não constraints; a 1420 aponta
+`uq_ei_par`/`uq_ec_par`, **que não existem de forma nenhuma**. Já estavam assim antes deste
+trabalho. Precisa de decisão: são duas uniques por tabela e o `ON CONFLICT` só infere uma.
+
+**3. ~~Os JSONs vivem só no disco local.~~ RESOLVIDO em 2026-09-27.** Os 18.342 registros estão
+no R2 privado, em `easy/fontes/associacoes/`, subidos por `sobe_r2.py` — que sobe só o que falta e
+nunca reescreve. `storage/` continua no `.gitignore`: o corpo de fine-tuning é grande demais para
+git e não é código. A cópia de fora da máquina agora existe.
+
+**4. Resíduo de curadoria.** 79 composições de principal RARÍSSIMO, testáveis, apontando um
+candidato único, que a revisão manteve sem par. Faixa de 96% de acerto do critério — merece uma
+passada humana. E 95 em multiplicidade, que o contrato manda negar mas que marcam onde as fontes
+se cortam em eixos diferentes (material de doutrina, não de curadoria).
+
+### Fronteira do método
+
+4.101 composições de principal raríssimo não são testáveis porque o insumo principal delas não
+tem par curado. Não é falha — é alcance. Cada par de insumo novo traz algumas para dentro, e o
+ganho é composto: um insumo destrava várias composições. **Curar insumo antes de composição é a
+ordem certa**, e foi aprendida tarde neste ciclo.
+
+---
+
 ## 7. Limites (o que NÃO faz)
 Não substitui curadoria humana · não recalcula estrutura oficial das fontes · não cria equivalência geral
 entre todas as fontes · não elimina revisão quando a edição muda · não recria vínculos automaticamente no
