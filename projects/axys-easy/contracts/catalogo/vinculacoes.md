@@ -386,7 +386,7 @@ destino)`, e nada nesta seção se aplica.
 
 ---
 
-## 6.3. ESTADO EM 2026-09-27 — curadoria fechada, carga não construída
+## 6.3. ESTADO EM 2026-09-28 — curadoria fechada, carregada em DEV e em PRODUÇÃO
 
 **A curadoria entre as três fontes está completa.** 18.342 registros, zero pendentes.
 
@@ -412,28 +412,72 @@ defeito de curadoria — é a CDHU não ter esses ofícios no cadastro. A MDO te
 está fora do 1×1 por decisão: a `pre_curadoria.py` recusa `--tipo mo`. O que se perde na volta é
 a especialidade, e quem converte MDO já sabe disso.
 
-### O que FALTA, em ordem de bloqueio
+### No banco, em dev e em produção (2026-09-28)
 
-**1. A carga de `equivalencias_ins` e `equivalencias_cpu` não existe.** As duas tabelas estão com
-ZERO linhas, em dev e em prod. Há `seed_equivalencias_mo.py` — que pôs as 109 linhas de MDO —, e
-nada equivalente para insumo e composição. **2.271 associações curadas não têm caminho para a
-app.** É o bloqueio real.
+`seed_equivalencias.py` carrega insumo e composição; `seed_equivalencias_mo.py`, a MDO. Os dois
+leem os JSONs do storage, conferem id × código × fonte dos DOIS lados antes de gravar, e são
+**get-or-create**: rodar de novo devolve `atualizado`, sem consumir sequence. Prod e dev batem por
+hash do conteúdo — 1.278 + 949 + 109, sequence igual à contagem, zero desperdício, 1×1 sem colisão.
 
-**2. Dois `ON CONFLICT ON CONSTRAINT` quebrados** em `equivalencias_service.py`, linhas 1338 e
-1420, nas funções `aplicar_manifesto_vinculacao` e `importar_associacoes` — ambas alcançáveis por
-rota. A 1338 aponta `uq_ei_ori`/`uq_ec_ori`, que são ÍNDICES e não constraints; a 1420 aponta
-`uq_ei_par`/`uq_ec_par`, **que não existem de forma nenhuma**. Já estavam assim antes deste
-trabalho. Precisa de decisão: são duas uniques por tabela e o `ON CONFLICT` só infere uma.
+Para rodar **de dentro do servidor** (que é onde é rápido, e onde o `.env.prod` não existe por ser
+gitignored): `--banco env --storage r2`. De fora, contra prod, são 2.227 linhas × 3 ou 4 idas até
+Ohio — quinze minutos pendurado na internet, e a conexão caindo no meio derruba tudo. Já aconteceu;
+não houve estrago porque o commit é ÚNICO, no fim.
+
+**O que FALTA, em ordem de bloqueio**
+
+**1. ~~A carga não existe.~~ RESOLVIDO.** Ver acima.
+
+**2. ~~Dois `ON CONFLICT ON CONSTRAINT` quebrados.~~ RESOLVIDO.** `ON CONFLICT` saiu das TRÊS
+tabelas. Não era só a sequence: a tabela tem DOIS índices únicos — é assim que o 1×1 duro está
+escrito no banco — e o `ON CONFLICT` só arbitra UM. O outro estourava erro cru e abortava a
+transação; e o primeiro "resolvia" pelo lado errado, porque o `DO UPDATE` não mexe nos ids: a
+troca de parceiro sumia em silêncio e a linha ficava apontando para o parceiro VELHO com os
+metadados NOVOS. Os dois casos foram reproduzidos no banco antes da correção. No lugar,
+`_grava_par` e `_grava_par_mo`, que RECUSAM a colisão com o motivo por escrito — curadoria em
+conflito é assunto de gente.
 
 **3. ~~Os JSONs vivem só no disco local.~~ RESOLVIDO em 2026-09-27.** Os 18.342 registros estão
 no R2 privado, em `easy/fontes/associacoes/`, subidos por `sobe_r2.py` — que sobe só o que falta e
-nunca reescreve. `storage/` continua no `.gitignore`: o corpo de fine-tuning é grande demais para
-git e não é código. A cópia de fora da máquina agora existe.
+nunca reescreve; `--atualizar` é a porta explícita para curadoria editada. `storage/` continua no
+`.gitignore`: o corpo de fine-tuning é grande demais para git e não é código.
 
 **4. Resíduo de curadoria.** 79 composições de principal RARÍSSIMO, testáveis, apontando um
 candidato único, que a revisão manteve sem par. Faixa de 96% de acerto do critério — merece uma
 passada humana. E 95 em multiplicidade, que o contrato manda negar mas que marcam onde as fontes
 se cortam em eixos diferentes (material de doutrina, não de curadoria).
+
+### Quem consome, e o que NÃO se converte
+
+A bancada converte **insumo** e **MDO**. Composição **não**, e é decisão, não lacuna:
+`equivalente_cpu` não existe e não deve ser criada sem pedido. Os 949 pares de composição estão
+no banco como registro curado e como insumo do fine-tuning, não como motor de conversão.
+
+O único consumidor é `backend/modules/ativo/preco_mo.py`, em três chamadas. Quando o equivalente
+existe mas o destino não tem cotação na edição×UF, o item fica marcado com `destino_sem_preco` —
+nome escolhido para não colidir com `cmp_tem_item_sem_preco`, que no catálogo significa outra
+coisa (a composição ter item sem preço na PRÓPRIA fonte). O fallback é anterior a isto e não
+mudou: `incompleto` faz a bancada descartar a conversão da composição e manter o preço base.
+
+**Regime mensalista trava MDO, não trava INS.** Trocar o regime da mão de obra e converter o
+material são decisões diferentes.
+
+### Classes de conversão
+
+| classe | significa |
+|---|---|
+| `direta` | fator 1 — as unidades oficiais coincidem e entregam o mesmo |
+| `calculada` | fator ≠ 1 **lido** das unidades oficiais (1 kg → 4 embalagens de 250 g) |
+| `especial` | fator ≠ 1 **inferido** por descrição + preço, porque a unidade oficial MENTE |
+
+`especial` NÃO significa "sem fator". É a bucha de nylon da FDE: os dois lados dizem UN, mas a UN
+da FDE é o CENTO — o preço (164×) e a aplicação (0,12 por barra de apoio) denunciam. A classe
+marca que a conversão repousa em inferência e merece revalidação quando a fonte republicar.
+
+**Fator nulo não deve existir.** Ele deixa o par INERTE — `equivalente_ins` devolve `None` e a
+bancada não converte —, e um par curado que não converte é trabalho jogado fora. Aconteceu uma
+vez, com o anel de borracha, por confundir ambiguidade de IDENTIDADE (qual série?) com
+ambiguidade de CONVERSÃO. O seed recusa e o relatório grita.
 
 ### Fronteira do método
 
