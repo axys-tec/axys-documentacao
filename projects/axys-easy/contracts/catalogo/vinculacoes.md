@@ -402,7 +402,15 @@ Recontado no fechamento, 2026-09-27. Zero erros de rodada nos nove conjuntos.
 Validada por três caminhos independentes: **triangulação** FDE→CDHU→SINAPI fechando 171/171 em
 insumo e 63/63 em composição; **check por insumo principal** confirmando 92% dos testáveis, com
 as 35 dúvidas investigadas uma a uma (31 confirmadas, 4 desassociadas); e o **1×1** sem colisão
-em nenhum dos nove conjuntos.
+nos seis conjuntos de insumo e composição — 2.227 pares, 2.227 destinos distintos.
+
+**A MDO colide, e é assim mesmo.** São 14 destinos disputados nos três conjuntos de mão de obra,
+porque a FDE tem ofício mais fino que as outras duas: TAQUEIRO, TELHADISTA e AJUDANTE DE
+MARCENEIRO caem todos em CARPINTEIRO, LADRILHISTA cai em AZULEJISTA, APLICADOR em PEDREIRO. Não é
+defeito de curadoria — é a CDHU não ter esses ofícios no cadastro. A MDO tem tabela própria
+(`equivalencias_mo`), serve à rotação de regime e não à viagem de ida e volta do dado, e por isso
+está fora do 1×1 por decisão: a `pre_curadoria.py` recusa `--tipo mo`. O que se perde na volta é
+a especialidade, e quem converte MDO já sabe disso.
 
 ### O que FALTA, em ordem de bloqueio
 
