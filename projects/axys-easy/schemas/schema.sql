@@ -5103,6 +5103,14 @@ CREATE TABLE IF NOT EXISTS ativo.ativos (
     atv_end_municipio   TEXT,
     atv_end_uf          CHAR(2),                           -- UF DO ENDEREÇO (≠ atv_uf de preço)
     atv_orc_seq         INTEGER NOT NULL DEFAULT 0,        -- high-water do id LOCAL dos itens de orçamento (ativo_itens.ati_num); +1 a cada item criado, NUNCA reusa → id estável por ativo, começa em 1
+    -- MOTOR DE BUSCA da bancada e da consulta de composições. TRUE = padrão (relevância pura).
+    -- FALSE = ranqueia pondo a FONTE FAVORITA (★) no topo, mantida a relevância entre os pares.
+    --
+    -- É coluna própria, e não um efeito colateral de ter favorita, porque são duas decisões: a
+    -- favorita existe para CONVERTER (insumo/MDO), e quem converte nem sempre quer que a busca
+    -- mude de ordem por causa disso. Juntar as duas tirava do usuário uma escolha.
+    -- DEFAULT TRUE preserva o comportamento de hoje — quem não escolher nada não vê diferença.
+    atv_busca_padrao    BOOLEAN NOT NULL DEFAULT TRUE,
     atv_criado_em       TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     atv_atualizado_em   TIMESTAMPTZ,
     atv_criado_por      TEXT,
