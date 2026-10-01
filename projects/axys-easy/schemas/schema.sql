@@ -4814,6 +4814,13 @@ CREATE TABLE IF NOT EXISTS tenant_catalogo.insumos (
     ins_uf             CHAR(2) NOT NULL DEFAULT 'SP',     -- UF do insumo (o preço herda daqui)
     ins_ativo          BOOLEAN NOT NULL DEFAULT TRUE,     -- estado ativo/inativo (soft-delete guardado por dependentes)
     ins_busca          TEXT,                              -- normalizado p/ busca (trigger set_busca): upper(unaccent(código||' '||descrição))
+    ins_seq            INTEGER,
+    -- Sequencial do CÓDIGO AUTOMÁTICO, por TENANT (não por fonte): I-000001 / C-000001.
+    -- NULLABLE de propósito -- nulo = código digitado à mão pelo usuário, que a app permite.
+    -- Editar um código que veio daqui ZERA esta coluna: a posição VAGA, e nunca é reaproveitada
+    -- (sempre o último + 1). Vagar libera o número para quem quiser digitá-lo, não para a app
+    -- reciclar -- reciclar faria dois itens carregarem o mesmo código ao longo do tempo, em
+    -- documentos já emitidos.
     ins_criado_em      TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     ins_atualizado_em  TIMESTAMPTZ,
     ins_criado_por     TEXT,
@@ -4828,6 +4835,7 @@ CREATE TABLE IF NOT EXISTS tenant_catalogo.insumos (
         REFERENCES catalogo.insumos_tipo (ti_id)
         ON UPDATE CASCADE ON DELETE RESTRICT,
     CONSTRAINT uq_tci_fte_codigo_uf UNIQUE (ins_fte_id, ins_codigo, ins_uf),
+    CONSTRAINT uq_tci_tenant_seq     UNIQUE (ins_tenant_uuid, ins_seq),
     CONSTRAINT ck_tci_codigo CHECK (btrim(ins_codigo) <> '')
 );
 
@@ -4878,6 +4886,13 @@ CREATE TABLE IF NOT EXISTS tenant_catalogo.composicoes (
     cmp_ativa          BOOLEAN NOT NULL DEFAULT TRUE,     -- estado ativo/inativo (soft-delete guardado por dependentes)
     cmp_justificativa  TEXT,                              -- memorial da montagem (adequação orçamentária / derivada de…)
     cmp_busca          TEXT,                              -- normalizado p/ busca (trigger set_busca)
+    cmp_seq            INTEGER,
+    -- Sequencial do CÓDIGO AUTOMÁTICO, por TENANT (não por fonte): C-000001.
+    -- NULLABLE de propósito -- nulo = código digitado à mão pelo usuário, que a app permite.
+    -- Editar um código que veio daqui ZERA esta coluna: a posição VAGA, e nunca é reaproveitada
+    -- (sempre o último + 1). Vagar libera o número para quem quiser digitá-lo, não para a app
+    -- reciclar -- reciclar faria dois itens carregarem o mesmo código ao longo do tempo, em
+    -- documentos já emitidos.
     cmp_criado_em      TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     cmp_atualizado_em  TIMESTAMPTZ,
     cmp_criado_por     TEXT,
@@ -4888,6 +4903,7 @@ CREATE TABLE IF NOT EXISTS tenant_catalogo.composicoes (
         REFERENCES tenant_catalogo.fontes (fte_id)
         ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT uq_tcc_fte_codigo UNIQUE (cmp_fte_id, cmp_codigo),
+    CONSTRAINT uq_tcc_tenant_seq UNIQUE (cmp_tenant_uuid, cmp_seq),
     CONSTRAINT ck_tcc_codigo CHECK (btrim(cmp_codigo) <> '')
 );
 
