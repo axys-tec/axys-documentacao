@@ -271,3 +271,177 @@ Quatro regras nasceram da curadoria de 2026-09-24 e estão no prompt:
 **Escopo:** o adendo vale para CPU. Em insumo, a linha que autoriza o mais genérico continua
 valendo — insumo é coisa que se compra e se entrega igual; composição é serviço que se mede e se
 paga.
+
+---
+
+## Licenciamento, capacidade e consumo (2026-10-01)
+
+Fonte: `docs/projects/axys-easy/contracts/axys_easy_modelo_licenciamento.md` — documento **oficial**
+do licenciamento, que **prevalece** sobre o anterior (`EASY_HUB_LICENCIAMENTO.md`, 15/08).
+
+O que é da frente do refino da bancada (arquivamento do ATIVO, estados, bloqueio de edição) está em
+`refino_final_bancada.md`, na raiz do repo de código. Aqui fica o resto.
+
+**Conferido contra o schema: nenhuma falha estrutural.** `atv_status` é texto livre sem CHECK,
+`emp_arquivado` já existe, o JWT já carrega `licencas[]` e há onde pendurar o que falta. O que
+falta é implementação, não redesenho. Dois pontos exigem coordenação com o Hub e estão marcados.
+
+## 1 · Capacidade: o Hub precisa mandar `capacity`  ⚠ DEPENDE DO HUB
+
+O contrato diz que o Hub informa a capacidade e o Easy verifica a ocupação:
+
+```json
+{"product": "easy_orca", "model": "capacity", "capacity": 5}
+```
+
+**Hoje o JWT não traz isso.** `_licencas_ativas` (`backend/core/security.py:218`) lê
+`licencas: [{app, status}]` — app e status, nada de capacidade. E `require_licenca_ativa` é um
+portão booleano: "tem alguma licença ACTIVE?". Não conta nada.
+
+O que falta, dos dois lados:
+
+- **Hub:** acrescentar `model` e `capacity` por produto no claim `licencas`.
+- **Easy:** ler a capacidade e comparar com a ocupação (ativos não arquivados do tenant).
+
+Enquanto a capacidade não vier, o gate não pode ser escrito — e chutar um default seria pior que
+não ter: um teto errado bloqueia cliente pagante.
+
+## 2 · API de ocupação para o downgrade  ⚠ DEPENDE DO HUB
+
+O downgrade é pedido no dashboard do Hub, e **antes de efetivar o Hub consulta o Easy** para saber
+quantos ativos estão em andamento. Só conclui se a ocupação couber no plano novo; senão orienta o
+usuário a arquivar.
+
+Precisa de um endpoint no Easy — ocupação por tenant — e o Hub chamando antes de aplicar o plano.
+Nem Hub nem Easy arquivam nada automaticamente: a escolha é sempre do usuário.
+
+Mensagem que o contrato já define: *"Existem atualmente XX ativos em andamento. Para alterar seu
+plano para XX ativos, arquive os ativos concluídos ou que não precisam permanecer em andamento e
+tente novamente."*
+
+## 3 · Uso isolado: Price e CPU
+
+São produtos de **uso isolado** — saldo canônico no Hub, evento de consumo explícito, deliberado,
+transacional, auditável e **idempotente**.
+
+O contrato já fixou o momento de consumo de cada um:
+
+- **Price:** depois de preencher os dados do motor paramétrico, abre simulação resumida e aviso
+  duro — *"Deseja avançar no orçamento paramétrico? Ao avançar, será computado o uso e não será
+  possível alterar mais os dados básicos de área e infraestrutura do ativo, podendo apenas ser
+  manipulado itens e/ou etapas."*
+- **CPU:** nasce de importação de xls/xlsx, com **diff em tela** do que vem do sintético, e o
+  usuário podendo subir e baixar a planilha no mesmo lugar para conferência. Aviso igualmente
+  duro — *"Deseja avançar para o detalhamento das composições? Ao avançar será computado o uso e
+  não será possível excluir ou adicionar itens, limitando-se a manipular preços de insumos e/ou
+  composições de serviços."*
+
+**Nota de arquitetura que vale registrar:** o Price é *apartado* do Orça — acesso e comportamento
+isolados, **mesmas tabelas e premissas**, e é a permissão de uso que determina o front. Então não
+é um schema novo; é um modo.
+
+E aqui entra o que eu havia proposto para o Orça e foi descartado lá: a regra de **não deixar
+transformar a unidade em outra** é exatamente o `dados_congelados` destes produtos. No Orça não
+vale (concluir não é consumo); aqui é o coração do modelo.
+
+A auditoria do evento tem **13 campos mínimos** definidos no contrato (tenant, usuário, produto,
+unidade de trabalho, data/hora, evento, quantidade, saldo antes, saldo depois, id idempotente,
+status da sincronização, quem confirmou, erro). `ativo.ativo_eventos` existe e está vazia — serve
+de base, mas o contrato pede mais campos do que ela tem.
+
+## 4 · Axys Intelligence e o AxysCoin (AXC)
+
+Terceira categoria comercial, nem licença nem capacidade: **créditos**.
+
+Referência econômica fixa: **1.000 AXC = US$ 1,00** de custo computacional. O consumo de cada
+operação é o custo efetivo da requisição ao provedor (entrada, saída, demais recursos).
+
+Formação de preço, já fechada no contrato:
+
+```
+CUSTDIR = custo efetivo do dólar × (1 + AX1)        AX1  = 10%  (risco cambial)
+preço de 1.000 AXC = [CUSTDIR × (1 + LUCR)] / (1 - TRIB)
+                                                    LUCR = 10%  (margem)
+                                                    TRIB = 10%  (tributos)
+```
+
+Arredonda **para cima**, em três casas. Cotação semanal, vendida só em reais, recarga mínima
+R$ 10. A cotação da compra define definitivamente o saldo creditado.
+
+O que precisa existir:
+
+- confirmação **em tela antes de cada operação**, mostrando consumo estimado, saldo atual e saldo
+  previsto, avisando que o efetivo pode variar;
+- débito do **consumo efetivo** ao final, admitindo pequeno saldo negativo só pela diferença entre
+  estimativa e real, dentro de tolerância a definir; negativo impede nova operação;
+- **saldo lido do Hub antes de CADA operação** — e esta é a ressalva operacional do contrato: como
+  é multi-tenant e multi-app, o saldo do login pode estar velho. Bater no Hub, atualizar, rodar;
+- depois de rodar, **enfileirar a comunicação ao Hub** com idempotência e fallback de falha. O Hub
+  registra o uso de qualquer jeito.
+
+## 5 · IA fora do Axys Intelligence (prompt externo)
+
+O uso do Axys Intelligence **não é obrigatório**. Onde for tecnicamente aplicável, o Easy oferece
+**gerar e baixar/copiar o prompt**, para a pessoa usar a ferramenta que preferir sem gastar AXC.
+
+O prompt externo é funcional e suficiente para resultado útil, mas **pode ser empobrecido** em
+relação à inteligência proprietária — sem toda a engenharia de prompt, contexto, agentes e
+validações da Axys. Empobrecido, não inútil.
+
+O valor cobrado é a **conveniência integrada**: preparar contexto, executar, tratar a resposta e
+conciliar com os dados do Easy. Não é restrição artificial ao acesso do usuário aos próprios dados.
+
+## 6 · Retenção e sanitização
+
+O próprio contrato registra os workers como pendência, para depois das primeiras vendas.
+
+| plano | retenção contratada | margem interna (não divulgada) |
+|---|---|---|
+| uso único | 30 dias | +30 |
+| até 10 ativos | 60 dias | +60 |
+| Unlimited | 120 dias | +60 |
+
+Regras que precisam ser respeitadas quando isso for construído:
+
+- prazos **parametrizados**, não fixos no código — por decisão do contrato, em tabelas **seedadas**
+  sem tela por enquanto;
+- encerrada a margem, os dados podem sair do banco operacional e virar **arquivo histórico
+  estruturado e versionado**, preservando o suficiente para restauração controlada no schema
+  vigente;
+- **a sanitização só ocorre depois de confirmada a geração, integridade e persistência segura do
+  arquivo** — esta é a ordem que não pode inverter;
+- classes progressivas `archive_y1`, `archive_y2`, `archive_y3`; vencer uma classe **não** implica
+  exclusão automática;
+- **não** haverá banco operacional paralelo para tenant inativo;
+- restauração é serviço técnico interno, cobrado, nunca self-service.
+
+## 7 · Inadimplência — do Hub, o Easy respeita
+
+Inadimplência **não apaga dado, não arquiva ativo e não altera histórico**. Ela muda
+progressivamente o **modo de acesso** concedido pelo Hub:
+
+```
+renovação não processada
+  → D+1..D+7   período de regularização (tenant operacional, Hub avisa 1×/dia)
+  → D+7        suspensão das funcionalidades
+  → até 30d    acesso congelado / somente visualização
+  → fim do 30º bloqueio de acesso à plataforma
+  → 180+d      sujeito à política de retenção e sanitização
+```
+
+O Easy precisa honrar o modo que vem do Hub. O `VIEW_ONLY` já existe no gate atual — falta
+conferir se cobre o estado "funcionalidades suspensas" do D+7, que é diferente de só-visualização.
+
+---
+
+## O que está fechado e não é pendência
+
+Para não reabrir por engano:
+
+- **não existe** contador canônico em app recorrente;
+- **não se cobra** conclusão, reabertura, revisão nem emissão;
+- **não há** reset mensal de "usos" em app de capacidade;
+- **não se duplica** saldo comercial autoritativo no Easy — o saldo é do Hub, a evidência
+  operacional é do Easy, e os dois compartilham o id de idempotência;
+- **não se escreve** regra financeira no microapp;
+- cadastrar empreendimento, por si só, **não** consome capacidade — quem ocupa é o ativo.
