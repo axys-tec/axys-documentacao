@@ -4765,6 +4765,13 @@ CREATE TABLE IF NOT EXISTS tenant_catalogo.fontes (
     fte_codigo         TEXT    NOT NULL,
     fte_nome           TEXT    NOT NULL,
     fte_tipo           TEXT    NOT NULL DEFAULT 'PROPRIA', -- PROPRIA | EXTERNA
+    -- O BUCKET canônico do tenant: onde o "derivar" deposita a composição adaptada. Marcador do
+    -- SISTEMA, não editável — a identidade é o ID da linha, e nada que o usuário possa mudar.
+    -- Antes isto era inferido do `fte_codigo` ("PROPRIA"), que é RÓTULO EDITÁVEL: a fonte criada
+    -- pela UI nascia "PRÓPRIA" (com acento), o bootstrap procurava sem, não achava, criava uma
+    -- SEGUNDA, e a composição derivada ia para um bucket que o usuário não enxerga (01/09/2026).
+    -- Tipo também não serve: um tenant pode ter várias fontes do tipo PROPRIA legitimamente.
+    fte_bootstrap      BOOLEAN NOT NULL DEFAULT FALSE,
     fte_ativa          BOOLEAN NOT NULL DEFAULT TRUE,
     fte_criado_em      TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     fte_atualizado_em  TIMESTAMPTZ,
@@ -4777,6 +4784,8 @@ CREATE TABLE IF NOT EXISTS tenant_catalogo.fontes (
 );
 
 CREATE INDEX ix_tcf_tenant ON tenant_catalogo.fontes (fte_tenant_uuid, fte_ativa);
+-- UM bucket por tenant, garantido pelo banco: parcial, porque só a linha marcada participa.
+CREATE UNIQUE INDEX uq_tcf_bootstrap ON tenant_catalogo.fontes (fte_tenant_uuid) WHERE fte_bootstrap;
 
 -- ── 2) EDIÇÕES da fonte (sem UF padrão, sem pipeline; L.S. da edição p/ MO) ──
 CREATE TABLE IF NOT EXISTS tenant_catalogo.edicoes (
