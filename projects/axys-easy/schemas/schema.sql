@@ -4894,6 +4894,14 @@ CREATE TABLE IF NOT EXISTS tenant_catalogo.composicoes (
     cmp_unidade        TEXT    NOT NULL,
     cmp_ativa          BOOLEAN NOT NULL DEFAULT TRUE,     -- estado ativo/inativo (soft-delete guardado por dependentes)
     cmp_justificativa  TEXT,                              -- memorial da montagem (adequação orçamentária / derivada de…)
+    -- DESCRITIVO (forma de medição + o que remunera). MESMA FORMA de catalogo.composicoes.cmp_descritivo,
+    -- de propósito: {modo, versoes:[{desde_edi, req_hash, status, medicao, remunera, origem}]}, versoes[-1]
+    -- = atual. Espelhar a estrutura do catálogo faz o MESMO leitor servir aos dois — caderno de encargos,
+    -- export, tela e, no dia em que houver, o CTC Fill escrevendo para o tenant. Campos que o tenant não
+    -- usa (req_hash, desde_edi) ficam nulos e custam zero.
+    -- SEM ISTO a composição própria entrava no caderno de encargos sem forma de medição e sem remuneração,
+    -- e o usuário não tinha onde preencher (o caderno só resolvia CTC para o CATÁLOGO).
+    cmp_descritivo     JSONB,
     cmp_busca          TEXT,                              -- normalizado p/ busca (trigger set_busca)
     cmp_seq            INTEGER,
     -- Sequencial do CÓDIGO AUTOMÁTICO, por TENANT (não por fonte): C-000001.
