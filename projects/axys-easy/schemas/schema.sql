@@ -4998,6 +4998,35 @@ CREATE INDEX ix_tcu_tenant ON tenant_catalogo.unidades (un_tenant_uuid, un_codig
 
 
 -- ══════════════════════════════════════════════════════════════════════════════
+-- CONSELHO DE CLASSE e DOCUMENTO DE RESPONSABILIDADE TÉCNICA
+-- Domínio da Axys, igual para todo tenant — por isso em `catalogo`, não em tenant_catalogo.
+-- Semeado aqui (get-or-create por código), como os índices: é lista fechada e pequena.
+-- ══════════════════════════════════════════════════════════════════════════════
+CREATE TABLE IF NOT EXISTS catalogo.conselhos_classe (
+    ccl_codigo TEXT PRIMARY KEY,                  -- CREA, CAU, CRT
+    ccl_nome   TEXT    NOT NULL,
+    ccl_ordem  INTEGER NOT NULL DEFAULT 0         -- ordem de exibição na listbox
+);
+
+INSERT INTO catalogo.conselhos_classe (ccl_codigo, ccl_nome, ccl_ordem) VALUES
+    ('CREA', 'CONSELHO REGIONAL DE ENGENHARIA E AGRONOMIA', 1),
+    ('CAU',  'CONSELHO DE ARQUITETURA E URBANISMO',         2),
+    ('CRT',  'CONSELHO REGIONAL DOS TÉCNICOS INDUSTRIAIS',  3)
+ON CONFLICT (ccl_codigo) DO NOTHING;   -- PK natural (não IDENTITY) → não queima sequence
+
+CREATE TABLE IF NOT EXISTS catalogo.doc_resp_tecnica (
+    drt_codigo TEXT PRIMARY KEY,                  -- ART, RRT, TRT
+    drt_nome   TEXT    NOT NULL,
+    drt_ordem  INTEGER NOT NULL DEFAULT 0
+);
+
+INSERT INTO catalogo.doc_resp_tecnica (drt_codigo, drt_nome, drt_ordem) VALUES
+    ('ART', 'ANOTAÇÃO DE RESPONSABILIDADE TÉCNICA', 1),
+    ('RRT', 'REGISTRO DE RESPONSABILIDADE TÉCNICA', 2),
+    ('TRT', 'TERMO DE RESPONSABILIDADE TÉCNICA',    3)
+ON CONFLICT (drt_codigo) DO NOTHING;
+
+-- ══════════════════════════════════════════════════════════════════════════════
 -- RESPONSÁVEL TÉCNICO — cadastro do tenant (quem assina os documentos)
 -- Mora em tenant_catalogo porque é cadastro reusado pelo tenant inteiro, como unidade e fonte:
 -- cadastra uma vez, usa em todos os empreendimentos. NÃO guarda user_uuid — o Hub é dono dos
@@ -5009,7 +5038,12 @@ CREATE TABLE IF NOT EXISTS tenant_catalogo.responsaveis_tecnicos (
     rt_tenant_uuid            UUID    NOT NULL,          -- RAIZ de isolamento. [VALIDAR] sem FK física.
     rt_nome                   TEXT    NOT NULL,
     rt_formacao               TEXT,                      -- "Engenheiro Civil", "Arquiteto e Urbanista"
-    rt_documento_profissional TEXT,                      -- como vai no documento: "CREA-SP 123456/D"
+    -- Documento profissional em TRÊS partes, não em texto solto: o bloco de assinatura concatena
+    -- ("CREA-SP 506.404.144-5"), e manter separado é o que permite validar, filtrar e, um dia,
+    -- conferir contra o conselho. `rt_conselho_uf` aceita UF ou 'BR' (registro nacional).
+    rt_conselho               TEXT REFERENCES catalogo.conselhos_classe (ccl_codigo),
+    rt_conselho_uf            CHAR(2),
+    rt_documento              TEXT,                      -- só o número: "506.404.144-5"
     rt_ativo                  BOOLEAN NOT NULL DEFAULT TRUE,   -- soft-delete (doutrina do tenant_catalogo)
     rt_criado_em              TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     rt_atualizado_em          TIMESTAMPTZ,
@@ -5301,6 +5335,9 @@ CREATE TABLE IF NOT EXISTS ativo.empreendimento_responsaveis (
     empr_emp_id  INTEGER NOT NULL,
     empr_rt_id   INTEGER NOT NULL,
     empr_ordem   INTEGER NOT NULL DEFAULT 1,
+    -- ART/RRT/TRT é por OBRA, não por pessoa: o mesmo RT tem um documento em cada uma.
+    empr_tipo_doc TEXT REFERENCES catalogo.doc_resp_tecnica (drt_codigo),
+    empr_num_doc  TEXT,
 
     PRIMARY KEY (empr_emp_id, empr_rt_id),
     CONSTRAINT fk_empr_emp FOREIGN KEY (empr_emp_id)
@@ -5313,6 +5350,9 @@ CREATE TABLE IF NOT EXISTS ativo.ativo_responsaveis (
     atvr_atv_id  INTEGER NOT NULL,
     atvr_rt_id   INTEGER NOT NULL,
     atvr_ordem   INTEGER NOT NULL DEFAULT 1,
+    -- ART/RRT/TRT é por OBRA, não por pessoa: o mesmo RT tem um documento em cada uma.
+    atvr_tipo_doc TEXT REFERENCES catalogo.doc_resp_tecnica (drt_codigo),
+    atvr_num_doc  TEXT,
 
     PRIMARY KEY (atvr_atv_id, atvr_rt_id),
     CONSTRAINT fk_atvr_atv FOREIGN KEY (atvr_atv_id)
