@@ -274,6 +274,43 @@ paga.
 
 ---
 
+## ⚠ SEQUÊNCIA DE DEPLOY — duas migrations com ordens OPOSTAS (2026-10-05)
+
+Há duas migrations pendentes de prod em estados diferentes, e **a ordem entre código e banco é
+inversa entre elas**. Errar a ordem derruba a app.
+
+| migration | prod | ordem obrigatória | se inverter |
+|---|---|---|---|
+| `2026-10-04_responsavel_tecnico.sql` | ✅ **já aplicada** | migration → código | código sem migration: `/dados-proprios` dá 500 (a contagem de responsáveis entra na mesma query das outras) |
+| `2026-10-05_empreendimento_parametros_documento.sql` | ⬜ **não aplicada** | **código → migration** | migration sem código: `get_contexto` quebra, porque a versão no ar ainda lê `epa_fonte` |
+
+### A sequência correta, de ponta a ponta
+
+1. **A do RT já rodou** em 05/10. Enquanto o código não sobe, prod tem tabelas vazias que ninguém
+   lê — inofensivo.
+2. **Pushar o código.** Aí a tela de RT passa a funcionar (a migration dela já está lá) e o
+   `get_contexto` já não lê `epa_fonte` (o degrau por empreendimento morreu no código).
+3. **Só então** rodar `2026-10-05_empreendimento_parametros_documento.sql`.
+
+Entre os passos 2 e 3 existe uma janela em que a tabela antiga ainda está em prod e ninguém a lê.
+É inofensiva: a tabela está vazia, e o código novo não a toca.
+
+### Por que a ordem é inversa
+
+A do RT **só acrescenta** — tabelas novas e uma coluna com default. Banco à frente do código é
+sempre seguro quando só se acrescenta.
+
+A de `empreendimento_parametros` **derruba e recria com outra forma**. Banco à frente do código
+significa o código antigo procurando `epa_fonte` numa tabela que já não a tem.
+
+### A trava que protege contra engano
+
+A migration de 05/10 tem um bloco `DO` que **aborta** se a tabela antiga tiver qualquer linha —
+testado. Ela protege contra dado inesperado, **não** contra a ordem errada: se rodar antes do
+deploy, ela passa (a tabela está vazia) e quebra a app.
+
+---
+
 ## Licenciamento, capacidade e consumo (2026-10-01)
 
 Fonte: `docs/projects/axys-easy/contracts/axys_easy_modelo_licenciamento.md` — documento **oficial**
