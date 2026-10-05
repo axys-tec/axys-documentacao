@@ -48,56 +48,66 @@ CREATE TABLE IF NOT EXISTS catalogo.profissoes (
     prf_codigo   TEXT PRIMARY KEY,                -- ENG_CIVIL, ARQ_URB, TEC_EDIF…
     prf_nome     TEXT NOT NULL,                   -- como vai no bloco de assinatura
     prf_conselho TEXT NOT NULL REFERENCES catalogo.conselhos_classe (ccl_codigo),
+    -- SUPERIOR × MEDIO explícito: "Tecnólogo em Edificações" (superior, CREA) e "Técnico em
+    -- Edificações" (médio, CRT) são profissões distintas e o prefixo sozinho não deixa isso
+    -- consultável. A tela agrupa a listbox por nível.
+    prf_nivel    TEXT NOT NULL DEFAULT 'SUPERIOR',
     prf_ordem    INTEGER NOT NULL DEFAULT 0,
     prf_ativa    BOOLEAN NOT NULL DEFAULT TRUE,   -- some da listbox sem sumir de quem já a usa
 
-    CONSTRAINT uq_prf_conselho_nome UNIQUE (prf_conselho, prf_nome)
+    CONSTRAINT uq_prf_conselho_nome UNIQUE (prf_conselho, prf_nome),
+    CONSTRAINT ck_prf_nivel CHECK (prf_nivel IN ('SUPERIOR', 'MEDIO'))
 );
 
 -- Recorte: construção civil e infraestrutura. NÃO é a lista completa dos conselhos — é a fatia
 -- que aparece em projeto e obra. Quem define atribuição é o conselho (Res. CONFEA 218/1973 e
 -- sucessoras, Lei 12.378/2010 para o CAU, Lei 13.639/2018 para o CFT); esta tabela é só o
 -- vocabulário da app, para o usuário escolher em vez de digitar.
-INSERT INTO catalogo.profissoes (prf_codigo, prf_nome, prf_conselho, prf_ordem) VALUES
-    ('ENG_CIVIL',      'Engenheiro Civil',                      'CREA',  1),
-    ('ENG_ELET',       'Engenheiro Eletricista',                'CREA',  2),
-    ('ENG_MEC',        'Engenheiro Mecânico',                   'CREA',  3),
-    ('ENG_AMB',        'Engenheiro Ambiental',                  'CREA',  4),
-    ('ENG_SANIT',      'Engenheiro Sanitarista',                'CREA',  5),
-    ('ENG_SEG_TRAB',   'Engenheiro de Segurança do Trabalho',   'CREA',  6),
-    ('ENG_AGRIM',      'Engenheiro Agrimensor',                 'CREA',  7),
-    ('ENG_CARTOG',     'Engenheiro Cartógrafo',                 'CREA',  8),
-    ('ENG_GEOL',       'Engenheiro Geólogo',                    'CREA',  9),
-    ('GEOLOGO',        'Geólogo',                               'CREA', 10),
-    ('ENG_MINAS',      'Engenheiro de Minas',                   'CREA', 11),
-    ('ENG_HIDRICO',    'Engenheiro Hídrico',                    'CREA', 12),
-    ('ENG_FLOREST',    'Engenheiro Florestal',                  'CREA', 13),
-    ('ENG_AGRON',      'Engenheiro Agrônomo',                   'CREA', 14),
-    ('ENG_PROD',       'Engenheiro de Produção',                'CREA', 15),
-    ('ENG_MATER',      'Engenheiro de Materiais',               'CREA', 16),
-    ('ENG_QUIM',       'Engenheiro Químico',                    'CREA', 17),
-    ('ENG_ELETRON',    'Engenheiro Eletrônico',                 'CREA', 18),
-    ('ENG_TELECOM',    'Engenheiro de Telecomunicações',        'CREA', 19),
-    ('TGO_CONST',      'Tecnólogo em Construção Civil',         'CREA', 20),
-    ('TGO_EDIF',       'Tecnólogo em Edificações',              'CREA', 21),
-    ('TGO_ESTRADAS',   'Tecnólogo em Estradas',                 'CREA', 22),
-    ('TGO_SANEAM',     'Tecnólogo em Saneamento Ambiental',     'CREA', 23),
-    ('TGO_ELETROT',    'Tecnólogo em Eletrotécnica',            'CREA', 24),
-    ('TGO_MEC',        'Tecnólogo em Mecânica',                 'CREA', 25),
-    ('ARQ_URB',        'Arquiteto e Urbanista',                 'CAU',   1),
-    ('TEC_EDIF',       'Técnico em Edificações',                'CRT',   1),
-    ('TEC_ELETROT',    'Técnico em Eletrotécnica',              'CRT',   2),
-    ('TEC_ESTRADAS',   'Técnico em Estradas',                   'CRT',   3),
-    ('TEC_SANEAM',     'Técnico em Saneamento',                 'CRT',   4),
-    ('TEC_SEG_TRAB',   'Técnico em Segurança do Trabalho',      'CRT',   5),
-    ('TEC_MEC',        'Técnico em Mecânica',                   'CRT',   6),
-    ('TEC_AGRIM',      'Técnico em Agrimensura',                'CRT',   7),
-    ('TEC_GEOL',       'Técnico em Geologia',                   'CRT',   8),
-    ('TEC_MINER',      'Técnico em Mineração',                  'CRT',   9),
-    ('TEC_REFRIG',     'Técnico em Refrigeração e Climatização','CRT',  10),
-    ('TEC_AUTOM',      'Técnico em Automação Industrial',       'CRT',  11),
-    ('TEC_ELETRON',    'Técnico em Eletrônica',                 'CRT',  12),
-    ('TEC_MEIO_AMB',   'Técnico em Meio Ambiente',              'CRT',  13)
+-- a coluna precisa existir ANTES do seed que a preenche (a tabela pode já existir)
+ALTER TABLE catalogo.profissoes
+    ADD COLUMN IF NOT EXISTS prf_nivel TEXT NOT NULL DEFAULT 'SUPERIOR';
+UPDATE catalogo.profissoes SET prf_nivel = 'MEDIO' WHERE prf_conselho = 'CRT' AND prf_nivel <> 'MEDIO';
+
+INSERT INTO catalogo.profissoes (prf_codigo, prf_nome, prf_conselho, prf_nivel, prf_ordem) VALUES
+    ('ENG_CIVIL',      'Engenheiro Civil',                      'CREA', 'SUPERIOR',  1),
+    ('ENG_ELET',       'Engenheiro Eletricista',                'CREA', 'SUPERIOR',  2),
+    ('ENG_MEC',        'Engenheiro Mecânico',                   'CREA', 'SUPERIOR',  3),
+    ('ENG_AMB',        'Engenheiro Ambiental',                  'CREA', 'SUPERIOR',  4),
+    ('ENG_SANIT',      'Engenheiro Sanitarista',                'CREA', 'SUPERIOR',  5),
+    ('ENG_SEG_TRAB',   'Engenheiro de Segurança do Trabalho',   'CREA', 'SUPERIOR',  6),
+    ('ENG_AGRIM',      'Engenheiro Agrimensor',                 'CREA', 'SUPERIOR',  7),
+    ('ENG_CARTOG',     'Engenheiro Cartógrafo',                 'CREA', 'SUPERIOR',  8),
+    ('ENG_GEOL',       'Engenheiro Geólogo',                    'CREA', 'SUPERIOR',  9),
+    ('GEOLOGO',        'Geólogo',                               'CREA', 'SUPERIOR', 10),
+    ('ENG_MINAS',      'Engenheiro de Minas',                   'CREA', 'SUPERIOR', 11),
+    ('ENG_HIDRICO',    'Engenheiro Hídrico',                    'CREA', 'SUPERIOR', 12),
+    ('ENG_FLOREST',    'Engenheiro Florestal',                  'CREA', 'SUPERIOR', 13),
+    ('ENG_AGRON',      'Engenheiro Agrônomo',                   'CREA', 'SUPERIOR', 14),
+    ('ENG_PROD',       'Engenheiro de Produção',                'CREA', 'SUPERIOR', 15),
+    ('ENG_MATER',      'Engenheiro de Materiais',               'CREA', 'SUPERIOR', 16),
+    ('ENG_QUIM',       'Engenheiro Químico',                    'CREA', 'SUPERIOR', 17),
+    ('ENG_ELETRON',    'Engenheiro Eletrônico',                 'CREA', 'SUPERIOR', 18),
+    ('ENG_TELECOM',    'Engenheiro de Telecomunicações',        'CREA', 'SUPERIOR', 19),
+    ('TGO_CONST',      'Tecnólogo em Construção Civil',         'CREA', 'SUPERIOR', 20),
+    ('TGO_EDIF',       'Tecnólogo em Edificações',              'CREA', 'SUPERIOR', 21),
+    ('TGO_ESTRADAS',   'Tecnólogo em Estradas',                 'CREA', 'SUPERIOR', 22),
+    ('TGO_SANEAM',     'Tecnólogo em Saneamento Ambiental',     'CREA', 'SUPERIOR', 23),
+    ('TGO_ELETROT',    'Tecnólogo em Eletrotécnica',            'CREA', 'SUPERIOR', 24),
+    ('TGO_MEC',        'Tecnólogo em Mecânica',                 'CREA', 'SUPERIOR', 25),
+    ('ARQ_URB',        'Arquiteto e Urbanista',                 'CAU', 'SUPERIOR',   1),
+    ('TEC_EDIF',       'Técnico em Edificações',                'CRT', 'MEDIO',   1),
+    ('TEC_ELETROT',    'Técnico em Eletrotécnica',              'CRT', 'MEDIO',   2),
+    ('TEC_ESTRADAS',   'Técnico em Estradas',                   'CRT', 'MEDIO',   3),
+    ('TEC_SANEAM',     'Técnico em Saneamento',                 'CRT', 'MEDIO',   4),
+    ('TEC_SEG_TRAB',   'Técnico em Segurança do Trabalho',      'CRT', 'MEDIO',   5),
+    ('TEC_MEC',        'Técnico em Mecânica',                   'CRT', 'MEDIO',   6),
+    ('TEC_AGRIM',      'Técnico em Agrimensura',                'CRT', 'MEDIO',   7),
+    ('TEC_GEOL',       'Técnico em Geologia',                   'CRT', 'MEDIO',   8),
+    ('TEC_MINER',      'Técnico em Mineração',                  'CRT', 'MEDIO',   9),
+    ('TEC_REFRIG',     'Técnico em Refrigeração e Climatização', 'CRT', 'MEDIO', 10),
+    ('TEC_AUTOM',      'Técnico em Automação Industrial',       'CRT', 'MEDIO',  11),
+    ('TEC_ELETRON',    'Técnico em Eletrônica',                 'CRT', 'MEDIO',  12),
+    ('TEC_MEIO_AMB',   'Técnico em Meio Ambiente',              'CRT', 'MEDIO',  13)
 ON CONFLICT (prf_codigo) DO NOTHING;
 
 CREATE INDEX IF NOT EXISTS ix_prf_conselho ON catalogo.profissoes (prf_conselho, prf_ordem)
@@ -143,8 +153,21 @@ ALTER TABLE tenant_catalogo.responsaveis_tecnicos
 -- Conselho é OBRIGATÓRIO. O NOT NULL entra depois do ADD porque a coluna pode ter nascido nula
 -- na versão anterior deste arquivo; se houver linha sem conselho, isto falha e é o certo —
 -- preencher é decisão de quem tem o dado, não minha.
+-- NOT NULL e CHECKs: o formulário exige, e o banco também — para o dia em que alguém mexer na
+-- tela e esquecer a validação. Se houver linha incompleta, isto FALHA, e falhar é o certo:
+-- completar é decisão de quem tem o dado.
 ALTER TABLE tenant_catalogo.responsaveis_tecnicos
-    ALTER COLUMN rt_conselho SET NOT NULL;
+    ALTER COLUMN rt_conselho    SET NOT NULL,
+    ALTER COLUMN rt_profissao   SET NOT NULL,
+    ALTER COLUMN rt_conselho_uf SET NOT NULL,
+    ALTER COLUMN rt_documento   SET NOT NULL;
+
+ALTER TABLE tenant_catalogo.responsaveis_tecnicos
+    DROP CONSTRAINT IF EXISTS ck_tcrt_documento,
+    DROP CONSTRAINT IF EXISTS ck_tcrt_uf;
+ALTER TABLE tenant_catalogo.responsaveis_tecnicos
+    ADD CONSTRAINT ck_tcrt_documento CHECK (btrim(rt_documento) <> ''),
+    ADD CONSTRAINT ck_tcrt_uf CHECK (rt_conselho_uf = 'BR' OR rt_conselho_uf ~ '^[A-Z]{2}$');
 
 CREATE INDEX IF NOT EXISTS ix_tcrt_tenant
     ON tenant_catalogo.responsaveis_tecnicos (rt_tenant_uuid) WHERE rt_ativo;
