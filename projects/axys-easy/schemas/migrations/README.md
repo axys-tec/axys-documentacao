@@ -95,10 +95,17 @@ Adicionar header à migration com:
 
 ## Histórico de Migrations
 
-| # | Nome | Status | Data |
-|---|------|--------|------|
-| 001 | initial-schema.sql | ✅ Applied | 31/05/2026 |
-| 002+ | (não existem ainda) | — | — |
+O arquivo é nomeado por DATA, não por número sequencial — o número presumia uma fila única, e
+migrations nascem em frentes paralelas. A data ordena sem fingir sequência.
+
+| arquivo | o que faz | dev | produção |
+|---|---|---|---|
+| `001-initial-schema.sql` | estado inicial (= `schema.sql`) | ✅ 31/05/2026 | ✅ 31/05/2026 |
+| `2026-09-20_fuzzystrmatch_para_busca.sql` | extensão `fuzzystrmatch` p/ o ranking da busca | ✅ | ⬜ **não aplicada** |
+| `2026-10-04_responsavel_tecnico.sql` | conselhos, documentos de resp. técnica, profissões, RT e quem assina | ✅ 04/10/2026 | ✅ **05/10/2026** |
+
+> A do `fuzzystrmatch` é segura de pular: o adaptador detecta a função em tempo de consulta e, sem
+> ela, monta o escore sem o bônus. Melhora a ordem, não é dependência.
 
 ---
 

@@ -31,6 +31,21 @@
 -- Fonte da verdade: docs/projects/axys-easy/schemas/schema.sql (blocos "CONSELHO DE CLASSE",
 -- "RESPONSÁVEL TÉCNICO" e "QUEM ASSINA"). Aplicado em dev em 2026-10-04.
 
+-- APLICADA: dev em 04/10/2026, produção em 05/10/2026 (tabelas vazias, nada a migrar).
+--
+-- ROLLBACK (o padrão do README pede documentar; nada depende destas tabelas antes do deploy do
+-- código, então desfazer é seguro enquanto o código novo não subir):
+--
+--   ALTER TABLE ativo.ativos DROP COLUMN IF EXISTS atv_rt_herda;
+--   DROP TABLE IF EXISTS ativo.ativo_responsaveis;
+--   DROP TABLE IF EXISTS ativo.empreendimento_responsaveis;
+--   DROP TABLE IF EXISTS tenant_catalogo.responsaveis_tecnicos;
+--   DROP TABLE IF EXISTS catalogo.profissoes;
+--   DROP TABLE IF EXISTS catalogo.doc_resp_tecnica;
+--   DROP TABLE IF EXISTS catalogo.conselhos_classe;
+--
+-- Depois do deploy, NÃO desfazer: a tela de Dados Próprios lê o cadastro de RT.
+
 BEGIN;
 
 CREATE TABLE IF NOT EXISTS catalogo.conselhos_classe (
