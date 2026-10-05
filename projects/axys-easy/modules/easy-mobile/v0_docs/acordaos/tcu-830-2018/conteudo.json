@@ -1,0 +1,32 @@
+{
+  "id": "tcu-830-2018",
+  "orgao": "TCU",
+  "numero": "830/2018",
+  "data": "2018-04-18",
+  "colegiado": "Plenário",
+  "relator": "André de Carvalho",
+  "sumario_oficial": "REPRESENTAÇÃO. RDC ELETRÔNICO. POSSÍVEL DESCLASSIFICAÇÃO INDEVIDA DE LICITANTE. CONCESSÃO DA CAUTELAR SUSPENSIVA. OITIVAS. CONHECIMENTO. PROCEDÊNCIA. DETERMINAÇÃO PARA A ANULAÇÃO DA INDEVIDA DESCLASSIFICAÇÃO DA LICITANTE, COM A NULIDADE DE TODOS OS ATOS SUBSEQUENTES. ARQUIVAMENTO SEM PREJUÍZO DO MONITORAMENTO. CIÊNCIA.",
+  "pdf_oficial": "https://contas.tcu.gov.br/sagas/SvlVisualizarRelVotoAc?codFiltro=SAGAS-SESSAO-ENCERRADA&seOcultaPagina=S&item0=619379",
+  "assuntos": [
+    "planilha-orcamentaria",
+    "edital",
+    "preco-global",
+    "empreitada-por-preco-global",
+    "criterio-de-aceitabilidade-de-preco"
+  ],
+  "tese_md": "As omissões nas planilhas de custos e preços das licitantes **não ensejam necessariamente a antecipada desclassificação** das respectivas propostas, devendo a administração pública promover as adequadas diligências junto às licitantes para a devida correção das eventuais falhas, sem a alteração, contudo, do valor global originalmente proposto.",
+  "aplicacao_pratica_md": "Meça a omissão antes de desclassificar. No caso, faltava a cotação de andaimes metálicos, item que representava 0,24% do valor total da proposta em empreitada por preço global, e a desclassificação foi anulada com todos os atos subsequentes. Registre no processo o peso do item omitido em relação ao total.",
+  "limites_md": "A tese trata de erro material e omissão sanáveis por diligência. Não alcança a falha cuja correção exija majorar o valor global ofertado, nem transfere à Administração o ônus do erro do licitante.",
+  "dispositivos": [
+    "Lei 12.462/2011, art. 45, § 1º"
+  ],
+  "referencias": [
+    {
+      "tipo": "publicacao",
+      "grupo": "ACORDAOS",
+      "id": "tcu-2311-2022",
+      "rotulo": "Acórdão TCU 2311/2022 · invocou esta tese em licitação de obra"
+    }
+  ],
+  "publicado_em": "2026-09-29"
+}

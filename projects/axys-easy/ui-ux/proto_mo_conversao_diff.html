@@ -1,0 +1,116 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Conversão H → MÊS · diff lateral (protótipo)</title>
+<!--
+  PROTÓTIPO para embutir no detalhamento da mão de obra (ativos/conversao_detalhe.html).
+  CSS inline SÓ porque é página de teste isolada: ao portar, as regras .cv-* vão para
+  backend/frontend/static/css/easy_conversao_detalhe.css, ao lado das .cd-*, e o markup
+  entra como uma <section class="cd-sec"> a mais. Nenhum estilo inline em template.
+  Paleta e pesos copiados do easy_conversao_detalhe.css para o protótipo já parecer a tela.
+  Dados: SINAPI/SP 08/2026 SD, CPU 101157, par 88309 → 101445.
+-->
+<style>
+  body { margin: 0; padding: 18px; background: #fff;
+         font: 13px/1.5 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #223; }
+  .cv { max-width: 860px; }
+  .cv-h { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 2px; }
+  .cv-h h3 { font-size: 14px; color: #1f3350; margin: 0; }
+  .cv-badge { font-size: 10px; font-weight: 700; border-radius: 3px; padding: 1px 5px;
+              color: #1f5b8a; background: #dcecfa; border: 1px solid #9dc3e6; }
+  .cv-sub { font-size: 12px; color: #64748b; margin: 0 0 12px; }
+  .cv-sub b { color: #1f3350; font-weight: 600; }
+
+  /* ── prova: a linha que fecha em zero ───────────────────────────────────── */
+  .cv-prova { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+              gap: 10px; padding: 9px 12px; margin-bottom: 14px; border-radius: 6px;
+              background: #f2fbf9; border: 1px solid #8fd3ca; }
+  .cv-prova div { font-variant-numeric: tabular-nums; font-size: 12.5px; color: #0f766e; }
+  .cv-prova .r { text-align: right; }
+  .cv-prova .op { font-weight: 700; color: #0f766e; }
+  .cv-prova em { font-style: normal; color: #64748b; font-size: 11px; display: block; }
+
+  /* ── diff lateral ───────────────────────────────────────────────────────── */
+  table.cv-diff { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .cv-diff th, .cv-diff td { padding: 5px 8px; border: 1px solid #dfe5ec; }
+  .cv-diff thead th { background: #f4f7fb; color: #1f3350; font-weight: 600; text-align: left; }
+  .cv-diff thead tr.cv-lados th { text-align: center; font-size: 11.5px; letter-spacing: .2px; }
+  .cv-diff thead tr.cv-lados th.de { background: #eef2f7; }
+  .cv-diff thead tr.cv-lados th.para { background: #eaf3fb; color: #1f5b8a; }
+  .cv-diff td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .cv-diff tbody tr.igual td { background: #e4f6f2; font-weight: 600; color: #0f766e; }
+  .cv-diff tbody tr.igual td:first-child { box-shadow: inset 3px 0 0 #0f766e; }
+  .cv-diff tbody tr.so-de td { background: #fef3c7; color: #92400e; }
+  .cv-diff tbody tr.so-de td:first-child { box-shadow: inset 3px 0 0 #d99e2b; }
+  .cv-diff tbody tr.total td { background: #f4f7fb; font-weight: 700; color: #1f3350; }
+  .cv-diff td.vazio { background: repeating-linear-gradient(135deg,#fff,#fff 5px,#f6f7f9 5px,#f6f7f9 10px); }
+  .cv-diff td.d { color: #64748b; }
+  .cv-diff td.d.zero { color: #0f766e; font-weight: 600; }
+
+  .cv-nota { margin: 10px 0 0; font-size: 11.5px; color: #64748b; line-height: 1.55; }
+  .cv-nota code { font-size: 11.5px; color: #46505c; }
+  .cv-nota b { color: #1f3350; }
+</style>
+
+<div class="cv">
+  <div class="cv-h">
+    <h3>Mão de obra convertida para regime mensalista</h3>
+    <span class="cv-badge">REG</span>
+  </div>
+  <p class="cv-sub">
+    <b>88309</b> Pedreiro com encargos complementares (H) → <b>101445</b> Pedreiro mensalista (MÊS)
+    · SINAPI/SP 08/2026 · SD · fator <b>220</b> h/mês
+  </p>
+
+  <div class="cv-prova">
+    <div class="r">0,484 h × R$ 12,74<em>coeficiente × base horária</em></div>
+    <div class="op">=</div>
+    <div>0,0022 mês × R$ 2.802,80<em>coeficiente ÷ 220 × base mensal</em></div>
+  </div>
+
+  <table class="cv-diff">
+    <thead>
+      <tr class="cv-lados">
+        <th></th><th class="de" colspan="2">De · horista 88309 (por h)</th>
+        <th class="para" colspan="2">Para · mensalista 101445 (÷ 220)</th><th></th>
+      </tr>
+      <tr>
+        <th>Componente</th><th class="num">Valor</th><th class="num">Part.</th>
+        <th class="num">Valor</th><th class="num">Part.</th><th class="num">Δ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="igual">
+        <td>Remuneração-base</td><td class="num">12,74</td><td class="num">34,2%</td>
+        <td class="num">12,74</td><td class="num">44,2%</td><td class="num d zero">0,00</td>
+      </tr>
+      <tr><td>Alimentação</td><td class="num">4,48</td><td class="num">12,0%</td>
+        <td class="num">3,38</td><td class="num">11,7%</td><td class="num d">−1,10</td></tr>
+      <tr><td>EPI</td><td class="num">1,47</td><td class="num">3,9%</td>
+        <td class="num">1,11</td><td class="num">3,9%</td><td class="num d">−0,36</td></tr>
+      <tr><td>Exames</td><td class="num">1,43</td><td class="num">3,8%</td>
+        <td class="num">1,08</td><td class="num">3,7%</td><td class="num d">−0,35</td></tr>
+      <tr><td>Transporte</td><td class="num">1,07</td><td class="num">2,9%</td>
+        <td class="num">0,80</td><td class="num">2,8%</td><td class="num d">−0,27</td></tr>
+      <tr><td>Ferramentas</td><td class="num">0,73</td><td class="num">2,0%</td>
+        <td class="num">0,56</td><td class="num">1,9%</td><td class="num d">−0,17</td></tr>
+      <tr class="so-de">
+        <td>Curso de capacitação 95371</td><td class="num">0,27</td><td class="num">0,7%</td>
+        <td class="num vazio">não há</td><td class="num vazio"></td><td class="num d">−0,27</td></tr>
+      <tr><td>Seguro</td><td class="num">0,11</td><td class="num">0,3%</td>
+        <td class="num">0,08</td><td class="num">0,3%</td><td class="num d">−0,03</td></tr>
+      <tr><td>Encargos sociais embutidos</td><td class="num">14,96</td><td class="num">40,1%</td>
+        <td class="num">9,07</td><td class="num">31,5%</td><td class="num d">−5,89</td></tr>
+      <tr class="total"><td>Custo da hora</td><td class="num">37,26</td><td class="num">100%</td>
+        <td class="num">28,82</td><td class="num">100%</td><td class="num">−8,44</td></tr>
+    </tbody>
+  </table>
+
+  <p class="cv-nota">
+    A linha verde é a única que tem de fechar em zero: é a remuneração do trabalho, e ela
+    atravessa a conversão intacta. As demais são estrutura própria de cada regime e
+    <b>não convergem por 220</b>, por construção do SINAPI.
+    Fórmula publicada: <code>custo MÊS = custo H ÷ (1 + ES H) × 220 × (1 + ES MÊS)</code>
+    (CAIXA, SINAPI Metodologias e Conceitos).
+    Ajuste de composição de referência: Decreto 7.983/2013, art. 8º, e Acórdão TCU 619/2024-Plenário.
+  </p>
+</div>

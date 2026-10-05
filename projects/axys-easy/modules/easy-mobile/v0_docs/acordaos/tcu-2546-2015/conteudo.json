@@ -1,0 +1,32 @@
+{
+  "id": "tcu-2546-2015",
+  "orgao": "TCU",
+  "numero": "2546/2015",
+  "data": "2015-10-14",
+  "colegiado": "Plenário",
+  "relator": "André de Carvalho",
+  "sumario_oficial": "REPRESENTAÇÃO. FUNDAÇÃO BIBLIOTECA NACIONAL. PREGÃO FBN Nº 17/2014. CONTRATAÇÃO DE SERVIÇOS TERCEIRIZADOS DE NATUREZA CONTINUADA. INDÍCIOS DE IRREGULARIDADES. INABILITAÇÃO INDEVIDA DE LICITANTES. INDICIOS DE FAVORECIMENTO DA EMPRESA CONTRATADA, CLASSIFICADA EM 11º LUGAR NO CERTAME. NÃO REABERTURA DE PRAZO PARA APRESENTAÇÃO DE NOVAS PROPOSTAS APÓS A ALTERAÇÃO DO QUANTITATIVO DE POSTOS DE TRABALHO. OITIVAS. ANÚNCIO, PELA FBN, DE DECISÃO PELA ANULAÇÃO DO PROCEDIMENTO. CONCLUSÃO DA UNIDADE TÉCNICA PELA PERDA DE OBJETO E PROPOSTA DE CIÊNCIA À FBN DE DUAS IRREGULARIDADES CONFIRMADAS. ENCAMINHAMENTO PRELIMINAR PARA UNIDADE TÉCNICA ESPECIALIZADA PARA ANÁLISE DA QUESTÃO RELATIVA À PARTICIPAÇÃO DE ENTIDADES SEM FINS LUCRATIVOS EM PROCEDIMENTOS LICITATÓRIOS. NOVA COMUNICAÇÃO DO FBN. NÃO ANULAÇÃO DO CONTRATO. PROPOSTA DE MEDIDA CAUTELAR. NECESSIDADE DE DECISÃO QUANTO AO MÉRITO. CONHECIMENTO. PROCEDÊNCIA. DETERMINAÇÃO PARA ANULAÇÃO DO PREGÃO, DENTRO DO PRAZO MÁXIMO NECESSÁRIO À CONCLUSÃO DE NOVA LICITAÇÃO. CONVERSÃO EM TOMADA DE CONTAS ESPECIAL PARA AS CITAÇÕES CABÍVEIS. CIÊNCIA. PROSSEGUIMENTO DO FEITO.",
+  "pdf_oficial": "https://contas.tcu.gov.br/sagas/SvlVisualizarRelVotoAc?codFiltro=SAGAS-SESSAO-ENCERRADA&seOcultaPagina=S&item0=539082",
+  "assuntos": [
+    "planilha-orcamentaria",
+    "edital",
+    "preco-global",
+    "encargos-sociais",
+    "criterio-de-aceitabilidade-de-preco"
+  ],
+  "tese_md": "A existência de erros materiais ou de omissões nas planilhas de custos e preços das licitantes **não enseja a desclassificação antecipada** das respectivas propostas, devendo a Administração contratante realizar diligências junto às licitantes para a devida correção das falhas, desde que não seja alterado o valor global proposto. Cabe à licitante suportar o ônus decorrente do seu erro, no caso de a Administração considerar exequível a proposta apresentada.",
+  "aplicacao_pratica_md": "A segunda frase é a que equilibra a primeira: corrigida a planilha sem mexer no valor global, quem paga a diferença é o licitante, não o contrato. Ao diligenciar, deixe isso expresso na comunicação, para que a correção não vire pedido de reequilíbrio depois.",
+  "limites_md": "Julgado em contratação de serviços terceirizados de natureza continuada, não em obra. A tese firma o dever de diligenciar, e não o de aceitar qualquer proposta: no caso, dez licitantes com preços melhores foram desclassificadas sem oportunidade de retificação, com diferença de 17% para a empresa afinal contratada.",
+  "dispositivos": [
+    "Instrução Normativa SLTI/MP 2/2008, arts. 24 e 29"
+  ],
+  "referencias": [
+    {
+      "tipo": "publicacao",
+      "grupo": "ACORDAOS",
+      "id": "tcu-2311-2022",
+      "rotulo": "Acórdão TCU 2311/2022 · invocou esta tese em licitação de obra"
+    }
+  ],
+  "publicado_em": "2026-09-29"
+}

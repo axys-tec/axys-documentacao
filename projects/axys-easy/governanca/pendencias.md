@@ -274,6 +274,36 @@ paga.
 
 ---
 
+## Agrupamento no Excel — a chave do VLOOKUP precisa da edição (2026-10-05)
+
+O parâmetro **Agrupamento** (ISOLADO/AGRUPADO) vale só para o PDF. O workbook da Finalização
+continua com abas por ativo, sempre, e isso é deliberado.
+
+O PDF pode juntar porque cada linha dele já carrega o preço resolvido — e o analítico passou a
+detalhar cada item pelo `atv_id` do próprio item (`get_orcamento_analitico`). A planilha, não: a aba
+**Insumos deduplica por `fonte|código`** e é dela que o Analítico puxa preço por VLOOKUP
+(`orcamento_analitico_excel.py`, `_SDCOL`).
+
+Ativos do mesmo empreendimento podem divergir, e divergem:
+
+| caso | medido em dev |
+|---|---|
+| edições diferentes | empreendimento 21: ativo 22 em SINAPI **07-26**, ativos 32/33 em **08-26** |
+| BDI diferente (mesmo preço de catálogo) | empreendimento 20: 9 de 46 composições com unitário c/BDI distinto entre os dois ativos (253,64 × 253,72) |
+
+Num workbook agrupado, a mesma chave teria dois preços: o dedup guardaria um e o outro ativo
+herdaria preço errado, **calado** — o pior tipo de erro, porque a planilha continua somando.
+
+**Para fechar:** a edição (e o BDI) entram na chave do VLOOKUP, ou cada ativo ganha a sua aba de
+Insumos. É a frente do consolidado amarrado por fórmulas, não o estado de impressão que o
+Agrupamento define.
+
+> Na curva ABC global do PDF o mesmo conflito aparece e foi resolvido por agregação: o unitário da
+> linha agregada é a **média ponderada** (total ÷ qtd), como a curva de insumos já fazia. Colapsar é
+> o que a curva global quer — é dela que sai o ranking A/B/C do empreendimento.
+
+---
+
 ## ⚠ SEQUÊNCIA DE DEPLOY — duas migrations com ordens OPOSTAS (2026-10-05)
 
 Há duas migrations pendentes de prod em estados diferentes, e **a ordem entre código e banco é

@@ -274,6 +274,21 @@
       "conteudo": "easy-mobile/acordaos/tcu-136-2025/conteudo.json"
     },
     {
+      "id": "tcu-1426-2010",
+      "orgao": "TCU",
+      "numero": "1426/2010",
+      "data": "2010-06-23",
+      "titulo": "Acórdão TCU 1426/2010",
+      "assuntos": [
+        "bdi",
+        "edital",
+        "planilha-orcamentaria",
+        "criterio-de-aceitabilidade-de-preco"
+      ],
+      "tese_curta": "Ao indicar propostas como presumidamente inexequíveis, a Administração deve abrir às respectivas empresas a possibilidade de comprovação da viabilidad",
+      "conteudo": "easy-mobile/acordaos/tcu-1426-2010/conteudo.json"
+    },
+    {
       "id": "tcu-1431-2017",
       "orgao": "TCU",
       "numero": "1431/2017",
@@ -317,6 +332,21 @@
       ],
       "tese_curta": "O desequilíbrio econômico-financeiro não pode ser constatado a partir da variação de preços de apenas um serviço ou insumo",
       "conteudo": "easy-mobile/acordaos/tcu-1466-2013/conteudo.json"
+    },
+    {
+      "id": "tcu-1487-2019",
+      "orgao": "TCU",
+      "numero": "1487/2019",
+      "data": "2019-06-26",
+      "titulo": "Acórdão TCU 1487/2019",
+      "assuntos": [
+        "planilha-orcamentaria",
+        "edital",
+        "preco-global",
+        "criterio-de-aceitabilidade-de-preco"
+      ],
+      "tese_curta": "A mera existência de erro material ou de omissão na planilha de custos e de formação de preços da licitante não enseja, necessariamente, a desclassifi",
+      "conteudo": "easy-mobile/acordaos/tcu-1487-2019/conteudo.json"
     },
     {
       "id": "tcu-1488-2016",
@@ -762,6 +792,21 @@
       ],
       "tese_curta": "A desclassificação de proposta de licitante que tenha apresentado BDI em percentual superior àquele informado em Acórdão desta Corte somente deve ocor",
       "conteudo": "easy-mobile/acordaos/tcu-1804-2012/conteudo.json"
+    },
+    {
+      "id": "tcu-1811-2014",
+      "orgao": "TCU",
+      "numero": "1811/2014",
+      "data": "2014-07-09",
+      "titulo": "Acórdão TCU 1811/2014",
+      "assuntos": [
+        "planilha-orcamentaria",
+        "encargos-sociais",
+        "edital",
+        "preco-global"
+      ],
+      "tese_curta": "Erro no preenchimento da planilha de formação de preço do licitante não constitui motivo suficiente para a desclassificação da proposta, quando a plan",
+      "conteudo": "easy-mobile/acordaos/tcu-1811-2014/conteudo.json"
     },
     {
       "id": "tcu-1826-2016",
@@ -1272,6 +1317,22 @@
       "conteudo": "easy-mobile/acordaos/tcu-2293-2013/conteudo.json"
     },
     {
+      "id": "tcu-2311-2022",
+      "orgao": "TCU",
+      "numero": "2311/2022",
+      "data": "2022-10-19",
+      "titulo": "Acórdão TCU 2311/2022",
+      "assuntos": [
+        "criterio-de-aceitabilidade-de-preco",
+        "composicao-de-custo-unitario",
+        "preco-unitario",
+        "coeficiente",
+        "planilha-orcamentaria"
+      ],
+      "tese_curta": "O licitante tem a liberdade de elaborar a composição de preço, desde que adequada e completa para confecção dos serviços, de forma que o preço unitári",
+      "conteudo": "easy-mobile/acordaos/tcu-2311-2022/conteudo.json"
+    },
+    {
       "id": "tcu-2341-2020",
       "orgao": "TCU",
       "numero": "2341/2020",
@@ -1508,6 +1569,22 @@
       ],
       "tese_curta": "Na execução indireta de obras de engenharia pelo regime de contratação integrada, não se admite o início da execução das obras sem a prévia aprovação ",
       "conteudo": "easy-mobile/acordaos/tcu-2507-2024/conteudo.json"
+    },
+    {
+      "id": "tcu-2546-2015",
+      "orgao": "TCU",
+      "numero": "2546/2015",
+      "data": "2015-10-14",
+      "titulo": "Acórdão TCU 2546/2015",
+      "assuntos": [
+        "planilha-orcamentaria",
+        "edital",
+        "preco-global",
+        "encargos-sociais",
+        "criterio-de-aceitabilidade-de-preco"
+      ],
+      "tese_curta": "A existência de erros materiais ou de omissões nas planilhas de custos e preços das licitantes não enseja a desclassificação antecipada das respectiva",
+      "conteudo": "easy-mobile/acordaos/tcu-2546-2015/conteudo.json"
     },
     {
       "id": "tcu-2581-2009",
@@ -1834,6 +1911,20 @@
       "conteudo": "easy-mobile/acordaos/tcu-287-2005/conteudo.json"
     },
     {
+      "id": "tcu-2873-2014",
+      "orgao": "TCU",
+      "numero": "2873/2014",
+      "data": "2014-10-29",
+      "titulo": "Acórdão TCU 2873/2014",
+      "assuntos": [
+        "edital",
+        "planilha-orcamentaria",
+        "criterio-de-aceitabilidade-de-preco"
+      ],
+      "tese_curta": "Não cabe a inabilitação de licitante em razão de ausência de informações que possam ser supridas por meio de diligência, facultada pelo art",
+      "conteudo": "easy-mobile/acordaos/tcu-2873-2014/conteudo.json"
+    },
+    {
       "id": "tcu-2901-2020",
       "orgao": "TCU",
       "numero": "2901/2020",
@@ -2038,6 +2129,22 @@
       ],
       "tese_curta": "Deve ser adotado BDI médio aceitável, tomado a partir de obras de tipologia semelhante",
       "conteudo": "easy-mobile/acordaos/tcu-3061-2011/conteudo.json"
+    },
+    {
+      "id": "tcu-3062-2019",
+      "orgao": "TCU",
+      "numero": "3062/2019",
+      "data": "2019-12-10",
+      "titulo": "Acórdão TCU 3062/2019",
+      "assuntos": [
+        "composicao-de-custo-unitario",
+        "coeficiente",
+        "edital",
+        "criterio-de-aceitabilidade-de-preco",
+        "planilha-orcamentaria"
+      ],
+      "tese_curta": "Cada licitante tem a liberdade para fazer sua própria composição, dentro do que foi especificado para o serviço, de acordo com a sua técnica de execuç",
+      "conteudo": "easy-mobile/acordaos/tcu-3062-2019/conteudo.json"
     },
     {
       "id": "tcu-3088-2014",
@@ -2627,6 +2734,22 @@
       "conteudo": "easy-mobile/acordaos/tcu-826-2015/conteudo.json"
     },
     {
+      "id": "tcu-830-2018",
+      "orgao": "TCU",
+      "numero": "830/2018",
+      "data": "2018-04-18",
+      "titulo": "Acórdão TCU 830/2018",
+      "assuntos": [
+        "planilha-orcamentaria",
+        "edital",
+        "preco-global",
+        "empreitada-por-preco-global",
+        "criterio-de-aceitabilidade-de-preco"
+      ],
+      "tese_curta": "As omissões nas planilhas de custos e preços das licitantes não ensejam necessariamente a antecipada desclassificação das respectivas propostas, deven",
+      "conteudo": "easy-mobile/acordaos/tcu-830-2018/conteudo.json"
+    },
+    {
       "id": "tcu-855-2016",
       "orgao": "TCU",
       "numero": "855/2016",
@@ -2700,6 +2823,21 @@
       ],
       "tese_curta": "Nos casos em que houver demora expressiva para o início da execução do contrato, sem que a contratada tenha contribuído para o atraso, a avaliação do ",
       "conteudo": "easy-mobile/acordaos/tcu-890-2012/conteudo.json"
+    },
+    {
+      "id": "tcu-898-2019",
+      "orgao": "TCU",
+      "numero": "898/2019",
+      "data": "2019-04-16",
+      "titulo": "Acórdão TCU 898/2019",
+      "assuntos": [
+        "edital",
+        "planilha-orcamentaria",
+        "preco-unitario",
+        "empresa-estatal"
+      ],
+      "tese_curta": "Configura formalismo exacerbado desclassificar a licitante de menor preço depois de ela atender à exigência da comissão e reapresentar a planilha de p",
+      "conteudo": "easy-mobile/acordaos/tcu-898-2019/conteudo.json"
     },
     {
       "id": "tcu-926-2011",

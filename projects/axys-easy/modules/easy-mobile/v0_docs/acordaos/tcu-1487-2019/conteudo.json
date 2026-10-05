@@ -1,0 +1,32 @@
+{
+  "id": "tcu-1487-2019",
+  "orgao": "TCU",
+  "numero": "1487/2019",
+  "data": "2019-06-26",
+  "colegiado": "Plenário",
+  "relator": "André de Carvalho",
+  "sumario_oficial": "REPRESENTAÇÃO COM PEDIDO DE CAUTELAR SUSPENSIVA. CONTRATAÇÃO DE SERVIÇOS DE LIMPEZA E CONSERVAÇÃO. OITIVA PRÉVIA. DILIGÊNCIA. DESCLASSIFICAÇÃO DE LICITANTE POR FALHAS (NÃO ESPECIFICADAS PELO PREGOEIRO) NA PROPOSTA DE PREÇOS. AUSÊNCIA DE INDÍCIOS DE DANO AO ERÁRIO. PERIGO NA DEMORA REVERSO. CONHECIMENTO PELO Acórdão 3.773/2018-Plenário. INDEFERIMENTO DA CAUTELAR SUSPENSIVA. AUDIÊNCIA. ARGUMENTOS INSUFICIENTES PARA AFASTAR OS INDÍCIOS DE IRREGULARIDADE NO CERTAME. INDÍCIOS DE DIRECIONAMENTO NA LICITAÇÃO. REJEIÇÃO DAS RAZÕES DE JUSTIFICATIVA. MULTA. INABILITAÇÃO TEMPORÁRIA. DETERMINAÇÃO. CIÊNCIA. MONITORAMENTO.",
+  "pdf_oficial": "https://contas.tcu.gov.br/sagas/SvlVisualizarRelVotoAc?codFiltro=SAGAS-SESSAO-ENCERRADA&seOcultaPagina=S&item0=666114",
+  "assuntos": [
+    "planilha-orcamentaria",
+    "edital",
+    "preco-global",
+    "criterio-de-aceitabilidade-de-preco"
+  ],
+  "tese_md": "A mera existência de erro material ou de omissão na planilha de custos e de formação de preços da licitante **não enseja, necessariamente, a desclassificação antecipada** da sua proposta, devendo a Administração promover diligência junto ao interessado para a correção das falhas, sem permitir, contudo, a alteração do valor global originalmente proposto.",
+  "aplicacao_pratica_md": "Ao abrir a diligência, **especifique quais são as falhas** e conceda prazo compatível com o que se pede. Comunicação genérica, pedindo correção sem dizer o que corrigir, não é diligência: foi por isso que o pregoeiro respondeu em audiência neste processo.",
+  "limites_md": "O caso trazia contexto agravante, com indícios de comunicação entre os responsáveis pelo certame e a empresa vencedora fora do sistema, de modo que a falha na diligência não foi examinada isoladamente. A tese não autoriza correção que altere o valor global originalmente proposto.",
+  "dispositivos": [
+    "Lei 8.666/1993, art. 43, § 3º",
+    "Decreto 5.450/2005, art. 26, § 3º"
+  ],
+  "referencias": [
+    {
+      "tipo": "publicacao",
+      "grupo": "ACORDAOS",
+      "id": "tcu-2311-2022",
+      "rotulo": "Acórdão TCU 2311/2022 · invocou esta tese em licitação de obra"
+    }
+  ],
+  "publicado_em": "2026-09-29"
+}

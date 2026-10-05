@@ -1,0 +1,31 @@
+{
+  "id": "tcu-898-2019",
+  "orgao": "TCU",
+  "numero": "898/2019",
+  "data": "2019-04-16",
+  "colegiado": "Plenário",
+  "relator": "Benjamin Zymler",
+  "sumario_oficial": "REPRESENTAÇÃO. LICITAÇÃO REALIZADA COM FUNDAMENTO NA LEI DAS ESTATAIS PARA CONTRATAÇÃO DE SERVIÇOS DE MOVIMENTAÇÃO DE CARGAS. INDÍCIOS DE DESCLASSIFICAÇÃO INDEVIDA DE PROPOSTA MAIS VANTAJOSA. CRITÉRIOS DE HABILITAÇÃO NÃO PREVISTOS NA LEGISLAÇÃO. CONCESSÃO DE MEDIDA CAUTELAR PARA SUSPENDER O CERTAME. REFERENDO DO PLENÁRIO. OITIVA. IRREGULARIDADES CONFIRMADAS. DETERMINAÇÃO PARA ANULAR ETAPA DO CERTAME EM QUE SE IDENTIFICOU VÍCIO. CIENCIA DE OUTRAS IRREGULARIDADES. ALTERAÇÃO DO GRAU DE CONFIDENCIALIDADE DA INSTRUÇÃO. AUDIÊNCIA DO RESPONSÁVEL PELA CLASSIFICAÇÃO INDEVIDA DE PEÇA COMO SIGILOSA.",
+  "pdf_oficial": "https://contas.tcu.gov.br/sagas/SvlVisualizarRelVotoAc?codFiltro=SAGAS-SESSAO-ENCERRADA&seOcultaPagina=S&item0=662223",
+  "assuntos": [
+    "edital",
+    "planilha-orcamentaria",
+    "preco-unitario",
+    "empresa-estatal"
+  ],
+  "tese_md": "Configura **formalismo exacerbado** desclassificar a licitante de menor preço depois de ela atender à exigência da comissão e reapresentar a planilha de preços unitários ajustada aos parâmetros do certame.",
+  "aplicacao_pratica_md": "Exigência cumprida encerra o motivo que a gerou. Se a comissão pediu nova planilha e a recebeu, a desclassificação precisa apontar falha diferente daquela que motivou o pedido, sob pena de o certame perder a proposta mais vantajosa por vício de forma.",
+  "limites_md": "Julgado sob a Lei 13.303/2016, das estatais. O acórdão tratou também de exigências de visita técnica e de avaliação de Grau de Risco de Integridade como requisitos de habilitação, temas estranhos à formação de preço, e registrou que o critério de integridade não foi determinante naquele caso concreto.",
+  "dispositivos": [
+    "Lei 13.303/2016, art. 56, inciso VI"
+  ],
+  "referencias": [
+    {
+      "tipo": "publicacao",
+      "grupo": "ACORDAOS",
+      "id": "tcu-2311-2022",
+      "rotulo": "Acórdão TCU 2311/2022 · invocou esta tese em licitação de obra"
+    }
+  ],
+  "publicado_em": "2026-09-29"
+}

@@ -116,6 +116,58 @@
       ]
     },
     {
+      "id": "analise-parametrica",
+      "termo": "Análise paramétrica",
+      "expansao": null,
+      "conceito_md": "Método de aferição do orçamento de uma obra ou de uma etapa, feito com estimativas de custos de empreendimentos de características semelhantes.",
+      "funcao_pratica_md": "É o exame que o concedente ou o mandatário pode aplicar ao orçamento de referência em repasses, no lugar da conferência item a item. A lei fixa faixas de valor para esse uso, mais largas quando o projeto é padronizado, e obriga a complementar com a análise dos custos unitários quando o serviço relevante não se parece com os que geraram o indicador.",
+      "distincoes": [
+        {
+          "termo": "Orçamento paramétrico",
+          "diferenca_md": "O orçamento paramétrico é a peça que estima o valor quando ainda não há detalhamento. A análise paramétrica é o exame de um orçamento já elaborado."
+        }
+      ],
+      "ver_tambem": [
+        "orcamento-parametrico",
+        "orcamento-de-referencia",
+        "projeto-padronizado",
+        "custo-global-de-referencia"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Decreto 7.983/2013",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/decreto/d7983.htm"
+        }
+      ]
+    },
+    {
+      "id": "anotacao-de-responsabilidade-tecnica",
+      "termo": "Anotação de responsabilidade técnica",
+      "expansao": "ART",
+      "conceito_md": "Registro que identifica o profissional habilitado responsável por um serviço técnico e o vincula ao que foi produzido.",
+      "funcao_pratica_md": "A anotação referente às planilhas orçamentárias tem de constar do projeto que integra o edital, **inclusive das alterações posteriores**. Orçamento sem responsável identificado não tem a quem perguntar, e é o segundo registro, o das alterações, que costuma faltar.",
+      "distincoes": [
+        {
+          "termo": "Fiscalização",
+          "diferenca_md": "A anotação identifica quem elaborou a peça técnica. A fiscalização acompanha quem executa a obra."
+        }
+      ],
+      "ver_tambem": [
+        "planilha-orcamentaria",
+        "orcamento-de-referencia",
+        "projeto-basico",
+        "fiscalizacao"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Decreto 7.983/2013",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/decreto/d7983.htm"
+        }
+      ]
+    },
+    {
       "id": "anteprojeto",
       "termo": "Anteprojeto",
       "expansao": null,
@@ -308,7 +360,14 @@
         "insumo",
         "subcomposicao"
       ],
-      "referencias": []
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2311/2022",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2311-2022"
+        }
+      ]
     },
     {
       "id": "contingencia",
@@ -423,6 +482,48 @@
       "referencias": []
     },
     {
+      "id": "criterio-de-aceitabilidade-de-preco",
+      "termo": "Critério de aceitabilidade de preço",
+      "expansao": null,
+      "conceito_md": "Parâmetros de preços máximos, unitários e global, fixados pela Administração e publicados no edital para aceitação e julgamento das propostas.",
+      "funcao_pratica_md": "Publicado, dá à Administração base objetiva para recusar proposta com preço unitário distorcido. Ausente, o desequilíbrio entra no contrato e reaparece no primeiro aditivo, quando já custa caro desfazer.",
+      "distincoes": [
+        {
+          "termo": "Preço de referência",
+          "diferenca_md": "O preço de referência é a estimativa da Administração. O critério de aceitabilidade é o limite que ela publica e passa a exigir."
+        },
+        {
+          "termo": "Preço da parcela da composição",
+          "diferenca_md": "O critério alcança o preço unitário do serviço e o global. O preço de um insumo dentro da composição não é parâmetro de aceitação nem de desclassificação."
+        }
+      ],
+      "ver_tambem": [
+        "preco-de-referencia",
+        "edital",
+        "preco-unitario",
+        "jogo-de-planilha"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Decreto 7.983/2013",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/decreto/d7983.htm"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2857/2013",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2857-2013"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2311/2022",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2311-2022"
+        }
+      ]
+    },
+    {
       "id": "cronograma-fisico-financeiro",
       "termo": "Cronograma físico-financeiro",
       "expansao": null,
@@ -502,6 +603,36 @@
         "custo-indireto"
       ],
       "referencias": []
+    },
+    {
+      "id": "custo-global-de-referencia",
+      "termo": "Custo global de referência",
+      "expansao": null,
+      "conceito_md": "Somatório dos custos totais de referência de todos os serviços necessários à plena execução da obra ou serviço de engenharia.",
+      "funcao_pratica_md": "É a base sobre a qual o BDI incide. Custo global acrescido do BDI resulta no preço global de referência, que é o número comparado com as propostas.",
+      "distincoes": [
+        {
+          "termo": "Preço global",
+          "diferenca_md": "O custo global não contém BDI. O preço global é o custo global acrescido dele."
+        },
+        {
+          "termo": "Valor global do contrato",
+          "diferenca_md": "O custo global é da Administração, antes da licitação. O valor global do contrato é o que se pactua com a vencedora."
+        }
+      ],
+      "ver_tambem": [
+        "custo-unitario",
+        "preco-global",
+        "valor-global-do-contrato",
+        "bdi"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Decreto 7.983/2013",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/decreto/d7983.htm"
+        }
+      ]
     },
     {
       "id": "custo-indireto",
@@ -647,6 +778,32 @@
         "preco-de-referencia"
       ],
       "referencias": []
+    },
+    {
+      "id": "empreitada-integral",
+      "termo": "Empreitada integral",
+      "expansao": null,
+      "conceito_md": "Regime em que se contrata o empreendimento em sua integralidade, com todas as etapas de obras, serviços e instalações, sob inteira responsabilidade da contratada até a entrega em condições de entrada em operação.",
+      "funcao_pratica_md": "Entrega-se a obra funcionando, e não apenas construída. Na formação e na aceitabilidade dos preços segue as mesmas regras da empreitada por preço global, inclusive o limite por etapa do cronograma.",
+      "distincoes": [
+        {
+          "termo": "Empreitada por preço global",
+          "diferenca_md": "Na global contrata-se a execução por preço certo e total. Na integral contrata-se o empreendimento inteiro, e a contratada responde até a entrada em operação."
+        }
+      ],
+      "ver_tambem": [
+        "empreitada-por-preco-global",
+        "regime-de-execucao",
+        "cronograma-fisico-financeiro",
+        "contratacao-integrada"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Decreto 7.983/2013",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/decreto/d7983.htm"
+        }
+      ]
     },
     {
       "id": "empreitada-por-preco-global",
@@ -1272,13 +1429,25 @@
         {
           "termo": "Orçamento analítico",
           "diferenca_md": "O paramétrico estima por indicadores, sem detalhar. O analítico calcula serviço a serviço."
+        },
+        {
+          "termo": "Análise paramétrica",
+          "diferenca_md": "O orçamento paramétrico estima o valor de uma obra a projetar. A análise paramétrica confere o valor de um orçamento já elaborado."
         }
       ],
       "ver_tambem": [
+        "analise-parametrica",
         "orcamento-analitico",
         "orcamento-estimado"
       ],
-      "referencias": []
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 1510/2013",
+          "grupo": "ACORDAOS",
+          "id": "tcu-1510-2013"
+        }
+      ]
     },
     {
       "id": "orcamento-sintetico",
@@ -1546,6 +1715,32 @@
         "orcamento-estimado"
       ],
       "referencias": []
+    },
+    {
+      "id": "projeto-padronizado",
+      "termo": "Projeto padronizado",
+      "expansao": null,
+      "conceito_md": "Projeto referencial que pode ser reproduzido repetidas vezes e tem precisão suficiente para que os detalhamentos seguintes exijam apenas as adequações necessárias às especificidades locais.",
+      "funcao_pratica_md": "Alarga a faixa em que o repasse pode ser aferido por análise paramétrica. Em contrapartida, o orçamento do projeto precisa ser atualizado antes de servir de parâmetro, sob pena de comparar obra de hoje com custo de ontem.",
+      "distincoes": [
+        {
+          "termo": "Projeto básico",
+          "diferenca_md": "O padronizado nasce para se repetir em vários locais. O básico é de uma obra determinada."
+        }
+      ],
+      "ver_tambem": [
+        "analise-parametrica",
+        "projeto-basico",
+        "orcamento-de-referencia",
+        "regionalizacao"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Decreto 7.983/2013",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/decreto/d7983.htm"
+        }
+      ]
     },
     {
       "id": "quantitativo",
@@ -1909,6 +2104,32 @@
       ]
     },
     {
+      "id": "tarefa",
+      "termo": "Tarefa",
+      "expansao": null,
+      "conceito_md": "Regime em que se ajusta mão de obra para pequenos trabalhos por preço certo, com ou sem fornecimento de materiais.",
+      "funcao_pratica_md": "Serve a intervenções pequenas e delimitadas. Mesmo nele, o desconto obtido na contratação não se devolve por aditivo.",
+      "distincoes": [
+        {
+          "termo": "Empreitada por preço unitário",
+          "diferenca_md": "Na tarefa ajusta-se mão de obra para um trabalho pequeno. Na empreitada por preço unitário, paga-se por unidade de serviço efetivamente executada."
+        }
+      ],
+      "ver_tambem": [
+        "regime-de-execucao",
+        "empreitada-por-preco-unitario",
+        "mao-de-obra",
+        "desconto-contratual"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Decreto 7.983/2013",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/decreto/d7983.htm"
+        }
+      ]
+    },
+    {
       "id": "truncar",
       "termo": "Truncar",
       "expansao": null,
@@ -1926,6 +2147,38 @@
         "superfaturamento"
       ],
       "referencias": []
+    },
+    {
+      "id": "valor-global-do-contrato",
+      "termo": "Valor global do contrato",
+      "expansao": null,
+      "conceito_md": "Valor total da remuneração a ser paga pela Administração ao contratado, previsto no ato de celebração do contrato.",
+      "funcao_pratica_md": "A diferença percentual entre ele e o preço global de referência é o desconto da licitação. Essa diferença não pode ser reduzida em favor do contratado por aditivo que modifique a planilha.",
+      "distincoes": [
+        {
+          "termo": "Preço global",
+          "diferenca_md": "O preço global de referência é a estimativa da Administração. O valor global do contrato é o que a proposta vencedora fixou."
+        }
+      ],
+      "ver_tambem": [
+        "desconto-contratual",
+        "preco-global",
+        "aditivo-contratual",
+        "custo-global-de-referencia"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Decreto 7.983/2013",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/decreto/d7983.htm"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 211/2018",
+          "grupo": "ACORDAOS",
+          "id": "tcu-211-2018"
+        }
+      ]
     }
   ]
 }

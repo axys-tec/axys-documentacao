@@ -1,0 +1,31 @@
+{
+  "id": "tcu-2873-2014",
+  "orgao": "TCU",
+  "numero": "2873/2014",
+  "data": "2014-10-29",
+  "colegiado": "Plenário",
+  "relator": "Augusto Sherman",
+  "sumario_oficial": "REPRESENTAÇÃO. PREGÃO ELETRÔNICO. CONTRATAÇÃO DE SERVIÇOS DE CONTACT CENTER. SUPOSTA DESCLASSIFICAÇÃO INDEVIDA DE LICITANTE. CONHECIMENTO. OITIVA. IDENTIFICAÇÃO DA PROCEDÊNCIA DA ALEGAÇÃO EM RELAÇÃO A UM DOS MOTIVOS DA DESCLASSIFICAÇÃO. CONSTATAÇÃO, NO ENTANTO, DE QUE A EMPRESA FINDOU POR SER ADEQUADAMENTE DESCLASSIFICADA EM FUNÇÃO DO OUTRO MOTIVO. PROCEDÊNCIA PARCIAL. INDEFERIMENTO DA CAUTELAR REQUERIDA. COMUNICAÇÕES. ARQUIVAMENTO.",
+  "pdf_oficial": "https://contas.tcu.gov.br/sagas/SvlVisualizarRelVotoAc?codFiltro=SAGAS-SESSAO-ENCERRADA&seOcultaPagina=S&item0=509231",
+  "assuntos": [
+    "edital",
+    "planilha-orcamentaria",
+    "criterio-de-aceitabilidade-de-preco"
+  ],
+  "tese_md": "Não cabe a inabilitação de licitante em razão de ausência de informações que possam ser supridas por meio de diligência, facultada pelo art. 43, § 3º, da Lei 8.666/1993, **desde que não resulte inserção de documento novo** ou afronta à isonomia entre os participantes.",
+  "aplicacao_pratica_md": "A fronteira é entre esclarecer o que já estava na proposta e acrescentar o que não estava. Pedir a memória de um cálculo já apresentado é diligência. Receber atestado que não veio no envelope é documento novo. Registre em qual dos dois lados está o pedido antes de formulá-lo.",
+  "limites_md": "A representação foi julgada improcedente e a desclassificação subsistiu por outro motivo, a qualificação técnica. O Tribunal limitou-se a dar ciência ao órgão sobre a incompatibilidade, com sua jurisprudência, de não buscar o saneamento de ausências supríveis por diligência.",
+  "dispositivos": [
+    "Lei 8.666/1993, art. 43, § 3º",
+    "Instrução Normativa SLTI/MP 2/2008, art. 29-A, § 2º"
+  ],
+  "referencias": [
+    {
+      "tipo": "publicacao",
+      "grupo": "ACORDAOS",
+      "id": "tcu-2311-2022",
+      "rotulo": "Acórdão TCU 2311/2022 · invocou esta tese em licitação de obra"
+    }
+  ],
+  "publicado_em": "2026-09-29"
+}

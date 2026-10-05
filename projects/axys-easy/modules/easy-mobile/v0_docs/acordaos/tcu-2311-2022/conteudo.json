@@ -1,0 +1,76 @@
+{
+  "id": "tcu-2311-2022",
+  "orgao": "TCU",
+  "numero": "2311/2022",
+  "data": "2022-10-19",
+  "colegiado": "Plenário",
+  "relator": "Augusto Sherman Cavalcanti",
+  "sumario_oficial": "DENÚNCIA. POSSÍVEIS IRREGULARIDADES OCORRIDAS NA CONCORRÊNCIA 47/2018, DA PREFEITURA MUNICIPAL DE BOA VISTA - RORAIMA COM VISTAS À CONTRATAÇÃO DE EMPRESA ESPECIALIZADA EM OBRAS E SERVIÇOS DE ENGENHARIA PARA EXECUÇÃO DA REQUALIFICAÇÃO DA ORLA DO RIO BRANCO/BACIA DO CAXANGÁ EM BOA VISTA/RR. AUDIÊNCIAS. REVELIA DE UM GESTOR. RAZÕES DE JUSTIFICATIVAS REJEITADAS DE OUTRO GESTOR. MULTA.",
+  "pdf_oficial": "https://contas.tcu.gov.br/sagas/SvlVisualizarRelVotoAc?codFiltro=SAGAS-SESSAO-ENCERRADA&seOcultaPagina=S&item0=806468",
+  "assuntos": [
+    "criterio-de-aceitabilidade-de-preco",
+    "composicao-de-custo-unitario",
+    "preco-unitario",
+    "coeficiente",
+    "planilha-orcamentaria"
+  ],
+  "tese_md": "O licitante tem a **liberdade de elaborar a composição de preço**, desde que adequada e completa para confecção dos serviços, de forma que o preço unitário do serviço da planilha orçamentária não ultrapasse o orçamento base, em atendimento ao critério de aceitabilidade das propostas. A comparação, para efeitos de classificação ou desclassificação de proposta, deve ser feita em relação ao preço global e aos preços unitários presentes na planilha de quantitativos físico-financeiros, e **não aos preços das parcelas** que compõem o serviço.",
+  "aplicacao_pratica_md": "No julgamento das propostas, compare preço unitário de serviço com preço unitário de serviço, e preço global com preço global. Coeficiente ou preço de insumo divergente da composição de referência não é, sozinho, motivo de desclassificação, porque cada licitante compõe segundo a produtividade e a metodologia de que dispõe. Havendo dúvida sobre a exequibilidade, diligencie o licitante antes de decidir: a correção de planilha que não majora o valor global já ofertado é admitida e não configura documento novo. E aplique o mesmo critério a todos os concorrentes.",
+  "limites_md": "A liberdade de compor não é ilimitada. A supressão de parcelas essenciais e indispensáveis à execução do serviço exige esclarecimento do licitante, e alterações de tal ordem podem implicar a inviabilidade de execução com a qualidade pretendida pelo órgão contratante. O acórdão também não autoriza o contratante a alterar unilateralmente a proposta do licitante para daí concluir pela classificação ou desclassificação, exercício que o relator considerou inteiramente destituído de legalidade.",
+  "dispositivos": [
+    "Lei 8.666/1993, art. 43, § 3º",
+    "Lei 8.666/1993, art. 40, inciso X",
+    "Decreto 7.983/2013, arts. 11 e 13"
+  ],
+  "referencias": [
+    {
+      "tipo": "publicacao",
+      "grupo": "ACORDAOS",
+      "id": "tcu-3062-2019",
+      "rotulo": "Acórdão TCU 3062/2019 · acórdão que instaurou as audiências deste processo"
+    },
+    {
+      "tipo": "publicacao",
+      "grupo": "ACORDAOS",
+      "id": "tcu-830-2018",
+      "rotulo": "Acórdão TCU 830/2018 · diligência para corrigir omissão sem alterar o valor global"
+    },
+    {
+      "tipo": "publicacao",
+      "grupo": "ACORDAOS",
+      "id": "tcu-2546-2015",
+      "rotulo": "Acórdão TCU 2546/2015 · erro material não enseja desclassificação antecipada"
+    },
+    {
+      "tipo": "publicacao",
+      "grupo": "ACORDAOS",
+      "id": "tcu-1811-2014",
+      "rotulo": "Acórdão TCU 1811/2014 · erro na planilha ajustável sem majorar o preço"
+    },
+    {
+      "tipo": "publicacao",
+      "grupo": "ACORDAOS",
+      "id": "tcu-2873-2014",
+      "rotulo": "Acórdão TCU 2873/2014 · diligência não pode inserir documento novo"
+    },
+    {
+      "tipo": "publicacao",
+      "grupo": "ACORDAOS",
+      "id": "tcu-1426-2010",
+      "rotulo": "Acórdão TCU 1426/2010 · oportunidade de comprovar a viabilidade da proposta"
+    },
+    {
+      "tipo": "publicacao",
+      "grupo": "ACORDAOS",
+      "id": "tcu-898-2019",
+      "rotulo": "Acórdão TCU 898/2019 · formalismo exacerbado na desclassificação"
+    },
+    {
+      "tipo": "publicacao",
+      "grupo": "ACORDAOS",
+      "id": "tcu-1487-2019",
+      "rotulo": "Acórdão TCU 1487/2019 · a diligência precisa especificar as falhas"
+    }
+  ],
+  "publicado_em": "2026-09-29"
+}

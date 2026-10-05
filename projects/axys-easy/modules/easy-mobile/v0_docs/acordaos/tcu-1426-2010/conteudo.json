@@ -1,0 +1,31 @@
+{
+  "id": "tcu-1426-2010",
+  "orgao": "TCU",
+  "numero": "1426/2010",
+  "data": "2010-06-23",
+  "colegiado": "Plenário",
+  "relator": "Aroldo Cedraz",
+  "sumario_oficial": "FISCOBRAS 2009 (REGISTRO FISCALIS 87/2009). LEVANTAMENTO DE AUDITORIA. OBRAS DE INFRAESTRUTURA DA FUB NO ÂMBITO DO REUNI. INDÍCIOS DE DESCLASSIFICAÇÃO INDEVIDA DE LICITANTE. AUDIÊNCIA DOS RESPONSÁVEIS. ACOLHIMENTO PARCIAL DAS RAZÕES DE JUSTIFICATIVA. DETERMINAÇÕES.",
+  "pdf_oficial": "https://contas.tcu.gov.br/sagas/SvlVisualizarRelVotoAc?codFiltro=SAGAS-SESSAO-ENCERRADA&seOcultaPagina=S&item0=38518",
+  "assuntos": [
+    "bdi",
+    "edital",
+    "planilha-orcamentaria",
+    "criterio-de-aceitabilidade-de-preco"
+  ],
+  "tese_md": "Ao indicar propostas como presumidamente inexequíveis, a Administração **deve abrir às respectivas empresas a possibilidade de comprovação da viabilidade** de suas propostas, com a apresentação de documentação que comprove que os custos dos insumos são coerentes com os de mercado e que os coeficientes de produtividade são compatíveis com a execução do objeto do contrato.",
+  "aplicacao_pratica_md": "Presunção de inexequibilidade abre prazo, não encerra a análise. Formalize o convite, indique quais itens motivaram a presunção e peça a comprovação de preços de insumos e de produtividades. A resposta, acolhida ou rejeitada, é o que sustenta a decisão depois.",
+  "limites_md": "No caso a desclassificação foi mantida por motivo diverso, a ausência de discriminação dos itens do BDI exigida pelo edital, e o Tribunal registrou não ter havido prejuízo ao certame. A exigência editalícia de detalhamento do BDI foi considerada regular.",
+  "dispositivos": [
+    "Lei 8.666/1993, arts. 40 e 48"
+  ],
+  "referencias": [
+    {
+      "tipo": "publicacao",
+      "grupo": "ACORDAOS",
+      "id": "tcu-2311-2022",
+      "rotulo": "Acórdão TCU 2311/2022 · invocou esta tese em licitação de obra"
+    }
+  ],
+  "publicado_em": "2026-09-29"
+}

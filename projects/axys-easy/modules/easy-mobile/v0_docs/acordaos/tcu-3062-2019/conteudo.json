@@ -1,0 +1,32 @@
+{
+  "id": "tcu-3062-2019",
+  "orgao": "TCU",
+  "numero": "3062/2019",
+  "data": "2019-12-10",
+  "colegiado": "Plenário",
+  "relator": "Augusto Sherman",
+  "sumario_oficial": "DENÚNCIA. POSSÍVEIS IRREGULARIDADES EM PROCEDIMENTO LICITATÓRIO PARA EXECUÇÃO DA REQUALIFICAÇÃO DA ORLA DO RIO BRANCO/BACIA DO CAXANGÁ EM BOA VISTA/RR. SOLICITAÇÃO DE MEDIDA CAUTELAR PARA SUSPENDER O TRÂMITE DO CERTAME. OITIVA PRÉVIA. CONHECIMENTO. PROCEDÊNCIA PARCIAL DAS ALEGAÇÕES. INDEFERIMENTO DO PEDIDO DE CAUTELAR. AUDIÊNCIA DOS RESPONSÁVEIS. DETERMINAÇÃO A SEINFRAURBANA. APENSAMENTO.",
+  "pdf_oficial": "https://contas.tcu.gov.br/sagas/SvlVisualizarRelVotoAc?codFiltro=SAGAS-SESSAO-ENCERRADA&seOcultaPagina=S&item0=689805",
+  "assuntos": [
+    "composicao-de-custo-unitario",
+    "coeficiente",
+    "edital",
+    "criterio-de-aceitabilidade-de-preco",
+    "planilha-orcamentaria"
+  ],
+  "tese_md": "**Cada licitante tem a liberdade para fazer sua própria composição**, dentro do que foi especificado para o serviço, de acordo com a sua técnica de execução. Não cabe à comissão de licitação desclassificar a proposta por suposta falha na composição apresentada sem antes dar ao licitante a oportunidade de corrigi-la, nem corrigir automaticamente a composição quando o edital não traz dispositivo que o permita.",
+  "aplicacao_pratica_md": "Quando a composição da proposta divergir da composição do orçamento base, verifique primeiro se o edital especificou coeficientes ou metodologia para aquele serviço. Não havendo especificação, a divergência é escolha técnica do licitante. Antes de decidir, diligencie e registre a resposta no processo.",
+  "limites_md": "A liberdade de compor não alcança alteração de especificação do serviço, como a troca do tipo de concreto previsto na composição do edital, sem análise do projetista responsável. E o julgamento isonômico é o outro lado da tese: aplicado o mesmo critério às duas propostas do caso, ambas teriam sido desclassificadas.",
+  "dispositivos": [
+    "Lei 8.666/1993, art. 3º"
+  ],
+  "referencias": [
+    {
+      "tipo": "publicacao",
+      "grupo": "ACORDAOS",
+      "id": "tcu-2311-2022",
+      "rotulo": "Acórdão TCU 2311/2022 · mesmo processo, fase de audiência"
+    }
+  ],
+  "publicado_em": "2026-09-29"
+}

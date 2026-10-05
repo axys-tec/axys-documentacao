@@ -1,0 +1,31 @@
+{
+  "id": "tcu-1811-2014",
+  "orgao": "TCU",
+  "numero": "1811/2014",
+  "data": "2014-07-09",
+  "colegiado": "Plenário",
+  "relator": "Augusto Sherman",
+  "sumario_oficial": "REPRESENTAÇÃO. REGISTRO DE PREÇOS PARA A CONTRATAÇÃO DE SERVIÇOS DE VIGILÂNCIA ARMADA E DESARMADA. DESCLASSIFICAÇÃO DE LICITANTE EM FACE DE PRETENSA INEXEQUIBILIDADE DECORRENTE DE PREENCHIMENTO INDEVIDO DE PLANILHA DE CUSTOS. LUCRO INSUFICIENTE PARA COBRIR O ERRO NA INCLUSÃO DE ENCARGOS RELATIVOS AO INTERVALO INTRAJORNADA. CUSTO TRABALHISTA OBRIGATÓRIO ESTABELECIDO EM CONVENÇÃO COLETIVA DE TRABALHO. ERRO NA PLANILHA BASE EDITALÍCIA. ATOS DO PREGOEIRO PAUTADOS NA IN-SLTI 02/2008, DO MPOG. PROPOSTA CLASSIFICADA COM BAIXÍSSIMA MARGEM DE LUCRO. VÍCIO NO EDITAL NÃO IMPACTOU NA APRESENTAÇÃO DE PROPOSTAS MAIS ONEROSAS. AUSÊNCIA DE PREJUÍZO NA OBTENÇÃO DA MELHOR OFERTA. IRREGULARIDADE FORMAL. CONHECIMENTO DA REPRESENTAÇÃO. PROCEDÊNCIA PARCIAL. NOTIFICAÇÃO. COMUNICAÇÕES. ARQUIVAMENTO. Se não configurada a lesão a um interesse protegido juridicamente, não se configura a nulidade do ato.",
+  "pdf_oficial": "https://contas.tcu.gov.br/sagas/SvlVisualizarRelVotoAc?codFiltro=SAGAS-SESSAO-ENCERRADA&seOcultaPagina=S&item0=502280",
+  "assuntos": [
+    "planilha-orcamentaria",
+    "encargos-sociais",
+    "edital",
+    "preco-global"
+  ],
+  "tese_md": "Erro no preenchimento da planilha de formação de preço do licitante **não constitui motivo suficiente para a desclassificação** da proposta, quando a planilha puder ser ajustada sem a necessidade de majoração do preço ofertado, e desde que se comprove que este é suficiente para arcar com os custos da contratação.",
+  "aplicacao_pratica_md": "O teste é aritmético, não retórico. Some o que a correção acrescenta e compare com a margem declarada na própria proposta. Cabendo na margem, a planilha se ajusta e o preço permanece. Não cabendo, a proposta é inexequível e a desclassificação se sustenta.",
+  "limites_md": "No caso julgado a desclassificação foi **mantida**. A correção dos encargos omitidos sobre o intervalo intrajornada acrescentaria R$ 19.480,80, valor superior ao lucro declarado de R$ 4.332,60, de modo que a planilha não podia ser ajustada sem majorar o preço. O relator também registrou que a planilha do próprio edital continha o mesmo erro, sem que isso bastasse para anular o certame.",
+  "dispositivos": [
+    "Instrução Normativa SLTI/MP 2/2008, art. 29-A, § 2º"
+  ],
+  "referencias": [
+    {
+      "tipo": "publicacao",
+      "grupo": "ACORDAOS",
+      "id": "tcu-2311-2022",
+      "rotulo": "Acórdão TCU 2311/2022 · invocou esta tese em licitação de obra"
+    }
+  ],
+  "publicado_em": "2026-09-29"
+}
