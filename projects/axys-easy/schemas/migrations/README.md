@@ -101,11 +101,13 @@ migrations nascem em frentes paralelas. A data ordena sem fingir sequência.
 | arquivo | o que faz | dev | produção |
 |---|---|---|---|
 | `001-initial-schema.sql` | estado inicial (= `schema.sql`) | ✅ 31/05/2026 | ✅ 31/05/2026 |
-| `2026-09-20_fuzzystrmatch_para_busca.sql` | extensão `fuzzystrmatch` p/ o ranking da busca | ✅ | ⬜ **não aplicada** |
+| `2026-09-20_fuzzystrmatch_para_busca.sql` | extensão `fuzzystrmatch` p/ o ranking da busca | ✅ | ✅ (conferida em 05/10) |
 | `2026-10-04_responsavel_tecnico.sql` | conselhos, documentos de resp. técnica, profissões, RT e quem assina | ✅ 04/10/2026 | ✅ **05/10/2026** |
 
-> A do `fuzzystrmatch` é segura de pular: o adaptador detecta a função em tempo de consulta e, sem
-> ela, monta o escore sem o bônus. Melhora a ordem, não é dependência.
+> **Como conferir, em vez de supor.** O estado desta tabela se verifica no banco, não na memória:
+> extensão em `pg_extension`, tabela em `information_schema.tables`, coluna em
+> `information_schema.columns`. Em 05/10 marquei a do `fuzzystrmatch` como não aplicada em
+> produção por inferência — e ela estava lá desde sempre.
 
 ---
 
