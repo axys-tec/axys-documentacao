@@ -298,6 +298,11 @@ herdaria preço errado, **calado** — o pior tipo de erro, porque a planilha co
 Insumos. É a frente do consolidado amarrado por fórmulas, não o estado de impressão que o
 Agrupamento define.
 
+**Prioridade baixa, e por doutrina** (05/10/2026): o Excel é arquivo de TRABALHO, não peça de
+entrega — ninguém manda planilha aberta e editável para o cliente. O que se entrega é o PDF, e lá o
+agrupamento já funciona. Pela mesma razão, Ocultar Fontes-Base / Código da Fonte também não se
+aplica ao workbook: quem precisar oculta a coluna no próprio Excel.
+
 > Na curva ABC global do PDF o mesmo conflito aparece e foi resolvido por agregação: o unitário da
 > linha agregada é a **média ponderada** (total ÷ qtd), como a curva de insumos já fazia. Colapsar é
 > o que a curva global quer — é dela que sai o ranking A/B/C do empreendimento.
