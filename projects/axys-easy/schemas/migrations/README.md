@@ -109,12 +109,15 @@ migrations nascem em frentes paralelas. A data ordena sem fingir sequência.
 | `2026-10-06_diversos_sem_ordem.sql` | remove `ccl_ordem`/`drt_ordem`/`prf_ordem`: a ordenação virou alfabética | ✅ 06/10/2026 | ✅ **06/10/2026** |
 | `2026-10-06_ativo_produto_status.sql` | ocupação de capacidade por (ativo, produto) + a UNIQUE que serve de alvo da FK composta | ✅ 06/10/2026 | ⬜ **pendente** — ADITIVA e sem leitor, pode ir antes ou depois do deploy |
 
-> **`audit.license_usage_event` não tem migration, e é de propósito.** O time do Hub a criou direto
-> nos dois bancos em 06/10, fora do `schema.sql` — a foto estava mentindo. Em 06/10 ela foi
-> **declarada no `schema.sql`** conferida coluna por coluna contra o banco. Migration seria um
-> `CREATE TABLE IF NOT EXISTS` que não faz nada em lugar nenhum: dev e prod **já têm** a tabela, e
-> banco novo nasce do `schema.sql`. O que sobra registrado é a dívida de nome (inglês sem prefixo),
-> em `governanca/pendencias.md` §9.
+| `2026-10-06_uso_isolado_nome_da_casa.sql` | `audit.license_usage_event` → `audit.uso_isolado`, nomes na convenção da casa | ✅ 06/10/2026 | ⬜ **pendente** — junto com o deploy |
+
+> **A tabela do Hub virou tabela da casa.** `audit.license_usage_event` foi criada direto nos dois
+> bancos pelo time do Hub, fora do `schema.sql` — a foto estava mentindo — e com nomes em inglês sem
+> prefixo. Em 06/10 ela foi **declarada** e **renomeada** para `audit.uso_isolado`, português e
+> prefixo `uso_`, por `RENAME` (preserva PK, UNIQUE, CHECKs e índice, sem recriar nem mover linha).
+> Feito **enquanto estava vazia e sem chamador**: `consume_isolated_usage` não é invocado por
+> ninguém, porque Price e CPU ainda não existem. Depois do primeiro evento gravado o mesmo ajuste
+> custaria migração de dado, janela e risco.
 
 > **A deriva não avisa.** `fte_favoritavel` estava no `schema.sql` e no código desde sempre e em
 > banco nenhum: `/fontes-base` dava 500 em dev **e em produção**, e ninguém tinha percebido. Depois

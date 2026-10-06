@@ -677,19 +677,33 @@ pelos vínculos que ficaram para trás.
 | alteração de plano no dashboard comercial | do Hub |
 | código principal do Hub ainda **local, sem push** | só o subrepo de documentação foi publicado |
 
-### ✓ `audit.license_usage_event` — declarada no schema em 06/10
+### ✓ `audit.uso_isolado` — declarada e renomeada em 06/10
 
-Criada direto nos bancos (dev e produção) pelo time do Hub, fora do `schema.sql`. Vazia nos dois.
-**Não era órfã:** `backend/core/licensing.py` escreve nela como outbox do consumo isolado — mas
-nada chama `consume_isolated_usage`, então é código à espera do Price e do CPU (seção 3).
+Nasceu como `audit.license_usage_event`, criada direto nos bancos de dev e produção pelo time do
+Hub, fora do `schema.sql` e com nomes em inglês sem prefixo. Vazia nos dois.
 
-**Decidido: mantida e DECLARADA no `schema.sql`** (06/10). O defeito não era a tabela, era a foto
-não mostrar tabela que o banco tem — schema divergindo de código é o que não se pode deixar. As 16
-colunas e as 4 constraints foram conferidas uma a uma contra o banco.
+**Não era órfã:** `backend/core/licensing.py` a usa como **outbox** do consumo isolado — grava o
+evento local antes de chamar o Hub, e o retry repete a mesma chave de idempotência sem duplicar o
+débito. Mas nada chama `consume_isolated_usage`, porque Price e CPU ainda não existem (seção 3).
 
-**Dívida consciente que sobra:** os nomes nasceram em inglês sem prefixo, fora da convenção da
-casa. Como ainda não existe leitor em produção, renomear é barato **agora** e caro depois do
-primeiro evento gravado. Fica para a frente do uso isolado, que é quem vai tocar o arquivo.
+**Feito em 06/10, nesta ordem:**
+
+1. **Declarada no `schema.sql`** — o defeito não era a tabela, era a foto não mostrar tabela que o
+   banco tem. Schema divergindo de código é o que não se pode deixar.
+2. **Renomeada para `audit.uso_isolado`**, português e prefixo `uso_`, como `audit.logs` e
+   `audit.login_logs`. Por `RENAME`, que preserva PK, UNIQUE, CHECKs, índice e defaults sem recriar
+   nada nem tocar linha. `uso_sync` passou a falar a língua da casa: `PENDENTE` · `CONFIRMADO` ·
+   `FALHOU`.
+3. **Ganhou uma guarda que não existia:** `ck_uso_confirmado` — data de confirmação e estado não
+   podem discordar, do mesmo jeito que em `ativo_produto_status`.
+
+Feito **agora de propósito**: com a tabela vazia e sem chamador, custou um arquivo. Depois do
+primeiro evento gravado custaria migração de dado, janela e risco.
+
+Provado no caminho real (Hub apontado para endereço morto, para não debitar nada): insert e falha
+marcam `FALHOU` sem data, retry com a mesma chave não duplica linha, `CONFIRMADO` grava a data e o
+saldo, a guarda recusa `FALHOU` com data velha, e a chamada idempotente devolve o saldo sem tocar o
+Hub.
 
 ## O que está fechado e não é pendência
 

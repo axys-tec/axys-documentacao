@@ -4617,56 +4617,55 @@ CREATE INDEX ix_audit_api_criado_em
 
 
 -- ------------------------------------------------------------
--- audit.license_usage_event — consumo ISOLADO (Price e CPU), outbox reexecutável
+-- audit.uso_isolado — consumo dos produtos de USO ISOLADO (Price e CPU)
 -- ------------------------------------------------------------
 -- Price e CPU não são capacidade: são uso isolado, com SALDO CANÔNICO NO HUB. Cada consumo é
 -- deliberado, transacional, auditável e IDEMPOTENTE. Esta tabela é a ponta do Easy: grava o evento
--- localmente ANTES de chamar o Hub, e `backend/core/licensing.py` a usa como outbox — retry repete
--- a mesma `idempotency_key` e nunca duplica o débito lá.
+-- localmente ANTES de chamar o Hub, e `backend/core/licensing.py` a usa como OUTBOX — o retry
+-- repete a mesma `uso_chave_idem` e nunca duplica o débito lá.
+-- Contrato: `contracts/axys_easy_modelo_licenciamento.md` §11.
 --
--- Criada direto nos bancos (dev e produção) pelo time do Hub e declarada aqui só em 06/10 — a foto
--- estava mentindo. Vazia nos dois. Os nomes nasceram em INGLÊS SEM PREFIXO, fora da convenção da
--- casa; como ainda não tem leitor em produção (nada chama `consume_isolated_usage`), renomear é
--- barato enquanto não tiver. Fica como dívida consciente, registrada em
--- `governanca/pendencias.md` §3.
+-- Nasceu como `audit.license_usage_event`, criada direto nos dois bancos pelo time do Hub, com
+-- nomes em inglês e sem prefixo. Renomeada para a convenção da casa em 06/10, enquanto a tabela
+-- ainda estava vazia e sem leitor — depois do primeiro evento gravado sairia caro.
 --
--- `status` é o estado da SINCRONIZAÇÃO com o Hub, não do negócio: pending → confirmed | failed.
-CREATE TABLE IF NOT EXISTS audit.license_usage_event (
-    event_uuid       UUID        NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
+-- `uso_sync` é o estado da SINCRONIZAÇÃO com o Hub, não do negócio: PENDENTE → CONFIRMADO | FALHOU.
+CREATE TABLE IF NOT EXISTS audit.uso_isolado (
+    uso_id            UUID        NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
 
-    tenant_uuid      UUID        NOT NULL,
-    user_uuid        UUID,                                  -- quem disparou; nulo em evento de sistema
-    product_code     TEXT        NOT NULL,                  -- PRI | CPU (só uso isolado passa aqui)
-    resource_id      TEXT        NOT NULL,                  -- unidade de trabalho consumida
-    event_type       TEXT        NOT NULL,
-    quantity         INTEGER     NOT NULL DEFAULT 1,
+    uso_tenant_uuid   UUID        NOT NULL,
+    uso_usuario_uuid  UUID,                                  -- quem disparou; nulo em evento de sistema
+    uso_produto       TEXT        NOT NULL,                  -- PRI | CPU (só uso isolado passa aqui)
+    uso_recurso       TEXT        NOT NULL,                  -- unidade de trabalho consumida
+    uso_evento        TEXT        NOT NULL,
+    uso_qtd           INTEGER     NOT NULL DEFAULT 1,
 
-    -- a chave da idempotência: o retry reusa, e o UNIQUE abaixo transforma o segundo envio em UPDATE
-    idempotency_key  TEXT        NOT NULL,
+    -- a chave da idempotência: o retry reusa, e o UNIQUE abaixo torna o segundo envio um UPDATE
+    uso_chave_idem    TEXT        NOT NULL,
 
-    status           TEXT        NOT NULL DEFAULT 'pending',
-    balance_before   BIGINT,
-    balance_after    BIGINT,
-    metadata_json    JSONB       NOT NULL DEFAULT '{}'::jsonb,
-    error_message    TEXT,
+    uso_sync          TEXT        NOT NULL DEFAULT 'PENDENTE',
+    uso_saldo_antes   BIGINT,
+    uso_saldo_depois  BIGINT,
+    uso_meta_json     JSONB       NOT NULL DEFAULT '{}'::jsonb,
+    uso_erro          TEXT,
 
-    created_at       TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    confirmed_at     TIMESTAMPTZ,
-    updated_at       TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    uso_criado_em     TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    uso_confirmado_em TIMESTAMPTZ,
+    uso_atualizado_em TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 
-    CONSTRAINT uq_license_usage_event_idempotency
-        UNIQUE (tenant_uuid, product_code, idempotency_key),
-    CONSTRAINT ck_license_usage_event_quantity CHECK (quantity > 0),
-    CONSTRAINT ck_license_usage_event_status
-        CHECK (status IN ('pending', 'confirmed', 'failed')),
-    CONSTRAINT ck_license_usage_event_metadata
-        CHECK (jsonb_typeof(metadata_json) = 'object')
+    CONSTRAINT uq_uso_idem UNIQUE (uso_tenant_uuid, uso_produto, uso_chave_idem),
+    CONSTRAINT ck_uso_qtd  CHECK (uso_qtd > 0),
+    CONSTRAINT ck_uso_sync CHECK (uso_sync IN ('PENDENTE', 'CONFIRMADO', 'FALHOU')),
+    CONSTRAINT ck_uso_meta CHECK (jsonb_typeof(uso_meta_json) = 'object'),
+    -- data de confirmação e estado não podem discordar
+    CONSTRAINT ck_uso_confirmado
+        CHECK ((uso_sync = 'CONFIRMADO') = (uso_confirmado_em IS NOT NULL))
 );
 
 -- Índice PARCIAL: quem varre esta tabela é o reprocessamento, e ele só quer o que não fechou.
-CREATE INDEX IF NOT EXISTS idx_license_usage_event_pending
-    ON audit.license_usage_event (updated_at)
-    WHERE status IN ('pending', 'failed');
+CREATE INDEX IF NOT EXISTS ix_uso_pendente
+    ON audit.uso_isolado (uso_atualizado_em)
+    WHERE uso_sync IN ('PENDENTE', 'FALHOU');
 
 
 
