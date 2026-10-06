@@ -106,6 +106,7 @@ migrations nascem em frentes paralelas. A data ordena sem fingir sequência.
 | `2026-10-05_empreendimento_parametros_documento.sql` | config do documento por empreendimento (1×1) | ✅ 05/10/2026 | ⬜ **pendente** — vai DEPOIS do deploy do código |
 | `2026-10-06_codigos_proprios_formato_novo.sql` | códigos próprios do formato antigo → `I-000001`/`C-000001` (item 8) | ✅ 06/10/2026 | ✅ **06/10/2026** |
 | `2026-10-06_fte_favoritavel.sql` | coluna que o código já usava e **nunca entrou em banco nenhum** — `/fontes-base` estava 500 em dev e em PROD | ✅ 06/10/2026 | ✅ **06/10/2026** |
+| `2026-10-06_diversos_sem_ordem.sql` | remove `ccl_ordem`/`drt_ordem`/`prf_ordem`: a ordenação virou alfabética | ✅ 06/10/2026 | ✅ **06/10/2026** |
 
 > **A deriva não avisa.** `fte_favoritavel` estava no `schema.sql` e no código desde sempre e em
 > banco nenhum: `/fontes-base` dava 500 em dev **e em produção**, e ninguém tinha percebido. Depois
