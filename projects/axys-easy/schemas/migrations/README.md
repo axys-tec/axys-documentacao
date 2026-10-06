@@ -105,6 +105,14 @@ migrations nascem em frentes paralelas. A data ordena sem fingir sequência.
 | `2026-10-04_responsavel_tecnico.sql` | conselhos, documentos de resp. técnica, profissões, RT e quem assina | ✅ 04/10/2026 | ✅ **05/10/2026** |
 | `2026-10-05_empreendimento_parametros_documento.sql` | config do documento por empreendimento (1×1) | ✅ 05/10/2026 | ⬜ **pendente** — vai DEPOIS do deploy do código |
 | `2026-10-06_codigos_proprios_formato_novo.sql` | códigos próprios do formato antigo → `I-000001`/`C-000001` (item 8) | ✅ 06/10/2026 | ✅ **06/10/2026** |
+| `2026-10-06_fte_favoritavel.sql` | coluna que o código já usava e **nunca entrou em banco nenhum** — `/fontes-base` estava 500 em dev e em PROD | ✅ 06/10/2026 | ✅ **06/10/2026** |
+
+> **A deriva não avisa.** `fte_favoritavel` estava no `schema.sql` e no código desde sempre e em
+> banco nenhum: `/fontes-base` dava 500 em dev **e em produção**, e ninguém tinha percebido. Depois
+> do conserto varri as 91 tabelas do schema contra os dois bancos — dev está em dia, e em prod o que
+> falta é exatamente a migration pendente de 05/10 (documentada) mais duas tabelas de features que
+> ainda não existem (`core.jobs`, `arquivo.arquivamentos`). Vale repetir essa varredura de tempos em
+> tempos: é barata e acha o que o olho não acha.
 
 > **Como conferir, em vez de supor.** O estado desta tabela se verifica no banco, não na memória:
 > extensão em `pg_extension`, tabela em `information_schema.tables`, coluna em
