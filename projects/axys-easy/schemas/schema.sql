@@ -4616,6 +4616,59 @@ CREATE INDEX ix_audit_api_criado_em
     ON audit.api_logs (log_criado_em DESC);
 
 
+-- ------------------------------------------------------------
+-- audit.license_usage_event — consumo ISOLADO (Price e CPU), outbox reexecutável
+-- ------------------------------------------------------------
+-- Price e CPU não são capacidade: são uso isolado, com SALDO CANÔNICO NO HUB. Cada consumo é
+-- deliberado, transacional, auditável e IDEMPOTENTE. Esta tabela é a ponta do Easy: grava o evento
+-- localmente ANTES de chamar o Hub, e `backend/core/licensing.py` a usa como outbox — retry repete
+-- a mesma `idempotency_key` e nunca duplica o débito lá.
+--
+-- Criada direto nos bancos (dev e produção) pelo time do Hub e declarada aqui só em 06/10 — a foto
+-- estava mentindo. Vazia nos dois. Os nomes nasceram em INGLÊS SEM PREFIXO, fora da convenção da
+-- casa; como ainda não tem leitor em produção (nada chama `consume_isolated_usage`), renomear é
+-- barato enquanto não tiver. Fica como dívida consciente, registrada em
+-- `governanca/pendencias.md` §3.
+--
+-- `status` é o estado da SINCRONIZAÇÃO com o Hub, não do negócio: pending → confirmed | failed.
+CREATE TABLE IF NOT EXISTS audit.license_usage_event (
+    event_uuid       UUID        NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
+
+    tenant_uuid      UUID        NOT NULL,
+    user_uuid        UUID,                                  -- quem disparou; nulo em evento de sistema
+    product_code     TEXT        NOT NULL,                  -- PRI | CPU (só uso isolado passa aqui)
+    resource_id      TEXT        NOT NULL,                  -- unidade de trabalho consumida
+    event_type       TEXT        NOT NULL,
+    quantity         INTEGER     NOT NULL DEFAULT 1,
+
+    -- a chave da idempotência: o retry reusa, e o UNIQUE abaixo transforma o segundo envio em UPDATE
+    idempotency_key  TEXT        NOT NULL,
+
+    status           TEXT        NOT NULL DEFAULT 'pending',
+    balance_before   BIGINT,
+    balance_after    BIGINT,
+    metadata_json    JSONB       NOT NULL DEFAULT '{}'::jsonb,
+    error_message    TEXT,
+
+    created_at       TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    confirmed_at     TIMESTAMPTZ,
+    updated_at       TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    CONSTRAINT uq_license_usage_event_idempotency
+        UNIQUE (tenant_uuid, product_code, idempotency_key),
+    CONSTRAINT ck_license_usage_event_quantity CHECK (quantity > 0),
+    CONSTRAINT ck_license_usage_event_status
+        CHECK (status IN ('pending', 'confirmed', 'failed')),
+    CONSTRAINT ck_license_usage_event_metadata
+        CHECK (jsonb_typeof(metadata_json) = 'object')
+);
+
+-- Índice PARCIAL: quem varre esta tabela é o reprocessamento, e ele só quer o que não fechou.
+CREATE INDEX IF NOT EXISTS idx_license_usage_event_pending
+    ON audit.license_usage_event (updated_at)
+    WHERE status IN ('pending', 'failed');
+
+
 
 
 -- ============================================================

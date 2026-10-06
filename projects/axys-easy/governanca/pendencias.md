@@ -6,6 +6,14 @@
 
 > Lista de pendências. Itens marcados `[ ]` estão abertos; `[x]` concluídos.
 
+**Contratos que governam o que está aqui** — citados no cabeçalho de propósito: contrato que
+nenhuma pendência menciona desaparece em silêncio, e quem lê a pendência não vai caçá-lo.
+
+| contrato | governa |
+|---|---|
+| [`contracts/ativo/bancada_orcamento_persistencia_contrato.md`](../contracts/ativo/bancada_orcamento_persistencia_contrato.md) | `ativo_orcamento`: congelar, concluir, reabrir, revisar. Frente pós-refino; leva o P3 (revisão) e o P4 (id dentro de JSON) |
+| [`contracts/axys_easy_modelo_licenciamento.md`](../contracts/axys_easy_modelo_licenciamento.md) | licenciamento, capacidade e consumo (seções 1 a 9 abaixo). **Prevalece** sobre `EASY_HUB_LICENCIAMENTO.md` |
+
 ---
 
 ## Catálogo Colaborativo
@@ -332,8 +340,14 @@ em R11, outras ainda em R0, outras em R1**. Cada memória carrega a sua própria
 **Em aberto, e é decisão de implementação:** se o estado congelado vive em JSON ou em tabela. O
 Renan aceita tabela se o desempenho pedir — o que não muda é a semântica acima.
 
-**Depende de** `ativo_orcamento`, que é a frente pós-refino (o contrato de persistência que nasceu
-do item 17).
+**Depende de** `ativo_orcamento`, que é a frente pós-refino nascida do item 17 do refino.
+
+> **O desenho dessa frente mora em
+> [`contracts/ativo/bancada_orcamento_persistencia_contrato.md`](../contracts/ativo/bancada_orcamento_persistencia_contrato.md).**
+> Está citado aqui de propósito: é o contrato que **governa** o congelar/concluir/reabrir/revisar, e
+> sem ponteiro de dentro das pendências ele desaparece em silêncio — ninguém vai caçar contrato que
+> nenhuma pendência menciona. **A pendência P4 (id dentro de JSON) também foi para lá**, por decisão
+> de 06/10: as colunas JSON são do orçamento, e se decidem com o desenho na mão.
 
 ---
 
@@ -607,44 +621,51 @@ tenant incoerente recusado pela FK composta, produto e status fora da lista recu
 `ARQUIVADO` sem data (ou data sem `ARQUIVADO`) recusado. A contagem de ocupação sai em *Index Only
 Scan* pelo índice parcial `ix_atvp_ocupacao`.
 
-### ⚠ A decisão que isto abre, e que NÃO está tomada
+### ✓ DECIDIDO (Renan, 06/10): os DOIS status ficam, em hierarquia
 
-A tabela **contradiz uma decisão de 01/10** registrada no refino, e a contradição é de modelo, não
-de gosto:
+A tabela parecia contradizer a decisão de 01/10 (slot num status único do ativo). **Não contradiz:
+são dois níveis, e a divergência acaba quando se diz qual manda.**
 
-| | onde o slot mora | cardinalidade |
+| | o que é | granularidade |
 |---|---|---|
-| decidido 01/10 | `atv_status` do ativo, com `Em andamento · Arquivado · Concluído` | **um** estado por ativo |
-| contrato 06/10 §10.1 | vínculo por `(ativo, produto)` | **um por produto** |
+| `ativo.ativos.atv_status` | **chave geral.** `ARQUIVADO` aqui **bloqueia TODOS os produtos** | um por ativo |
+| `ativo.ativo_produto_status` | o detalhe por produto, dentro do que a chave geral permite | um por produto |
 
-O modelo do contrato é o que o comercial obriga: o mesmo ativo pode estar em andamento no Orça e
-nunca ter sido tocado no Docs. Isso **não cabe** numa coluna de status do ativo. Então:
+`atv_status = 'ARQUIVADO'` é o interruptor de parede: desce tudo de uma vez, em qualquer produto, e
+libera todos os slots daquele ativo. Os vínculos por produto são os interruptores de cada ponto —
+só valem com a parede ligada.
 
-1. **`atv_status` não pode carregar `ARQUIVADO`.** Volta a ser só o ciclo do trabalho
-   (`RASCUNHO`/`EM ANDAMENTO`/`CONCLUÍDO`, do item 17 do refino). Ocupação é da tabela nova. Se as
-   duas carregarem arquivamento, são duas fontes de verdade para o mesmo fato.
-2. **A cascata para cima perde o sentido.** A regra de 01/10 dizia: *arquivar o último ativo em
-   andamento arquiva o empreendimento*. Com slot por produto, "o último em qual produto?" não tem
-   boa resposta.
+**Duas obrigações que essa hierarquia cria, e são a razão de ela funcionar:**
 
-**Recomendação, para decidir:** `emp_arquivado` deixa de ser derivado e passa a ser ação direta do
-usuário sobre a pasta. A cascata **para baixo** fica (arquivar o empreendimento arquiva os vínculos
-dos seus ativos em todos os produtos); a cascata **para cima** sai. Isso não perde nada — o
-empreendimento nunca ocupou slot, e a assimetria "desarquivar o empreendimento NÃO desarquiva os
-ativos" (01/10) continua valendo e continua certa, pelo mesmo motivo de antes: levantar cinco
-ativos de uma vez estouraria o teto e obrigaria a app a escolher quais derrubar.
+1. **Avisar o usuário, na hora de arquivar, que arquivar o ATIVO bloqueia todos os produtos.** Sem
+   esse aviso a chave geral é uma armadilha: a pessoa arquiva pensando em soltar o Orça e perde o
+   Docs, o PM e o resto junto. É aviso de consequência, não explicação de tela — cabe no modal de
+   confirmação, com a lista dos produtos que vão cair.
+2. **Dar onde ver e mexer no detalhe:** na **tab do ativo**, uma **expansão de formulário com o
+   status por produto**. É ali que a granularidade existe para o usuário; sem a expansão, a tabela
+   seria estado invisível, que é o pior tipo.
 
-Também continua valendo, intacto: **revisão só em ativo em andamento**, e **desarquivar passa pelo
-gate**. É o que impede o contorno de arquivar tudo e seguir trabalhando.
+**O que isso resolve de graça:** a cascata para cima sobrevive. "Arquivar o último ativo em
+andamento arquiva o empreendimento" volta a ter resposta única, porque *em andamento* passa a ser
+lido no `atv_status`, que é um só. E a assimetria de 01/10 (desarquivar o empreendimento **não**
+levanta os ativos) continua valendo pelo mesmo motivo de antes: levantar cinco de uma vez
+estouraria o teto e obrigaria a app a escolher quais derrubar.
+
+**Consequência para a contagem de ocupação:** vínculo `EM_ANDAMENTO` **cujo ativo não esteja
+`ARQUIVADO`**. A chave geral entra na cláusula, senão um ativo arquivado continuaria ocupando slot
+pelos vínculos que ficaram para trás.
 
 ### O que falta implementar
 
-1. Trocar `ocupacao_ativos()` por contagem em `ativo_produto_status`, por `(tenant, licença)`.
-2. Criar/reativar o vínculo na primeira operação que põe o ativo em andamento no produto.
-3. Arquivar e restaurar por produto, com o arquivado bloqueando edição.
-4. Resolver o `atv_status` conforme a decisão acima, com CHECK e migração dos valores atuais.
-5. Easy One: a ocupação é de `atvp_atv_id` **distintos** sob `atvp_licenca = 'ONE'`.
-6. Fazer isto na **mesma varredura** do mascaramento de rotas
+1. **Contagem de ocupação** em `ativo_produto_status` por `(tenant, licença)`, com o ativo não
+   arquivado na cláusula. Substitui `ocupacao_ativos()`, que hoje conta por tenant sem produto.
+2. **Criar ou reativar o vínculo** na primeira operação que põe o ativo em andamento no produto.
+3. **`atv_status` com CHECK** e os estados fechados, mais a migração dos valores atuais (os 29
+   ativos de dev estão todos em `RASCUNHO`).
+4. **O aviso ao arquivar o ativo**, listando os produtos que vão cair junto.
+5. **A expansão do status por produto na tab do ativo** — é onde a granularidade fica visível.
+6. **Easy One:** a ocupação é de `atvp_atv_id` **distintos** sob `atvp_licenca = 'ONE'`.
+7. Fazer isto na **mesma varredura** do mascaramento de rotas
    (`redesign_rotas_exposicao.md`, Tarefa 2): a trava precisa achar o objeto pela URL, e é a URL
    que a outra tarefa muda.
 
@@ -656,18 +677,19 @@ gate**. É o que impede o contorno de arquivar tudo e seguir trabalhando.
 | alteração de plano no dashboard comercial | do Hub |
 | código principal do Hub ainda **local, sem push** | só o subrepo de documentação foi publicado |
 
-### ⚠ `audit.license_usage_event` — decidir manter ou remover
+### ✓ `audit.license_usage_event` — declarada no schema em 06/10
 
-Criada pelo time do Hub nos bancos **local e de produção** do Easy, fora do `schema.sql`. Vazia nos
-dois. O time do Hub a declarou criada indevidamente e pediu decisão.
+Criada direto nos bancos (dev e produção) pelo time do Hub, fora do `schema.sql`. Vazia nos dois.
+**Não era órfã:** `backend/core/licensing.py` escreve nela como outbox do consumo isolado — mas
+nada chama `consume_isolated_usage`, então é código à espera do Price e do CPU (seção 3).
 
-**Não é órfã:** `backend/core/licensing.py` escreve nela (`consume_isolated_usage` e `_mark_usage`).
-Mas **nada chama `consume_isolated_usage`** — é código morto esperando o Price e o CPU (seção 3).
+**Decidido: mantida e DECLARADA no `schema.sql`** (06/10). O defeito não era a tabela, era a foto
+não mostrar tabela que o banco tem — schema divergindo de código é o que não se pode deixar. As 16
+colunas e as 4 constraints foram conferidas uma a uma contra o banco.
 
-**Recomendação:** manter a tabela e **declará-la no `schema.sql`**, que é o defeito real aqui — o
-banco tem tabela que a foto não mostra. Os campos batem com os 13 mínimos do contrato e remover
-agora só obrigaria a recriar igual na frente do uso isolado. O que precisa acontecer antes de ser
-usada: conferir os nomes contra a convenção da casa, porque ela nasceu em inglês sem prefixo.
+**Dívida consciente que sobra:** os nomes nasceram em inglês sem prefixo, fora da convenção da
+casa. Como ainda não existe leitor em produção, renomear é barato **agora** e caro depois do
+primeiro evento gravado. Fica para a frente do uso isolado, que é quem vai tocar o arquivo.
 
 ## O que está fechado e não é pendência
 

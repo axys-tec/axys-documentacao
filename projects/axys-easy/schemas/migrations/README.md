@@ -107,6 +107,14 @@ migrations nascem em frentes paralelas. A data ordena sem fingir sequência.
 | `2026-10-06_codigos_proprios_formato_novo.sql` | códigos próprios do formato antigo → `I-000001`/`C-000001` (item 8) | ✅ 06/10/2026 | ✅ **06/10/2026** |
 | `2026-10-06_fte_favoritavel.sql` | coluna que o código já usava e **nunca entrou em banco nenhum** — `/fontes-base` estava 500 em dev e em PROD | ✅ 06/10/2026 | ✅ **06/10/2026** |
 | `2026-10-06_diversos_sem_ordem.sql` | remove `ccl_ordem`/`drt_ordem`/`prf_ordem`: a ordenação virou alfabética | ✅ 06/10/2026 | ✅ **06/10/2026** |
+| `2026-10-06_ativo_produto_status.sql` | ocupação de capacidade por (ativo, produto) + a UNIQUE que serve de alvo da FK composta | ✅ 06/10/2026 | ⬜ **pendente** — ADITIVA e sem leitor, pode ir antes ou depois do deploy |
+
+> **`audit.license_usage_event` não tem migration, e é de propósito.** O time do Hub a criou direto
+> nos dois bancos em 06/10, fora do `schema.sql` — a foto estava mentindo. Em 06/10 ela foi
+> **declarada no `schema.sql`** conferida coluna por coluna contra o banco. Migration seria um
+> `CREATE TABLE IF NOT EXISTS` que não faz nada em lugar nenhum: dev e prod **já têm** a tabela, e
+> banco novo nasce do `schema.sql`. O que sobra registrado é a dívida de nome (inglês sem prefixo),
+> em `governanca/pendencias.md` §9.
 
 > **A deriva não avisa.** `fte_favoritavel` estava no `schema.sql` e no código desde sempre e em
 > banco nenhum: `/fontes-base` dava 500 em dev **e em produção**, e ninguém tinha percebido. Depois
