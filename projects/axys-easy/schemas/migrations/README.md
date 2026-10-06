@@ -103,6 +103,8 @@ migrations nascem em frentes paralelas. A data ordena sem fingir sequência.
 | `001-initial-schema.sql` | estado inicial (= `schema.sql`) | ✅ 31/05/2026 | ✅ 31/05/2026 |
 | `2026-09-20_fuzzystrmatch_para_busca.sql` | extensão `fuzzystrmatch` p/ o ranking da busca | ✅ | ✅ (conferida em 05/10) |
 | `2026-10-04_responsavel_tecnico.sql` | conselhos, documentos de resp. técnica, profissões, RT e quem assina | ✅ 04/10/2026 | ✅ **05/10/2026** |
+| `2026-10-05_empreendimento_parametros_documento.sql` | config do documento por empreendimento (1×1) | ✅ 05/10/2026 | ⬜ **pendente** — vai DEPOIS do deploy do código |
+| `2026-10-06_codigos_proprios_formato_novo.sql` | códigos próprios do formato antigo → `I-000001`/`C-000001` (item 8) | ✅ 06/10/2026 | ✅ **06/10/2026** |
 
 > **Como conferir, em vez de supor.** O estado desta tabela se verifica no banco, não na memória:
 > extensão em `pg_extension`, tabela em `information_schema.tables`, coluna em

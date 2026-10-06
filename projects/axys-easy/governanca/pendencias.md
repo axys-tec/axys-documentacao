@@ -309,6 +309,22 @@ aplica ao workbook: quem precisar oculta a coluna no próprio Excel.
 
 ---
 
+## Resíduo no catálogo GLOBAL — `AX-000.001-CPU` (2026-10-06)
+
+Achado ao varrer o banco para a migration dos códigos próprios: existe **1 composição no catálogo
+GLOBAL** (`catalogo.composicoes`, `cmp_fte_id = 1`) com código no formato PRÓPRIO antigo —
+`AX-000.001-CPU`, "ENGENHEIRO JUNIOR DE CIVIL COM ENCARGOS". Existe em **dev e em produção**, e
+arrasta uma linha em `catalogo.search_document`.
+
+Cheira a resíduo do incidente do item 16 (o bucket paralelo criado porque o código da fonte era
+usado como chave de identidade). **Não foi tocado** pela migration de 06/10, que só mexe em
+`tenant_catalogo` — mexer no catálogo global sem entender a origem seria pior que o sintoma.
+
+**A resolver:** entender se é lixo (apagar) ou se é uma composição legítima que foi parar no bucket
+errado (mover para o tenant certo, com código novo).
+
+---
+
 ## ⚠ SEQUÊNCIA DE DEPLOY — duas migrations com ordens OPOSTAS (2026-10-05)
 
 Há duas migrations pendentes de prod em estados diferentes, e **a ordem entre código e banco é
