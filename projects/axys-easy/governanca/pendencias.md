@@ -309,6 +309,34 @@ aplica ao workbook: quem precisar oculta a coluna no próprio Excel.
 
 ---
 
+## Revisão de orçamento — o desenho (decidido em 06/10/2026)
+
+Era a pendência **P3** do refino ("o que se duplica numa revisão"). O desenho que o Renan fixou:
+
+**A revisão congela o estado atual, e o estado congelado vive em JSON** — não numa segunda árvore
+de tabelas. Tecnicamente basta um campo de versão:
+
+```
+ativo_orcamento.versao   R00 (inicial) → R01 → R02 …
+```
+
+Vale para o **orçamento** e para a **memória de cálculo**, com uma diferença que é o coração do
+desenho:
+
+> **A planilha é atômica; a memória é isolada.** Não se separa uma linha do orçamento — ele revisa
+> inteiro. Mas cada memória revisa sozinha, e **só revisa a que mudou**: a anterior fica como JSON.
+
+Daí sai o que parece estranho e é correto: o orçamento pode estar em **R11** com **algumas memórias
+em R11, outras ainda em R0, outras em R1**. Cada memória carrega a sua própria linha do tempo.
+
+**Em aberto, e é decisão de implementação:** se o estado congelado vive em JSON ou em tabela. O
+Renan aceita tabela se o desempenho pedir — o que não muda é a semântica acima.
+
+**Depende de** `ativo_orcamento`, que é a frente pós-refino (o contrato de persistência que nasceu
+do item 17).
+
+---
+
 ## Resíduo no catálogo GLOBAL — `AX-000.001-CPU` (2026-10-06)
 
 Achado ao varrer o banco para a migration dos códigos próprios: existe **1 composição no catálogo
