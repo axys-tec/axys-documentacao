@@ -6665,8 +6665,10 @@ CREATE TABLE IF NOT EXISTS ativo.empreendimento_parametros (
 
     -- Orientação por documento. Guardada por documento porque a escolha é por documento: curva de
     -- insumos pode caber em pé e a de serviços não.
-    epa_orient_curva_serv  TEXT NOT NULL DEFAULT 'H',
-    epa_orient_curva_ins   TEXT NOT NULL DEFAULT 'H',
+    -- curvas nascem VERTICAIS porque é assim que a app sempre as imprimiu; cronograma e
+    -- histograma, horizontais. O default do parâmetro tem de reproduzir o que já saía.
+    epa_orient_curva_serv  TEXT NOT NULL DEFAULT 'V',
+    epa_orient_curva_ins   TEXT NOT NULL DEFAULT 'V',
     epa_orient_cronograma  TEXT NOT NULL DEFAULT 'H',
     epa_orient_histo_sint  TEXT NOT NULL DEFAULT 'H',
     epa_orient_histo_anal  TEXT NOT NULL DEFAULT 'H',
