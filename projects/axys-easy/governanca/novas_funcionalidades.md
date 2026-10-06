@@ -7,6 +7,11 @@ de coisa que já existe. Aqui é o que ainda não existe e um dia deve existir.
 
 ## Unificação de orçamentos *(registrada em 06/10/2026)*
 
+> **O repath de apresentação já tem as duas formas** desde 06/10 (parâmetro *Tipo de Agrupamento*,
+> com botão **Simular arranjo**). O que falta para a UNIFICAÇÃO é outra coisa: gravar o resultado
+> como orçamento novo, estado de produção. A regra de juntada abaixo é a mesma, e o código é o
+> mesmo (`agrupamento_service.montar_arranjo`) — por isso ela fica registrada aqui inteira.
+
 Hoje o **Agrupamento** é função de ENTREGA: junta na impressão, sem tocar no cálculo. A unificação é
 outra coisa — seria estado de PRODUÇÃO, um orçamento novo nascido de vários. Fica aqui como evolução,
 não como dívida.

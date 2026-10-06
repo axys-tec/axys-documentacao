@@ -69,6 +69,8 @@ CREATE TABLE ativo.empreendimento_parametros (
     --   CONCOMITANTE = obras ao mesmo tempo; mês 1 soma com mês 1 de cada ativo.
     --   ISOLADA      = obras em sequência; dois ativos de 10 meses viram 20 meses, em ordem.
     epa_execucao        TEXT NOT NULL DEFAULT 'CONCOMITANTE',
+    -- como os ativos se juntam no agrupado: um depois do outro, ou casando as etapas
+    epa_tipo_agrup      TEXT NOT NULL DEFAULT 'SEQUENCIAL',
 
     epa_criado_em       TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     epa_atualizado_em   TIMESTAMPTZ,
@@ -78,6 +80,7 @@ CREATE TABLE ativo.empreendimento_parametros (
     CONSTRAINT ck_epa_estilo   CHECK (epa_estilo IN (1, 2, 3)),
     CONSTRAINT ck_epa_agrup    CHECK (epa_agrupamento IN ('AGRUPADO', 'ISOLADO')),
     CONSTRAINT ck_epa_exec     CHECK (epa_execucao IN ('CONCOMITANTE', 'ISOLADA')),
+    CONSTRAINT ck_epa_tipoagr  CHECK (epa_tipo_agrup IN ('SEQUENCIAL', 'POR_ETAPAS')),
     CONSTRAINT ck_epa_entrega  CHECK (epa_entrega IN ('UNICO', 'ISOLADO')),
     CONSTRAINT ck_epa_orient   CHECK (epa_orient_curva_serv IN ('H','V') AND epa_orient_curva_ins IN ('H','V')
                                   AND epa_orient_cronograma IN ('H','V') AND epa_orient_histo_sint IN ('H','V')
