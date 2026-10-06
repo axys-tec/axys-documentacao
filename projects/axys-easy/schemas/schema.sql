@@ -6897,6 +6897,13 @@ CREATE TABLE IF NOT EXISTS ativo.ativos (
     -- aqui — é o que evita repetir a cada ativo). FALSE = usa a lista própria em ativo_responsaveis.
     -- A lista própria NÃO é apagada ao religar a herança: desligar de novo devolve a escolha.
     atv_rt_herda        BOOLEAN NOT NULL DEFAULT TRUE,
+    -- O que esta OBRA leva no documento: {"sintetico": true, "analitico": false, "param:Área": true}.
+    -- Mora aqui, e não num JSON do empreendimento, porque a chave da tela é `atv{id}.sintetico`: no
+    -- empreendimento o id do ativo viraria chave de JSON — id de outra tabela sem FK, o que a regra
+    -- do P4 proíbe. Na linha da obra o id some: ele É a linha. E apagar a obra leva a escolha dela
+    -- junto, de graça. Guarda o ESTADO, não só o marcado: chave ausente = "nunca configurada", e o
+    -- checkbox cai no default — o certo para o parâmetro que nasceu depois da última gravação.
+    atv_secoes          JSONB   NOT NULL DEFAULT '{}'::jsonb,
     atv_criado_em       TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     atv_atualizado_em   TIMESTAMPTZ,
     atv_criado_por      TEXT,
@@ -6914,6 +6921,9 @@ CREATE TABLE IF NOT EXISTS ativo.ativos (
 
     CONSTRAINT ck_ativos_nome_vazio
         CHECK (btrim(atv_nome) <> ''),
+
+    -- objeto, sempre: `[]` ou um número aqui viraria erro de leitura lá na frente, longe daqui
+    CONSTRAINT ck_atv_secoes CHECK (jsonb_typeof(atv_secoes) = 'object'),
 
     -- Redundante por si (atv_id já é a PK), existe para ser ALVO de FK COMPOSTA: é ela que faz o
     -- banco recusar um vínculo de produto cujo tenant não seja o tenant do ativo. Ver
@@ -7026,42 +7036,6 @@ DROP TABLE IF EXISTS ativo.ficha_tec;
 -- documento sai diferente entre dois renders.
 -- NÃO é obrigatório: sem RT, o documento sai sem bloco de assinatura.
 -- ══════════════════════════════════════════════════════════════════════════════
--- ------------------------------------------------------------
--- ativo.empreendimento_secoes — o que o usuário deixou marcado na tab Finalização
--- ------------------------------------------------------------
--- `empreendimento_parametros` guarda as decisões de APRESENTAÇÃO (estilo, ofício, local e data).
--- O que faltava era a outra metade: QUAIS SEÇÕES entram no documento. Elas viajavam só em `sec=`
--- na hora de exportar e voltavam ao padrão a cada reload — quem desmarcava oito seções
--- reencontrava as oito marcadas no dia seguinte.
---
--- POR QUE TABELA E NÃO UMA COLUNA JSON em `empreendimento_parametros`:
--- a chave da tela é `atv{id}.sintetico`, ou seja, carrega o ID DO ATIVO. Em JSON isso é um id de
--- outra tabela sem FK — exatamente o que a regra do P4 proíbe, e pela razão que importa aqui:
--- apagar um ativo deixaria a chave órfã no JSON para sempre. Com o id em COLUNA e FK, o banco
--- limpa sozinho. A chave guardada é só o SUFIXO (`sintetico`), porque o id já é coluna.
---
--- GUARDA O ESTADO, não só o marcado. "Sem linha" significa "nunca configurado" e o checkbox cai no
--- default — que é o certo para ativo ou parâmetro que nasceu DEPOIS da última gravação. Guardar só
--- o marcado tornaria "desmarquei tudo" indistinguível de "nunca mexi".
-CREATE TABLE IF NOT EXISTS ativo.empreendimento_secoes (
-    eps_emp_id  INTEGER NOT NULL,
-    -- NULL = seção do DOCUMENTO ou do empreendimento (capa, ofício, campos do quadro resumo)
-    eps_atv_id  INTEGER,
-    eps_chave   TEXT    NOT NULL,     -- sufixo: `sintetico`, `curva:servicos`, `param:Área`…
-    eps_marcada BOOLEAN NOT NULL,
-
-    CONSTRAINT fk_eps_emp FOREIGN KEY (eps_emp_id)
-        REFERENCES ativo.empreendimentos (emp_id) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT fk_eps_atv FOREIGN KEY (eps_atv_id)
-        REFERENCES ativo.ativos (atv_id) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT ck_eps_chave CHECK (btrim(eps_chave) <> '')
-);
-
--- COALESCE porque NULL não participa de UNIQUE: sem isto, duas linhas `(20, NULL, 'capa')`
--- conviveriam e a última leitura venceria por sorte.
-CREATE UNIQUE INDEX IF NOT EXISTS uq_eps_chave
-    ON ativo.empreendimento_secoes (eps_emp_id, COALESCE(eps_atv_id, 0), eps_chave);
-
 CREATE TABLE IF NOT EXISTS ativo.empreendimento_responsaveis (
     empr_emp_id  INTEGER NOT NULL,
     empr_rt_id   INTEGER NOT NULL,
@@ -8369,6 +8343,12 @@ CREATE TABLE IF NOT EXISTS ativo.empreendimento_parametros (
     -- como os ativos se juntam no agrupado: um depois do outro, ou casando as etapas
     epa_tipo_agrup      TEXT NOT NULL DEFAULT 'SEQUENCIAL',
 
+    -- O que é do DOCUMENTO no que o usuário marcou na tab Finalização:
+    -- {"doc.capa": true, "doc.apresentacao": false, "emp.campo:Nome do empreendimento": true}.
+    -- O que é da OBRA mora em `ativo.ativos.atv_secoes` — ver a nota lá, que explica por que as
+    -- duas metades não cabem num JSON só.
+    epa_secoes          JSONB NOT NULL DEFAULT '{}'::jsonb,
+
 
     epa_criado_em       TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     epa_atualizado_em   TIMESTAMPTZ,
@@ -8385,7 +8365,9 @@ CREATE TABLE IF NOT EXISTS ativo.empreendimento_parametros (
                                   AND epa_orient_histo_anal IN ('H','V')),
     -- marcou direcionar, tem de ter a quem; marcou local e data, tem de ter município
     CONSTRAINT ck_epa_direcionar CHECK (NOT epa_direcionar OR btrim(COALESCE(epa_destinatario,'')) <> ''),
-    CONSTRAINT ck_epa_local      CHECK (NOT epa_local_data OR btrim(COALESCE(epa_municipio,'')) <> '')
+    CONSTRAINT ck_epa_local      CHECK (NOT epa_local_data OR btrim(COALESCE(epa_municipio,'')) <> ''),
+    -- objeto, sempre: `[]` ou um número aqui viraria erro de leitura lá na frente, longe daqui
+    CONSTRAINT ck_epa_secoes     CHECK (jsonb_typeof(epa_secoes) = 'object')
 );
 
 

@@ -108,7 +108,7 @@ migrations nascem em frentes paralelas. A data ordena sem fingir sequência.
 | `2026-10-06_fte_favoritavel.sql` | coluna que o código já usava e **nunca entrou em banco nenhum** — `/fontes-base` estava 500 em dev e em PROD | ✅ 06/10/2026 | ✅ **06/10/2026** |
 | `2026-10-06_diversos_sem_ordem.sql` | remove `ccl_ordem`/`drt_ordem`/`prf_ordem`: a ordenação virou alfabética | ✅ 06/10/2026 | ✅ **06/10/2026** |
 | `2026-10-06_municipios.sql` | os 5.571 municípios do IBGE, com a UF — a listbox de Local e Data | ✅ 06/10/2026 | ⬜ **pendente** — ANTES do deploy (a listbox precisa da tabela) |
-| `2026-10-06_empreendimento_secoes.sql` | o que o usuário deixou marcado na tab Finalização passa a persistir | ✅ 06/10/2026 | ⬜ **pendente** — ANTES do deploy |
+| `2026-10-06_secoes_do_documento.sql` | `epa_secoes`/`atv_secoes`: o que o usuário marcou na tab Finalização passa a persistir | ✅ 06/10/2026 | ⬜ **pendente** — ANTES do deploy |
 | `2026-10-06_ativo_produto_status.sql` | ocupação de capacidade por (ativo, produto) + a UNIQUE que serve de alvo da FK composta | ✅ 06/10/2026 | ⬜ **pendente** — ADITIVA e sem leitor, pode ir antes ou depois do deploy |
 
 | `2026-10-06_uso_isolado_nome_da_casa.sql` | `audit.license_usage_event` → `audit.uso_isolado`, nomes na convenção da casa | ✅ 06/10/2026 | ⬜ **pendente** — junto com o deploy |
