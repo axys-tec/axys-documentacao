@@ -65,38 +65,45 @@ Nas duas formas **tudo desce um nível**. O que muda é o eixo da juntada: o ati
 > Pelo nome exato? Pela posição (1ª etapa com 1ª etapa)? Ativos com números de etapas diferentes
 > precisam de resposta — e ela muda o resultado.
 
-### O problema dos níveis — e o que a medição diz
+### Os níveis — RESOLVIDO: trava em 5, para todo mundo
 
-Descer um nível custa um nível. Orçamento de 5 níveis vira 6; de 6, vira 7.
+Descer um nível custa um nível. Mas a pergunta certa era de onde vinham os níveis 6 que a medição
+acusou — e a resposta derrubou a premissa.
 
-**Medido no banco de dev em 06/10:**
+**Os 8 itens de nível 6 em dev são fixtures de teste**, todos nos ativos `ZZ SANIDADE NIVEIS 1-5`
+(32 e 33), com nomes como `s5.1` e `novo-S-apos-1.4.5.5.5.3`. **Não existe orçamento real com 6
+níveis.** Eu havia lido a medição como "já existe dado assim, endurecer seria retroativo" — era
+leitura errada de número certo.
 
-| nível | itens | ativos |
-|---|---|---|
-| 1 | 134 | 11 |
-| 2 | 473 | 11 |
-| 3 | 683 | 9 |
-| 4 | 690 | 5 |
-| 5 | 10 | 2 |
-| **6** | **8** | **2** |
+Como passaram: **não existe coluna de nível** — ele é derivado da cadeia de pais. O Tab da bancada
+parava no 5, mas `criar_item` e `mover_item` não olhavam profundidade, então quem chamasse a API
+direto (como o script de sanidade) furava.
 
-**Já existem orçamentos com 6 níveis.** Então "limitar a 4 e deixar o 5 para o repath" não é
-endurecer uma regra: é invalidar dado que está lá. E o repath da entrega já produz nível 7 hoje
-(empreendimento 21), sem quebrar nada.
+**Decisão de 06/10 (Renan): trava em 5, igual para todo mundo, com ou sem repath.** A bancada é UM
+estado; não existe bancada com outra regra. O repath desce um nível no DOCUMENTO — isso é
+apresentação, não bancada, e por isso não muda o limite.
 
-**O que de fato acontece acima do nível 5** — conferido, não suposto:
+Implementado em `orcamento_service.NIVEL_MAX`:
+
+| onde | regra |
+|---|---|
+| `criar_item` | recusa se o pai já está no nível 5 |
+| `mover_item` | recusa se `profundidade(novo pai) + altura(subárvore) > 5` — mover arrasta os filhos |
+
+Profundidade sai do `ati_path` materializado (`001000.000500` → 2), sem CTE recursiva.
+
+Validado contra o banco: criar desce 2→5 e recusa o 6; mover uma subárvore de 2 níveis para dentro
+de um nó do nível 4 é recusado ("ficaria com 6"), e mover a folha sozinha passa (4+1=5).
+
+> Fica a dívida de limpar as fixtures `ZZ SANIDADE NIVEIS 1-5` (ativos 32 e 33), que hoje são o
+> único dado acima de 5 níveis em dev.
+
+### O que acontece acima do nível 5 (se algum dia passar)
 
 | lugar | comportamento |
 |---|---|
 | PDF analítico | `min(nivel, 5)` — indenta como nível 5; o número do item continua completo |
 | Excel | `fill_nivel` faz o mesmo clamp |
-| Bancada (tela) | o Tab só cria até o nível 5; níveis 6 vieram de outro caminho |
 | Cronograma | nível de corte aceita 1–5, então etapa mais funda não entra na grade |
 
-Ou seja: **nada estoura**. O que se perde acima de 5 é distinção visual (a cor de nível repete) e a
-possibilidade de cortar o cronograma naquele nível.
-
-**Recomendação para quando a unificação entrar:** não criar bancada excepcional — duplicar regra de
-bancada é caro e vira duas verdades. Os caminhos reais são (a) aceitar 6+ níveis e resolver a
-apresentação (mais uma cor de nível, corte de cronograma até 6), ou (b) travar a unificação quando
-algum ativo de origem já tiver 5 níveis, avisando o usuário em vez de produzir algo torto.
+Nada estoura — o que se perde é distinção visual e o corte do cronograma.
