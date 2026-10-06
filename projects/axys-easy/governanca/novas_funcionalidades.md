@@ -7,10 +7,26 @@ de coisa que já existe. Aqui é o que ainda não existe e um dia deve existir.
 
 ## Unificação de orçamentos *(registrada em 06/10/2026)*
 
-> **O repath de apresentação já tem as duas formas** desde 06/10 (parâmetro *Tipo de Agrupamento*,
-> com botão **Simular arranjo**). O que falta para a UNIFICAÇÃO é outra coisa: gravar o resultado
-> como orçamento novo, estado de produção. A regra de juntada abaixo é a mesma, e o código é o
-> mesmo (`agrupamento_service.montar_arranjo`) — por isso ela fica registrada aqui inteira.
+### A fronteira: repath NÃO é unificação
+
+O repath (Sequencial / Por Etapas) existe desde 06/10 e é **apresentação**: junta na hora de
+imprimir, não grava nada, e o orçamento de cada ativo continua intocado. A unificação **consome** a
+mesma regra de juntada (`agrupamento_service.montar_arranjo`), mas é outra coisa — **estado de
+produção**: nasce um orçamento novo, que passa a existir, a ser editado e a divergir das origens.
+
+Por isso ela **não entra na Finalização**. Pede **tela própria**, com o que um estado novo exige e
+uma impressão não exige:
+
+| o que a tela precisa ter | por quê |
+|---|---|
+| aviso explícito do que vai ser criado | o usuário está gerando um orçamento, não um PDF |
+| endurecimentos (profundidade, fontes, LS/BDI divergentes) | o resultado vira dado, e dado errado se propaga |
+| escolha do que fazer com as origens | continuam vivas? viram somente-leitura? |
+| rastro de origem em cada item | sem isso ninguém audita de onde veio o preço |
+| pré-visualização antes de gravar | o *Simular arranjo* da Finalização é o embrião disto |
+
+**O que o repath resolveu e a unificação herda de graça:** a regra das duas formas, a numeração com
+fonte única, e a certeza medida de que o custo de profundidade é de exatamente um nível.
 
 Hoje o **Agrupamento** é função de ENTREGA: junta na impressão, sem tocar no cálculo. A unificação é
 outra coisa — seria estado de PRODUÇÃO, um orçamento novo nascido de vários. Fica aqui como evolução,
@@ -112,3 +128,17 @@ de um nó do nível 4 é recusado ("ficaria com 6"), e mover a folha sozinha pas
 | Cronograma | nível de corte aceita 1–5, então etapa mais funda não entra na grade |
 
 Nada estoura — o que se perde é distinção visual e o corte do cronograma.
+
+
+---
+
+## Desmembramento de orçamentos *(ideia, 06/10/2026)*
+
+Se a app um dia unifica, a pergunta seguinte se faz sozinha: **por que não desmembrar?** Pegar um
+orçamento e quebrá-lo em dois ou mais — por etapa, por ativo, por trecho da EAP.
+
+Fica para depois, mas vale anotar a simetria: desmembrar é o repath ao contrário, e os problemas
+são os espelhos dos da unificação — o que acontece com LS, BDI, cronograma e memórias do original;
+quem herda o quê; o que sobe de nível quando o agrupador some.
+
+Registrada só como direção. Sem desenho ainda.
