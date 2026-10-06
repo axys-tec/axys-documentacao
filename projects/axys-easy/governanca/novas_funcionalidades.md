@@ -82,9 +82,9 @@ Junta pela **etapa**, não pelo ativo. O nível 1 passa a ser a etapa com o comp
 
 Nas duas formas **tudo desce um nível**. O que muda é o eixo da juntada: o ativo ou a etapa.
 
-> **A definir antes de implementar:** por qual chave duas etapas de ativos diferentes são "a mesma"?
-> Pelo nome exato? Pela posição (1ª etapa com 1ª etapa)? Ativos com números de etapas diferentes
-> precisam de resposta — e ela muda o resultado.
+> **A chave é a POSIÇÃO**, não o nome: a 1ª etapa de um ativo empilha com a 1ª do outro. Casar por
+> nome criaria um grupo por etapa que não casasse, e o empreendimento teria mais níveis 1 do que
+> qualquer ativo tem. O nº de grupos é `max(nº de etapas de cada ativo)`.
 
 ### Os níveis — RESOLVIDO: trava em 5, para todo mundo
 
