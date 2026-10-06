@@ -1,7 +1,15 @@
 # AxysEasy --- Modelo de Licenciamento, Capacidade e Consumo
 
 **Status:** decisão arquitetural e comercial\
-**Escopo:** AxysEasy + integração AxysHub
+**Escopo:** AxysEasy + integração AxysHub\
+**Prevalece sobre:** `EASY_HUB_LICENCIAMENTO.md` (15/08)
+
+### Revisões
+
+| data | o que mudou | por quem |
+|---|---|---|
+| 06/10/2026 | contrato fechado pelo time do Hub: entitlements no mesmo JWT RS256, formato novo de `licencas`, endpoints de ocupação e invalidação, tabela `ativo_produto_status` **proposta** | Hub |
+| 06/10/2026 | **revisão técnica do Easy**: `ativo_produto_status` vira definitiva (§10.1) com nomes da casa, FK composta como guarda do tenant e índice parcial de ocupação; **hierarquia dos dois status** decidida; **§10.5 nova** — contratos de borda, com o que chega, o que se valida e o que sai em cada endpoint; dívida do que ainda conta sem produto declarada | Easy |
 
 ## 1. Princípio central
 
@@ -342,51 +350,125 @@ Essa separação é necessária para que preço, upgrade, downgrade, suspensão
 e auditoria continuem objetivos por licença. Um produto não pode consumir
 silenciosamente a capacidade ociosa comprada para outro.
 
-#### Tabela proposta: `ativo.ativo_produto_status`
+#### Tabela definitiva: `ativo.ativo_produto_status` (revisada em 06/10)
 
-Esta tabela está **aprovada como direção conceitual**, mas permanece
-**proposta técnica a ser revisada pelo time do Easy**. Antes da migration,
-o time deve validar nomes, tipos, FKs, índices, concorrência e os pontos do
-código que ativam ou arquivam um ativo em cada produto. Depois da revisão,
-o desenho definitivo deve ser incorporado ao contrato e ao schema canônico
-do Easy.
+A proposta do Hub foi **aprovada no conceito e revisada tecnicamente pelo
+time do Easy em 06/10**. Esta é a forma definitiva, já no `schema.sql` e na
+migration `2026-10-06_ativo_produto_status.sql`. Nasceu **vazia e sem
+leitor**: nenhum ponto do app ainda cria, arquiva ou conta vínculo.
 
-| Coluna proposta | Finalidade |
-|---|---|
-| `atv_id` | ativo compartilhado do Easy |
-| `tenant_uuid` | isolamento e índice por tenant |
-| `product_code` | produto operacional: `ORC`, `DOC`, `PM`, `LIC`, `BDR` ou `FIN` |
-| `license_product_code` | licença que suporta o slot; normalmente igual a `product_code` |
-| `status` | `EM_ANDAMENTO` ou `ARQUIVADO` |
-| `activated_at` | primeira ativação no produto |
-| `archived_at` | quando deixou de ocupar slot |
-| `updated_at` | última transição |
-| `updated_by_user_uuid` | ator da transição, quando houver |
+| Coluna | Tipo | Finalidade |
+|---|---|---|
+| `atvp_atv_id` | `INTEGER` | ativo compartilhado do Easy |
+| `atvp_tenant_uuid` | `UUID` | isolamento e índice por tenant |
+| `atvp_produto` | `TEXT` | produto operacional: `ORC`, `DOC`, `PM`, `LIC`, `BDR` ou `FIN` |
+| `atvp_licenca` | `TEXT` | licença que suporta o slot; igual ao produto, exceto `ONE` |
+| `atvp_status` | `TEXT` | `EM_ANDAMENTO` ou `ARQUIVADO` |
+| `atvp_ativado_em` | `TIMESTAMPTZ` | **primeira** ativação no produto; nunca reescrita |
+| `atvp_arquivado_em` | `TIMESTAMPTZ` | quando deixou de ocupar slot |
+| `atvp_atualizado_em` | `TIMESTAMPTZ` | última transição |
+| `atvp_atualizado_por` | `TEXT` | ator da transição, quando houver |
 
-A chave natural é `(atv_id, product_code)`. Não deve existir um segundo ID
-sem função própria. `tenant_uuid` deve corresponder obrigatoriamente ao
-tenant do ativo.
+Chave natural `PRIMARY KEY (atvp_atv_id, atvp_produto)`. **Não existe um
+segundo id sem função própria**, como o contrato pedia.
 
-Regras:
+**O que mudou da proposta, e por quê:**
+
+1. **Nomes na convenção do Easy** — prefixo `atvp_`, português. A tabela é
+   do Easy e o Hub só a lê pelo endpoint de ocupação, então nome em inglês
+   sem prefixo seria dívida de leitura sem ganho nenhum.
+2. **`atvp_tenant_uuid` ganhou GUARDA.** A proposta dizia "deve
+   corresponder obrigatoriamente ao tenant do ativo" — e regra sem guarda
+   não se aplica sozinha. Aqui é **FK composta** contra
+   `ativo.ativos (atv_id, atv_tenant_uuid)`: o banco **recusa** o par
+   incoerente. Para isso `ativo.ativos` ganhou
+   `UNIQUE (atv_id, atv_tenant_uuid)`, redundante por si (o id já é a PK) e
+   existindo só como alvo da FK.
+3. **O tenant repetido se paga no índice.** `ix_atvp_ocupacao` é **parcial**
+   — `(atvp_tenant_uuid, atvp_licenca) WHERE atvp_status = 'EM_ANDAMENTO'`
+   — e a contagem sai em *Index Only Scan*, sem juntar `ativos`, dentro do
+   lock e no caminho crítico de criar e desarquivar.
+4. **`atvp_ativado_em` nunca se reescreve.** Ida e volta ficam em
+   `audit.logs`, que é onde transição de estado mora no Easy. A coluna
+   responde "desde quando este ativo existe neste produto", não "quando
+   voltou da última vez".
+5. **Dois CHECKs de coerência** que a proposta não tinha: produto e status
+   restritos à lista, e `atvp_arquivado_em` obrigatoriamente presente em
+   `ARQUIVADO` e ausente fora dele.
+
+Guardas provadas em banco em 06/10: um vínculo por produto, tenant
+incoerente recusado pela FK composta, produto e status fora da lista
+recusados, `ARQUIVADO` sem data recusado.
+
+#### A hierarquia dos dois status (decisão do Easy, 06/10)
+
+O Easy **já tinha** `ativo.ativos.atv_status`, e a leitura apressada diria
+que ele conflita com a tabela nova. Não conflita: **são dois níveis, e a
+decisão é qual manda.**
+
+| | o que é | granularidade |
+|---|---|---|
+| `atv_status = 'ARQUIVADO'` | **chave geral** — bloqueia o ativo em **TODOS** os produtos e libera todos os slots dele | um por ativo |
+| `ativo_produto_status` | o detalhe por produto, dentro do que a chave geral permite | um por produto |
+
+É interruptor de parede e interruptor de ponto: os vínculos por produto só
+valem com a chave geral ligada.
+
+**Consequência direta para a contagem de ocupação, e o Hub precisa saber
+que ela existe:** ocupação é vínculo `EM_ANDAMENTO` **cujo ativo não esteja
+`ARQUIVADO`**. A chave geral entra na cláusula — senão um vínculo esquecido
+continuaria ocupando slot depois de o ativo ter sido arquivado.
+
+Duas obrigações de produto nascem daí, e são a razão de a hierarquia
+funcionar sem confundir o usuário:
+
+- **avisar, no momento de arquivar o ativo, que arquivar bloqueia todos os
+  produtos**, com a lista dos que vão cair junto. Sem o aviso a chave geral
+  é uma armadilha;
+- **expor o status por produto na tela do ativo**, em expansão de
+  formulário. Sem isso a tabela seria estado invisível.
+
+#### Regras de ocupação (inalteradas da proposta)
 
 - criar empreendimento não cria vínculo nem ocupa slot;
 - criar o cadastro-base do ativo, isoladamente, não ocupa slot;
 - a primeira operação que colocar o ativo em andamento em um produto cria
   ou reativa o respectivo vínculo;
-- arquivar no produto libera apenas o slot daquele produto;
+- arquivar **no produto** libera apenas o slot daquele produto; arquivar **o
+  ativo** libera todos;
 - concluir, revisar, reabrir, recalcular ou emitir documento não gera novo
   consumo enquanto o vínculo continuar `EM_ANDAMENTO`;
 - ativação e restauração executam, na mesma transação, lock por
-  `(tenant_uuid, license_product_code)`, contagem e alteração do vínculo;
+  `(tenant_uuid, licença)`, contagem e alteração do vínculo. No Easy o lock
+  é **advisory** (`pg_advisory_xact_lock`), porque não existe linha de
+  licença no banco do Easy para travar;
+- **revisão só em ativo em andamento**, e **desarquivar passa pelo gate** —
+  é o que impede arquivar tudo e seguir trabalhando;
 - o Hub nunca escreve nessa tabela e nunca escolhe qual ativo arquivar.
 
 O **Easy One** é a exceção comercial explícita: seus módulos usam
-`license_product_code = 'ONE'`. A ocupação de ONE é a quantidade de
-`atv_id` distintos em andamento sob essa licença. O mesmo ativo usado em
-Orça e Docs dentro do Easy One ocupa um único slot ONE; ativos diferentes
-ocupam slots diferentes. Se o tenant também possuir licença avulsa, a
-origem do direito fica registrada em `license_product_code`, sem soma ou
-transferência implícita de capacidade.
+`atvp_licenca = 'ONE'`. A ocupação de ONE é a quantidade de `atvp_atv_id`
+**distintos** em andamento sob essa licença. O mesmo ativo usado em Orça e
+Docs dentro do Easy One ocupa um único slot ONE; ativos diferentes ocupam
+slots diferentes. Se o tenant também possuir licença avulsa, a origem do
+direito fica registrada em `atvp_licenca`, sem soma ou transferência
+implícita de capacidade.
+
+#### ⚠ O que no Easy ainda conta sem produto (dívida declarada em 06/10)
+
+A tabela existe; o comportamento não. Três pontos do Easy decidem
+capacidade **ignorando o produto**, e todos passam a ler
+`ativo_produto_status` na frente de arquivamento:
+
+| onde | o que faz hoje | o que o contrato exige |
+|---|---|---|
+| `ativo/service.py` · `ocupacao_ativos()` | conta ativos de empreendimentos não arquivados, por tenant | contar vínculos por `(tenant, licença)` |
+| `core/security.py` · `recurring_capacity()` | colapsa **todas** as licenças de capacidade em `min()` | um teto por produto, sem pool |
+| `GET /api/internal/licensing/occupancy` | valida `product` e devolve, mas conta igual para qualquer um | contar o produto pedido |
+
+Até isso ser feito, o gate do Easy é **mais restritivo** que o contrato — ele
+trata vários tetos como um só, pelo menor. Não libera nada indevido, mas pode
+recusar o que o plano permite.
 
 ### 10.2. API de ocupação para downgrade
 
@@ -495,6 +577,156 @@ pode enviá-lo nulo. O Easy responde `200` com `ok: true` e mantém a
 sobrescrita até a emissão de um JWT atualizado ou até o TTL máximo do token.
 Falha na notificação não desfaz silenciosamente a alteração comercial: o
 Hub registra a falha e mantém uma operação reexecutável com o mesmo estado.
+
+------------------------------------------------------------------------
+
+### 10.5. Contratos de borda — o que chega, o que se valida, o que sai
+
+Fixado em 06/10, **conferido contra o código no ar** (`backend/modules/ativo/routes.py`,
+`backend/core/licensing.py`, `backend/core/security.py`). Tudo aqui é
+server-to-server, autenticado por `Authorization: Basic
+base64(EASY_HUB_CLIENT_ID:EASY_HUB_CLIENT_SECRET)`, comparado em tempo
+constante. **Nenhum destes endpoints aparece no OpenAPI** do Easy
+(`include_in_schema=False`), e nenhum aceita token de usuário.
+
+Regra que vale para os três: **credencial errada é `401` seco, sem dizer o
+que faltou**, e corpo inválido é `400` — nunca `200` com campo nulo.
+
+#### A · `GET /api/internal/licensing/occupancy` — o Hub pergunta, o Easy mede
+
+Chega como query string, não como corpo:
+
+| parâmetro | obrigatório | validação na chegada |
+|---|---|---|
+| `tenant_uuid` | sim | presente e não vazio |
+| `product` | sim | **tem de ser licença de capacidade**: `easy-orca`, `easy-docs`, `easy-pm`, `easy-build-diary`, `easy-fin-control`, `easy-licit-plan`, `easy-one`. Fora da lista → `400` |
+
+Sai, e é **tudo** o que sai — nenhum dado do tenant além da contagem:
+
+```json
+{ "tenant_uuid": "7847...", "product": "easy-orca", "em_andamento": 3 }
+```
+
+| validação na partida | |
+|---|---|
+| `em_andamento` | inteiro `>= 0`, **nunca** `null` |
+| soma entre produtos | **proibida.** A resposta é de um produto só; o Hub nunca recebe total consolidado |
+| `easy-one` | conta `atvp_atv_id` **distintos** sob `atvp_licenca = 'ONE'` |
+| tenant inexistente | `200` com `em_andamento: 0`. Não é erro: tenant sem ativo tem ocupação zero |
+
+**Regra de falha que é do Hub:** se o Easy não responder, responder `5xx` ou
+devolver corpo inválido, o Hub **não efetiva** o downgrade. Silêncio do Easy
+nunca vale como "ocupação zero".
+
+#### B · `POST /api/internal/licensing/capacity` — invalidação da capacidade
+
+Chega:
+
+```json
+{ "tenant_uuid": "7847...", "app": "easy-orca", "capacity": 5 }
+```
+
+| campo | obrigatório | validação na chegada |
+|---|---|---|
+| `tenant_uuid` | sim | presente e não vazio |
+| `app` | **sim** | presente e não vazio. **Não existe invalidação global de capacidade** — capacidade é sempre por licença |
+| `capacity` | sim, podendo ser `null` | `null` = Unlimited. Se não for `null`, **inteiro `> 0`**. `0`, negativo, string ou float → `400` |
+
+Sai:
+
+```json
+{ "ok": true, "tenant_uuid": "7847...", "app": "easy-orca", "capacity": 5 }
+```
+
+O Easy guarda a sobrescrita em cache por `(tenant, app)` com TTL de 8 h, que
+cobre a vida máxima do JWT. **Um JWT novo volta a ser a fonte** — a
+sobrescrita é ponte até o próximo login, não estado paralelo.
+
+#### C · `POST /api/internal/licensing/access-mode` — invalidação do modo de acesso
+
+Chega:
+
+```json
+{ "tenant_uuid": "7847...", "app": "easy-orca", "access_mode": "VIEW_ONLY" }
+```
+
+| campo | obrigatório | validação na chegada |
+|---|---|---|
+| `tenant_uuid` | sim | presente e não vazio |
+| `access_mode` | sim | exatamente `ACTIVE`, `VIEW_ONLY` ou `BLOCKED`. Qualquer outro → `400` |
+| `app` | **não** | ausente ou nulo = transição **deliberadamente global**. É a única borda onde o nulo tem significado, e ele é forte: atinge todos os produtos do tenant |
+
+Sai `{ "ok": true, ... }`, com o mesmo cache e o mesmo TTL de 8 h.
+
+#### D · `POST /api/licencas/consumos` — o Easy chama o Hub (uso isolado)
+
+A única borda na direção oposta. **Só Price e CPU passam aqui** — o Easy
+recusa qualquer outro `product_code` antes de sair da máquina.
+
+Vai, com `Idempotency-Key` no cabeçalho (o mesmo valor de
+`audit.uso_isolado.uso_chave_idem`):
+
+```json
+{
+  "tenant_uuid": "7847...",
+  "user_uuid": "a1b2...",
+  "product_code": "PRI",
+  "resource_id": "ativo:26",
+  "event_type": "PARAMETRICO_AVANCAR",
+  "quantity": 1,
+  "metadata": {}
+}
+```
+
+| validação antes de sair | |
+|---|---|
+| `product_code` | `PRI` ou `CPU`. Outro valor é erro de programação, não `400` do Hub |
+| `quantity` | inteiro `> 0` |
+| `tenant_uuid`, `resource_id`, `event_type`, `Idempotency-Key` | todos presentes e não vazios |
+| ordem | o evento é **gravado no Easy ANTES** da chamada. Outbox, não fire-and-forget |
+
+Espera-se `{ "remaining": <inteiro ou null> }`. `null` = Unlimited.
+
+| o que o Easy faz com a resposta | |
+|---|---|
+| `2xx` | marca `CONFIRMADO`, grava `remaining` em `uso_saldo_depois` e a hora em `uso_confirmado_em` |
+| `4xx` | marca `FALHOU` com o corpo truncado em 500 caracteres, e **recusa a operação ao usuário** |
+| timeout, rede, corpo inválido | marca `FALHOU` e recusa. **Nunca** assume sucesso |
+| retry | repete a **mesma** `Idempotency-Key`. O `UNIQUE (tenant, produto, chave)` do Easy transforma o segundo envio em `UPDATE`, e o Hub **não pode** debitar duas vezes |
+| evento já `CONFIRMADO` | o Easy devolve o saldo guardado e **não chama o Hub** |
+
+**O que o Hub deve garantir do lado dele:** `Idempotency-Key` repetida com o
+mesmo `(tenant_uuid, product_code)` devolve **o mesmo `remaining`** do
+primeiro débito, sem debitar de novo. Sem isso a outbox do Easy não protege
+nada — ela repete de propósito.
+
+#### E · O claim `licencas` no JWT — a borda que não é endpoint
+
+Entra pelo **mesmo JWT RS256 do login/SSO**. Não existe token separado para
+licenciamento, e identidade, issuer, audience, validade e transporte não
+mudam.
+
+```json
+{ "app": "easy-orca", "model": "capacity", "capacity": 5, "status": "ACTIVE" }
+```
+
+| campo | como o Easy lê |
+|---|---|
+| `app` | slug do produto (`easy-*`) |
+| `model` | `capacity` para recorrente. O alias `modelo` é aceito **em transição** e deve sair |
+| `capacity` | inteiro, ou `null` para Unlimited |
+| `status` | `ACTIVE` conta como direito vigente; os demais não |
+
+| o que o Easy ignora, e é de propósito | |
+|---|---|
+| `modelo`, `label`, `app_labels` | aliases antigos. O Hub **não deve mais enviá-los** |
+| entrada que não seja objeto | descartada em silêncio, sem derrubar a sessão |
+| `capacity` não-inteiro | descartado; a licença conta como presente mas sem teto finito |
+
+**Degradação declarada:** JWT sem nenhuma licença `capacity` significa "sem
+direito recorrente", e o gate recusa. JWT com licença e `capacity: null`
+significa Unlimited, e o gate libera. **Capacidade ausente nunca é lida como
+ilimitada.**
 
 ------------------------------------------------------------------------
 

@@ -77,6 +77,18 @@ ausência. O `DELETE` que a curadoria em tela faz está **CERTO e fica**.
 **Consequência assumida:** o matcher exclui do universo apenas quem TEM linha, então um par rejeitado
 volta a ser proposto no import seguinte. Retrabalho conhecido e aceito — não é defeito a corrigir.
 
+⚠️ **A CONSEQUÊNCIA DEIXOU DE SER ACEITA (2026-10-06).** O parágrafo acima continua certo no que afirma
+— ausência não se guarda, e `sem_equivalente` não é status — mas foi escrito ANTES de a curadoria
+existir. Hoje existem **16.006 recusas humanas** (conferidas uma a uma nos JSONs: TODAS com `id_final`
+nulo, isto é "nenhum candidato serve") e **nenhuma está no banco** — o seed carregou só as 2.336
+confirmações. O que se perde a cada import não é uma ausência: é **uma decisão humana, datada, com o
+universo de candidatos que ela examinou**. Isso é FATO, e fato se guarda.
+
+A reconciliação é esta: não se guarda "A não é B" — par negado não existe, e a linha de PAR continua
+não nascendo (o `DELETE` da tela segue certo). Guarda-se "**este item foi examinado contra esta fonte,
+contra estes candidatos, nesta data, e a resposta foi não**". Vive em tabela PRÓPRIA (§5.7), nunca como
+status das três.
+
 ### 1.2. Ordem (produção)
 Importa-se **SINAPI 1..n-1 primeiro** (gera o header e o H↔MÊS), depois CDHU/FDE contra o header. Dentro do
 não-SINAPI: **H↔MÊS deve existir antes** de MDO fonte→SINAPI (o 2º salto usa `composicoes_mapeamento_mdo`).
@@ -219,7 +231,7 @@ Ratio alto = pré-selecionado; **nunca** aceito sem IA + user. Sinais reusáveis
 
 ## 5. Schema — **CONSTRUÍDO** (conferido contra o banco de PROD em 2026-09-21)
 
-Nomes seguem a convenção (prefixo = conceito). **Seis tabelas.** O que vale é esta seção; o
+Nomes seguem a convenção (prefixo = conceito). **Oito tabelas.** O que vale é esta seção; o
 `schema.sql` é a foto e o código implementa.
 
 > **Correção de rumo que o texto antigo escondia:** a proposta original amarrava tudo a **vigência por
@@ -230,12 +242,18 @@ Nomes seguem a convenção (prefixo = conceito). **Seis tabelas.** O que vale é
 
 | tabela | linhas (prod) | amarra | direção |
 |---|---|---|---|
-| `catalogo.equivalencias_ins` | 357 | insumo-fonte ↔ insumo-header (não-MDO) | fonte → SINAPI |
-| `catalogo.equivalencias_cpu` | 589 | composição-fonte ↔ composição-header (não-MDO) | fonte → SINAPI |
-| `catalogo.equivalencias_mo` | 71 | insumo-MO da fonte → **composição** MDO do header `[H]` | fonte → SINAPI |
+| `catalogo.equivalencias_ins` | 1.278 | insumo-fonte ↔ insumo de outra fonte (não-MDO) | fonte ↔ fonte |
+| `catalogo.equivalencias_cpu` | 949 | composição-fonte ↔ composição de outra fonte (não-MDO) | fonte ↔ fonte |
+| `catalogo.equivalencias_mo` | 109 | insumo-MO da fonte → **composição** MDO do header `[H]` | fonte → SINAPI |
+| `catalogo.equivalencias_ins_negadas` | 6.638¹ | insumo SEM equivalente numa fonte — §5.7 | item × fonte |
+| `catalogo.equivalencias_cpu_negadas` | 9.360¹ | composição SEM equivalente numa fonte — §5.7 | item × fonte |
 | `catalogo.composicoes_mapeamento_mdo` | 94 | CPU MDO **[H] ↔ [MÊS]**, N:1 | intra-SINAPI |
 | `catalogo.equivalencias_subgrupos` | 679 | subgrupo-fonte → subgrupo SINAPI — **funil** do match de CPU, não associação de item | fonte → SINAPI |
 | `catalogo.insumos_equivalencias` | 0 | legada manual `any↔any` — **viva e ligada na UI** (§5.4) | bidirecional |
+
+¹ contagens de `equivalencias_{ins,cpu,mo}` medidas em PROD em 2026-10-06 (as de 2026-09-21 estavam
+anteriores ao seed). As duas `_negadas` são o que o seed das recusas carrega — a conta sai dos mesmos
+JSONs que carregaram as confirmações.
 
 ### 5.1. `catalogo.equivalencias_ins` + `catalogo.equivalencias_cpu` (não-MDO)
 Gêmeas (mesmas colunas, trocando `ins`/`cmp`; prefixos `ei_`/`ec_`):
@@ -302,6 +320,58 @@ ficou superado: não resolvia o par espelhado nem o caso polimórfico do MDO.
 ### 5.6. Substituições — **NÃO CONSTRUÍDO**
 `insumos_substituicoes` e `composicoes_substituicoes(+_itens)` **não existem no banco**. O R3 nunca saiu
 do papel. Mantido como direção, não como schema vigente.
+
+### 5.7. `equivalencias_ins_negadas` / `equivalencias_cpu_negadas` — a recusa como fato (2026-10-06)
+
+**Por que NÃO cabe nas três tabelas.** Duas razões independentes, as duas medidas:
+
+1. **O unique do 1×1 não é parcial** — `uq_ei_ori (ei_ori_ins_id, ei_dest_fte_id)`, sem `WHERE`. Uma
+   linha de recusa ali **consumiria a única vaga do item naquela fonte** e bloquearia para sempre o
+   parceiro verdadeiro. Hospedar recusa exigiria tornar parciais os dois uniques — mexer na trava que é
+   a razão de ser da tabela (§14).
+2. **Recusa aqui não é par.** As 16.006 têm `id_final` NULO, sem exceção. Nenhuma diz "A não é B"; todas
+   dizem "este item não tem equivalente nesta fonte". Um `dest_id` nulo quebraria junto `ck_*_nao_self`,
+   `ck_*_canonico` e a FK composta — que existem todos pressupondo dois lados reais.
+
+Por isso a forma **não replica** as três: `classe`, `fator` e ordem canônica não têm significado numa
+negativa. O que a linha guarda é o mínimo que a torna reusável.
+
+| coluna (prefixo `ein_` / `ecn_`) | por que existe |
+|---|---|
+| `ein_ins_id` → `insumos` (`ecn_cmp_id` → `composicoes`) | quem foi examinado |
+| `ein_fte_id` → `fontes` | a fonte onde NÃO há equivalente |
+| `ein_hash_item` | identidade (descrição+unidade) no momento da decisão |
+| `ein_hash_candidatos` | impressão do CONJUNTO de candidatos examinado |
+| `ein_motivo` | a justificativa — 14.621 das 16.006 têm, e é o corpo do fine-tuning |
+| `ein_por`, `ein_em` | quem assinou e quando |
+| UNIQUE `(ein_ins_id, ein_fte_id)` | uma negativa por item×fonte — o análogo do 1×1 |
+
+Sem coluna de caminho do R2: o path é determinístico (`storage_paths.associacao`), e path determinístico
+não se guarda.
+
+**A REGRA DE REABERTURA — e por que são DUAS hashes.** A negativa cai quando
+`hash_item` **ou** `hash_candidatos` divergem do estado de hoje; fora disso ela silencia o item, e o
+matcher nem o monta.
+
+A hash do item responde *"o item mudou?"*. Ela **não** responde *"nasceu candidato novo?"* — e a regra do
+motor é **os dois lados contam** (§3.4.1). Como a recusa é contra um CONJUNTO, o segundo sinal é a
+impressão do conjunto examinado (mediana 15 candidatos, máximo 141). Sem ela, um insumo marcado sem
+equivalente nunca mais seria reconsiderado, mesmo que a fonte de destino publicasse amanhã exatamente o
+par que faltava — e a negativa, de memória, viraria mordaça.
+
+**MDO fica FORA, e não é simetria esquecida.** O matcher de MDO é determinístico e puro: não chama IA.
+São 8 recusas, e recomputá-las custa zero — a motivação inteira (não repetir request pago) não se
+aplica. Tabela para guardar 8 linhas que não custam nada é peso sem retorno. Se a MDO passar a usar IA,
+a terceira entra; a decisão é reversível e está isolada aqui.
+
+**Invariante.** Confirmado e negado são **mutuamente exclusivos** para o mesmo (item, fonte): ou o item
+tem parceiro ali, ou tem negativa, nunca os dois. Guardado por trigger, que **recusa** — jamais
+reescreve (ver a nota da FASE C no `schema.sql`: trigger que reescreve produziu dado errado em silêncio
+uma vez, e não se repete). A mesma trigger recusa negativa contra a fonte DO PRÓPRIO item.
+
+**O que isto compra.** O gate do import deixa de reabrir o que uma pessoa já fechou: hoje as três
+tabelas estão com zero pendente em prod, e o próximo import não-SINAPI recolocaria milhares de propostas
+na fila. Volume para sustentar isso: ~16 mil linhas, numa tabela sem leitura de caminho crítico.
 
 ---
 
