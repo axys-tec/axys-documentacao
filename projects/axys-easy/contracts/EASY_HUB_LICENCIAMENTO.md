@@ -139,6 +139,13 @@ Linha do tempo após o fim do contrato:
 
 ## 7. Interface de dados (contrato fechado)
 
+> **Atualização canônica:** o transporte, a assinatura e os claims de
+> identidade desta seção continuam válidos. O modelo antigo de
+> licenciamento descrito nos itens 7.1 a 7.6 foi substituído pelas seções
+> 9, 10 e 11 de `axys_easy_modelo_licenciamento.md`. Não existe uma segunda
+> JWT: capacidade, saldo e modo de acesso integram o mesmo token do login.
+> Em caso de divergência sobre `licencas`, prevalece o contrato novo.
+
 ### 7.0 Claims do token (JWT que o Hub assina)
 O Easy **lê** estes claims do JWT (SSO RS256 em prod; HS256 no login local de dev). Identidade +
 licenças no mesmo token:
@@ -150,7 +157,7 @@ licenças no mesmo token:
   "role": "owner|admin|user",                 // NORMALIZADO (sem prefixo)
   "tenant_role": "internal_owner|owner|…",     // role EXATO do vínculo no Hub
   "is_staff": true,
-  "licencas": [ /* §7.3/§7.4 — só easy-* */ ],
+  "licencas": [ /* contrato canônico: axys_easy_modelo_licenciamento.md §9.1 */ ],
   "iss": "…", "aud": "easy", "iat": 0, "exp": 0
 }
 ```

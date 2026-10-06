@@ -260,6 +260,47 @@ Usuário
 O Easy não replica o sistema comercial do Hub. Ele aplica localmente os
 direitos recebidos.
 
+### 9.1. Entitlements no JWT
+
+Este não é um segundo token nem uma API paralela de licenciamento. É o
+**mesmo JWT do login/SSO Hub → Easy**, definido em
+`EASY_HUB_LICENCIAMENTO.md` e emitido com `aud = "easy"`. Esta seção apenas
+substitui o formato antigo do claim `licencas`; identidade, assinatura,
+issuer, audience, validade e transporte do login continuam os mesmos.
+
+O claim `licencas` usa `app` com slug canônico e não repete labels que o
+Easy já conhece. Exemplos:
+
+``` json
+{
+  "licencas": [
+    {
+      "app": "easy-orca",
+      "model": "capacity",
+      "plano": "5",
+      "status": "ACTIVE",
+      "capacity": 5,
+      "periodo_inicio": "2026-10-01",
+      "periodo_fim": "2026-11-01"
+    },
+    {
+      "app": "easy-cpu",
+      "model": "usage",
+      "plano": "10",
+      "status": "ACTIVE",
+      "remaining": 7,
+      "periodo_inicio": "2026-10-01",
+      "periodo_fim": "2026-11-01"
+    }
+  ]
+}
+```
+
+`model` aceita `capacity` ou `usage`; `status` aceita `ACTIVE`,
+`VIEW_ONLY` ou `BLOCKED`. Unlimited é representado por `capacity: null`
+ou `remaining: null`. O Hub não envia os aliases antigos `modelo`, `label`
+ou `app_labels`.
+
 ------------------------------------------------------------------------
 
 ## 10. Recorrência: Hub concede, Easy aplica
@@ -268,7 +309,7 @@ Para apps recorrentes, o Hub informa a capacidade.
 
 ``` json
 {
-  "product": "easy_orca",
+  "app": "easy-orca",
   "model": "capacity",
   "capacity": 5
 }
@@ -286,6 +327,174 @@ O Hub não precisa manter contador transacional de arquivamentos ou
 restaurações.
 
 A ocupação corrente pertence ao domínio operacional do Easy.
+
+### 10.1. A ocupação é por licença/produto
+
+Empreendimento não ocupa capacidade. O slot nasce no **ativo**, somente
+quando esse ativo é colocado em andamento dentro de um produto recorrente.
+
+A capacidade não forma um saldo comum entre produtos. Exemplo: Orça 5 e
+Docs 5 significam até 5 ativos em andamento no Orça e até 5 ativos em
+andamento no Docs. Não significam 10 slots transferíveis livremente entre
+os dois produtos.
+
+Essa separação é necessária para que preço, upgrade, downgrade, suspensão
+e auditoria continuem objetivos por licença. Um produto não pode consumir
+silenciosamente a capacidade ociosa comprada para outro.
+
+#### Tabela proposta: `ativo.ativo_produto_status`
+
+Esta tabela está **aprovada como direção conceitual**, mas permanece
+**proposta técnica a ser revisada pelo time do Easy**. Antes da migration,
+o time deve validar nomes, tipos, FKs, índices, concorrência e os pontos do
+código que ativam ou arquivam um ativo em cada produto. Depois da revisão,
+o desenho definitivo deve ser incorporado ao contrato e ao schema canônico
+do Easy.
+
+| Coluna proposta | Finalidade |
+|---|---|
+| `atv_id` | ativo compartilhado do Easy |
+| `tenant_uuid` | isolamento e índice por tenant |
+| `product_code` | produto operacional: `ORC`, `DOC`, `PM`, `LIC`, `BDR` ou `FIN` |
+| `license_product_code` | licença que suporta o slot; normalmente igual a `product_code` |
+| `status` | `EM_ANDAMENTO` ou `ARQUIVADO` |
+| `activated_at` | primeira ativação no produto |
+| `archived_at` | quando deixou de ocupar slot |
+| `updated_at` | última transição |
+| `updated_by_user_uuid` | ator da transição, quando houver |
+
+A chave natural é `(atv_id, product_code)`. Não deve existir um segundo ID
+sem função própria. `tenant_uuid` deve corresponder obrigatoriamente ao
+tenant do ativo.
+
+Regras:
+
+- criar empreendimento não cria vínculo nem ocupa slot;
+- criar o cadastro-base do ativo, isoladamente, não ocupa slot;
+- a primeira operação que colocar o ativo em andamento em um produto cria
+  ou reativa o respectivo vínculo;
+- arquivar no produto libera apenas o slot daquele produto;
+- concluir, revisar, reabrir, recalcular ou emitir documento não gera novo
+  consumo enquanto o vínculo continuar `EM_ANDAMENTO`;
+- ativação e restauração executam, na mesma transação, lock por
+  `(tenant_uuid, license_product_code)`, contagem e alteração do vínculo;
+- o Hub nunca escreve nessa tabela e nunca escolhe qual ativo arquivar.
+
+O **Easy One** é a exceção comercial explícita: seus módulos usam
+`license_product_code = 'ONE'`. A ocupação de ONE é a quantidade de
+`atv_id` distintos em andamento sob essa licença. O mesmo ativo usado em
+Orça e Docs dentro do Easy One ocupa um único slot ONE; ativos diferentes
+ocupam slots diferentes. Se o tenant também possuir licença avulsa, a
+origem do direito fica registrada em `license_product_code`, sem soma ou
+transferência implícita de capacidade.
+
+### 10.2. API de ocupação para downgrade
+
+O downgrade nasce no dashboard/processo comercial do Hub. Antes de alterar
+uma licença de capacidade, o Hub consulta o Easy:
+
+``` http
+GET /api/internal/licensing/occupancy?tenant_uuid=<uuid>&product=<app_slug>
+Authorization: Basic base64(EASY_HUB_CLIENT_ID:EASY_HUB_CLIENT_SECRET)
+Accept: application/json
+```
+
+Exemplo:
+
+``` http
+GET /api/internal/licensing/occupancy?tenant_uuid=7847...&product=easy-orca
+```
+
+Resposta `200`:
+
+``` json
+{
+  "tenant_uuid": "7847...",
+  "product": "easy-orca",
+  "em_andamento": 3
+}
+```
+
+O parâmetro `product` é obrigatório e deve identificar uma licença de
+capacidade. A resposta nunca soma produtos diferentes. Para `easy-one`, a
+contagem segue a regra de ativos distintos definida acima.
+
+Erros: `400` para produto inválido, `401` para credencial server-to-server
+inválida e `5xx` para indisponibilidade operacional. Se o Easy não responder
+ou devolver resposta inválida, o Hub **não efetiva** o downgrade.
+
+As credenciais comunicantes atuais são reutilizadas. No Easy chamam-se
+`EASY_HUB_CLIENT_ID` e `EASY_HUB_CLIENT_SECRET`; no Hub correspondem a
+`EASY_SSO_CLIENT_ID` e `EASY_SSO_CLIENT_SECRET`. Não existe segredo novo
+para licenciamento.
+
+### 10.3. Pedido de alteração de capacidade no Hub
+
+O comando comercial é interno ao Hub e objetivo por licença:
+
+``` http
+POST /api/licencas/capacidade
+Content-Type: application/json
+```
+
+``` json
+{
+  "tenant_uuid": "7847...",
+  "product_code": "ORC",
+  "capacity": 5,
+  "plan_code": "5"
+}
+```
+
+`capacity: null` e `plan_code: "unlimited"` representam Unlimited. Essa
+rota deve exigir sessão/alçada administrativa ou fluxo comercial interno
+do Hub; a credencial do Easy não concede licença nem altera capacidade.
+Ao receber o comando, o Hub resolve `product_code` para o `app_slug`, chama
+a API de ocupação, recusa com `409` se a ocupação exceder o novo limite e
+só então atualiza aquela licença. Upgrade pode ser imediato, mas continua
+objetivado pelo mesmo `product_code`.
+
+### 10.4. Invalidação imediata no Easy
+
+Depois de efetivar capacidade ou modo de acesso, o Hub avisa o Easy para
+que uma sessão já aberta não espere o JWT expirar.
+
+``` http
+POST /api/internal/licensing/capacity
+Authorization: Basic base64(EASY_HUB_CLIENT_ID:EASY_HUB_CLIENT_SECRET)
+Content-Type: application/json
+```
+
+``` json
+{
+  "tenant_uuid": "7847...",
+  "app": "easy-orca",
+  "capacity": 5
+}
+```
+
+Para Unlimited, `capacity` é `null`.
+
+``` http
+POST /api/internal/licensing/access-mode
+Authorization: Basic base64(EASY_HUB_CLIENT_ID:EASY_HUB_CLIENT_SECRET)
+Content-Type: application/json
+```
+
+``` json
+{
+  "tenant_uuid": "7847...",
+  "app": "easy-orca",
+  "access_mode": "VIEW_ONLY"
+}
+```
+
+`access_mode` aceita `ACTIVE`, `VIEW_ONLY` ou `BLOCKED`. `app` identifica
+a licença alterada; somente uma transição comercial deliberadamente global
+pode enviá-lo nulo. O Easy responde `200` com `ok: true` e mantém a
+sobrescrita até a emissão de um JWT atualizado ou até o TTL máximo do token.
+Falha na notificação não desfaz silenciosamente a alteração comercial: o
+Hub registra a falha e mantém uma operação reexecutável com o mesmo estado.
 
 ------------------------------------------------------------------------
 
@@ -333,6 +542,64 @@ Easy identifica evento
 
 Retries, timeouts, duplo clique ou repetição de request jamais podem
 gerar consumo duplicado.
+
+### 11.1. API canônica de consumo
+
+O Easy comunica o evento confirmado ao Hub por:
+
+``` http
+POST /api/licencas/consumos
+Authorization: Basic base64(EASY_HUB_CLIENT_ID:EASY_HUB_CLIENT_SECRET)
+Idempotency-Key: <chave única e estável do evento>
+Content-Type: application/json
+Accept: application/json
+```
+
+As credenciais são o mesmo par server-to-server já usado entre Easy e Hub,
+com os nomes correspondentes definidos na seção 10.2.
+
+Payload:
+
+``` json
+{
+  "tenant_uuid": "7847...",
+  "user_uuid": "a40b...",
+  "product_code": "PRI",
+  "resource_id": "geracao-uuid-ou-id-estavel",
+  "event_type": "generation_confirmed",
+  "quantity": 1,
+  "metadata": {}
+}
+```
+
+Contratos iniciais por produto:
+
+- Easy Price: `product_code = "PRI"` e
+  `event_type = "generation_confirmed"`;
+- Easy CPU: `product_code = "CPU"` e
+  `event_type = "base_budget_import_confirmed"`.
+
+`user_uuid` pode ser nulo em processamento técnico, mas `tenant_uuid`,
+`product_code`, `resource_id`, `event_type`, `quantity` e
+`Idempotency-Key` são obrigatórios. A mesma chave repetida com os mesmos
+dados devolve o resultado anterior; reutilizá-la com dados diferentes é
+erro. Upload, prévia e validação não são eventos de consumo.
+
+Resposta `200`:
+
+``` json
+{
+  "remaining": 4,
+  "idempotent": false
+}
+```
+
+Em plano Unlimited, `remaining` é `null`. Em retry já confirmado,
+`idempotent` é `true` e o saldo não sofre novo débito.
+
+Erros: `400` para contrato inválido ou conflito de idempotência, `401` para
+credencial inválida e `402` para saldo insuficiente. Timeout ou `5xx`
+mantém o evento pendente no Easy e exige retry com a mesma chave.
 
 ------------------------------------------------------------------------
 
@@ -638,7 +905,7 @@ configuráveis:
     b. A Axys facilita o caminho. Não limita suas escolhas.
 
 5. **Comportamento de downgrade:** 
- - O downgrade é solicitado pelo usuário no dashboard do AxysHub. Antes de efetivá-lo, o Hub consulta a API do Easy para verificar a quantidade atual de ativos em andamento.
+ - O downgrade é solicitado pelo usuário no dashboard do AxysHub e sempre identifica uma licença/produto. Antes de efetivá-lo, o Hub consulta a API do Easy para verificar a quantidade atual de ativos em andamento especificamente naquele produto, conforme seção 10.2.
  - O downgrade somente poderá ser concluído quando a quantidade de ativos em andamento for igual ou inferior à capacidade do novo plano.
  - Caso a capacidade pretendida seja inferior à ocupação atual, o downgrade não será realizado e o usuário será orientado a arquivar os ativos que não deseja mais manter em andamento.
  - Mensagem sugerida: “Existem atualmente XX ativos em andamento. Para alterar seu plano para XX ativos, arquive os ativos concluídos ou que não precisam permanecer em andamento e tente novamente.”
