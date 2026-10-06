@@ -402,38 +402,55 @@ O que é da frente do refino da bancada (arquivamento do ATIVO, estados, bloquei
 `emp_arquivado` já existe, o JWT já carrega `licencas[]` e há onde pendurar o que falta. O que
 falta é implementação, não redesenho. Dois pontos exigem coordenação com o Hub e estão marcados.
 
-## 1 · Capacidade: o Hub precisa mandar `capacity`  ⚠ DEPENDE DO HUB
+## 1 · Capacidade  ✓ O HUB ENTREGOU EM 06/10 — falta o Easy aplicar por produto
 
-O contrato diz que o Hub informa a capacidade e o Easy verifica a ocupação:
+**Deixou de depender do Hub.** O contrato fechou em 06/10 (`a12a4cd` no subrepo de documentação) e
+ficou explícito que **não existe JWT separada para licenciamento**: os entitlements vêm no MESMO
+JWT RS256 do login/SSO, com identidade, issuer, audience, validade e transporte inalterados. Só o
+formato de `licencas` mudou:
 
 ```json
-{"product": "easy_orca", "model": "capacity", "capacity": 5}
+{"app": "easy-orca", "model": "capacity", "capacity": 5}
 ```
 
-**Hoje o JWT não traz isso.** `_licencas_ativas` (`backend/core/security.py:218`) lê
-`licencas: [{app, status}]` — app e status, nada de capacidade. E `require_licenca_ativa` é um
-portão booleano: "tem alguma licença ACTIVE?". Não conta nada.
+`capacity: null` (e `remaining: null`) é Unlimited. Os aliases antigos `modelo`, `label` e
+`app_labels` **não vêm mais**. `EASY_HUB_LICENCIAMENTO.md` (15/08) agora aponta para
+`axys_easy_modelo_licenciamento.md` como fonte prevalente.
 
-O que falta, dos dois lados:
+**O que o Easy já tem no ar:** o gate de capacidade existe em `ativo/service.py` — advisory lock
+por tenant, contagem de ocupação e recusa com `capacity_exceeded`, nos dois pontos certos (criar
+ativo e desarquivar empreendimento). E os três endpoints internos de §10.2/10.4 estão em
+`ativo/routes.py`, autenticados por `EASY_HUB_CLIENT_ID`/`SECRET`:
 
-- **Hub:** acrescentar `model` e `capacity` por produto no claim `licencas`.
-- **Easy:** ler a capacidade e comparar com a ocupação (ativos não arquivados do tenant).
+| endpoint | para quê |
+|---|---|
+| `GET /api/internal/licensing/occupancy` | o Hub pergunta a ocupação antes de efetivar downgrade |
+| `POST /api/internal/licensing/capacity` | invalidação imediata da capacidade em sessão aberta |
+| `POST /api/internal/licensing/access-mode` | idem para `ACTIVE`/`VIEW_ONLY`/`BLOCKED` |
 
-Enquanto a capacidade não vier, o gate não pode ser escrito — e chutar um default seria pior que
-não ter: um teto errado bloqueia cliente pagante.
+**O que FALTA, e é a pendência real:** a ocupação no ar conta **por tenant, sem produto** —
+`ocupacao_ativos()` soma os ativos de empreendimentos não arquivados cujo `atv_status` não é
+`ARQUIVADO`. O contrato §10.1 exige ocupação **por licença/produto**, porque Orça 5 e Docs 5 são
+dois tetos e não um saldo de 10. `ativo.ativo_produto_status` já está no schema e na migration
+`2026-10-06_ativo_produto_status.sql` para isso — **vazia, sem leitor nenhum ainda**.
 
-## 2 · API de ocupação para o downgrade  ⚠ DEPENDE DO HUB
+Ver a seção "Arquivamento por produto" abaixo: a tabela existe, o comportamento não.
 
-O downgrade é pedido no dashboard do Hub, e **antes de efetivar o Hub consulta o Easy** para saber
-quantos ativos estão em andamento. Só conclui se a ocupação couber no plano novo; senão orienta o
-usuário a arquivar.
+## 2 · API de ocupação para o downgrade  ✓ IMPLEMENTADA EM 06/10
 
-Precisa de um endpoint no Easy — ocupação por tenant — e o Hub chamando antes de aplicar o plano.
-Nem Hub nem Easy arquivam nada automaticamente: a escolha é sempre do usuário.
+O endpoint existe e responde `{tenant_uuid, product, em_andamento}`. `product` é obrigatório e tem
+de ser uma licença de capacidade; produto inválido dá `400`, credencial errada `401`. Se o Easy não
+responder, o Hub **não efetiva** o downgrade — e nenhum dos dois arquiva nada sozinho.
 
-Mensagem que o contrato já define: *"Existem atualmente XX ativos em andamento. Para alterar seu
-plano para XX ativos, arquive os ativos concluídos ou que não precisam permanecer em andamento e
-tente novamente."*
+**A ressalva que sobra é a mesma da seção 1:** a resposta hoje ignora o `product` para contar. Ele
+é validado contra a lista de apps e devolvido no corpo, mas a contagem é a mesma para qualquer
+produto. Fica correta quando a ocupação passar a ler `ativo_produto_status`.
+
+Credenciais: as de sempre. No Easy `EASY_HUB_CLIENT_ID`/`EASY_HUB_CLIENT_SECRET`, no Hub
+`EASY_SSO_CLIENT_ID`/`EASY_SSO_CLIENT_SECRET`. **Não existe segredo novo para licenciamento.**
+
+O Hub também corrigiu a alçada do lado dele: capacidade e modo de acesso passam a exigir sessão
+administrativa interna, e **a credencial do Easy não concede licença nem altera capacidade**.
 
 ## 3 · Uso isolado: Price e CPU
 
@@ -549,6 +566,108 @@ O Easy precisa honrar o modo que vem do Hub. O `VIEW_ONLY` já existe no gate at
 conferir se cobre o estado "funcionalidades suspensas" do D+7, que é diferente de só-visualização.
 
 ---
+
+## 8 · Certificação digital — assinar em lote (2026-10-06, era o item 20 do refino)
+
+Veio do `refino_final_bancada.md`, onde era o último item. **Sai do refino por decisão de 06/10**:
+não é ajuste de bancada, é produto novo, e só se mede depois da assinatura por documento rodar.
+
+A dor real: o Adobe assina um PDF por vez, e são oito documentos por entrega. **A decisão de
+assinatura por documento já resolve boa parte** — um consolidado é uma assinatura, não oito. Isso
+vale dizer antes de qualquer engenharia, porque muda o tamanho do problema.
+
+Para o que sobrar, três caminhos, do mais barato ao mais caro:
+
+1. **Consolidar mais.** Cada documento a menos é uma assinatura a menos. É desenho, não código.
+2. **Assinador local.** O certificado fica na máquina da pessoa, um agente nativo assina o lote e
+   devolve. É o único jeito honesto de assinar muitos sem a chave privada sair de lá — mas é um
+   produto próprio, com instalador por sistema operacional.
+3. **Assinatura no servidor** com certificado enviado pelo usuário (pyHanko e afins). Tecnicamente
+   o mais simples, e o que **não faria sem pensar muito**: guardar chave privada de terceiro é
+   responsabilidade jurídica séria, não detalhe de implementação.
+
+Navegador puro **não alcança**: a Web Crypto não lê o repositório de certificados do sistema. Sem
+agente nativo ou ponte PKCS#11, não há caminho.
+
+**Método, e é o que trava:** medir a dor depois da assinatura por documento estar no ar. Construir
+antes de medir é escolher o caminho 2 ou 3 sem saber se o caminho 1 já bastava.
+
+## 9 · Arquivamento por produto — PRÓXIMO RINGUE (2026-10-06)
+
+**Ordem combinada:** entra **depois** de fechar as associações entre fontes e o ajuste da bancada.
+Não antes.
+
+### A tabela já existe; o comportamento não
+
+`ativo.ativo_produto_status` entrou no schema e na migration `2026-10-06_ativo_produto_status.sql`
+em 06/10. Nasceu **vazia e sem leitor**: nenhum ponto do app cria, arquiva ou conta vínculo.
+
+Chave natural `(atvp_atv_id, atvp_produto)`. Guardas provadas em banco: um vínculo por produto,
+tenant incoerente recusado pela FK composta, produto e status fora da lista recusados pelo CHECK, e
+`ARQUIVADO` sem data (ou data sem `ARQUIVADO`) recusado. A contagem de ocupação sai em *Index Only
+Scan* pelo índice parcial `ix_atvp_ocupacao`.
+
+### ⚠ A decisão que isto abre, e que NÃO está tomada
+
+A tabela **contradiz uma decisão de 01/10** registrada no refino, e a contradição é de modelo, não
+de gosto:
+
+| | onde o slot mora | cardinalidade |
+|---|---|---|
+| decidido 01/10 | `atv_status` do ativo, com `Em andamento · Arquivado · Concluído` | **um** estado por ativo |
+| contrato 06/10 §10.1 | vínculo por `(ativo, produto)` | **um por produto** |
+
+O modelo do contrato é o que o comercial obriga: o mesmo ativo pode estar em andamento no Orça e
+nunca ter sido tocado no Docs. Isso **não cabe** numa coluna de status do ativo. Então:
+
+1. **`atv_status` não pode carregar `ARQUIVADO`.** Volta a ser só o ciclo do trabalho
+   (`RASCUNHO`/`EM ANDAMENTO`/`CONCLUÍDO`, do item 17 do refino). Ocupação é da tabela nova. Se as
+   duas carregarem arquivamento, são duas fontes de verdade para o mesmo fato.
+2. **A cascata para cima perde o sentido.** A regra de 01/10 dizia: *arquivar o último ativo em
+   andamento arquiva o empreendimento*. Com slot por produto, "o último em qual produto?" não tem
+   boa resposta.
+
+**Recomendação, para decidir:** `emp_arquivado` deixa de ser derivado e passa a ser ação direta do
+usuário sobre a pasta. A cascata **para baixo** fica (arquivar o empreendimento arquiva os vínculos
+dos seus ativos em todos os produtos); a cascata **para cima** sai. Isso não perde nada — o
+empreendimento nunca ocupou slot, e a assimetria "desarquivar o empreendimento NÃO desarquiva os
+ativos" (01/10) continua valendo e continua certa, pelo mesmo motivo de antes: levantar cinco
+ativos de uma vez estouraria o teto e obrigaria a app a escolher quais derrubar.
+
+Também continua valendo, intacto: **revisão só em ativo em andamento**, e **desarquivar passa pelo
+gate**. É o que impede o contorno de arquivar tudo e seguir trabalhando.
+
+### O que falta implementar
+
+1. Trocar `ocupacao_ativos()` por contagem em `ativo_produto_status`, por `(tenant, licença)`.
+2. Criar/reativar o vínculo na primeira operação que põe o ativo em andamento no produto.
+3. Arquivar e restaurar por produto, com o arquivado bloqueando edição.
+4. Resolver o `atv_status` conforme a decisão acima, com CHECK e migração dos valores atuais.
+5. Easy One: a ocupação é de `atvp_atv_id` **distintos** sob `atvp_licenca = 'ONE'`.
+6. Fazer isto na **mesma varredura** do mascaramento de rotas
+   (`redesign_rotas_exposicao.md`, Tarefa 2): a trava precisa achar o objeto pela URL, e é a URL
+   que a outra tarefa muda.
+
+### Pendências do lado do Hub (declaradas em 06/10)
+
+| | |
+|---|---|
+| retry persistente para notificação Hub → Easy | do Hub; hoje falha de notificação só fica registrada |
+| alteração de plano no dashboard comercial | do Hub |
+| código principal do Hub ainda **local, sem push** | só o subrepo de documentação foi publicado |
+
+### ⚠ `audit.license_usage_event` — decidir manter ou remover
+
+Criada pelo time do Hub nos bancos **local e de produção** do Easy, fora do `schema.sql`. Vazia nos
+dois. O time do Hub a declarou criada indevidamente e pediu decisão.
+
+**Não é órfã:** `backend/core/licensing.py` escreve nela (`consume_isolated_usage` e `_mark_usage`).
+Mas **nada chama `consume_isolated_usage`** — é código morto esperando o Price e o CPU (seção 3).
+
+**Recomendação:** manter a tabela e **declará-la no `schema.sql`**, que é o defeito real aqui — o
+banco tem tabela que a foto não mostra. Os campos batem com os 13 mínimos do contrato e remover
+agora só obrigaria a recriar igual na frente do uso isolado. O que precisa acontecer antes de ser
+usada: conferir os nomes contra a convenção da casa, porque ela nasceu em inglês sem prefixo.
 
 ## O que está fechado e não é pendência
 
