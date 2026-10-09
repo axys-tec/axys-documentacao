@@ -2937,12 +2937,17 @@ CREATE TRIGGER t_mo_guarda BEFORE INSERT OR UPDATE ON catalogo.equivalencias_mo
 --      ck_*_nao_self, ck_*_canonico e a FK composta, que pressupõem dois lados reais.
 -- Por isso a forma NÃO replica as três: classe, fator e ordem canônica não significam nada aqui.
 --
--- DUAS HASHES, e é o ponto do desenho. `hash_item` responde "o item mudou?"; ela NÃO responde
--- "nasceu candidato novo?", e a regra do motor é OS DOIS LADOS CONTAM. Como a recusa é contra um
--- CONJUNTO, o segundo sinal é a impressão do conjunto examinado (mediana 15 candidatos, máx 141).
--- Sem ela a negativa deixa de ser memória e vira MORDAÇA: o item nunca mais seria reconsiderado,
--- mesmo que a fonte de destino publicasse amanhã exatamente o par que faltava.
--- REABRE quando hash_item OU hash_candidatos divergem de hoje. Fora disso, silencia o item.
+-- DOIS SINAIS, e é o ponto do desenho. `hash_item` responde "o item mudou?"; ele NÃO responde
+-- "nasceu candidato novo?", e a regra do motor é OS DOIS LADOS CONTAM. Sem o segundo a negativa
+-- deixa de ser memória e vira MORDAÇA: o item nunca mais seria reconsiderado, mesmo que a fonte de
+-- destino publicasse amanhã exatamente o par que faltava.
+--
+-- O segundo sinal é a LISTA dos candidatos examinados, não uma hash dela. Hash só responde
+-- "conjunto idêntico?", e o conjunto que a curadoria examinou veio de OUTRO produtor (os scripts
+-- de curadoria) — nunca bateria com o que o matcher monta hoje, e a negativa reabriria sempre.
+-- Com a lista, a pergunta é a certa: REABRE se o item mudou OU se existe candidato hoje que NÃO
+-- estava na lista. Candidato que DESAPARECEU não reabre (não há nada novo a examinar).
+-- Volume: mediana 15 ids, máximo 141.
 --
 -- MDO FICA FORA de propósito: seu matcher é determinístico e não chama IA — são 8 recusas, e
 -- recomputá-las custa zero. Tabela para 8 linhas sem custo é peso sem retorno (§5.7).
@@ -2957,7 +2962,7 @@ CREATE TABLE IF NOT EXISTS catalogo.equivalencias_ins_negadas (
                                  ON UPDATE CASCADE ON DELETE CASCADE,
     ein_fte_id           INTEGER NOT NULL REFERENCES catalogo.fontes(fte_id),   -- onde NÃO há equivalente
     ein_hash_item        TEXT    NOT NULL,       -- identidade (desc+unidade) quando se decidiu
-    ein_hash_candidatos  TEXT,                   -- impressão do CONJUNTO examinado (NULL = conjunto não registrado)
+    ein_candidatos       BIGINT[],                -- ids examinados (NULL = não registrado → só a hash vale)
     ein_motivo           TEXT,
     ein_por              TEXT,
     ein_em               TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -2975,7 +2980,7 @@ CREATE TABLE IF NOT EXISTS catalogo.equivalencias_cpu_negadas (
                                  ON UPDATE CASCADE ON DELETE CASCADE,
     ecn_fte_id           INTEGER NOT NULL REFERENCES catalogo.fontes(fte_id),
     ecn_hash_item        TEXT    NOT NULL,
-    ecn_hash_candidatos  TEXT,
+    ecn_candidatos       BIGINT[],
     ecn_motivo           TEXT,
     ecn_por              TEXT,
     ecn_em               TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -8327,6 +8332,11 @@ CREATE TABLE IF NOT EXISTS ativo.empreendimento_parametros (
     epa_orient_cronograma  TEXT NOT NULL DEFAULT 'H',
     epa_orient_histo_sint  TEXT NOT NULL DEFAULT 'H',
     epa_orient_histo_anal  TEXT NOT NULL DEFAULT 'H',
+    epa_orient_proprias    TEXT NOT NULL DEFAULT 'H',
+    -- A Curva S e as barras do histograma são ILUSTRAÇÃO, não a peça: quem analisa um orçamento
+    -- lê a tabela. Entram só quando pedidas, e por isso nascem FALSE.
+    epa_grafico_crono      BOOLEAN NOT NULL DEFAULT FALSE,
+    epa_grafico_histo      BOOLEAN NOT NULL DEFAULT FALSE,
 
     epa_entrega         TEXT NOT NULL DEFAULT 'UNICO',      -- UNICO | ISOLADO (zip numerado)
     -- AGRUPAMENTO decide a FORMA do documento consolidado:
@@ -8362,7 +8372,8 @@ CREATE TABLE IF NOT EXISTS ativo.empreendimento_parametros (
     CONSTRAINT ck_epa_entrega  CHECK (epa_entrega IN ('UNICO', 'ISOLADO')),
     CONSTRAINT ck_epa_orient   CHECK (epa_orient_curva_serv IN ('H','V') AND epa_orient_curva_ins IN ('H','V')
                                   AND epa_orient_cronograma IN ('H','V') AND epa_orient_histo_sint IN ('H','V')
-                                  AND epa_orient_histo_anal IN ('H','V')),
+                                  AND epa_orient_histo_anal IN ('H','V')
+                                  AND epa_orient_proprias IN ('H','V')),
     -- marcou direcionar, tem de ter a quem; marcou local e data, tem de ter município
     CONSTRAINT ck_epa_direcionar CHECK (NOT epa_direcionar OR btrim(COALESCE(epa_destinatario,'')) <> ''),
     CONSTRAINT ck_epa_local      CHECK (NOT epa_local_data OR btrim(COALESCE(epa_municipio,'')) <> ''),
