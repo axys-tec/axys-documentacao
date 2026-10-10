@@ -13,6 +13,7 @@ nenhuma pendência menciona desaparece em silêncio, e quem lê a pendência nã
 |---|---|
 | [`contracts/ativo/bancada_orcamento_persistencia_contrato.md`](../contracts/ativo/bancada_orcamento_persistencia_contrato.md) | `ativo_orcamento`: congelar, concluir, reabrir, revisar. Frente pós-refino; leva o P3 (revisão) e o P4 (id dentro de JSON) |
 | [`contracts/axys_easy_modelo_licenciamento.md`](../contracts/axys_easy_modelo_licenciamento.md) | licenciamento, capacidade e consumo (seções 1 a 9 abaixo). **Prevalece** sobre `EASY_HUB_LICENCIAMENTO.md` |
+| [`contracts/ativo/documento_apresentacao_contrato.md`](../contracts/ativo/documento_apresentacao_contrato.md) | como o orçamento se apresenta ao sair: arranjo, repath, ordem canônica, timbrado, assinatura, data de emissão e as regras do Excel. Nasceu dos itens 12-13 do refino |
 
 ---
 
@@ -367,6 +368,48 @@ errado (mover para o tenant certo, com código novo).
 
 ---
 
+## Refino final da bancada — ENCERRADO (2026-10-10)
+
+Os itens 1 a 21 foram entregues e validados no front. O documento de trabalho
+(`refino_final_bancada.md` e `refino_final_bancada_itens12-13.md`) sai do repo: o que ele
+decidia virou código com o porquê no comentário, os contratos em
+[`contracts/ativo/`](../contracts/ativo/) governam o resto, e o que sobrou de aberto está abaixo.
+
+Guardam o que foi entregue, e acusam se quebrar:
+`z_scripts_apoio/sanidade/documento_pdf.py` (51 checks, medidos no PDF gerado) e
+`z_scripts_apoio/sanidade/excel_valores.py` (confronta o que o Excel calcularia com o que o app
+calcula — openpyxl guarda a fórmula, não o resultado).
+
+**O que ficou aberto do refino:**
+
+- [ ] **P1b · Arquivamento por produto** — é ele que libera capacidade. Tem seção própria abaixo
+  ("Arquivamento por produto — PRÓXIMO RINGUE"); depende do Hub mandar `capacity`.
+- [ ] **P3 · O que se duplica numa revisão** — leitura do schema tabela por tabela. A pergunta que
+  organiza: *o que, nesta tabela, é do ORÇAMENTO e o que é do ATIVO?* O do ativo é compartilhado
+  entre revisões, o do orçamento se duplica. Memória de cálculo e ficha técnica são do ativo;
+  itens, BDI, LS e cronograma são do orçamento. **Não há decisão em aberto — é trabalho.** Vai
+  junto com o refactor de `ativo_orcamento`.
+- [ ] **P5 · Schema do RT** — o responsável técnico mora em `tenant_catalogo`, que é catálogo
+  TÉCNICO. RT não é catálogo técnico. Observação de modelagem, sem urgência.
+- [ ] **P6 · Certificação digital** — assinar em lote. Tem seção própria abaixo; a dor se mede
+  depois de a assinatura por documento rodar.
+- [ ] **P8 · O id do banco ainda está na URL** — `/empreendimentos/24`, `/ativos/26`. Desde 05/10 o
+  empreendimento tem código opaco e a LISTAGEM não expõe mais o id; a URL ainda expõe. Risco
+  pequeno (toda consulta filtra por `tenant_uuid`, então id de outro tenant dá rota inexistente),
+  mas o sequencial conta quantos empreendimentos existem na base. Trocar exige decidir o que fazer
+  com link antigo, e vale para ativo também. É higiene, não trava nada.
+- [ ] **P4 · guarda para id dentro de JSON** — a regra ("id de outra tabela dentro de JSON ou tem
+  FK, ou é foto histórica declarada, ou está errado") foi verificada em 06/10 e **não está
+  violada**: das 14 colunas JSONB, 10 estão vazias e as 4 em uso não guardam id nenhum. Falta a
+  guarda: um teste que varra as colunas JSON e falhe apontando a coluna. **Casar por VALOR** (o
+  número existe como PK naquela tabela?), não por nome — a primeira varredura manual não achou
+  `ati_origem` porque a regex exigia sufixo `_id`, e detector baseado em nome erra por nome.
+
+**Duas frentes do documento seguem vivas em seção própria, abaixo:** a revisão de orçamento
+(decidida em 06/10) e o arquivamento por produto.
+
+---
+
 ## Sanidade do catálogo tem de rodar NO IMPORT, pela tela (2026-10-10)
 
 Existe o script [`z_scripts_apoio/sanidade/catalogo_custos.py`](../../../../z_scripts_apoio/sanidade/catalogo_custos.py),
@@ -438,7 +481,9 @@ Fonte: `docs/projects/axys-easy/contracts/axys_easy_modelo_licenciamento.md` —
 do licenciamento, que **prevalece** sobre o anterior (`EASY_HUB_LICENCIAMENTO.md`, 15/08).
 
 O que é da frente do refino da bancada (arquivamento do ATIVO, estados, bloqueio de edição) está em
-`refino_final_bancada.md`, na raiz do repo de código. Aqui fica o resto.
+`refino_final_bancada.md`, encerrado em 10/10 — o que ele decidia está em
+[`contracts/ativo/documento_apresentacao_contrato.md`](../contracts/ativo/documento_apresentacao_contrato.md).
+Aqui fica o resto.
 
 **Conferido contra o schema: nenhuma falha estrutural.** `atv_status` é texto livre sem CHECK,
 `emp_arquivado` já existe, o JWT já carrega `licencas[]` e há onde pendurar o que falta. O que
@@ -611,7 +656,7 @@ conferir se cobre o estado "funcionalidades suspensas" do D+7, que é diferente 
 
 ## 8 · Certificação digital — assinar em lote (2026-10-06, era o item 20 do refino)
 
-Veio do `refino_final_bancada.md`, onde era o último item. **Sai do refino por decisão de 06/10**:
+Veio do refino final da bancada, onde era o último item. **Sai do refino por decisão de 06/10**:
 não é ajuste de bancada, é produto novo, e só se mede depois da assinatura por documento rodar.
 
 A dor real: o Adobe assina um PDF por vez, e são oito documentos por entrega. **A decisão de
