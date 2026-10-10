@@ -398,15 +398,77 @@ calcula — openpyxl guarda a fórmula, não o resultado).
   pequeno (toda consulta filtra por `tenant_uuid`, então id de outro tenant dá rota inexistente),
   mas o sequencial conta quantos empreendimentos existem na base. Trocar exige decidir o que fazer
   com link antigo, e vale para ativo também. É higiene, não trava nada.
-- [ ] **P4 · guarda para id dentro de JSON** — a regra ("id de outra tabela dentro de JSON ou tem
-  FK, ou é foto histórica declarada, ou está errado") foi verificada em 06/10 e **não está
-  violada**: das 14 colunas JSONB, 10 estão vazias e as 4 em uso não guardam id nenhum. Falta a
-  guarda: um teste que varra as colunas JSON e falhe apontando a coluna. **Casar por VALOR** (o
-  número existe como PK naquela tabela?), não por nome — a primeira varredura manual não achou
-  `ati_origem` porque a regex exigia sufixo `_id`, e detector baseado em nome erra por nome.
+- [x] **P4 · guarda para id dentro de JSON** — ENTREGUE em 10/10:
+  `z_scripts_apoio/sanidade/json_sem_id.py`. Varre toda coluna JSON de `ativo`, `tenant_catalogo`,
+  `catalogo` e `audit` e falha apontando a chave. A regra que ela defende: **id de outra tabela
+  dentro de JSON ou tem FK, ou é foto histórica declarada, ou está errado.**
+
+  O que custou a acertar foi separar id de número comum — `{"largura": 6}` também "casa" com a PK
+  de meia dúzia de tabelas. São **dois sinais, porque cada um sozinho erra**:
+
+  1. **valor + coincidência improvável.** Casa por VALOR (o número existe como PK lá?), com 3+
+     valores distintos. Mas tabela de id sequencial contém quase todo inteiro do intervalo, então
+     casar com ela não diz nada: mede-se a densidade dos ids do alvo dentro do intervalo observado
+     e, com densidade `d` e `n` valores, descarta-se quando `d^n` passa de 1% (vai só para o `-v`).
+  2. **valor + nome com cara de referência.** Porque o sinal 1 é cego para id de tabela densa:
+     guardar `ati_id` em JSON passa batido, já que 1, 2, 3 existem como PK em toda parte. Provado
+     ao vivo: plantei `{"origem_da_copia": 1..5}` numa tabela de teste e só o sinal 2 pegou.
+
+  Nome sozinho não serve — foi o que falhou em 06/10, quando a regex exigia sufixo `_id` e deixou
+  passar o `ati_origem`. As **15 colunas puladas** são declaradas no próprio script, com o porquê:
+  `FOTOS` (snapshot histórico, que por desenho NÃO deve ter FK — a FK impediria apagar o original)
+  e `GRADES` (o usuário digita números numa planilha; procurar id ali é palheiro de agulhas).
+
+  **A guarda achou um caso no primeiro dia** — e fora do escopo que a varredura manual de 06/10
+  cobriu (ela olhou as 14 colunas do orçamento; esta olha o catálogo também):
+  `catalogo.edicoes.edi_estagios` guarda `preparar.detalhe.import_params.fte_id`, que é **cópia
+  redundante do `edi_fte_id` da própria linha** (0 de 25 divergem). A rota que relê os params
+  (`routes.py`, despachar estágio) já consulta `e.edi_fte_id` para descobrir a fonte e, duas linhas
+  abaixo, usa o `fte_id` do JSON. Fix: a rota passa a usar a coluna, `salvar_params` para de gravar
+  a chave e um UPDATE a remove dos registros existentes. **Fonte única — o que se deriva não se
+  guarda** (ADR-022).
 
 **Duas frentes do documento seguem vivas em seção própria, abaixo:** a revisão de orçamento
 (decidida em 06/10) e o arquivamento por produto.
+
+---
+
+## Import ainda não usa o motor único — o D3 está violado de um lado (2026-10-10)
+
+Contrato: [listagem.md §2.2.1](../contracts/catalogo/listagem.md) — D3, "uma implementação só".
+
+O refactor do motor único entregou o lado VIVO: `get_cpu_precificada`, lista, detalhe, bancada,
+mobile e export passaram todos pelo `custo_composicao.py`. O lado do IMPORT ficou fora de escopo na
+época (foi revertido de propósito, para não misturar as frentes) e **continua fora**:
+
+| arquivo | estado |
+|---|---|
+| `backend/core/import_cpu/parser_sinapi.py` | arredonda por conta própria |
+| `backend/core/import_cpu/parser_cdhu.py` | idem |
+| `backend/core/import_cpu/parser_fde.py` | idem |
+
+Nenhum dos três importa `custo_composicao`. Conferido em 2026-10-10 por varredura: zero referências
+ao motor, e os três com aritmética de arredondamento inline.
+
+**Por que importa, e não é estética.** O D3 existe porque import e precificação viva que não
+compartilham código **voltam a divergir** — foi o pecado original que o refactor matou do lado vivo.
+Hoje uma edição NOVA entra pelo número do parser; o `cc_custo_calculado` histórico foi consertado
+uma vez pelo `migracao/recompute_cc_calculado.py` (motor histórico, CDHU/FDE, SINAPI intocado), mas
+isso foi um cutover, não um hábito. A cada import novo a divergência pode voltar a nascer.
+
+**É a mesma varredura da conferência-no-import** (seção acima): quem passa a gravar pelo motor é
+quem passa a classificar pelo oráculo. Fazer as duas em momentos diferentes é mexer duas vezes nos
+mesmos três arquivos.
+
+**A fazer:** os três parsers param de calcular e passam a chamar o motor; o `cc_status_conferencia`
+sai do classificador composto (D5) no próprio import. Validar como o parser se valida nesta casa —
+rollback + checksum por chave de negócio, diff antes/depois contra o arquivo real da fonte, nunca
+"rodei e pareceu bom".
+
+**Débito irmão, do mesmo plano:** re-capture em massa já foi feita uma vez (o cutover de 2026-09-10);
+se os parsers mudarem o número de alguma edição já importada, decidir na hora se re-captura ou se
+aceita o histórico como está — a doutrina da composição descontinuada vale aqui (o preço gravado no
+orçamento é o certo e não se recaptura).
 
 ---
 
