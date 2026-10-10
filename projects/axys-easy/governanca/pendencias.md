@@ -367,6 +367,34 @@ errado (mover para o tenant certo, com código novo).
 
 ---
 
+## Sanidade do catálogo tem de rodar NO IMPORT, pela tela (2026-10-10)
+
+Existe o script [`z_scripts_apoio/sanidade/catalogo_custos.py`](../../../../z_scripts_apoio/sanidade/catalogo_custos.py),
+que confronta o que a fonte publicou (`cc_custo_fonte`) com o que o motor calcula
+(`cc_custo_calculado`) em cada edição. Ele roda à parte, por linha de comando — e **o import é
+feito em produção, pela tela, não em dev com curadoria**. Script solto que ninguém lembra de rodar
+não protege nada.
+
+**A fazer:** a conferência vira etapa do próprio import/publicar e o resultado aparece na tela,
+junto do manifesto. O padrão de cada fonte já está medido e é o que o script usa:
+
+| fonte | esperado | medido em 2026-10-10 |
+|---|---|---|
+| SINAPI | bate exato | 0 de 248.895, em 25 edições |
+| CDHU | diverge por arredondamento (a fonte publica com ROUND) | ~9% fora do limite de 1 centavo por item — **a explicar** |
+| FDE | diverge sempre: a fonte publica COM BDI, o nosso é limpo | 0 com calculado acima do publicado |
+
+O limite certo para "é só arredondamento" é **1 centavo por item da composição** — nem valor
+absoluto nem percentual servem sozinhos: R$ 13 num chiller de R$ 523 mil é 0,00%, e 6 centavos
+numa composição de R$ 0,24 com 7 itens são 25%.
+
+**Dois achados abertos do script**, nenhum deles regressão (estão assim desde 2021):
+- CDHU: ~9% das composições divergem acima do limite de arredondamento, em todas as edições.
+- 12.664 custos SINAPI (e 5 CDHU) publicados em composição vigente que o motor **não consegue
+  calcular** (`cc_custo_calculado IS NULL`).
+
+---
+
 ## ⚠ SEQUÊNCIA DE DEPLOY — duas migrations com ordens OPOSTAS (2026-10-05)
 
 Há duas migrations pendentes de prod em estados diferentes, e **a ordem entre código e banco é
