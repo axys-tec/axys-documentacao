@@ -1,5 +1,5 @@
 -- AxysEasy — parâmetros de apresentação: orientação das Composições Próprias e gráficos opcionais
--- Contrato: docs/projects/axys-easy/contracts/ativo/documento_apresentacao_contrato.md
+-- Contrato: docs/projects/axys-easy/contracts/ativo/apresentacao_orcamento_contrato.md
 --
 -- epa_orient_proprias: a seção de Composições Próprias é a composição aberta item a item — a
 --   mesma tabela do Analítico em outro recorte, e em retrato a descrição do insumo quebra

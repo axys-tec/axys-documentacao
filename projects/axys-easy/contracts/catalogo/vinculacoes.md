@@ -341,7 +341,7 @@ negativa. O que a linha guarda é o mínimo que a torna reusável.
 | `ein_ins_id` → `insumos` (`ecn_cmp_id` → `composicoes`) | quem foi examinado |
 | `ein_fte_id` → `fontes` | a fonte onde NÃO há equivalente |
 | `ein_hash_item` | identidade (descrição+unidade) no momento da decisão |
-| `ein_hash_candidatos` | impressão do CONJUNTO de candidatos examinado |
+| `ein_candidatos` BIGINT[] | os ids examinados — a LISTA, não uma impressão dela |
 | `ein_motivo` | a justificativa — 14.621 das 16.006 têm, e é o corpo do fine-tuning |
 | `ein_por`, `ein_em` | quem assinou e quando |
 | UNIQUE `(ein_ins_id, ein_fte_id)` | uma negativa por item×fonte — o análogo do 1×1 |
@@ -349,15 +349,22 @@ negativa. O que a linha guarda é o mínimo que a torna reusável.
 Sem coluna de caminho do R2: o path é determinístico (`storage_paths.associacao`), e path determinístico
 não se guarda.
 
-**A REGRA DE REABERTURA — e por que são DUAS hashes.** A negativa cai quando
-`hash_item` **ou** `hash_candidatos` divergem do estado de hoje; fora disso ela silencia o item, e o
-matcher nem o monta.
+**A REGRA DE REABERTURA — e por que são DOIS sinais.**
+
+> A negativa **reabre** se a hash do item mudou **ou** se existe candidato hoje que **não estava na
+> lista examinada**. Fora disso ela silencia o item, e o matcher nem o monta. Candidato que
+> DESAPARECEU não reabre: não há nada novo a examinar.
 
 A hash do item responde *"o item mudou?"*. Ela **não** responde *"nasceu candidato novo?"* — e a regra do
-motor é **os dois lados contam** (§3.4.1). Como a recusa é contra um CONJUNTO, o segundo sinal é a
-impressão do conjunto examinado (mediana 15 candidatos, máximo 141). Sem ela, um insumo marcado sem
-equivalente nunca mais seria reconsiderado, mesmo que a fonte de destino publicasse amanhã exatamente o
-par que faltava — e a negativa, de memória, viraria mordaça.
+motor é **os dois lados contam** (§3.4.1). Sem o segundo sinal, um insumo marcado sem equivalente nunca
+mais seria reconsiderado, mesmo que a fonte de destino publicasse amanhã exatamente o par que faltava: a
+negativa, de memória, viraria mordaça.
+
+O segundo sinal é a **lista** dos candidatos examinados, e não uma hash dela. Hash só responde "conjunto
+idêntico?", e o conjunto que a curadoria examinou veio de **outro produtor** (os scripts de curadoria,
+com funil e teto próprios) — nunca bateria com o que o matcher monta hoje, e a negativa reabriria
+sempre, o que anularia a tabela inteira. Com a lista, a pergunta é a certa. Custo: mediana 15 ids,
+máximo 141, num `BIGINT[]`.
 
 **MDO fica FORA, e não é simetria esquecida.** O matcher de MDO é determinístico e puro: não chama IA.
 São 8 recusas, e recomputá-las custa zero — a motivação inteira (não repetir request pago) não se
@@ -369,9 +376,29 @@ tem parceiro ali, ou tem negativa, nunca os dois. Guardado por trigger, que **re
 reescreve (ver a nota da FASE C no `schema.sql`: trigger que reescreve produziu dado errado em silêncio
 uma vez, e não se repete). A mesma trigger recusa negativa contra a fonte DO PRÓPRIO item.
 
-**O que isto compra.** O gate do import deixa de reabrir o que uma pessoa já fechou: hoje as três
-tabelas estão com zero pendente em prod, e o próximo import não-SINAPI recolocaria milhares de propostas
-na fila. Volume para sustentar isso: ~16 mil linhas, numa tabela sem leitura de caminho crítico.
+**A LISTA SOMA, não substitui.** A pergunta que ela serve é "apareceu candidato que NINGUÉM
+examinou?", então o que vale é a união de tudo que já foi examinado e recusado. Substituir faria a
+negativa ENFRAQUECER quando o universo de hoje fosse mais estreito que o de ontem — e, pior, deixaria
+dois produtores de universo oscilando: cada rodada reabriria o que a outra havia silenciado.
+
+**O que isto compra, medido em dev com as 15.998 negativas carregadas (2026-10-06).** O matcher deixa de
+montar o que uma pessoa já fechou:
+
+| par | vizinhanças p/ a IA, sem negativas | com negativas | |
+|---|---|---|---|
+| CDHU → SINAPI | 1.222 | 883 | −28% |
+| FDE → SINAPI | 886 | 590 | −33% |
+| FDE → CDHU | 947 | 424 | −55% |
+
+**A costura da primeira passada.** O silêncio ainda não é total — 1.778 itens silenciaram e 2.837
+reabriram, e em NENHUM caso por hash do item (a hash confere em 15.998 de 15.998). Reabriram porque o
+universo que a curadoria examinou veio de outro produtor: mediana de 30 candidatos examinados contra 15
+que o matcher mostra hoje, dos quais 4 não estavam na lista. É costura entre ferramentas, não dado novo —
+e custa UMA passada: quando o matcher julgar esses itens e a recusa for registrada por `negar_item`, a
+união guarda os dois universos e eles silenciam para sempre. Volume de tudo isto: 7,9 MB.
+
+**O gate do import** é o beneficiário final: hoje as três tabelas de par estão com zero pendente em
+prod, e sem as negativas o próximo import não-SINAPI recolocaria milhares de propostas na fila.
 
 ---
 

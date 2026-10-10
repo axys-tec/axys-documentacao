@@ -13,7 +13,7 @@ nenhuma pendência menciona desaparece em silêncio, e quem lê a pendência nã
 |---|---|
 | [`contracts/ativo/bancada_orcamento_persistencia_contrato.md`](../contracts/ativo/bancada_orcamento_persistencia_contrato.md) | `ativo_orcamento`: congelar, concluir, reabrir, revisar. Frente pós-refino; leva o P3 (revisão) e o P4 (id dentro de JSON) |
 | [`contracts/axys_easy_modelo_licenciamento.md`](../contracts/axys_easy_modelo_licenciamento.md) | licenciamento, capacidade e consumo (seções 1 a 9 abaixo). **Prevalece** sobre `EASY_HUB_LICENCIAMENTO.md` |
-| [`contracts/ativo/documento_apresentacao_contrato.md`](../contracts/ativo/documento_apresentacao_contrato.md) | como o orçamento se apresenta ao sair: arranjo, repath, ordem canônica, timbrado, assinatura, data de emissão e as regras do Excel. Nasceu dos itens 12-13 do refino |
+| [`contracts/ativo/apresentacao_orcamento_contrato.md`](../contracts/ativo/apresentacao_orcamento_contrato.md) | como o orçamento se apresenta ao sair: arranjo, repath, ordem canônica, timbrado, assinatura, data de emissão e as regras do Excel. Nasceu dos itens 12-13 do refino |
 
 ---
 
@@ -482,7 +482,7 @@ do licenciamento, que **prevalece** sobre o anterior (`EASY_HUB_LICENCIAMENTO.md
 
 O que é da frente do refino da bancada (arquivamento do ATIVO, estados, bloqueio de edição) está em
 `refino_final_bancada.md`, encerrado em 10/10 — o que ele decidia está em
-[`contracts/ativo/documento_apresentacao_contrato.md`](../contracts/ativo/documento_apresentacao_contrato.md).
+[`contracts/ativo/apresentacao_orcamento_contrato.md`](../contracts/ativo/apresentacao_orcamento_contrato.md).
 Aqui fica o resto.
 
 **Conferido contra o schema: nenhuma falha estrutural.** `atv_status` é texto livre sem CHECK,

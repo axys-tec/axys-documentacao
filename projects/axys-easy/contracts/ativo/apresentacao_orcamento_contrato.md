@@ -1,4 +1,4 @@
-# Apresentação do documento — contrato
+# Apresentação do orçamento — contrato
 
 **Status:** Vigente
 **Data:** 2026-10-10 (nasceu do refino final da bancada, itens 12-13)
