@@ -8337,6 +8337,7 @@ CREATE TABLE IF NOT EXISTS ativo.empreendimento_parametros (
     -- lê a tabela. Entram só quando pedidas, e por isso nascem FALSE.
     epa_grafico_crono      BOOLEAN NOT NULL DEFAULT FALSE,
     epa_grafico_histo      BOOLEAN NOT NULL DEFAULT FALSE,
+    epa_grafico_curva      BOOLEAN NOT NULL DEFAULT FALSE,
 
     epa_entrega         TEXT NOT NULL DEFAULT 'UNICO',      -- UNICO | ISOLADO (zip numerado)
     -- AGRUPAMENTO decide a FORMA do documento consolidado:
