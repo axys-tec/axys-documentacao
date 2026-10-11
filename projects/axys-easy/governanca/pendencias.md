@@ -38,6 +38,47 @@ Referência: [../modules/catalogo/AXYS_CATALOGO_COLABORATIVO_v0.md](../modules/c
 > Contêiner dos pontos de revisão da bancada (Renan tem ~13 a acrescentar). Trabalhar
 > quando a frente da bancada for aberta; por ora só registrados.
 
+> **CONGELADO em 11/10 — vai junto com o refactor do orçamento.** Os dois itens abaixo foram
+> implementados e validados neste dia, e então congelados por decisão do Renan: o caderno depende
+> do refactor de persistência e, com o estado persistido, o mesmo resultado sai muito mais simples.
+> Hoje a composição adaptada é resolvida **por item, em tempo de geração** (uma chamada a
+> `get_composicao_detalhe` por serviço); depois do refactor ela vem de onde já está gravada. É o
+> mesmo argumento que derrubou o congelamento em JSON — não antecipar o que o desenho novo resolve
+> de graça.
+>
+> O código está no patch `z_scripts_apoio/_backups/CONGELADO_caderno_composicao_adaptada_*.patch`
+> (pasta ignorada pelo git) e, para não depender dela, no próprio repositório como blob:
+> `git cat-file -p refs/congelado/caderno-patch-blob`. Toca 4 arquivos:
+> `caderno_encargos_service.py`, `caderno_encargos_pdf.py`, `routes.py` (dois endpoints de pré-voo)
+> e `easy_finalizacao.js` (o modal).
+>
+> **O que a medição em dev provou, e é o que não se deve perder** — vale como requisito de aceite
+> para quando o refactor retomar:
+>
+> | ativo | conversão ligada | serviços | composição ≠ a da fonte |
+> |---|---|---|---|
+> | 21 | nenhuma (controle) | 14 | **0** |
+> | 23 | MENSALISTA + reg | 10 | **8 de 9** de catálogo |
+> | 24 | mdo + ins | 321 | **55** composições (61 itens) |
+> | 26 | ls + mdo | 176 | **0** |
+>
+> O controle dando zero é o que valida o resto. O caso mais claro: a composição `88255`
+> (AUXILIAR TÉCNICO … **MENSALISTA**) tinha, na bancada, *EPI FAMÍLIA ENGENHEIRO CIVIL -
+> MENSALISTA*, e o caderno imprimia *CURSO DE CAPACITAÇÃO … **HORISTA***.
+>
+> Três coisas aprendidas que o refactor herda:
+>
+> 1. **Comparar o que vai ao papel, não o float.** Medindo coeficiente como float, o ativo 26
+>    "divergia" em 24 serviços; comparando o texto de 5 casas que o documento imprime, diverge em
+>    **zero**. As 24 eram artefato de precisão.
+> 2. **A adaptação é por ITEM, o dedup do caderno é por `cmp_id`.** O mesmo serviço pode estar
+>    convertido numa etapa e cru noutra — e aí são duas composições, não uma. Não ocorre hoje
+>    (0 casos em 4 orçamentos), mas a chave do grupo tem de carregar a identidade da composição,
+>    senão o caderno escolhe uma das duas em silêncio.
+> 3. **`converter_ls` não entra.** Ele mexe no preço da mão de obra, e o caderno não imprime preço.
+>    Quem muda as LINHAS é rotação de regime e conversão de MDO/insumo — e é esse o gate que
+>    mantém o custo zero em orçamento sem conversão.
+
 - [ ] **Caderno de Encargos reflete a composição ADAPTADA da bancada.** A CTA/CTC (descritivo)
   em si não muda, mas a **composição dela** muda quando o item, na bancada, sofreu **rotação de
   regime** (mensalista↔horista, badge REG) ou **conversão de MDO/insumo** (`converter_mdo`/
@@ -48,6 +89,21 @@ Referência: [../modules/catalogo/AXYS_CATALOGO_COLABORATIVO_v0.md](../modules/c
   ao serem criadas, não carregam descritivo (CTC) → não entram no caderno. Resolver: ou o
   descritivo passa a fazer parte da composição própria na criação, ou abre-se um campo para o
   usuário digitar antes da geração. (Provável item da revisão geral da bancada.)
+
+  **Decidido em 11/10 (implementado e congelado junto com o item acima):** não entra no caderno — e
+  antes de gerar, a tela **lista e pergunta**. Era pior do que parecia: o serviço sem descritivo
+  entrava com a ficha vazia e um "descritivo técnico não disponível" no corpo, então o documento
+  saía com buraco e o leitor não sabia se faltava no serviço ou no documento. O modal diz *"Existem
+  composições sem descritivo e estas serão ignoradas na montagem do Caderno de Encargos"*, lista
+  quais (código + descrição, com o nome da obra quando há mais de uma), e oferece **Prosseguir sem**
+  ou **Cancelar** — cancelar não gera nada. A lista é indispensável: sem ela a pessoa sabe que falta
+  algo e não tem como agir.
+
+  O pré-voo é uma query por origem (`versoes[-1]`, com tolerância ao formato flat, como
+  `desc_partes`), não a montagem do caderno: **5 a 331 ms contra 4,7 s**, e confere com o caderno
+  real em 4 de 4 orçamentos medidos. Sem medição E sem remuneração = sem descritivo; um dos dois já
+  basta para a ficha valer. Medido em dev: ativo 26 com **34 fora**, todas composições PRÓPRIAS
+  (`C-0000xx`) — é o caso que originou a pendência.
 
 ---
 
