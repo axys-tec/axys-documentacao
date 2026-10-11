@@ -381,6 +381,18 @@ Os itens 1 a 21 foram entregues e validados no front. O documento de trabalho
 decidia virou código com o porquê no comentário, os contratos em
 [`contracts/ativo/`](../contracts/ativo/) governam o resto, e o que sobrou de aberto está abaixo.
 
+> **Onde ler o documento original.** Ele não se perdeu — está no histórico do repo principal, e o
+> commit que o apagou é `33665ec` ("o refino final da bancada sai do repo, encerrado"). Para ler o
+> enunciado de qualquer item pela numeração antiga:
+>
+> ```
+> git show '33665ec^:refino_final_bancada.md'
+> git show '33665ec^:refino_final_bancada_itens12-13.md'
+> ```
+>
+> Fica anotado porque é a resposta para "de onde vem o P7?" — pergunta que a numeração órfã provoca
+> e que ninguém consegue responder caçando no escuro.
+
 Guardam o que foi entregue, e acusam se quebrar:
 `z_scripts_apoio/sanidade/documento_pdf.py` (51 checks, medidos no PDF gerado) e
 `z_scripts_apoio/sanidade/excel_valores.py` (confronta o que o Excel calcularia com o que o app
