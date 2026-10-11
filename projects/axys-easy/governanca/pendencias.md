@@ -422,6 +422,16 @@ a quem lê. **Nenhum dos itens abaixo é refino de tela** — esse fechou.
   seção própria, *8 · Certificação digital*. A dor só se mede depois de a assinatura por documento
   rodar em uso real.
 
+- [ ] **As tabelas de domínio precisam de tela** — `catalogo.profissoes` (39),
+  `catalogo.conselhos_classe` (3) e `doc_resp_tecnica` (3) nasceram semeadas no `schema.sql`, que é
+  o certo para lista fechada e pequena. Mas elas **não são imutáveis**: profissão entra e sai, o CFT
+  reconhece título novo, e o recorte de "construção e infraestrutura" é opinião — vai ser corrigido
+  no uso. Hoje, acrescentar uma profissão exige editar o schema, escrever migration e fazer deploy:
+  caro demais para uma linha de vocabulário. Pedem CRUD no módulo interno (ADM), ao lado do que já
+  existe para o catálogo. Não trava nada agora; vira dor no primeiro *"falta o meu título aí"*.
+  (Era o P7, e **tinha caído fora** desta lista na migração do documento do refino — recuperado do
+  histórico em 11/10.)
+
 - [ ] **O id do banco ainda aparece na URL** — `/empreendimentos/24`, `/ativos/26`. Desde 05/10 o
   empreendimento tem código opaco e a listagem não expõe mais o id; a URL ainda expõe. O risco é
   pequeno (toda consulta filtra por `tenant_uuid`, então id de outro tenant dá rota inexistente),
