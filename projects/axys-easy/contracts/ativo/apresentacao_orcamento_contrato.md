@@ -122,6 +122,22 @@ seguinte.
 Não assinam: capa, contra-capa e sumário. O ofício traz a sua no corpo. As memórias de uma obra
 são um bloco — só a última assina.
 
+**Quem assina vem de `tenant_catalogo.responsaveis_tecnicos`**, e o schema ali é parte do contrato:
+o registro profissional mora em **três partes** — `rt_conselho` (FK para
+`catalogo.conselhos_classe`), `rt_conselho_uf` (UF, ou `BR` para registro nacional) e
+`rt_documento` (só o número). O bloco concatena na hora de imprimir ("CREA-SP 506.404.144-5"), e
+manter separado é o que permite validar, filtrar por conselho e, um dia, conferir contra o
+conselho. A **profissão é escolhida, não digitada** (`rt_profissao`, FK para
+`catalogo.profissoes`): é ela que padroniza o que sai no bloco e amarra à competência do conselho.
+
+Os três CHECKs do banco repetem o que o formulário já exige, e é de propósito — **documento
+assinado sem profissão ou sem registro não é documento**, e a trava não pode depender de ninguém
+lembrar da validação ao mexer na tela.
+
+O RT viver em `tenant_catalogo` já foi levantado como possível erro de lugar, por aquele schema se
+anunciar como catálogo TÉCNICO. **Está certo onde está:** o mesmo schema guarda `contratantes`, logo
+ele é *os cadastros próprios do tenant*, e o responsável técnico ao lado do contratante é coerente.
+
 ## 8. Gráficos
 
 A Curva S, as barras do histograma e o Pareto da ABC são ILUSTRAÇÃO, não a peça: quem analisa um

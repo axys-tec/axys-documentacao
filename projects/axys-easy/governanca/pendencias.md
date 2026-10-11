@@ -323,8 +323,14 @@ aplica ao workbook: quem precisar oculta a coluna no próprio Excel.
 É a frente **"o que se duplica numa revisão"**, a única pesada que ficou aberta do refino. O
 desenho que o Renan fixou:
 
-**A revisão congela o estado atual, e o estado congelado vive em JSON** — não numa segunda árvore
-de tabelas. Tecnicamente basta um campo de versão:
+**Persistir o estado congelado em JSON foi DESCARTADO.** Dois motivos, e os dois bastam sozinhos:
+a **chave id** — JSONB não aceita FK, então todo id de item, composição ou memória guardado lá
+dentro é ponteiro que o banco não protege — e o **desempenho**, que cobra caro para ler e comparar
+revisão dentro de documento. **O schema do orçamento vai ser repensado**, e é com ele na mão que se
+decide onde o congelado mora.
+
+O que NÃO muda com o descarte é a semântica abaixo, que segue valendo. Tecnicamente basta um campo
+de versão:
 
 ```
 ativo_orcamento.versao   R00 (inicial) → R01 → R02 …
@@ -339,8 +345,8 @@ desenho:
 Daí sai o que parece estranho e é correto: o orçamento pode estar em **R11** com **algumas memórias
 em R11, outras ainda em R0, outras em R1**. Cada memória carrega a sua própria linha do tempo.
 
-**Em aberto, e é decisão de implementação:** se o estado congelado vive em JSON ou em tabela. O
-Renan aceita tabela se o desempenho pedir — o que não muda é a semântica acima.
+**Em aberto:** onde o congelado mora, agora que JSON está fora. Sai do repensar do schema, não
+antes dele.
 
 **Depende de** `ativo_orcamento`, que é a frente pós-refino nascida do item 17 do refino.
 
@@ -349,12 +355,6 @@ Renan aceita tabela se o desempenho pedir — o que não muda é a semântica ac
 > Está citado aqui de propósito: é o contrato que **governa** o congelar/concluir/reabrir/revisar, e
 > sem ponteiro de dentro das pendências ele desaparece em silêncio — ninguém vai caçar contrato que
 > nenhuma pendência menciona.
->
-> **A guarda contra id dentro de JSON nasceu daqui**, por decisão de 06/10: as colunas JSON são do
-> orçamento e se decidem com este desenho na mão. Como o estado congelado vive em JSON, e JSON que
-> guarda id de item/composição/memória cria ponteiro sem FK, a guarda
-> (`z_scripts_apoio/sanidade/json_sem_id.py`) foi escrita ANTES do refactor, para existir quem cobre
-> a regra no dia em que ele escrever esse JSON.
 
 ---
 
@@ -388,64 +388,43 @@ calcula — openpyxl guarda a fórmula, não o resultado).
 
 **O que ficou aberto do refino** — enunciado por extenso e sem a sigla: a numeração `P1..P21`
 vinha do documento de trabalho, que saiu do repo, e rótulo cuja fonte não existe mais não diz nada
-a quem lê. Os quatro abaixo são o que sobrou; **nenhum deles é refino de tela** (esse fechou).
+a quem lê. **Nenhum dos itens abaixo é refino de tela** — esse fechou.
 
-- [ ] **O que se duplica quando um orçamento é revisado** (era o P3) — leitura do schema tabela por
-  tabela, com uma pergunta só: *o que, nesta tabela, é do ORÇAMENTO e o que é do ATIVO?* O do ativo
-  é compartilhado entre revisões; o do orçamento se duplica. Memória de cálculo e ficha técnica são
-  do ativo; itens, BDI, LS e cronograma são do orçamento. **Não há decisão em aberto — é trabalho**,
-  e é o trabalho grande: vai junto com o refactor de `ativo_orcamento`, no momento em que ele
-  acontecer. O desenho já decidido está na seção *Revisão de orçamento* acima.
+- [ ] **Repensar o schema do orçamento** — é a frente que carrega *o que se duplica quando um
+  orçamento é revisado*. A leitura é tabela por tabela, com uma pergunta só: *o que, nesta tabela, é
+  do ORÇAMENTO e o que é do ATIVO?* O do ativo é compartilhado entre revisões; o do orçamento se
+  duplica. Memória de cálculo e ficha técnica são do ativo; itens, BDI, LS e cronograma são do
+  orçamento.
 
-- [ ] **Política de arquivamento por produto** (era o P1b) — tem seção própria, *9 · Arquivamento
-  por produto*, com a hierarquia decidida em 06/10 e as quatro coisas que faltam. A tabela
-  `ativo.ativo_produto_status` existe desde 06/10 e **nasceu vazia e sem leitor**. É ele que libera
-  capacidade, e a ordem combinada é: entra depois de fechar as associações entre fontes e o ajuste
-  da bancada.
+  **Frente própria, a ser pensada — não é continuação da bancada.** Ela nasceu da discussão sobre
+  guardar id dentro de JSON: foi essa conversa que derrubou o congelamento em JSON (ver *Revisão de
+  orçamento* acima) e abriu a questão de como o orçamento deve ser modelado. O desenho de revisão já
+  decidido entra como requisito; **onde o estado congelado mora sai daqui**, não antes.
 
-- [ ] **Certificação digital — assinar em lote** (era o P6) — fica anotado, **sem execução
-  prevista**. Tem seção própria, *8 · Certificação digital*. A dor só se mede depois de a assinatura
-  por documento rodar em uso real.
+- [ ] **Política de arquivamento por produto** — tem seção própria, *9 · Arquivamento por produto*,
+  com a hierarquia decidida em 06/10 e as quatro coisas que faltam. A tabela
+  `ativo.ativo_produto_status` existe desde 06/10 e **nasceu vazia e sem leitor**. É ela que libera
+  capacidade.
 
-- [ ] **O id do banco ainda aparece na URL** (era o P8) — `/empreendimentos/24`, `/ativos/26`. Desde
-  05/10 o empreendimento tem código opaco e a listagem não expõe mais o id; a URL ainda expõe. O
-  risco é pequeno (toda consulta filtra por `tenant_uuid`, então id de outro tenant dá rota
-  inexistente), mas o sequencial conta quantos empreendimentos existem na base. Trocar exige decidir
-  o que fazer com link antigo, e vale para ativo também. É higiene, não trava nada.
+- [ ] **Certificação digital — assinar em lote** — fica anotado, **sem execução prevista**. Tem
+  seção própria, *8 · Certificação digital*. A dor só se mede depois de a assinatura por documento
+  rodar em uso real.
 
-**Fechados, e por que:**
+- [ ] **O id do banco ainda aparece na URL** — `/empreendimentos/24`, `/ativos/26`. Desde 05/10 o
+  empreendimento tem código opaco e a listagem não expõe mais o id; a URL ainda expõe. O risco é
+  pequeno (toda consulta filtra por `tenant_uuid`, então id de outro tenant dá rota inexistente),
+  mas o sequencial conta quantos empreendimentos existem na base. Trocar exige decidir o que fazer
+  com link antigo, e vale para ativo também. É higiene, não trava nada.
 
-- [x] **Guarda contra id de outra tabela dentro de JSON** (era o P4) — `z_scripts_apoio/sanidade/json_sem_id.py`,
-  10/10. Ela **não é item solto: é preparação da revisão de orçamento.** O desenho decidido em 06/10
-  guarda o estado congelado em JSON, e JSON que guarda id de item/composição/memória cria ponteiro
-  que o banco não protege, porque JSONB não aceita FK. A guarda existe para que, no dia em que o
-  refactor de `ativo_orcamento` escrever esse JSON, exista quem cobre a regra: **id de outra tabela
-  dentro de JSON ou tem FK, ou é foto declarada, ou está errado.**
-
-  Ela casa por **valor** (o número existe como PK lá?), nunca por nome — detector por nome foi o que
-  falhou na varredura de 06/10, quando a regex exigia sufixo `_id` e deixou passar justamente o
-  `ati_origem`. O que custou acertar foi separar id de número comum, porque `{"largura": 6}` também
-  casa com a PK de meia dúzia de tabelas. São **dois sinais, porque cada um sozinho erra**:
-  coincidência improvável (densidade dos ids do alvo no intervalo observado, descartando acima de
-  1%) é cega para tabela densa — guardar `ati_id` passaria batido, já que 1, 2, 3 são PK em toda
-  parte; e nome com cara de referência cobre esse ângulo, tendo sido o único a pegar
-  `{"origem_da_copia": 1..5}` plantado numa tabela de teste em dev. As colunas puladas são
-  declaradas no script com o porquê, uma a uma.
-
-  **Hoje o banco está limpo: 21 colunas inspecionadas, nenhum achado.** O único caso que a guarda
-  levantou — `catalogo.edicoes.edi_estagios`, em `import_params.fte_id` — foi **avaliado e está
-  correto**: `import_params` é a foto do formulário do Preparar, para os estágios seguintes rodarem
-  sem re-upload, e aquele `fte_id` é argumento da chamada (`importar_sinapi.delay(fte_id, edi_id,
-  …)`), não referência de modelagem. O ponteiro morto que a regra teme não é possível ali, porque
-  fonte de edição não se apaga e, se se apagasse, a edição cairia com ela pela FK real em
-  `edi_fte_id`. Foi declarado como foto no script.
-
-- [x] **Responsável técnico fora do lugar no schema** (era o P5) — **não é problema.** A observação
-  era que o RT mora em `tenant_catalogo`, que o nome anuncia como catálogo técnico. Mas
-  `tenant_catalogo` também guarda `contratantes`: o schema é, na prática, *os cadastros próprios do
-  tenant*, e o RT ao lado do contratante é coerente. E tem integridade de verdade — FK para
-  `catalogo.profissoes` e `catalogo.conselhos_classe`, mais três CHECKs, porque documento assinado
-  sem profissão ou sem registro não é documento. Nada a fazer.
+**RESOLVIDO · Responsável técnico no schema.** A observação era que o RT mora em `tenant_catalogo`,
+que o nome anuncia como catálogo técnico. **Não é problema:** `tenant_catalogo` também guarda
+`contratantes`, logo o schema é *os cadastros próprios do tenant*, e o RT ao lado do contratante é
+coerente. E tem integridade de verdade — `rt_profissao` com FK para `catalogo.profissoes`,
+`rt_conselho` para `catalogo.conselhos_classe`, o registro em três partes (conselho, UF, número) e
+três CHECKs, porque documento assinado sem profissão ou sem registro não é documento. Está
+documentado na §7 de
+[`contracts/ativo/apresentacao_orcamento_contrato.md`](../contracts/ativo/apresentacao_orcamento_contrato.md),
+que é quem governa o bloco de assinatura.
 
 **Duas frentes do documento seguem vivas em seção própria, abaixo:** a revisão de orçamento
 (decidida em 06/10) e o arquivamento por produto.
@@ -762,8 +741,11 @@ antes de medir é escolher o caminho 2 ou 3 sem saber se o caminho 1 já bastava
 
 ## 9 · Arquivamento por produto — PRÓXIMO RINGUE (2026-10-06)
 
-**Ordem combinada:** entra **depois** de fechar as associações entre fontes e o ajuste da bancada.
-Não antes.
+**Ordem combinada:** entra **depois** do ajuste da bancada. Não antes.
+
+**Não depende das associações entre fontes** — isso era engano de redação aqui. Associação entre
+fontes é **frente isolada**, que o Renan toca por fora da bancada e por fora do arquivamento;
+status de produto não tem relação com equivalência entre fontes.
 
 ### A tabela já existe; o comportamento não
 
