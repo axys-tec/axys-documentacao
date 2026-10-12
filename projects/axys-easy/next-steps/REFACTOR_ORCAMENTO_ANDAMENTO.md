@@ -331,3 +331,106 @@ gravações que a fase 7 descarta — e por isso eu prefiro que você escolha.
 **Minha recomendação:** pular a 3 e ir da 5 para a **6** (a UI de Fontes/BDI/LS editando a revisão),
 que é onde a escrita *precisa* mudar de qualquer forma. A 6 é front, que você proibiu nesta rodada —
 então é aí que o trabalho autônomo acaba, e é o que estou reportando.
+
+---
+
+## 12/10 — três correções, as três levantadas pelo Renan
+
+### 1 · `converter_ls` desmarcado: o preço traz a L.S. da FONTE
+
+> *"Se isso estiver desmarcado os preços que caem na bancada repetem o do catálogo e podem divergir
+> da ls destacada na bancada. Eu acredito que o schema não suportou isso, ou suportou?"*
+
+**O schema suportou** — `ati_ls_regime` e `ati_ls_percent` existem exatamente para isso, e a §3.4 do
+desenho já dizia: *"o % aplicado pode não ser o da obra; quando a fonte não é rotacionada, vale a
+L.S. da própria fonte"*. **O migrador é que não preenchia: 0 de 1.998.**
+
+A regra, lida de `_capturar_custo_unit` e agora em `ls_aplicada()`:
+
+| situação | L.S. que entra no preço |
+|---|---|
+| regime MENSALISTA | a **mensalista do ativo** |
+| HORISTA + `converter_ls` ligado | a **horista do ativo** |
+| HORISTA + `converter_ls` **desligado** | **a da FONTE** (`edicoes_leis_sociais` da edição×UF×modalidade) |
+
+E o caso não é exceção: **18 pares ativo×fonte com `converter_ls` desligado contra 10 ligados**.
+Depois da correção, 1.338 itens têm a L.S. registrada, e **42 deles usam a L.S. da fonte, não a da
+obra** — exatamente a divergência que o Renan previu. O atv 20 mostra o detalhe fino: **4 itens com
+a da obra e 6 com a da fonte no mesmo orçamento**, porque `converter_ls` é por **fonte**.
+
+### 2 · A composição tinha de entrar ROTACIONADA — e não entrava
+
+> *"E a conversão de insumo, ela já foi aplicada? Porque a composição tem que entrar já rotacionada,
+> se for o caso."*
+
+**Não estava.** O migrador lia `catalogo.composicoes_itens` — a relação CRUA. Com
+`converter_mdo`/`converter_ins`/`converter_reg` ligados, a composição do orçamento é **outra**.
+Medido antes da correção:
+
+| ativo | conversão | CPUs | iguais | coef diferente | código diferente |
+|---|---|---|---|---|---|
+| 22 | CDHU/FDE mdo | 121 | 106 | 11 | 4 |
+| 23 | SINAPI reg | 10 | 1 | 6 | 3 |
+| 24 | SINAPI/FDE mdo+ins | 291 | 206 | 85 | 0 |
+| 26 | CDHU/FDE mdo | 157 | 134 | 15 | 8 |
+| **21** | **nenhuma (controle)** | 14 | **14** | **0** | **0** |
+
+**132 de 579 composições estavam erradas** — e o controle sem conversão dando 14/14 é o que valida a
+medição. Exemplo concreto: insumo 122 com coeficiente `0,0035` no catálogo e `0,002975` na bancada
+(fator 0,85 da conversão).
+
+**A correção:** a fonte passou a ser `get_composicao_detalhe(...)["atual"]["itens"]` — a árvore
+resolvida, com `filhos` trazendo a sub-CPU também resolvida e `estado` marcando o que foi convertido
+(`reg`, `ins`). O migrador ganhou `garantir_insumo`/`garantir_composicao`/`gravar_arvore`, porque a
+captura passou a ser **por linha da árvore**: a conversão traz insumo que não está na composição do
+catálogo, e varrer o catálogo nunca o encontraria.
+
+`z_scripts_apoio/sanidade/composicao_migrada.py` é o teste: **654 CPUs com a composição da bancada,
+0 divergem** (3 sem árvore resolvível — são composições **descontinuadas** `cmp_ativa=false` com 0
+itens no catálogo, o caso conhecido de `project_composicao_descontinuada`).
+
+**E um achado de precisão:** sobravam 5 divergências na 6ª casa decimal. `aci_coef` era
+`NUMERIC(18,6)` e `catalogo.composicoes_itens.ci_coef` é `NUMERIC(14,10)` — o coeficiente
+**convertido** tem mais casas que o da fonte (é produto por fator), e 6 casas arredondavam. Virou
+`NUMERIC(18,10)`: espelhar o catálogo, não inventar.
+
+### 3 · `aoc_origem`/`aoz_origem` passam a ser C/T
+
+> *"Precisamos mesmo guardar aoc_origem e aoz_origem com os nomes CATALOGO/TENANT? Isso é um lixo no
+> longo prazo."*
+
+Medido: `'CATALOGO'` custa **9,0 bytes por linha**; `CHAR(1)` custa 2. São **7 bytes por linha**, que
+em 10 mil orçamentos dão **53 MB**. Mas o argumento que decide não é o disco: **o schema já usa
+CHAR(1) para enum pequeno** — `alsi_grupo` (o grupo da L.S.) e o próprio `ati_ls_regime` (H/M). C/T
+é consistência, não exceção.
+
+`C` = CATÁLOGO global · `T` = TENANT (fonte própria), com o CHECK no banco e o comentário no schema.
+A app continua falando `CATALOGO`/`TENANT`: a tradução mora em **dois lugares só** — a view de
+compatibilidade e o `linhas_bancada`. Esquecer o segundo custou 1.338 diferenças na validação, que é
+o tipo de erro que o `leitura_orcamento.py` existe para pegar.
+
+### 4 · `aoz_fonte`/`aoc_fonte` FICAM como texto — e a razão é técnica
+
+> *"Poderíamos guardar o nome ou criar uma fk p/ opa_fonte, todavia acho que não vale o custo por
+> conta das rotações."*
+
+Concordo, e a razão é mais forte que o custo: **a fonte na linha é um snapshot por LINHA, não por
+orçamento**. Com rotação de MDO, um insumo SINAPI entra numa composição CDHU — então a mesma
+composição tem linhas de fontes diferentes. Uma FK para `opa_fonte` amarraria a linha ao
+**parâmetro** do orçamento, quando ela precisa dizer **de onde aquele dado veio**. São duas coisas, e
+confundi-las quebraria justamente o caso da conversão.
+
+Custa 6,3 bytes por linha, há 6 fontes distintas em dev (CDHU, EMOP, FDE, PRÓPRIA, SBC, SINAPI), e
+fica legível na planilha sem join.
+
+### Estado depois das correções
+
+| | |
+|---|---|
+| migração | 1.280 CPUs · 1.433 insumos · 5.250 linhas · 1.998 itens |
+| `composicao_migrada` | **654 CPUs == bancada · 0 divergem** |
+| `migracao_orcamento` | 10 de 10 |
+| `analitico_bancada` | 1.312 serviços fecham |
+| `documento_pdf` (OFF e ON) | **51 de 51** nos dois |
+| `excel_valores` | 4 de 4 |
+| `leitura_orcamento` (ON) | **zero diferença** |
