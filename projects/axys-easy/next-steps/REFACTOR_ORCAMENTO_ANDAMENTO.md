@@ -30,7 +30,7 @@ outras partes da app.
 | 3 · escrita dupla | — | **depois da 4** (ver abaixo) |
 | 4 · migrar dados de dev | **FEITA** | 11/10 |
 | 5 · trocar a leitura (flag desligado) | **FEITA** | 11/10 |
-| 9 · `schema.sql` | — | |
+| 9 · `schema.sql` | **FEITA** | 11/10 |
 
 ## Linha do tempo
 
@@ -271,3 +271,31 @@ schema novo.
 pela PK (dependência funcional); em **VIEW ele não deduz**, e exige tudo no `GROUP BY`. Acrescentei
 as colunas de identidade ao `GROUP BY` — **não muda resultado nenhum**, porque todas são
 funcionalmente dependentes de `mc_id`, e é uma linha contra reescrever a consulta.
+
+### Fase 9 — FEITA: o `schema.sql` voltou a ser a foto, e achou divergência que não é nossa
+
+O arquivo recebeu as **20 tabelas** da família e as **7 views**, com o DDL vindo do `pg_dump` do
+banco (a verdade depois da fase 2, não o que eu escrevi à mão), mais o bloco de comentário que
+explica a estrutura, a regra "esparsar o que muda sozinho / copiar o que o usuário muda", a decisão
+dos prefixos e o infixo `ao_` nos índices. As 3 tabelas lixo saíram do arquivo.
+
+`z_scripts_apoio/sanidade/schema_fiel.py` é a guarda permanente: compara tabela e coluna **nos dois
+sentidos** (o que o banco tem e o arquivo não declara, e o contrário), e aceita `--prod`.
+
+#### ⚠ Achado que NÃO é do refactor, e precisa de quem é da frente de associações
+
+O `schema.sql` **já estava divergente antes deste trabalho**, em três tabelas de equivalências:
+
+| tabela | colunas no banco e **não** no `schema.sql` |
+|---|---|
+| `catalogo.equivalencias_cpu` | `ec_atualizado_em`, `ec_atualizado_por`, `ec_fator_conversao`, `ec_hash_dest`, `ec_metodo`, `ec_observacao`, `ec_score` |
+| `catalogo.equivalencias_ins` | `ei_atualizado_em`, `ei_atualizado_por`, `ei_hash_dest` |
+| `catalogo.equivalencias_mo` | `mo_atualizado_em`, `mo_atualizado_por` |
+
+São 12 colunas que existem em dev e o arquivo não declara. **Não toquei** — é a frente de
+associações entre fontes, que o Renan toca por fora desta (e há trabalho não commitado dela no
+working tree). O `schema_fiel.py` vai acusar até alguém dessa frente atualizar o arquivo.
+
+**Isso valida o medo do Renan** (*"tenho medo de esse arquivo já não representar o estado atual"*):
+estava certo, só não era onde parecia. Em 11/10 eu havia conferido **tabelas** e dito que estava
+fiel; a conferência de **colunas** é que encontrou.
