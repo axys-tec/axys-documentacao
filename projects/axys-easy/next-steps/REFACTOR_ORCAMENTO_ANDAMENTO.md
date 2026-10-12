@@ -29,7 +29,7 @@ outras partes da app.
 | 2 · DDL em dev | **FEITA** | 11/10 |
 | 3 · escrita dupla | — | **depois da 4** (ver abaixo) |
 | 4 · migrar dados de dev | **FEITA** | 11/10 |
-| 5 · trocar a leitura (flag desligado) | — | |
+| 5 · trocar a leitura (flag desligado) | **FEITA** | 11/10 |
 | 9 · `schema.sql` | — | |
 
 ## Linha do tempo
@@ -217,3 +217,57 @@ na EAP é uma linha só).
 — o catálogo só tem SE, e SD/CD saem da L.S. aplicada em cima. Para insumo de fonte própria o preço
 fica NULL nesta migração (a CPU própria resolve o custo por outro caminho, e o custo **resolvido**
 está em `_composicoes_custo`, que é o que a leitura usa).
+
+### Fase 5 — FEITA: a leitura nova entrega o mesmo, campo a campo
+
+`EASY_ORC_LEITURA_NOVA=1` faz a app ler de `ativo_orcamento_*`. **Desligado é o padrão**, e é o que
+roda em produção.
+
+| | flag OFF | flag ON |
+|---|---|---|
+| `leitura_orcamento` (novo) | — | **zero diferença** nos 11 ativos |
+| `analitico_bancada` | 1.312 fecham | 1.312 fecham |
+| `documento_pdf` | 51 de 51 | **51 de 51** |
+| `excel_valores` | 4 de 4 | 4 de 4 |
+| `migracao_orcamento` | 10 de 10 | 10 de 10 |
+
+`z_scripts_apoio/sanidade/leitura_orcamento.py` é o portão novo: chama `get_bancada` nas duas
+configurações e compara **26 campos de cada item** mais o total. Compara o que a bancada ENTREGA, não
+o SQL — são 19 pontos de chamada em 9 módulos que consomem esse dicionário.
+
+#### O que a troca ensinou, em três decisões
+
+**1. Envolver `execute` por `execute` com regex não serve.** Eram 85 citações das tabelas de
+orçamento em 2 módulos, muitas em strings concatenadas ao longo de várias linhas ou em constantes de
+módulo. O regex pegou 75 e deixou 10 — e o resultado foi um bug **silencioso**: `listar_memorias`
+devolvia ids da tabela ANTIGA e `get_memoria` não os achava na nova, então o PDF da memória saía
+vazio sem erro nenhum. A tradução passou para o **cursor** (`_CursorOrcamento` em `core/db.py`): um
+ponto único, que cobre as 85 e as que forem escritas amanhã.
+
+**2. Trocar o nome da tabela não basta quando a coluna de DONO muda.** `mc_atv_id` virou
+`mc_aor_id`: não é só o nome, o VALOR também mudaria (de `atv_id` para `aor_id`). Reescrever as 85
+queries para resolver a revisão antes seria reescrever a app na fase de leitura — o oposto do que o
+plano quer. Entraram **6 views de compatibilidade** (`05_views_compat.sql`) que expõem a coluna
+antiga derivada da revisão vigente. A query da app não muda; o dado vem do schema novo. Elas saem na
+fase 7.
+
+**3. A view de itens é a que mais trabalha.** `ativo_itens` perdeu `ati_cmp_origem` (a origem é da
+composição) e `ati_cmp_id` passou a ser FK interna. A view **reconstrói as duas** a partir da
+composição, listando as colunas uma a uma — `i.*` não serviria, porque `ati_cmp_id` tem de ser
+substituída. Conferido: das 24 colunas da tabela antiga, a view tem **todas**, e acrescenta 5 do
+schema novo.
+
+#### Três bugs reais que os testes pegaram
+
+| | o que era |
+|---|---|
+| `ati_bdi_id` não migrava | o INSERT dos itens não incluía a coluna. 13 itens perderam o BDI e **os totais bateram por sorte** — todos apontavam o BDI default, que o `get_bancada` aplica quando o id é nulo. Corrigido com UPDATE depois de o BDI existir (os itens migram antes, porque precisam da composição) |
+| `desc_fixada` divergia | são **dois** casos, e eu cobri um: serviço de fonte com descrição trocada (a marca mora na composição) **e serviço digitado à mão**, que tem descrição própria e nenhuma composição. O schema antigo marcava os dois |
+| `aci_ins_id`/`aci_cmp_filho_id` sem CASCADE | o `DELETE` de uma revisão travava. É o **mesmo defeito que o playground achou ontem** e que ficou corrigido só no texto da §2.8, não no DDL da §2.5 |
+
+#### Uma edição de código fora do padrão, e por quê
+
+`listar_memorias` agrupava por `m.mc_id` e selecionava `m.mc_titulo`. Em TABELA o Postgres deduz
+pela PK (dependência funcional); em **VIEW ele não deduz**, e exige tudo no `GROUP BY`. Acrescentei
+as colunas de identidade ao `GROUP BY` — **não muda resultado nenhum**, porque todas são
+funcionalmente dependentes de `mc_id`, e é uma linha contra reescrever a consulta.
