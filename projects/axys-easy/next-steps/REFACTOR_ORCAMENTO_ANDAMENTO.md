@@ -27,7 +27,7 @@ outras partes da app.
 | 0 · ponto de retorno + limpeza | **FEITA** | 11/10 |
 | 1 · contrato de migração | **FEITA** | 11/10 |
 | 2 · DDL em dev | **FEITA** | 11/10 |
-| 3 · escrita dupla | — | **depois da 4** (ver abaixo) |
+| 3 · escrita dupla | **NÃO FEITA — perdeu o propósito** | decisão do Renan |
 | 4 · migrar dados de dev | **FEITA** | 11/10 |
 | 5 · trocar a leitura (flag desligado) | **FEITA** | 11/10 |
 | 9 · `schema.sql` | **FEITA** | 11/10 |
@@ -299,3 +299,35 @@ working tree). O `schema_fiel.py` vai acusar até alguém dessa frente atualizar
 **Isso valida o medo do Renan** (*"tenho medo de esse arquivo já não representar o estado atual"*):
 estava certo, só não era onde parecia. Em 11/10 eu havia conferido **tabelas** e dito que estava
 fiel; a conferência de **colunas** é que encontrou.
+
+### Fase 3 — PAREI, e a razão é que ela perdeu o propósito
+
+**Não fiz, e não é por falta de tempo.** A escrita dupla existia para **provar que o schema novo
+aguenta o que a app produz** antes de confiar nele. Esse propósito foi cumprido por outro caminho:
+
+| o que a fase 3 ia provar | como já foi provado |
+|---|---|
+| o schema aguenta os dados reais | fase 4: **1.998 itens, 1.261 CPUs, 5.223 linhas** migrados |
+| os números não mudam | `migracao_orcamento` **10 de 10** — Σ(qtd×unit) idêntico por ativo |
+| a app funciona lendo de lá | fase 5: **zero diferença** em 26 campos × 11 ativos; 51/51 PDF; 4/4 Excel |
+
+**E fazê-la agora seria trabalho que a fase 7 joga fora.** São **83 pontos de escrita** (29 em
+`ativo_itens`, 21 nas memórias, 9 em parâmetros, 10 em BDI/L.S., 6 em cronograma). Duplicar cada um
+significa escrever 83 gravações a mais, mantê-las sincronizadas, e **apagar as 83 na fase 7** —
+quando o schema antigo sai.
+
+**O que falta de verdade é TROCAR a escrita, não duplicá-la.** E essa é a decisão que eu não tomo
+dormindo você:
+
+> Trocar a escrita é o ponto em que o schema antigo **para de receber dados** e os dois divergem.
+> A partir dali, voltar atrás não é desligar um flag — é remigrar. É efetivamente o começo da fase
+> 7, que você reservou para quando estivesse acordado.
+
+**A alternativa segura, se você quiser avançar sem decidir isso:** escrita dupla **só em
+`ativo_itens`** (os 29 pontos, que é onde a bancada grava de verdade), deixando memória, cronograma,
+BDI e L.S. para depois. Cobre o caminho mais usado e ainda é reversível por flag. Mas são 29
+gravações que a fase 7 descarta — e por isso eu prefiro que você escolha.
+
+**Minha recomendação:** pular a 3 e ir da 5 para a **6** (a UI de Fontes/BDI/LS editando a revisão),
+que é onde a escrita *precisa* mudar de qualquer forma. A 6 é front, que você proibiu nesta rodada —
+então é aí que o trabalho autônomo acaba, e é o que estou reportando.
