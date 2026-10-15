@@ -5247,6 +5247,60 @@ INSERT INTO catalogo.profissoes (prf_codigo, prf_nome, prf_conselho, prf_nivel) 
     ('TEC_MEIO_AMB',   'Técnico em Meio Ambiente',              'CRT', 'MEDIO')
 ON CONFLICT (prf_codigo) DO NOTHING;
 
+-- ══════════════════════════════════════════════════════════════════════════════
+-- O TIMBRADO DA CASA
+-- O papel da Axys não é o de um cliente. Ele vivia em `tenant_catalogo.timbrados`, como se a
+-- Axys fosse mais um tenant — e não é: quem usa a app por dentro gera documento com o papel da
+-- casa, que é domínio global, igual a conselho de classe e profissão. Por isso aqui.
+--
+-- É UMA LINHA SÓ, e por isso não tem id que cresça: `ck_ctmb_unica` trava o id em 1. Uma tabela
+-- de configuração com sequence convida a uma segunda linha que ninguém sabe qual vale.
+--
+-- NÃO GUARDA ARQUIVO. Não há `tmb_logo_path` aqui, e é de propósito: o logo da Axys vem do Hub,
+-- como vem para qualquer tenant, e esta tela é SÓ a régua — tamanho, âncora, deslocamento, os
+-- dois textos e o rótulo da numeração. Coluna que nada escreve é coluna que mente.
+--
+-- As colunas de régua repetem as de `tenant_catalogo.timbrados` no nome, no tipo e nos limites:
+-- é o mesmo motor que lê as duas, e divergir aqui seria manter duas verdades sobre a mesma coisa.
+-- ══════════════════════════════════════════════════════════════════════════════
+CREATE TABLE IF NOT EXISTS catalogo.timbrados (
+    tmb_id             INTEGER NOT NULL PRIMARY KEY DEFAULT 1,
+    tmb_logo_escala    SMALLINT NOT NULL DEFAULT 100,
+    tmb_logo_alinha    TEXT     NOT NULL DEFAULT 'ESQUERDA',
+    tmb_logo_vert      TEXT     NOT NULL DEFAULT 'BASE',
+    tmb_logo_dy        NUMERIC(4,1) NOT NULL DEFAULT 0,   -- mm, de 0,2 em 0,2; positivo sobe
+    tmb_logo_dx        NUMERIC(4,1) NOT NULL DEFAULT 0,   -- mm; positivo vai para a direita
+    tmb_nome           TEXT,                              -- nome corporativo (2ª linha do cabeçalho)
+    tmb_rodape         TEXT,                              -- texto livre do rodapé
+    tmb_folha          TEXT     NOT NULL DEFAULT 'Página',-- rótulo da numeração; o número é da app
+    tmb_atualizado_em  TIMESTAMPTZ,
+    tmb_atualizado_por TEXT,
+
+    CONSTRAINT ck_ctmb_unica  CHECK (tmb_id = 1),
+    CONSTRAINT ck_ctmb_escala CHECK (tmb_logo_escala BETWEEN 25 AND 200),
+    CONSTRAINT ck_ctmb_alinha CHECK (tmb_logo_alinha IN ('ESQUERDA','CENTRO','DIREITA')),
+    CONSTRAINT ck_ctmb_vert   CHECK (tmb_logo_vert IN ('TOPO','CENTRO','BASE')),
+    CONSTRAINT ck_ctmb_dy     CHECK (tmb_logo_dy BETWEEN -20 AND 20),
+    CONSTRAINT ck_ctmb_dx     CHECK (tmb_logo_dx BETWEEN -60 AND 60),
+    CONSTRAINT ck_ctmb_folha  CHECK (tmb_folha IN ('Página','Folha')),
+    CONSTRAINT ck_ctmb_nome   CHECK (tmb_nome IS NULL OR char_length(tmb_nome) <= 80),
+    CONSTRAINT ck_ctmb_rodape CHECK (tmb_rodape IS NULL OR char_length(tmb_rodape) <= 160)
+);
+
+-- A régua da Axys como ela foi acertada na simulação, em 15/10/2026: 161% sobre a mancha, à
+-- esquerda, encostado na régua azul com 1,6 mm de respiro — o afastamento que o timbrado antigo
+-- tinha e que só o `dy` sabe recriar sem mexer no tamanho.
+INSERT INTO catalogo.timbrados
+    (tmb_id, tmb_logo_escala, tmb_logo_alinha, tmb_logo_vert, tmb_logo_dy, tmb_logo_dx,
+     tmb_nome, tmb_rodape, tmb_folha)
+VALUES
+    (1, 161, 'ESQUERDA', 'BASE', 1.6, 0.0,
+     'Axys Engenharia e Tecnologia Ltda',
+     'https://www. axys-tec.com.br · contato@axys.com.br · instragram @axys.tec · Fone/WhatsApp +55 17 99741-2708',
+     'Página')
+ON CONFLICT (tmb_id) DO NOTHING;   -- semeia uma vez; depois quem manda é a tela
+
+
 CREATE INDEX IF NOT EXISTS ix_prf_conselho ON catalogo.profissoes (prf_conselho, prf_nome)
     WHERE prf_ativa;
 
@@ -6740,7 +6794,7 @@ CREATE TABLE IF NOT EXISTS tenant_catalogo.timbrados (
     tmb_tenant_uuid   UUID    NOT NULL,              -- RAIZ de isolamento. [VALIDAR] sem FK física.
     tmb_ctr_id        INTEGER REFERENCES tenant_catalogo.contratantes (ctr_id)
                       ON UPDATE CASCADE ON DELETE RESTRICT,   -- NULL = o timbrado do próprio tenant
-    tmb_titulo        TEXT,                          -- NULL no próprio; a app o lê como PRINCIPAL
+    tmb_titulo        TEXT,                          -- livre; vazio no próprio = o nome do tenant
     tmb_logo_path     TEXT,                          -- chave no storage privado; NULL = logo do Hub
     tmb_logo_sha256   TEXT,
     tmb_logo_mime     TEXT,
@@ -6748,6 +6802,17 @@ CREATE TABLE IF NOT EXISTS tenant_catalogo.timbrados (
     -- uma medida em mm: o usuário ajusta olhando a simulação, não fazendo conta.
     tmb_logo_escala   SMALLINT NOT NULL DEFAULT 100,
     tmb_logo_alinha   TEXT     NOT NULL DEFAULT 'ESQUERDA',
+    -- A ÂNCORA VERTICAL e o ajuste fino. BASE encosta o logo na régua azul; TOPO o pendura no
+    -- alto da faixa; CENTRO o põe no meio. `tmb_logo_dy` empurra a partir daí, em MILÍMETROS e de
+    -- 0,2 em 0,2 — positivo sobe. Existe porque o timbrado de origem tinha 1,6 mm de respiro
+    -- acima da régua, e sem esse ajuste a única forma de recriá-lo seria mexer no TAMANHO, que é
+    -- outra coisa: foi assim que o logo acabou inflado a 200% só para encostar onde devia.
+    tmb_logo_vert     TEXT     NOT NULL DEFAULT 'BASE',
+    tmb_logo_dy       NUMERIC(4,1) NOT NULL DEFAULT 0,
+    -- e o mesmo no eixo horizontal: `tmb_logo_alinha` escolhe o encosto, `tmb_logo_dx` empurra a
+    -- partir dele. Positivo vai para a direita. Faixa maior (±60 mm) porque a largura útil é de
+    -- 267 mm e esquerda/centro/direita deixam vãos bem maiores que os 18 mm da vertical.
+    tmb_logo_dx       NUMERIC(4,1) NOT NULL DEFAULT 0,
     tmb_nome          TEXT,                          -- nome corporativo (2ª linha do cabeçalho)
     tmb_rodape        TEXT,                          -- texto livre do rodapé (e-mail, endereço…)
     tmb_folha         TEXT     NOT NULL DEFAULT 'Página',   -- rótulo da numeração; o número é da app
@@ -6759,13 +6824,17 @@ CREATE TABLE IF NOT EXISTS tenant_catalogo.timbrados (
 
     CONSTRAINT ck_tmb_escala  CHECK (tmb_logo_escala BETWEEN 25 AND 200),
     CONSTRAINT ck_tmb_alinha  CHECK (tmb_logo_alinha IN ('ESQUERDA','CENTRO','DIREITA')),
+    CONSTRAINT ck_tmb_vert    CHECK (tmb_logo_vert IN ('TOPO','CENTRO','BASE')),
+    CONSTRAINT ck_tmb_dy      CHECK (tmb_logo_dy BETWEEN -20 AND 20),
+    CONSTRAINT ck_tmb_dx      CHECK (tmb_logo_dx BETWEEN -60 AND 60),
     CONSTRAINT ck_tmb_folha   CHECK (tmb_folha IN ('Página','Folha')),
     -- Limites de tamanho: o cabeçalho e o rodapé têm largura fixa, e texto que não cabe não
     -- "quebra bonito" — ele invade o título ou some. O corte é aqui, não na hora de imprimir.
     CONSTRAINT ck_tmb_nome    CHECK (tmb_nome   IS NULL OR char_length(tmb_nome)   <= 80),
     CONSTRAINT ck_tmb_rodape  CHECK (tmb_rodape IS NULL OR char_length(tmb_rodape) <= 160),
-    CONSTRAINT ck_tmb_titulo  CHECK (tmb_titulo IS NULL OR btrim(tmb_titulo) <> ''),
-    CONSTRAINT ck_tmb_proprio_sem_titulo CHECK (tmb_ctr_id IS NOT NULL OR tmb_titulo IS NULL)
+    -- O TÍTULO vale para qualquer timbrado, inclusive o do próprio tenant: é como ele se chama
+    -- na lista, e quem cadastra sabe melhor que a app. Sem título, a tela mostra o nome do tenant.
+    CONSTRAINT ck_tmb_titulo  CHECK (tmb_titulo IS NULL OR btrim(tmb_titulo) <> '')
 );
 
 CREATE UNIQUE INDEX IF NOT EXISTS uq_tmb_proprio ON tenant_catalogo.timbrados (tmb_tenant_uuid)
