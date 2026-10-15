@@ -2,6 +2,11 @@
 
 > **Escopo:** especifica a **tela de produção** do cronograma físico-financeiro — seleção do nível de descida, prazo em meses, montagem do grid de preenchimento — e o **round-trip com o Excel**. Herda a espinha da Bancada de Orçamento: mesma `ativo`, mesma chave estável, mesmo WebSocket, mesma regra TRUNC. Documento irmão de `bancada_orcamento_contrato.md`.
 >
+> **Quem propõe o preenchimento:** o cronograma pode ser montado à mão nesta tela ou **proposto**
+> pelo pré-planejamento de execução, que distribui as linhas por método declarado e entrega o
+> memorial — ver [`pre_planejamento_execucao_contrato.md`](pre_planejamento_execucao_contrato.md).
+> Quem grava continua sendo esta tela: o pré-planejador propõe, a curadoria decide.
+>
 > **Princípio que costura tudo:** o cronograma **não é uma segunda árvore** — é uma **projeção temporal da árvore do orçamento**. Ele não inventa itens; ele faseia no tempo o valor de itens que já existem na `ativo_itens`. Tela, Excel e API são três portas para a mesma `cronograma` + `cronograma_itens`.
 
 ---
