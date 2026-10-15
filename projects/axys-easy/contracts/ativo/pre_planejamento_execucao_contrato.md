@@ -212,6 +212,17 @@ obra. Criar "etapa" seria inventar uma terceira estrutura para conviver com a EA
 cronograma. Período absoluto encaixa no que existe, e o custo — reparametrizar ao mudar o prazo
 — é real e pequeno: o memorial registra a posição e o recálculo é um clique.
 
+**O par `posicao_minima` + `impeditivos` É a sequência executiva.** Ele não a substitui nem a
+aproxima: ele é o único lugar onde ela passa a existir. A EAP *deveria* declará-la, e às vezes
+declara — mas com frequência não, seja porque quem montou não se deu ao trabalho, seja porque
+misturou serviço com etapa na mesma hierarquia. Uma EAP assim organiza o orçamento e não diz
+nada sobre a obra.
+
+É por isso que a sequência **não se deriva** da EAP automaticamente. Derivar seria ler ordem
+visual como dependência, e uma EAP mal estruturada produziria um cronograma mal estruturado com
+cara de calculado. Quem preenche essa lacuna é a §10 — e é esse, não o preenchimento de campos,
+o trabalho principal da IA neste módulo.
+
 **Os três modos**, com o padrão de ocupação:
 
 | Modo | Padrão | Definição |
@@ -286,6 +297,13 @@ Isso é comparação, não promessa. O sistema não afirma economia nem prazo se
 
 ## 10. A IA parametriza; ela não planeja
 
+**O trabalho dela é declarar a sequência executiva que a EAP não declarou.** Essa é a tarefa,
+e o resto é consequência dela. Uma EAP bem feita já carrega a ordem da obra; muitas não carregam,
+porque misturam serviço com etapa ou foram montadas só para somar. Sem a sequência, o motor não
+tem o que respeitar e volta a distribuir por conta própria — que é exatamente o que este módulo
+existe para acabar. Preencher modo e duração máxima é a parte fácil; amarrar o que precede o quê
+é a parte que não dá para automatizar por regra.
+
 A IA recebe a **planilha sintética** — ids estáveis, código EAP, nível, descrição,
 agrupador/serviço, unidade, quantidade, valor e **horas por profissão** da linha. Não recebe
 composição, insumo nem coeficiente: a app já apurou isso.
@@ -293,6 +311,10 @@ composição, insumo nem coeficiente: a app já apurou isso.
 Ela devolve **só o quadro de parametrização** (§7), por linha ou por agrupador, com `origem=ia`.
 O engenheiro revisa; ao editar, a origem passa a `manual` e a sugestão original fica guardada
 para comparação.
+
+A IA pode avisar que a EAP recebida não separa etapas de serviços, ou que o nível de corte do
+cronograma agrupa coisas que a obra executa em momentos diferentes. É um aviso ao engenheiro, não
+uma recusa: o módulo roda do mesmo jeito, e o memorial registra a ressalva.
 
 **Sugestão de `tmax` é estimativa, nunca fato.** 9.000 horas de uma profissão são 50
 colaboradores-mês: com dez, cinco meses; com cinco, dez meses. Sem efetivo de referência, horas
@@ -314,6 +336,11 @@ Impeditivo exige conclusão integral antes do início.
 Não calcule cronograma, caminho crítico ou curva financeira.
 Sem efetivo informado, não afirme prazo: devolva tmax nulo e diga por quê.
 Evite impedimentos circulares.
+
+A ordem da EAP pode ou não refletir a sequência da obra: declare a sequência
+que a execução exige, não a que a numeração sugere. Se a hierarquia misturar
+serviço com etapa a ponto de impedir a leitura, diga isso num aviso em vez de
+devolver impedimentos duvidosos.
 ```
 
 ---
