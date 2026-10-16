@@ -283,16 +283,16 @@ A IA pode avisar que a EAP recebida não separa etapas de serviços, ou que o n�
 |---|---|---|
 | Entrada | montada pela app, com ids internos | arquivo que o usuário leva e traz |
 | Saída | devolvida direto ao motor | colada ou importada por ele |
-| Identificação | `ati_id` real | **chave opaca**, resolvida por consulta |
+| Identificação | ids internos reais | **chave opaca**, resolvida por consulta |
 | Formato | JSON | CSV como primeira opção — o usuário abre no Excel, confere e corrige |
 
-O canal externo **não expõe `ati_id`**. Ele leva uma chave opaca por linha, e a app resolve a correspondência no banco ao importar. O custo é uma consulta a mais; se ela se mostrar pesada no tamanho real de orçamento, revisar — mas a ocultação não é negociável, e não por segurança apenas: id interno vazado vira dependência de terceiro no dia em que alguém automatizar em cima dele.
+O canal externo **não expõe id interno nenhum** — não `ati_id`, não `ins_id`, não `cmp_id`, não id de composição, de insumo ou de edição. Ele leva uma chave opaca por linha, válida para aquela sessão de parametrização, e a app resolve a correspondência no banco ao importar. O custo é uma consulta a mais; se ela se mostrar pesada no tamanho real de orçamento, revisar — mas a ocultação não é negociável, e não por segurança apenas: id interno que sai da casa vira dependência de terceiro no dia em que alguém automatizar em cima dele, e aí a numeração interna não pode mais mudar sem quebrar quem está lá fora.
 
 O formato do canal externo é decisão de usabilidade, não de engenharia. JSON é o que a IA devolve melhor; CSV é o que o engenheiro **abre, lê e corrige** sem ferramenta. Como esse arquivo passa pela mão dele — ele copia o prompt, cola na IA dele, salva o resultado e importa —, CSV tende a servir melhor. A decidir no protótipo, com JSON aceito nos dois casos.
 
-**Sobre a percepção de velocidade.** O fluxo externo será naturalmente mais lento: tem a resolução de chave e, principalmente, tem o minuto ou mais em que o usuário opera a IA dele. A comparação que ele fará, porém, não é do fluxo inteiro — é do que acontece **depois** de importar o arquivo, e aí o interno precisa ser rápido de verdade.
+**Sobre a percepção de velocidade.** O fluxo externo é naturalmente mais lento: tem a resolução de chave opaca e, principalmente, tem o minuto ou mais em que o usuário opera a IA dele. A comparação que ele fará não é do fluxo inteiro — é do que acontece **depois** de importar o arquivo, e aí o canal interno precisa ser rápido de verdade, não parecer.
 
-A proposta de acrescentar 1–2 s de retardo artificial no canal externo fica registrada como decisão de produto, com uma reserva: latência fabricada é custo pago pelo usuário por uma percepção, e no dia em que for notada vale menos do que a comparação pretendia. A diferença honesta — o canal interno sendo genuinamente mais direto — já produz o efeito. **Recomendação:** medir primeiro; se a diferença real for perceptível, não acrescentar nada.
+**Não se acrescenta latência artificial.** A hipótese de somar 1–2 s ao canal externo foi levantada e descartada: latência fabricada é custo pago pelo usuário por uma percepção, e no dia em que for notada custa mais do que a comparação valia. A diferença honesta já existe e basta.
 
 ---
 
@@ -395,7 +395,7 @@ O que ele **não faz** é se apresentar como planejamento executivo. Não há pr
 | `HORAS_UTEIS_NAO_DECLARADAS` | A origem das horas úteis acompanha o resultado e o memorial |
 | `RECONCILIACAO_NAO_APLICADA` | O cronograma gravado é o realizável, não o proposto |
 | `IA_ID_INEXISTENTE` | JSON/CSV da IA não cria linha que não existe |
-| `IA_ID_INTERNO_EXPOSTO` | O canal externo não carrega `ati_id` |
+| `IA_ID_INTERNO_EXPOSTO` | O canal externo não carrega id interno nenhum (`ati_id`, `ins_id`, `cmp_id`…) |
 | `ORCAMENTO_ALTERADO` | Parâmetros de orçamento revisado não se aplicam sem reconciliação |
 
 **Cenários obrigatórios:** sequencial de 4 períodos; intercalada com 3 ativos em janela de 5; impedimento simples; duas linhas na mesma posição; ciclo; linha com valor e sem horas; linha com horas e sem valor; ativo só horista; ativo só mensalista; **ativo misto**; MDO de fonte sem par curado (equivalência por conceito); item indivisível que impede o percentual proposto; efetivo insuficiente; prazo imposto curto; CV impossível; orçamento com muitas linhas.
