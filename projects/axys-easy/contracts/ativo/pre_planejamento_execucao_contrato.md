@@ -141,7 +141,64 @@ O que **não** se repõe — chuva, falta justificada, doença, cerca de 5,5 h/m
 
 **Qualquer que seja o nível, a fonte é uma só para toda a app.** Hoje o histograma usa a constante; quando a cascata entrar, histograma e pré-planejador consomem o mesmo valor, ou a mesma obra mostra dois efetivos em duas telas — que foi exatamente o defeito que o 220 produziu.
 
-### 5.2 A data-alvo
+### 5.2 A chuva, em quatro níveis
+
+A chuva entra aqui e não na conversão de regime: ela é perda de produção, não de remuneração. Para o custo ela é neutra — o mensalista recebe igual, e a CAIXA tirou o `B7` do encargo dele dizendo que *"não há relação significativa entre as chuvas e os serviços prestados pelos trabalhadores mensalistas"*. Para o planejamento ela é a parada mais relevante que existe, e provavelmente a que mais vai descolar o cronograma da obra.
+
+**Como a referência chega ao número.** *Cálculos e Parâmetros*, pág. 24, abre a memória inteira para São Paulo:
+
+```
+129 dias de chuva/ano            INMET, média de 10 anos, região de São Paulo
+ × proporção de dias úteis    →  97,42 dias de chuva em dia útil
+ × 20%   chuvas que caem de dia ou duram o bastante      (premissa IBEC)
+ × 20%   atividades que exigem bom tempo, obra HABITACIONAL  (premissa IBEC)
+ = 3,90 dias/ano    →  3,90 / 271,60 = 1,43%  (o B7 do horista)
+```
+
+Os 129 são medição. Os dois 20% são juízo técnico de terceiro, que a CAIXA adota, e é neles que mora quase toda a redução — de 97 para 3,90.
+
+**O segundo fator é tipologia, e é onde o engenheiro sabe mais que a tabela.** Ele afirma que 80% dos serviços de uma obra habitacional seguem na chuva. Vale para alvenaria interna, instalação, revestimento. Não vale para terraplenagem, fundação ou cobertura. Medido em capacidade:
+
+| tipologia | 2º fator | dias/ano | hora de produção (SP, 2026) |
+|---|---:|---:|---:|
+| habitacional (premissa IBEC) | 20% | 3,90 | 180,95 h/mês |
+| vertical com estrutura exposta | 40% | 7,79 | 178,57 h/mês |
+| infraestrutura / terraplenagem | 80% | 15,59 | 173,80 h/mês |
+
+Quase 4% de capacidade entre a primeira linha e a terceira — meio mês de obra num cronograma de doze. Não é detalhe de premissa; é prazo.
+
+**E o número da referência é da CAPITAL.** O livro é explícito: as localidades do SINAPI são *"as vinte e sete capitais estaduais e o Distrito Federal, onde o IBGE realiza coleta de preços"*. Uma obra em Fernandópolis orçada com `SP` carrega a chuva da região metropolitana de São Paulo. Não é defeito da app — é como a referência é construída —, mas o memorial **diz isso sempre**, inclusive quando ninguém mexeu em nada. Memorial que esconde a aproximação não é memorial.
+
+**Os quatro níveis**, cada um opcional sobre o anterior e combináveis entre si:
+
+| o usuário traz | a app faz | o memorial declara |
+|---|---|---|
+| nada | referência da capital da UF | *premissa da referência — capital da UF, não o município da obra* |
+| **dias de chuva da região** + fonte + período | aplica a metodologia da CAIXA sobre o dado dele | *dado local, substituindo a referência da capital* |
+| **tipologia** (o 2º fator) | troca os 20% de atividades que exigem bom tempo | *tipologia declarada: infraestrutura, 80%* |
+| **dias de parada** diretos | só calcula | *parada informada pelo orçamentista* |
+
+**Fonte e período são obrigatórios quando o dado é do usuário.** Sem eles, "143 dias" vale menos que os 129 da referência, porque tem cara de medição e é palpite. Com eles, vira o melhor dado do documento — e em obra pública isso é comum: quem vai a uma CAT, a uma Casa da Agricultura ou à defesa civil e traz a série do município está trazendo dado **melhor** que o da capital, não pior.
+
+**O primeiro fator continua se aplicando sobre o dado local**, e a razão é que o usuário normalmente traz *dias com precipitação*, não *dias em que a obra parou* — e é exatamente isso que o fator traduz. Quem tiver diário de obra com paradas reais entra pelo último nível, e aí não há fator nenhum a aplicar.
+
+**O campo nasce preenchido** com a referência e o rótulo dizendo de onde ela veio. Perguntar "quantos dias de chuva em dia útil na sua região?" com o campo vazio é pedir um número que quase ninguém tem — e campo vazio em memorial técnico se preenche com invenção. Pré-preenchido, ele se corrige; vazio, ele se chuta.
+
+### 5.3 O manual de instrução
+
+O módulo pede ao engenheiro premissas que ele **pode** conhecer mas raramente tem à mão — dias de chuva, tipologia, efetivo por profissão, prazo-alvo. Cada campo sem explicação vira um campo preenchido no chute, e chute num memorial técnico é pior do que premissa de referência, porque tem aparência de medição.
+
+Então o módulo nasce com um **manual curto**, e ele é entregável, não documentação interna.
+
+**O formato:** uma linha por dado, três colunas — *para que serve · onde conseguir · o que muda se mexer*. Objetivo, sem rodeio, sem explicar o que a tela faz. Exemplo da forma esperada:
+
+> **Dias de chuva na região** — entra na capacidade de produção do mês, não no custo. Onde conseguir: CAT, Casa da Agricultura, defesa civil municipal, estação do INMET mais próxima; peça a série dos últimos dez anos. O que muda: mais dias de chuva alongam o prazo e reduzem o pico de equipe; a referência traz o número da capital da UF, que pode não ser o da sua obra.
+
+**Onde vive:** fora da tela de execução, em ajuda opt-in — a tela não carrega texto explicando o que ela faz. O manual se abre quando o engenheiro pede, e acompanha o memorial quando o documento sai, porque quem lê o orçamento também precisa saber o que cada premissa significa.
+
+**Quem escreve:** sai junto com cada campo, na mesma entrega. Campo que entra sem a sua linha de manual não entra — é a regra que impede o manual de nascer desatualizado.
+
+### 5.4 A data-alvo
 
 O cronograma é **abstrato**: períodos, não meses de calendário (`cro_periodo_dias`, default 30). Isso fica. O que entra é uma **data-alvo de início** (`cro_data_alvo`, opcional), e ela é o que torna o nível 1 possível: sem data não há feriado, não há dia útil, não há fevereiro diferente de março. Sem data-alvo, a cascata começa no nível 3.
 
@@ -367,7 +424,7 @@ Inviável: `status="inviavel"`, `percents={}`, `violacoes=[{codigo, ati_id, deta
 
 O memorial declara, em ordem:
 
-1. **as premissas** — horas úteis adotadas, **com o nível da cascata que as produziu** (§5.1) e a ressalva quando for o padrão não calibrado; efetivo informado ou estimado; prazo imposto ou calculado; limites de CV;
+1. **as premissas** — horas úteis adotadas, **com o nível da cascata que as produziu** (§5.1) e a ressalva quando for o padrão não calibrado; a chuva, **com o nível, a fonte e o período** (§5.2) e sempre a ressalva de que a referência é da capital da UF; efetivo informado ou estimado; prazo imposto ou calculado; limites de CV;
 2. **a apuração** — horas por profissão, já unificadas pelas equivalências, com o que foi unificado explicitado (`CDHU B.01.000.010139 → SINAPI 88309 → 101445`) e com as linhas que caíram na equivalência por conceito (§6.1) marcadas como tal;
 3. **a capacidade** — `T_p = horas ÷ (efetivo × horas úteis)` por profissão, e qual delas é o gargalo;
 4. **as amarras aplicadas** — impeditivos, posições mínimas, modos e tmax, com a origem de cada um (`manual`, `eap`, `ia`) e os avisos que a IA tiver emitido sobre a EAP;
@@ -404,6 +461,9 @@ O que ele **não faz** é se apresentar como planejamento executivo. Não há pr
 | `META_CV_INALCANCAVEL` | Diagnóstico com a restrição nomeada, nunca adulteração |
 | `UNIDADE_IGNORADA` | Efetivo calculado pela unidade da linha (H ÷ úteis; MES direto) |
 | `HORAS_UTEIS_NAO_DECLARADAS` | A origem das horas úteis acompanha o resultado e o memorial |
+| `CHUVA_SEM_ORIGEM` | Dia de chuva informado pelo usuário exige fonte e período da série |
+| `CHUVA_CAPITAL_NAO_DITA` | Usando a referência, o memorial diz que o número é da capital da UF |
+| `CAMPO_SEM_MANUAL` | Campo de premissa novo sem a sua linha no manual (§5.3) não entra |
 | `RECONCILIACAO_NAO_APLICADA` | O cronograma gravado é o realizável, não o proposto |
 | `IA_ID_INEXISTENTE` | JSON/CSV da IA não cria linha que não existe |
 | `IA_ID_INTERNO_EXPOSTO` | O canal externo não carrega id interno nenhum (`ati_id`, `ins_id`, `cmp_id`…) |
@@ -416,7 +476,7 @@ O que ele **não faz** é se apresentar como planejamento executivo. Não há pr
 ## 15. O que permanece aberto
 
 1. **Solver.** Heurística, CP-SAT ou MILP — decidir por benchmark no tamanho real de orçamento, não por preferência. Não alegar otimalidade sem prova.
-2. **Horas úteis.** O estudo técnico da §5.1, e a decisão sobre persistir feriados no banco.
+2. **Horas úteis.** O estudo técnico da §5.1, e a decisão sobre persistir feriados no banco. Conferido em 16/10: o plano gratuito da FeriadosAPI cobre capitais; interior responde HTTP 403, logo o calendário municipal depende do plano pago. O INMET foi avaliado e descartado como fonte de chuva: a API não serve série histórica (204 para datas passadas) e corrigiria apenas o primeiro dos três fatores.
 3. **O divisor da equivalência por conceito** (§6.1): confirmar se é 220 ou se a fonte de origem publica fator próprio.
 4. **Efetivo estimado.** Informar só as profissões principais e estimar as demais, ou exigir por profissão quando ela for o gargalo. A segunda é mais correta e mais chata.
 5. **Formato do canal externo** — CSV ou JSON — e o custo real da resolução de chave opaca.
