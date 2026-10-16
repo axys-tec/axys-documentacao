@@ -119,7 +119,7 @@ Horista e mensalista convivem no mesmo ativo (a bancada roda o regime item a ite
 
 | Nível | Fonte | O que entrega |
 |---|---|---|
-| 1 | **Calendário real.** A partir da data-alvo de início, contar os dias úteis de cada mês, consultando API de feriados nacionais, estaduais e municipais — o ativo já tem município e UF | horas úteis por mês, específicas da obra |
+| 1 | **Calendário real.** A partir da data-alvo de início, contar os dias úteis de cada mês pelo calendário do MUNICÍPIO da obra — chaveado por código IBGE, que `catalogo.municipios.mun_id` já é. Fonte e persistência em [`conversao_mdo_bancada_contrato.md`](conversao_mdo_bancada_contrato.md) §4.3 | horas úteis por mês, específicas da obra |
 | 2 | **Persistência local.** Guardar os feriados no banco, como se guarda o histórico de índices, e servir dali quando a API cair | o mesmo, sem depender da rede |
 | 3 | **SINAPI, com férias repostas.** O livro publica 271,60 dias efetivos/ano para SP (Tabela 1.6) — mas eles descontam as férias, e férias se repõe. Devolvendo-as: 295,19 dias/ano = **180,39 h/mês** | média oficial corrigida, por UF |
 | 4 | **180 h** | último recurso — e, por coincidência aritmética, o mesmo que o nível 3 dá em SP |

@@ -54,7 +54,8 @@ A bancada é orçamento real, e aí há mais de uma pergunta legítima. Cada ite
 |---|---|---|
 | `EQUIVALENCIA_ES` | `220 × (1+ES_m)/(1+ES_h)` — ex. 175,16 | **padrão.** Neutro nos encargos sociais; a economia que sobra é de complementares, com causa publicada |
 | `DIAS_UTEIS` | horas úteis do calendário da obra | quando a obra tem data e local definidos e o orçamentista quer apropriar pela disponibilidade real |
-| `REMUNERACAO_BASE` | 220 | só onde o profissional é mensalista por natureza — administração local: engenheiro, almoxarife, topógrafo. Aí não há conversão, o insumo já é mensal |
+
+São **dois**, e não três. Um terceiro critério "remuneração-base ÷ 220" chegou a ser cogitado para a administração local e não existe, porque ali não há conversão a parametrizar — ver §4.2.
 
 O critério viaja no registro (§2) e aparece no parecer. Trocar de critério é decisão do orçamentista, não default escondido.
 
@@ -66,7 +67,19 @@ Com data-alvo e município, dá para apropriar pelo calendário real em vez da e
 
 **Mas é afirmação que o orçamentista assume**, e por isso vem com três obrigações: o calendário usado (município, ano, feriados considerados) entra no parecer; as ausências não repostas são descontadas e nomeadas; e o critério fica marcado no item, para quem ler o orçamento saber que ali não se usou o padrão.
 
-Feriados municipais entram aqui e só aqui: são 2 a 5 por ano em média, 1,5 a 3,7 h/mês, e nenhuma base nacional os consolida — quem informa é quem conhece a obra.
+### 4.2 A administração local não converte
+
+Na ALO o profissional é mensalista por natureza — é o uso que a SINAPI documenta para os insumos em MES: *"profissionais que comumente são considerados na equipe de administração local de uma obra, tais como almoxarife, topógrafo, engenheiro"*. O coeficiente nasce em MES, e **nada passa por divisor**: não há conversão, logo não há critério a escolher.
+
+**Se a ALO for montada com insumo horista, vale o que já vale hoje.** A mão de obra sem par mensalista fica `ERR` — sem custo, forçando a correção. Essa função fica como está: não se inventa conversão para salvar o caso, porque o caso é de montagem, não de apropriação. Quem monta administração local com horista está usando a referência fora do que ela prevê, e a app diz isso em vez de calcular por cima.
+
+### 4.3 De onde vêm os feriados
+
+O critério `DIAS_UTEIS` depende de calendário local, e calendário local é **município**, não UF: são os 2 a 5 feriados por ano (aniversário da cidade, padroeira, datas locais) que fazem a diferença de 1,5 a 3,7 h/mês. Nacional e estadual se derivam sem fonte externa.
+
+**Conferido antes de decidir:** o endpoint de feriados da BrasilAPI cobre **só o nacional** — pagar por ele não resolveria o que precisa ser resolvido. O serviço a contratar tem de entregar os três níveis **por código IBGE**, que é a chave que a app já tem (`catalogo.municipios.mun_id` é o código IBGE de 7 dígitos). A ordem de grandeza levantada foi de R$ 39/mês; a cobertura municipal é condição, o preço é consequência.
+
+**A persistência é a dos índices**, e pelo mesmo motivo: feriado de um ano é dado estático, e uma obra orçada hoje não pode depender de uma API estar no ar. Duas formas, ambas aceitáveis: assinatura com atualização noturna, como o histórico de índices já faz, ou um mês de assinatura por ano — preenche o calendário do ano seguinte em janeiro e cancela. A segunda é mais barata e tem o mesmo resultado, com a ressalva de que lei municipal nova no meio do ano só entra na recarga seguinte; o parecer registra a data da coleta, e aí quem lê sabe de quando é o calendário.
 
 ---
 
