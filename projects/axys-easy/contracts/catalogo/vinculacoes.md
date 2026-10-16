@@ -130,6 +130,11 @@ de passar a apagar também.
 > (MDO fonte→SINAPI já tem função+preço/h; substituições tem estrutura+descritivo-fonte).
 
 ### 3.1. H↔MÊS — RESOLVIDA DETERMINISTICAMENTE (2026-07-12, sem IA · commits 41f5dad+)
+
+> **O 220 desta seção IDENTIFICA o par e continua valendo** — é a convergência da remuneração-base,
+> exata em 94/94. O que mudou em 2026-10-16 é outra coisa: o divisor aplicado ao COEFICIENTE ao
+> converter uma composição, que passou a ser `220 × (1+ES_m)/(1+ES_h)`, por UF e regime. Ver
+> [`conversao_mdo_divisor.md`](conversao_mdo_divisor.md).
 O que o desenho mandava pra IA, o **insumo + preço** resolvem com precisão total. **NÃO é fuzzy na descrição
 da CPU** (engana: TELHADISTA↔TELHADOR, ASSENTADOR DE TUBOS↔MANILHAS, OPERADOR DE MÁQUINAS≈TRATORISTA).
 - **Pareamento pelo INSUMO MO (a verdade):** a CPU `{FUNÇÃO} COM ENCARGOS COMPLEMENTARES` contém 1 insumo MO

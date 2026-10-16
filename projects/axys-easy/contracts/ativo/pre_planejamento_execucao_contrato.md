@@ -121,10 +121,21 @@ Horista e mensalista convivem no mesmo ativo (a bancada roda o regime item a ite
 |---|---|---|
 | 1 | **Calendário real.** A partir da data-alvo de início, contar os dias úteis de cada mês, consultando API de feriados nacionais, estaduais e municipais — o ativo já tem município e UF | horas úteis por mês, específicas da obra |
 | 2 | **Persistência local.** Guardar os feriados no banco, como se guarda o histórico de índices, e servir dali quando a API cair | o mesmo, sem depender da rede |
-| 3 | **SINAPI.** O livro *Cálculos e Parâmetros* / *Metodologias e Conceitos* publica os dias úteis médios por mês; desde 2026, as horas efetivamente trabalhadas saem por UF | média oficial, defensável, sem calendário |
-| 4 | **180 h** | último recurso, declarado como tal |
+| 3 | **SINAPI, com férias repostas.** O livro publica 271,60 dias efetivos/ano para SP (Tabela 1.6) — mas eles descontam as férias, e férias se repõe. Devolvendo-as: 295,19 dias/ano = **180,39 h/mês** | média oficial corrigida, por UF |
+| 4 | **180 h** | último recurso — e, por coincidência aritmética, o mesmo que o nível 3 dá em SP |
 
-O nível 2 só entra se o dado for barato de guardar — feriado municipal é volumoso e muda. Se não for viável, o nível 3 assume o posto de primeiro fallback, e ele não é inferior por acaso: é a mesma referência que precifica a obra, o que significa que a premissa de tempo e a premissa de custo passam a vir da mesma fonte.
+O nível 2 só entra se o dado for barato de guardar — feriado municipal é volumoso e muda. Se não for viável, o nível 3 assume o posto de primeiro fallback, e ele não é inferior por acaso: é a mesma referência que precifica a obra.
+
+**As horas efetivas publicadas pela CAIXA não servem cruas, e a razão é de engenharia.** As 165,98 h/mês de SP descontam as férias (23,59 dias/ano). Férias se repõe: quando um colaborador sai, outro ocupa a vaga, a obra não para, e o custo das férias está no encargo social. O planejador conta **gente no canteiro**, não contrato-ano — descontar férias contaria uma ausência que o canteiro não sente. A reconciliação mostra que é só disso que se trata:
+
+```
+SINAPI/SP   271,60 dias efetivos/ano                       165,98 h/mês
+  + férias (23,59 d, reposta)            295,19 dias/ano   180,39 h/mês
+  + enfermidade, chuva, faltas, demais   304,20 dias/ano   185,90 h/mês
+  calendário real de 2026 (SP, 44 h/sem)                   184,07 h/mês
+```
+
+O que **não** se repõe — chuva, falta justificada, doença, cerca de 5,5 h/mês — continua descontado em qualquer nível da cascata. E as 165,98 h têm o seu lugar, que não é este: é o rateio de encargo complementar, para o qual o livro as criou.
 
 **Pendência registrada:** o nível 4 é inferência, e inferência não combina com um módulo que existe para ser defensável. Antes de fixar 180 como padrão, cabe um estudo técnico curto — qual é a jornada efetiva média no setor, o que as referências publicam, e qual número sustenta ser questionado. Até lá, 180 fica, declarado na tela e marcado no memorial como premissa não calibrada.
 
