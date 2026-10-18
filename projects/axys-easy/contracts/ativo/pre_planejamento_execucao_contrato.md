@@ -1,8 +1,8 @@
 # Pré-planejamento de Execução — Contrato
 
-**Status:** Especificação para implementação. Não implantado.
-**Data:** 2026-10-15
-**Escopo:** como o AxysEasy propõe o cronograma de uma obra a partir do orçamento, com método declarado e memorial auditável. Indicador: **Termômetro de Execução Axys™**.
+**Status:** V1 em dev — premissas, distribuidor e aplicação funcionando ponta a ponta. Ver §17.
+**Data:** 2026-10-15, revisto em 2026-10-18
+**Escopo:** como o AxysEasy propõe o cronograma de uma obra a partir do orçamento, com método declarado e memorial auditável. Indicadores: **Δ** (regularidade da série) e **carga do mês**.
 **Implementa (previsto):** `ativo.ativo_orcamento_cronograma`, `ativo.ativo_orcamento_cronograma_itens`, `backend/modules/ativo/cronograma_service.py`, `backend/modules/ativo/medicao_simulador.py`, `orcamento_service.get_histograma`.
 
 > **Tese.** Hoje o engenheiro orçamentista preenche o cronograma à mão, item a item, e o resultado reflete o bom senso dele — que pode ser excelente e, ainda assim, é indefensável quando questionado, porque não tem método escrito. Este módulo troca o bom senso silencioso por um **método declarado**: a app propõe a distribuição, mostra de onde ela saiu e entrega o memorial. Para discordar do resultado, passa a ser preciso discordar do **critério** — que é exatamente a conversa que se quer ter.
@@ -51,7 +51,7 @@ Esta seção é o registro das premissas e das correções de rota. Ela existe p
             └──────────  get_histograma(grade=…)  ──►  horas e colaboradores por mês
                                        │
                                        ▼
-                         CV financeiro, CV de mão de obra, Termômetro
+                       Δ financeiro, Δ de mão de obra, carga do mês
 ```
 
 `get_cronograma_grade` **já aceita** `percents` injetados — a costura foi aberta para o simulador de medições e serve igual aqui. `get_histograma` **já aceita** a `grade` pronta. O laço de otimização é essas duas chamadas dentro de um avaliador.
@@ -269,19 +269,25 @@ Família ou substituibilidade (azulejista como "parente" do pedreiro). Isso é j
 
 ---
 
-## 8. Homogeneidade e o Termômetro de Execução Axys™
+## 8. Homogeneidade: o Δ da série e a carga do mês
 
-Para a série mensal `Z`: `μ = ΣZ/T`, `σ = √(Σ(Z−μ)²/T)` (populacional), `CV = 100σ/μ`.
+Para a série mensal `Z`: `μ = ΣZ/T`, desvio-padrão populacional `s = √(Σ(Z−μ)²/T)`, e
+`Δ = 100 s / μ`.
 
-Duas séries, dois CVs: **financeiro** (valor por mês, da grade) e **de mão de obra** (horas por mês, do histograma). CV e não desvio absoluto porque R$ 100 mil de desvio pesam diferente numa obra de R$ 500 mil e numa de R$ 50 milhões.
+**Nada aqui se chama CV.** A sigla existe na estatística e é a mesma conta, mas em obra pública "CV" é currículo — e rótulo que precisa ser explicado antes de ser lido não serve num documento que vai a julgamento de edital.
 
-O **Termômetro** é a leitura mensal das mesmas séries, em percentual da própria média: `temperatura_m = 100 × Z_m / média(Z)`. 100 é a média, 130 é 30% acima, 75 é 25% abaixo. Duas temperaturas independentes, financeira e operacional.
+Duas séries, dois Δ: **financeiro** (valor por mês, da grade) e **de mão de obra** (efetivo por mês, do histograma). O desvio-padrão cru `s` acompanha sempre, na unidade da série (R$ e colaboradores): é ele que o engenheiro reconhece. O Δ existe porque dividir pela média é o que torna obras comparáveis — R$ 100 mil de desvio pesam diferente numa obra de R$ 500 mil e numa de R$ 50 milhões.
 
-**CV é global, temperatura é mensal** — e um CV baixo esconde pico localizado, então registra-se também `max |Z_m/média − 1|`. A homogeneidade do total de horas não substitui a checagem por profissão: um mês pode ter total regular e sobrecarregar eletricistas.
+A **carga do mês** é a leitura mensal das mesmas séries, como afastamento da média, com sinal:
+`carga_m = 100 × (Z_m / μ − 1)`. Zero é a média, `+30%` é trinta por cento acima, `−25%` é vinte e cinco abaixo. Duas cargas independentes, financeira e de mão de obra.
 
-**Os limites de CV são metas, não restrições.** Se a fundação é 30% do orçamento e ocupa o primeiro período, talvez não exista cronograma com CV financeiro baixo. Nesse caso o sistema entrega o melhor viável, informa o CV alcançado e **nomeia a restrição responsável**. Nunca distorce a sequência para produzir um gráfico bonito. O limite de partida é 20% para ambos, configurável e separado — valor de ensaio, não referência técnica.
+O índice de base 100 que isto substitui dizia a mesma coisa e exigia saber, antes, que 100 era a média. Com sinal, lê-se sem legenda — e legenda é o que não existe quando outra pessoa abre o documento.
 
-**Por que a homogeneidade vale dinheiro:** um cronograma de CV baixo permite combinar medições mensais fixas, em contrato comercial ou em edital, sem que nenhuma das partes esteja apostando. É boa prática antes de ser conveniência.
+**Δ é global, carga é mensal** — e um Δ baixo esconde pico localizado, então registra-se também `max |Z_m/μ − 1|`. A homogeneidade do total de horas não substitui a checagem por profissão: um mês pode ter total regular e sobrecarregar eletricistas.
+
+**Os limites de Δ são metas, não restrições.** Se a fundação é 30% do orçamento e ocupa o primeiro período, talvez não exista cronograma com Δ financeiro baixo. Nesse caso o sistema entrega o melhor viável, informa o Δ alcançado e **nomeia a restrição responsável**. Nunca distorce a sequência para produzir um gráfico bonito. O limite de partida é 20% para ambos, configurável e separado — valor de ensaio, não referência técnica.
+
+**Por que a homogeneidade vale dinheiro:** um cronograma de Δ baixo permite combinar medições mensais fixas, em contrato comercial ou em edital, sem que nenhuma das partes esteja apostando. É boa prática antes de ser conveniência.
 
 ### 8.1 Prioridade das regras
 
@@ -300,11 +306,11 @@ Conflito entre restrições obrigatórias devolve **inviável** com a causa, nã
 |---|---|---|
 | **A — tenho equipe** | efetivo por profissão | o prazo viável e o cronograma |
 | **B — tenho prazo** | o prazo contratual | o efetivo necessário mês a mês, e onde ele é inviável |
-| **C — qual o equilíbrio** | nada, ou uma faixa | cenários comparados, com prazo, efetivo de pico e CVs |
+| **C — qual o equilíbrio** | nada, ou uma faixa | cenários comparados, com prazo, efetivo de pico e os dois Δ |
 
 O modo C é o que sustenta a tese do módulo. Exemplo do que ele entrega:
 
-> *A execução em 10 períodos exige pico de 14 colaboradores no período 5. Em 11 períodos o pico cai para 11 e o CV de mão de obra vai de 24% para 16%. A decisão depende do custo de permanência no canteiro e da disponibilidade de contratação.*
+> *A execução em 10 períodos exige pico de 14 colaboradores no período 5. Em 11 períodos o pico cai para 11 e o Δ de mão de obra vai de 24% para 16%. A decisão depende do custo de permanência no canteiro e da disponibilidade de contratação.*
 
 Isso é comparação, não promessa. O sistema não afirma economia nem prazo sem nova simulação.
 
@@ -377,8 +383,8 @@ O formato do canal externo é decisão de usabilidade, não de engenharia. JSON 
     "periodos": 12,
     "data_alvo": "2027-03-01",
     "horas_uteis": {"origem": "calendario", "por_periodo": [168, 176, 184]},
-    "cv_financeiro_max_pct": 20,
-    "cv_mo_max_pct": 20,
+    "delta_financeiro_max_pct": 20,
+    "delta_mo_max_pct": 20,
     "efetivo_por_profissao": {"88309": 4, "88316": 4}
   },
   "linhas": [
@@ -401,9 +407,10 @@ O formato do canal externo é decisão de usabilidade, não de engenharia. JSON 
   "percents_realizaveis": {"1402": {"1": 38.5, "2": 61.5}},
   "mensal": [
     {"periodo": 1, "valor": 20000.0, "horas": 400.0, "colaboradores": 2.22,
-     "temp_financeira": 80, "temp_mo": 80}
+     "carga_financeira": -20, "carga_mo": -20}
   ],
-  "metricas": {"cv_financeiro_pct": 20.0, "cv_mo_pct": 20.0,
+  "metricas": {"delta_financeiro_pct": 20.0, "delta_mo_pct": 20.0,
+               "s_financeiro": 4000.0, "s_mo": 0.44,
                "desvio_max_financeiro_pct": 20.0, "desvio_max_mo_pct": 20.0},
   "gargalo": {"codigo": "88309", "descricao": "PEDREIRO…", "periodos": 11.4},
   "avisos": [],
@@ -424,13 +431,13 @@ Inviável: `status="inviavel"`, `percents={}`, `violacoes=[{codigo, ati_id, deta
 
 O memorial declara, em ordem:
 
-1. **as premissas** — horas úteis adotadas, **com o nível da cascata que as produziu** (§5.1) e a ressalva quando for o padrão não calibrado; a chuva, **com o nível, a fonte e o período** (§5.2) e sempre a ressalva de que a referência é da capital da UF; efetivo informado ou estimado; prazo imposto ou calculado; limites de CV;
+1. **as premissas** — horas úteis adotadas, **com o nível da cascata que as produziu** (§5.1) e a ressalva quando for o padrão não calibrado; a chuva, **com o nível, a fonte e o período** (§5.2) e sempre a ressalva de que a referência é da capital da UF; efetivo informado ou estimado; prazo imposto ou calculado; limites de Δ;
 2. **a apuração** — horas por profissão, já unificadas pelas equivalências, com o que foi unificado explicitado (`CDHU B.01.000.010139 → SINAPI 88309 → 101445`) e com as linhas que caíram na equivalência por conceito (§6.1) marcadas como tal;
 3. **a capacidade** — `T_p = horas ÷ (efetivo × horas úteis)` por profissão, e qual delas é o gargalo;
 4. **as amarras aplicadas** — impeditivos, posições mínimas, modos e tmax, com a origem de cada um (`manual`, `eap`, `ia`) e os avisos que a IA tiver emitido sobre a EAP;
-5. **o resultado** — distribuição por período, os dois CVs, as duas temperaturas e o maior desvio mensal;
+5. **o resultado** — distribuição por período, os dois Δ (com o desvio-padrão cru), as duas cargas mensais e o maior desvio;
 6. **a reconciliação** — o desvio entre o percentual proposto e o realizável, e quais itens o provocaram;
-7. **o que não foi atingido** — meta de CV não alcançada, com a restrição responsável nomeada.
+7. **o que não foi atingido** — meta de Δ não alcançada, com a restrição responsável nomeada.
 
 O memorial sai no papel da casa, pelo motor de documentos (`Relatorio` com escopo), como qualquer outra peça.
 
@@ -458,7 +465,7 @@ O que ele **não faz** é se apresentar como planejamento executivo. Não há pr
 | `TMAX_EXCEDIDO` | Janela início→fim, pausas incluídas, não supera `tmax` |
 | `TMAX_INCOMPATIVEL_COM_MODO` | Modo que não cabe no `tmax` é recusado, não ajustado |
 | `CAPACIDADE_EXCEDIDA` | Não exceder a capacidade informada por profissão |
-| `META_CV_INALCANCAVEL` | Diagnóstico com a restrição nomeada, nunca adulteração |
+| `META_DELTA_INALCANCAVEL` | Diagnóstico com a restrição nomeada, nunca adulteração |
 | `UNIDADE_IGNORADA` | Efetivo calculado pela unidade da linha (H ÷ úteis; MES direto) |
 | `HORAS_UTEIS_NAO_DECLARADAS` | A origem das horas úteis acompanha o resultado e o memorial |
 | `CHUVA_SEM_ORIGEM` | Dia de chuva informado pelo usuário exige fonte e período da série |
@@ -469,7 +476,7 @@ O que ele **não faz** é se apresentar como planejamento executivo. Não há pr
 | `IA_ID_INTERNO_EXPOSTO` | O canal externo não carrega id interno nenhum (`ati_id`, `ins_id`, `cmp_id`…) |
 | `ORCAMENTO_ALTERADO` | Parâmetros de orçamento revisado não se aplicam sem reconciliação |
 
-**Cenários obrigatórios:** sequencial de 4 períodos; intercalada com 3 ativos em janela de 5; impedimento simples; duas linhas na mesma posição; ciclo; linha com valor e sem horas; linha com horas e sem valor; ativo só horista; ativo só mensalista; **ativo misto**; MDO de fonte sem par curado (equivalência por conceito); item indivisível que impede o percentual proposto; efetivo insuficiente; prazo imposto curto; CV impossível; orçamento com muitas linhas.
+**Cenários obrigatórios:** sequencial de 4 períodos; intercalada com 3 ativos em janela de 5; impedimento simples; duas linhas na mesma posição; ciclo; linha com valor e sem horas; linha com horas e sem valor; ativo só horista; ativo só mensalista; **ativo misto**; MDO de fonte sem par curado (equivalência por conceito); item indivisível que impede o percentual proposto; efetivo insuficiente; prazo imposto curto; Δ impossível; orçamento com muitas linhas.
 
 ---
 
@@ -480,22 +487,81 @@ O que ele **não faz** é se apresentar como planejamento executivo. Não há pr
 3. **O divisor da equivalência por conceito** (§6.1): confirmar se é 220 ou se a fonte de origem publica fator próprio.
 4. **Efetivo estimado.** Informar só as profissões principais e estimar as demais, ou exigir por profissão quando ela for o gargalo. A segunda é mais correta e mais chata.
 5. **Formato do canal externo** — CSV ou JSON — e o custo real da resolução de chave opaca.
-6. **Períodos zerados** dentro do horizonte entram no CV? Recomendação: **sim** — excluí-los maquia a homogeneidade.
+6. **Períodos zerados** dentro do horizonte entram no Δ? Recomendação: **sim** — excluí-los maquia a homogeneidade.
 7. **Herança de parâmetro** entre agrupador e linha, quando os dois têm `tmax`/impeditivo distintos. Regra proposta: a mais restritiva vence e o memorial registra o conflito.
-8. **Limites de CV padrão** — calibrar com orçamentos reais antes de fixar.
+8. **Limites de Δ padrão** — calibrar com orçamentos reais antes de fixar.
 9. **Granularidade do arredondamento** dos percentuais gravados no cronograma.
 
 ---
 
 ## 16. Sequência de implementação
 
-**V0 — o encaixe.** Provar o laço com o que já existe: receber `percents`, chamar `get_cronograma_grade` e `get_histograma`, calcular CVs e temperaturas, devolver o Termômetro. Sem otimizador, sem IA, sem tela. Se este passo não fechar, nada do resto importa.
+**V0 — o encaixe.** Provar o laço com o que já existe: receber `percents`, chamar `get_cronograma_grade` e `get_histograma`, calcular os dois Δ e as cargas mensais. Sem otimizador, sem IA, sem tela. Se este passo não fechar, nada do resto importa.
 
 **V1 — a simulação determinística.** Amarras, modos, capacidade, distribuição, inviabilidades nomeadas, passagem pelo provisionador de medições e o memorial. Modo A e modo B.
 
-**V2 — homogeneização e cenários.** Otimizar os dois CVs, modo C, comparação de cenários.
+**V2 — homogeneização e cenários.** Otimizar os dois Δ, modo C, comparação de cenários.
 
 **V3 — o que só entra com demanda.** Caminho crítico e export, calendário real completo, liberação parcial, custos não proporcionais.
+
+---
+
+## 17. O que está implantado (2026-10-18)
+
+Registro do que saiu do papel, para a próxima leitura não precisar adivinhar.
+
+| Peça | Onde | Estado |
+|---|---|---|
+| Apuração de MO por linha | `preplanejamento_service.apurar` | pronta — pelas primitivas da curva ABC, nunca pelo histograma (ele já é a explosão amarrada ao cronograma: pedir-lhe as horas para propor os %s é circular) |
+| Identidade de profissão | `familias_mo` | pronta — **a SINAPI é o eixo**, e nunca fecho transitivo: a curadoria é par a par, e fechá-la fundia SERVENTE com AJUDANTE ESPECIALIZADO por causa do `FDE 1.01.88`, que aponta para os dois |
+| Associações de profissão | modal + PDF | prontas — o método à vista, porque acumular tudo na SINAPI muda quem é o gargalo |
+| Δ e carga do mês | `avaliar` | prontos — §8 |
+| Chuva | `chuva_referencia` | pronta — **B7 da SINAPI, já no banco**; não há parser de PDF a escrever (§17.1) |
+| Horas úteis | `premissa_horas_uteis` | cascata pronta: calendário do município (`catalogo.feriados`) ou o padrão, com a chuva por cima |
+| Distribuidor | `distribuir` | V1 pronto (§17.2) |
+| Aplicar | `cronograma_service.aplicar_percents` | pronto — substituição em transação única |
+| Amarras na tela | — | **falta**: o motor aceita, a tela ainda não oferece |
+| Reconciliação pelo provisionador (§4) | — | **falta**: hoje grava-se o proposto, não o realizável |
+| Persistência das premissas | — | **falta**: vivem na página; precisam de schema, e com produção no ar a migration nasce no mesmo commit |
+| Canal de IA (§10) | — | falta |
+
+### 17.1 A chuva não precisa de parser
+
+*Cálculos e Parâmetros* publica **um** número — 129 dias/ano, região de São Paulo. O que varia por UF é
+o encargo **`B7 — Dias de Chuvas`**, que o import de Leis Sociais já carrega: 27 UFs por edição, em
+`catalogo.edicoes_leis_sociais_itens`. SP dá 1,43%, idêntico ao livro.
+
+E a conta sai da própria definição: `B7 = dias de parada ÷ dias efetivos`, logo **B7 é a fração do
+tempo produtivo que a chuva leva**, e `horas × (1 − B7/100)` basta. Conferido: B7 é idêntico em SD e
+CD nas 675 combinações UF × edição — é item de produtividade, não de tributo.
+
+**Sempre da SINAPI**, qualquer que seja a fonte do orçamento. A CDHU não publica a rubrica e a FDE
+publica zerada, e zero ali não é "não chove": é "esta tabela não trata disso". Chuva é fato do
+**lugar**, não da tabela de preços — a obra em Belém perde os mesmos dias orçada pela CDHU.
+
+### 17.2 A doutrina do distribuidor
+
+Sete decisões, cada uma paga com um defeito observado:
+
+1. **Duração vem da mão de obra**, `horas ÷ (gente × horas úteis)` — nunca do valor da linha. A
+   fundação não dura doze meses porque vale 30%.
+2. **Cada linha se espalha pela janela que as amarras deixam.** Correndo na capacidade máxima, a
+   obra acabava no oitavo de dez meses e o Δ ia a 73%.
+3. **Sem amarra declarada, a proposta sai nivelada** — e isso é a resposta certa, não recusa: é o
+   §7 em código, porque a EAP organiza e não impede.
+4. **Quem segura alguém não se alonga.** Linha com sucessor anda no mínimo; espalhada, ela comia a
+   capacidade exatamente nos meses em que a sucessora era obrigada a acontecer.
+5. **Janelas por duas passagens** sobre a cadeia de impedimentos (cedo na ida, tarde na volta),
+   estilo CPM enxuto.
+6. **Ordem de colocação: menor folga primeiro**, não a da EAP. A linha livre se acomoda no que
+   sobra; a amarrada, não.
+7. **A inviabilidade diz o que falta, e diz algo estável:** o que a linha exige sozinha na janela
+   que lhe resta (`horas ÷ (h úteis × janela)`). A primeira versão media a folga residual, e esse
+   número andava quando a equipe mudava — somar uma pessoa fazia o alerta pedir duas.
+
+Medido no ativo 24, dez períodos: sem amarra, Δ 11,68% financeiro e 12,76% de mão de obra. Com a
+cadeia `3.0 → 4.0 → 5.0`, sai sequência executiva de verdade (P1 / P2-5 / P6-8) e o Δ sobe para
+~21% — impor sequência custa homogeneidade, como a §8 já previa.
 
 ---
 
