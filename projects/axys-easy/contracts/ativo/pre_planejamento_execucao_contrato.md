@@ -1,7 +1,7 @@
 # Pré-planejamento de Execução — Contrato
 
-**Status:** V1 em dev — premissas, distribuidor e aplicação funcionando ponta a ponta. Ver §17.
-**Data:** 2026-10-15, revisto em 2026-10-18
+**Status:** V1 em dev — fluxo completo em três passos, memorial e reconciliação. Ver §17.
+**Data:** 2026-10-15, revisto em 2026-10-19
 **Escopo:** como o AxysEasy propõe o cronograma de uma obra a partir do orçamento, com método declarado e memorial auditável. Indicadores: **Δ** (regularidade da série) e **carga do mês**.
 **Implementa (previsto):** `ativo.ativo_orcamento_cronograma`, `ativo.ativo_orcamento_cronograma_itens`, `backend/modules/ativo/cronograma_service.py`, `backend/modules/ativo/medicao_simulador.py`, `orcamento_service.get_histograma`.
 
@@ -520,10 +520,32 @@ Registro do que saiu do papel, para a próxima leitura não precisar adivinhar.
 | Horas úteis | `premissa_horas_uteis` | cascata pronta: calendário do município (`catalogo.feriados`) ou o padrão, com a chuva por cima |
 | Distribuidor | `distribuir` | V1 pronto (§17.2) |
 | Aplicar | `cronograma_service.aplicar_percents` | pronto — substituição em transação única |
-| Amarras na tela | — | **falta**: o motor aceita, a tela ainda não oferece |
-| Reconciliação pelo provisionador (§4) | — | **falta**: hoje grava-se o proposto, não o realizável |
+| Amarras na tela | passo 2 do fluxo | prontas — posição mínima, execução, duração máxima e precedência por linha |
+| Reconciliação pelo provisionador (§4) | `reconciliar` + `aplicar` | pronta — a proposta passa pelo provisionador ANTES de gravar |
+| Memorial (§12) | `montar_memorial` + `gerar_memorial_pdf` | pronto — sete seções, reproduzível a partir das premissas |
 | Persistência das premissas | — | **falta**: vivem na página; precisam de schema, e com produção no ar a migration nasce no mesmo commit |
 | Canal de IA (§10) | — | falta |
+
+### 17.3 O fluxo da tela, em três passos
+
+A tela não é um formulário só: é um caminho, e cada passo responde uma pergunta diferente.
+
+1. **Premissas da obra** — município (destrava o calendário real), início sugerido em hoje+90d,
+   prazo, nível do cronograma, tipo de obra e as horas úteis que saem disso. Tudo já preenchido: o
+   engenheiro cura, não inventa. A escada de efetivo médio por prazo (3 a 24 meses) é a ordem de
+   grandeza com que ele dosa a escolha, e um clique nela escolhe o prazo.
+2. **Equipe e sequência** — quem a empresa tem, por profissão, com o tempo que cada frente leva
+   recalculado a cada tecla; e o que precede o quê, linha a linha. É aqui que a sequência executiva
+   passa a existir, porque a EAP não a declara.
+3. **Proposta** — o que o método produziu, medido. Daqui se volta para ajustar, se baixa o memorial
+   ou se aplica. Aplicar passa pelo provisionador antes de gravar.
+
+**O nível do cronograma deixou de mentir.** Até 18/10 só GRUPO podia ser linha, e a EAP mista —
+grupo com subgrupo E serviços pendurados no mesmo nível — tornava indisponíveis todos os níveis
+abaixo do primeiro. No ativo 24 eram cinco serviços e R$ 62.107 sem linha no nível 2. Agora o
+serviço que está no nível de corte é linha como qualquer grupo, e os cinco níveis se oferecem. O
+ganho não é só de disponibilidade: no nível 2 o mesmo orçamento distribui com Δ de 5,4% contra
+11,7% no nível 1, porque há mais frentes para acomodar.
 
 ### 17.1 A chuva não precisa de parser
 
