@@ -123,6 +123,9 @@ por no máximo 5 minutos. Sem status anterior, ou depois de 5 minutos, deve recu
 
 ## Prompt P3 — refresh token para `easy-mcp` (opcional)
 
+Implementado no Hub com a migration `015-easy-mcp-refresh-token.sql`. O TTL padrão é de 30 dias
+e pode ser configurado por `EASY_MCP_REFRESH_TTL` em segundos.
+
 ```text
 Contexto: repositório axys-hub, depois de P1 e P2. Clientes MCP (ChatGPT, Claude) suportam
 refresh_token. Sem ele, quando o JWT easy-mcp vence o usuário precisa reconectar. Queremos o
