@@ -93,6 +93,7 @@ com client próprio, `aud=easy-mcp` e as mesmas claims do `easy` — ver
 | `iss` | `EASY_JWT_ISSUER` (mesmo emissor da web) |
 | `exp` | vencido → `401`, o cliente refaz o OAuth |
 | Licença | modo derivado de `licencas` + override do Hub no Redis — **a mesma função** do `require_auth`. `BLOCKED`/`ARCHIVED` → nenhuma ferramenta; `VIEW_ONLY` → só leitura |
+| Add-on MCP por módulo (Hub §P4) | autoriza SÓ `mcp_licencas` com status `ACTIVE` (`contexto.modulos_mcp`); `licencas`/`apps_licenciadas` não servem de fallback. Token sem nenhum add-on ativo (ou sem a claim) → **HTTP 403** `insufficient_scope` no `/mcp`. Ferramenta de módulo sem add-on → `licenca_insuficiente` (o 403 no nível da ferramenta, como resultado de erro do MCP) |
 | Sessão | `sid` do JWT consultado no Hub (`GET /auth/sessoes/{sid}/status`, Basic do app) por `backend/core/sessao_hub.py`, a MESMA função da web: revogada ou inexistente → `401`; status fresco por 60 s (cache do processo); Hub fora → tolera 5 min com o último "ativa", depois recusa; token sem `sid` (anterior ao P2) passa. Kill switch `EASY_SESSAO_UNICA=false` |
 
 ### 3.4 AuthContext
@@ -121,10 +122,25 @@ são fail-open.
 - Hoje (antes do §P2 do Hub): o token vale até o `exp` (TTL do app `easy-mcp`, definido no Hub).
 - Com o §P2: desconectar o MCP = o Hub revoga o `sid` daquele usuário×`easy-mcp`, sem tocar na
   sessão web.
-- Refresh token: o Hub não tem. Enquanto não tiver (§P3, opcional), o cliente refaz o OAuth ao
-  vencer, em silêncio se a sessão do Hub no navegador estiver viva.
+- Refresh (Hub §P3): o exchange do Hub devolve um refresh rotativo amarrado ao `sid`; o Easy o
+  entrega ao cliente **embrulhado** (Fernet com o `client_id` dentro, prefixo `emr1.`) e, no
+  `grant_type=refresh_token`, repassa ao `HUB/auth/refresh`. O Hub reavalia usuário, tenant e
+  add-ons: módulo removido some do JWT renovado; todos removidos, o refresh é recusado e o cliente
+  reconecta. O Easy não guarda refresh nenhum.
 
 ## 4. Ferramentas da V0
+
+Cada ferramenta declara o **módulo** a que pertence (slug canônico do Hub) no registro
+(`tools.publicar`); dessa declaração única saem a checagem na execução e o filtro do `tools/list`
+— o catálogo de ferramentas é **por usuário** e só anuncia os módulos com add-on MCP ativo
+(anunciar não é autorizar: a execução confere de novo).
+
+| Ferramenta | Módulo |
+|---|---|
+| `easy_meu_acesso` | plataforma (qualquer add-on) |
+| `easy_listar_empreendimentos`, `easy_orcamento_arvore`, `easy_orcamento_buscar_servico` | `easy-orca` |
+| `easy_buscar_composicoes`, `easy_buscar_insumos` | `easy-cpu` |
+| escritas da Fase 3 (replicar, adicionar, quantidade, aplicar plano) | `easy-orca` |
 
 Nomes em português, prefixo `easy_` (o cliente pode ter vários servidores MCP; o prefixo evita
 colisão). Todas com `inputSchema` explícito, saída estruturada e `ToolAnnotations`
@@ -139,18 +155,26 @@ usuário já vê na tela.
 
 ### 4.2 Navegação
 
-**`easy_listar_empreendimentos(busca?)`** — leitura. Serviço: `ativo.service.listar_empreendimentos`.
-
-**`easy_listar_ativos(emp_id)`** — leitura. Serviço: `ativo.service.listar_ativos_detalhe`.
-Cada ativo vem com `atv_id`, nome, revisão vigente (ex.: `R00`) e a URL da tela.
+**`easy_listar_empreendimentos(busca?)`** — leitura. Serviço: `ativo.service.listar_empreendimentos`
+(já traz os ativos aninhados — uma ferramenta só). Cada empreendimento: `{ref, nome, arquivado,
+ativos:[{ref, nome, uf, tipo, situacao}]}`. `busca` filtra por nome (sem acento, parcial). Sem URL da
+tela (ela carrega ids do banco, §5.7).
 
 ### 4.3 Orçamento (bancada)
 
-**`easy_orcamento_arvore(atv_id, prefixo?, profundidade?, pagina?)`** — leitura.
-Serviço: `orcamento_service.get_bancada` (a mesma árvore da tela). Linhas compactas:
-`{id, path, nivel, tipo, codigo, fonte, descricao, unidade, quantidade, filhos}`. O `path` sai no
-formato da tela (`2.1.3`), não no formato interno (`002000.001000.003000`). `prefixo` recorta uma
-subárvore (`2.2`), e `profundidade` corta níveis. Teto de 500 linhas por página.
+**`easy_orcamento_arvore(ativo, prefixo?, profundidade?, pagina?)`** — leitura.
+Serviço: `orcamento_service.get_bancada` (a mesma árvore da tela, revisão vigente). Devolve
+`{estado, precificacao:{fonte_base, edicao, uf, modalidade}, total_com_bdi, linhas_no_recorte,
+pagina, paginas, linhas}`; cada linha `{ref, caminho, nivel, tipo, descricao, fonte, codigo, unidade,
+quantidade, preco_unitario_com_bdi, total_com_bdi, tem_filhos}`. O `caminho` sai no formato da tela
+(`2.1.3`; nível 1 = `2`). `prefixo` recorta uma subárvore, `profundidade` corta num nível absoluto.
+Grupo com `tem_filhos=false` = grupo vazio. Teto de 500 linhas por página. Ativo sem orçamento
+nasce com a R00 ao ser lido (o mesmo que abrir a aba na tela).
+
+**`easy_orcamento_buscar_servico(ativo, termo, fonte?)`** — leitura (Easy Orça). O picker da
+bancada como serviço (`ativo/orcamento_busca.buscar_composicoes_ativo`): só as fontes utilizáveis
+do ativo, próprias primeiro, ★ favorita no topo, custo na edição/UF/modalidade configuradas no
+ativo (até 25); confere a posse do ativo. Item `{fonte, codigo, descricao, unidade, custo, propria}`.
 
 **`easy_orcamento_replicar(atv_id, origem_ids, destino_ids, quantidade?)`** — escrita, **gera plano**.
 Copia os itens de `origem_ids` (serviços e/ou grupos com tudo que têm dentro) para dentro de cada
@@ -172,12 +196,14 @@ Serviço: `orcamento_service.editar_item`. Dispara o `recompute_vinculos_de_font
 
 ### 4.4 Catálogo
 
-**`easy_buscar_composicoes(termo, fonte?, edicao?, uf?, modalidade?, pagina?)`** — leitura.
-Mesmo `SearchService.search_catalog` da busca da app (`entity_type=CPU`), mesmos candidatos e na
-mesma ordem, sob filtros equivalentes. Resposta: `{codigo, fonte, edicao, descricao, unidade, custo, match}`.
+**`easy_buscar_composicoes(termo, fonte?, uf?, modalidade?, pagina?)`** — leitura (Easy CPU). O
+catálogo geral, mesmo `SearchService.search_catalog` da app (`entity_type=CPU`), reidratado no
+Postgres (`composicoes_service.get_composicoes`), paginado. Item `{fonte, codigo, descricao,
+unidade, custo, sem_custo, mes_referencia, achado_por}` — identificado por **fonte + código**.
 **O primeiro resultado não é declarado tecnicamente correto**: quem decide é o operador.
 
-**`easy_buscar_insumos(...)`** — idem, `entity_type=INS`.
+**`easy_buscar_insumos(termo, fonte?, uf?, pagina?)`** — idem, `entity_type=INS`; preço publicado
+pela fonte, sem encargos (SE), como no Easy Mobile.
 
 ### 4.5 Fora da V0 (fila, não promessa)
 
@@ -201,6 +227,17 @@ serviço maduro por trás.
    Nunca stack trace, SQL, caminho de arquivo nem segredo.
 6. **Saída enxuta.** Pagina tudo que pode crescer. Valores monetários em número com 2 casas (TRUNC),
    sempre acompanhados de fonte, edição, UF e modalidade.
+
+7. **Nada interno sai pelo MCP** (Renan, 2026-10-20). O que o MCP mostra dá a ordem de grandeza do
+   MCP, nada interno da app:
+   - nenhum nome de coluna (`ati_*`, `aoc_*`, `cmp_id`, `fte_id`…), endpoint ou URL interna da app —
+     campos em vocabulário de domínio (`ref`, `caminho`, `quantidade`, `fonte`, `codigo`);
+   - nenhum id sequencial: identificador = **referência opaca** (`emp_…`, `ativo_…`, `item_…`;
+     `backend/api/mcp/refs.py`) — AES de um bloco com o tipo embutido, determinística, reversível
+     sem tabela, inadivinhável; ref de item não abre ativo; adulterada = `nao_encontrado`. A ref
+     não autoriza nada: a posse segue conferida no serviço;
+   - composição/insumo de catálogo pelo identificador **público**: fonte + código.
+   `test_leitura.py` varre a saída das ferramentas atrás de nome de coluna e id interno.
 
 ## 6. Escrita em duas fases: prévia → aplicar
 
