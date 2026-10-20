@@ -339,6 +339,74 @@ CREATE TABLE IF NOT EXISTS auth.hub_auth_token (
 CREATE INDEX IF NOT EXISTS idx_hub_auth_token_user ON auth.hub_auth_token (tenant_id, user_id);
 
 -- ------------------------------------------------------------
+-- auth.hub_sessao
+-- Funcao:
+--   Registro revogavel das sessoes SSO emitidas pelo Hub.
+-- ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS auth.hub_sessao (
+    sid               UUID        NOT NULL DEFAULT gen_random_uuid(),
+    jti               UUID        NOT NULL DEFAULT gen_random_uuid(),
+    subject_id        UUID        NOT NULL,
+    subject_type      TEXT        NOT NULL,
+    user_id           UUID,
+    tenant_id         UUID,
+    app               TEXT        NOT NULL,
+    ip                TEXT,
+    user_agent        TEXT,
+    created_at        TIMESTAMPTZ NOT NULL DEFAULT now(),
+    last_seen_at      TIMESTAMPTZ NOT NULL DEFAULT now(),
+    revoked_at        TIMESTAMPTZ,
+    revocation_reason TEXT,
+    replaced_by_sid   UUID,
+    CONSTRAINT hub_sessao_pkey PRIMARY KEY (sid),
+    CONSTRAINT uq_hub_sessao_jti UNIQUE (jti),
+    CONSTRAINT fk_hub_sessao_user FOREIGN KEY (user_id)
+        REFERENCES identity.hub_user (user_id) ON DELETE CASCADE,
+    CONSTRAINT fk_hub_sessao_tenant FOREIGN KEY (tenant_id)
+        REFERENCES identity.hub_tenant (tenant_id) ON DELETE CASCADE,
+    CONSTRAINT fk_hub_sessao_replacement FOREIGN KEY (replaced_by_sid)
+        REFERENCES auth.hub_sessao (sid) ON DELETE SET NULL,
+    CONSTRAINT ck_hub_sessao_subject_type CHECK (subject_type IN ('hub_user', 'easy_mobile_client')),
+    CONSTRAINT ck_hub_sessao_app CHECK (app IN ('easy', 'easy-mcp', 'easy-mobile', 'gestor')),
+    CONSTRAINT ck_hub_sessao_hub_user CHECK (subject_type <> 'hub_user' OR (user_id IS NOT NULL AND user_id = subject_id)),
+    CONSTRAINT ck_hub_sessao_tenant CHECK (app = 'easy-mobile' OR tenant_id IS NOT NULL)
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS uq_hub_sessao_single_active
+    ON auth.hub_sessao (subject_id, COALESCE(tenant_id, '00000000-0000-0000-0000-000000000000'::uuid), app)
+    WHERE revoked_at IS NULL AND app IN ('easy', 'easy-mcp', 'gestor');
+CREATE INDEX IF NOT EXISTS idx_hub_sessao_status ON auth.hub_sessao (sid, app, revoked_at);
+CREATE INDEX IF NOT EXISTS idx_hub_sessao_mobile_active
+    ON auth.hub_sessao (subject_id, tenant_id, created_at)
+    WHERE revoked_at IS NULL AND app = 'easy-mobile';
+
+-- ------------------------------------------------------------
+-- auth.hub_refresh_token
+-- Funcao:
+--   Refresh tokens opacos e rotativos do Easy MCP. Somente o hash e persistido.
+-- ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS auth.hub_refresh_token (
+    refresh_id     UUID        NOT NULL DEFAULT gen_random_uuid(),
+    sid            UUID        NOT NULL,
+    token_hash     CHAR(64)    NOT NULL,
+    created_at     TIMESTAMPTZ NOT NULL DEFAULT now(),
+    expires_at     TIMESTAMPTZ NOT NULL,
+    used_at        TIMESTAMPTZ,
+    revoked_at     TIMESTAMPTZ,
+    replaced_by_id UUID,
+    CONSTRAINT hub_refresh_token_pkey PRIMARY KEY (refresh_id),
+    CONSTRAINT uq_hub_refresh_token_hash UNIQUE (token_hash),
+    CONSTRAINT fk_hub_refresh_token_session FOREIGN KEY (sid)
+        REFERENCES auth.hub_sessao (sid) ON DELETE CASCADE,
+    CONSTRAINT fk_hub_refresh_token_replacement FOREIGN KEY (replaced_by_id)
+        REFERENCES auth.hub_refresh_token (refresh_id) ON DELETE SET NULL,
+    CONSTRAINT ck_hub_refresh_token_expiry CHECK (expires_at > created_at)
+);
+
+CREATE INDEX IF NOT EXISTS idx_hub_refresh_token_sid
+    ON auth.hub_refresh_token (sid, created_at DESC);
+
+-- ------------------------------------------------------------
 -- auth.hub_api_registry
 -- Função:
 --   Registro de APIs externas ou internas integráveis por tenants.
@@ -1987,6 +2055,36 @@ BEFORE INSERT OR UPDATE OF product_id, entitlement_model, plan_code
 ON billing.hub_license FOR EACH ROW
 EXECUTE FUNCTION billing.hub_license_entitlement_defaults();
 
+-- ------------------------------------------------------------
+-- billing.hub_license_addon
+-- Funcao:
+--   Add-ons contratados sobre uma licenca de produto, incluindo MCP por modulo.
+-- ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS billing.hub_license_addon (
+    license_addon_id BIGINT      GENERATED ALWAYS AS IDENTITY,
+    license_id       INT         NOT NULL,
+    addon_id         INT         NOT NULL,
+    status           TEXT        NOT NULL DEFAULT 'active',
+    plan_code        TEXT        NOT NULL DEFAULT 'unlimited',
+    access_mode      TEXT        NOT NULL DEFAULT 'ACTIVE',
+    valid_from       TIMESTAMPTZ NOT NULL DEFAULT now(),
+    valid_until      TIMESTAMPTZ,
+    created_at       TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at       TIMESTAMPTZ NOT NULL DEFAULT now(),
+    CONSTRAINT hub_license_addon_pkey PRIMARY KEY (license_addon_id),
+    CONSTRAINT uq_hub_license_addon UNIQUE (license_id, addon_id),
+    CONSTRAINT fk_hub_license_addon_license FOREIGN KEY (license_id)
+        REFERENCES billing.hub_license (license_id) ON DELETE CASCADE,
+    CONSTRAINT fk_hub_license_addon_addon FOREIGN KEY (addon_id)
+        REFERENCES product.addon (addon_id) ON DELETE RESTRICT,
+    CONSTRAINT ck_hub_license_addon_status CHECK (status IN ('active', 'suspended', 'expired', 'revoked')),
+    CONSTRAINT ck_hub_license_addon_access_mode CHECK (access_mode IN ('ACTIVE', 'VIEW_ONLY', 'BLOCKED')),
+    CONSTRAINT ck_hub_license_addon_period CHECK (valid_until IS NULL OR valid_until > valid_from)
+);
+
+CREATE INDEX IF NOT EXISTS idx_hub_license_addon_active
+    ON billing.hub_license_addon (license_id, status, access_mode);
+
 CREATE TABLE IF NOT EXISTS billing.hub_usage_ledger (
     usage_entry_id  UUID        NOT NULL DEFAULT gen_random_uuid(),
     license_id      INT         NOT NULL,
@@ -3018,8 +3116,8 @@ CREATE TABLE IF NOT EXISTS audit.login_log (
         REFERENCES identity.hub_user (user_id) ON DELETE SET NULL,
     CONSTRAINT fk_login_log_tenant FOREIGN KEY (tenant_id)
         REFERENCES identity.hub_tenant (tenant_id) ON DELETE SET NULL,
-    CONSTRAINT ck_login_log_action CHECK (action IN ('LOGIN', 'LOGOUT', 'LOGIN_FALHA', 'TROCAR_CONTA')),
-    CONSTRAINT ck_login_log_origin CHECK (origin IN ('LOCAL', 'SSO', 'GOV_BR', 'APPLE', 'GOOGLE', 'API_KEY'))
+    CONSTRAINT ck_login_log_action CHECK (action IN ('LOGIN', 'LOGOUT', 'LOGIN_FALHA', 'TROCAR_CONTA', 'SESSAO_DERRUBADA', 'SESSAO_REVOGADA')),
+    CONSTRAINT ck_login_log_origin CHECK (origin IN ('LOCAL', 'SSO', 'GOV_BR', 'APPLE', 'GOOGLE', 'API_KEY', 'easy-mcp'))
 );
 
 -- ------------------------------------------------------------
@@ -3322,6 +3420,41 @@ SELECT o.offer_id,NULL,
 FROM product.offer o JOIN product.product p ON p.product_id=o.product_id
 WHERE p.code IN ('PRI','CPU','DOC','PM','LIC','ORC','BDR','FIN','ONE')
   AND right(o.offer_code,3) IN ('SIN','STA','ADV','PRO','UNL');
+
+-- MCP e vendido como add-on independente de cada modulo Easy.
+INSERT INTO product.addon (product_id, addon_code, name, description)
+SELECT p.product_id, 'MCP', 'MCP para ' || p.name,
+       'Autoriza o uso, via IA/MCP, dos endpoints do modulo ' || p.name
+FROM product.product p
+WHERE p.code IN ('CPU','PRI','ORC','DOC','PM','BDR','FIN','LIC','ONE')
+ON CONFLICT (product_id, addon_code) DO UPDATE SET
+    name=EXCLUDED.name, description=EXCLUDED.description, is_active=TRUE, updated_at=now();
+
+INSERT INTO product.addon_entitlement
+    (addon_id,grant_model,unit,quantity,period_unit,rule_json)
+SELECT a.addon_id,'ilimitado','mcp',NULL,'mes',
+       jsonb_build_object('app','easy-mcp','product_code',p.code)
+FROM product.addon a JOIN product.product p ON p.product_id=a.product_id
+WHERE a.addon_code='MCP'
+  AND p.code IN ('CPU','PRI','ORC','DOC','PM','BDR','FIN','LIC','ONE')
+  AND NOT EXISTS (
+      SELECT 1 FROM product.addon_entitlement e
+      WHERE e.addon_id=a.addon_id AND e.unit='mcp' AND e.is_active=TRUE
+  );
+
+-- Graca MCP unlimited sobre os modulos Easy ativos de AXYS e DIASECARDOZO.
+INSERT INTO billing.hub_license_addon
+    (license_id,addon_id,status,plan_code,access_mode,valid_from,valid_until)
+SELECT l.license_id,a.addon_id,'active','unlimited','ACTIVE',COALESCE(l.valid_from,now()),NULL
+FROM billing.hub_license l
+JOIN identity.hub_tenant t ON t.tenant_id=l.tenant_id
+JOIN product.product p ON p.product_id=l.product_id
+JOIN product.addon a ON a.product_id=p.product_id AND a.addon_code='MCP'
+WHERE t.tenant_code IN ('AXYS','DIASECARDOZO')
+  AND p.code IN ('CPU','PRI','ORC','DOC','PM','BDR','FIN','LIC','ONE')
+  AND l.status='active' AND (l.valid_until IS NULL OR l.valid_until>now())
+ON CONFLICT (license_id,addon_id) DO UPDATE SET
+    status='active',plan_code='unlimited',access_mode='ACTIVE',valid_until=NULL,updated_at=now();
 
 -- ============================================================
 -- NOTAS DE VALIDAÇÃO FUTURA

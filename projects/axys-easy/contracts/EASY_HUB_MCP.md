@@ -88,12 +88,14 @@ Gestor (um por produto, IPs distintos permitidos), mas NÃO em duas sessões do 
 remover nada do fluxo atual de SSO.
 
 Regra de negócio:
-- Chave da sessão: (user_id, tenant_id, app). Apps: easy, easy-mcp, easy-mobile, gestor.
+- Chave da sessão: (user_id, tenant_id, app). `app` separa explicitamente `easy`, `easy-mcp` e
+  `gestor`: uma sessão ativa em cada produto pode coexistir.
 - Login novo no mesmo (user, tenant, app) DERRUBA a sessão anterior desse app (último login vence),
   inclusive o login silencioso do GET /login com cookie do Hub ativo.
 - Sessões de apps diferentes não se derrubam.
 - Logout encerra só a sessão daquele app.
-- Decidir com o Renan se easy-mobile entra na regra (app de celular com token de 30 dias).
+- `easy-mobile` é a exceção: permite até 3 sessões simultâneas por identidade/tenant. A quarta
+  emissão revoga a sessão Mobile ativa mais antiga.
 
 Tarefas:
 1. Tabela de sessão (ex.: auth.hub_sessao: sid UUID PK, user_id, tenant_id, app, ip, user_agent,
@@ -113,13 +115,16 @@ Tarefas:
 6. Testes: dois logins do mesmo usuário no mesmo app → o primeiro sid fica inativo; logins em apps
    diferentes coexistem; logout de um app não afeta outro; status de sid revogado = ativa:false.
 
-Combinar com o time Easy o comportamento quando o endpoint de status está fora do ar (proposta
-Easy: tolerar até 5 min com o último status em cache e depois recusar).
+Quando o endpoint de status estiver fora do ar, o consumidor pode usar o último status conhecido
+por no máximo 5 minutos. Sem status anterior, ou depois de 5 minutos, deve recusar o acesso.
 ```
 
 ---
 
 ## Prompt P3 — refresh token para `easy-mcp` (opcional)
+
+Implementado no Hub com a migration `015-easy-mcp-refresh-token.sql`. O TTL padrão é de 30 dias
+e pode ser configurado por `EASY_MCP_REFRESH_TTL` em segundos.
 
 ```text
 Contexto: repositório axys-hub, depois de P1 e P2. Clientes MCP (ChatGPT, Claude) suportam
@@ -136,6 +141,49 @@ Tarefas:
 4. Testes: refresh válido renova; refresh reusado revoga; sessão revogada recusa refresh; usuário
    sem licença recusa.
 ```
+
+---
+
+## P4 — licenciamento MCP por módulo
+
+O MCP é um **add-on comercial de cada módulo Easy**, não uma licença genérica da plataforma. O
+login e a sessão continuam únicos em `app="easy-mcp"`; a granularidade por módulo existe somente
+na autorização das ferramentas/endpoints.
+
+Regras:
+
+- todos os endpoints MCP podem permanecer publicados;
+- possuir a licença-base de um módulo não concede automaticamente seu add-on MCP;
+- o JWT `aud="easy-mcp"` mantém `apps_licenciadas` e `licencas` sem alterações e acrescenta
+  `mcp_licencas` com os add-ons efetivos daquele usuário/tenant;
+- o JWT web `aud="easy"` e o retorno atual de `_whoami` não ganham esse campo;
+- o Hub recusa o login/refresh `easy-mcp` quando não existir ao menos um add-on MCP ativo;
+- o backend Easy decide se executa cada ferramenta comparando o módulo requerido com
+  `mcp_licencas`; não se cria login, sessão ou audiência por módulo;
+- `AXYS` e `DIASECARDOZO` recebem graça `unlimited` nos módulos Easy já licenciados;
+- `LUNALO` permanece exclusivamente no Gestor e não recebe licença Easy ou Easy MCP.
+
+Formato da claim:
+
+```json
+{
+  "mcp_licencas": [
+    {
+      "app": "easy-orca",
+      "plano": "unlimited",
+      "status": "ACTIVE",
+      "periodo_inicio": "2026-07-24",
+      "periodo_fim": null
+    }
+  ]
+}
+```
+
+Persistência no Hub:
+
+- catálogo: um `product.addon` de código `MCP` ligado a cada produto Easy;
+- contratação/concessão: `billing.hub_license_addon`, ligada à licença-base e ao add-on;
+- migration: `016-easy-mcp-addon-por-modulo.sql`.
 
 ---
 
