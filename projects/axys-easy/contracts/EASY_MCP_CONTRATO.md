@@ -93,7 +93,7 @@ com client próprio, `aud=easy-mcp` e as mesmas claims do `easy` — ver
 | `iss` | `EASY_JWT_ISSUER` (mesmo emissor da web) |
 | `exp` | vencido → `401`, o cliente refaz o OAuth |
 | Licença | modo derivado de `licencas` + override do Hub no Redis — **a mesma função** do `require_auth`. `BLOCKED`/`ARCHIVED` → nenhuma ferramenta; `VIEW_ONLY` → só leitura |
-| Sessão | quando o Hub entregar o §P2 (sessão única por usuário×app): `sid` revogado → `401` |
+| Sessão | `sid` do JWT consultado no Hub (`GET /auth/sessoes/{sid}/status`, Basic do app) por `backend/core/sessao_hub.py`, a MESMA função da web: revogada ou inexistente → `401`; status fresco por 60 s (cache do processo); Hub fora → tolera 5 min com o último "ativa", depois recusa; token sem `sid` (anterior ao P2) passa. Kill switch `EASY_SESSAO_UNICA=false` |
 
 ### 3.4 AuthContext
 
@@ -107,7 +107,7 @@ tenant = reconectar.
 
 | Coisa | Onde | Por quê |
 |---|---|---|
-| Cliente registrado (DCR) | **nenhum lugar**: o `client_id` é o próprio metadado do cliente cifrado (Fernet, chave `EASY_MCP_CLIENT_SECRET`) | nada a perder num flush do Redis, nada a migrar |
+| Cliente registrado (DCR) | **nenhum lugar**: o `client_id` é o próprio metadado do cliente, compactado e cifrado (Fernet, chave `EASY_MCP_CLIENT_SECRET`, prefixo `emc1.`). O SDK sorteia um uuid4 e passa a `register_client` o mesmo objeto que devolve ao cliente; é ali que o id é trocado (SDK travado em 2.3.0, coberto por `test_oauth.py`). Trocar a chave = clientes reconectam | nada a perder num flush do Redis, nada a migrar |
 | Pedido de autorização pendente | Redis, TTL 5 min | vida curta |
 | Code do Easy → cliente | Redis, TTL 5 min, uso único | vida curta |
 | Plano de escrita (§6) | Redis, TTL 15 min | vida curta |
