@@ -144,6 +144,49 @@ Tarefas:
 
 ---
 
+## P4 — licenciamento MCP por módulo
+
+O MCP é um **add-on comercial de cada módulo Easy**, não uma licença genérica da plataforma. O
+login e a sessão continuam únicos em `app="easy-mcp"`; a granularidade por módulo existe somente
+na autorização das ferramentas/endpoints.
+
+Regras:
+
+- todos os endpoints MCP podem permanecer publicados;
+- possuir a licença-base de um módulo não concede automaticamente seu add-on MCP;
+- o JWT `aud="easy-mcp"` mantém `apps_licenciadas` e `licencas` sem alterações e acrescenta
+  `mcp_licencas` com os add-ons efetivos daquele usuário/tenant;
+- o JWT web `aud="easy"` e o retorno atual de `_whoami` não ganham esse campo;
+- o Hub recusa o login/refresh `easy-mcp` quando não existir ao menos um add-on MCP ativo;
+- o backend Easy decide se executa cada ferramenta comparando o módulo requerido com
+  `mcp_licencas`; não se cria login, sessão ou audiência por módulo;
+- `AXYS` e `DIASECARDOZO` recebem graça `unlimited` nos módulos Easy já licenciados;
+- `LUNALO` permanece exclusivamente no Gestor e não recebe licença Easy ou Easy MCP.
+
+Formato da claim:
+
+```json
+{
+  "mcp_licencas": [
+    {
+      "app": "easy-orca",
+      "plano": "unlimited",
+      "status": "ACTIVE",
+      "periodo_inicio": "2026-07-24",
+      "periodo_fim": null
+    }
+  ]
+}
+```
+
+Persistência no Hub:
+
+- catálogo: um `product.addon` de código `MCP` ligado a cada produto Easy;
+- contratação/concessão: `billing.hub_license_addon`, ligada à licença-base e ao add-on;
+- migration: `016-easy-mcp-addon-por-modulo.sql`.
+
+---
+
 ## Do lado Easy (para referência do Hub)
 
 - Valida o JWT `easy-mcp` com o mesmo JWKS e o mesmo emissor da web, exigindo `aud="easy-mcp"`.
