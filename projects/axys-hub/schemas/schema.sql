@@ -3019,7 +3019,7 @@ CREATE TABLE IF NOT EXISTS audit.login_log (
     CONSTRAINT fk_login_log_tenant FOREIGN KEY (tenant_id)
         REFERENCES identity.hub_tenant (tenant_id) ON DELETE SET NULL,
     CONSTRAINT ck_login_log_action CHECK (action IN ('LOGIN', 'LOGOUT', 'LOGIN_FALHA', 'TROCAR_CONTA')),
-    CONSTRAINT ck_login_log_origin CHECK (origin IN ('LOCAL', 'SSO', 'GOV_BR', 'APPLE', 'GOOGLE', 'API_KEY'))
+    CONSTRAINT ck_login_log_origin CHECK (origin IN ('LOCAL', 'SSO', 'GOV_BR', 'APPLE', 'GOOGLE', 'API_KEY', 'easy-mcp'))
 );
 
 -- ------------------------------------------------------------
