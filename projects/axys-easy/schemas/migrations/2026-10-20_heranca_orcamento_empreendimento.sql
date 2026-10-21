@@ -1,5 +1,5 @@
 -- Herança de orçamento por empreendimento (opt-in por pauta) — PROD.
--- Contrato: docs/projects/axys-easy/contracts/HERANCA_ORCAMENTO_EMPREENDIMENTO.md
+-- Contrato: docs/projects/axys-easy/contracts/HERANCA_ORCAMENTO_EMPREENDIMENTO.md · schema.sql (ativo.empreendimentos, ativo.ativo_orcamento)
 -- Idempotente. Nasce FALSE (dados de hoje seguros); o cadastro de empreendimento novo grava TRUE.
 -- Passo 1 de N (só as flags). O portador de config do empreendimento + resolvers vêm nos próximos passos.
 

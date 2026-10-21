@@ -34,5 +34,5 @@ Implementação: `backend/modules/catalogo/parametros_service.py`.
 - `conversao_mdo` / bancada (rotação MDO h→mês) → `JORNADA_H_MES`.
 
 ## Prod
-Migração registrada em `z_scripts_apoio/migrations/2026-08-11_parametros_normativos_mdo.sql`
+Migração registrada em `docs/projects/axys-easy/schemas/migrations/2026-08-11_parametros_normativos_mdo.sql`
 (cria a tabela + seed + enxuga `composicoes_mapeamento_mdo`). Não toca em ativo/orçamento.
