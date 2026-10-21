@@ -175,7 +175,7 @@ psql "$DBURL" -tAc "SELECT cc_status_conferencia, count(*) FROM catalogo.composi
 
 ## Referências
 
-- Motor único / doutrina trunc: `REFACTOR_MOTOR_UNICO_PLANO.md`, `contracts/catalogo/BUSINESS_RULES.md §4`.
+- Motor único / doutrina trunc (D1-D6): `contracts/catalogo/listagem.md §2.2.1`.
 - Contratos de import: `contracts/catalogo/imports/{sinapi,cdhu,fde}.md`.
 - Código: `backend/modules/catalogo/recompute_custo.py` (motor + classificador), parsers em
   `backend/core/import_cpu/`, dist FDE em `z_scripts_apoio/manutencao/fde_dist_local.py`.

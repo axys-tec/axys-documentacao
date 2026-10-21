@@ -30,7 +30,10 @@ outras partes da app.
 | 3 · escrita dupla | **NÃO FEITA — perdeu o propósito** | decisão do Renan |
 | 4 · migrar dados de dev | **FEITA** | 11/10 |
 | 5 · trocar a leitura (flag desligado) | **FEITA** | 11/10 |
-| 9 · `schema.sql` | **FEITA** | 11/10 |
+| 9 · `schema.sql` | **FEITA** (re-fechada 12/10: a foto estava velha em 2 tipos) | 11/10 · 12/10 |
+
+**Fases 6 e 8 foram redefinidas pelo Renan em 12/10** — viraram uma *submain do orçamento*, e só
+depois de produção. Ver o fim deste arquivo.
 
 ## Linha do tempo
 
@@ -434,3 +437,547 @@ fica legível na planilha sem join.
 | `documento_pdf` (OFF e ON) | **51 de 51** nos dois |
 | `excel_valores` | 4 de 4 |
 | `leitura_orcamento` (ON) | **zero diferença** |
+
+---
+
+## 12/10 (tarde) — o fix de schema encerrado, e `aci_conv_json`
+
+### 1 · A foto estava velha em dois pontos — e o guardião era cego a isso
+
+`schema_fiel.py` comparava **presença** de coluna, não **tipo**. As duas correções da manhã foram
+aplicadas ao banco e **não** foram refotografadas, e o guardião passou verde nas duas:
+
+| | banco | `schema.sql` |
+|---|---|---|
+| `aci_coef` | `numeric(18,10)` | `numeric(18,6)` ← as 6 casas que arredondavam 5 composições |
+| `aoc_origem` · `aoz_origem` | `character(1)` | `text` ← o C/T da decisão nº 3 |
+
+Os dois corrigidos na foto, e o guardião ensinado a comparar tipo: `format_type` devolve a mesma
+string que o `pg_dump` escreve, então a comparação é direta, com normalização de apelido
+(`int`→`integer`, `timestamptz`→`timestamp with time zone`) e corte que **respeita parênteses** —
+`numeric(14,2)` é um tipo, `TEXT, outra_col TEXT` são dois. Sem isso o próprio check dava 68 falsos
+positivos.
+
+Sobra `coluna divergente ACHOU 3` em `catalogo.equivalencias_cpu`/`_ins`/`_mo`: é a frente de
+**associações**, outra aba, e não se toca aqui.
+
+### 2 · `aci_conv_json` — a procedência da conversão
+
+Coluna `JSONB` em `_composicoes_itens`, com `ck_aci_conv_json`, aplicada no banco de dev, no
+`01_novas.sql`, no `schema.sql` e documentada na **§2.5.1** do `schema_review`. Decisão do Renan:
+JSONB e não cinco colunas, porque **serve só para auditar** (e auditoria na app mora em snapshot) e
+porque a leitura é **isolada** — uma tela de diff, nunca N+1.
+
+Mata `aci_estado` e `aci_sub_codigo`, as duas ideias que eu havia levantado. A edição **não** entra:
+o id na origem é perene (get-or-create), e a data-base é parâmetro da consulta. Isso também descartou
+`azp_edi_id`/`acc_edi_id`, que eu havia proposto.
+
+**Gravar o vetor é fase 6** — a coluna nasceu vazia, e as 132 linhas convertidas já migradas não têm
+procedência registrada. Nada quebra: `NULL` = linha nativa é o mesmo que a app entende hoje.
+
+### 3 · Sanidade
+
+| | OFF | ON |
+|---|---|---|
+| `analitico_bancada` | todos fecham | todos fecham |
+| `documento_pdf` | 51 de 51 | 51 de 51 |
+| `excel_valores` | 4 de 4 | 4 de 4 |
+| `migracao_orcamento` | 10 de 10 | 10 de 10 |
+| `composicao_migrada` | 654 · 0 divergem | 654 · 0 divergem |
+| `leitura_orcamento` | zero diferença | zero diferença |
+
+`plano_orcamento.py`: **convergiu, nenhum achado** nos 15 checks — inclusive o 15, que executa o DDL
+do doc no Postgres, já com a coluna nova.
+
+### 4 · As fases que sobram, na redação do Renan (12/10)
+
+| fase | o que é agora | quando |
+|---|---|---|
+| **9 · `schema.sql`** | **FECHADA de novo** hoje, com o guardião reforçado | feita |
+| **10 · produção** | levar o estado novo para prod | **a próxima decisão dele** |
+| **7 · remover o antigo** | só depois de 10 estável | depois de prod |
+| **6 + 8 · a UI** | **viraram uma coisa só**, e não a que o plano dizia | **só depois de prod** |
+
+> *"o 6 fala sobre uma UI e ficou estipulado que não mexeríamos em UI durante isso e que todo o
+> comportamento de UI permaneceria o atual. Apenas, e somente após colocar novo estado em prod, é que
+> mexeríamos nisso. Basicamente será uma unificação das tabs, alocando-a para dentro de orçamento e
+> gerando o histórico mas, como orçamento tem virado uma coisa de múltiplos botões, minha ideia será
+> uma submain do orçamento, dando uma otimizada em tabs. Inclusive, é o que vai fazer mais sentido
+> até para os outros produtos da app. Porque essa estrutura de tabs pode sobretensionar no
+> carregamento, posteriormente."* — Renan, 12/10
+
+Então a fase 6 **não** é "UI mínima para editar Fontes/BDI/LS na revisão": é uma **submain do
+orçamento** que absorve as tabs, gera o histórico e tira a tensão do carregamento — desenho que serve
+os outros produtos também. Ringue próprio, depois de prod. **Nada de UI até lá.**
+
+---
+
+## 13/10 — rotação para o schema novo (trabalho autônomo, DEV)
+
+**Autorização (Renan, 12/10, antes de dormir):** migrar [feito], **dropar o antigo**, rotacionar
+função por função e ação por ação da bancada testando cada uma, validar os entregáveis, check de
+sanidade, não finalizar até acabar. **APENAS EM DEV.** Sem prod, sem push, sem UI.
+
+### Por que a ordem dele foi invertida (2 depois de 3)
+
+Ele pediu dropar (2) antes de rotacionar as funções (3). Dropar primeiro deixa a app **morta**
+durante todo o trabalho e, pior, destrói a única **referência de comparação** — o flag OFF é o que
+prova que o novo entrega o mesmo. Então: rotaciona tudo com os dois lados vivos, prova, e **só então**
+dropa. O destino é idêntico.
+
+### O diagnóstico que motivou a rotação (medido em 12/10)
+
+`fluxo_orcamento.py` (novo) exerce o fluxo do Renan, passo a passo, chamando os serviços reais:
+
+| | flag OFF | flag ON |
+|---|---|---|
+| OK | 10 | 4 |
+| NÃO EXISTE (fase futura) | 5 | 4 |
+| **QUEBRA** | **0** | **7** |
+
+As 7 quebras com ON são **todas escrita em view de compatibilidade** (`cannot insert into view`):
+60 pontos de escrita caem nas 6 views, 23 caem em tabela nova. Mais dois buracos que não são
+quebra, são **ausência**: nada na app cria `ativo_orcamento`/`_revisoes` (só o migrador), e nada
+captura `_composicoes`/`_insumos`/`_preco` quando um item entra na bancada.
+
+Corrigido já: `orcamento_service.py:705` usava `ativo_itens.ati_id` (nome da tabela) em vez de alias
+— com o flag ON o `FROM` virava a view e a referência ficava órfã (`missing FROM-clause`). Só
+aparecia em **ativo não migrado**, o caminho que nenhuma sanidade exercia. Varri as 13 tabelas
+traduzidas: era a única ocorrência em SQL.
+
+### Etapas
+
+| | etapa | estado |
+|---|---|---|
+| A1 | `orcamento_fonte` deixa de traduzir e passa a RESOLVER (`aor_de`/`ao_de`) | **FEITA** |
+| A2 | `criar_ativo` nasce com `ativo_orcamento` + revisão 00 · backfill dos sem `ao_` | **FEITA** — 18 backfill, 29/29 com revisão |
+| A3 | **captura de estado**: item entra → grava `_composicoes`/`_itens`/`_insumos`/`_preco`/`_custo` | **FEITA** |
+| B1 | itens (`criar/editar/deletar/mover/duplicar/colar/set_codigo/alo/converter/importar`) | **FEITA** — 47 queries |
+| B2 | parâmetros (`opa_`): fontes, busca padrão, flags de regime | **FEITA** — 18 queries |
+| B3 | BDI | **FEITA** |
+| B4 | L.S. | **FEITA** |
+| B5 | cronograma | **FEITA** |
+| B6 | memória | **FEITA** — 79 queries |
+| C | um caminho de leitura só; o `_CursorOrcamento` e o flag saíram | **FEITA** |
+| D | **drop** das 13 antigas | **FEITA** — 0 sobraram |
+| E | fluxo · ações · bateria · entregáveis · ver-conversão | **FEITA** |
+
+> `migracao_orcamento.py` e `leitura_orcamento.py` **perdem sentido depois do D**: os dois comparam
+> antigo × novo, e o antigo não existirá. Aposentá-los é parte da etapa D, não defeito.
+
+### A rede de segurança (13/10)
+
+Dois scripts novos, porque os que existiam não bastavam:
+
+| | o que faz |
+|---|---|
+| `baseline_totais.py` | **congela os números que a app entrega** (bancada, analítico, sintético, as duas curvas, cronograma, L.S., BDI) e exige que continuem idênticos. Sobrevive ao drop, que é o que `leitura_orcamento` não faz. Assinatura da linha = `numero\|codigo\|unit\|qtd\|bdi` — **nunca o `id`**, porque os dois schemas dão ids diferentes ao mesmo item (0 coincidem) |
+| `param_revisao.py` | pega o erro silencioso do refactor: query que passou a filtrar por `*_aor_id` mas **continuou recebendo `atv_id`**. Não dá erro de sintaxe — dá FK violation com sorte, ou grava na revisão errada se o número coincidir (e coincide: orçamento e revisão começam os dois em 1). **Pegou dois casos reais**, nos INSERT de L.S. e de cronograma |
+
+Com a assinatura por `numero`, o schema novo (flag ON) deu **idêntico ao antigo nos 29 ativos** — a
+prova mais forte de que a leitura nova está certa.
+
+### Como a rotação foi feita, e o que ela custou
+
+**Por serviço, com os testes entre cada um.** BDI (10 queries) → L.S. (12) → cronograma (8) →
+parâmetros (18) → itens (47) → memória (79). Depois de cada bloco: `param_revisao`, `fluxo_orcamento`
+e `baseline_totais`. O baseline deu **idêntico** em todos os passos — e é por isso que se sabe que a
+rotação não mexeu em número nenhum.
+
+**O erro que apareceu três vezes** foi sempre o mesmo: trocar a coluna na query e esquecer o valor
+na lista de parâmetros (`als_aor_id = %s` recebendo `atv_id`). Não dá erro de sintaxe. Deu FK
+violation nos INSERT de L.S. e cronograma, e no de parâmetros passou pela primeira versão do
+`param_revisao.py` — que procurava o fim da query **contando aspas** e caiu no meio dos parâmetros
+por causa de um `"SP"`. Refeito com **AST**, achou os dois que a regex tinha deixado passar, e
+depois uma quarta variante: `m.mc_aor_id = a.atv_id` num JOIN, sem parâmetro nenhum.
+
+**O que mudou de semântica, não de nome:** `ati_cmp_origem` deixou de existir (a origem é da
+composição) e `ati_cmp_id` passou a ser FK interna para `_composicoes`. As **leituras** que precisavam
+das duas passaram pela view de compatibilidade, que as reconstrói; as **escritas** passaram a capturar
+o estado e gravar o `aoc_id` — `set_codigo_item`, `criar_item`, `editar_item` (com sentinela, porque
+ela monta os parâmetros antes de abrir a transação), `colar_bloco` e `duplicar_item`.
+
+**O N+1 morreu de verdade.** `get_bancada` tinha dois caminhos; agora tem um, o que traz a identidade
+no mesmo SELECT. O `unit_fonte` (preço atual da fonte, para comparar drift) sai como `None` — foi
+conferido que **ninguém o consome**, nem front nem back, e recalculá-lo traria o N+1 de volta.
+
+### O drop (etapa D)
+
+Antes: dump CSV das 13 tabelas no scratchpad e a conferência que importa — **contagem idêntica e
+nenhum ativo com dado só na antiga** (1998/1998 itens, 16/16 BDI, 7/7 L.S., 5/5 cronograma, 111/111
+memórias, 28/28 parâmetros). Drop **sem CASCADE**, de propósito: `ativo_bdi` recusou e mostrou que a
+FK que a segurava era de `ativo_itens`, que na minha ordem vinha depois.
+
+**As views de compatibilidade sobreviveram ao drop** — elas leem das tabelas NOVAS, não das antigas.
+Isso derrubou a estimativa de reescrever 85 leituras: o trabalho real era só a escrita.
+
+`migracao_orcamento.py` e `leitura_orcamento.py` foram **aposentados**: comparavam antigo × novo, e o
+antigo não existe mais. `baseline_totais.py` é o sucessor, e não depende de haver dois schemas.
+
+### Três defeitos do `schema.sql` que ninguém tinha visto
+
+A foto agora é testada de verdade: **aplicada num banco novo**, do zero. Ela não executava, e por
+razões que vinham de antes do refactor:
+
+| | |
+|---|---|
+| vírgula pendurada antes do `)` | em `catalogo.conselhos_classe` e `catalogo.doc_resp_tecnica` |
+| 3 `CREATE INDEX` órfãos | de `orcamento_insumos`, `_preco` e `ativo_revisoes` — tabelas dropadas em 11/10; a tabela saiu, o índice ficou |
+| um `;` no fim de um comentário | fechava a view `v_orcamento_insumo_preco`, e sem ele o `CREATE VIEW` seguinte era erro de sintaxe |
+
+`schema_fiel.py` comparava tabela, coluna e (desde hoje) tipo — nunca se o arquivo **roda**. Agora
+roda: aplicado em banco limpo, dá as **mesmas tabelas do banco de dev, sem uma diferença**.
+
+### Os dois testes novos
+
+| | |
+|---|---|
+| `fluxo_orcamento.py` | o caminho do usuário, na ordem do Renan: **13 OK · 2 NÃO EXISTE · 0 QUEBRA** |
+| `acoes_bancada.py` | o outro eixo — cada ação e cada entregável, um por um: **27 OK · 0 FALHA** |
+
+As 2 "NÃO EXISTE" são as revisões (R00→R01 e alterar composição só na R01): o schema suporta
+(`aor_num`, `aoc_aor_desde`), a app ainda não tem a função. Não é defeito da rotação; é a
+funcionalidade que vem depois.
+
+Os entregáveis foram exercidos de ponta a ponta: PDF por peças (capa, ofício, sintético, analítico,
+curvas, cronograma, histograma, BDI, L.S., memória, composições próprias), XLSX, e a **tela de diff
+(ver conversão) junto com ver composição** nos itens com badge de conversão — 8 de 8 no ativo 22 e
+12 de 12 no 24.
+
+### FECHADO em 13/10 — e os vigias desarmados
+
+A rotação acabou: o orçamento vive inteiro em `ativo_orcamento_*`, as 13 tabelas antigas não
+existem mais em dev, e a última bateria fechou verde:
+
+| | |
+|---|---|
+| `fluxo_orcamento` | 13 OK · 2 NÃO EXISTE · **0 QUEBRA** |
+| `acoes_bancada` | 27 OK · **0 FALHA** |
+| `analitico_bancada` | todos os analíticos fecham com a bancada |
+| `documento_pdf` · `excel_valores` | 51 de 51 · 4 de 4 |
+| `composicao_migrada` | 654 CPUs · 0 divergem |
+| `baseline_totais` | **idêntico** — 29 ativos |
+| `param_revisao` | nenhuma query de revisão recebendo o ativo |
+
+**Vigias desarmados**, os três (o do trabalho autônomo e os dois de monitoramento). Regra do Renan,
+12/10: *"os vigias são apenas para quando você iniciar uma tarefa e eu pedir, e ficarem armados
+apenas enquanto não acabar. Não precisa deixá-los full time."*
+
+**O que espera decisão dele:**
+
+| | |
+|---|---|
+| teste de FRONT | o que ele reservou para depois do drop — é agora. Reiniciar o serviço em 8788 antes, para não testar código velho em memória |
+| commit | não feito: a aba de **associações** tem 6 arquivos modificados misturados, e `docs` é submódulo |
+| revisões (R00→R01) | as 2 "NÃO EXISTE": o schema suporta, a app não tem a função |
+| views de compat | **ficaram** — leem das tabelas novas e sobreviveram ao drop. Sair delas só faz sentido junto com as revisões |
+| produção (fase 10) | intocada, como ele mandou |
+
+### Achado depois de fechar: `aoz_ao_id` não tinha FK (13/10)
+
+O inventário do banco mostrou **8.858 insumos contra 1.433 preços** — e a migração tinha criado
+1.433 de cada. A diferença eram **7.425 insumos órfãos**, de orçamentos que já não existem: os
+ativos de teste criados e excluídos durante a rotação.
+
+Causa: `ativo_orcamento_insumos.aoz_ao_id` era `INTEGER NOT NULL` **sem `REFERENCES`** — a única
+filha de `ativo_orcamento` sem FK no dono (`_composicoes` e `_revisoes` sempre tiveram, e as duas
+estavam com zero órfãos). Vinha do DDL da fase 2 e só apareceu agora, porque só agora um ativo com
+insumos CAPTURADOS foi excluído. Em produção não quebraria nada — o lixo não dá erro, só cresce.
+
+Corrigido nos quatro lugares: órfãos removidos (critério exato — insumo cujo orçamento não existe),
+FK `fk_aoz_ao_id` com `ON DELETE CASCADE` criada no banco, e o DDL ajustado em `01_novas.sql`,
+`schema.sql` e na §2.3 do `schema_review`. Fechou **1.433 insumos · 1.433 preços**.
+
+**Provado em seguida:** criar ativo → fonte → L.S. → serviço com código grava 13 insumos, 13 preços,
+5 composições, 23 linhas, 5 custos, 1 item e 1 revisão; excluir o ativo **não deixa nada** — e zero
+órfãos no banco.
+
+### 13/10 (tarde) — o que a rotação de regime em SC revelou
+
+O Renan trocou o regime do ativo 26 (obra **em Santa Catarina**) para mensalista e 17 serviços
+ficaram sem custo. Três defeitos distintos saíram daí, e nenhum era do refactor:
+
+**1 · `preco_mo._pelado` era uma segunda implementação da regra de preço — e cega.** Buscava
+`pri_uf = uf` e devolvia None sem coleta na UF. A regra da SINAPI é outra, e o
+`custo_composicao._pelado` sempre a teve: sem coleta na UF, o preço vem de **SP ajustado pelo
+coeficiente de família (%AS)** — `SP × coef[uf] / coef[SP]` —, e sem família é SP plano. O motor
+canônico precificava as composições (0,75 · 2,13 · 504,08); o caminho da rotação de regime, que
+passa por `preco_mo`, devolvia `incompleto=True` e a captura descartava o total.
+
+A regra agora é **uma**: `custo_composicao.pelado_insumos()` foi exposta e os dois gravadores — a
+captura de estado e a reconciliação da migração — passaram a chamá-la. **17 sem custo → 1**, e o
+que resta é o `ERR` legítimo (MO sem par mensalista). As outras 28 obras não mudaram um centavo:
+estão em SP, onde há coleta, e o fallback não toca em preço coletado.
+
+**2 · O migrador só buscava preço de insumo do catálogo GLOBAL.** `if iid and org == "CATALOGO"` —
+para insumo de fonte própria (PRÓPRIA, EMOP, SBC) gravava NULL **sem procurar**, e o preço estava em
+`tenant_catalogo.insumos_preco` o tempo todo. Eram 26 dos 35 nulos. `reconciliar_precos.py` lê de
+onde o preço está. Resultado: **1.434 preços, zero nulos**.
+
+**3 · A guarda que faltava.** Recálculo que não fecha **não apaga** preço já gravado — mesma razão
+da guarda da composição descontinuada, e o incidente de lá foi de R$ 21,5 mil. Marca
+`custo_nao_recalculado` e mantém o valor.
+
+**O que NÃO é defeito:** os 2 itens que explodiram 172× (ENGENHEIRO CIVIL, 352 h, e MESTRE DE
+OBRAS, 704 h). A MO *é* o item: no mensalista o unitário vira custo do mês e a quantidade continua
+em horas. A app já marca `REG` + `mo_qtd_alerta` (⚠) — é curadoria do usuário, combinada.
+
+### `soltar()` fazia um passe só
+
+Pergunta do Renan: excluir o item leva as auxiliares e os insumos? Testado em clone — três
+serviços, dois com o mesmo código:
+
+| | composições | insumos | órfãos |
+|---|---|---|---|
+| 3 itens capturados | 28 | 21 | 0 |
+| excluo 1 dos 2 repetidos | 28 | 21 | 0 ← certo, o irmão ainda usa |
+| excluo o último que usava | 21 | 20 | 0 |
+| excluo o outro serviço | 0 | 0 | 0 |
+
+A primeira versão deixava **2 órfãs** nesse caso: um passe só não basta, porque quando a composição
+de topo cai as auxiliares ainda estão presas às linhas que vão cair no mesmo comando. Agora
+**itera até o fecho** (um nível por volta, para quando uma volta não apaga nada). Havia lixo disso:
+o ativo 26 tinha 32 composições e 22 insumos órfãos, limpos.
+
+### A busca por código estava certa e o cache mentia
+
+O fix de `get_insumos` (código, não só descrição) não apareceu na tela: a consulta é cacheada por
+hash dos kwargs com **TTL de 24h**, e a resposta vazia de antes do fix estava guardada. Purgado
+(`ins:*`, `cpus:*`, `pel:*`). O docstring do cache já avisava: *"Purge easy:ins:* no
+reindex/publicar (pendente)"* — e isso vale para mudança de CÓDIGO da busca também, não só de dado.
+
+### Ver composição ficou análoga a ver conversão
+
+`get_composicao_detalhe` **reusa** `get_conversao_detalhe`, então `auxiliares` e `dados_basicos` já
+chegavam na template — ela só não os desenhava. Agora desenha, no mesmo markup: o item 14546 passou
+de 3 linhas para 3 + **8 auxiliares abertas**; o 14555, 16. Mais os dados básicos (fonte, edição,
+L.S.) e uma legenda enxuta — só o que esta tela usa, sem os badges de conversão que não aparecem
+aqui.
+
+### 13/10 (noite) — o detalhamento passou a ler o ESTADO
+
+A cobrança do Renan foi justa: a grade lia `ativo_orcamento_*`, mas o **detalhamento** continuava
+resolvendo ao vivo contra o catálogo. O preço disso apareceu em dois sintomas no mesmo dia: editar
+uma CPU própria mudava o que a tela do orçamento mostrava (C-000037), e o analítico divergia da
+bancada em **67 de 714 serviços** do ativo 22 (pior caso R$ 389,40).
+
+**O que faltava no estado.** Três coisas, e as três eram colunas que existiam e ninguém preenchia:
+
+| | |
+|---|---|
+| `aci_conv_json` | a procedência da conversão. Criada em 12/10, preenchida só em 13/10 — um dia gravando composição convertida sem dizer de onde o preço veio. **1.676 linhas** de 5.186 agora a têm |
+| `ati_ls_regime` · `ati_ls_percent` | congeladas na migração e **mentindo**: o ativo 26 em mensalista (71,03%) com 176 itens dizendo `H / 114,47` |
+| `aci_valor` | **nova**. O pelado sozinho não reconstrói a linha de MO — a L.S. aplicada não é derivável dele, e em CPU própria não há edição congelada a que recorrer |
+
+Mais o **swap de raiz** (CPU-H → CPU-MÊS), onde a conversão não está em linha nenhuma: a
+procedência vai no item (`ati_meta_json.conv`), com o mesmo shape do vetor.
+
+**A leitura.** `captura_estado.arvore_do_estado()` monta a árvore a partir de
+`_composicoes_itens` + `_insumos` + `_composicoes_custo`, na mesma forma que `_arvore_resolvida`
+devolve — trocar a origem não obrigou a reescrever quem lê. Comparadas linha a linha: **idênticas
+nos 1.338 serviços** de dev.
+
+| superfície | antes | agora |
+|---|---|---|
+| Bancada · Sintético · Curva de serviços · Cronograma | estado | estado |
+| **Curva ABC de insumos** · **Histograma** | ao vivo | **estado** (`_arvore_para_leitura`) |
+| **Ver composição** · **Analítico** | ao vivo | **estado** (`_do_estado`) |
+| Captura | catálogo | catálogo — é o único lugar que deve ir lá |
+
+O que continua vindo do motor nas telas de detalhe são os **badges e o DE→PARA**: explicar a
+conversão exige comparar com a fonte. O que não vem mais de lá é o que o orçamento já decidiu —
+as linhas e o custo.
+
+**TRUNC, não ROUND.** A primeira versão fechava o total da linha com `round` e quebrou o analítico
+em 8 ativos por um ou dois centavos. A bancada é TRUNC em tudo; a leitura do estado usa o mesmo
+`tmul` do motor.
+
+**A prova que vale** não é estática (o rastreador vê a chamada mesmo quando o resultado é
+substituído depois): num ativo descartável, alterei **só o `aci_valor` gravado** — 91,72 → 999,99 —
+e a tela obedeceu. Ela lê do orçamento.
+
+### Para a migração de produção
+
+O Renan: *"em dev ok, em prod isso nao vai poder acontecer"*. A recaptura em massa que fiz aqui
+mexeu R$ 107 mil no ativo 22 (ele dispensou a restauração). Em prod a migração tem de ser
+**granular** e provar, antes de gravar, que cada diferença é uma destas:
+
+1. convergência do motor único (TRUNC/TRUNC para todas as fontes), ou
+2. item que não entrava por **inativação** na data-base anterior.
+
+Qualquer outra diferença é defeito, não ajuste — e aí não se grava. Isso ainda não está escrito
+como script; é a próxima peça antes da fase 10.
+
+### O caderno (CTC) mostrava a receita CRUA da fonte
+
+Pendência que o Renan mandou congelar em 12/10 (*"depende do refactor do orçamento e será muito,
+muito mais simples"*) — e era mesmo. No item 92759 do ativo 26 o documento imprimia os coeficientes
+do catálogo (`0,10690` · `0,01750`) enquanto a bancada usava os convertidos (`0,00049` · `0,00008`):
+quem conferisse acharia coeficientes que não explicam o preço.
+
+A seção **"4) Composição"** passa a vir da composição GRAVADA. O texto (forma de medição,
+remuneração) continua vindo do CTC: ele descreve o SERVIÇO, e isso a conversão não muda. O
+coeficiente sai formatado em pt-BR com 5 casas, como o do catálogo — é documento de entrega, e
+misturar `0.0005` com `0,10690` na mesma tabela seria ruído de origem.
+
+### O analítico pagava o motor para jogar fora: 4,37 s → 0,31 s
+
+Plugar o estado DEPOIS de `get_conversao_detalhe` resolveu a correção mas não o custo: o motor
+rodava inteiro (badges, DE→PARA, composição da fonte) e o resultado era substituído. `get_bancada`
+levava 0,02 s e o analítico 4,37 s no mesmo orçamento de 241 itens.
+
+`detalhe_do_estado()` entrega o que o analítico usa — linhas, total e auxiliares — lendo só o
+estado. **14× mais rápido**, e sem perder nada: badge e DE→PARA o analítico não mostra. Quem não
+tem estado capturado ainda cai no motor, como antes.
+
+### Composição descontinuada: a captura passou a ler o histórico
+
+Ordem do Renan: *"AO GERAR UM ORÇAMENTO, NÃO DEVE EXISTIR ALGO SEM COMPOSIÇÃO NA BANCADA"* — e
+*"o motor do caderno não tem que ter fallback, ele tem que ler do banco e pronto; se não tiver no
+banco, será erro de migration"*.
+
+Eram **26 serviços** em 3 CPUs (`103353`, `103361`, `103363`) que a SINAPI descontinuou: o catálogo
+não tem mais os itens, o motor não tinha o que resolver, e o orçamento ficava com preço gravado e
+composição VAZIA. A receita está no histórico — `composicoes_historico.ch_dados_novos.receita` —, e
+é a que o orçamento precisa: a composição que existia quando o serviço entrou.
+
+Duas coisas bloqueavam, e as duas saíram:
+
+1. `_do_historico()` na captura: receita do histórico + preço pelo motor com `com_historico=True`.
+2. A guarda da composição descontinuada em `_capturar_custo_unit` fazia **`return` antes** de
+   capturar — era por ali que os 26 escapavam.
+
+**Resultado: 1.338 serviços com composição, ZERO sem estado.** `composicao_migrada` foi de 654 com
+3 sem árvore resolvível para **657 com zero**.
+
+**Fallbacks removidos**, como mandado: o caderno e o analítico leem o estado e pronto. Sem estado, a
+composição sai vazia e isso aparece — é erro de migração, não caso a tratar.
+
+### O que isso descobriu: R$ 5,3 milhões fora do orçamento
+
+Com a composição histórica disponível, o `analitico_bancada` passou a acusar o ativo 22: 25
+serviços com **custo gravado 0,00** cuja composição soma valor de verdade.
+
+| CPU | itens | quantidade | composição soma | não contado |
+|---|---|---|---|---|
+| 103353 | 20 | 40.067,66 | R$ 130,91 | **R$ 5.245.141,90** |
+| 103361 | 5 | 557,29 | R$ 100,40 | R$ 55.954,02 |
+
+Os R$ 130,91 batem com os R$ 130,88 que o próprio Renan provou em 12/10 ao perguntar por que a
+composição havia sumido da busca. O orçamento gravou zero porque, na captura, a CPU já estava
+descontinuada e o motor devolveu nada — antes de a guarda existir.
+
+**Isso NÃO foi corrigido:** mexer em R$ 5,3 milhões de um orçamento é decisão dele. O caminho é a
+captura usar o custo da composição histórica quando o gravado for zero — a mesma regra da guarda,
+um passo adiante.
+
+### A regra do custo, dita pelo Renan (13/10)
+
+> *"o que o motor de detalhamento indica em catálogo não tem correlação alguma com o estado da
+> bancada. A bancada só tem que responder: user quer edição x. Tem preço? Se sim, entra na bancada.
+> Não tem, entra none e fica sem custo. Não é nossa obrigação falar pra engenheiro se ele pode ou
+> não usar composição velha, até porque ele pode estar fazendo uma análise de edições anteriores.
+> (…) o custo é o cálculo dos preços dos insumos resolvidos e, portanto, o que entram são os preços
+> e o custo o motor da bancada calcula e grava, o qual pode divergir sem qualquer problema do
+> catálogo."*
+
+Eu havia proposto copiar o `cc_custo_calculado` publicado. Errado. **O que entra do catálogo são os
+PREÇOS DOS INSUMOS; o custo é calculado pelo motor da bancada e gravado.** Divergir do publicado é
+esperado — TRUNC/TRUNC, L.S. do ativo, regime.
+
+**O fix:** quando o motor não devolve custo mas a árvore está INTEIRA (caso da descontinuada, cuja
+receita vem do histórico), o custo é a soma das linhas. Faltando preço em qualquer linha, fica
+`None` e o serviço entra sem custo — que é o comportamento certo.
+
+**Zero não é preço.** A mesma lição em três lugares, e os três mantinham o serviço valendo nada:
+a guarda da composição descontinuada, a guarda do recálculo e a própria captura testavam
+`is not None`, e `0.00` passava como preço a preservar. Agora é `> 0`.
+
+**Ativo 22, autorizado pelo Renan:** os 25 serviços passaram a valer **R$ 130,88** e **R$ 100,38**
+— os números que ele mesmo provou em 12/10 — e o orçamento subiu **R$ 6.512.010,84**.
+
+### Check de sanidade do cenário real (orçamento novo, edição de um ano atrás)
+
+| pergunta | resposta |
+|---|---|
+| a busca da bancada acha composição desativada? | **sim** |
+| o snapshot da inativa entra em `ativo_orcamento_*`? | **sim** — receita do histórico, e agora com custo calculado (112,22 e 91,09 contra 111,76 e 90,75 publicados: divergência legítima) |
+| a migração considera a data-base da bancada? | **não considerava** — corrigido |
+| a migração valida preços/custos? | **não validava** — `custo_vs_publicado.py` escrito |
+
+### O bug de data-base no migrador
+
+```sql
+WHERE cc_cmp_id=%s AND cc_uf='SP' AND cc_modalidade='SD'
+ORDER BY cc_edi_id DESC LIMIT 1
+```
+
+O custo das sub-CPUs vinha com **UF e modalidade fixas em SP/SD e a edição mais recente**. Obra em
+SC com data-base de um ano atrás recebia custo de SP na edição corrente. Em dev não aparecia porque
+quase tudo é SP na edição atual; em produção seria o caso normal. Agora usa a edição/UF/modalidade
+que o ativo configurou, e cai na edição anterior mais próxima quando a data-base não publicou.
+
+### `custo_vs_publicado.py` — o que ele valida, e o que NÃO valida
+
+Não julga o orçamento pelo custo publicado: isso daria alarme todo dia, porque divergir é legítimo.
+Valida o que a migração precisa provar:
+
+1. **o custo fecha** — `acc_valor` == Σ(TRUNC de cada linha). Truncar cada linha antes de somar é o
+   que a bancada faz; somar os produtos crus dava 2 a 5 centavos a mais e acusava 303 falsos.
+2. **o preço veio da data-base** — `azp_valor` == preço na edição/UF/modalidade do orçamento.
+   **0 de 1.415 fora.**
+3. **toda composição DE ITEM tem linhas** — sub-CPU sem linhas é folha (a MO), e isso é normal.
+
+### A linha convertida saía com o rótulo do original
+
+No item 14570 (ADAPTADOR CPVC), "Ver composição" mostrava `88267 · H · R$ 6.605,61`: o código e a
+**unidade do original (horista)** carregando o preço do **substituto (mensalista)**. Número certo,
+rótulo errado — pior que número errado, porque não se desconfia dele. "Ver conversão" mostrava o
+par corretamente (SUB `101402 · MES` / ORI `88267 · H`), porque aquela tela ainda monta o DE→PARA
+pelo motor.
+
+Causa: `arvore_do_estado` guardava o `sub_cmp_id` do vetor mas **não preenchia `sub_codigo`,
+`sub_descricao`, `sub_unidade` e `sub_fonte`** — e a template prefere `sub_*` quando existe. Agora
+preenche, a partir do vetor gravado, com cache por (origem, tipo, id): a mesma MO substituta
+aparece em dezenas de composições e a identidade dela não muda dentro da requisição.
+
+### Caderno: 3,09 s → 2,56 s, e o que sobra é ReportLab
+
+O perfil achou o culpado: **`montar_desc_tenant` consumia 0,55 s de 1,0 s** chamando `get_analitico`
+→ `_preco_na_cmp` → `resolver_ls` (170 vezes) para montar itens **que o caderno descarta** — a
+composição dele vem do estado. Agora pede o descritivo com `com_itens=False` e usa só o texto
+(forma de medição, remuneração), que é o que o CTC tem a dizer.
+
+| | antes | agora |
+|---|---|---|
+| montar | 0,95 s | **0,46 s** |
+| PDF (263 páginas, 923 KB) | 2,15 s | 2,10 s |
+| **total** | 3,09 s | **2,56 s** |
+
+Os ~10 s observados na tela incluem transferir 923 KB e o navegador renderizar 263 páginas — o
+back entrega em 2,5 s. Cortar mais exige mexer no documento (menos páginas, menos âncoras), que é
+outra conversa.
+
+### Caderno: 3,09 s → ~2,0 s, e o gargalo era o LOGO
+
+Perfilado em vez de adivinhado. Três achados, todos fora do que se esperaria (ninguém olharia para
+o cabeçalho procurando lentidão num documento de 263 páginas):
+
+| | |
+|---|---|
+| `montar_desc_tenant` recalculava preço | 0,55 s de 1,0 s, para montar itens que o caderno descarta — a composição vem do estado. Agora `com_itens=False` |
+| `ImageReader` criado a CADA página | o PNG do logo decodificado 263 vezes. Cacheado por hash do conteúdo: **2,10 → 1,62 s** |
+| **MD5 do logo a cada `drawImage`** | o ReportLab hasheia os dados CRUS da imagem por página. O logo chega com 1263×302 RGBA — **1,5 MB crus** — e aparece com 18 mm de altura. Reamostrado para 240 px (18 mm a 300 dpi, qualidade gráfica preservada): **1,62 → 1,02 s** |
+
+| | antes | agora |
+|---|---|---|
+| montar | 0,95 s | **0,44 s** |
+| PDF | 2,15 s | **1,0–1,5 s** |
+| **total** | **3,09 s** | **~2,0 s** |
+| arquivo | 923 KB | 902 KB |
+
+O que sobra é ReportLab compondo 263 páginas, e isso não se otimiza sem mexer no documento. Os ~10 s
+na tela incluem baixar 900 KB e o navegador renderizar as 263 páginas.
+
+**O ganho do logo vale para TODOS os documentos da app**, não só o caderno: `service_report.desenhar`
+é o timbrado de qualquer PDF.

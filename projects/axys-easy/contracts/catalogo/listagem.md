@@ -39,6 +39,41 @@ Encargos sociais incidem **só sobre mão de obra**, e o preço "com encargos" p
 - **Exibição:** a app mostra `cc_custo_calculado` (processado pela app); `COALESCE(cc_custo_calculado, cc_custo_fonte)` (fonte só fallback). A semântica de `cc_custo_fonte` cru / fontes com BDI (FDE) é da conferência de import — ver [imports/fde.md](imports/fde.md).
 - **Fidelidade dos itens:** a receita é gravada **exatamente como a fonte apresenta** (N itens, código/descrição/unidade/coef/ordem). Coeficiente 0 é válido (item presente, quantidade não atribuída) — `CHECK ci_coef >= 0`. Insumo SEM PREÇO com coef 0 **ainda propaga SEM CUSTO** (basta a presença na árvore).
 
+### 2.2.1 O motor do custo — a constituição (consolidada do plano, 2026-10-10)
+
+O plano de refactor do motor único foi EXECUTADO e descartado; a doutrina dele vive aqui, porque é
+contrato, não plano. Seis regras, na ordem em que foram cravadas:
+
+- **D1 · Um número para o usuário.** `cc_custo_calculado` é O valor da app — **TRUNC/TRUNC na
+  composição, EM CADEIA**: cada subcomposição entra pelo `cc_custo_calculado` do filho, **nunca**
+  pelo valor publicado dele. Lista, detalhe, bancada, mobile e export mostram esse número.
+- **D2 · Fonte é referência, não conta.** `cc_custo_fonte` é o valor **lido** da tabela da fonte no
+  import, imutável. Aparece ao lado como referência oficial e **nunca** entra em conta de orçamento.
+- **D3 · Uma implementação só.** UMA função canônica (`backend/modules/catalogo/custo_composicao.py`:
+  `_valor_item` → `custo()` + `analitica_composicao()`), chamada **tanto pelo import** (que grava o
+  `cc_custo_calculado`) **quanto pela precificação viva** (`get_cpu_precificada`). Se import e vivo
+  não compartilham código, voltam a divergir — é o pecado original que o refactor matou.
+  ⚠️ **AINDA VIOLADO no lado do import** (medido em 2026-10-10): `parser_sinapi.py`, `parser_cdhu.py`
+  e `parser_fde.py` arredondam por conta própria e **nenhum** importa o motor. Ver a pendência.
+- **D4 · Insumo é outra camada.** A precificação do INSUMO (pelado, `%AS`/famcoef SP×coef, casos CR
+  do SINAPI) é por-fonte e permanece intacta. "Motor único" é **uma regra de arredondamento + uma
+  implementação** na COMPOSIÇÃO; não apaga a singularidade do insumo.
+- **D5 · Conferência com oráculo.** `PERFIL_ARRED` (SINAPI trunc · CDHU round · FDE cheia) **não
+  morreu**: deixou de ser o número do usuário e virou o **juiz do classificador**. Computa o valor
+  pelo-método-da-fonte; se ele bate com o publicado, a diferença contra o nosso TRUNC é
+  **arredondamento**; se não bate, é **divergência relevante — suspeita de bug de import**.
+- **D6 · Nada deprecado.** Código que sai de cena é removido, não deixado morto.
+
+**O número Axys é inputs da fonte + aritmética trunc.** Preço de insumo e coeficiente entram como a
+fonte publica; o `×` e o `Σ` são TRUNC. Duas correções de input que NÃO são arredondamento e
+sobrevivem ao trunc: o **%AS** do SINAPI (insumo sem preço na UF mas com em SP entra pelo preço-SP,
+linha marcada "atribuído-SP", composição COMPLETA) e a **des-BDInização do FDE** (a fonte publica com
+~23% de BDI embutido; o valor Axys é o limpo). Truncar o valor com BDI daria número alto e errado.
+
+**TRUNC é conservador por desenho** (≤ publicado), e é isso que o torna defensável em licitação: não
+há sobrepreço possível por arredondamento. Por isso a app mostra os DOIS valores — o Axys como Axys,
+o da fonte como referência.
+
 ### 2.3 Modelo contínuo — identidade vigente + série densa + histórico esparso
 Espelha insumo e composição no mesmo formato (APLICADO 2026-07-14):
 - **`insumos` / `composicoes` = identidade vigente** (1 linha por `(fonte, código)`; composição **sem `cmp_edi_id`**, UNIQUE `(cmp_fte_id, cmp_codigo)`). Descrição/unidade/situação/flags/`external_path` = estado vigente.
