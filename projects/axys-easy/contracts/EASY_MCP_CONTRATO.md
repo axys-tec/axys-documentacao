@@ -383,15 +383,21 @@ Padrão §6.1 (antes → depois, aplicação pela função DA TELA).
   - `substituir` = `aplicar_percents` (nenhuma linha fica com valor sem distribuição).
 - **Pauta única do empreendimento** (contrato
   [`HERANCA_ORCAMENTO_EMPREENDIMENTO.md`](HERANCA_ORCAMENTO_EMPREENDIMENTO.md)). São 3 flags no
-  empreendimento: Fontes/Edição, BDI e L.S./Regime.
-  - **Ligada:** o registro fica no empreendimento e os ativos herdam. O ativo NÃO recebe registro
-    daquela pauta: as funções da tela recusam (`pauta_herdada`), e as ferramentas do ativo recusam
-    já na prévia, com o motivo.
+  empreendimento: Fontes/Edição, BDI e L.S./Regime. Empreendimento novo nasce com as três ligadas.
+  - **Ligada:** o registro fica no empreendimento e os ativos herdam. O ativo NÃO recebe registro daquela
+    pauta: as funções da tela recusam (`pauta_herdada`), e as ferramentas do ativo recusam já na prévia,
+    com a referência do empreendimento a usar.
+  - **Configurar no empreendimento:** as ferramentas de fontes, BDI e L.S. aceitam `ativo` OU
+    `empreendimento`. No empreendimento, só com a pauta ligada, e o aplicar usa as funções da tela
+    (`salvar_fonte_emp`, `salvar_bdi_emp`, `semear_ls_emp`, `salvar_ls_emp`), que gravam na mestre,
+    propagam a todos os ativos e recalculam cada um. Por isso não se pede recálculo depois.
   - **Onde vale:** as leituras dizem em `definido_em` (`ativo` | `empreendimento`).
-  - **Ligar:** só se os ativos já estão iguais (`pode_ligar`). Ligar ou desligar recalcula todos os
-    ativos (`set_heranca`).
+  - **Ligar e desligar:** `acao: ligar | desligar`, verbo explícito. Ligar exige os ativos iguais e copia
+    a configuração; desligar só destrava (cada ativo mantém os valores atuais). Nenhum dos dois muda preço.
   - **O nível é decisão do usuário**, tomada ao aplicar os dados; o guia manda a IA perguntar.
-  - **Pendente:** editar a configuração NO empreendimento, pelo MCP, espera a API da outra frente.
+  - **Incidente que motivou o verbo explícito (22/10/2026):** com um booleano `unica`, a IA desligou as três
+    pautas de um empreendimento novo (que nasceu com elas ligadas) enquanto dizia ao usuário que estavam
+    ativadas. A auditoria mostrou os três planos.
 
 ### 4.7 Dados Próprios (Easy CPU)
 
@@ -423,7 +429,6 @@ Padrão §6.1 (antes → depois, aplicação pela função DA TELA).
 | curva ABC de serviços e insumos | leitura | `get_curva_abc` / `get_curva_abc_insumos` |
 | insumos e composições do orçamento | leitura | `orcamento_listas.insumos_do_orcamento` / `composicoes_do_orcamento` |
 | histograma, versões do orçamento | leitura | `get_histograma`, `versoes_do_orcamento` |
-| configuração NO empreendimento (pauta única) | previa | aguarda a API da herança |
 | pré-planejamento | — | suspenso (Renan, 2026-10-20) |
 
 ## 5. Regras que valem para toda ferramenta
@@ -518,6 +523,24 @@ e em prod, e não depende de o cliente pedir confirmação.
 | editar estrutura | 200 operações |
 | memória | 500 células |
 | dados próprios | lote de 100 |
+
+### 6.2 Confirmação proporcional ao risco (Renan, 22/10/2026)
+
+A prévia é sempre obrigatória: é ela que pega o conflito com a tela e dá o plano idempotente. O que varia
+é QUANDO a IA precisa parar e perguntar ao usuário. Exigir confirmação a cada plano queimava tokens e
+paciência (criar um empreendimento e um ativo vazio custava duas idas e voltas). Cada prévia declara um
+nível, numa tabela única (`tools.RISCO`), e o envelope do `publicar` carimba `confirmacao` e o
+`proximo_passo` correspondente em toda prévia:
+
+| Nível | A IA faz | Ferramentas |
+|---|---|---|
+| `livre` | aplica direto e informa | criar/editar empreendimento e ativo, criar memória, descritivo |
+| `tarefa` | uma autorização do usuário vale para a tarefa inteira | transcrever, estrutura, replicar, memória (escrever/ligar), cronograma, composição no orçamento, cotação, recálculo, dados próprios |
+| `sempre` | confirmação explícita a cada plano | arquivar, excluir memória, BDI, L.S., fontes-base, pauta única |
+
+A ferramenta pode SUBIR o nível pelo conteúdo, nunca descer: estrutura com `remover` e composição com
+alcance fora do orçamento viram `sempre`. Na primeira ação `tarefa` ou `sempre` da conversa, a IA explica
+o protocolo em uma linha e oferece a autorização em bloco. O apêndice mostra o nível de cada ferramenta.
 
 ## 7. Anti-raspagem do catálogo
 
@@ -654,6 +677,7 @@ O deploy do Render reinicia o container e mata job em execução: combine a jane
 | Recalcular | ativo 22: 3 itens, −71,85; ativo 26: 33 itens, +3.844,35 (+0,71%); ativo 34: 0 — em simulação, tudo intacto |
 | Fontes-base e pauta única | ferramentas novas; recusa por herança na prévia; `definido_em` nas leituras |
 | Conhecimento | `easy_sobre` (sumário → tópico): ecossistema a partir da fonte editorial do Hub; app a partir do implementado (fórmula do BDI e regra da Administração Local conferidas no código) |
+| Confirmação e empreendimento | níveis livre/tarefa/sempre (§6.2); fontes, BDI e L.S. configuráveis no empreendimento com a pauta única; herança com `acao` ligar/desligar depois do incidente em que a IA desligou as três pautas |
 | Textos | `instrucoes_ia.md` como fonte única + apêndice gerado; os 48 textos e todas as explicações de campo conferidos iguais aos de antes da mudança |
 
 Achados à parte, não do MCP:
