@@ -1,62 +1,63 @@
-# Herança de Fontes/BDI/LS por empreendimento — contrato (A APROVAR)
+# Unicidade de Fontes/BDI/LS por empreendimento — contrato (modelo 2)
 
-> **STATUS: PROPOSTA — aguardando aprovação do Renan.** Nenhum schema/código escrito ainda.
-> Objetivo: matar o retrabalho de configurar N orçamentos IGUAIS num empreendimento, SEM o risco que
-> assustou (nada automático, nada destrutivo, nasce tudo desligado).
+> **STATUS: IMPLEMENTADO em dev (2026-10-21).** Modelo 2 ("propaga + trava"), aprovado pelo Renan.
+> Objetivo: matar o retrabalho de configurar N orçamentos IGUAIS num empreendimento, **sem nenhum
+> preço mudando em silêncio**. A unicidade deixou de ser "de onde se LÊ" e virou "quem pode EDITAR".
 
 ## 1. As 3 flags (no empreendimento)
-Na tab do empreendimento (`/empreendimentos/{id}`), **depois de Responsável Técnico**, três flags —
-uma por pauta, independentes:
-- `Fontes/Edição única por empreendimento`
-- `BDI único por empreendimento`
-- `LS/Regime único por empreendimento`
+`empreendimentos.emp_fontes_unica / emp_bdi_unico / emp_ls_unico` (BOOLEAN DEFAULT FALSE no schema).
+Uma por pauta, independentes. São **decisão de largada no cadastro** do empreendimento e **nascem
+MARCADAS** (`criar_empreendimento(..., fontes_unica=True, bdi_unico=True, ls_unico=True)`), porque o
+comum é único. O DEFAULT do schema continua FALSE → **empreendimentos antigos ficam como estão**
+(migration é no-op).
 
-**Nascem FALSE** (migration). Os ativos de hoje já estão preenchidos e variados → ligar por default
-quebraria. Depois, uma varredura (§6) liga onde os ativos de fato repetem.
+## 2. Princípio (modelo 2)
+- A **bancada SEMPRE lê do ativo** — um caminho único de leitura (`aor_de`, sem resolvedor condicional).
+- **Flag ON** = a pauta é definida na **config-MESTRE** do empreendimento; cada ativo recebe uma
+  **cópia** gravada nele; a edição da pauta **no ativo fica travada**; editar a mestre **propaga p/
+  todos os ativos + reprecifica**.
+- **Ativo novo nasce DERIVADO** (cópia da mestre) e já travado nas pautas únicas.
+- **Desligar** = só **destrava** o ativo; valores e preços atuais **permanecem** (nada muda sozinho).
+- **Religar** = só se os ativos forem **idênticos na pauta (percentual E composição)**; senão recusa,
+  com "ver divergências" (expande o que difere por ativo). **Não há "descartar dados".**
 
-> Reconcilia o precedente de 05/10 ("fonte no empreendimento é errada por natureza"): aqui é **opt-in
-> por pauta e por empreendimento**, e só liga onde a realidade já é idêntica. Empreendimento
-> heterogêneo fica FALSE (continua certo); homogêneo vira único (mata o retrabalho).
+## 3. Armazenamento (XOR, sem schema novo)
+`ativo_orcamento` é `ao_atv_id` **XOR** `ao_emp_id` (CHECK `ck_ao_escopo`). A MESTRE do empreendimento
+é o orçamento `ao_emp_id` (revisão resolvida por `revisao_vigente_emp`/`aor_de_emp`), com as mesmas
+tabelas-filhas (`ativo_orcamento_parametros/bdi/ls`). O ativo guarda a **cópia** nas suas próprias
+tabelas-filhas. Nenhuma coluna nova; nenhuma migration.
 
-## 2. UI
-- Cada flag é uma **seção expansível** no mesmo padrão visual de "Ativos vinculados"/"Responsáveis
-  técnicos".
-- Ligar a flag **expande** o form **idêntico ao do ativo** `/ativos/{id}/orca/R00/fontes` — só que
-  editando a config DO EMPREENDIMENTO. Aparece só a pauta flagada.
-- No ATIVO, a pauta flagada fica **read-only**, exibindo o que vem do empreendimento (com um aviso
-  "definido no empreendimento"). As demais pautas (não flagadas) seguem editáveis no ativo, como hoje.
+## 4. Onde mora cada coisa (código)
+- **Leitura:** sempre `aor_de(cur, atv_id)` (revertido o antigo `aor_cfg`). `orcamento_fonte.py`.
+- **Propagação + reprice:** `orcamento_heranca.propagar_pauta` (mestre→cada ativo, via `_seed`) e
+  `reprecificar_do_emp` (todos os ativos; guardas de `_capturar_custo_unit` valem — preço fixado e
+  composição descontinuada com preço gravado **não** são apagados).
+- **Escrita da mestre:** `salvar_fonte_emp` / `salvar_bdi_emp` / `deletar_bdi_emp` / `salvar_ls_emp` /
+  `semear_ls_emp` — gravam na mestre (`aor_de_emp`) → `propagar_pauta` → `reprecificar_do_emp`. Núcleos
+  keyed-por-aor compartilhados com o ativo (`_gravar_params`/`_gravar_bdi`/`_gravar_ls`/`_semear_ls`).
+- **Trava do ativo:** `salvar_fonte_ativo`/`salvar_bdi`/`salvar_ls`/`semear_ls` e `deletar_bdi`
+  recusam com `{success:False, locked:True}` quando `pauta_herdada`. A UI também bloqueia (ver §5).
+- **Nascer derivado:** `orcamento_heranca.derivar_ativo` dentro de `criar_ativo` (mesma transação).
+- **Ligar/desligar:** `set_heranca` (ligar exige `not _divergente`; semeia a mestre do ativo[0] se
+  vazia + propaga; **não** reprecifica, pois idêntico. desligar só seta a flag). `divergencias(...)`
+  dá o detalhe por ativo p/ o modal.
 
-## 3. Comportamento (não-destrutivo)
-- Flag ON → o ativo **lê** a config da pauta do empreendimento; a config própria do ativo **fica
-  intacta, só não é lida** enquanto ligada. Desligar → o ativo volta a ler a sua (nada se perdeu).
-- Preço por-linha (BDI/LS gravados na linha do orçamento): sob herança, **repetem** os do
-  empreendimento; sem herança, cada ativo aplica o seu. Todo recálculo passa pelo gatilho único já
-  existente (`converter_precos`), que reprecifica a bancada (rotação de regime inclusa).
+## 5. UI
+- **Cadastro** (`/empreendimentos`, modal "Novo empreendimento"): 3 checkboxes "Configuração única",
+  marcados por padrão → enviados no POST.
+- **Tab do empreendimento** (`/empreendimentos/{id}`): seção "Premissas do empreendimento" com as 3
+  flags + botão Editar → `/empreendimentos/{id}/premissas`. Ligar/desligar: `easy_emp_heranca.js`
+  (desligar avisa que destrava sem mudar valor; ligar divergente abre modal com "ver divergências").
+- **Editor da mestre:** `/empreendimentos/{id}/premissas` (Fontes-Base), `/empreendimentos/{id}/bdi`,
+  `/empreendimentos/{id}/ls` — rendem os MESMOS templates do ativo em `emp_mode` (sidebar
+  `sidebar_premissas_emp.html`). O front compartilhado (`easy_workspace.js` fbl, `easy_bdi_editor.js`,
+  `easy_ls_editor.js`) lê a base de API de `data-fbl-api`/`data-api-base` com **fallback
+  `/api/ativos/{id}`** — sem o atributo, comportamento idêntico ao de hoje. Funciona com ZERO ativos.
+- **No ativo** (`/empreendimentos/{emp}/ativos/{atv}/orca/R00/fontes`): a pauta única vira read-only
+  com "Editar no empreendimento". A GET de `/api/ativos/{id}/fonte|bdi|ls` devolve `locked`.
 
-## 4. Como (proposta de implementação — a validar)
-Reusar TUDO (forms, serviços, resolvedores) via uma **"revisão de configuração do empreendimento"**:
-um portador de config (fontes/BDI/LS) pendurado no empreendimento, gravado pelos MESMOS
-`salvar_fonte_ativo`/`salvar_bdi`/`salvar_ls` (por isso o form é idêntico, de graça).
-- **Resolução:** quando a flag da pauta está ligada, o resolvedor do ativo lê a config do
-  empreendimento em vez da própria (`listar_fonte_ativo`/`listar_bdis`/`get_ls` e os helpers de LS/
-  regime passam a aceitar a origem empreendimento). **Nenhuma cópia, nenhum overwrite.**
-- **BDI por-linha funciona:** `ati_bdi_id` referencia `ativo_orcamento_bdi(abd_id)` e `abd_id` é global
-  → a linha pode apontar um BDI do empreendimento sem quebrar a FK. A escolha por-linha (Normal ×
-  Reduzido) continua, apontando para o conjunto do empreendimento.
-
-## 5. Schema (mínimo, a aprovar)
-- 3 flags no empreendimento (ex.: `empreendimento.*_unico` BOOLEAN DEFAULT FALSE, ou JSONB 1×1).
-- Um portador de config do empreendimento (revisão de config) — ou tabelas-espelho emp-level.
-  (Decido o formato exato na aprovação; o critério é **reaproveitar os serviços do ativo sem fork**.)
-- Default FALSE em tudo → **migration não muda nada no ar**.
-
-## 6. Varredura (depois, fora desta entrega)
-Script que percorre cada empreendimento e, por pauta, compara a config dos ativos: **idêntica em
-todos → liga a flag** (semeando a config do empreendimento a partir dos ativos) ; **divergente →
-deixa FALSE**. Nunca automático sem o diagnóstico de igualdade.
-
-## 7. Invariantes
-- Nasce tudo FALSE; nada muda no ar.
-- Nada é apagado nem sobrescrito: ligar = "ler de cima"; desligar = "ler o seu" (preservado).
-- Não há reset de BDI por-linha: a linha aponta pro BDI do empreendimento (FK permite).
-- Fontes só fica única por escolha explícita + confirmação de igualdade (§6), nunca por natureza.
+## 6. Invariantes
+- Um caminho único de leitura (bancada = ativo). A flag decide EDIÇÃO, não leitura.
+- Nada muda em silêncio: desligar não reprecifica; editar a mestre reprecifica conscientemente
+  (impacto por total + guardas de fixado/descontinuado).
+- Religar exige igualdade real (percentual + composição). Sem descartar dados.
