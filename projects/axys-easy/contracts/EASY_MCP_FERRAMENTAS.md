@@ -47,12 +47,17 @@ pelo conteúdo (estrutura com remover; composição fora do orçamento).
 | [`easy_cronograma_preencher`](#easy_cronograma_preencher) | Prévia | tarefa | Easy Orça | Preencher cronograma |
 | [`easy_buscar_composicoes`](#easy_buscar_composicoes) | Consulta |  | Easy CPU | Buscar composições |
 | [`easy_buscar_insumos`](#easy_buscar_insumos) | Consulta |  | Easy CPU | Buscar insumos |
+| [`easy_catalogo_composicao`](#easy_catalogo_composicao) | Consulta |  | Easy Orça | Composição do catálogo (analítico) |
+| [`easy_catalogo_simular`](#easy_catalogo_simular) | Consulta |  | Easy Orça | Simular L.S. e BDI |
+| [`easy_catalogo_converter_regime`](#easy_catalogo_converter_regime) | Consulta |  | Easy Orça | Converter regime (horista → mensalista) |
 | [`easy_proprios_precos_insumos`](#easy_proprios_precos_insumos) | Leitura |  | Easy CPU | Preços dos insumos próprios |
 | [`easy_proprios_listar`](#easy_proprios_listar) | Leitura |  | Easy CPU | Listar dados próprios |
 | [`easy_proprio_ver`](#easy_proprio_ver) | Leitura |  | Easy CPU | Ver insumo/composição própria |
 | [`easy_proprios_cadastrar`](#easy_proprios_cadastrar) | Prévia | tarefa | Easy CPU | Cadastrar dados próprios |
 | [`easy_proprios_editar`](#easy_proprios_editar) | Prévia | tarefa | Easy CPU | Editar dados próprios |
 | [`easy_proprios_precos`](#easy_proprios_precos) | Prévia | tarefa | Easy CPU | Lançar preços próprios |
+| [`easy_proprios_derivar`](#easy_proprios_derivar) | Prévia | tarefa | Easy CPU | Derivar composição própria |
+| [`easy_proprios_receita`](#easy_proprios_receita) | Prévia | tarefa | Easy CPU | Editar receita da composição própria |
 | [`easy_memorias_listar`](#easy_memorias_listar) | Leitura |  | Easy Orça | Memórias de cálculo |
 | [`easy_memoria_ver`](#easy_memoria_ver) | Leitura |  | Easy Orça | Ver memória de cálculo |
 | [`easy_memoria_criar`](#easy_memoria_criar) | Prévia | livre | Easy Orça | Criar memória de cálculo |
@@ -61,6 +66,8 @@ pelo conteúdo (estrutura com remover; composição fora do orçamento).
 | [`easy_memoria_ligar`](#easy_memoria_ligar) | Prévia | tarefa | Easy Orça | Associar/vincular células |
 | [`easy_descritivo_ver`](#easy_descritivo_ver) | Leitura |  | Easy Orça | Ver descritivo no orçamento |
 | [`easy_descritivo_editar`](#easy_descritivo_editar) | Prévia | livre | Easy Orça | Editar descritivo no orçamento |
+| [`easy_insumo_link_anexos`](#easy_insumo_link_anexos) | Leitura |  | Easy Orça | Link para anexar propostas (orçamento) |
+| [`easy_proprios_link_anexos`](#easy_proprios_link_anexos) | Leitura |  | Easy CPU | Link para anexar propostas (próprio) |
 
 ## easy_guia
 
@@ -472,6 +479,51 @@ Busca insumos (materiais, mão de obra, equipamentos) no catálogo por descriç�
 | `uf` | texto? |  |
 | `pagina` | inteiro |  |
 
+## easy_catalogo_composicao
+
+**Composição do catálogo (analítico)** · Consulta · Easy Orça
+
+O ANALÍTICO de uma composição de qualquer fonte do catálogo (SINAPI, CDHU, FDE…), fora de orçamento: cada item (insumo ou composição auxiliar) com coeficiente, preço unitário e total, e o custo da composição, pelo mesmo motor da app. Identifique por `fonte` + `codigo`. `modalidade`: SD (sem desoneração), CD (com desoneração) ou SE (sem encargos). `edicao`: rótulo (ex.: 08-26); ausente = a vigente. Consulta com cota.
+
+| Parâmetro | Tipo | Obrigatório |
+|---|---|---|
+| `fonte` | texto | sim |
+| `codigo` | texto | sim |
+| `uf` | texto? |  |
+| `modalidade` | texto? |  |
+| `edicao` | texto? |  |
+
+## easy_catalogo_simular
+
+**Simular L.S. e BDI** · Consulta · Easy Orça
+
+Simula o custo de uma composição do catálogo com outra L.S. (`ls_percentual`, aplicada a toda a mão de obra, horista e mensalista) e/ou com BDI (`bdi_percentual`, sobre o total), lado a lado com o original da fonte. Mesmo motor da app e do Easy Mobile. Consulta pura: não grava nada. Sem `ls_percentual`, vale a L.S. publicada pela fonte.
+
+| Parâmetro | Tipo | Obrigatório |
+|---|---|---|
+| `fonte` | texto | sim |
+| `codigo` | texto | sim |
+| `ls_percentual` | número? |  |
+| `bdi_percentual` | número |  |
+| `uf` | texto? |  |
+| `modalidade` | texto? |  |
+| `edicao` | texto? |  |
+
+## easy_catalogo_converter_regime
+
+**Converter regime (horista → mensalista)** · Consulta · Easy Orça
+
+Converte a mão de obra HORISTA de uma composição do catálogo para MENSALISTA, item a item (coeficiente ÷ jornada mensal, encargos do mensalista), e devolve o original e o convertido, com BDI opcional. É a conversão da tela da app. Só a SINAPI tem regime mensalista: em outras fontes não há o que converter. Itens sem par mensalista ficam marcados (sem_par_mensalista), não somem. `modalidade`: SD ou CD.
+
+| Parâmetro | Tipo | Obrigatório |
+|---|---|---|
+| `fonte` | texto | sim |
+| `codigo` | texto | sim |
+| `uf` | texto? |  |
+| `modalidade` | texto? |  |
+| `edicao` | texto? |  |
+| `bdi_percentual` | número |  |
+
 ## easy_proprios_precos_insumos
 
 **Preços dos insumos próprios** · Leitura · Easy CPU
@@ -524,7 +576,7 @@ PRÉVIA de cadastrar insumos e/ou composições PRÓPRIOS em lote (até 100 no t
 
 **Editar dados próprios** · Prévia · Easy CPU · confirmação: tarefa
 
-PRÉVIA de editar insumos/composições PRÓPRIOS em lote: identidade (descrição, unidade, classe, código) e, na composição, o DESCRITIVO (medição, remuneração, justificativa). Só o informado muda; texto vazio apaga. A fonte de um item não muda (regra da app).
+PRÉVIA de editar insumos/composições PRÓPRIOS em lote: identidade (descrição, unidade, classe, código) e, na composição, o DESCRITIVO (medição, remuneração, justificativa). É AQUI que se escreve ou corrige o descritivo de uma composição própria. Só o informado muda; texto vazio apaga. A fonte de um item não muda (regra da app). A receita (insumos e coeficientes) se edita com easy_proprios_receita.
 
 | Parâmetro | Tipo | Obrigatório |
 |---|---|---|
@@ -540,6 +592,31 @@ PRÉVIA de lançar preços de insumos PRÓPRIOS por edição (mês AAAA-MM da fo
 | Parâmetro | Tipo | Obrigatório |
 |---|---|---|
 | `precos` | lista de Preco | sim |
+
+## easy_proprios_derivar
+
+**Derivar composição própria** · Prévia · Easy CPU · confirmação: tarefa
+
+PRÉVIA de criar uma composição PRÓPRIA a partir de outra (do catálogo, por `fonte` + `codigo` e `edicao` opcional, ou de outra própria): nasce com a mesma receita (insumos e coeficientes), a descrição e o descritivo da origem, código automático, na fonte própria. É o botão Derivar da app. Depois, ajuste a receita com easy_proprios_receita e o descritivo com easy_proprios_editar. Não altera o catálogo.
+
+| Parâmetro | Tipo | Obrigatório |
+|---|---|---|
+| `fonte` | texto | sim |
+| `codigo` | texto | sim |
+| `edicao` | texto? |  |
+
+## easy_proprios_receita
+
+**Editar receita da composição própria** · Prévia · Easy CPU · confirmação: tarefa
+
+PRÉVIA de editar a RECEITA de uma composição própria, fora de orçamento. Mudanças por item (fonte + código): `coeficiente` (troca o coeficiente), `incluir` (insumo ou composição do catálogo ou da biblioteca própria, com coeficiente; `tipo` só quando o código existir como os dois), `remover`, `substituir` (pelo item em `por`, mantendo o coeficiente se não for informado). A prévia mostra a receita e o custo SD/CD antes e depois. `justificativa` opcional (vazio apaga; ausente mantém). Ao aplicar, a app recalcula o custo em todas as edições e nas composições próprias que usam esta. Só composição própria: o catálogo não se edita.
+
+| Parâmetro | Tipo | Obrigatório |
+|---|---|---|
+| `fonte` | texto | sim |
+| `codigo` | texto | sim |
+| `mudancas` | lista de MudancaReceita | sim |
+| `justificativa` | texto? |  |
 
 ## easy_memorias_listar
 
@@ -635,6 +712,31 @@ PRÉVIA de editar o descritivo NO ORÇAMENTO: só os campos informados mudam (te
 | `justificativa` | texto? |  |
 | `restaurar` | sim/não |  |
 
+## easy_insumo_link_anexos
+
+**Link para anexar propostas (orçamento)** · Leitura · Easy Orça
+
+Gera um LINK (válido por 30 minutos, preso a esta cotação) para o USUÁRIO anexar os arquivos das propostas (PDF, imagem, planilha) da cotação de um insumo do orçamento. Use depois de lançar as propostas com easy_insumo_cotar e aplicar. Entregue o link ao usuário: ele abre no navegador ou no celular, sem login, e anexa um arquivo por proposta. Você não envia arquivos: só gera o link.
+
+| Parâmetro | Tipo | Obrigatório |
+|---|---|---|
+| `ativo` | texto | sim |
+| `fonte` | texto | sim |
+| `codigo` | texto | sim |
+
+## easy_proprios_link_anexos
+
+**Link para anexar propostas (próprio)** · Leitura · Easy CPU
+
+Gera um LINK (válido por 30 minutos) para o USUÁRIO anexar os arquivos das propostas do preço de um insumo PRÓPRIO numa edição (`edicao` = mês AAAA-MM). Use depois de lançar as propostas com easy_proprios_precos e aplicar. Entregue o link ao usuário; ele anexa um arquivo por proposta, sem login.
+
+| Parâmetro | Tipo | Obrigatório |
+|---|---|---|
+| `fonte` | texto | sim |
+| `codigo` | texto | sim |
+| `edicao` | texto | sim |
+| `uf` | texto? |  |
+
 ## Campos dos objetos de entrada
 
 ### Celula
@@ -725,6 +827,15 @@ PRÉVIA de editar o descritivo NO ORÇAMENTO: só os campos informados mudam (te
 | `horista` | número? |  | % horista |
 | `mensalista` | número? |  | % mensalista |
 
+### ItemSubstituto
+
+| Campo | Tipo | Obrigatório | Explicação |
+|---|---|---|---|
+| `fonte` | texto? |  | fonte do item que entra (ausente = a mesma do item que sai) |
+| `codigo` | texto | sim | código do item que entra |
+| `tipo` | INSUMO | COMPOSICAO? |  | INSUMO ou COMPOSICAO — só quando o código existir como os dois |
+| `uf` | texto? |  | UF do preço, se for item de catálogo (padrão SP) |
+
 ### Ligacao
 
 | Campo | Tipo | Obrigatório | Explicação |
@@ -758,6 +869,18 @@ PRÉVIA de editar o descritivo NO ORÇAMENTO: só os campos informados mudam (te
 | `codigo` | texto | sim | Código do insumo/composição da linha |
 | `coeficiente` | número? |  | Novo coeficiente (coeficiente/incluir; opcional em substituir) |
 | `por` | Substituto? |  | substituir: o análogo CONFIRMADO que entra no lugar |
+
+### MudancaReceita
+
+| Campo | Tipo | Obrigatório | Explicação |
+|---|---|---|---|
+| `op` | coeficiente | incluir | remover | substituir | sim | coeficiente, incluir, remover ou substituir |
+| `fonte` | texto | sim | fonte do item na receita (ou do item a incluir) |
+| `codigo` | texto | sim | código do item na receita (ou do item a incluir) |
+| `coeficiente` | número? |  | novo coeficiente (coeficiente/incluir; opcional em substituir) |
+| `tipo` | INSUMO | COMPOSICAO? |  | INSUMO ou COMPOSICAO — só quando o código existir como os dois |
+| `uf` | texto? |  | UF do preço do item de catálogo incluído (padrão SP) |
+| `por` | ItemSubstituto? |  | substituir: o item que entra no lugar |
 
 ### Operacao
 

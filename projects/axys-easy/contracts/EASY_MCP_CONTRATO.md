@@ -408,21 +408,62 @@ Padrão §6.1 (antes → depois, aplicação pela função DA TELA).
   fonte + código (+ UF), e a edição pelo mês da data-base (AAAA-MM).
 - **Lote:** até 100, gravado item a item como na tela. Para no primeiro erro, com o motivo e o que
   já foi gravado.
-- **Receita da composição própria:** pela bancada (`easy_composicao_editar`, alcance
-  `ATUALIZAR_CATALOGO`).
+- **Receita da composição própria, fora de orçamento** (`tools/proprios_receita.py`, serviço
+  `ativo/dados_proprios_receita.py`):
+  - `easy_proprios_derivar`: cria uma própria a partir de outra (do catálogo ou própria), pelo botão
+    Derivar da tela (`derivar_composicao`): mesma receita, descrição e descritivo, código automático;
+  - `easy_proprios_receita`: incluir, remover, coeficiente e substituir por fonte + código, com prévia de
+    receita e custo SD/CD antes → depois **calculada como a grade da tela** (L.S. da própria na mão de
+    obra, item a item truncado: sem mudança real, a prévia devolve o valor exato da tela). O aplicar é o
+    salvar da grade (`salvar_analitico`), que recalcula todas as edições, a cascata de quem usa e audita.
+    A justificativa é sempre repassada, porque o salvar da tela grava a que recebe e `None` a apagaria.
+    Item que já está na receita não se inclui de novo (ajusta-se o coeficiente);
+  - também pela bancada (`easy_composicao_editar`, alcance `ATUALIZAR_CATALOGO`);
+  - `easy_proprio_ver` devolve a receita junto do descritivo.
 - `easy_proprios_precos_insumos` (sob demanda): insumos ativos com preço de data-base anterior a um
   mês, e os sem preço. A régua é a data-base, não o rótulo da edição (texto livre); a divergência
   vem sinalizada.
 
-### 4.8 Catálogo público (Easy CPU)
+### 4.8 Catálogo público
 
-- `easy_buscar_composicoes` / `easy_buscar_insumos` usam o mesmo `SearchService.search_catalog` da
-  app, reidratado no Postgres e paginado, com o item identificado por **fonte + código**.
-- **O primeiro resultado não é declarado tecnicamente correto:** quem decide é o operador.
+- **Busca (Easy CPU):** `easy_buscar_composicoes` / `easy_buscar_insumos` usam o mesmo
+  `SearchService.search_catalog` da app, reidratado no Postgres e paginado, com o item identificado por
+  **fonte + código**. O primeiro resultado não é declarado tecnicamente correto: quem decide é o operador.
+- **Composição por dentro, fora de orçamento (Easy Orça, decisão do Renan em 22/10/2026):**
+  - `easy_catalogo_composicao`: o analítico de qualquer fonte (`get_cpu_precificada`), por edição
+    (rótulo completo ou só MM-AA), UF e SD/CD/SE;
+  - `easy_catalogo_simular`: o simulador do Easy Mobile, com a L.S. sobrescrita nas duas taxas pelo motor
+    único (`custo_composicao`) e o BDI sobre o total, lado a lado com o original da fonte;
+  - `easy_catalogo_converter_regime`: horista → mensalista (`conversao_mdo.converter`), item a item, com os
+    itens sem par mensalista marcados;
+  - serviço `catalogo/consulta_composicao.py`; consulta pura, sem gravar; cada chamada gasta a cota de busca
+    (o analítico composição a composição é o vetor clássico de raspagem); um limpador tira id, `*_id` e link
+    de qualquer nível da resposta.
+- **Pesquisa de preço de insumo do catálogo fora de orçamento:** só informa o usuário; não grava (o
+  catálogo não se altera).
 - **Lacuna conhecida:** busca livre na biblioteca PRÓPRIA. Hoje ela é feita por
   `easy_orcamento_buscar_servico` (no contexto de um ativo) e pelas ferramentas de dados próprios.
 
-### 4.9 Fila (sob demanda, não promessa)
+### 4.9 Link de anexos das propostas
+
+A IA não envia arquivos: um PDF codificado para passar numa chamada custaria centenas de milhares de
+tokens. A pesquisa de preços se divide em dois passos:
+1. a IA lança as propostas (empresa, valor, data, site) com `easy_insumo_cotar` (orçamento) ou
+   `easy_proprios_precos` (própria) → aplicar;
+2. `easy_insumo_link_anexos` / `easy_proprios_link_anexos` devolvem um **link** para o usuário anexar os
+   arquivos, um por proposta.
+
+- **O link é a credencial:** token Fernet (a cifra do MCP, prefixo `ema1.`) com tenant, usuário e a
+  cotação; vale 30 minutos (o Fernet confere o tempo) e só abre aquela cotação. Adulterado ou vencido → 404.
+- **A página** (`GET /anexos/{token}`, `templates/ativos/anexos_link.html`) não pede login, de propósito: o
+  celular do usuário não precisa estar logado. Mostra só as propostas daquela cotação.
+- **O upload** (`POST /anexos/{token}/{proposta}`, serviço `ativo/cotacao_anexos.py`) segue as regras da
+  tela: a mesma chave no armazenamento privado (`cotacao_r2_key`) e o mesmo salvar (`salvar_cotacao` /
+  `salvar_preco`), mudando só o arquivo da proposta escolhida. PDF, imagem, planilha ou documento, até 15 MB;
+  só em revisão RASCUNHO.
+- A rota é incluída pelo próprio `server.instalar` (fora do despachante do MCP: é página web).
+
+### 4.10 Fila (sob demanda, não promessa)
 
 | Candidata | Categoria | Serviço que já existe |
 |---|---|---|
@@ -602,7 +643,7 @@ Toda linha do MCP leva `canal:"mcp"`, a ferramenta e o plano. O login via MCP ca
 |---|---|---|
 | URL MCP | `https://mcp-dev.axys-tec.com.br/mcp` (cloudflared → `localhost:8788`) | `https://<host do Easy>/mcp` |
 | Hub | local `127.0.0.1:8000` (o navegador alcança direto) | `axys-tec.com.br` |
-| Exposição | túnel com **ingress filtrado** (`infra/cloudflared/mcp-dev.yml`): só `/mcp*`, `/authorize`, `/token`, `/register`, `/revoke` e `/.well-known/oauth-*`; o resto → 404 | o próprio Easy |
+| Exposição | túnel com **ingress filtrado** (`infra/cloudflared/mcp-dev.yml`): só `/mcp*`, `/authorize`, `/token`, `/register`, `/revoke`, `/.well-known/oauth-*`, `/anexos/` e `/static/` (a página do link); o resto → 404 | o próprio Easy |
 | Subir | `EASY_MCP_TUNNEL=1 ./run_dev.sh` | deploy normal |
 | Login | fluxo real do Hub, sem bypass (`EASY_AUTH_BYPASS=false`) | idem |
 
@@ -636,6 +677,9 @@ local.
 | `test_cadastro_config.py` | cadastros, BDI, L.S., fontes-base, pauta única, cronograma, recálculo explícito, auditoria |
 | `test_proprios.py`, `test_descritivo.py`, `test_memoria.py` | idem nos respectivos domínios |
 | `test_memoria_motor.py` | motor Python = `easy_memoria.js` no node (326 planilhas) |
+| `test_catalogo_analitico.py` | analítico, simulação e conversão: fonte + código, edição pelo rótulo, nada interno, módulo Easy Orça |
+| `test_proprios_receita.py` | derivar e editar a receita da própria: justificativa preservada, conflito, recusas com motivo |
+| `test_anexos.py` | token do link (ida e volta, vencido, adulterado) e upload: recusas antes de gravar, só a proposta escolhida muda |
 | `test_instrucoes.py` | cobertura do `instrucoes_ia.md` nos dois sentidos, nada interno, apêndice em dia |
 
 ```bash
@@ -678,6 +722,7 @@ O deploy do Render reinicia o container e mata job em execução: combine a jane
 | Fontes-base e pauta única | ferramentas novas; recusa por herança na prévia; `definido_em` nas leituras |
 | Conhecimento | `easy_sobre` (sumário → tópico): ecossistema a partir da fonte editorial do Hub; app a partir do implementado (fórmula do BDI e regra da Administração Local conferidas no código) |
 | Confirmação e empreendimento | níveis livre/tarefa/sempre (§6.2); fontes, BDI e L.S. configuráveis no empreendimento com a pauta única; herança com `acao` ligar/desligar depois do incidente em que a IA desligou as três pautas |
+| Fora de orçamento | composição do catálogo por dentro, simulação de L.S./BDI e conversão de regime (Easy Orça); receita da própria (derivar e editar, prévia igual à tela: 29,01/16,87 sem mudança); link de anexos testado em servidor de dev (página, recusa de tipo, token adulterado) |
 | Textos | `instrucoes_ia.md` como fonte única + apêndice gerado; os 48 textos e todas as explicações de campo conferidos iguais aos de antes da mudança |
 
 Achados à parte, não do MCP:
