@@ -57,17 +57,19 @@ Vale notar o efeito prático: numa obra de R$ 40 milhões, o corte de 4% está e
 
 ## Do outro lado: o que o licitante deve conferir
 
-Até aqui o texto olhou para quem redige. Quem disputa usa a mesma régua, em dois movimentos.
+Até aqui o texto olhou para quem redige. Quem disputa usa a mesma régua, em três movimentos.
 
-**Primeiro, cada serviço exigido tem de caber nos 4% sozinho.** A verificação é individual, serviço a serviço, contra o valor total estimado. Exigência sobre item que não alcança esse patamar, e que também não traz relevância técnica justificada no processo, já é erro do edital.
+**Confira serviço a serviço.** Cada exigência tem de alcançar os 4% sozinha, contra o valor estimado. Se não alcança e o processo não traz relevância técnica justificada, o edital já está errado.
 
-**Depois, olhe o lote em que você pretende competir.** Os serviços podem ter sido destacados considerando o conjunto da contratação, e a exigência publicada pode estar dimensionada para o todo. O que você precisa atender é o que corresponde aos lotes que vai disputar, isoladamente.
+**Depois olhe o seu lote.** A exigência publicada pode ter sido dimensionada para o conjunto. O que se atende é o correspondente aos lotes que se pretende disputar.
 
-Um exemplo torna a conta evidente. O edital pede 1.000 horas de um serviço porque o contrato inteiro soma 2.000 horas, aplicando o teto de 50%. Se você decide concorrer apenas a lotes cuja execução soma 500 horas, a exigência proporcional é de **250 horas**, não de 1.000.
+**Por fim, olhe como o edital fixou as quantidades.** Se ele as fixou de forma global e a licitação é por lotes, pode haver erro de exigência, e isso é motivo de questionamento.
 
-Exigir o atestado do todo de quem disputa a parte é desproporcional, e desproporção em habilitação tem remédio: **impugnar**. E se o edital simplesmente não disser qual é a base de cálculo por lote, cabe pedido de esclarecimento, porque a omissão já é, em si, um defeito do instrumento.
+Não havendo essa proporção no texto, ou não estando clara a base de cálculo por lote, cabe impugnação ou pedido de esclarecimento. A omissão sobre a base já é, em si, defeito do instrumento.
 
-Vale dizer o óbvio, que na prática se esquece: esses dois movimentos se fazem **antes** de decidir participar, não depois de ser inabilitado.
+E há o caso de quem quer **todos** os lotes, que não é o mesmo que disputar a licitação única. Aí é preciso atender ao critério de cada lote, sem alargar o alcance do acervo que se tem: uma certidão de acervo técnico é computada **uma única vez**, até o limite do serviço que comprova. Uma CAT de 1.000 unidades não vale 1.000 em cada lote.
+
+Vale dizer o óbvio, que na prática se esquece: esses movimentos se fazem **antes** de decidir participar, não depois de ser inabilitado.
 
 ## As duas qualificações não são a mesma coisa
 
