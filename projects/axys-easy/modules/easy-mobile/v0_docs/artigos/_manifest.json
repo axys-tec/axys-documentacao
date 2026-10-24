@@ -1255,6 +1255,87 @@
       "publicado_em": "2026-10-24",
       "pdf": "easy-mobile/artigos/a-planilha-decide-quem-pode-disputar.pdf",
       "pdf_bytes": 363788
+    },
+    {
+      "id": "o-que-o-acordao-2622-2013-realmente-diz-sobre-bdi",
+      "titulo": "O que o Acórdão 2622/2013 realmente diz sobre BDI",
+      "chamada": "As faixas de BDI por tipologia, as cinco parcelas e os tributos. E o erro aritmético que a tabela convida a cometer: somar quartis não dá o BDI do quartil.",
+      "assuntos": [
+        "bdi",
+        "bdi-diferenciado",
+        "lucro",
+        "custo-indireto",
+        "acordao"
+      ],
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "rotulo": "BDI",
+          "grupo": "TERMINOLOGIA",
+          "id": "bdi"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "BDI diferenciado",
+          "grupo": "TERMINOLOGIA",
+          "id": "bdi-diferenciado"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Custo indireto",
+          "grupo": "TERMINOLOGIA",
+          "id": "custo-indireto"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Lucro",
+          "grupo": "TERMINOLOGIA",
+          "id": "lucro"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Desoneração da folha",
+          "grupo": "TERMINOLOGIA",
+          "id": "desoneracao-da-folha"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Leis sociais",
+          "grupo": "TERMINOLOGIA",
+          "id": "leis-sociais"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Administração local",
+          "grupo": "TERMINOLOGIA",
+          "id": "administracao-local"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2622/2013",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2622-2013"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2293/2013",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2293-2013"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Cartilha TCU 2026 · BDI e preço de venda",
+          "grupo": "DOWNLOADS",
+          "id": "tcu-engenharia-custos-perguntas-respostas",
+          "pagina": 40
+        }
+      ],
+      "conteudo": "easy-mobile/artigos/o-que-o-acordao-2622-2013-realmente-diz-sobre-bdi.md",
+      "formato": "markdown",
+      "palavras": 1928,
+      "publicado_em": "2026-10-24",
+      "pdf": "easy-mobile/artigos/o-que-o-acordao-2622-2013-realmente-diz-sobre-bdi.pdf",
+      "pdf_bytes": 422387
     }
   ]
 }
