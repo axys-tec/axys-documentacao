@@ -38,7 +38,8 @@
       "autoria": "IBRAOP · Instituto Brasileiro de Auditoria de Obras Públicas",
       "data_documento": "setembro/2012",
       "arquivo": "easy-mobile/downloads/ibraop-ot-005-sobrepreco-superfaturamento.pdf",
-      "bytes": 283699
+      "bytes": 283699,
+      "conteudo": "easy-mobile/downloads/ibraop-ot-005-sobrepreco-superfaturamento.md"
     },
     {
       "id": "ibraop-ot-009-reequilibrio",
@@ -48,7 +49,8 @@
       "autoria": "IBRAOP · Instituto Brasileiro de Auditoria de Obras Públicas",
       "data_documento": "abril/2024",
       "arquivo": "easy-mobile/downloads/ibraop-ot-009-reequilibrio.pdf",
-      "bytes": 433000
+      "bytes": 433000,
+      "conteudo": "easy-mobile/downloads/ibraop-ot-009-reequilibrio.md"
     },
     {
       "id": "ibraop-irb-008-alteracoes-contratuais",
@@ -58,7 +60,8 @@
       "autoria": "IBRAOP e Instituto Rui Barbosa · Comitê de Obras Públicas",
       "data_documento": "junho/2016",
       "arquivo": "easy-mobile/downloads/ibraop-irb-008-alteracoes-contratuais.pdf",
-      "bytes": 267479
+      "bytes": 267479,
+      "conteudo": "easy-mobile/downloads/ibraop-irb-008-alteracoes-contratuais.md"
     }
   ]
 }
