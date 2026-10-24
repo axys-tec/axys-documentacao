@@ -55,6 +55,20 @@ O passo 4 é o único subjetivo, e por isso é o único que precisa de justifica
 
 Vale notar o efeito prático: numa obra de R$ 40 milhões, o corte de 4% está em R$ 1,6 milhão. Serviços que o senso comum chamaria de importantes, como pintura ou impermeabilização, raramente chegam lá. Fundação, estrutura e instalações costumam chegar com folga.
 
+## Do outro lado: o que o licitante deve conferir
+
+Até aqui o texto olhou para quem redige. Quem disputa usa a mesma régua, em dois movimentos.
+
+**Primeiro, cada serviço exigido tem de caber nos 4% sozinho.** A verificação é individual, serviço a serviço, contra o valor total estimado. Exigência sobre item que não alcança esse patamar, e que também não traz relevância técnica justificada no processo, já é erro do edital.
+
+**Depois, olhe o lote em que você pretende competir.** Os serviços podem ter sido destacados considerando o conjunto da contratação, e a exigência publicada pode estar dimensionada para o todo. O que você precisa atender é o que corresponde aos lotes que vai disputar, isoladamente.
+
+Um exemplo torna a conta evidente. O edital pede 1.000 horas de um serviço porque o contrato inteiro soma 2.000 horas, aplicando o teto de 50%. Se você decide concorrer apenas a lotes cuja execução soma 500 horas, a exigência proporcional é de **250 horas**, não de 1.000.
+
+Exigir o atestado do todo de quem disputa a parte é desproporcional, e desproporção em habilitação tem remédio: **impugnar**. E se o edital simplesmente não disser qual é a base de cálculo por lote, cabe pedido de esclarecimento, porque a omissão já é, em si, um defeito do instrumento.
+
+Vale dizer o óbvio, que na prática se esquece: esses dois movimentos se fazem **antes** de decidir participar, não depois de ser inabilitado.
+
 ## As duas qualificações não são a mesma coisa
 
 Confundi-las produz edital que pede ao engenheiro o que só a empresa pode ter, ou o contrário.
