@@ -1,0 +1,81 @@
+{
+  "id": "curva-abc-define-os-atestados",
+  "titulo": "Da curva ABC à exigência de atestado, com números",
+  "publicado_em": "2026-10-24",
+  "situacao_md": "Ampliação de um campus escolar com oito blocos, orçada em **R$ 49.530.550,52**, a ser executada de forma concomitante. A Administração precisa definir quais serviços exigirão atestado e em que quantidade, sem afunilar a disputa nem habilitar quem não executa o que carrega a obra.",
+  "resposta_curta": "Somar os quantitativos de todos os blocos, aplicar o corte de 4% sobre o valor total e fixar o mínimo em até 50% da parcela. Como as obras correm juntas, admitir o somatório de atestados em execução concomitante é razoável e proporcional.",
+  "condicionantes": [
+    "Licitação única, com blocos concomitantes",
+    "Curva ABC consolidada",
+    "Corte de 4% sobre o total estimado",
+    "Mínimo de até 50% da parcela",
+    "Somatório com execução concomitante",
+    "Serviços análogos somados entre blocos"
+  ],
+  "verificar": [
+    "Os itens análogos de blocos diferentes foram somados antes de aplicar o corte?",
+    "O corte de 4% incidiu sobre o valor total estimado, com BDI?",
+    "A quantidade exigida respeita o teto de 50% da parcela consolidada?",
+    "A concomitância das frentes está demonstrada no cronograma, e não apenas afirmada?",
+    "Se houvesse lotes, o percentual seria recalculado sobre cada lote?"
+  ],
+  "fundamento_md": "O **art. 67, § 1º, da Lei 14.133/2021** restringe a exigência às parcelas de maior relevância ou valor significativo, \"assim consideradas as que tenham valor individual igual ou superior a 4% (quatro por cento) do valor total estimado da contratação\". O **§ 2º** admite quantidades mínimas de até 50% dessas parcelas.\n\nEm licitação única, o valor total estimado é o da contratação inteira, e os quantitativos de um mesmo serviço, espalhados pelos blocos, somam-se antes do corte. É a curva ABC consolidada que responde quais serviços cruzam o limiar.\n\n### A curva consolidada, e o que cruza o corte\n\nSomados os itens análogos dos oito blocos, três serviços superam R$ 1.981.222,02 e, juntos, respondem por **70,07%** da obra.\n\n| Serviço | Quantidade | Valor com BDI | % do total |\n|---|---:|---:|---:|\n| Estrutura pré-moldada de concreto | 3.022,40 m³ | R$ 24.782.017,49 | **50,03%** |\n| Laje alveolar em concreto protendido | 11.294,31 m² | R$ 6.555.104,55 | **13,23%** |\n| Estrutura em aço ASTM-A572 grau 50 | 84.896,68 kg | R$ 3.367.002,32 | **6,80%** |\n| Telhamento em chapa tipo sanduíche | 10.053,42 m² | R$ 1.827.611,18 | 3,69% |\n\nO quarto colocado fica a 0,31 ponto do corte e não entra por valor. Se a Administração quiser exigi-lo, terá de fundamentar **relevância técnica**, por escrito, e não peso financeiro.\n\nCom o teto do § 2º, a quantidade máxima exigível do primeiro serviço é **1.511,20 m³**, metade da parcela consolidada.\n\n### Por que o somatório concomitante\n\nAs oito frentes correm ao mesmo tempo. O que a obra exige do contratado não é ter produzido 3.022 m³ de pré-moldado alguma vez na vida, é conseguir produzir em várias frentes simultâneas.\n\nAtestados somados em **execução concomitante** demonstram exatamente isso. Somados em épocas diferentes, não. Admitir a soma com a condição de concomitância é razoável e proporcional: amplia a competição e preserva a aferição que interessa.\n\n### Se fosse por lotes, a conta é outra\n\nO corte de 4% incide sobre o valor estimado **de cada lote**. O mesmo serviço, com o mesmo projeto, gera exigências de porte muito diferente:\n\n| | Lote da saúde | Lote da engenharia |\n|---|---:|---:|\n| Valor do lote | R$ 24.156.605,78 | R$ 1.713.601,28 |\n| Corte de 4% do lote | R$ 966.264,23 | R$ 68.544,05 |\n| Pré-moldado no lote | 1.495,45 m³ | 121,54 m³ |\n| Valor com BDI | R$ 12.261.867,50 | R$ 996.561,15 |\n| Participação no lote | 50,76% | 58,16% |\n| Máximo exigível, 50% | 747,73 m³ | 60,77 m³ |\n\nNos dois lotes o serviço é parcela de maior relevância, mas a quantidade exigível cai de 1.511,20 m³ para 747,73 m³ e para 60,77 m³. Exigir, no lote da engenharia, o atestado dimensionado para a obra inteira seria restringir sem qualquer fundamento na planilha daquele lote.\n\nO somatório continua cabendo, inclusive com concomitância. O que muda é a base: **percentual de cada licitante sobre os quantitativos do lote a que ele concorre**, não sobre o total da contratação.",
+  "procedimento": [
+    "Consolidar a curva ABC de serviços, somando os itens análogos de todos os blocos.",
+    "Calcular o corte: 4% de R$ 49.530.550,52 é R$ 1.981.222,02.",
+    "Marcar os serviços cujo valor consolidado supera esse corte.",
+    "Fixar a quantidade exigida em até 50% da parcela consolidada.",
+    "Admitir somatório de atestados, exigindo execução concomitante quando o que se quer aferir é ritmo de produção.",
+    "Juntar ao processo a curva ABC e a memória da seleção."
+  ],
+  "riscos_md": "Aplicar o corte bloco a bloco, em licitação única, produz lista inflada: serviço pequeno em cada bloco pode cruzar 4% do bloco e não representar nada no conjunto. O inverso também ocorre, e é pior: serviço diluído entre oito blocos some da análise, embora some mais da metade da obra.\n\nExigir atestado único, nesse arranjo, não protege a Administração e elimina licitantes. O que a obra pede é capacidade de produzir em várias frentes ao mesmo tempo, e isso se comprova somando execuções concomitantes, não exigindo um contrato isolado de igual porte.",
+  "referencias": [
+    {
+      "tipo": "publicacao",
+      "rotulo": "Parcela de maior relevância",
+      "grupo": "TERMINOLOGIA",
+      "id": "parcela-de-maior-relevancia"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Atestado de capacidade técnica",
+      "grupo": "TERMINOLOGIA",
+      "id": "atestado-de-capacidade-tecnica"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Qualificação técnico-operacional",
+      "grupo": "TERMINOLOGIA",
+      "id": "qualificacao-tecnico-operacional"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Curva ABC",
+      "grupo": "TERMINOLOGIA",
+      "id": "curva-abc"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Quais serviços entram na exigência de atestado",
+      "grupo": "CASOS",
+      "id": "parcelas-de-maior-relevancia-no-edital"
+    },
+    {
+      "tipo": "url",
+      "rotulo": "Lei 14.133/2021, art. 67",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+    },
+    {
+      "tipo": "url",
+      "rotulo": "Manual de Licitações e Contratos do TCU · 5.5.2 habilitação técnica",
+      "url": "https://licitacoesecontratos.tcu.gov.br/5-5-2-habilitacao-tecnica/"
+    }
+  ],
+  "assuntos": [
+    "curva-abc",
+    "parcela-de-maior-relevancia",
+    "atestado-de-capacidade-tecnica",
+    "qualificacao-tecnico-operacional",
+    "habilitacao-tecnica"
+  ]
+}

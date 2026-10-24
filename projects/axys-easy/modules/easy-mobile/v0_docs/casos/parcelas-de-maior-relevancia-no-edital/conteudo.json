@@ -18,9 +18,10 @@
     "A quantidade mínima exigida respeita o teto de 50% da parcela?",
     "O edital permite somatório de atestados, ou exige atestado único com justificativa?",
     "Há limitação de prazo de validade ou de local de execução no texto?",
-    "A lista foi extraída da curva ABC ou montada por impressão?"
+    "A lista foi extraída da curva ABC ou montada por impressão?",
+    "Se o edital exige atestado único, a simultaneidade é essencial ao objeto, ou bastaria somar execuções concomitantes?"
   ],
-  "fundamento_md": "A exigência de atestados deve restringir-se às parcelas de maior relevância ou de valor significativo do objeto. São consideradas de valor significativo as parcelas com valor individual igual ou superior a 4% do valor total estimado da contratação. Sob a Lei 14.133/2021 os dois critérios deixaram de ser cumulativos: basta relevância **ou** valor, enquanto a lei anterior exigia os dois ao mesmo tempo.\n\nÉ admitida a exigência de quantidades mínimas de até 50% dessas parcelas, e são vedadas limitações de tempo e de locais específicos. Quando o atestado único não for imprescindível, o somatório tem de ser permitido, para ampliar a competição.",
+  "fundamento_md": "O **art. 67, § 1º, da Lei 14.133/2021** restringe a exigência de atestados às parcelas de maior relevância ou valor significativo do objeto, \"assim consideradas as que tenham valor individual igual ou superior a 4% (quatro por cento) do valor total estimado da contratação\".\n\nSob a Lei 8.666/1993 os dois critérios eram cumulativos. Na lei atual basta relevância **ou** valor.\n\nO **§ 2º** admite exigir quantidades mínimas de até 50% dessas parcelas e veda limitações de tempo e de locais específicos. O somatório de atestados, quando o atestado único não for imprescindível, vem da orientação do TCU, para ampliar a competição.\n\nO somatório, quando admitido, tem um qualificador técnico: execuções **concomitantes** demonstram capacidade operacional, porque provam ritmo e volume simultâneos; obras somadas em épocas diferentes provam apenas experiência no serviço. Exigir atestado único só se justifica quando a simultaneidade for essencial, e ainda assim a soma de execuções concomitantes a atende.",
   "procedimento": [
     "Montar a curva ABC do orçamento estimado, por valor total de cada serviço.",
     "Marcar os itens com valor individual igual ou superior a 4% do total.",
@@ -31,12 +32,46 @@
   ],
   "riscos_md": "Lista montada por impressão costuma pecar nos dois sentidos. Para cima, incluindo serviços de peso pequeno que afunilam a competição sem proteger nada, que é a origem da maior parte das impugnações. Para baixo, deixando de fora o serviço que de fato carrega a obra, e aí o edital habilita quem nunca o executou.\n\nO corte de 4% é objetivo e verificável: exigência acima dele se defende com a planilha; abaixo dele, só com relevância técnica demonstrada no processo. Lista sem memória de cálculo é o que não se sustenta em impugnação nem em auditoria.",
   "referencias": [
-    {"tipo": "publicacao", "rotulo": "Parcela de maior relevância", "grupo": "TERMINOLOGIA", "id": "parcela-de-maior-relevancia"},
-    {"tipo": "publicacao", "rotulo": "Atestado de capacidade técnica", "grupo": "TERMINOLOGIA", "id": "atestado-de-capacidade-tecnica"},
-    {"tipo": "publicacao", "rotulo": "Habilitação técnica", "grupo": "TERMINOLOGIA", "id": "habilitacao-tecnica"},
-    {"tipo": "publicacao", "rotulo": "Curva ABC", "grupo": "TERMINOLOGIA", "id": "curva-abc"},
-    {"tipo": "url", "rotulo": "Lei 14.133/2021", "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"},
-    {"tipo": "url", "rotulo": "Manual de Licitações e Contratos do TCU · habilitação técnica", "url": "https://licitacoesecontratos.tcu.gov.br/5-5-2-habilitacao-tecnica/"}
+    {
+      "tipo": "publicacao",
+      "rotulo": "Parcela de maior relevância",
+      "grupo": "TERMINOLOGIA",
+      "id": "parcela-de-maior-relevancia"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Atestado de capacidade técnica",
+      "grupo": "TERMINOLOGIA",
+      "id": "atestado-de-capacidade-tecnica"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Habilitação técnica",
+      "grupo": "TERMINOLOGIA",
+      "id": "habilitacao-tecnica"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Curva ABC",
+      "grupo": "TERMINOLOGIA",
+      "id": "curva-abc"
+    },
+    {
+      "tipo": "url",
+      "rotulo": "Lei 14.133/2021, art. 67",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+    },
+    {
+      "tipo": "url",
+      "rotulo": "Manual de Licitações e Contratos do TCU · 5.5.2 habilitação técnica",
+      "url": "https://licitacoesecontratos.tcu.gov.br/5-5-2-habilitacao-tecnica/"
+    }
   ],
-  "assuntos": ["parcela-de-maior-relevancia", "atestado-de-capacidade-tecnica", "habilitacao-tecnica", "curva-abc", "edital"]
+  "assuntos": [
+    "parcela-de-maior-relevancia",
+    "atestado-de-capacidade-tecnica",
+    "habilitacao-tecnica",
+    "curva-abc",
+    "edital"
+  ]
 }

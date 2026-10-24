@@ -1237,14 +1237,24 @@
           "rotulo": "Quais serviços entram na exigência de atestado",
           "grupo": "CASOS",
           "id": "parcelas-de-maior-relevancia-no-edital"
+        },
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021, art. 67",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        },
+        {
+          "tipo": "url",
+          "rotulo": "Manual de Licitações e Contratos do TCU · 5.5.2 habilitação técnica",
+          "url": "https://licitacoesecontratos.tcu.gov.br/5-5-2-habilitacao-tecnica/"
         }
       ],
       "conteudo": "easy-mobile/artigos/a-planilha-decide-quem-pode-disputar.md",
       "formato": "markdown",
-      "palavras": 870,
+      "palavras": 1250,
       "publicado_em": "2026-10-24",
       "pdf": "easy-mobile/artigos/a-planilha-decide-quem-pode-disputar.pdf",
-      "pdf_bytes": 327798
+      "pdf_bytes": 355100
     }
   ]
 }

@@ -234,7 +234,7 @@
       "termo": "Atestado de capacidade técnica",
       "expansao": null,
       "conceito_md": "Documento que comprova a execução anterior de obra ou serviço com as características exigidas no edital.",
-      "funcao_pratica_md": "A exigência se restringe às parcelas de maior relevância ou de valor significativo, e admite quantidade mínima de até 50% dessas parcelas. São vedadas limitações de tempo e de locais específicos. Quando o atestado único não for imprescindível, o somatório de atestados tem de ser permitido, para ampliar a competição.",
+      "funcao_pratica_md": "A exigência se restringe às parcelas de maior relevância ou de valor significativo (art. 67, § 1º), e o § 2º admite quantidade mínima de até 50% dessas parcelas, vedadas limitações de tempo e de locais específicos. O somatório de atestados, que vem da orientação do TCU, é devido quando o atestado único não for imprescindível. Somar execuções **concomitantes** é o que demonstra capacidade operacional, porque prova ritmo e volume; somar obras de épocas diferentes prova apenas experiência no serviço.",
       "distincoes": [
         {
           "termo": "Acervo técnico",
@@ -1035,7 +1035,7 @@
       "termo": "Habilitação técnica",
       "expansao": null,
       "conceito_md": "Conjunto de exigências do edital destinadas a comprovar que o licitante tem qualificação técnica para executar o objeto.",
-      "funcao_pratica_md": "Em obras e serviços de engenharia comprova-se por atestado, e não por prova alternativa de experiência. Habilitar não é julgar proposta: são fases com finalidade e documento próprios.",
+      "funcao_pratica_md": "Os critérios estão no art. 67 da Lei 14.133/2021. Em obras e serviços de engenharia comprova-se por atestado, e não por prova alternativa de experiência, que o § 3º admite só fora desse campo. Habilitar não é julgar proposta: são fases com finalidade e documento próprios.",
       "distincoes": [
         {
           "termo": "Critério de aceitabilidade de preço",
@@ -1578,7 +1578,7 @@
       "termo": "Parcela de maior relevância",
       "expansao": null,
       "conceito_md": "Item do objeto sobre o qual o edital pode fixar exigência de habilitação técnica, por sua relevância técnica ou por seu valor.",
-      "funcao_pratica_md": "São consideradas de valor significativo as parcelas com valor individual igual ou superior a 4% do valor total estimado da contratação. Quem as identifica é o orçamento: a curva ABC mostra quais itens cruzam esse corte, e é por isso que a planilha decide, na prática, quem pode disputar.",
+      "funcao_pratica_md": "O art. 67, § 1º, da Lei 14.133/2021 considera de valor significativo as parcelas com valor individual igual ou superior a 4% do valor total estimado da contratação. Quem as identifica é o orçamento: a curva ABC mostra quais itens cruzam esse corte, e é por isso que a planilha decide, na prática, quem pode disputar.",
       "distincoes": [
         {
           "termo": "Curva ABC",
@@ -1870,6 +1870,10 @@
         {
           "termo": "Qualificação técnico-profissional",
           "diferenca_md": "A operacional é da pessoa jurídica. A profissional é do responsável técnico que ela apresenta."
+        },
+        {
+          "termo": "Somatório de atestados",
+          "diferenca_md": "Obras somadas em épocas diferentes mostram experiência. Obras somadas em execução concomitante mostram capacidade de produção, que é o que a qualificação operacional quer aferir."
         }
       ],
       "ver_tambem": [
@@ -1895,7 +1899,7 @@
       "termo": "Qualificação técnico-profissional",
       "expansao": null,
       "conceito_md": "Comprovação de que o licitante tem vinculado a si profissional com o conhecimento e a experiência necessários ao objeto, atestados por responsabilidade técnica em obra ou serviço de características semelhantes.",
-      "funcao_pratica_md": "Olha a pessoa, não a empresa. Não exige vínculo empregatício: contrato de prestação de serviços, vínculo societário ou declaração de contratação futura com anuência do profissional atendem. Trocar o profissional depois exige aprovação da Administração e experiência equivalente ou superior.",
+      "funcao_pratica_md": "Olha a pessoa, não a empresa. Não exige vínculo empregatício, entendimento firmado pelo TCU: contrato de prestação de serviços, vínculo societário ou declaração de contratação futura com anuência do profissional atendem. O art. 67, § 6º exige que o profissional indicado participe da obra, e admite substituição por outro de experiência equivalente ou superior, desde que aprovada pela Administração.",
       "distincoes": [
         {
           "termo": "Qualificação técnico-operacional",

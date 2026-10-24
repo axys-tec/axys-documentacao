@@ -208,6 +208,20 @@
       ],
       "conteudo": "easy-mobile/casos/parcelas-de-maior-relevancia-no-edital/conteudo.json",
       "publicado_em": "2026-10-24"
+    },
+    {
+      "id": "curva-abc-define-os-atestados",
+      "titulo": "Da curva ABC à exigência de atestado, com números",
+      "chamada": "Oito blocos concomitantes, R$ 49,5 milhões: três serviços cruzam o corte de 4% e respondem por 70% da obra. E o que mudaria se fossem lotes.",
+      "assuntos": [
+        "curva-abc",
+        "parcela-de-maior-relevancia",
+        "atestado-de-capacidade-tecnica",
+        "qualificacao-tecnico-operacional",
+        "habilitacao-tecnica"
+      ],
+      "conteudo": "easy-mobile/casos/curva-abc-define-os-atestados/conteudo.json",
+      "publicado_em": "2026-10-24"
     }
   ]
 }
