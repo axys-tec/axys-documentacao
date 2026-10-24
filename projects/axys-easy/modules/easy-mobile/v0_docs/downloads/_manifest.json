@@ -15,7 +15,8 @@
         "arquivo": "https://portal.tcu.gov.br/uploads/cartilha_engenharia_custos_obras_publicas_perguntas_respostas_eb964dd641.pdf"
       },
       "arquivo": "easy-mobile/downloads/tcu-engenharia-custos-perguntas-respostas.pdf",
-      "bytes": 4105553
+      "bytes": 4105553,
+      "conteudo": "easy-mobile/downloads/tcu-engenharia-custos-perguntas-respostas.md"
     },
     {
       "id": "tcu-orientacoes-planilhas-orcamentarias",
