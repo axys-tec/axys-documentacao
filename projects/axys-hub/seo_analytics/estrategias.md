@@ -251,9 +251,10 @@ mas criar o melhor destino possível para quem procura escolher ou entender um s
 `/solucoes/sistema-de-orcamento-de-obras`, com intenção comercial própria, cobertura nacional,
 FAQ, dados estruturados, entrada no sitemap e ligação recíproca com Easy Orça. A comunicação das
 bases distingue o que está disponível hoje — SINAPI, CDHU, FDE e bases próprias — de outras fontes
-ainda em processo de homologação. O layout e o conteúdo foram aprovados. Permanecem pendentes a
-publicação em produção, a inspeção no Search Console e os links vindos do primeiro lote do
-Knowledge.
+ainda em processo de homologação. O layout e o conteúdo foram aprovados e publicados. A inspeção no
+Search Console foi concluída em 24/10/2026: a URL publicada estava tecnicamente elegível, ainda era
+desconhecida pelo Google e entrou na fila prioritária de rastreamento. Permanecem pendentes os links
+vindos do primeiro lote do Knowledge e o acompanhamento de impressões, posição e CTR.
 
 O padrão visual desta página fica definido como **padrão canônico das novas landings da Axys**.
 Vídeos demonstrativos poderão ser incorporados posteriormente como evidência de uso, preservando a
