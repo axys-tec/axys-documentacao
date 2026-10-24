@@ -837,6 +837,346 @@
       "publicado_em": "2026-09-20",
       "pdf": "easy-mobile/artigos/administracao-local-o-que-e-e-como-medir.pdf",
       "pdf_bytes": 325835
+    },
+    {
+      "id": "as-seis-grandezas-do-orcamento-de-referencia",
+      "titulo": "As seis grandezas do orçamento de referência",
+      "chamada": "Custo unitário, custo global, preço global e valor do contrato são seis números com nome legal. Trocar um pelo outro é a origem de metade das discussões de sobrepreço.",
+      "assuntos": [
+        "custo-global-de-referencia",
+        "preco-global",
+        "valor-global-do-contrato",
+        "criterio-de-aceitabilidade-de-preco",
+        "composicao-de-custo-unitario"
+      ],
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "rotulo": "Custo global de referência",
+          "grupo": "TERMINOLOGIA",
+          "id": "custo-global-de-referencia"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Preço global",
+          "grupo": "TERMINOLOGIA",
+          "id": "preco-global"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Valor global do contrato",
+          "grupo": "TERMINOLOGIA",
+          "id": "valor-global-do-contrato"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Critério de aceitabilidade de preço",
+          "grupo": "TERMINOLOGIA",
+          "id": "criterio-de-aceitabilidade-de-preco"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Anotação de responsabilidade técnica",
+          "grupo": "TERMINOLOGIA",
+          "id": "anotacao-de-responsabilidade-tecnica"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2311/2022",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2311-2022"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2857/2013",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2857-2013"
+        }
+      ],
+      "conteudo": "easy-mobile/artigos/as-seis-grandezas-do-orcamento-de-referencia.md",
+      "formato": "markdown",
+      "palavras": 993,
+      "publicado_em": "2026-10-24",
+      "pdf": "easy-mobile/artigos/as-seis-grandezas-do-orcamento-de-referencia.pdf",
+      "pdf_bytes": 303153
+    },
+    {
+      "id": "o-desconto-nao-volta-atras",
+      "titulo": "O desconto não volta atrás",
+      "chamada": "A diferença entre o valor do contrato e o preço de referência não volta atrás. E a exceção que existia para preço unitário foi revogada em 2023.",
+      "assuntos": [
+        "desconto-contratual",
+        "aditivo-contratual",
+        "preco-novo",
+        "jogo-de-planilha",
+        "parcela-compensatoria"
+      ],
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "rotulo": "Desconto contratual",
+          "grupo": "TERMINOLOGIA",
+          "id": "desconto-contratual"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Preço novo",
+          "grupo": "TERMINOLOGIA",
+          "id": "preco-novo"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Parcela compensatória",
+          "grupo": "TERMINOLOGIA",
+          "id": "parcela-compensatoria"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Jogo de planilha",
+          "grupo": "TERMINOLOGIA",
+          "id": "jogo-de-planilha"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 855/2016",
+          "grupo": "ACORDAOS",
+          "id": "tcu-855-2016"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2699/2019",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2699-2019"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2440/2014",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2440-2014"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 467/2015",
+          "grupo": "ACORDAOS",
+          "id": "tcu-467-2015"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 1753/2026",
+          "grupo": "ACORDAOS",
+          "id": "tcu-1753-2026"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 211/2018",
+          "grupo": "ACORDAOS",
+          "id": "tcu-211-2018"
+        }
+      ],
+      "conteudo": "easy-mobile/artigos/o-desconto-nao-volta-atras.md",
+      "formato": "markdown",
+      "palavras": 804,
+      "publicado_em": "2026-10-24",
+      "pdf": "easy-mobile/artigos/o-desconto-nao-volta-atras.pdf",
+      "pdf_bytes": 291608
+    },
+    {
+      "id": "quando-se-pode-adaptar-a-composicao-de-referencia",
+      "titulo": "Quando se pode adaptar a composição de referência",
+      "chamada": "Adaptar composição de sistema oficial é legítimo, previsto e às vezes obrigatório. O que muda o regime jurídico é a direção em que o custo anda.",
+      "assuntos": [
+        "composicao-de-custo-unitario",
+        "custo-de-referencia",
+        "sinapi",
+        "sicro",
+        "criterio-de-aceitabilidade-de-preco"
+      ],
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "rotulo": "Composição de custo unitário",
+          "grupo": "TERMINOLOGIA",
+          "id": "composicao-de-custo-unitario"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Custo de referência",
+          "grupo": "TERMINOLOGIA",
+          "id": "custo-de-referencia"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "SINAPI",
+          "grupo": "TERMINOLOGIA",
+          "id": "sinapi"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "SICRO",
+          "grupo": "TERMINOLOGIA",
+          "id": "sicro"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Anotação de responsabilidade técnica",
+          "grupo": "TERMINOLOGIA",
+          "id": "anotacao-de-responsabilidade-tecnica"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 619/2024",
+          "grupo": "ACORDAOS",
+          "id": "tcu-619-2024"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2311/2022",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2311-2022"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 3062/2019",
+          "grupo": "ACORDAOS",
+          "id": "tcu-3062-2019"
+        }
+      ],
+      "conteudo": "easy-mobile/artigos/quando-se-pode-adaptar-a-composicao-de-referencia.md",
+      "formato": "markdown",
+      "palavras": 1104,
+      "publicado_em": "2026-10-24",
+      "pdf": "easy-mobile/artigos/quando-se-pode-adaptar-a-composicao-de-referencia.pdf",
+      "pdf_bytes": 308548
+    },
+    {
+      "id": "horista-para-mensalista-o-que-a-conversao-preserva",
+      "titulo": "Horista para mensalista: o que a conversão preserva",
+      "chamada": "A conversão de regime derruba o custo da composição em 8,4%. Nenhum centavo disso sai da remuneração do trabalho, e dá para provar até a quinta casa.",
+      "assuntos": [
+        "mensalista",
+        "horista",
+        "encargos-sociais",
+        "composicao-de-custo-unitario",
+        "coeficiente"
+      ],
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "rotulo": "Horista",
+          "grupo": "TERMINOLOGIA",
+          "id": "horista"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Mensalista",
+          "grupo": "TERMINOLOGIA",
+          "id": "mensalista"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Encargos sociais",
+          "grupo": "TERMINOLOGIA",
+          "id": "encargos-sociais"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Leis sociais",
+          "grupo": "TERMINOLOGIA",
+          "id": "leis-sociais"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Coeficiente",
+          "grupo": "TERMINOLOGIA",
+          "id": "coeficiente"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Produtividade",
+          "grupo": "TERMINOLOGIA",
+          "id": "produtividade"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 619/2024",
+          "grupo": "ACORDAOS",
+          "id": "tcu-619-2024"
+        }
+      ],
+      "conteudo": "easy-mobile/artigos/horista-para-mensalista-o-que-a-conversao-preserva.md",
+      "formato": "markdown",
+      "palavras": 2900,
+      "publicado_em": "2026-10-24",
+      "pdf": "easy-mobile/artigos/horista-para-mensalista-o-que-a-conversao-preserva.pdf",
+      "pdf_bytes": 519064
+    },
+    {
+      "id": "onerado-ou-desonerado-a-conta-ano-a-ano",
+      "titulo": "Onerado ou desonerado: a conta, ano a ano, em um metro de alvenaria",
+      "chamada": "A reoneração não foi aumento de preço, foi transferência: o que saiu do BDI entrou nas leis sociais. Medimos o saldo em um metro de alvenaria, com preços congelados.",
+      "assuntos": [
+        "regime-desonerado",
+        "regime-nao-desonerado",
+        "desoneracao-da-folha",
+        "encargos-sociais",
+        "bdi"
+      ],
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "rotulo": "Regime desonerado",
+          "grupo": "TERMINOLOGIA",
+          "id": "regime-desonerado"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Regime não desonerado",
+          "grupo": "TERMINOLOGIA",
+          "id": "regime-nao-desonerado"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Desoneração da folha",
+          "grupo": "TERMINOLOGIA",
+          "id": "desoneracao-da-folha"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Leis sociais",
+          "grupo": "TERMINOLOGIA",
+          "id": "leis-sociais"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "BDI",
+          "grupo": "TERMINOLOGIA",
+          "id": "bdi"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2622/2013",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2622-2013"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2293/2013",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2293-2013"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2341/2020",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2341-2020"
+        }
+      ],
+      "conteudo": "easy-mobile/artigos/onerado-ou-desonerado-a-conta-ano-a-ano.md",
+      "formato": "markdown",
+      "palavras": 4059,
+      "publicado_em": "2026-10-24",
+      "pdf": "easy-mobile/artigos/onerado-ou-desonerado-a-conta-ano-a-ano.pdf",
+      "pdf_bytes": 613305
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "gerado_em": "2026-09-20T19:03:05Z",
+  "gerado_em": "2026-10-24T15:03:59Z",
   "itens": [
     {
       "grupo": "NEWSLETTER",
@@ -13,11 +13,11 @@
     },
     {
       "grupo": "ARTIGOS",
-      "id": "fases-de-projeto-e-a-precisao-orcamentaria",
-      "titulo": "Fases de projeto e a precisão orçamentária correspondente",
-      "chamada": "Estudo preliminar, anteprojeto, projeto básico e executivo. Cada fase sustenta um tipo de estimativa.",
-      "publicado_em": "2026-09-20",
-      "destino": "easy-mobile/artigos/fases-de-projeto-e-a-precisao-orcamentaria.md",
+      "id": "as-seis-grandezas-do-orcamento-de-referencia",
+      "titulo": "As seis grandezas do orçamento de referência",
+      "chamada": "Custo unitário, custo global, preço global e valor do contrato são seis números com nome legal. Trocar um pelo outro é a origem de metade das discussões de sobrepreço.",
+      "publicado_em": "2026-10-24",
+      "destino": "easy-mobile/artigos/as-seis-grandezas-do-orcamento-de-referencia.md",
       "formato": "md"
     },
     {
