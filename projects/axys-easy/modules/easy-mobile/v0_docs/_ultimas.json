@@ -1,5 +1,5 @@
 {
-  "gerado_em": "2026-10-24T15:03:59Z",
+  "gerado_em": "2026-10-24T18:20:00Z",
   "itens": [
     {
       "grupo": "NEWSLETTER",
@@ -32,11 +32,11 @@
     },
     {
       "grupo": "CASOS",
-      "id": "aditivo-em-planilha-separada",
-      "titulo": "Aditivo controlado em planilha separada",
-      "chamada": "Separar pode facilitar a montagem, mas não pode romper a visão consolidada do contrato.",
-      "publicado_em": "2026-08-22",
-      "destino": "easy-mobile/casos/aditivo-em-planilha-separada/conteudo.json",
+      "id": "parcelas-de-maior-relevancia-no-edital",
+      "titulo": "Quais serviços entram na exigência de atestado",
+      "chamada": "A lista de atestados do edital sai da curva ABC, não da impressão de quem redige: valor individual igual ou superior a 4% do total estimado.",
+      "publicado_em": "2026-10-24",
+      "destino": "easy-mobile/casos/parcelas-de-maior-relevancia-no-edital/conteudo.json",
       "formato": "json"
     },
     {

@@ -1,0 +1,42 @@
+{
+  "id": "parcelas-de-maior-relevancia-no-edital",
+  "titulo": "Quais serviços entram na exigência de atestado",
+  "publicado_em": "2026-10-24",
+  "situacao_md": "O edital de uma obra de R$ 40 milhões pede atestado para catorze serviços, entre eles pintura, impermeabilização e instalação de bancadas. O setor técnico montou a lista pelo que considera \"importante na obra\", sem olhar o peso de cada item no orçamento. Duas construtoras impugnam alegando restrição à competitividade.",
+  "resposta_curta": "A exigência tem de se restringir às parcelas de maior relevância ou de valor significativo, e quem as identifica é a planilha orçamentária, não a impressão de quem redige o edital.",
+  "condicionantes": [
+    "Curva ABC do orçamento",
+    "Corte de 4% do valor estimado",
+    "Relevância técnica",
+    "Quantidade mínima exigida",
+    "Somatório de atestados",
+    "Justificativa no processo"
+  ],
+  "verificar": [
+    "Cada serviço da lista tem valor individual igual ou superior a 4% do total estimado?",
+    "Se não tem, qual é a relevância técnica que o justifica, e ela está escrita no processo?",
+    "A quantidade mínima exigida respeita o teto de 50% da parcela?",
+    "O edital permite somatório de atestados, ou exige atestado único com justificativa?",
+    "Há limitação de prazo de validade ou de local de execução no texto?",
+    "A lista foi extraída da curva ABC ou montada por impressão?"
+  ],
+  "fundamento_md": "A exigência de atestados deve restringir-se às parcelas de maior relevância ou de valor significativo do objeto. São consideradas de valor significativo as parcelas com valor individual igual ou superior a 4% do valor total estimado da contratação. Sob a Lei 14.133/2021 os dois critérios deixaram de ser cumulativos: basta relevância **ou** valor, enquanto a lei anterior exigia os dois ao mesmo tempo.\n\nÉ admitida a exigência de quantidades mínimas de até 50% dessas parcelas, e são vedadas limitações de tempo e de locais específicos. Quando o atestado único não for imprescindível, o somatório tem de ser permitido, para ampliar a competição.",
+  "procedimento": [
+    "Montar a curva ABC do orçamento estimado, por valor total de cada serviço.",
+    "Marcar os itens com valor individual igual ou superior a 4% do total.",
+    "Acrescentar, se for o caso, itens de relevância técnica abaixo desse corte, com justificativa escrita.",
+    "Fixar a quantidade mínima de cada exigência dentro do teto de 50% da parcela.",
+    "Prever o somatório de atestados, salvo justificativa específica para o atestado único.",
+    "Juntar ao processo a curva ABC e a memória da seleção, não apenas a lista final."
+  ],
+  "riscos_md": "Lista montada por impressão costuma pecar nos dois sentidos. Para cima, incluindo serviços de peso pequeno que afunilam a competição sem proteger nada, que é a origem da maior parte das impugnações. Para baixo, deixando de fora o serviço que de fato carrega a obra, e aí o edital habilita quem nunca o executou.\n\nO corte de 4% é objetivo e verificável: exigência acima dele se defende com a planilha; abaixo dele, só com relevância técnica demonstrada no processo. Lista sem memória de cálculo é o que não se sustenta em impugnação nem em auditoria.",
+  "referencias": [
+    {"tipo": "publicacao", "rotulo": "Parcela de maior relevância", "grupo": "TERMINOLOGIA", "id": "parcela-de-maior-relevancia"},
+    {"tipo": "publicacao", "rotulo": "Atestado de capacidade técnica", "grupo": "TERMINOLOGIA", "id": "atestado-de-capacidade-tecnica"},
+    {"tipo": "publicacao", "rotulo": "Habilitação técnica", "grupo": "TERMINOLOGIA", "id": "habilitacao-tecnica"},
+    {"tipo": "publicacao", "rotulo": "Curva ABC", "grupo": "TERMINOLOGIA", "id": "curva-abc"},
+    {"tipo": "url", "rotulo": "Lei 14.133/2021", "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"},
+    {"tipo": "url", "rotulo": "Manual de Licitações e Contratos do TCU · habilitação técnica", "url": "https://licitacoesecontratos.tcu.gov.br/5-5-2-habilitacao-tecnica/"}
+  ],
+  "assuntos": ["parcela-de-maior-relevancia", "atestado-de-capacidade-tecnica", "habilitacao-tecnica", "curva-abc", "edital"]
+}

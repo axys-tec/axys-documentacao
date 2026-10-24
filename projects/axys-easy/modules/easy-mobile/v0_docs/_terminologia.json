@@ -3,6 +3,31 @@
   "gerado_em": "2026-08-22T02:00:00Z",
   "itens": [
     {
+      "id": "acervo-tecnico",
+      "termo": "Acervo técnico",
+      "expansao": null,
+      "conceito_md": "Registro, no conselho profissional, das obras e serviços executados sob responsabilidade técnica de um profissional.",
+      "funcao_pratica_md": "É o lastro da qualificação técnico-profissional, e se constrói com anotação de responsabilidade técnica obra a obra. Acervo que não foi anotado na época não se recupera depois.",
+      "distincoes": [
+        {
+          "termo": "Atestado de capacidade técnica",
+          "diferenca_md": "O acervo acompanha o profissional pela carreira. O atestado é emitido por quem contratou, para um objeto determinado."
+        }
+      ],
+      "ver_tambem": [
+        "anotacao-de-responsabilidade-tecnica",
+        "atestado-de-capacidade-tecnica",
+        "qualificacao-tecnico-profissional"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Manual de Licitações e Contratos do TCU · habilitação técnica",
+          "url": "https://licitacoesecontratos.tcu.gov.br/5-5-2-habilitacao-tecnica/"
+        }
+      ]
+    },
+    {
       "id": "acordao",
       "termo": "Acórdão",
       "expansao": null,
@@ -203,6 +228,37 @@
         "bdi"
       ],
       "referencias": []
+    },
+    {
+      "id": "atestado-de-capacidade-tecnica",
+      "termo": "Atestado de capacidade técnica",
+      "expansao": null,
+      "conceito_md": "Documento que comprova a execução anterior de obra ou serviço com as características exigidas no edital.",
+      "funcao_pratica_md": "A exigência se restringe às parcelas de maior relevância ou de valor significativo, e admite quantidade mínima de até 50% dessas parcelas. São vedadas limitações de tempo e de locais específicos. Quando o atestado único não for imprescindível, o somatório de atestados tem de ser permitido, para ampliar a competição.",
+      "distincoes": [
+        {
+          "termo": "Acervo técnico",
+          "diferenca_md": "O acervo é o histórico registrado no conselho. O atestado é a prova pontual que se junta ao processo."
+        }
+      ],
+      "ver_tambem": [
+        "acervo-tecnico",
+        "parcela-de-maior-relevancia",
+        "habilitacao-tecnica",
+        "qualificacao-tecnico-operacional"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        },
+        {
+          "tipo": "url",
+          "rotulo": "Manual de Licitações e Contratos do TCU · habilitação técnica",
+          "url": "https://licitacoesecontratos.tcu.gov.br/5-5-2-habilitacao-tecnica/"
+        }
+      ]
     },
     {
       "id": "atraso",
@@ -975,6 +1031,37 @@
       "referencias": []
     },
     {
+      "id": "habilitacao-tecnica",
+      "termo": "Habilitação técnica",
+      "expansao": null,
+      "conceito_md": "Conjunto de exigências do edital destinadas a comprovar que o licitante tem qualificação técnica para executar o objeto.",
+      "funcao_pratica_md": "Em obras e serviços de engenharia comprova-se por atestado, e não por prova alternativa de experiência. Habilitar não é julgar proposta: são fases com finalidade e documento próprios.",
+      "distincoes": [
+        {
+          "termo": "Critério de aceitabilidade de preço",
+          "diferenca_md": "A habilitação examina quem pode disputar. O critério de aceitabilidade examina o preço de quem já está disputando."
+        }
+      ],
+      "ver_tambem": [
+        "qualificacao-tecnico-operacional",
+        "qualificacao-tecnico-profissional",
+        "atestado-de-capacidade-tecnica",
+        "edital"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        },
+        {
+          "tipo": "url",
+          "rotulo": "Manual de Licitações e Contratos do TCU · habilitação técnica",
+          "url": "https://licitacoesecontratos.tcu.gov.br/5-5-2-habilitacao-tecnica/"
+        }
+      ]
+    },
+    {
       "id": "hora-improdutiva",
       "termo": "Hora improdutiva",
       "expansao": "HI",
@@ -1487,6 +1574,37 @@
       "referencias": []
     },
     {
+      "id": "parcela-de-maior-relevancia",
+      "termo": "Parcela de maior relevância",
+      "expansao": null,
+      "conceito_md": "Item do objeto sobre o qual o edital pode fixar exigência de habilitação técnica, por sua relevância técnica ou por seu valor.",
+      "funcao_pratica_md": "São consideradas de valor significativo as parcelas com valor individual igual ou superior a 4% do valor total estimado da contratação. Quem as identifica é o orçamento: a curva ABC mostra quais itens cruzam esse corte, e é por isso que a planilha decide, na prática, quem pode disputar.",
+      "distincoes": [
+        {
+          "termo": "Curva ABC",
+          "diferenca_md": "A curva ordena todos os itens por peso financeiro. A parcela de maior relevância é o recorte dessa curva que vira exigência no edital."
+        }
+      ],
+      "ver_tambem": [
+        "curva-abc",
+        "atestado-de-capacidade-tecnica",
+        "habilitacao-tecnica",
+        "planilha-orcamentaria"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        },
+        {
+          "tipo": "url",
+          "rotulo": "Manual de Licitações e Contratos do TCU · habilitação técnica",
+          "url": "https://licitacoesecontratos.tcu.gov.br/5-5-2-habilitacao-tecnica/"
+        }
+      ]
+    },
+    {
       "id": "pesquisa-de-precos",
       "termo": "Pesquisa de preços",
       "expansao": null,
@@ -1739,6 +1857,67 @@
           "tipo": "url",
           "rotulo": "Decreto 7.983/2013",
           "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/decreto/d7983.htm"
+        }
+      ]
+    },
+    {
+      "id": "qualificacao-tecnico-operacional",
+      "termo": "Qualificação técnico-operacional",
+      "expansao": null,
+      "conceito_md": "Comprovação de que a empresa já executou, de modo satisfatório, atividades similares de complexidade tecnológica e operacional equivalente ou superior à do objeto.",
+      "funcao_pratica_md": "Olha a empresa. Comprova-se por registro no conselho profissional e por atestados que demonstrem experiência em características, quantidades e prazos, além da indicação de pessoal técnico, instalações e aparelhamento. As duas qualificações podem ser exigidas cumulativamente.",
+      "distincoes": [
+        {
+          "termo": "Qualificação técnico-profissional",
+          "diferenca_md": "A operacional é da pessoa jurídica. A profissional é do responsável técnico que ela apresenta."
+        }
+      ],
+      "ver_tambem": [
+        "qualificacao-tecnico-profissional",
+        "atestado-de-capacidade-tecnica",
+        "habilitacao-tecnica"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        },
+        {
+          "tipo": "url",
+          "rotulo": "Manual de Licitações e Contratos do TCU · habilitação técnica",
+          "url": "https://licitacoesecontratos.tcu.gov.br/5-5-2-habilitacao-tecnica/"
+        }
+      ]
+    },
+    {
+      "id": "qualificacao-tecnico-profissional",
+      "termo": "Qualificação técnico-profissional",
+      "expansao": null,
+      "conceito_md": "Comprovação de que o licitante tem vinculado a si profissional com o conhecimento e a experiência necessários ao objeto, atestados por responsabilidade técnica em obra ou serviço de características semelhantes.",
+      "funcao_pratica_md": "Olha a pessoa, não a empresa. Não exige vínculo empregatício: contrato de prestação de serviços, vínculo societário ou declaração de contratação futura com anuência do profissional atendem. Trocar o profissional depois exige aprovação da Administração e experiência equivalente ou superior.",
+      "distincoes": [
+        {
+          "termo": "Qualificação técnico-operacional",
+          "diferenca_md": "A profissional é do engenheiro, e se comprova por acervo. A operacional é da empresa, e se comprova por obra que ela executou."
+        }
+      ],
+      "ver_tambem": [
+        "qualificacao-tecnico-operacional",
+        "acervo-tecnico",
+        "anotacao-de-responsabilidade-tecnica",
+        "habilitacao-tecnica"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "Lei 14.133/2021",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+        },
+        {
+          "tipo": "url",
+          "rotulo": "Manual de Licitações e Contratos do TCU · habilitação técnica",
+          "url": "https://licitacoesecontratos.tcu.gov.br/5-5-2-habilitacao-tecnica/"
         }
       ]
     },

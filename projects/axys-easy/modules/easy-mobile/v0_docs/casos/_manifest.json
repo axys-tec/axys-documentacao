@@ -194,6 +194,20 @@
       ],
       "conteudo": "easy-mobile/casos/retencao-na-ultima-medicao/conteudo.json",
       "publicado_em": "2026-08-22"
+    },
+    {
+      "id": "parcelas-de-maior-relevancia-no-edital",
+      "titulo": "Quais serviços entram na exigência de atestado",
+      "chamada": "A lista de atestados do edital sai da curva ABC, não da impressão de quem redige: valor individual igual ou superior a 4% do total estimado.",
+      "assuntos": [
+        "parcela-de-maior-relevancia",
+        "atestado-de-capacidade-tecnica",
+        "habilitacao-tecnica",
+        "curva-abc",
+        "edital"
+      ],
+      "conteudo": "easy-mobile/casos/parcelas-de-maior-relevancia-no-edital/conteudo.json",
+      "publicado_em": "2026-10-24"
     }
   ]
 }

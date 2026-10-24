@@ -1177,6 +1177,74 @@
       "publicado_em": "2026-10-24",
       "pdf": "easy-mobile/artigos/onerado-ou-desonerado-a-conta-ano-a-ano.pdf",
       "pdf_bytes": 613305
+    },
+    {
+      "id": "a-planilha-decide-quem-pode-disputar",
+      "titulo": "A planilha decide quem pode disputar",
+      "chamada": "A lista de serviços que exigem atestado define quem consegue se habilitar, e ela sai da curva ABC: valor individual igual ou superior a 4% do total estimado.",
+      "assuntos": [
+        "parcela-de-maior-relevancia",
+        "habilitacao-tecnica",
+        "atestado-de-capacidade-tecnica",
+        "curva-abc",
+        "edital"
+      ],
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "rotulo": "Parcela de maior relevância",
+          "grupo": "TERMINOLOGIA",
+          "id": "parcela-de-maior-relevancia"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Atestado de capacidade técnica",
+          "grupo": "TERMINOLOGIA",
+          "id": "atestado-de-capacidade-tecnica"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Habilitação técnica",
+          "grupo": "TERMINOLOGIA",
+          "id": "habilitacao-tecnica"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Qualificação técnico-profissional",
+          "grupo": "TERMINOLOGIA",
+          "id": "qualificacao-tecnico-profissional"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Qualificação técnico-operacional",
+          "grupo": "TERMINOLOGIA",
+          "id": "qualificacao-tecnico-operacional"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acervo técnico",
+          "grupo": "TERMINOLOGIA",
+          "id": "acervo-tecnico"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Curva ABC",
+          "grupo": "TERMINOLOGIA",
+          "id": "curva-abc"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Quais serviços entram na exigência de atestado",
+          "grupo": "CASOS",
+          "id": "parcelas-de-maior-relevancia-no-edital"
+        }
+      ],
+      "conteudo": "easy-mobile/artigos/a-planilha-decide-quem-pode-disputar.md",
+      "formato": "markdown",
+      "palavras": 870,
+      "publicado_em": "2026-10-24",
+      "pdf": "easy-mobile/artigos/a-planilha-decide-quem-pode-disputar.pdf",
+      "pdf_bytes": 327798
     }
   ]
 }
