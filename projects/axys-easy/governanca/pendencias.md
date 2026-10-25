@@ -79,12 +79,25 @@ Referência: [../modules/catalogo/AXYS_CATALOGO_COLABORATIVO_v0.md](../modules/c
 >    Quem muda as LINHAS é rotação de regime e conversão de MDO/insumo — e é esse o gate que
 >    mantém o custo zero em orçamento sem conversão.
 
-- [ ] **Caderno de Encargos reflete a composição ADAPTADA da bancada.** A CTA/CTC (descritivo)
+- [x] **Caderno de Encargos reflete a composição ADAPTADA da bancada.** A CTA/CTC (descritivo)
   em si não muda, mas a **composição dela** muda quando o item, na bancada, sofreu **rotação de
   regime** (mensalista↔horista, badge REG) ou **conversão de MDO/insumo** (`converter_mdo`/
   `converter_ins`). Nesses casos o Caderno deve refletir **o que está na BANCADA** (composição
   adaptada), não a CTC crua do R2. **Escopo (rigor):** aplica-se SÓ ao caderno sobre o que está
   na bancada — **NÃO** afeta os cadernos técnicos das EDIÇÕES do catálogo (esses seguem a fonte).
+
+  **Fechado em 25/10/2026, por outro caminho que não o patch congelado.** Depois do refactor de
+  persistência, o caderno lê a composição GRAVADA (`captura_estado.arvore_do_estado`), sem
+  fallback para a CTC. Três arestas foram fechadas nesse dia:
+  1. no AGRUPADO a rota passava `atv_id=0`, e a composição saía vazia em todos os serviços;
+  2. o mesmo serviço em duas obras com receitas diferentes se fundia na receita da primeira. Agora
+     só se funde quando a composição gravada e o descritivo do orçamento são iguais; divergindo,
+     sai uma entrada por variante com "Composição adotada em: <obra>";
+  3. as auxiliares saíam com a receita crua da CTC (e a própria era buscada no catálogo). Agora
+     saem com o texto da origem da sub e a receita do estado.
+
+  Prova em dev: nos 23 ativos o isolado sai com os serviços idênticos aos de antes; nos 6
+  empreendimentos multi-obra, aplicações e quantidades do agrupado somam exatamente o isolado.
 - [ ] **Composição própria sem descritivo bloqueia o Caderno de Encargos.** Composições próprias,
   ao serem criadas, não carregam descritivo (CTC) → não entram no caderno. Resolver: ou o
   descritivo passa a fazer parte da composição própria na criação, ou abre-se um campo para o
