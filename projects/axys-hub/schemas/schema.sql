@@ -131,6 +131,9 @@ CREATE TABLE IF NOT EXISTS identity.hub_user (
 );
 
 CREATE INDEX IF NOT EXISTS idx_hub_user_email ON identity.hub_user (lower(email));
+CREATE UNIQUE INDEX IF NOT EXISTS uq_hub_user_phone_normalized
+    ON identity.hub_user ((regexp_replace(phone, '\D', '', 'g')))
+    WHERE phone IS NOT NULL AND regexp_replace(phone, '\D', '', 'g') <> '';
 
 -- ------------------------------------------------------------
 -- identity.hub_tenant
