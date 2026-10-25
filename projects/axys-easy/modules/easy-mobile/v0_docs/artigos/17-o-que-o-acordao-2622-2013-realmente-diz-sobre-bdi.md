@@ -118,6 +118,8 @@ BDI = (1 + AC + S + R) × (1 + DF) × (1 + L) / (1 - I) - 1
 
 Os tributos entram no **denominador**, e é por isso que cada ponto de tributo custa mais de um ponto de BDI: o percentual precisa cobrir o próprio tributo que incide sobre ele.
 
+Para experimentar a conta com as suas premissas, há o [simulador de BDI](https://www.axys-tec.com.br/knowledge/ferramentas/simulador-bdi), que preenche a composição de referência por tipologia e quartil e recalcula em tempo real.
+
 Estar dentro da faixa não valida um BDI mal composto, e estar fora não o invalida. O que valida é a memória de cálculo.
 
 ## Os tributos, um a um
@@ -150,7 +152,7 @@ BDI e leis sociais parecem assuntos separados e não são, e a desoneração é 
 
 No regime desonerado, a contribuição patronal sai da folha, o que **reduz** a taxa de leis sociais e o custo direto, e entra como CPRB no BDI, que **aumenta** o percentual. As duas pontas andam em sentidos opostos, e só o preço final responde qual compensa.
 
-Com a reoneração em curso, essa resposta muda a cada exercício. Quem quiser a demonstração com números tem um artigo próprio nesta base, medindo o efeito em um metro quadrado de alvenaria com os preços congelados.
+Com a reoneração em curso, essa resposta muda a cada exercício. A demonstração com números está no caso [Comparação entre orçamento onerado e desonerado](https://www.axys-tec.com.br/knowledge/casos/comparacao-orcamento-onerado-desonerado), que mede o efeito em um metro quadrado de alvenaria com os preços congelados.
 
 ## Materiais e equipamentos: o BDI reduzido
 
@@ -186,6 +188,12 @@ Três ressalvas, e elas importam mais do que as tabelas.
 **É referencial, não normativo.** O acórdão orienta e parametriza. Ele não cria alíquota nem fixa teto.
 
 **A tipologia importa.** Aplicar faixa de edifícios a obra portuária, ou de obra a fornecimento, produz comparação sem sentido, e é a origem de boa parte dos apontamentos indevidos.
+
+## Para continuar
+
+O tema reúne o que escrevemos sobre [BDI e encargos](https://www.axys-tec.com.br/knowledge/temas/bdi-e-encargos), e o acórdão aparece citado em boa parte do material de [orçamento de obras](https://www.axys-tec.com.br/knowledge/temas/orcamento-de-obras).
+
+A íntegra do 2622/2013 e as publicações do TCU e do IBRAOP que tratam de BDI estão na [Central de Downloads](https://www.axys-tec.com.br/knowledge/downloads).
 
 No [Easy Orça™](https://www.axys-tec.com.br/easy-orca) a composição do BDI é por classe dentro do empreendimento, de modo que obra e fornecimento convivem com percentuais próprios, cada um com sua memória, sem planilha paralela.
 
