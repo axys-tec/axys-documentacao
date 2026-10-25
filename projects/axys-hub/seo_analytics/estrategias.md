@@ -342,7 +342,7 @@ Primeiro lote, agora ordenado por oportunidade observada no Search Console e por
 - ~~comparação entre orçamento onerado e desonerado~~ — concluída em 24/10/2026;
 - truncar ou arredondar — implementação inicial concluída em 24/10/2026, aguardando revisão visual;
 - ~~orientações para elaboração de planilhas orçamentárias~~ — página editorial do download concluída em 24/10/2026;
-- Acórdão TCU 2622/2013;
+- ~~Acórdão TCU 2622/2013~~ — concluído via artigo em 24/10/2026;
 - administração local;
 - mobilização e desmobilização;
 - ~~material IBRAOP OT-005 sobre sobrepreço e superfaturamento~~ — página editorial do download concluída em 24/10/2026;
@@ -775,7 +775,7 @@ guias técnicos e análises de decisões relevantes.
 
 1. Baixar o novo pacote do Search Console.
 2. Publicar ou revisar a página nacional “sistema para orçamento de obras”.
-3. Enriquecer o primeiro lote de acórdãos e o material IBRAOP.
+3. Enriquecer os acórdãos restantes do primeiro lote; o Acórdão TCU 2622/2013 foi concluído via artigo.
 4. Implementar links entre conteúdo, hub, solução e produto.
 5. Corrigir `dwell_ms` e parametrizar as campanhas.
 6. Medir por 28 dias antes de escalar o catálogo editorial.
@@ -783,4 +783,21 @@ guias técnicos e análises de decisões relevantes.
 A recomendação vigente é começar pela lacuna comercial de “sistema para orçamento de obras” e,
 simultaneamente, usar as páginas técnicas que já recebem Google para transferir autoridade e usuários
 ao Easy Orça. Páginas estaduais entram somente depois de a estrutura nacional demonstrar resultado.
+
+## Fila editorial prioritária — reforma tributária
+
+A série sobre Reforma Tributária do Consumo, BDI, CPUs, Leis Sociais, CPRB e
+reequilíbrio foi estruturada em
+`projects/axys-hub/seo_analytics/editorial/pautas_prioritarias_reforma_tributaria.md`.
+Ela passa a ser a referência para a produção desses conteúdos pelo Easy e sua
+posterior publicação no R2. O Hub permanece apenas como consumidor e
+renderizador.
+
+A sequência começa por “imposto por dentro × por fora”, avança para BDI sobre
+custo líquido e depois cobre a transição 2026–2033, adaptação de CPUs, Leis
+Sociais/CPRB, Simples Nacional, reequilíbrio e regimes específicos da construção
+civil. A exclusão do ISS da base do PIS/Cofins fica em pauta separada: o mérito
+do Tema 118 foi julgado favoravelmente ao contribuinte em 21/10/2026, enquanto
+a modulação dos efeitos permanece pendente. A prescrição quinquenal é a regra
+geral de pretensão até que eventual modulação delimite seu alcance.
 
