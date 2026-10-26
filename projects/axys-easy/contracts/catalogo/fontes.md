@@ -15,7 +15,7 @@
 
 | Campo | Regra |
 |---|---|
-| `fte_codigo` | Único, não vazio, **maiúsculas**. **Imutável após criação** — chave operacional usada por parser/import/integrações. Troca de código = operação administrativa controlada, não edição comum. |
+| `fte_codigo` | Único, não vazio, **maiúsculas**. **Imutável** — é o identificador da fonte (guarda por gatilho no banco). Renomear não existe: nome novo = fonte nova ([identidade_fonte.md](identidade_fonte.md) §2). |
 | `fte_nome` | Não vazio, **maiúsculas**. Editável. |
 | `fte_ordem_edicao` | `DATA` (recente = maior `edi_mes_ref`) ou `VERSAO` (recente = maior `edi_codigo_versao`, ex.: CDHU `'201'`). |
 | `fte_ativa` | Liga/desliga a fonte na operação. Default `TRUE`. |

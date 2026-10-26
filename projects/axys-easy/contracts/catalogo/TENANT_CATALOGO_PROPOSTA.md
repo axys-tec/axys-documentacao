@@ -6,6 +6,11 @@
 > sem conferência, sem cadernos, sem equivalências. **L.S. mínima** (1 número por edição, só p/ MO).
 > Multi-tenant, escala → **poucas tabelas, isolamento na raiz.**
 
+> **Superado em parte (26/10/2026) por [identidade_fonte.md](identidade_fonte.md) §3:** o tenant não tem
+> mais EDIÇÃO nem L.S. própria — fonte do tenant é só rótulo; o preço é datado por mês; a MO leva a
+> L.S. da bancada; o custo da composição é calculado, sem cache por edição. Valem ali: §0.4-0.6, §1
+> (linhas `edicoes`, `insumos_preco`, `composicoes_custo`), §2 e §8.4, 8.7, 8.8.
+
 ---
 
 ## 0. Princípios (cravados)

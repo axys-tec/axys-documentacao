@@ -414,6 +414,23 @@ SELECT setval(
     true
 );
 
+-- O CÓDIGO DA FONTE É O IDENTIFICADOR, e não muda (contracts/catalogo/identidade_fonte.md §2).
+-- Renomear não existe: nome novo = fonte nova. A guarda é do banco para não depender de alguém
+-- lembrar — o form já trava o campo, mas um POST direto o trocaria. Compara OLD × NEW porque o
+-- `UPDATE OF` dispara sempre que a coluna está no SET, mesmo com o valor igual.
+CREATE OR REPLACE FUNCTION catalogo.trg_fte_codigo_imutavel() RETURNS trigger AS $$
+BEGIN
+    RAISE EXCEPTION 'O código da fonte é imutável (% -> %). Nome novo = fonte nova (identidade_fonte.md §2).',
+        OLD.fte_codigo, NEW.fte_codigo;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS t_fte_codigo_imutavel ON catalogo.fontes;
+CREATE TRIGGER t_fte_codigo_imutavel
+    BEFORE UPDATE OF fte_codigo ON catalogo.fontes
+    FOR EACH ROW WHEN (OLD.fte_codigo IS DISTINCT FROM NEW.fte_codigo)
+    EXECUTE FUNCTION catalogo.trg_fte_codigo_imutavel();
+
 
 -- ============================================================
 -- TABELA: catalogo.edicoes
