@@ -21,14 +21,18 @@ nenhuma pendência menciona desaparece em silêncio, e quem lê a pendência nã
 ## ⚠ SUBIDA DO BUG 2 PARA PROD — identidade da fonte (2026-10-26)
 
 Tudo pronto e provado em dev (contrato `identidade_fonte.md`). Em prod, **com OK do Renan**, nesta
-ordem — as quatro migrations são aditivas e idempotentes, e podem rodar antes do deploy:
+ordem. Três migrations são aditivas; a `tenant_edicao_minima` **não é** — funde edições e tira coluna:
+o código antigo quebra depois dela e o novo quebra sem ela. Ela vai **colada no deploy**, numa janela
+curta, sem job rodando (deploy mata job).
 
-- [ ] `2026-10-26_fonte_codigo_imutavel.sql` (gatilho do código da fonte)
-- [ ] `2026-10-26_tenant_edicao_minima.sql` (edição do tenant = mês; PRÓPRIA por origem; flag de último preço)
-- [ ] `2026-10-26_insumo_data_base.sql` (data-base do preço de cada insumo)
-- [ ] `2026-10-26_fonte_perfil_bdi.sql` (perfil de arredondamento e preço com BDI como atributo)
-- [ ] `recalcular_custos_proprios.py --prod`, depois `preencher_data_base_insumos.py --prod`
-- [ ] `schema_fiel.py --prod` FIEL; push e deploy manual (autoDeploy está off)
+- [ ] **Ensaio** (`z_scripts_apoio/publicacao/ensaio_migrations.py --prod`): as quatro em prod numa transação desfeita — prova que passam (a
+      `tenant_edicao_minima` recusa se um insumo tiver preço em duas edições que se fundiriam)
+- [ ] `git push` (autoDeploy off: não dispara deploy); conferir que o Blueprint sincroniza no commit novo
+- [ ] aditivas, a qualquer hora: `2026-10-26_fonte_codigo_imutavel`, `2026-10-26_insumo_data_base`,
+      `2026-10-26_fonte_perfil_bdi`
+- [ ] **janela**: `2026-10-26_tenant_edicao_minima` → deploy manual dos três serviços →
+      `recalcular_custos_proprios.py --prod` → `preencher_data_base_insumos.py --prod`
+- [ ] `schema_fiel.py --prod` FIEL; abrir em prod a bancada, os Dados Próprios e Premissas
 
 Os orçamentos de homolog com CPU própria capturada pela regra antiga ficam congelados até alguém
 recalcular; ao recalcular, mudam (em dev seria Σ 76,0 mi → 60,5 mi — a maior parte é preço próprio
