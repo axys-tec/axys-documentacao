@@ -795,6 +795,7 @@ Gera um LINK (válido por 30 minutos) para o USUÁRIO anexar os arquivos das pro
 | `converter_ls` | sim/não |  |  |
 | `converter_mdo` | sim/não |  |  |
 | `converter_ins` | sim/não |  |  |
+| `ultimo_preco` | sim/não |  |  |
 
 ### InsumoEdicao
 
@@ -924,7 +925,7 @@ Gera um LINK (válido por 30 minutos) para o USUÁRIO anexar os arquivos das pro
 | `fonte` | texto | sim |  |
 | `codigo` | texto | sim |  |
 | `uf` | texto? |  |  |
-| `edicao` | texto | sim | Mês da edição da fonte (AAAA-MM) |
+| `edicao` | texto | sim | Mês da edição própria (AAAA-MM); se ainda não existe, é criada ao aplicar |
 | `valor` | número? |  | Preço informado (ou use propostas + metodo) |
 | `propostas` | lista de Proposta? |  |  |
 | `metodo` | MENOR | MEDIA | MEDIANA | MIN_MED_MEDIANA |  |  |

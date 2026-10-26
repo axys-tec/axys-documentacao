@@ -2,7 +2,7 @@
 
 > **Status:** proposto 26/10/2026 (Renan) — governa toda decisão da app que dependa de "qual fonte é
 > esta". Supera, no que conflitar: [fontes.md](fontes.md) §1-2 (troca de código) e
-> [TENANT_CATALOGO_PROPOSTA.md](TENANT_CATALOGO_PROPOSTA.md) §0.4-0.6, §1 (edições), §2 e §8.4/8.7/8.8.
+> [TENANT_CATALOGO_PROPOSTA.md](TENANT_CATALOGO_PROPOSTA.md) §0.6, §1 (fontes, edições), §2 (L.S.) e §8.4/8.8.
 >
 > Código e SQL que decidem por fonte referenciam este contrato no topo do arquivo.
 
@@ -41,36 +41,54 @@ composição anda com a sua ORIGEM** (catálogo × tenant). Id sem origem é def
 ## 3. Tenant
 
 1. O tenant cadastra fonte-base só como **perfumaria de nome**: `tenant_catalogo.fontes` é uma lista
-   de rótulos (ORSE, SBC, D&C…) para dar granularidade. **Sem edição, sem L.S., sem comportamento.**
-   O rótulo não decide nada.
+   de rótulos (ORSE, SBC, D&C…) para dar granularidade. **Sem edição própria, sem L.S., sem
+   comportamento.** O rótulo não decide nada. O **tipo** do rótulo (`fte_tipo` PRÓPRIA | EXTERNA) é
+   atributo e continua: é ele que alimenta as flags dos entregáveis ("detalhar próprias / externas").
 2. Insumo e composição próprios guardam o **id** do rótulo. Unicidade da composição: `(tenant,
    rótulo, código)`. A "PRÓPRIA" padrão é a fonte marcada `fte_bootstrap`, nunca procurada pelo texto.
-3. **O preço próprio é datado por mês** (`mm/aaaa`): o mês é a "edição" do preço = a data-base dele.
-   Um preço por insumo por mês. A UF continua no insumo (`ins_uf`).
+3. **Edição própria mínima: só o mês.** `tenant_catalogo.edicoes` continua, com cadastro mínimo —
+   o mês de referência (`mm/aaaa`); a descrição deriva dele, como no catálogo. A edição é **do
+   tenant** (uma série de meses para todo o catálogo próprio), não de cada rótulo. O preço do insumo
+   é por **(insumo, edição)**; a UF continua no insumo (`ins_uf`). É o mês que o usuário escolhe ao
+   cotar e ao declarar a própria no orçamento.
 4. **MÃO DE OBRA própria é cadastrada SEM ENCARGOS.** A tela diz isso sem ambiguidade ao escolher o
    tipo MÃO DE OBRA: cadastrar com encargos faz a bancada duplicá-los.
-5. O custo da composição própria é **calculado** (Σ coef × preço do filho). Fora da bancada (Dados
-   Próprios) sai **sem encargos**, rotulado assim; na bancada, a MO leva a **L.S. declarada na
-   bancada**. Não há custo armazenado por edição.
+5. **Custo da composição própria**, por edição, como no catálogo: Σ coef × preço do filho naquela
+   edição, **sem encargos** fora da bancada (rotulado assim). Filho sem preço na edição → a
+   composição fica **sem custo** naquela edição — honesto, igual ao catálogo. O custo é guardado
+   (cache) e **recalculado para todas as composições ATIVAS** quando uma edição é cadastrada ou um
+   preço muda; composição inativa não é recalculada (a tela oferece **inativar**).
+   Filho do catálogo global dentro da própria: edição mais recente da fonte dele, na UF da linha.
 6. **O que o usuário criou é dele, para sempre.** Insumo ou composição própria criada em qualquer
    lugar (cadastro, import, bancada) vai para o catálogo do tenant. Não existe "entrou no orçamento
    mas não no catálogo".
 
 ## 4. Bancada
 
-1. Na configuração de fontes do orçamento, a própria é a **ORIGEM** (rótulo PRÓPRIA), sem escolha de
-   edição. O catálogo global é escolhido por código + edição.
-2. O preço próprio que vale é o **mais recente até a data-base do orçamento**; ao capturar, a bancada
-   o congela no estado, como faz com tudo.
-3. **Cotação — vive no lugar do dono do insumo:**
+1. Na configuração de fontes do orçamento, a própria é **UMA linha**, identificada pela **ORIGEM**
+   (rótulo PRÓPRIA) — libera todas as composições próprias, de qualquer rótulo — com a escolha da
+   **edição própria** (o mês). O catálogo global é escolhido por código + edição.
+   A linha PRÓPRIA não tem UF (está no insumo), não converte L.S. (a MO própria leva sempre a L.S. do
+   ativo, na modalidade da favorita) e não pode ser favorita.
+2. **A favorita é obrigatória** e é uma fonte do catálogo global. A **data-base do orçamento** é o
+   mês da edição da favorita — derivada, não gravada.
+3. Item próprio sem preço na edição própria declarada entra **sem preço**, como no catálogo. Ao
+   capturar, a bancada congela o preço no estado, como faz com tudo.
+4. **O preço exibido dentro do ativo** (Consulta, busca da bancada) é o que o item vai ter **com a
+   configuração daquele ativo**: fonte com conversão de L.S. ligada → L.S. do ativo; desligada → a
+   L.S. da própria fonte. Não converter é escolha do usuário — um erro, talvez, mas dele: a Axys não
+   proíbe usar o preço referencial sem adequar.
+5. **Cotação — vive no lugar do dono do insumo:**
    - insumo **próprio**: só no catálogo do tenant (`pri_cotacoes`). A cotação feita na bancada grava
-     ali, no mês, e só traz o preço para a bancada;
+     na **edição própria declarada no orçamento** e só traz o preço para a bancada; se a edição já
+     tem preço, a tela pergunta se substitui. As cotações de insumo próprio já gravadas nos
+     orçamentos migram para o catálogo do tenant;
    - insumo do **catálogo global**: a bancada é o armazenamento dela mesma — cotação e ajuste ficam
      **no orçamento**. Guardar no catálogo próprio é ação explícita, na página da cotação da bancada.
-4. **Ver cotações anteriores:** botão direito no item → lista das cotações daquele insumo/serviço em
+6. **Ver cotações anteriores:** botão direito no item → lista das cotações daquele insumo/serviço em
    orçamentos anteriores do tenant → clicar expande, com **Copiar para o orçamento** e **Acessar** (a
    página da cotação).
-5. O rótulo gravado no estado do orçamento (`aoc_fonte`, `aoz_fonte`) é **retrato da época**: não
+7. O rótulo gravado no estado do orçamento (`aoc_fonte`, `aoz_fonte`) é **retrato da época**: não
    acompanha mudança posterior de nome. É exibição, nunca chave.
 
 ## 5. Edição por item (fonte derivada)
