@@ -56,7 +56,10 @@ composição anda com a sua ORIGEM** (catálogo × tenant). Id sem origem é def
 2. Insumo e composição próprios guardam o **id** do rótulo. Unicidade da composição: `(tenant,
    rótulo, código)`. A "PRÓPRIA" padrão é a fonte marcada `fte_bootstrap`, nunca procurada pelo texto.
 3. **Edição própria mínima: só o mês.** `tenant_catalogo.edicoes` continua, com cadastro mínimo —
-   o mês de referência (`mm/aaaa`); a descrição deriva dele, como no catálogo. A edição é **do
+   o mês de referência; a descrição deriva dele, normalizada como o número de edição do catálogo
+   (FDE "04-26"): a edição de 09/2026 é **"09-26"**, com hífen, em toda tela que mostra a edição
+   (declaração das fontes-base, Dados Próprios, "PRÓPRIA · 09-26" no caderno e nos exports). A
+   data-base de preço continua `mm/aaaa` (§4.6) (Renan, 26/10/2026). A edição é **do
    tenant** (uma série de meses para todo o catálogo próprio), não de cada rótulo. O preço do insumo
    é por **(insumo, edição)**; a UF continua no insumo (`ins_uf`). É o mês que o usuário escolhe ao
    cotar e ao declarar a própria no orçamento.
