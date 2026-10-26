@@ -56,8 +56,10 @@
     catálogo do tenant;
   - insumo do **catálogo global**: fica no orçamento (`azp`), como hoje; guardar no catálogo próprio
     é ação explícita da página da cotação.
-- **Ver cotações anteriores:** botão direito no item → lista das cotações daquele insumo/serviço em
-  orçamentos anteriores do tenant → clicar expande, com **Copiar para o orçamento** e **Acessar**.
+- **Data-base por insumo e "ver histórico"** (substitui o "ver cotações anteriores", 26/10): cada
+  insumo do estado guarda o mês do preço (`azp_data_base`); a Ver composição mostra a coluna em
+  mm/aaaa e, no insumo sem preço, o link "ver histórico" (edições até o mês declarado → aplicar ao
+  orçamento; [criar cotação]). Contrato §4.6.
 - **"PRÓPRIA · edição mm/aaaa"** é o que aparece no caderno, no rodapé dos exports e no MCP (D10).
 
 ### 1.4 Fonte derivada (SBC, ORSE, COMPESA) — preparar agora, construir depois
@@ -115,8 +117,10 @@ do `schema.sql`, idempotente, e roda em dev (onde tudo já existe tem de ser no-
    - entrada de item numa composição já capturada **não regrava** a árvore (`capturar(entrada=True)`):
      o item novo herda árvore e preço dos irmãos — o analítico do ativo 23 deixava de fechar;
    - orçamento só com a PRÓPRIA: sem favorita, data-base = mês da edição própria.
-   Pendente deste passo: **Ver cotações anteriores** (aguarda a forma: botão direito no serviço × seção
-   na tela do insumo).
+   - ✅ data-base por insumo + "ver histórico" na Ver composição (migration
+     `2026-10-26_insumo_data_base.sql` + `preencher_data_base_insumos.py`; aplicar provado por
+     equivalência no clone: zerar e reaplicar a edição declarada devolve linhas, 493 custos e 402
+     itens idênticos, MO inclusive).
    - **A. Schema e migração de dados.**
      - `tenant_catalogo.edicoes`: do tenant, não da fonte (`edi_fte_id` sai; unicidade
        `(tenant, mês)`); saem `edi_ls_horista_sd/cd` e `edi_codigo_versao` (descrição derivada do mês).
@@ -154,7 +158,7 @@ do `schema.sql`, idempotente, e roda em dev (onde tudo já existe tem de ser no-
      caderno "PRÓPRIA · edição mm/aaaa".
    - **D. Cotação.** Insumo próprio cotado na bancada grava no catálogo do tenant, na edição própria
      declarada (substituir com confirmação); migração das cotações já gravadas; relatório de
-     cotações lendo de um lugar só; **Ver cotações anteriores** (botão direito).
+     cotações lendo de um lugar só; ~~ver cotações anteriores~~ → "ver histórico" (§4.6).
    - **E. Import de arquivo.** PRÓPRIA sem seletor de edição na conferência (usa a edição do mês-ref);
      some o "só neste orçamento" para própria; fica para o catálogo global.
    - **F. MCP e textos.** `proprios_cadastro`, `anexos`, `proprios`, `proprios_receita`,
@@ -201,13 +205,15 @@ Além disso:
 
 ## 4. Pronto quando
 
-Os passos 1 a 8 feitos (4 em seis estágios — ✅ menos "ver cotações anteriores"), a seção 3 verde, migrations aplicadas em dev, commit e push. Então este
+Subida para prod (com OK), nesta ordem: migrations `2026-10-26_fonte_codigo_imutavel`,
+`2026-10-26_tenant_edicao_minima`, `2026-10-26_insumo_data_base`; depois
+`recalcular_custos_proprios.py --prod` e `preencher_data_base_insumos.py --prod`; push e deploy manual.
+
+Os passos 1 a 8 feitos (4 em seis estágios ✅), a seção 3 verde, migrations aplicadas em dev, commit e push. Então este
 arquivo é apagado, e o que sobrou de futuro vai para `pendencias.md`:
 - fonte derivada de verdade (parser + L.S. da MO de outra fonte) e as telas de composições, cliente e
   interna, mostrando a edição de cada item quando a fonte é multifonte;
 - correlação de fonte sucessora (no primeiro renome real);
-- no detalhe da composição na bancada: "ver últimos preços" do item e trocar (ex.: SINAPI 08/26 sem
-  preço, 05/26 com — a janela de 6 meses do TCU);
 - os orçamentos de homolog com CPU própria capturada pela regra antiga: ao recalcular, mudam (em dev,
   Σ 76,0 mi → 60,5 mi se todos fossem recalculados; a maior parte é preço próprio registrado DEPOIS do
   mês da edição). Ficam congelados até alguém recalcular.

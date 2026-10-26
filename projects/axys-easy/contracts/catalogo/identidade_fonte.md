@@ -85,9 +85,24 @@ composição anda com a sua ORIGEM** (catálogo × tenant). Id sem origem é def
      orçamentos migram para o catálogo do tenant;
    - insumo do **catálogo global**: a bancada é o armazenamento dela mesma — cotação e ajuste ficam
      **no orçamento**. Guardar no catálogo próprio é ação explícita, na página da cotação da bancada.
-6. **Ver cotações anteriores:** botão direito no item → lista das cotações daquele insumo/serviço em
-   orçamentos anteriores do tenant → clicar expande, com **Copiar para o orçamento** e **Acessar** (a
-   página da cotação).
+6. **Data-base de cada insumo** (Renan, 26/10/2026). O preço de cada insumo no estado guarda o mês
+   de quando é (`azp_data_base`, dia 1; NULL = sem preço), e a tela Ver composição e o PDF dela
+   mostram a coluna em **mm/aaaa**:
+   - catálogo: o mês da edição de onde o preço veio;
+   - próprio: o mês da edição própria de onde veio (com "último preço registrado", pode ser
+     anterior ao declarado);
+   - cotação feita na bancada de insumo do catálogo: o **mês em que foi gravada**; de insumo próprio,
+     o mês da edição própria declarada, onde a cotação mora (item 5).
+   A linha de **CPU e sub-CPU** mostra o mês da edição declarada da fonte dela: a composição é
+   derivação dos insumos e foi resolvida agora — não se grava.
+   **Insumo sem preço → "ver histórico"** no lugar do preço: modal `edição | preço | aplicar ao
+   orçamento` com as edições da fonte do insumo **até** o mês da edição declarada (nunca posterior),
+   só as que têm preço, na UF e modalidade da linha; as de mais de 6 meses levam marca (janela do
+   TCU). No fim, **[ criar cotação ]** → a página da cotação da bancada. **Aplicar** grava só no
+   orçamento — catálogo e próprio, o catálogo do tenant fica intacto — com o valor e a data-base da
+   edição escolhida; MO leva a L.S. do ativo, como na captura. A origem fica na evidência da cotação
+   e na auditoria.
+   (Substitui o "botão direito → cotações de orçamentos anteriores", que não chegou a ser feito.)
 7. O rótulo gravado no estado do orçamento (`aoc_fonte`, `aoz_fonte`) é **retrato da época**: não
    acompanha mudança posterior de nome. É exibição, nunca chave.
 
