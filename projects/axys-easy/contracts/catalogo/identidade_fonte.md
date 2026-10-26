@@ -91,8 +91,8 @@ composição anda com a sua ORIGEM** (catálogo × tenant). Id sem origem é def
    - catálogo: o mês da edição de onde o preço veio;
    - próprio: o mês da edição própria de onde veio (com "último preço registrado", pode ser
      anterior ao declarado);
-   - cotação feita na bancada de insumo do catálogo: o **mês em que foi gravada**; de insumo próprio,
-     o mês da edição própria declarada, onde a cotação mora (item 5).
+   - cotação feita na bancada (catálogo ou próprio): o **mês em que foi feita** — o dado concreto. A
+     app não confere as datas das propostas: o que o usuário cotou é escolha dele.
    A linha de **CPU e sub-CPU** mostra o mês da edição declarada da fonte dela: a composição é
    derivação dos insumos e foi resolvida agora — não se grava.
    **Insumo sem preço → "ver histórico"** no lugar do preço: modal `edição | preço | aplicar ao
@@ -102,6 +102,10 @@ composição anda com a sua ORIGEM** (catálogo × tenant). Id sem origem é def
    orçamento — catálogo e próprio, o catálogo do tenant fica intacto — com o valor e a data-base da
    edição escolhida; MO leva a L.S. do ativo, como na captura. A origem fica na evidência da cotação
    e na auditoria.
+   **No editor da composição da bancada** a data-base é escolha do usuário: cada insumo do estado
+   tem o seletor com as mesmas edições do histórico; trocar o mês troca o unitário da linha e vai
+   no Salvar (Cancelar descarta), pelo mesmo miolo do aplicar — vale para o insumo no orçamento
+   inteiro, como a cotação. A linha de CPU mostra a data vigente e não se escolhe.
    (Substitui o "botão direito → cotações de orçamentos anteriores", que não chegou a ser feito.)
 7. O rótulo gravado no estado do orçamento (`aoc_fonte`, `aoz_fonte`) é **retrato da época**: não
    acompanha mudança posterior de nome. É exibição, nunca chave.
