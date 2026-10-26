@@ -1,7 +1,7 @@
 -- 2026-10-26_tenant_edicao_minima.sql
 --
 -- Contrato: docs/projects/axys-easy/contracts/catalogo/identidade_fonte.md §3, §4, §5
--- Plano:    docs/projects/axys-easy/next-steps/bug2.md (passo 4, estágio A)
+-- Plano:    bug 2 (encerrado; subida para prod em governanca/pendencias.md)
 --
 -- Descrição (Renan, 26/10/2026):
 --   1. A EDIÇÃO PRÓPRIA passa a ser do TENANT, não da fonte, e mínima: só o mês. Edições de rótulos

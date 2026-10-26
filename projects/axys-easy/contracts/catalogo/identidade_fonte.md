@@ -31,12 +31,21 @@ composição anda com a sua ORIGEM** (catálogo × tenant). Id sem origem é def
    nova. A **correlação antecessora → sucessora**, para a série de preços atravessar a troca, é
    desenhada aqui e construída no primeiro caso real: uma referência da fonte nova à antiga, com a
    data da troca; leituras de série (histórico, acumulado) seguem a cadeia.
-3. **Comportamento específico de uma fonte é ATRIBUTO da fonte no banco**, nunca `if fonte == 'X'` no
-   código: perfil de arredondamento, publicação de regime mensalista, preço publicado com BDI etc.
-   Fonte nova com o mesmo comportamento herda pelo atributo, não por um `if` a mais.
-4. **Exceções** em que o código aparece no código-fonte: o **parser** de import de cada fonte (é preso
-   ao formato do arquivo dela), os **seeds** e os **caminhos de storage** (válido porque o código é
-   imutável).
+3. **Comportamento de cálculo específico de uma fonte é ATRIBUTO da fonte no banco**, nunca
+   `if fonte == 'X'` no código. Fonte nova com o mesmo comportamento herda pelo atributo. Os dois
+   que existem (Renan, 26/10/2026; migration `2026-10-26_fonte_perfil_bdi`):
+   - `fte_perfil_arred` — `TRUNC` (SINAPI), `ROUND` (CDHU), `CHEIA` (FDE: unitário e linha cheios,
+     total arredondado). Rege a **reprodução do import** (o oráculo da conferência). Nas telas de
+     insumo e na MO com L.S. do catálogo, a regra é "ROUND arredonda, o resto trunca" — a FDE, CHEIA
+     no oráculo, aparece truncada ali, como sempre foi. A **bancada não lê o perfil**: trunca tudo.
+   - `fte_preco_com_bdi` — o preço publicado embute BDI (FDE): a conferência retira o BDI e a
+     newsletter usa o custo limpo.
+4. **Exceções** em que o código aparece no código-fonte, e o vigia `sanidade/nome_de_fonte.py` aceita:
+   - o **parser** e o roteamento do import de cada fonte (presos ao formato do arquivo dela), os
+     **seeds**, os **caminhos de storage** (o código é imutável) e o formato de documento de cada
+     fonte (cabeçalho de grupo da CDHU, fichas da FDE, caderno da SINAPI);
+   - a **SINAPI**: fica escrita no código (Renan, 26/10/2026) — é a fonte que publica o regime
+     mensalista e a referência das equivalências; a ordem da newsletter também fica (vai mudar).
 
 ## 3. Tenant
 

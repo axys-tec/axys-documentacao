@@ -13,9 +13,40 @@ nenhuma pendência menciona desaparece em silêncio, e quem lê a pendência nã
 |---|---|
 | [`contracts/ativo/bancada_orcamento_persistencia_contrato.md`](../contracts/ativo/bancada_orcamento_persistencia_contrato.md) | `ativo_orcamento`: congelar, concluir, reabrir, revisar. Frente pós-refino; leva **o que se duplica numa revisão**, que é o trabalho grande ainda aberto |
 | [`contracts/axys_easy_modelo_licenciamento.md`](../contracts/axys_easy_modelo_licenciamento.md) | licenciamento, capacidade e consumo (seções 1 a 9 abaixo). **Prevalece** sobre `EASY_HUB_LICENCIAMENTO.md` |
+| [`contracts/catalogo/identidade_fonte.md`](../contracts/catalogo/identidade_fonte.md) | identidade da fonte (código imutável, nada decidido pelo nome), PRÓPRIA por origem, edição mínima do tenant, data-base por insumo. Nasceu do bug 2 (25-26/10/2026) |
 | [`contracts/ativo/apresentacao_orcamento_contrato.md`](../contracts/ativo/apresentacao_orcamento_contrato.md) | como o orçamento se apresenta ao sair: arranjo, repath, ordem canônica, timbrado, assinatura, data de emissão e as regras do Excel. Nasceu dos itens 12-13 do refino |
 
 ---
+
+## ⚠ SUBIDA DO BUG 2 PARA PROD — identidade da fonte (2026-10-26)
+
+Tudo pronto e provado em dev (contrato `identidade_fonte.md`). Em prod, **com OK do Renan**, nesta
+ordem — as quatro migrations são aditivas e idempotentes, e podem rodar antes do deploy:
+
+- [ ] `2026-10-26_fonte_codigo_imutavel.sql` (gatilho do código da fonte)
+- [ ] `2026-10-26_tenant_edicao_minima.sql` (edição do tenant = mês; PRÓPRIA por origem; flag de último preço)
+- [ ] `2026-10-26_insumo_data_base.sql` (data-base do preço de cada insumo)
+- [ ] `2026-10-26_fonte_perfil_bdi.sql` (perfil de arredondamento e preço com BDI como atributo)
+- [ ] `recalcular_custos_proprios.py --prod`, depois `preencher_data_base_insumos.py --prod`
+- [ ] `schema_fiel.py --prod` FIEL; push e deploy manual (autoDeploy está off)
+
+Os orçamentos de homolog com CPU própria capturada pela regra antiga ficam congelados até alguém
+recalcular; ao recalcular, mudam (em dev seria Σ 76,0 mi → 60,5 mi — a maior parte é preço próprio
+registrado DEPOIS do mês da edição, que a regra nova não usa).
+
+### O que ficou de futuro
+- [ ] **Fonte derivada de verdade** (SBC, ORSE, COMPESA): parser + L.S. da MO de outra fonte. A função
+  única de edição por item e a tabela `catalogo.edicoes_dependencias` já existem (vazia). Quando
+  entrar, as telas de composição do catálogo (cliente `/consulta-composicoes/detalhar` e interna
+  `/composicoes/{id}/editar`) passam a mostrar a **data-base de cada insumo** — hoje é a mesma em
+  todas as linhas (nenhuma composição do catálogo mistura fontes).
+- [ ] **Correlação de fonte sucessora** (antecessora → sucessora, para a série atravessar o renome):
+  desenhada no contrato §2.2, construída no primeiro renome real.
+- [ ] **Divergência de arredondamento da FDE**: o oráculo conta CHEIA; as telas de insumo e a MO com
+  L.S. do catálogo truncam ("ROUND arredonda, o resto trunca"). Ficou como era, agora escrito
+  (contrato §2.3). Decidir se a tela deve seguir o perfil.
+- [ ] **9 linhas sem data-base em dev**: insumos CDHU numa revisão antiga que só declara a PRÓPRIA —
+  não há de onde tirar o mês; mostram "—".
 
 ## Catálogo Colaborativo
 

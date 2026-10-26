@@ -351,6 +351,12 @@ CREATE TABLE IF NOT EXISTS catalogo.fontes (
     -- libera o blob: o armazenamento (public/private) é decidido no import, independente disto.
     -- TRUE só p/ fontes cujos originais são de divulgação: AXYS (própria) e SINAPI (público oficial).
     fte_public         BOOLEAN NOT NULL DEFAULT FALSE,
+    -- COMPORTAMENTO da fonte como atributo, nunca pelo código (identidade_fonte.md §2.1):
+    -- como a fonte arredonda — TRUNC (SINAPI), ROUND (CDHU), CHEIA (FDE: unitário e linha cheios,
+    -- total arredondado). Rege a reprodução do import; a bancada trunca tudo e não lê isto.
+    fte_perfil_arred   TEXT    NOT NULL DEFAULT 'ROUND',
+    -- o preço publicado embute BDI (FDE): conferência e newsletter usam o custo limpo
+    fte_preco_com_bdi  BOOLEAN NOT NULL DEFAULT FALSE,
     fte_criado_em      TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     fte_atualizado_em  TIMESTAMPTZ,
     fte_criado_por     TEXT,
@@ -366,7 +372,10 @@ CREATE TABLE IF NOT EXISTS catalogo.fontes (
         CHECK (btrim(fte_nome) <> ''),
 
     CONSTRAINT ck_fontes_ordem_edicao
-        CHECK (fte_ordem_edicao IN ('DATA', 'VERSAO'))
+        CHECK (fte_ordem_edicao IN ('DATA', 'VERSAO')),
+
+    CONSTRAINT ck_fontes_perfil_arred
+        CHECK (fte_perfil_arred IN ('TRUNC', 'ROUND', 'CHEIA'))
 );
 
 CREATE INDEX ix_fontes_ativa
@@ -385,17 +394,18 @@ CREATE INDEX ix_fontes_ativa
 INSERT INTO catalogo.fontes (fte_id, fte_codigo, fte_nome, fte_ordem_edicao,
                              fte_tem_catalogo_insumos, fte_tem_caderno_metodologia,
                              fte_catalogos_continuos, fte_permite_manipular_dados, fte_public,
-                             fte_favoritavel, fte_criado_por)
+                             fte_favoritavel, fte_perfil_arred, fte_preco_com_bdi, fte_criado_por)
 SELECT v.id, v.codigo, v.nome, v.ordem, v.tem_ins, v.tem_met, v.continuos, v.manipula, v.publico,
-       v.favoritavel, 'Axys — seed inicial'
+       v.favoritavel, v.perfil, v.bdi, 'Axys — seed inicial'
 FROM (VALUES
     -- favoritavel: SINAPI por LEI (14.133); CDHU e FDE por decisão de produto (vinculacoes.md §12.1).
     -- AXYS (própria) não é destino de equivalência entre fontes-base.
-    (1, 'AXYS',   'Composições Próprias',                               'DATA',   FALSE, FALSE, TRUE,  TRUE,  TRUE,  FALSE),
-    (2, 'SINAPI', 'Sistema Nacional de Pesquisa de Custos e Índices da Construção Civil', 'DATA', TRUE, TRUE, TRUE, FALSE, TRUE, TRUE),
-    (3, 'CDHU',   'Companhia de Desenvolvimento Habitacional e Urbano', 'VERSAO', FALSE, TRUE, FALSE, FALSE, FALSE, TRUE),
-    (4, 'FDE',    'Fundação para o Desenvolvimento da Educação',        'DATA',   FALSE, TRUE, FALSE, FALSE, FALSE, TRUE)
-) AS v(id, codigo, nome, ordem, tem_ins, tem_met, continuos, manipula, publico, favoritavel)
+    -- perfil/bdi: SINAPI trunca; CDHU arredonda; FDE conta cheia e publica com BDI.
+    (1, 'AXYS',   'Composições Próprias',                               'DATA',   FALSE, FALSE, TRUE,  TRUE,  TRUE,  FALSE, 'ROUND', FALSE),
+    (2, 'SINAPI', 'Sistema Nacional de Pesquisa de Custos e Índices da Construção Civil', 'DATA', TRUE, TRUE, TRUE, FALSE, TRUE, TRUE, 'TRUNC', FALSE),
+    (3, 'CDHU',   'Companhia de Desenvolvimento Habitacional e Urbano', 'VERSAO', FALSE, TRUE, FALSE, FALSE, FALSE, TRUE, 'ROUND', FALSE),
+    (4, 'FDE',    'Fundação para o Desenvolvimento da Educação',        'DATA',   FALSE, TRUE, FALSE, FALSE, FALSE, TRUE, 'CHEIA', TRUE)
+) AS v(id, codigo, nome, ordem, tem_ins, tem_met, continuos, manipula, publico, favoritavel, perfil, bdi)
 ON CONFLICT (fte_codigo) DO UPDATE
     SET fte_id             = EXCLUDED.fte_id,
         fte_nome           = EXCLUDED.fte_nome,
@@ -406,6 +416,8 @@ ON CONFLICT (fte_codigo) DO UPDATE
         fte_permite_manipular_dados = EXCLUDED.fte_permite_manipular_dados,
         fte_public         = EXCLUDED.fte_public,
         fte_favoritavel    = EXCLUDED.fte_favoritavel,
+        fte_perfil_arred   = EXCLUDED.fte_perfil_arred,
+        fte_preco_com_bdi  = EXCLUDED.fte_preco_com_bdi,
         fte_atualizado_em  = CURRENT_TIMESTAMP,
         fte_atualizado_por = 'Axys — seed inicial';
 SELECT setval(
