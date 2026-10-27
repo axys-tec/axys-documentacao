@@ -150,6 +150,12 @@ ativo**. Seed canônico no `schema.sql` (bloco "SEED — FICHA TÉCNICA").
   fora disso é NULL, e a trava `ck_ati_custo_so_fixado` impede gravar a cópia. Leitura única:
   `orcamento_fonte.custo_item_sql` (e a view `v_compat_ativo_itens`). A cópia no item quebrava em
   silêncio: ativo 35, C-000089, 12 serviços a 0,00 com a composição a 244,44.
+- **As MARCAS da conversão também são da composição** (Renan, 2026-10-27): REG/LS/⚠, o divisor
+  aplicado (`mdo_div`), INF (descontinuada, custo não recalculado) e o regime/% da L.S. com que ela
+  foi calculada moram em `acc_marcas` / `acc_ls_regime` / `acc_ls_percent`, junto do custo. O item
+  não as guarda (trava `ck_ati_sem_marcas`; `ati_meta_json` fica com o que é do item — `obs`,
+  `conciliar`); preço fixado não exibe marca de conversão. Leitura única
+  `orcamento_fonte.meta_item_sql` / `marcas_item_sql` / `ls_item_sql`.
 - **Custo base** (NUMERIC 14,2) = **custo unitário BASE da fonte, GRAVADO na entrada** ("pega de
   lá, grava cá"), na composição do orçamento. É a camada `preço_catálogo`. **Imune** a edição/reimport da fonte; só muda por
   **rotação** (comando explícito do usuário, que regrava). **L.S., BDI e ajuste são camadas AO VIVO
@@ -347,3 +353,7 @@ idempotente). **Já aplicado** em dev (localhost/axys_easy_db) em 2026-06-14.
   fica só na composição do orçamento; `ati_custo_unit` só existe com preço fixado
   (`ck_ati_custo_so_fixado`); leitura única `custo_item_sql`. Migration
   `2026-10-27_custo_do_item_vem_da_composicao.sql`. Decisão Renan.
+- **v1.4** (2026-10-27) — **as marcas da conversão são da composição**: `acc_marcas` + `acc_ls_regime`/
+  `acc_ls_percent`; saem `ati_ls_regime`/`ati_ls_percent` e as marcas do `ati_meta_json`
+  (`ck_ati_sem_marcas`). Migrations `2026-10-27_marcas_na_composicao_1_colunas.sql` (antes do deploy)
+  e `_2_trava.sql` (depois). Decisão Renan.

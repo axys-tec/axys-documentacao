@@ -518,6 +518,22 @@ que é quem governa o bloco de assinatura.
 
 ---
 
+## Sub-CPU auxiliar compartilhada — um custo para dois sabores (2026-10-13 · vigia 27/10)
+
+Contrato: [EASY_ATIVO_CONTRATO.md §6.3/§8](../contracts/ativo/EASY_ATIVO_CONTRATO.md) (v1.3/v1.4 — o
+preço e as marcas do item são os da composição do orçamento).
+
+A mesma auxiliar entra no orçamento como UMA composição (`aoc`, um `acc_valor` por revisão), mas pode
+ter dois preços legítimos: catálogo × própria (UF SC × SP, ativo 26), ou H × MÊS (a 88267 horista
+numa receita autoral e convertida nas demais, ativo 116). Quem capturou por último fica, e a linha
+do pai guarda o outro. O vigia `sanidade/custo_composicao.py` (pergunta D) acusa: **7 linhas em
+dev, 1 em prod** (ativo 22, C-000005 → CDHU 11.16.040: 189,84 × 267,60) em 27/10.
+
+- [ ] Decisão de MODELO (Renan): auxiliar chaveada pelo contexto `(cmp_id, edição, UF, regime)`, ou
+      a linha do pai carregando o próprio contexto. Nenhuma fórmula fecha sem isso.
+
+---
+
 ## Import ainda não usa o motor único — o D3 está violado de um lado (2026-10-10)
 
 Contrato: [listagem.md §2.2.1](../contracts/catalogo/listagem.md) — D3, "uma implementação só".
@@ -528,12 +544,16 @@ mobile e export passaram todos pelo `custo_composicao.py`. O lado do IMPORT fico
 
 | arquivo | estado |
 |---|---|
-| `backend/core/import_cpu/parser_sinapi.py` | arredonda por conta própria |
-| `backend/core/import_cpu/parser_cdhu.py` | idem |
-| `backend/core/import_cpu/parser_fde.py` | idem |
+| `backend/core/import_cpu/parser_sinapi.py` | arredonda por conta própria (`calcular_custos_sinapi`) |
+| `backend/core/import_cpu/parser_cdhu.py` | **no motor** — `recompute_edicao` (conferido 27/10) |
+| `backend/core/import_cpu/parser_fde.py` | **no motor** — `recompute_edicao` (conferido 27/10) |
 
-Nenhum dos três importa `custo_composicao`. Conferido em 2026-10-10 por varredura: zero referências
-ao motor, e os três com aritmética de arredondamento inline.
+> **Atualização 27/10/2026 (fix_conversao_preco, item 4) — SINAPI: decidido não mexer no import.**
+> Parser SINAPI × motor único na mesma edição e receita (08-24, 08-25, 08-26): **custo idêntico**
+> (0 diferença em ~2,4 mi linhas). Diverge só o RÓTULO da conferência nas edições antigas (o
+> parser usa limiar simples, o motor o classificador composto). A conferência em lote passou a usar
+> a receita DA EDIÇÃO (ae1ba62). Renan: "não é para mexer em motor de import". O que resta abaixo
+> é o débito de forma (D3) e do rótulo, sem efeito no número.
 
 **Por que importa, e não é estética.** O D3 existe porque import e precificação viva que não
 compartilham código **voltam a divergir** — foi o pecado original que o refactor matou do lado vivo.
