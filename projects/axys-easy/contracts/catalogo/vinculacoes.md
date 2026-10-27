@@ -202,11 +202,11 @@ Direção travada sobre dado real (missmatch elástico das 3 fontes + manual SIN
 - **COEFICIENTE — 3 estados (campo `classe` elimina a ambiguidade do NULL):**
   - `1` — unidade igual → **direta**.
   - `k > 0` — unidade diferente, **conversão CALCULADA** por **motor determinístico** (não a IA) com memória de cálculo: aço 7850 kg/m³ × área da bitola (cabo 3/8"≈9,5 mm), bisnaga "75 G" = 0,075 kg/un, rendimento tinta (m²/L). A IA **reconhece** a necessidade; o backend **calcula**.
-  - `NULL` — unidade diferente, **conversão ESPECIAL** dependente de **quantitativo da obra** que o catálogo não tem (ex.: serviço por **m²** × item por **un** — limpeza de pia). **Associa porque é o mesmo item**, mas coef `NULL`; o user **repassa o quantitativo na bancada** — a app **não assume** a conversão. `NULL`-especial ≠ `NULL`-erro (a `classe` distingue).
+  - ~~`NULL` — conversão dependente de quantitativo da obra~~ — **REVOGADO 27/10/2026 (Renan):** sem fator **não é associação**. Associação responde "tanto faz" (trocar um pelo outro não muda a obra); item que depende de quantificar (limpeza por **m²** × por **un**) **não se associa**, nem com aviso. O fator é `NOT NULL` e `> 0` no banco (`ck_ei_fator`/`ck_ec_fator`) e `_grava_par` recusa. `especial` = fator inferido (ver "Classes de conversão").
 - **EQUIPAMENTO (do `Livro_SINAPI_Metodologias_Conceitos.pdf`):** SINAPI guarda o equipamento como **insumo UN (aquisição)** e o custo-hora como **composição CHP/CHI (H)** — `CHP = D+J+M+CMAT+CMOB`, `CHI = D+J+CMOB`, derivados de aquisição×vida-útil×HTA×juros. **Não existe escalar UN→H.** Logo a locação **[H]** da fonte associa **H↔CHP** (mesma unidade, coef 1, **insumo-fonte → composição SINAPI**), **nunca** o insumo-UN de aquisição. O matcher acha o CHP por **descrição + unidade [H↔CHP]**. ⚠️ **Hipótese de código embutido REFUTADA (2026-07-18):** o número no código CDHU (`S.03.000.085678`) é **código interno do CDHU**, não SINAPI — testado em escala, 307 substrings coincidem com códigos SINAPI mas **0% concorda na descrição**. Não há atalho determinístico por código; o casamento é por descrição/unidade.
 - **EXCLUSÕES (nunca associar):** **parte-de** (eletroduto × luva de eletroduto — a luva compõe o eletroduto instalado); **locação × aquisição** sem base CHP/CHI; **naturezas distintas** (serviço × material, ex.: sinalização m² × tinta L) salvo substituição explícita de insumo dentro da composição; **equipamentos diferentes** com desc parecida (guindaste × martelete). Exclusão é tratada pelo **script** (regra) ou **removida pela IA**.
 - **Schema — 3 tabelas (isolamento + FK real + filtros limpos), sobre o item VIGENTE (identity), NÃO por edição:**
-  - **`catalogo.equivalencias_ins`** (INS↔INS) + **`catalogo.equivalencias_cpu`** (CPU↔CPU) — não-MDO, split (o `ins_cpu` unificado foi descartado). **FK real** dos dois lados (acabou o polimórfico). **A malandragem INS→CPU foi DESCARTADA** — é idempotente com CPU↔CPU quando a CPU-fonte espelha o insumo (a decomposição da CPU aglomera outros itens → associar insumo→CPU ocuparia uma CPU muito próxima da própria). `ei_/ec_fator_conversao NUMERIC(12,6)` NULLABLE + `classe` (direta|calculada|especial) + `hash_origem/equivalente` (§9) + `metodo` (TOKEN/ti|IA|MANUAL). N:N nativo (par único, âncora ref indexada).
+  - **`catalogo.equivalencias_ins`** (INS↔INS) + **`catalogo.equivalencias_cpu`** (CPU↔CPU) — não-MDO, split (o `ins_cpu` unificado foi descartado). **FK real** dos dois lados (acabou o polimórfico). **A malandragem INS→CPU foi DESCARTADA** — é idempotente com CPU↔CPU quando a CPU-fonte espelha o insumo (a decomposição da CPU aglomera outros itens → associar insumo→CPU ocuparia uma CPU muito próxima da própria). `ei_/ec_fator_conversao NUMERIC(12,6) NOT NULL > 0` + `classe` (direta|calculada|especial) + `hash_origem/equivalente` (§9) + `metodo` (TOKEN/ti|IA|MANUAL). N:N nativo (par único, âncora ref indexada).
   - **`catalogo.equivalencias_mo`** (rename de `conversao_mo_fte_to_sinapi`) — só MDO (insumo-fonte→CPU header), **isolada**, determinística: **sem coef, sem hash, sem IA** (back resolve 100% via função+dicionário de sinônimos+preço).
 
 ### 3.4.1. Ringue do matcher (restrito → IA → user) — REVISADO 2026-07-22 (prova empírica; substitui 2026-07-19)
@@ -269,7 +269,7 @@ Gêmeas (mesmas colunas, trocando `ins`/`cmp`; prefixos `ei_`/`ec_`):
 {ei|ec}_fte_codigo  TEXT                               -- 'CDHU' | 'FDE' | ...
 {ei|ec}_fte_{ins|cmp}_id  BIGINT  FK REAL              -- item da fonte
 {ei|ec}_classe  TEXT  CHECK IN ('direta','calculada','especial')
-{ei|ec}_fator_conversao  NUMERIC(12,6)                 -- 1=direta · k=calculada · NULL=especial
+{ei|ec}_fator_conversao  NUMERIC(12,6) NOT NULL > 0    -- 1=direta · k=calculada/especial
 {ei|ec}_status  TEXT DEFAULT 'pendente'                -- pendente|confirmado|revisar|refutado|sem_equivalente
 {ei|ec}_score  NUMERIC(4,3) · {ei|ec}_metodo TEXT      -- 'TOKEN'|'TOKEN/ti'|'TOKEN/grupo'|'IA'|'MANUAL'
 {ei|ec}_hash_origem, {ei|ec}_hash_equivalente  TEXT    -- revalidação §9 (sha1[:16] da desc normalizada)
@@ -949,8 +949,7 @@ tem de perguntar também "é `[H]`?". Mesma trigger, uma condição a mais, cust
 - **A tela precisa distinguir "fonte não favoritável" de "item sem equivalente"** (§12.2). Hoje os dois
   chegam como ausência de linha e a conversão sai pela metade, calada. Não é dívida de schema: é de UI
   sobre um dado que `fte_favoritavel` passa a fornecer.
-- **`NULL` → `1.0` em `equivalencias.py:52,59`.** Fator `NULL` é a classe `especial` — "a app **não
-  assume** a conversão". Hoje assume **1**, calado. **Corrigir junto, não depois.**
+- ~~**`NULL` → `1.0` em `equivalencias.py`.**~~ Resolvido: o fator é obrigatório (27/10/2026).
 - **Alinhar `importar_associacoes` à tela:** a tela apaga (correto, §1.1); o caminho da IA marca
   `refutado` + `ativo=FALSE`. Os dois têm de apagar.
 - **`insumos_equivalencias` sobra** (§5.4). Decisão tomada: **as telas param de usá-la**. A tabela é

@@ -2685,7 +2685,8 @@ CREATE TABLE IF NOT EXISTS catalogo.equivalencias_ins (
     ei_ori_fte_id        INTEGER NOT NULL REFERENCES catalogo.fontes(fte_id),
     ei_dest_fte_id       INTEGER NOT NULL REFERENCES catalogo.fontes(fte_id),
     ei_classe            TEXT,                              -- 'direta' | 'calculada' | 'especial'
-    ei_fator_conversao   NUMERIC(12,6),                     -- NULL=especial · 1=direta · k=calculada
+    -- 1=direta · k=calculada/especial. NUNCA nulo: sem fator não é associação (Renan, 27/10/2026)
+    ei_fator_conversao   NUMERIC(12,6) NOT NULL,
     ei_status            TEXT    NOT NULL DEFAULT 'pendente',   -- pendente | confirmado | rejeitado
     ei_score             NUMERIC(4,3),
     ei_metodo            TEXT,
@@ -2695,6 +2696,7 @@ CREATE TABLE IF NOT EXISTS catalogo.equivalencias_ins (
     ei_criado_em         TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP, ei_atualizado_em TIMESTAMPTZ,
     ei_criado_por        TEXT, ei_atualizado_por TEXT,
     CONSTRAINT ck_ei_classe    CHECK (ei_classe IS NULL OR ei_classe IN ('direta', 'calculada', 'especial')),
+    CONSTRAINT ck_ei_fator     CHECK (ei_fator_conversao > 0),
     CONSTRAINT ck_ei_status    CHECK (ei_status IN ('pendente', 'confirmado', 'rejeitado')),
     CONSTRAINT ck_ei_nao_self  CHECK (ei_ori_ins_id <> ei_dest_ins_id),
     CONSTRAINT ck_ei_canonico  CHECK (ei_ori_fte_id > ei_dest_fte_id)
@@ -2737,13 +2739,14 @@ CREATE TABLE IF NOT EXISTS catalogo.equivalencias_cpu (
     ec_dest_cmp_id       BIGINT  NOT NULL REFERENCES catalogo.composicoes(cmp_id) ON UPDATE CASCADE ON DELETE CASCADE,
     ec_ori_fte_id        INTEGER NOT NULL REFERENCES catalogo.fontes(fte_id),
     ec_dest_fte_id       INTEGER NOT NULL REFERENCES catalogo.fontes(fte_id),
-    ec_classe            TEXT, ec_fator_conversao NUMERIC(12,6),
+    ec_classe            TEXT, ec_fator_conversao NUMERIC(12,6) NOT NULL,   -- nunca nulo (ver ei_)
     ec_status            TEXT    NOT NULL DEFAULT 'pendente', ec_score NUMERIC(4,3), ec_metodo TEXT,
     ec_hash_ori          TEXT, ec_hash_dest TEXT, ec_observacao TEXT,
     ec_ativo             BOOLEAN NOT NULL DEFAULT TRUE,
     ec_criado_em         TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP, ec_atualizado_em TIMESTAMPTZ,
     ec_criado_por        TEXT, ec_atualizado_por TEXT,
     CONSTRAINT ck_ec_classe   CHECK (ec_classe IS NULL OR ec_classe IN ('direta', 'calculada', 'especial')),
+    CONSTRAINT ck_ec_fator    CHECK (ec_fator_conversao > 0),
     CONSTRAINT ck_ec_status   CHECK (ec_status IN ('pendente', 'confirmado', 'rejeitado')),
     CONSTRAINT ck_ec_nao_self CHECK (ec_ori_cmp_id <> ec_dest_cmp_id),
     CONSTRAINT ck_ec_canonico CHECK (ec_ori_fte_id > ec_dest_fte_id)
