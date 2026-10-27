@@ -164,7 +164,9 @@ ativo**. Seed canônico no `schema.sql` (bloco "SEED — FICHA TÉCNICA").
 - **BDI** — `ativo_bdi` (+ `ativo_bdi_composicao`): **composto** (parcelas: adm central, lucro,
   risco, despesas financeiras, tributos…) e **MÚLTIPLO por obra**. `abd_tipo ∈
   ONERADO|DESONERADO|REDUZIDO` (normal + reduzido p/ equipamento). **Default por obra**
-  (`abd_default`). Cada linha aponta um BDI via `ati_bdi_id`.
+  (`abd_default`). Cada linha aponta um BDI via `ati_bdi_id`. **No máximo UM por classe**
+  (`abd_classe` NORMAL|REDUZIDO — `uq_ao_abd_classe`): salvar a classe que já existe sobrescreve
+  (27/10/2026).
 - **Leis Sociais** — `ativo_ls` (+ `ativo_ls_item`): **composta** e **ÚNICA por obra**
   (`UNIQUE(atv_id)`). `als_tipo ∈ ONERADA|DESONERADA`; % horista/mensalista. **Nasce semeada** do
   catálogo (`catalogo.edicoes_leis_sociais` + `_itens`, por edição×UF×modalidade) e é **editável por

@@ -9600,6 +9600,8 @@ CREATE INDEX ix_ao_opa_atv ON ativo.ativo_orcamento_parametros USING btree (opa_
 CREATE INDEX ix_aoc_ao ON ativo.ativo_orcamento_composicoes USING btree (aoc_ao_id);
 CREATE INDEX ix_azp ON ativo.ativo_orcamento_insumos_preco USING btree (azp_aoz_id, azp_aor_id);
 CREATE UNIQUE INDEX uq_ao_abd_um_default ON ativo.ativo_orcamento_bdi USING btree (abd_aor_id) WHERE abd_default;
+-- um BDI por classe na revisão: um NORMAL e um REDUZIDO; salvar a mesma classe sobrescreve (27/10/2026)
+CREATE UNIQUE INDEX uq_ao_abd_classe ON ativo.ativo_orcamento_bdi USING btree (abd_aor_id, abd_classe);
 CREATE UNIQUE INDEX uq_ao_opa_um_default ON ativo.ativo_orcamento_parametros USING btree (opa_aor_id) WHERE opa_default;
 CREATE UNIQUE INDEX uq_ao_opa_uma_propria ON ativo.ativo_orcamento_parametros USING btree (opa_aor_id) WHERE (opa_origem = 'T'::bpchar);
 CREATE UNIQUE INDEX uq_aor_vigente ON ativo.ativo_orcamento_revisoes USING btree (aor_ao_id) WHERE aor_vigente;
