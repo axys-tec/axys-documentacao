@@ -9260,6 +9260,9 @@ CREATE TABLE IF NOT EXISTS ativo.ativo_orcamento_itens (
     ati_atualizado_por text,
     CONSTRAINT ck_ao_ati_ajuste_obj CHECK (((ati_ajuste_json IS NULL) OR (jsonb_typeof(ati_ajuste_json) = 'object'::text))),
     CONSTRAINT ck_ao_ati_comentario CHECK (((ati_comentario IS NULL) OR (jsonb_typeof(ati_comentario) = 'object'::text))),
+    -- O preço do item é o custo da SUA composição (acc_valor); o item só guarda preço FIXADO à mão.
+    -- Contrato ativo/EASY_ATIVO_CONTRATO.md §6.3 e §8 (v1.3) · migration 2026-10-27_custo_do_item_vem_da_composicao
+    CONSTRAINT ck_ati_custo_so_fixado CHECK (((ati_custo_unit IS NULL) OR ati_preco_fixado)),
     CONSTRAINT ck_ao_ati_identidade CHECK (((ati_cmp_id IS NULL) OR (ati_descricao IS NULL))),
     CONSTRAINT ck_ao_ati_ls_regime CHECK (((ati_ls_regime IS NULL) OR (ati_ls_regime = ANY (ARRAY['H'::bpchar, 'M'::bpchar])))),
     CONSTRAINT ck_ao_ati_tipo CHECK ((ati_tipo = ANY (ARRAY['GRUPO'::text, 'SERVIÇO'::text, 'SUBTOTAL'::text, 'TEXTO'::text, 'OBSERVAÇÃO'::text])))
@@ -9746,9 +9749,14 @@ CREATE OR REPLACE VIEW ativo.v_compat_ativo_itens AS
 SELECT i.ati_id,
        o.ao_atv_id              AS ati_atv_id,     -- era o dono; hoje vem pela revisão
        i.ati_num, i.ati_parent_id, i.ati_ordem, i.ati_path, i.ati_tipo, i.ati_descricao,
-       c.aoc_origem             AS ati_cmp_origem, -- reconstruída: mora na composição
+       CASE c.aoc_origem WHEN 'C' THEN 'CATALOGO' WHEN 'T' THEN 'TENANT' END
+                                AS ati_cmp_origem, -- reconstruída: mora na composição
        c.aoc_cmp_id_origem      AS ati_cmp_id,     -- o id NA ORIGEM, como a app espera
-       i.ati_custo_unit, i.ati_quantidade, i.ati_unidade, i.ati_bdi_id, i.ati_ajuste_json,
+       -- o preço do item é o custo da composição; só o FIXADO guarda valor no item (orcamento_fonte.custo_item_sql)
+       (CASE WHEN i.ati_preco_fixado THEN i.ati_custo_unit
+             ELSE (SELECT cc.acc_valor FROM ativo.ativo_orcamento_composicoes_custo cc
+                    WHERE cc.acc_aoc_id = i.ati_cmp_id AND cc.acc_aor_id = i.ati_aor_id) END)::numeric(14,2) AS ati_custo_unit,
+       i.ati_quantidade, i.ati_unidade, i.ati_bdi_id, i.ati_ajuste_json,
        i.ati_have_memory_calc, i.ati_preco_fixado, i.ati_is_alo, i.ati_regras_json, i.ati_meta_json,
        i.ati_criado_em, i.ati_atualizado_em, i.ati_criado_por, i.ati_atualizado_por,
        -- as de verdade do schema novo, para quem souber usá-las

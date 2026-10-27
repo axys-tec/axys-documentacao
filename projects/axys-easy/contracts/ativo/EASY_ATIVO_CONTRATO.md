@@ -143,10 +143,17 @@ ativo**. Seed canônico no `schema.sql` (bloco "SEED — FICHA TÉCNICA").
   (resolvido pelo app). `ati_quantidade`, `ati_unidade`.
 - **`ati_bdi_id`** → `ativo_bdi` (BDI da linha; NULL em título/não-precificável).
 - **`ati_ajuste_json`** = camada de ajuste reversível sobre o preço resolvido. `ati_have_memory_calc`.
-- **`ati_custo_unit`** (NUMERIC 14,2) = **custo unitário BASE da fonte, GRAVADO na entrada** ("pega de
-  lá, grava cá"). É a camada `preço_catálogo`. **Imune** a edição/reimport da fonte; só muda por
+- **O preço do item é o custo da SUA composição** (Renan, 2026-10-27). O custo base mora na
+  composição do orçamento (`ativo_orcamento_composicoes_custo.acc_valor`, por revisão), e todo item
+  que aponta para ela o lê — mudou a composição, mudam todos os serviços amarrados nela e o total, sem
+  passo de sincronizar. **`ati_custo_unit` só tem valor quando o preço é FIXADO** (`ati_preco_fixado`);
+  fora disso é NULL, e a trava `ck_ati_custo_so_fixado` impede gravar a cópia. Leitura única:
+  `orcamento_fonte.custo_item_sql` (e a view `v_compat_ativo_itens`). A cópia no item quebrava em
+  silêncio: ativo 35, C-000089, 12 serviços a 0,00 com a composição a 244,44.
+- **Custo base** (NUMERIC 14,2) = **custo unitário BASE da fonte, GRAVADO na entrada** ("pega de
+  lá, grava cá"), na composição do orçamento. É a camada `preço_catálogo`. **Imune** a edição/reimport da fonte; só muda por
   **rotação** (comando explícito do usuário, que regrava). **L.S., BDI e ajuste são camadas AO VIVO
-  por cima** — nunca embutidas neste número. **Drift** = comparar `ati_custo_unit` com o preço atual da
+  por cima** — nunca embutidas neste número. **Drift** = comparar o custo base com o preço atual da
   fonte na edição do contexto (sinaliza no "i" da linha + tela "Conferir preço-base"). Decisão Renan
   2026-06-22 (ver §8; substitui o "preço nunca gravado").
 
@@ -232,20 +239,21 @@ indentar, mover, deletar — recalculam `path` do subtree). São o **maior risco
 Três camadas, nunca colapsadas:
 
 ```
-preço_catálogo  = ati_custo_unit (GRAVADO na entrada)     ← base da fonte capturada; NÃO recalcula sozinho
+preço_catálogo  = custo da composição do orçamento        ← base da fonte capturada; NÃO recalcula sozinho
+                  (ou ati_custo_unit, se FIXADO)
 preço_base      = preço_catálogo + LS (ativo_ls da obra)  ← camada AO VIVO; LS é ÚNICA por obra
 preço_venda     = preço_base × (1 + BDI da linha)         ← camada AO VIVO; BDI por linha (ati_bdi_id)
 preço_ajustado  = ± ajuste manual (ati_ajuste_json)       ← camada AO VIVO; reversível: descartar = volta à base
 ```
 
 - **Custo base GRAVADO, não vivo (decisão Renan 2026-06-22).** "Orçamento pega de lá e grava cá":
-  `ati_custo_unit` é capturado quando a linha entra e **não muda se a fonte mudar/reimportar**. As
+  o custo base é capturado quando a linha entra e **não muda se a fonte mudar/reimportar**. As
   camadas acima dele (LS, BDI, ajuste) **são calculadas ao vivo** — repreçar nelas é intenção do
   usuário, não exposição à fonte.
 - **Rotação = comando explícito**: re-resolve a base na edição do contexto e **regrava**
-  `ati_custo_unit` (nunca silencioso, nunca automático). Cadência por fonte (ex.: SINAPI mensal, CDHU
+  o custo base da composição (nunca silencioso, nunca automático). Cadência por fonte (ex.: SINAPI mensal, CDHU
   quadrimestral) entra como aviso de "edição nova", também sob comando.
-- **Drift** = `ati_custo_unit` ≠ preço atual da fonte (mesma edição) → sinaliza no **"i" da linha** e
+- **Drift** = custo base ≠ preço atual da fonte (mesma edição) → sinaliza no **"i" da linha** e
   na tela **"Conferir preço-base"** (reconciliação em lote: base gravada × base da fonte × Δ →
   rotacionar selecionados). Não se guarda "o porquê": como LS/BDI são camadas explícitas, a única
   causa de divergência base×fonte é drift.
@@ -288,7 +296,7 @@ FinControl (`ativo_fin`), LicitPlan (`ativo_licit`), Repositório (`ativo_repo`)
 
 Persistir `1.2.3` como chave · limitar a GRUPO>SUBGRUPO>ITEM · tabela por nível · formularizar a
 montagem · contaminar o catálogo · recalcular a árvore inteira · IA sobre texto sem entidade ·
-**embutir LS/BDI/ajuste no `ati_custo_unit`** (a base é gravada; as camadas ficam ao vivo — gravar a
+**embutir LS/BDI/ajuste no custo base** (a base é gravada; as camadas ficam ao vivo — gravar a
 base é certo, gravar o preço final não) · **mudar o custo gravado sem ser por rotação/comando** (a
 fonte nunca altera o orçamento sozinha) · **FK polimórfica
 sem discriminador** (exige origem+tipo) · **tabelas-gêmeas de snapshot** (usar JSON + resumo) ·
@@ -335,3 +343,7 @@ idempotente). **Já aplicado** em dev (localhost/axys_easy_db) em 2026-06-14.
   ajuste seguem camadas ao vivo; rotação é comando explícito que regrava; drift = comparação
   base×fonte ("i" da linha + tela "Conferir preço-base"); L.S. horista→mensalista adiada ao fechamento
   (§6.3, §8 e §13 reescritas). Decisão Renan.
+- **v1.3** (2026-10-27) — **o preço do item é o custo da sua composição**: o custo base sai do item e
+  fica só na composição do orçamento; `ati_custo_unit` só existe com preço fixado
+  (`ck_ati_custo_so_fixado`); leitura única `custo_item_sql`. Migration
+  `2026-10-27_custo_do_item_vem_da_composicao.sql`. Decisão Renan.
