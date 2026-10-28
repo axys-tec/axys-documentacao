@@ -10,11 +10,11 @@ anterior da mesma fonte para comparar: o produto inteiro é o diferencial entre 
 ## Onde as coisas moram
 
 ```
-z_scripts_apoio/newsletter/          os quatro passos
-    gera_dados_newsletter.py           1. apura
-    gera_pdf_newsletter.py             2. desenha
-    valida_newsletter.py               3. confere
-    gera_manifesto_newsletter.py       4. registra
+z_scripts_apoio/publicacoes/newsletter/   os quatro passos
+    gera_dados_newsletter.py               1. apura
+    gera_pdf_newsletter.py                 2. desenha
+    valida_newsletter.py                   3. confere
+    gera_manifesto_newsletter.py           4. registra
 
 backend/modules/catalogo/
     newsletter_dossie.py             OS NÚMEROS. Só lê e agrega.
@@ -57,8 +57,8 @@ Reescrever a frase deixa o texto divergente do JSON, e o JSON é o que se confer
 ### 1. Apurar
 
 ```
-.venv/bin/python z_scripts_apoio/newsletter/gera_dados_newsletter.py --listar
-.venv/bin/python z_scripts_apoio/newsletter/gera_dados_newsletter.py --fonte SINAPI --n 20
+.venv/bin/python z_scripts_apoio/publicacoes/newsletter/gera_dados_newsletter.py --listar
+.venv/bin/python z_scripts_apoio/publicacoes/newsletter/gera_dados_newsletter.py --fonte SINAPI --n 20
 ```
 
 `--listar` mostra o que é publicável por fonte, numerado; `--n` escolhe pelo número.
@@ -87,7 +87,7 @@ daquele mês, e por isso mora no `.md` e não no `.json`.
 ### 3. Desenhar
 
 ```
-.venv/bin/python z_scripts_apoio/newsletter/gera_pdf_newsletter.py --edicao sinapi-2026-08
+.venv/bin/python z_scripts_apoio/publicacoes/newsletter/gera_pdf_newsletter.py --edicao sinapi-2026-08
 ```
 
 Gera o PDF e as 7 imagens do carrossel.
@@ -95,8 +95,8 @@ Gera o PDF e as 7 imagens do carrossel.
 ### 4. Conferir, e só então registrar
 
 ```
-.venv/bin/python z_scripts_apoio/newsletter/valida_newsletter.py --edicao sinapi-2026-08
-.venv/bin/python z_scripts_apoio/newsletter/gera_manifesto_newsletter.py
+.venv/bin/python z_scripts_apoio/publicacoes/newsletter/valida_newsletter.py --edicao sinapi-2026-08
+.venv/bin/python z_scripts_apoio/publicacoes/newsletter/gera_manifesto_newsletter.py
 ```
 
 **O validador não é opcional.** Ele pega o que o olho cansa de conferir: título órfão

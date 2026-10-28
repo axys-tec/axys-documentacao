@@ -10,8 +10,11 @@ gere: há script que gera o PDF dele e que o registra.
 ## Onde as coisas moram
 
 ```
-z_scripts_apoio/artigos/
+z_scripts_apoio/publicacoes/artigos/
     gera_pdf_artigos.py              gera os PDFs e registra no manifesto
+
+z_scripts_apoio/publicacoes/exports/
+    pdf2img.py                       rasteriza o PDF em imagens, para conferir olhando
 
 backend/core/
     service_articles.py              a pele: HTML → PDF, capa, tipografia
@@ -65,12 +68,23 @@ significa artigo que não sobe.
 ### 3. Gerar o PDF
 
 ```
-.venv/bin/python z_scripts_apoio/artigos/gera_pdf_artigos.py
+.venv/bin/python z_scripts_apoio/publicacoes/artigos/gera_pdf_artigos.py
 ```
 
 Gera todos e acrescenta `pdf` e `pdf_bytes` ao manifesto. Pré-gerar em vez de renderizar sob
 demanda: o app oferece "baixar", e quem baixa quer o arquivo, não um render. São dezenas de
 KB por artigo, sempre os mesmos bytes.
+
+Antes de publicar, **olhe o PDF**. Há defeito que só aparece assim: fórmula com `<mfrac>`
+de quatro filhos sai sem a barra de fração e o texto extraído continua perfeito — nenhum
+validador pega.
+
+```
+.venv/bin/python z_scripts_apoio/publicacoes/exports/pdf2img.py --<caminho do .md ou do .pdf>
+```
+
+As imagens saem em `z_scripts_apoio/publicacoes/exports/_out/<sha do caminho>/`, fora do
+versionamento. Se o PDF estiver mais velho que o `.md`, ele avisa antes de rasterizar.
 
 ### 4. Validar e publicar
 

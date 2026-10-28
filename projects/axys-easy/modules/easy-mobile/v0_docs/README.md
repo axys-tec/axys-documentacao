@@ -57,7 +57,7 @@ v0_docs/
 ## Três coisas que confundem
 
 **`_manifest.json` é sempre contado, nunca escrito à mão.** Mantido a dedo, apodrece na
-primeira semana. Quem gera: `z_scripts_apoio/publicacao/` e `z_scripts_apoio/newsletter/`.
+primeira semana. Quem gera: `z_scripts_apoio/publicacao/` e `z_scripts_apoio/publicacoes/newsletter/`.
 
 **O de `duvidas` é diferente dos outros**: ele lista `assuntos`, não `itens`. Quem procura
 `itens` ali encontra zero, e há 30 dúvidas.
