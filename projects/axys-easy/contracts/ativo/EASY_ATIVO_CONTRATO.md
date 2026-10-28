@@ -180,6 +180,13 @@ ativo**. Seed canônico no `schema.sql` (bloco "SEED — FICHA TÉCNICA").
 - Por fonte, **rotacionável**: `opa_fonte`, `opa_edicao_id` (→ `catalogo.edicoes`), `opa_uf`,
   `opa_modalidade`, `opa_default`. Trocar a edição re-resolve tudo. (LS/BDI **saíram** daqui — §6.6.)
   **[VALIDAR]** `opa_modalidade` pode ser redundante com `ativo_ls.als_tipo`.
+- **Fonte com serviço na bancada não sai** (Renan, 2026-10-27 — o que o IMC ensinou). Não se tira
+  uma fonte do ativo, nem da mestre do empreendimento (que propaga a remoção para todos os ativos),
+  enquanto algum serviço depende dela — **direta** (a fonte-base do serviço) ou **indiretamente**
+  (a fonte em qualquer camada da composição gravada: a PRÓPRIA com insumo ou auxiliar da CDHU prende
+  a CDHU). Guarda única `orcamento_service._bloqueio_remocao` → `bloqueio_remocao` {fonte: serviços,
+  com `via` na indireta}; na mestre, por ativo. Era: tirar a CDHU deixava o pedreiro da C-000083
+  (ativo 32) sem encargos — 397,91 → 174,35 por hora.
 
 ### 6.5 Forks locais (por exceção)
 - `orcamento_composicoes(+_itens)` e `orcamento_insumos(+_preco)`: só existem quando o usuário
@@ -374,3 +381,5 @@ idempotente). **Já aplicado** em dev (localhost/axys_easy_db) em 2026-06-14.
   (auxiliar e insumo do catálogo dentro da própria); a linha trocada aponta para a substituta
   (`aci_conv_json.de` guarda a original); a captura propaga o custo a todos os pais. Sem mudança de
   schema; recaptura `z_scripts_apoio/manutencao/recapturar_regra_recursiva.py`. Decisão Renan.
+- **v1.6** (2026-10-27) — **fonte com serviço na bancada não sai**, direta ou indiretamente, no ativo e
+  na mestre do empreendimento (§6.4). Decisão Renan.
