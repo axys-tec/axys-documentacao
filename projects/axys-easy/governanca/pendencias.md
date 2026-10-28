@@ -533,11 +533,14 @@ linha trocada apontando para a substituta e pela propagação do custo a todos o
 `sanidade/custo_composicao.py` (D, E) zera em dev; prod depende do deploy + recaptura
 (`z_scripts_apoio/manutencao/recapturar_regra_recursiva.py`).
 
-- [ ] Receita AUTORAL em orçamento mensalista guarda a MO horista (88267 H) e não converte: é a
-      receita do usuário, e a captura não a reescreve. Decidir se a rotação de regime deve alcançá-la.
-- [ ] Substituta da troca de MDO entre fontes leva a L.S. pelo `converter_ls` da fonte que converte,
-      e não pelo da fonte da substituta (SINAPI). Hoje sem efeito numérico (L.S. do ativo = L.S. da
-      SINAPI nos 5 ativos que convertem); se divergir, o vigia D acusa.
+- [x] Receita AUTORAL em orçamento mensalista guardava a MO horista — **fechado 28/10**: o regime
+      alcança a receita (`captura_estado._regime_da_autoral`): CPU-função H → par MÊS, insumo MO H →
+      SINAPI-MÊS, coef ÷ divisor, original no vetor; MO sem par → sem preço, item ERR; horista desfaz.
+      Prod não tinha nenhuma autoral (nada a recapturar).
+- [x] Substituta da troca de MDO levava a L.S. pelo `converter_ls` da fonte que converte —
+      **fechado 28/10**: leva a da FAVORITA (`ls_favorita` em `preco_mo`), a mesma de direto na
+      bancada. Sem efeito numérico em prod (L.S. do ativo = L.S. da SINAPI); prova sintética com
+      L.S. 120%: 88309 dentro da CDHU 11.16.040 = 37,26 = direto.
 
 ---
 

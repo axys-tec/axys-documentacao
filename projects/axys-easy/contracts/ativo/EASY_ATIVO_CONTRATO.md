@@ -169,6 +169,12 @@ ativo**. Seed canônico no `schema.sql` (bloco "SEED — FICHA TÉCNICA").
   autoral não se reescreve, mas as auxiliares dela seguem a regra da fonte de cada uma. Vigia
   `sanidade/custo_composicao.py` (D, E). Era: CDHU 11.16.040 a 267,60 direto e 189,84 dentro da
   C-000005 (ativo 22), e a 88267 (H) guardando a árvore e o preço do MÊS (ativo 116).
+  Na troca de MDO entre fontes, a SUBSTITUTA leva a L.S. pela regra da FAVORITA (a fonte dela),
+  não pela da fonte que converte; a MO que fica nativa segue a da origem. **O regime alcança a
+  receita AUTORAL**: a receita é do usuário, o regime é do orçamento — em mensalista a MO horista
+  dela troca pela mensalista (CPU-função H → par MÊS; insumo MO H → SINAPI-MÊS; coef ÷ divisor;
+  original no vetor), MO sem par deixa a receita SEM CUSTO e o item ERR; em horista desfaz
+  (`captura_estado._regime_da_autoral`, também ao salvar no editor).
 - **Custo base** (NUMERIC 14,2) = **custo unitário BASE da fonte, GRAVADO na entrada** ("pega de
   lá, grava cá"), na composição do orçamento. É a camada `preço_catálogo`. **Imune** a edição/reimport da fonte; só muda por
   **rotação** (comando explícito do usuário, que regrava). **L.S., BDI e ajuste são camadas AO VIVO
@@ -398,4 +404,5 @@ idempotente). **Já aplicado** em dev (localhost/axys_easy_db) em 2026-06-14.
   schema; recaptura `z_scripts_apoio/manutencao/recapturar_regra_recursiva.py`. Decisão Renan.
 - **v1.6** (2026-10-27) — **fonte com serviço na bancada não sai**, direta ou indiretamente, no ativo e
   na mestre do empreendimento (§6.4); **fonte não declarada não entra** — seletor de edição na entrada
-  (§6.4). Decisão Renan.
+  (§6.4); a substituta da troca de MDO leva a L.S. da favorita; o regime alcança a receita autoral
+  (§6.3). Decisão Renan.
