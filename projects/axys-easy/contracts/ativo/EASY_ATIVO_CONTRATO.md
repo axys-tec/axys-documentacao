@@ -156,6 +156,19 @@ ativo**. Seed canônico no `schema.sql` (bloco "SEED — FICHA TÉCNICA").
   não as guarda (trava `ck_ati_sem_marcas`; `ati_meta_json` fica com o que é do item — `obs`,
   `conciliar`); preço fixado não exibe marca de conversão. Leitura única
   `orcamento_fonte.meta_item_sql` / `marcas_item_sql` / `ls_item_sql`.
+- **Uma composição, um preço — a regra da fonte desce até a última camada** (Renan, 2026-10-27). A
+  composição do catálogo vale no orçamento o que a regra da FONTE dela determina (regime, L.S.,
+  troca de MDO/INS), esteja ela direto na bancada, como auxiliar de outra ou dentro de uma CPU
+  própria; o insumo do catálogo direto numa própria também (o pedreiro da CDHU, com a CDHU
+  convertendo MDO, vira a CPU SINAPI com encargos complementares ali também). Regra única:
+  `orcamento_service._regra_catalogo` (preço do item, árvore e auxiliar da própria); a linha da
+  própria sob troca, `preco_mo.linha_subst`. A linha TROCADA por uma composição (rotação para
+  mensalista, MDO entre fontes) aponta para a **substituta**, com a árvore e o custo dela; a original
+  fica no vetor (`aci_conv_json.de`), de onde a leitura tira o "De". Toda captura propaga o custo a
+  toda linha que aponta para a composição e refaz os pais (`captura_estado.propagar`); a receita
+  autoral não se reescreve, mas as auxiliares dela seguem a regra da fonte de cada uma. Vigia
+  `sanidade/custo_composicao.py` (D, E). Era: CDHU 11.16.040 a 267,60 direto e 189,84 dentro da
+  C-000005 (ativo 22), e a 88267 (H) guardando a árvore e o preço do MÊS (ativo 116).
 - **Custo base** (NUMERIC 14,2) = **custo unitário BASE da fonte, GRAVADO na entrada** ("pega de
   lá, grava cá"), na composição do orçamento. É a camada `preço_catálogo`. **Imune** a edição/reimport da fonte; só muda por
   **rotação** (comando explícito do usuário, que regrava). **L.S., BDI e ajuste são camadas AO VIVO
@@ -357,3 +370,7 @@ idempotente). **Já aplicado** em dev (localhost/axys_easy_db) em 2026-06-14.
   `acc_ls_percent`; saem `ati_ls_regime`/`ati_ls_percent` e as marcas do `ati_meta_json`
   (`ck_ati_sem_marcas`). Migrations `2026-10-27_marcas_na_composicao_1_colunas.sql` (antes do deploy)
   e `_2_trava.sql` (depois). Decisão Renan.
+- **v1.5** (2026-10-27) — **uma composição, um preço**: a regra da fonte desce até a última camada
+  (auxiliar e insumo do catálogo dentro da própria); a linha trocada aponta para a substituta
+  (`aci_conv_json.de` guarda a original); a captura propaga o custo a todos os pais. Sem mudança de
+  schema; recaptura `z_scripts_apoio/manutencao/recapturar_regra_recursiva.py`. Decisão Renan.

@@ -518,19 +518,26 @@ que é quem governa o bloco de assinatura.
 
 ---
 
-## Sub-CPU auxiliar compartilhada — um custo para dois sabores (2026-10-13 · vigia 27/10)
+## Sub-CPU auxiliar compartilhada — FECHADA em 27/10/2026 (contrato v1.5)
 
-Contrato: [EASY_ATIVO_CONTRATO.md §6.3/§8](../contracts/ativo/EASY_ATIVO_CONTRATO.md) (v1.3/v1.4 — o
-preço e as marcas do item são os da composição do orçamento).
+Contrato: [EASY_ATIVO_CONTRATO.md §6.3](../contracts/ativo/EASY_ATIVO_CONTRATO.md) (v1.5 — uma
+composição, um preço).
 
-A mesma auxiliar entra no orçamento como UMA composição (`aoc`, um `acc_valor` por revisão), mas pode
-ter dois preços legítimos: catálogo × própria (UF SC × SP, ativo 26), ou H × MÊS (a 88267 horista
-numa receita autoral e convertida nas demais, ativo 116). Quem capturou por último fica, e a linha
-do pai guarda o outro. O vigia `sanidade/custo_composicao.py` (pergunta D) acusa: **7 linhas em
-dev, 1 em prod** (ativo 22, C-000005 → CDHU 11.16.040: 189,84 × 267,60) em 27/10.
+Não eram "dois preços legítimos": eram a MESMA composição calculada por duas regras no mesmo
+orçamento. A própria aplicava à auxiliar do catálogo só a L.S., ignorando a troca de MDO da fonte
+(CDHU 11.16.040: 189,84 dentro da C-000005 × 267,60 direto, ativo 22 — e no ativo 38 de dev os três
+serviços diretos tinham ficado a 189,84, porque vence quem captura por último); e a linha trocada
+para o MÊS apontava para a composição H, que passava a guardar a árvore e o preço do mês (88267,
+6.991,47 por hora, ativo 116). Fechado pela regra única da fonte, que desce até a última camada, pela
+linha trocada apontando para a substituta e pela propagação do custo a todos os pais. O vigia
+`sanidade/custo_composicao.py` (D, E) zera em dev; prod depende do deploy + recaptura
+(`z_scripts_apoio/manutencao/recapturar_regra_recursiva.py`).
 
-- [ ] Decisão de MODELO (Renan): auxiliar chaveada pelo contexto `(cmp_id, edição, UF, regime)`, ou
-      a linha do pai carregando o próprio contexto. Nenhuma fórmula fecha sem isso.
+- [ ] Receita AUTORAL em orçamento mensalista guarda a MO horista (88267 H) e não converte: é a
+      receita do usuário, e a captura não a reescreve. Decidir se a rotação de regime deve alcançá-la.
+- [ ] Substituta da troca de MDO entre fontes leva a L.S. pelo `converter_ls` da fonte que converte,
+      e não pelo da fonte da substituta (SINAPI). Hoje sem efeito numérico (L.S. do ativo = L.S. da
+      SINAPI nos 5 ativos que convertem); se divergir, o vigia D acusa.
 
 ---
 
