@@ -181,6 +181,12 @@ Reimportar o **mesmo** arquivo é **idempotente** (a chave garante: atualiza no 
 ### 7.4 Vínculo de composição vindo do Excel
 A célula Base+Código no Excel vira `ati_cmp_origem`+`ati_cmp_id` na volta (a API resolve o código contra o catálogo da origem indicada). Código inexistente na origem → linha entra em **conciliação** (não quebra a importação; sinaliza para o usuário decidir — mesma filosofia do AxysCAD e do "conferir parâmetros").
 
+> **O colar não é a volta.** Colar um bloco na bancada (Ctrl+V de linhas `[fonte] código [qtd]`, com
+> fonte do catálogo ou PRÓPRIA) é outra porta, e nela a linha que não resolve **não entra**: código
+> que não existe na app ou de fonte não declarada não vira serviço a conciliar. Nada é gravado; a tela
+> lista as linhas e a pessoa cola as demais ou cancela (`colar_bloco`, 28/10/2026). A própria que
+> usa fonte do catálogo não declarada segue para o seletor de edição, como a entrada de um item.
+
 ### 7.5 O arquivo `Axys_Easy_Orca_Plan.xlsx` — estrutura e dois modos de partida
 
 O arquivo é **um só**, com duas formas de começar:
