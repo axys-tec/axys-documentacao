@@ -187,6 +187,21 @@ ativo**. Seed canônico no `schema.sql` (bloco "SEED — FICHA TÉCNICA").
   a CDHU). Guarda única `orcamento_service._bloqueio_remocao` → `bloqueio_remocao` {fonte: serviços,
   com `via` na indireta}; na mestre, por ativo. Era: tirar a CDHU deixava o pedreiro da C-000083
   (ativo 32) sem encargos — 397,91 → 174,35 por hora.
+- **Fonte não declarada não entra** (Renan, 2026-10-27). A composição entra pela fonte da ORIGEM
+  dela; a própria que leva insumo ou auxiliar de fonte do catálogo que o ativo NÃO declara (em
+  qualquer camada) é recusada com `fonte_nao_declarada` — e a tela abre o seletor "Fonte não
+  declarada": FONTE | EDIÇÃO, com default na edição que a origem usa (a mais recente da fonte até o
+  mês da edição própria) e só edições até a data-base da bancada (nunca posterior). "Declarar e
+  inserir" acrescenta a fonte às Fontes (à mestre, se Fontes é única no empreendimento) e repete a
+  entrada; cancelar EXCLUI o serviço que não tinha composição (nada de serviço a zero) e só desfaz a
+  troca no que tinha. Vale para inserir, definir/trocar código, colar bloco, a linha própria no
+  editor de composição da bancada e o MCP (recusa com a mensagem). `orcamento_service.
+  _recusa_fonte_nao_declarada` / `declarar_fontes`; vigia `fluxo_bancada.py` (F).
+- **O editor da composição da bancada só mostra fonte/edição declarada** (Renan, 2026-10-27): o
+  seletor de fonte da linha (rótulo próprio só com a PRÓPRIA declarada), a busca, os análogos do
+  "Ver Opções" e — no servidor — a gravação da receita, que recusa linha nova de fonte não
+  declarada. A troca de UF dentro da fonte/edição declarada e o histórico do insumo sem preço
+  (edições da MESMA fonte até o mês declarado, nunca posterior) seguem.
 
 ### 6.5 Forks locais (por exceção)
 - `orcamento_composicoes(+_itens)` e `orcamento_insumos(+_preco)`: só existem quando o usuário
@@ -382,4 +397,5 @@ idempotente). **Já aplicado** em dev (localhost/axys_easy_db) em 2026-06-14.
   (`aci_conv_json.de` guarda a original); a captura propaga o custo a todos os pais. Sem mudança de
   schema; recaptura `z_scripts_apoio/manutencao/recapturar_regra_recursiva.py`. Decisão Renan.
 - **v1.6** (2026-10-27) — **fonte com serviço na bancada não sai**, direta ou indiretamente, no ativo e
-  na mestre do empreendimento (§6.4). Decisão Renan.
+  na mestre do empreendimento (§6.4); **fonte não declarada não entra** — seletor de edição na entrada
+  (§6.4). Decisão Renan.
