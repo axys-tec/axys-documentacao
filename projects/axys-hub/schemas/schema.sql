@@ -1655,7 +1655,7 @@ CREATE TABLE IF NOT EXISTS analytics.easy_mobile_acquisition_event (
     CONSTRAINT fk_easy_mobile_acquisition_visitor FOREIGN KEY (visitor_id) REFERENCES analytics.visitor (visitor_id) ON DELETE SET NULL,
     CONSTRAINT fk_easy_mobile_acquisition_session FOREIGN KEY (session_id) REFERENCES analytics.session (session_id) ON DELETE SET NULL,
     CONSTRAINT fk_easy_mobile_acquisition_page_view FOREIGN KEY (page_view_id) REFERENCES analytics.page_view (page_view_id) ON DELETE SET NULL,
-    CONSTRAINT ck_easy_mobile_acquisition_event_type CHECK (event_type IN ('campaign_passage','landing_view','store_click','store_redirect','first_app_open','first_relevant_action')),
+    CONSTRAINT ck_easy_mobile_acquisition_event_type CHECK (event_type IN ('campaign_passage','landing_view','store_click','store_redirect')),
     CONSTRAINT ck_easy_mobile_acquisition_attribution CHECK (attribution_status IN ('confirmed','aggregated','modelled','unknown')),
     CONSTRAINT ck_easy_mobile_acquisition_store CHECK (store_platform IS NULL OR store_platform IN ('android','ios')),
     CONSTRAINT ck_easy_mobile_acquisition_metadata CHECK (jsonb_typeof(metadata_json) = 'object')

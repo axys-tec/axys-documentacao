@@ -42,44 +42,10 @@ LinkedIn: /go/li-engenharia-publica?utm_source=linkedin&utm_medium=paid_social&u
 | `landing_view` | navegador após o bootstrap | visualização efetiva da landing |
 | `store_click` | navegador | escolha explícita de uma loja |
 | `store_redirect` | Hub | redirect temporário para a loja |
-| `first_app_open` | aplicativo | primeira abertura informada pelo app |
-| `first_relevant_action` | aplicativo | primeira ação útil informada pelo app |
 
 Robôs, pré-visualizações e visitantes repetidos ficam separados. A estimativa de únicos usa um identificador aleatório first-party; não usa IP, características do aparelho nem fingerprinting. O funcionamento respeita o modo integral/restrito do consentimento público existente.
 
-O painel interno fica em `/app/acquisition/easy-mobile`. Não mostra custo quando não há investimento real importado e não calcula conversão de etapas que não tenham dados comparáveis.
-
-## Contrato pendente no aplicativo
-
-Esta entrega não altera o repositório do EasyMobile. Para concluir atribuição de uso, o aplicativo deve enviar eventos idempotentes a:
-
-```http
-POST /api/easy-mobile/acquisition/event
-X-Easy-Mobile-Client-Id: <cliente SSO easy-mobile>
-X-Easy-Mobile-Client-Secret: <segredo>
-Content-Type: application/json
-```
-
-```json
-{
-  "ingestionKey": "uuid-estavel-gerado-pelo-app",
-  "eventType": "first_app_open",
-  "clientUuid": "uuid-do-cliente-quando-identificado",
-  "platform": "android",
-  "code": "ig-outubro-video-a",
-  "touchId": "uuid-recebido-no-referrer",
-  "attributionStatus": "confirmed",
-  "attribution": {"utm_source": "instagram"},
-  "metadata": {"install_referrer_version": 1}
-}
-```
-
-Regras externas:
-
-1. Android deve ler `acq` e `acq_code` pelo **Google Play Install Referrer** e somente então declarar atribuição individual `confirmed`.
-2. iOS não deve inventar vínculo individual. Dados SKAdNetwork/AdServices ou da plataforma devem ser enviados como `aggregated` ou `modelled`; ausência de evidência é `unknown`.
-3. `ingestionKey` precisa permanecer igual em retries. A chave única do banco torna a ingestão idempotente.
-4. `first_relevant_action` deve ser emitido uma única vez por cliente/instalação após a primeira ação acordada pelo produto.
+O painel interno fica em `/app/acquisition/easy-mobile`. O escopo do Hub termina na saída para a loja: ele não mede instalação, primeira abertura ou ação dentro do aplicativo. Esses resultados só podem ser consultados nos relatórios nativos do Google Ads, Google Play e App Store, quando já estiverem disponíveis, sem exigir alteração do EasyMobile.
 
 ## Google Ads
 
