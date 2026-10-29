@@ -1,6 +1,6 @@
 # Associações entre fontes — plano final (motor no import + curadoria)
 
-**Estado: PROPOSTA para aprovação (29/10/2026).** Nada daqui foi executado.
+**Estado: APROVADO em 29/10/2026 (decisões no §9).** Nada daqui foi executado.
 Contrato que governa: `contracts/catalogo/vinculacoes.md`. Documento de trabalho da frente:
 `associacoes_entre_fontes.md` foi absorvido por este plano em 29/10 (§12) e removido.
 
@@ -22,8 +22,13 @@ Contrato que governa: `contracts/catalogo/vinculacoes.md`. Documento de trabalho
   `matcher_vizinhanca` do app) ficaram fora do runbook: tentativa anterior, saem com ele.
 - **Do app, sobrevive só o que a rotina importa:** `_hash`, `_grava_par`, `grava_negadas_lote`,
   `_grava_par_mo` (de `equivalencias_service`), os adaptadores de busca, `ia_modelos`,
-  `ctc_fill_core._chat_json` e o storage. O resto do `equivalencias_service` é legado (§7).
-- **Não conferido:** prod (banco e R2). Fase 0 pede leitura.
+  `ctc_fill_core._chat_json` e o storage; e, pelo `cura_mdo.py`, o léxico de `conciliacao_mdo`
+  (`_norm_ins`, `_norm`, `_score`, `_hmes_universo_q`). O resto do `equivalencias_service` é
+  legado (§7).
+- **Prod = dev no catálogo (F0, 29/10, só leitura):** nas 48 tabelas do schema `catalogo`, a
+  última linha por chave primária é idêntica em dev e prod — mesma chave e mesmo conteúdo
+  (`md5(to_jsonb(linha))`, sessões em UTC). Prod veio do dump de 28/10 e o catálogo só é mexido
+  pelo Renan. R2 × local: os 18.342 JSONs já foram conferidos na subida (`sobe_r2.py --verificar`).
 
 ---
 
@@ -41,8 +46,11 @@ Contrato que governa: `contracts/catalogo/vinculacoes.md`. Documento de trabalho
    candidatos examinados). O R2 guarda o corpo de fine-tuning; o reuso decide pelo banco.
 6. **O import parte de estado curado.** Cada import avalia "um contra todos" sobre o último estado
    fechado das outras fontes. Daí a serialização (§6).
-7. **Soltar associação não é trabalho do import.** O import cura NOVIDADE; revisar ESTADO é a
-   tela 5a, depois.
+7. **O import cura NOVIDADE; revisar ESTADO é a tela 5a, fora do import.** A novidade inclui o
+   par cujo item **saiu** (perde o par: item inativo não tem associação) ou **mudou** (perde o par
+   na hora e volta à análise, com o par anterior no prompt). Par que não mudou não passa pelo
+   import e não aparece na 5b. Não há tabela de desassociados: o par anterior fica na rodada do
+   JSON (§5.3) e no histórico do catálogo.
 8. **Nenhuma decisão sem justificativa.** Aceite e recusa na tela 5b exigem texto, pré-preenchido
    pela IA e editável.
 
@@ -159,17 +167,14 @@ Import da edição E da fonte X. Tudo no worker, item a item, em streaming (work
 - **Nenhuma outra edição, de nenhuma fonte, com `associacoes` em `rodando`/`pendente_user`** (§6).
   Conferido **no início do import**, antes do parser, e não no início do estágio: o parser
   sobrescreve o texto de X, e fazer isso com outra associação aberta mudaria o chão debaixo dela.
-- **O índice de busca já contém a edição E.** Achado de 29/10: o indexador (`core/search/indexer.py`)
-  só indexa `ins_ativo`/`cmp_ativa = true`, e esses flags só viram no `publicar`. O parser insere
-  item novo com `ativo = false`. Resultado, antes de publicar:
-  - item **novo** de X **não existe** no índice — justamente o "par-alvo novo" que o import de
-    SINAPI precisa achar;
-  - item que **saiu** de X **continua** no índice.
-  
-  As outras fontes estão fechadas, e para elas `ativo` = presença na vigente. O problema é só de X.
-  O universo de X tem de ser **presença na edição E**, não `ativo`. Os scripts não tinham esse
-  problema porque rodavam sobre edição publicada. Ver D12. O estágio também só começa depois que
-  o reindex de X terminar — hoje ele é disparado sem espera no fim do import.
+- **A busca enxerga a edição E (D12).** Os itens de E já estão no banco quando o estágio começa —
+  o parser grava tudo no `dados`, e o import é idempotente. O que falta é a **busca**: o indexador
+  (`core/search/indexer.py`) só põe no índice (postgres e elastic) item com `ins_ativo`/`cmp_ativa
+  = true`, e esses flags só viram no `publicar` (`service.py`, `ativo = EXISTS` na edição
+  publicada). Antes de publicar, item **novo** de X não é achado e item que **saiu** ainda é. As
+  outras fontes estão fechadas; o problema é só de X. O estágio começa reindexando X pela
+  **presença na edição E**, com a marca da edição, e a busca normal do app continua ignorando esses
+  itens até o publicar. Os scripts não tinham o problema porque rodavam sobre edição publicada.
 - **CPU: descritivo vigente preenchido** nos itens do delta (§3).
 
 ### 4.2 Delta de X — o que mudou desde o último estado fechado
@@ -185,8 +190,15 @@ parser É o último estado fechado (regra 6), e o import JÁ registra a diferen�
 | **saiu** | `INATIVACAO` (presença por edição, não o flag `ativo`) |
 | igual | o resto. **`ALTERACAO_ITENS` sem mudança de cabeçalho não reabre** (D13): coeficiente que muda em silêncio no CDHU/FDE não é novidade de identidade. Mudança só do `remunera` também não |
 
-Só **novo** e **mudou** disparam análise. **Saiu** vai para a decisão D5. Depois que a associação
-fecha, é banco contra banco: nada mais a comparar até o próximo import.
+Só **novo** e **mudou** disparam análise. No início do estágio, numa transação:
+
+- **saiu** com par → o par é apagado (D5). O parceiro, na outra fonte, fica com a vaga livre e
+  entra na análise: se é da fonte maior, como origem contra X; se é da menor, volta a ser candidato;
+- **mudou** com par → o par é apagado e guardado para o prompt (D6); o item volta à análise como
+  origem (ou as origens que o tinham, quando X é alvo), e o parceiro fica livre como acima;
+- **saiu** com negada → a negada sai junto: item inativo não tem decisão viva.
+
+Depois que a associação fecha, é banco contra banco: nada mais a comparar até o próximo import.
 
 ### 4.3 Quem é analisado, em cada papel
 
@@ -203,16 +215,17 @@ Por import:
 | CDHU (3) | SINAPI | FDE |
 | FDE (4) | CDHU, SINAPI | — |
 
-**X como alvo — quem reabre.** A origem O (fonte maior) só volta à análise contra X se:
-- (a) O tem **par** com um item de X que **mudou** → `a_confirmar`; ou
+**X como alvo — quem reabre.** A origem O (fonte maior) volta à análise contra X se:
+- (a) O tinha **par** com um item de X que **mudou** ou **saiu** (o par já foi apagado, §4.2); ou
 - (b) O tem **negada** contra X (ou nunca foi decidida) **e** a busca de O passa a trazer um item
   de X **novo/mudou** que não estava em `ein_candidatos`.
 
-Para (b), a proposta (D7) é: busca **reversa** (o item novo/mudou de X como consulta no índice da
-fonte maior) para fazer a lista curta de origens, e busca **direta** de cada origem da lista para
-confirmar. A direta é obrigatória porque a lista de examinados tem de sair do MESMO produtor que
-gerou o `ein_candidatos` gravado — a busca dos scripts. Produtores diferentes devolvem universos
-diferentes e reabririam tudo.
+Para (b) (D7): busca **reversa** — "quem de lá se parece com quem chegou aqui": o item novo/mudou
+de X como consulta no índice da fonte maior — para fazer a lista curta de origens, e busca
+**direta** de cada origem da lista para confirmar. A direta é obrigatória porque a lista de
+examinados tem de sair do MESMO produtor que gerou o `ein_candidatos` gravado — a busca dos
+scripts. **A rodada e a gravação seguem a regra 1**: O é a origem do prompt e o lado `ori` do par,
+mesmo tendo sido achada pela busca reversa.
 
 ### 4.4 Candidatos e filtros
 
@@ -223,9 +236,11 @@ falhou devolve o item à fila, sem IA (`faltou_motor`). Universo, dos dois lados
 Depois, nesta ordem:
 
 1. **Fora:** destino ocupado por par com a fonte da origem que **não mudou** (1×1 — nem aparece).
-2. **Fora:** candidato já examinado em `ein_candidatos` daquele item×alvo **e que não mudou**.
-   - Se a **origem mudou**, a negada anterior julgou outro texto e **não exclui nada**: reavaliação
-     completa.
+2. **Separados como recusados:** candidato já examinado em `ein_candidatos` daquele item×alvo **e
+   que não mudou**. Não é escolhível, mas vai ao prompt como "já recusado" (D8), salvo se estiver
+   associado a outro item (aí já saiu no passo 1).
+   - Se a **origem mudou**, a negada anterior julgou outro texto: tudo volta a ser escolhível, e a
+     recusa anterior vai junto só como contexto.
 3. **Fora:** item com homônimo na própria fonte (vale dos dois lados, regra da pré-curadoria).
 4. **Sobrou candidato novo?** Não → nada a fazer: a negada absorve a lista, sem IA. Sim → prompt.
 
@@ -234,9 +249,15 @@ Depois, nesta ordem:
 - Prompt dos scripts (`ABERTURA` + `SERVICO` + `_SISTEMA` / `_SISTEMA_CPU`, + bloco `SINAPI` quando
   um dos lados é ele), portado sem mudança de doutrina. CPU leva o `remunera` vigente de cada lado,
   cortado em 420 caracteres.
-- Recebe **só os candidatos novos** (D8). Validador do script (`valida()`: escolhido entre os
-  oferecidos, `aceito` só nele, escolha exige fator e sem escolha não há fator, parecer para todo
-  candidato) antes de aceitar; resposta incoerente é repetida com a correção apontada.
+- Recebe (D8): os **candidatos novos**, como possibilidades; os **já recusados** e livres, com o
+  motivo da recusa, para saber o que não fazer; e, no item que mudou, o **par anterior** (D6).
+  Validador do script (`valida()`: escolhido entre os oferecidos — os recusados não contam como
+  oferecidos —, `aceito` só nele, escolha exige fator e sem escolha não há fator, parecer para
+  todo candidato) antes de aceitar; resposta incoerente é repetida com a correção apontada.
+  O prompt ganha o bloco desses dois campos; o resto da doutrina não muda.
+- CPU: o insumo principal da origem vai junto, com a marca de em quais candidatos ele aparece, e
+  o conflito é reperguntado uma vez (D14).
+- O candidato apontado pelo triângulo entre fontes vai marcado (D15).
 - Contexto (analítico na CPU, utilizações no INS) **só a pedido do curador**, na 5b — a IA não pede
   sozinha. Como no script.
 - Cadeia `EASY_IA_MODELO_ASSOCIACOES` (+ fallbacks), pelo `ia_modelos.cadeia`.
@@ -248,6 +269,14 @@ Depois, nesta ordem:
 Depois que todas as respostas voltam: `destino_disputado` e `duplicata_na_fonte`, como no script.
 Colisão chega à tela marcada, nunca como duas propostas soltas.
 
+### 4.6b Mão de obra (D9)
+
+Entra no mesmo estágio, com o rito do `cura_mdo.py`: **sem IA**, proposta pelo léxico de
+`conciliacao_mdo` (ofício e nível, sem "COM ENCARGOS COMPLEMENTARES"), destino **não exclusivo**
+(N:1, `equivalencias_mo`; no SINAPI o alvo é a composição, nas outras o insumo). Mesmo delta: só
+MDO nova ou mudada passa; a que saiu perde o vínculo. Na 5b ela aparece junto, e a justificativa
+vem pré-preenchida com o casamento léxico que gerou a proposta.
+
 ### 4.7 Curadoria 5b → fechamento
 
 O estágio fica `pendente_user` até a tela 5b (§8) zerar a fila. Fecha em dois tempos, nesta
@@ -257,14 +286,14 @@ ordem:
    pares aceitos → `equivalencias_{ins,cpu}` (`_grava_par`, que recusa colisão), **depois** as
    recusas → `equivalencias_*_negadas` (`grava_negadas_lote`, em lote, **somando** a lista de
    candidatos examinados, hash do `_hash`). Negar o item contra a fonte não é rejeitar um par.
-2. **Espelhos no R2 (§5.3), depois do commit:** acrescentada a rodada nos espelhos das origens
-   que foram julgadas, e `estado` atualizado nos itens que saíram. O estágio só vira `ok` quando o
-   último espelho foi gravado; os que falharem ficam listados em `ee_detalhe` e são regravados na
+2. **JSONs no R2 (§5.3), depois do commit:** acrescentada a rodada no arquivo de cada origem
+   julgada, e `estado` atualizado nos itens que saíram. O estágio só vira `ok` quando o último
+   arquivo foi gravado; os que falharem ficam listados em `ee_detalhe` e são regravados na
    retentativa.
 
-A ordem é a da segurança. O banco é a verdade operacional e o delta sai dele, então espelho que
+A ordem é a da segurança. O banco é a verdade operacional e o delta sai dele, então JSON que
 falhar não esconde nem reabre item — falta só a amostra no corpo de fine-tuning, e a retentativa
-a repõe. O inverso (espelho gravado, banco desfeito) deixaria no histórico uma decisão que não
+a repõe. O inverso (JSON gravado, banco desfeito) deixaria no histórico uma decisão que não
 existe.
 
 O `publicar` deixa de tocar em associação. As arestas 2 e 3 (associação fora do lock e em
@@ -280,7 +309,9 @@ Hoje há duas, as duas da rotina: `_hash` (16 chars), que o `seed_equivalencias.
 carregar o banco, e o `hash_item` do `roda_associacoes.py` (sha1 de 40), gravado nos JSONs, com
 normalização diferente em 15% dos casos. **Vale a do seed**, que é a dos 18 mil registros do
 banco (lição de 06/10: a hash sai da mesma função que faz a pergunta). Ela vira função pública
-única, e os JSONs são reescritos com ela.
+única e é a que as rodadas novas gravam. Os JSONs existentes **não são reescritos**: a hash
+antiga fica na rodada antiga, marcada como `sha1_40`; ninguém decide por ela, porque o delta vem
+do banco.
 
 ### 5.2 O que mudou — já mora no histórico do catálogo
 
@@ -311,53 +342,49 @@ item a item: as 297 tiveram coeficiente alterado** (ex.: 89376 — `38383` 0,029
 `88267`/`88248` 0,0805 → 0,06466). O carimbo novo é o sinal da reaferição, não ruído. Leitura do
 arquivo + comparação: 2,8 s.
 
-### 5.3 O espelho — um arquivo por item do catálogo
+### 5.3 O JSON de curadoria — continua por par de fontes (D11)
 
-Hoje o arquivo é por PAR de fontes (`{ori}_{dest}/{tipo}/{id}.json`): um item da FDE tem um
-arquivo contra a CDHU e outro contra o SINAPI. Passa a ser **um arquivo por item do catálogo**,
-que reúne todas as associações dele. É o corpo de fine-tuning e o histórico; o estado operacional
-continua no banco.
+Fica onde está, um arquivo por item **por par de fontes**:
 
 ```
-easy/fontes/associacoes/{fte_codigo}/{ins|cpu}/{id}.json
+easy/fontes/associacoes/{fte_ori}_{fte_dest}/{ins|cpu|mo}/{id}.json
 ```
+
+É o corpo de fine-tuning e o histórico; o estado operacional continua no banco. Muda só uma
+coisa: o arquivo ganha `rodadas[]`, que **acrescenta**, nunca substitui.
 
 ```json
 {
   "item":   {"id": 6523, "codigo": "...", "fonte": "CDHU", "tipo": "ins"},
   "estado": "vivo",
-  "alvos": {
-    "SINAPI": {"situacao": "par|negada|aberta",
-               "rodadas": [{"edicao": "...", "item_como_estava": {...},
-                            "candidatos": [...], "ia": {..., "prompt_versao": "<sha>"},
-                            "pre_curadoria": {...}, "curadoria": {...}}]}
-  }
+  "rodadas": [{"edicao": "...", "item_como_estava": {...}, "par_anterior": {...},
+               "candidatos": [...], "recusados_enviados": [...],
+               "ia": {..., "prompt_versao": "<sha>"}, "pre_curadoria": {...}, "curadoria": {...}}]
 }
 ```
 
-- O espelho nasce na **primeira rodada** do item como origem. Item do SINAPI só aparece como
-  candidato, então não tem espelho (o texto com que foi julgado fica em `candidatos[]` de quem o
-  examinou). Se um dia o SINAPI for origem, o espelho nasce igual.
-- `item_como_estava` em cada rodada guarda texto, unidade e hash daquele momento: é o registro
-  para o fine-tuning, não a base do delta.
-- `alvos` só tem as fontes **menores** (regra 1). Quem aponta para o item vem do banco, não se
-  copia aqui.
-- `rodadas[]` **acrescenta**, nunca substitui: a decisão antiga continua como amostra de
-  fine-tuning, e a última é o estado atual.
-- `estado`: `vivo` | `saiu`, atualizado no fechamento a partir do histórico da edição.
-  Item que saiu não perde o espelho.
-- A hash é a única (§5.1). `prompt_versao` é o sha do prompt de sistema (contrato §8).
+- O conteúdo atual de cada arquivo vira `rodadas[0]` **na primeira vez que o item tiver rodada
+  nova** — sem migração em massa e sem reescrever o R2 de uma vez.
+- `item_como_estava` guarda texto, unidade e hash daquele momento: registro para o fine-tuning, não
+  a base do delta. `par_anterior` só existe no item que mudou e tinha par (D6).
+- `estado`: `vivo` | `saiu`, atualizado no fechamento. Item que saiu não perde o arquivo.
+- `prompt_versao` é o sha do prompt de sistema (contrato §8).
 
 **O R2 só é escrito.** O caminho quente lê só o banco (pares, negadas, histórico); no fechamento,
-gravam-se só os espelhos que tiveram rodada ou mudaram de `estado`.
+gravam-se só os arquivos que tiveram rodada ou mudaram de `estado`.
 
-**Migração (F2).** Os 18.342 arquivos por par viram ~30 mil espelhos por item: cada arquivo
-`{ori}_{dest}/{tipo}/{id}.json` vira a 1ª rodada de `alvos[dest]` no espelho da origem, com a hash
-reescrita (§5.1); os dois arquivos de um item da FDE (contra CDHU e contra SINAPI) se fundem num
-espelho só. Os arquivos por par saem depois da conferência, local e R2. Não há bootstrap de
-"visto": o banco já é ele — válido porque dev tem drift zero; em prod, depois da F0.
+**Por que não um arquivo por item (teste de 29/10, em dev).** A ideia era o ganho entre fontes:
+ver num lugar só o item da FDE contra CDHU e contra SINAPI. Medido no banco, o triângulo
+FDE→CDHU→SINAPI:
 
----
+| | FDE com par nas duas | triângulo fecha | contradiz | FDE↔CDHU↔SINAPI sem FDE↔SINAPI | FDE↔CDHU e FDE↔SINAPI sem CDHU↔SINAPI |
+|---|---|---|---|---|---|
+| INS | 182 | 171 | **0** | 22 | 11 |
+| CPU | 82 | 63 | **0** | 12 | 19 |
+
+O ganho existe — 64 lacunas que a transitividade aponta —, mas sai **do banco**, não do arquivo:
+juntar os JSONs não acrescenta nada a ele, e custaria reescrever 18 mil arquivos de prod. O uso
+desse ganho é a D15.
 
 ## 6. Coordenação — por que é segura
 
@@ -418,29 +445,32 @@ Reusa as classes `.cpu-`/`.ae-` das telas aceitas. Sem texto explicativo na tela
 
 ### 5a — curadoria geral (depois do plugue)
 
-Associar e desassociar isolado, sem IA, sobre o estado. Mexe em banco e espelho pelo mesmo
+Associar e desassociar isolado, sem IA, sobre o estado. Mexe em banco e JSON pelo mesmo
 caminho do fechamento 5b, e reusa a tela da 5b sem a fila do import.
 
 ---
 
-## 9. Decisões para você
+## 9. Decisões
 
-| # | decisão | minha recomendação |
-|---|---|---|
-| D1 | `edicoes_estagios` substitui `edi_estagios` + checkpoint R2 | **sim**, com backfill e remoção depois de validado |
-| D2 | posição do estágio | **decidido 29/10: depois do `documentos`, último antes do publicar.** O CTC vem antes porque o prompt de CPU decide pelo `remunera`, que ele escreve (§3); a CPU do delta é julgada com o `remunera` novo |
-| D3 | estado visto | **é o banco**; o que mudou é o histórico do catálogo (§5.2); nada novo — decidido em 29/10 |
-| D4 | quando grava no banco | **no fechamento da 5b**, não no publicar |
-| D5 | item que **saiu** da fonte e tem par: o par segura a vaga do parceiro (o unique não é parcial) | o import **não solta** (regra 7): marca e mostra na 5b como "par com item que saiu"; soltar é 5a. Confirmar |
-| D6 | par confirmado cujo texto **mudou** (`a_confirmar`): a 5b pode desfazer? | **sim** — é novidade, não revisão de estado |
-| D7 | X como alvo: busca reversa + confirmação direta × direta sobre todas as origens não pareadas. **É o único passo sem precedente nos scripts** (eles rodavam a fonte inteira, nunca o delta) | **reversa + direta** (a direta pura são ~11 mil buscas num import de SINAPI); a direta mantém a lista examinada saindo do mesmo produtor dos scripts |
-| D8 | prompt com só os candidatos novos | **sim**, como você definiu; risco: a IA perde o contexto das recusas |
-| D9 | MDO | **fora do motor v1**: rito próprio, sem IA, N:1; o delta de MDO só abre pendência para o `cura_mdo` |
-| D10 | gate de subgrupo no `dados` (nasceu para o funil do `propor_cpu` do app) | **remover** junto com o matcher; a rotina dos scripts não o usa. Confirmar se tem outro uso |
-| D11 | migrar os 18.342 arquivos por par para os ~30 mil espelhos por item, no R2 | **sim** — o R2 é prod, a reescrita pede seu OK na hora |
-| D13 | o que reabre um item | **decidido 29/10: só o que o histórico escreve — descrição e unidade.** O carimbo `AF_mm/aaaa` está no texto, então fica na hash: troca de carimbo = reaferição com produtividade nova (conferido nas 297 da 09/26). `ALTERACAO_ITENS` sem mudança de cabeçalho **não** reabre |
-| D14 | CPU: conferência pelo insumo principal (`check_sanidade`, sem IA; 91,5% de acerto, 2,3% de disparo em errado, medido em 413 pares) **decidido 29/10: sinal, nunca decisão, e com IA.** O principal da origem (classe raríssimo/raro — "comum não é indício") vai no pedido à IA, com a marca de em quais candidatos ele aparece no analítico. Depois da resposta: (a) aceite cujo principal não aparece no destino → a IA é perguntada de novo uma vez, com o conflito apontado; (b) IA sem escolha e principal apontando candidato único → idem. O que restar de conflito chega marcado à 5b |
-| D12 | universo de X antes de publicar (§4.1): (a) o índice passa a conter os itens da edição em RASCUNHO, marcados pela edição, e o motor filtra por presença em E; (b) o motor busca X só no postgres, por presença em E; (c) associação depois do publicar | **(a)** — mantém os dois motores, que é o que a medição de 24/09 exige; (b) perde o elastic justo no alvo; (c) desfaz a regra 6 |
+Fechadas pelo Renan em 29/10.
+
+| # | decisão |
+|---|---|
+| D1 | `catalogo.edicoes_estagios` (§2) substitui `edi_estagios` + checkpoint no R2. Mínima: uma linha por execução, nada além do que está no §2 |
+| D2 | estágio `associacoes` **depois do `documentos`**, último antes do publicar: o prompt de CPU decide pelo `remunera`, que o CTC escreve (§3) |
+| D3 | o "visto" é o banco; o que mudou é o histórico do catálogo (§5.2) |
+| D4 | grava no banco no **fechamento da curadoria 5b**, não no publicar |
+| D5 | item que **saiu** da fonte **perde o par** (é inativo); o parceiro fica livre e entra na análise (§4.2) |
+| D6 | item que **mudou** perde o par **na hora** e volta à análise — pode reassociar ao mesmo, a outro, ou ficar sem par. O par anterior vai no prompt. Sem tabela de desassociados: fica na rodada do JSON |
+| D7 | X como alvo: busca **reversa** ("quem de lá se parece com quem chegou aqui") + confirmação **direta**; a rodada e a gravação respeitam `fte_id` maior → menor (§4.3) |
+| D8 | à IA vão os candidatos **nunca vistos**, como possibilidade, e os **recusados** que não estão associados a outro item, com o motivo, para ela saber o que não fazer (§4.4–4.5) |
+| D9 | MDO **entra no estágio**, sem IA, com o rito do `cura_mdo`; só o que é novo ou mudou passa; a 5b mostra só novidade (§4.6b) |
+| D10 | gate de subgrupo no `dados`: **sai**. Nasceu para o matcher do app, e a rotina dos scripts não o usa |
+| D11 | JSON **continua por par de fontes**, com `rodadas[]`. O teste de sanidade (§5.3) mostrou que o ganho entre fontes vem do banco, não do arquivo |
+| D12 | o estágio reindexa X pela **presença na edição E**, marcada; a busca normal do app continua ignorando até o publicar (§4.1) |
+| D13 | reabre só o que o histórico escreve: **descrição e unidade**. O carimbo `AF_` está no texto e conta; `ALTERACAO_ITENS` sem mudança de cabeçalho não reabre |
+| D14 | CPU: o insumo principal (`check_sanidade`; 91,5% de acerto, 2,3% de disparo em errado, em 413 pares) vai **no pedido à IA**, com a marca dos candidatos em que aparece; conflito com a resposta → repergunta uma vez, com o conflito apontado; o que sobrar chega marcado à 5b. Só raríssimo/raro. Sinal, nunca decisão |
+| D15 | **transitividade como sinal** (decidido 29/10). Quando o item entra na rodada, o candidato que o triângulo aponta (ex.: FDE a ↔ CDHU b e CDHU b ↔ SINAPI c → c para a FDE a) vai marcado no prompt e na 5b, como o principal da D14. Sinal, nunca decisão. As 64 lacunas que já existem (§5.3) são estado: vão para a 5a |
 
 ---
 
@@ -448,12 +478,12 @@ caminho do fechamento 5b, e reusa a tela da 5b sem a fila do import.
 
 | fase | entrega | prova |
 |---|---|---|
-| **F0** | Leitura em prod: drift (como o §0), R2 × local, OpenSearch alcançável do worker, latência da busca | números no próprio doc |
+| **F0** | Leitura em prod: catálogo igual a dev e estrutura do 1×1 — **feito 29/10** (§0, §12.2). Falta: OpenSearch alcançável do worker e latência da busca, medidos na F3 | números no próprio doc |
 | **F1** | `edicoes_estagios` + `estagios.py` portado + estágio `associacoes` em `skip`; `IA_local` removido e descritivo preenchido no import nas três fontes, com falha visível (§3) | import real em dev com o mesmo comportamento, e toda CPU da edição com `remunera` vigente no fim do `documentos` |
-| **F2** | hash única + captura do delta no import + espelhos por item (migração dos arquivos por par) | reimport da mesma edição em dev dá delta vazio; contagem par × espelho batendo |
+| **F2** | hash única + histórico confiável na reexecução (§5.2) + `rodadas[]` no JSON por par | reimport da mesma edição em dev dá delta vazio; o JSON antigo vira `rodadas[0]` sem perder campo |
 | **F3** | rotina dos scripts portada ao backend, **sem IA**: delta, papéis, candidatos, filtros; `remunera` lido da versão vigente (§3) | mesmas listas que `monta_candidatos*` numa amostra; equivalência provada |
 | **F4** | IA + validador + pré-curadoria + JSON por item | rodada em dev sobre um delta forjado em transação com rollback |
-| **F5** | tela 5b + fechamento (banco, depois espelhos) | import real em dev ponta a ponta |
+| **F5** | tela 5b + fechamento (banco, depois JSONs) | import real em dev ponta a ponta |
 | **F6** | plugue: estágio ligado, gate no publicar, remoção do §7 | import de SINAPI e de FDE em dev; depois prod, com o seu OK |
 | F7 | tela 5a | — |
 
@@ -470,13 +500,11 @@ aponta para o R2 de produção.
 
 - **Parser regride o texto fonte-level** ao importar edição antiga. O `skip` protege a associação,
   mas o catálogo continua exposto — fica como pendência própria.
-- **Custo da busca no import de SINAPI** (papel de alvo): medir na F0/F3 antes de fixar D7.
+- **Custo da busca no import de SINAPI** (papel de alvo): medir na F3, com a bancada da 09/26.
 - **Elastic no worker de prod**: se não alcançável, o motor não pode cair para um motor só em
   silêncio (o script já trata isso com `faltou_motor`).
 - **IA paga no worker**: a cadeia precisa de chave em prod; sem chave o estágio para em `erro`,
   nunca segue sem parecer, porque a 5b exige justificativa.
-- **Primeira edição depois do plugue**: o banco de prod precisa do mesmo drift zero de dev (pares
-  e negadas batendo com o texto vigente), senão o "antes" já nasce errado. A F0 responde.
 - **Preenchimento do descritivo no import:** custo e tempo de IA por edição (SINAPI 09/26: 58
   novas + 297 mudadas). Medir na bancada de teste.
 - **Import abandonado no meio**: o parser já sobrescreveu o texto de X e a associação não fechou.
@@ -501,8 +529,8 @@ rotina dos scripts já resolveu, e o que dela vale está no §4 e no contrato `v
 | Resíduo de curadoria (contrato §6): 79 composições de principal raríssimo mantidas sem par, com candidato único apontado | uma passada humana na 5a |
 | Sobras versionadas em `z_scripts_apoio/_out_associacoes/`: três CSV de backup de set/2026 (`backup_carimbo_fde_local`, `backup_carimbo_fde_prod`, `backup_equivalencias_mo_prod`), ~40 KB | conferir se o conteúdo está no banco, remover e tirar a exceção `!…/backup_*.csv` do `.gitignore` |
 
-### 12.2 Estado em PROD — conferir na F0
+### 12.2 Estado em PROD — conferido em 29/10
 
-O contrato (§6) registra a carga em prod em 28/09 com o 1×1. Conferir: os dois uniques, o CHECK
-`ck_*_canonico` e a trigger de guarda existem em `equivalencias_ins`/`_cpu`, e não há linha
-`pendente`. `equivalencias_mo` à parte (rito próprio, 34 pares confirmados à mão).
+Os dois uniques (`uq_e*_ori`, `uq_e*_dest`), o CHECK `ck_e*_canonico` e a trigger `t_e*_guarda`
+existem em `equivalencias_ins`/`_cpu`, iguais a dev, e há 0 linha `pendente`. Com a última linha
+das 48 tabelas idêntica (§0), nada a fazer aqui.
