@@ -836,16 +836,24 @@ O isolamento entre tenants, o bucket privado, a fórmula no Excel, XSS, CSRF, OA
 e de IA, sandbox do HTML importado e o LIKE foram fechados em 28/10 (vigia `sanidade/isolamento_tenants.py`).
 Ficou:
 
-- [ ] **RLS no banco** — o isolamento de `ativo.*` e `tenant_catalogo.*` depende só do `WHERE` da aplicação
-      (a guarda de posse do roteador e os serviços). RLS seria a rede no banco; hoje só `core.jobs` tem.
-      Mudança de arquitetura: exige `SET app.current_tenant` em toda conexão e testar cada consulta.
-- [ ] **Logout por GET** (`/login/logout`) — um link de outro site desloga o usuário. Trocar por POST mexe
-      no menu de todas as telas; o efeito máximo do ataque é deslogar.
-- [ ] **Reset de senha** — o token de reset serve mais de uma vez e não há limite de pedidos. Hoje o fluxo
-      não funciona em prod (o acesso direto ao Hub é bloqueado lá); corrigir antes de reativá-lo.
-- [ ] **uuid de tenant possivelmente previsível** (versão 5, derivado de nome) — depois da guarda de posse
-      não abre nada sozinho; confirmar com o Hub como é gerado.
-
+- [ ] **RLS no banco, por schema — `ativo` e `tenant_catalogo`** (avaliar depois; Renan, 28/10). Hoje o
+      isolamento depende só da APLICAÇÃO (guarda de posse no roteador + `WHERE tenant_uuid` nos serviços);
+      RLS faz o Postgres recusar linha de outro tenant mesmo que a query esqueça o filtro. É ligado e
+      escrito tabela a tabela, mas um script aplica o mesmo padrão ao schema inteiro.
+      - `tenant_catalogo`: toda tabela tem `*_tenant_uuid` → política direta (`= current_setting(...)`).
+      - `ativo`: só `ativos`/`empreendimentos` têm o tenant; as filhas (`ativo_orcamento_*`) chegam a ele
+        por cadeia (item → revisão → orçamento → ativo). Decidir: política que segue a cadeia (custo em
+        toda query) ou coluna de tenant desnormalizada nas filhas (migration + manter na escrita).
+      - Toda conexão do pool recebe `SET app.current_tenant` no começo da requisição e o esquece ao voltar
+        ao pool; jobs/scripts que leem vários tenants usam um papel próprio. Sem o SET, o resultado é
+        VAZIO em silêncio — testar cada consulta. Hoje só `core.jobs` tem RLS.
+- [ ] **Reset de senha — para depois** (Renan, 28/10). O fluxo do Easy não funciona em prod (o acesso direto
+      ao banco do Hub é bloqueado lá) e a senha é do Hub. Recomendação: APAGAR o reset do Easy e apontar o
+      "Esqueci minha senha" para o do Hub, em vez de consertar código que ninguém usa. Se for mantido: o
+      token serve mais de uma vez e não há limite de pedidos (gerador e segredo já corrigidos em 28/10).
+- [ ] **uuid de tenant possivelmente previsível** (versão 5, derivado de nome) — Renan vai perguntar ao Hub
+      de quê e com qual namespace ele é gerado, e se é tratado como público. Depois da guarda de posse não
+      abre nada sozinho; se for derivável, parar de usá-lo em caminho de arquivo e em link.
 ---
 
 ## Verificação de desempenho — com números (aberta em 28/10/2026)
