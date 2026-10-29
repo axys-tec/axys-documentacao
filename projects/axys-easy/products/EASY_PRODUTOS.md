@@ -210,7 +210,7 @@ um empreendimento, contrato ou ativo existente no ecossistema Axys.
 ## Licenciamento
 
 Quais módulos cada tenant vê/usa vem da **licença no HUB** (fronteira: Hub manda, Easy renderiza). O
-main-client monta os cards a partir do que o Hub libera. Ver `next-steps/PLANO_CLIENTE.md` (Ciclo 1).
+main-client monta os cards a partir do que o Hub libera.
 
 ---
 

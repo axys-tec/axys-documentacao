@@ -1,7 +1,6 @@
 # Perfis e Permissões no Easy
 
-**Data:** 2026-06-14 · Companheiro de `EASY_HUB_LICENCIAMENTO.md` (claims §7.0) e
-`next-steps/PLANO_CLIENTE.md` (porteira). **Status:** doutrina — gate interno **JÁ implementado** (`core/permissions.py`).
+**Data:** 2026-06-14 · Companheiro de `EASY_HUB_LICENCIAMENTO.md` (claims §7.0) . **Status:** doutrina — gate interno **JÁ implementado** (`core/permissions.py`).
 
 > **Fronteira:** o Easy **não faz** billing, assentos (seats), vínculo de user↔app nem edição de
 > perfis — **tudo isso é do Hub**. O Easy **recebe credenciais** e **o que o user pode acessar**, e

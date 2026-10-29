@@ -90,21 +90,10 @@ Easy segue um **design system canônico** documentado:
 
 ---
 
-## 🚀 Roadmap (Next Steps)
+## 🚀 Pendências e frentes abertas
 
-### Layer 1 — Insumos (próxima sessão)
-- [ ] Parser SINAPI/CDHU
-- [ ] Importação de insumos
-- Veja: [PROMPT_PROXIMA_SESSAO_INSUMOS.md](next-steps/)
-
-### Layer 2 — Composições
-- [ ] Importação de grupos/composições
-- [ ] Vínculo insumo ↔ composição
-
-### Layer 3 — Módulo Ativo
-- [ ] Árvore de orçamentos (hierarquia ilimitada)
-- [ ] Liberdade operacional (reordenar, identar, copiar)
-- Veja: [MODULO_ATIVO_ARCHITECTURE_CONTRACT](contracts/)
+O que está aberto — frentes, planos e próximos passos — vive num lugar só:
+[governanca/pendencias.md](governanca/pendencias.md) (índice FRENTES PENDENTES no topo).
 
 ---
 

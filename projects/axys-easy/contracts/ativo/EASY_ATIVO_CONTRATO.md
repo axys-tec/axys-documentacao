@@ -5,7 +5,7 @@
 sumário executivo v0.2 e evoluções v0.3.
 **Fonte da verdade do schema:** `docs/projects/axys-easy/schemas/schema.sql` (bloco "MÓDULO ATIVO").
 Aplicado em dev (schemas `ativo` + `tenant_catalogo` + `arquivo`). Docs correlatos:
-`EASY_HUB_ARQUIVAMENTO.md`, `products/EASY_PRODUTOS.md`, `next-steps/PLANO_CLIENTE.md`.
+`EASY_HUB_ARQUIVAMENTO.md`, `products/EASY_PRODUTOS.md`.
 
 ---
 
@@ -371,7 +371,6 @@ idempotente). **Já aplicado** em dev (localhost/axys_easy_db) em 2026-06-14.
 
 - RLS adiada; `drv_regra_json` (formato) a detalhar quando o gerador nascer.
 - `opa_modalidade` × `ativo_ls.als_tipo`; sufixo `_catalog`/`_catalogo`; lógica fina do cronograma.
-- "Projeto" na UX = ativo (recomendado) vs empreendimento (`PLANO_CLIENTE.md`).
 
 ## 17. Histórico de Versões
 

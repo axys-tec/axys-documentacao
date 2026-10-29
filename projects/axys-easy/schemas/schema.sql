@@ -43,8 +43,7 @@
 --     (SINAPI usa sub_grp_id = NULL; seus "grupos" são subgrupos)
 --
 -- TIPO DE INSUMO
---   ins_tipo_sinapi: classificação exata da fonte (SINAPI verbatim
---     ou mapeado de outras fontes). Fidelidade ao dado original.
+--   (a classificação da fonte é mapeada direto para ins_ti_id no import; não se guarda o texto)
 --   ins_ti_id: FK para catalogo.insumos_tipo
 --     (MO / EQUIP_AQ / EQUIP_LOC / MAT / SERV / ESP)
 --     agrupamento para histogramas e relatórios.
@@ -8771,7 +8770,7 @@ CREATE INDEX ix_arq_expira
 -- ============================================================
 -- FAMÍLIA ativo_orcamento_* — o ORÇAMENTO como ESTADO (refactor de 11/10/2026)
 --
--- O desenho e o porquê de cada decisão: `ativo_orcamento_schema_review.md` (raiz do repo).
+-- O desenho e o porquê de cada decisão: `ativo_orcamento_schema_review.md` (executado; está no git do repo principal).
 -- O plano em 11 fases e o que já rodou: `next-steps/REFACTOR_ORCAMENTO_ANDAMENTO.md`.
 --
 -- O que mudou, em uma frase: o orçamento guardava o preço do serviço mas não a COMPOSIÇÃO, então

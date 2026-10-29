@@ -8,7 +8,7 @@
 > Princípio de governança do projeto: **Contrato governa · Schema suporta · Código implementa · Tela opera.**
 > Regras de negócio do catálogo: ver [../../contracts/catalogo/CATALOGO_BUSINESS_RULES.md](../../contracts/catalogo/CATALOGO_BUSINESS_RULES.md).
 > Modelo de fontes/edições (imutabilidade por edição): ver [../../contracts/catalogo/CATALOGO_FONTES.md](../../contracts/catalogo/CATALOGO_FONTES.md) e [../../contracts/catalogo/CATALOGO_EDICOES.md](../../contracts/catalogo/CATALOGO_EDICOES.md).
-> Posicionamento no roadmap: este documento é **insumo da FASE 7** do `PLANO_IMPORT_CATALOGO.md`. Só será **avaliado e detalhado** quando o roadmap chegar lá; antes disso permanece como decisão registrada, não como trabalho ativo.
+> Posicionamento no roadmap: este documento é **insumo da frente F15** de `governanca/pendencias.md`. Só será **avaliado e detalhado** quando o roadmap chegar lá; antes disso permanece como decisão registrada, não como trabalho ativo.
 
 ---
 
@@ -230,7 +230,7 @@ Conceituais — mitigação será detalhada na FASE 7.
 
 ## Posicionamento no roadmap
 
-Este documento é **insumo da FASE 7** do `PLANO_IMPORT_CATALOGO.md`. Ele **não** autoriza implementação: registra a decisão arquitetural e o modelo conceitual aprovados. O detalhamento de contrato, schema, código e tela só ocorrerá quando o roadmap alcançar a FASE 7, respeitando o princípio **Contrato governa · Schema suporta · Código implementa · Tela opera.**
+Este documento é **insumo da frente F15** de `governanca/pendencias.md`. Ele **não** autoriza implementação: registra a decisão arquitetural e o modelo conceitual aprovados. O detalhamento de contrato, schema, código e tela só ocorrerá quando o roadmap alcançar a FASE 7, respeitando o princípio **Contrato governa · Schema suporta · Código implementa · Tela opera.**
 
 ## Itens em aberto
 
@@ -240,4 +240,4 @@ Este documento é **insumo da FASE 7** do `PLANO_IMPORT_CATALOGO.md`. Ele **não
 - Política de custo de armazenamento/indexação do conteúdo público.
 - Modelagem física da camada de staging e das views públicas (FASE 7).
 
-Lista consolidada em [../../governanca/pendencias.md](../../governanca/pendencias.md). Planejamento em [../../governanca/roadmap.md](../../governanca/roadmap.md).
+Lista consolidada em [../../governanca/pendencias.md](../../governanca/pendencias.md).

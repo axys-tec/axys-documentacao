@@ -7,120 +7,127 @@
 > Lista do que está ABERTO. O que foi feito SAI daqui — o git guarda o histórico (Renan, 28/10/2026).
 > A última seção é sempre a verificação em curso.
 
+> Tudo que está aqui é uma **frente**: aberta, em espera ou em verificação. O que surgir fora delas
+> é frente NOVA e entra com título próprio no índice abaixo (Renan, 29/10/2026).
+
+---
+
+## FRENTES PENDENTES
+
+| | frente | estado |
+|---|---|---|
+| F1 | Ciclo de vida do orçamento | frente aberta |
+| F2 | Submain do orçamento | frente aberta |
+| F3 | Provisão de Medições | frente aberta |
+| F4 | Remover o id das rotas | frente aberta |
+| F5 | Associação entre fontes | frente aberta |
+| F6 | Licenciamento, capacidade e arquivamento por produto | frente aberta |
+| F7 | Cronograma (contrato §10) | frente aberta |
+| F8 | Pré-planejamento — persistência e IA | frente aberta |
+| F9 | Memória de cálculo — levantamentos CAD/RVT/BIM | frente aberta |
+| F10 | Bancada colaborativa | frente aberta |
+| F11 | MCP — fila de leitura e pré-planejamento | frente aberta |
+| F12 | Ficha técnica → orçamento | frente aberta |
+| F13 | Integração viva com Excel | em espera |
+| F14 | Catálogo — identidade da fonte, import e resíduos | frente aberta |
+| F15 | Catálogo Colaborativo | frente aberta |
+| F16 | Tabelas de domínio com tela (ADM) | frente aberta |
+| F17 | Certificação digital — assinar em lote | sem execução prevista |
+| F18 | Segurança — RLS por schema | avaliar |
+| F19 | Verificação de desempenho — com números | em curso |
+
+---
+
 **Contratos que governam o que está aqui** — citados no cabeçalho de propósito: contrato que
 nenhuma pendência menciona desaparece em silêncio, e quem lê a pendência não vai caçá-lo.
 
 | contrato | governa |
 |---|---|
-| [`contracts/ativo/bancada_orcamento_persistencia_contrato.md`](../contracts/ativo/bancada_orcamento_persistencia_contrato.md) | `ativo_orcamento`: congelar, concluir, reabrir, revisar. Frente pós-refino; leva **o que se duplica numa revisão**, que é o trabalho grande ainda aberto |
-| [`contracts/axys_easy_modelo_licenciamento.md`](../contracts/axys_easy_modelo_licenciamento.md) | licenciamento, capacidade e consumo (seções 1 a 9 abaixo). **Prevalece** sobre `EASY_HUB_LICENCIAMENTO.md` |
-| [`contracts/catalogo/identidade_fonte.md`](../contracts/catalogo/identidade_fonte.md) | identidade da fonte (código imutável, nada decidido pelo nome), PRÓPRIA por origem, edição mínima do tenant, data-base por insumo. Nasceu do bug 2 (25-26/10/2026) |
+| [`contracts/ativo/bancada_orcamento_persistencia_contrato.md`](../contracts/ativo/bancada_orcamento_persistencia_contrato.md) | `ativo_orcamento`: congelar, concluir, reabrir, revisar — **F1** |
+| [`contracts/axys_easy_modelo_licenciamento.md`](../contracts/axys_easy_modelo_licenciamento.md) | licenciamento, capacidade e consumo — **F6**. **Prevalece** sobre `EASY_HUB_LICENCIAMENTO.md` |
+| [`contracts/catalogo/identidade_fonte.md`](../contracts/catalogo/identidade_fonte.md) | identidade da fonte (código imutável, nada decidido pelo nome), PRÓPRIA por origem, edição mínima do tenant, data-base por insumo. Nasceu do bug 2 (25-26/10/2026) — **F14** |
 | [`contracts/ativo/apresentacao_orcamento_contrato.md`](../contracts/ativo/apresentacao_orcamento_contrato.md) | como o orçamento se apresenta ao sair: arranjo, repath, ordem canônica, timbrado, assinatura, data de emissão e as regras do Excel. Nasceu dos itens 12-13 do refino |
 
 ---
 
-## Identidade da fonte — o que ficou de futuro (bug 2, 26/10/2026)
+## F1 · Ciclo de vida do orçamento — frente aberta
 
-A subida para prod está feita (conferida em 28/10). Abertos:
-- [ ] **Fonte derivada de verdade** (SBC, ORSE, COMPESA): parser + L.S. da MO de outra fonte. A função
-  única de edição por item e a tabela `catalogo.edicoes_dependencias` já existem (vazia). Quando
-  entrar, as telas de composição do catálogo (cliente `/consulta-composicoes/detalhar` e interna
-  `/composicoes/{id}/editar`) passam a mostrar a **data-base de cada insumo** — hoje é a mesma em
-  todas as linhas (nenhuma composição do catálogo mistura fontes).
-- [ ] **Correlação de fonte sucessora** (antecessora → sucessora, para a série atravessar o renome):
-  desenhada no contrato §2.2, construída no primeiro renome real.
-- [ ] **Divergência de arredondamento da FDE**: o oráculo conta CHEIA; as telas de insumo e a MO com
-  L.S. do catálogo truncam ("ROUND arredonda, o resto trunca"). Ficou como era, agora escrito
-  (contrato §2.3). Decidir se a tela deve seguir o perfil.
-- [ ] **9 linhas sem data-base em dev**: insumos CDHU numa revisão antiga que só declara a PRÓPRIA —
-  não há de onde tirar o mês; mostram "—".
+Contrato que já existe e é ponto de partida:
+[`bancada_orcamento_persistencia_contrato.md`](../contracts/ativo/bancada_orcamento_persistencia_contrato.md)
+— mas lá "congelar" é congelar o dado do catálogo, não o estado do orçamento. O schema da família
+`ativo_orcamento_*` está em produção desde o refactor de 11-13/10; o que falta é o **comportamento**.
 
-## Catálogo Colaborativo
+- [ ] **Concluir e reabrir** — `aor_estado` / `aor_concluido_em`, com auditoria e snapshot (é a única
+      auditoria da bancada: a transição, não cada operação). O badge e os três estados existem; nada
+      escreve `aor_estado` hoje. A guarda "só em RASCUNHO" está repetida à mão em 8 serviços (MCP,
+      editor de composição, descritivo, cotação); as rotas centrais da bancada — criar, editar, mover,
+      colar, excluir, importar — **não têm guarda**. Fazer a guarda de rota central e o front
+      desabilitando os gatilhos.
+- [ ] **Revisões R01+** — criar a revisão; cópia-na-escrita da composição (`aoc_aor_desde` existe e
+      nada o grava: enquanto tudo é R00 o editor grava no lugar sem risco; com R01, editar composição
+      compartilhada com revisão anterior tem de cloná-la); o `{versao}` da URL apontando de verdade
+      para a revisão.
+- [ ] **Contrato do ciclo de estados** — não existe; nasce com esta frente.
+- [ ] **Composição própria sem descritivo no Caderno de Encargos.** Decidido em 11/10: não entra no
+      caderno, e antes de gerar a tela **lista e pergunta** — *"Existem composições sem descritivo e
+      estas serão ignoradas na montagem do Caderno de Encargos"*, com a lista (código + descrição, e a
+      obra quando há mais de uma) e **Prosseguir sem** / **Cancelar**. Hoje o PDF imprime "Descritivo
+      técnico não disponível". O modal e o pré-voo (uma query por origem, 5-331 ms contra 4,7 s da
+      montagem) estão no patch congelado: `git cat-file -p refs/congelado/caderno-patch-blob` — dele
+      só serve essa parte; a composição adaptada o caderno já lê do estado gravado.
 
-Referência: [../modules/catalogo/AXYS_CATALOGO_COLABORATIVO_v0.md](../modules/catalogo/AXYS_CATALOGO_COLABORATIVO_v0.md) · [roadmap.md](roadmap.md)
+**A semântica da revisão (decidida em 06/10, segue valendo):**
 
-- [ ] Definir arquitetura definitiva do Catálogo Colaborativo
-  - [ ] Definir modelo de curadoria
-  - [ ] Definir workflow de aprovação
-  - [ ] Definir mecanismo de reputação
-  - [ ] Definir política de versionamento
-  - [ ] Definir política de licenciamento de contribuições
-  - [ ] Definir critérios de promoção para catálogo oficial
-  - [ ] Avaliar indexação e busca pública
-  - [ ] Avaliar impactos de armazenamento
+> **A planilha é atômica; a memória é isolada.** Não se separa uma linha do orçamento — ele revisa
+> inteiro. Mas cada memória revisa sozinha, e **só revisa a que mudou**.
 
----
-
-## Bancada — pontos de revisão
-
-> Contêiner dos pontos de revisão da bancada (Renan tem ~13 a acrescentar). Trabalhar
-> quando a frente da bancada for aberta; por ora só registrados.
-
-> **CONGELADO em 11/10 — vai junto com o refactor do orçamento.** O item abaixo (e o da composição
-> adaptada, já fechado em 25/10 por outro caminho) foi implementado e validado neste dia, e então
-> congelado por decisão do Renan: o caderno depende
-> do refactor de persistência e, com o estado persistido, o mesmo resultado sai muito mais simples.
-> Hoje a composição adaptada é resolvida **por item, em tempo de geração** (uma chamada a
-> `get_composicao_detalhe` por serviço); depois do refactor ela vem de onde já está gravada. É o
-> mesmo argumento que derrubou o congelamento em JSON — não antecipar o que o desenho novo resolve
-> de graça.
->
-> O código está no patch `z_scripts_apoio/_backups/CONGELADO_caderno_composicao_adaptada_*.patch`
-> (pasta ignorada pelo git) e, para não depender dela, no próprio repositório como blob:
-> `git cat-file -p refs/congelado/caderno-patch-blob`. Toca 4 arquivos:
-> `caderno_encargos_service.py`, `caderno_encargos_pdf.py`, `routes.py` (dois endpoints de pré-voo)
-> e `easy_finalizacao.js` (o modal).
->
-> **O que a medição em dev provou, e é o que não se deve perder** — vale como requisito de aceite
-> para quando o refactor retomar:
->
-> | ativo | conversão ligada | serviços | composição ≠ a da fonte |
-> |---|---|---|---|
-> | 21 | nenhuma (controle) | 14 | **0** |
-> | 23 | MENSALISTA + reg | 10 | **8 de 9** de catálogo |
-> | 24 | mdo + ins | 321 | **55** composições (61 itens) |
-> | 26 | ls + mdo | 176 | **0** |
->
-> O controle dando zero é o que valida o resto. O caso mais claro: a composição `88255`
-> (AUXILIAR TÉCNICO … **MENSALISTA**) tinha, na bancada, *EPI FAMÍLIA ENGENHEIRO CIVIL -
-> MENSALISTA*, e o caderno imprimia *CURSO DE CAPACITAÇÃO … **HORISTA***.
->
-> Três coisas aprendidas que o refactor herda:
->
-> 1. **Comparar o que vai ao papel, não o float.** Medindo coeficiente como float, o ativo 26
->    "divergia" em 24 serviços; comparando o texto de 5 casas que o documento imprime, diverge em
->    **zero**. As 24 eram artefato de precisão.
-> 2. **A adaptação é por ITEM, o dedup do caderno é por `cmp_id`.** O mesmo serviço pode estar
->    convertido numa etapa e cru noutra — e aí são duas composições, não uma. Não ocorre hoje
->    (0 casos em 4 orçamentos), mas a chave do grupo tem de carregar a identidade da composição,
->    senão o caderno escolhe uma das duas em silêncio.
-> 3. **`converter_ls` não entra.** Ele mexe no preço da mão de obra, e o caderno não imprime preço.
->    Quem muda as LINHAS é rotação de regime e conversão de MDO/insumo — e é esse o gate que
->    mantém o custo zero em orçamento sem conversão.
-
-- [ ] **Composição própria sem descritivo bloqueia o Caderno de Encargos.** Composições próprias,
-  ao serem criadas, não carregam descritivo (CTC) → não entram no caderno. Resolver: ou o
-  descritivo passa a fazer parte da composição própria na criação, ou abre-se um campo para o
-  usuário digitar antes da geração. (Provável item da revisão geral da bancada.)
-
-  **Decidido em 11/10 (implementado e congelado junto com o item acima):** não entra no caderno — e
-  antes de gerar, a tela **lista e pergunta**. Era pior do que parecia: o serviço sem descritivo
-  entrava com a ficha vazia e um "descritivo técnico não disponível" no corpo, então o documento
-  saía com buraco e o leitor não sabia se faltava no serviço ou no documento. O modal diz *"Existem
-  composições sem descritivo e estas serão ignoradas na montagem do Caderno de Encargos"*, lista
-  quais (código + descrição, com o nome da obra quando há mais de uma), e oferece **Prosseguir sem**
-  ou **Cancelar** — cancelar não gera nada. A lista é indispensável: sem ela a pessoa sabe que falta
-  algo e não tem como agir.
-
-  O pré-voo é uma query por origem (`versoes[-1]`, com tolerância ao formato flat, como
-  `desc_partes`), não a montagem do caderno: **5 a 331 ms contra 4,7 s**, e confere com o caderno
-  real em 4 de 4 orçamentos medidos. Sem medição E sem remuneração = sem descritivo; um dos dois já
-  basta para a ficha valer. Medido em dev: ativo 26 com **34 fora**, todas composições PRÓPRIAS
-  (`C-0000xx`) — é o caso que originou a pendência.
+Daí o orçamento poder estar em **R11** com memórias em R11, outras em R0, outras em R1: cada memória
+carrega a sua própria linha do tempo.
 
 ---
 
-## Vinculação entre fontes — redesenho (pensar no próximo ajuste)
+## F2 · Submain do orçamento — frente aberta
+
+Eram as fases 6 e 8 do refactor do orçamento, redefinidas pelo Renan em 12/10:
+
+> *"Basicamente será uma unificação das tabs, alocando-a para dentro de orçamento e gerando o
+> histórico mas, como orçamento tem virado uma coisa de múltiplos botões, minha ideia será uma
+> submain do orçamento, dando uma otimizada em tabs. Inclusive, é o que vai fazer mais sentido até
+> para os outros produtos da app. Porque essa estrutura de tabs pode sobretensionar no carregamento."*
+
+- [ ] Submain que absorve as tabs (Fontes, BDI e LS dentro do orçamento) e mostra o histórico de
+      BDI/L.S. por revisão — desenho que serve os outros produtos também.
+- [ ] Recaptura granular em prod (por orçamento/composição) — nunca virou script.
+
+---
+
+## F3 · Provisão de Medições — frente aberta
+
+- [ ] O card de Medições é placeholder; o simulador que funciona não tem card. Frente própria.
+
+---
+
+## F4 · Remover o id das rotas — frente aberta
+
+Documento da frente: [`next-steps/redesign_rotas_exposicao.md`](../next-steps/redesign_rotas_exposicao.md)
+(a regra, o mapeamento de 10/10 e a Tarefa 2 — a trava do arquivamento, que é a mesma varredura).
+
+- [ ] **Nenhuma rota exibe id** — `/empreendimentos/24`, `/ativos/26`. Desde 05/10 o empreendimento tem
+      código opaco e a listagem não expõe mais o id; a URL ainda expõe. Desde 28/10 id alheio já dá
+      404 (guarda de posse no roteador), então é higiene, não vazamento: o sequencial conta quantos
+      objetos existem. Decidir sha estável × rotativo, link antigo, e as rotas de arquivo (PDF, XLSX,
+      caderno) junto.
+
+---
+
+## F5 · Associação entre fontes — frente aberta
+
+Documento de trabalho da frente: [`next-steps/associacoes_entre_fontes.md`](../next-steps/associacoes_entre_fontes.md)
+(arestas do `publicar`, as duas últimas tarefas — telas de curadoria e plugue no import — e as dívidas
+vivas). A doutrina está no contrato `contracts/catalogo/vinculacoes.md`. Abaixo, o que estava solto
+aqui e é da mesma frente.
+
+### Vinculação entre fontes — redesenho (pensar no próximo ajuste)
 
 Hoje: MDO-fonte→SINAPI (estrela com hub SINAPI) + pares curados. **Problema:** ligar todas as
 fontes par-a-par é O(n²) (`n(n-1)/2` pares; cada fonte nova nasce com n-1) — inviável de curar à
@@ -142,58 +149,7 @@ re-curadas **a cada edição**). Precisa de estratégia de curadoria viável (IA
 alta, que hoje não há) antes de valer a pena. Adiado junto com a revisão geral da bancada.
 Ver: `../modules/catalogo/CATALOGO_VINCULACOES_INTRA_FONTES.md`, favoritar-fonte na bancada.
 
----
-
-## FDE — descrições com DOIS itens colados (parser da analítica)
-
-**Sintoma (Renan, 2026-09-23, achado durante a curadoria de equivalências):**
-
-```
-FDE 6.30.77  TUBO DE COBRE CLASSE "E" DN=1 1/4" (35MM) P/AGUA QUENTE
-             ‖ TUBO DE COBRE NBR13206 CLASSE "E" DN 15 MM (1/2") AGUA QUENTE INCL CONEXOES COM
-```
-
-**Medido em dev:** 105 insumos FDE com 110+ caracteres; em **90** deles a cauda é, literalmente, o
-**início da descrição de outro item** do catálogo. Não é limite de coluna (`ins_descricao` é `text`)
-— o corte em ~160 caracteres é o fim da linha física do PDF.
-
-**Causa:** `fde_analitica_pdf_parser.py:252-258` cola na descrição as linhas anterior e seguinte
-quando elas "parecem continuação", e `is_continuation_line()` (:172) devolve `True` para QUALQUER
-linha que não seja cabeçalho/rodapé e da qual não se extraia um código. Quando o código de um item
-novo não é reconhecido, o item inteiro vira continuação do anterior. A pista está nos códigos que
-vazam — `16.06.047`, `16.07.045`, `06.03.066`: formato **2-2-3 dígitos**, que `extract_insumo_code`
-não reconhece, diferente do `d.dd.dd` do resto do FDE.
-
-**Impacto imediato:** os pares de equivalência que envolvem esses 90 itens **não são decidíveis** —
-a descrição não descreve um item só. Ficaram como `INDECIDIVEL` na curadoria.
-
-### Caminho de correção proposto (Renan) — e candidato a via OFICIAL
-
-Prioridade declarada: **não deixar insumo/preço de fora**. Perder item é pior que descrição suja.
-
-1. **MarkItDown** — converter o PDF para Markdown em vez de reconstruir linhas por coordenada de
-   palavra. A estrutura de tabela sai pronta e o "parece continuação" deixa de ser heurística.
-2. **Ao tomar o PREÇO do insumo, revisar a descrição.** O scraper do portal FDE já busca preço item
-   a item (`fde_insumos_to_csv.get_price`) e a resposta traz a descrição **canônica da fonte**.
-   Usar essa descrição para corrigir/validar a que veio do PDF fecha o ciclo sem custo novo: quem
-   tem a verdade é o portal, não o PDF.
-
-### Protocolo obrigatório para aplicar (a lição do carimbo)
-
-Conserto de parser **só entra com diff antes/depois contra o PDF real** — foi assim que o carimbo
-de emissão foi corrigido (3.380 linhas medidas, 78→0, zero dano colateral). Sem isso, troca-se um
-defeito conhecido por um desconhecido.
-- [ ] rodar o parser atual, guardar a saída como linha de base;
-- [ ] aplicar a correção; rodar de novo; **diferenciar item a item**;
-- [ ] critério de aceite duplo: as 90 descrições limpas **E** a contagem de insumos/preços
-      **não pode cair**;
-- [ ] `sanity_check()` do próprio arquivo não pega isto — ele só reprova acima de 20 descrições
-      suspeitas, e o critério dele não olha comprimento nem colagem. Endurecer junto.
-
-
----
-
-## PROD — drop/recreate de equivalencias_ins e equivalencias_cpu
+### PROD — drop/recreate de equivalencias_ins e equivalencias_cpu
 
 **Feito em dev em 2026-09-23** (1.701 + 494 linhas descartadas, tabelas recriadas pelo `schema.sql`
 com a regra 1×1 — ver `contracts/catalogo/vinculacoes.md` §14). **Falta fazer em prod.**
@@ -212,9 +168,7 @@ definição (proposta de máquina). Em dev, a curadoria do Maicon e a do Renan d
 exportadas em `z_scripts_apoio/analise_associacoes/curadoria_maicon.json` e
 `curadoria_propostas_matcher.json`, que casam por CÓDIGO e sobrevivem a rebuild de id.
 
----
-
-## Matcher por busca — estado em 2026-09-24 e o que falta
+### Matcher por busca — estado em 2026-09-24 e o que falta
 
 O matcher deixou de raciocinar. Não infere família, não compara raiz, não arbitra número: chama
 `provider_search` nos dois modos (postgres e elastic), intercala as posições com dedup e corta em
@@ -241,7 +195,7 @@ ES 282 x 226) — score mede semelhança textual com o índice, não existência
 | pior posição do aceito | 15º | 10º |
 | perderia com 1 motor só | pg 2, es 4 | pg 2, es 0 |
 
-### Pendências
+#### Pendências
 
 - [ ] **Fator de conversão devolvido pela IA**, com justificativa. Duas armadilhas: (a) `ori`/`dest`
       é POSIÇÃO DE ARMAZENAMENTO, não direção — o trigger canoniza pela `fte_id` e pode inverter o
@@ -269,7 +223,7 @@ ES 282 x 226) — score mede semelhança textual com o índice, não existência
 - [ ] **Elastic rende menos em CPU** — nenhuma aceita veio só dele, contra 2 só do postgres.
       Hipótese: descrição de composição é longa e narrativa. Observar na próxima leva.
 
-### Doutrina endurecida (`_DOUTRINA_CPU` em `revisao_ia_curadoria.py`)
+#### Doutrina endurecida (`_DOUTRINA_CPU` em `revisao_ia_curadoria.py`)
 
 Quatro regras nasceram da curadoria de 2026-09-24 e estão no prompt:
 
@@ -298,216 +252,7 @@ paga.
 
 ---
 
-## Agrupamento no Excel — a chave do VLOOKUP precisa da edição (2026-10-05)
-
-O parâmetro **Agrupamento** (ISOLADO/AGRUPADO) vale só para o PDF. O workbook da Finalização
-continua com abas por ativo, sempre, e isso é deliberado.
-
-O PDF pode juntar porque cada linha dele já carrega o preço resolvido — e o analítico passou a
-detalhar cada item pelo `atv_id` do próprio item (`get_orcamento_analitico`). A planilha, não: a aba
-**Insumos deduplica por `fonte|código`** e é dela que o Analítico puxa preço por VLOOKUP
-(`orcamento_analitico_excel.py`, `_SDCOL`).
-
-Ativos do mesmo empreendimento podem divergir, e divergem:
-
-| caso | medido em dev |
-|---|---|
-| edições diferentes | empreendimento 21: ativo 22 em SINAPI **07-26**, ativos 32/33 em **08-26** |
-| BDI diferente (mesmo preço de catálogo) | empreendimento 20: 9 de 46 composições com unitário c/BDI distinto entre os dois ativos (253,64 × 253,72) |
-
-Num workbook agrupado, a mesma chave teria dois preços: o dedup guardaria um e o outro ativo
-herdaria preço errado, **calado** — o pior tipo de erro, porque a planilha continua somando.
-
-**Para fechar:** a edição (e o BDI) entram na chave do VLOOKUP, ou cada ativo ganha a sua aba de
-Insumos. É a frente do consolidado amarrado por fórmulas, não o estado de impressão que o
-Agrupamento define.
-
-**Prioridade baixa, e por doutrina** (05/10/2026): o Excel é arquivo de TRABALHO, não peça de
-entrega — ninguém manda planilha aberta e editável para o cliente. O que se entrega é o PDF, e lá o
-agrupamento já funciona. Pela mesma razão, Ocultar Fontes-Base / Código da Fonte também não se
-aplica ao workbook: quem precisar oculta a coluna no próprio Excel.
-
-> Na curva ABC global do PDF o mesmo conflito aparece e foi resolvido por agregação: o unitário da
-> linha agregada é a **média ponderada** (total ÷ qtd), como a curva de insumos já fazia. Colapsar é
-> o que a curva global quer — é dela que sai o ranking A/B/C do empreendimento.
-
----
-
-## Revisão de orçamento — o desenho (decidido em 06/10/2026)
-
-É a frente **"o que se duplica numa revisão"**, a única pesada que ficou aberta do refino. O
-desenho que o Renan fixou:
-
-**Persistir o estado congelado em JSON foi DESCARTADO.** Dois motivos, e os dois bastam sozinhos:
-a **chave id** — JSONB não aceita FK, então todo id de item, composição ou memória guardado lá
-dentro é ponteiro que o banco não protege — e o **desempenho**, que cobra caro para ler e comparar
-revisão dentro de documento. **O schema do orçamento vai ser repensado**, e é com ele na mão que se
-decide onde o congelado mora.
-
-O que NÃO muda com o descarte é a semântica abaixo, que segue valendo. Tecnicamente basta um campo
-de versão:
-
-```
-ativo_orcamento.versao   R00 (inicial) → R01 → R02 …
-```
-
-Vale para o **orçamento** e para a **memória de cálculo**, com uma diferença que é o coração do
-desenho:
-
-> **A planilha é atômica; a memória é isolada.** Não se separa uma linha do orçamento — ele revisa
-> inteiro. Mas cada memória revisa sozinha, e **só revisa a que mudou**: a anterior fica como JSON.
-
-Daí sai o que parece estranho e é correto: o orçamento pode estar em **R11** com **algumas memórias
-em R11, outras ainda em R0, outras em R1**. Cada memória carrega a sua própria linha do tempo.
-
-**Em aberto:** onde o congelado mora, agora que JSON está fora. Sai do repensar do schema, não
-antes dele.
-
-**Depende de** `ativo_orcamento`, que é a frente pós-refino nascida do item 17 do refino.
-
-> **O desenho dessa frente mora em
-> [`contracts/ativo/bancada_orcamento_persistencia_contrato.md`](../contracts/ativo/bancada_orcamento_persistencia_contrato.md).**
-> Está citado aqui de propósito: é o contrato que **governa** o congelar/concluir/reabrir/revisar, e
-> sem ponteiro de dentro das pendências ele desaparece em silêncio — ninguém vai caçar contrato que
-> nenhuma pendência menciona.
-
----
-
-## Resíduo no catálogo GLOBAL — `AX-000.001-CPU` (2026-10-06)
-
-Achado ao varrer o banco para a migration dos códigos próprios: existe **1 composição no catálogo
-GLOBAL** (`catalogo.composicoes`, `cmp_fte_id = 1`) com código no formato PRÓPRIO antigo —
-`AX-000.001-CPU`, "ENGENHEIRO JUNIOR DE CIVIL COM ENCARGOS". Existe em **dev e em produção**, e
-arrasta uma linha em `catalogo.search_document`.
-
-Cheira a resíduo do incidente do item 16 (o bucket paralelo criado porque o código da fonte era
-usado como chave de identidade). **Não foi tocado** pela migration de 06/10, que só mexe em
-`tenant_catalogo` — mexer no catálogo global sem entender a origem seria pior que o sintoma.
-
-**A resolver:** entender se é lixo (apagar) ou se é uma composição legítima que foi parar no bucket
-errado (mover para o tenant certo, com código novo).
-
----
-
-## Abertos herdados do refino da bancada (2026-10-10)
-
-**O que ficou aberto do refino** — enunciado por extenso e sem a sigla: a numeração `P1..P21`
-vinha do documento de trabalho, que saiu do repo, e rótulo cuja fonte não existe mais não diz nada
-a quem lê. **Nenhum dos itens abaixo é refino de tela** — esse fechou.
-
-- [ ] **Repensar o schema do orçamento** — é a frente que carrega *o que se duplica quando um
-  orçamento é revisado*. A leitura é tabela por tabela, com uma pergunta só: *o que, nesta tabela, é
-  do ORÇAMENTO e o que é do ATIVO?* O do ativo é compartilhado entre revisões; o do orçamento se
-  duplica. Memória de cálculo e ficha técnica são do ativo; itens, BDI, LS e cronograma são do
-  orçamento.
-
-  **Frente própria, a ser pensada — não é continuação da bancada.** Ela nasceu da discussão sobre
-  guardar id dentro de JSON: foi essa conversa que derrubou o congelamento em JSON (ver *Revisão de
-  orçamento* acima) e abriu a questão de como o orçamento deve ser modelado. O desenho de revisão já
-  decidido entra como requisito; **onde o estado congelado mora sai daqui**, não antes.
-
-- [ ] **Política de arquivamento por produto** — tem seção própria, *9 · Arquivamento por produto*,
-  com a hierarquia decidida em 06/10 e as quatro coisas que faltam. A tabela
-  `ativo.ativo_produto_status` existe desde 06/10 e **nasceu vazia e sem leitor**. É ela que libera
-  capacidade.
-
-- [ ] **Certificação digital — assinar em lote** — fica anotado, **sem execução prevista**. Tem
-  seção própria, *8 · Certificação digital*. A dor só se mede depois de a assinatura por documento
-  rodar em uso real.
-
-- [ ] **As tabelas de domínio precisam de tela** — `catalogo.profissoes` (39),
-  `catalogo.conselhos_classe` (3) e `doc_resp_tecnica` (3) nasceram semeadas no `schema.sql`, que é
-  o certo para lista fechada e pequena. Mas elas **não são imutáveis**: profissão entra e sai, o CFT
-  reconhece título novo, e o recorte de "construção e infraestrutura" é opinião — vai ser corrigido
-  no uso. Hoje, acrescentar uma profissão exige editar o schema, escrever migration e fazer deploy:
-  caro demais para uma linha de vocabulário. Pedem CRUD no módulo interno (ADM), ao lado do que já
-  existe para o catálogo. Não trava nada agora; vira dor no primeiro *"falta o meu título aí"*.
-  (Era o P7, e **tinha caído fora** desta lista na migração do documento do refino — recuperado do
-  histórico em 11/10.)
-
-- [ ] **O id do banco ainda aparece na URL** — `/empreendimentos/24`, `/ativos/26`. Desde 05/10 o
-  empreendimento tem código opaco e a listagem não expõe mais o id; a URL ainda expõe. O risco é
-  pequeno (toda consulta filtra por `tenant_uuid`, então id de outro tenant dá rota inexistente),
-  mas o sequencial conta quantos empreendimentos existem na base. Trocar exige decidir o que fazer
-  com link antigo, e vale para ativo também. É higiene, não trava nada.
-
-**Duas frentes do documento seguem vivas em seção própria, abaixo:** a revisão de orçamento
-(decidida em 06/10) e o arquivamento por produto.
-
----
-
-## Import ainda não usa o motor único — o D3 está violado de um lado (2026-10-10)
-
-Contrato: [listagem.md §2.2.1](../contracts/catalogo/listagem.md) — D3, "uma implementação só".
-
-O refactor do motor único entregou o lado VIVO: `get_cpu_precificada`, lista, detalhe, bancada,
-mobile e export passaram todos pelo `custo_composicao.py`. O lado do IMPORT ficou fora de escopo na
-época (foi revertido de propósito, para não misturar as frentes) e **continua fora**:
-
-| arquivo | estado |
-|---|---|
-| `backend/core/import_cpu/parser_sinapi.py` | arredonda por conta própria (`calcular_custos_sinapi`) |
-| `backend/core/import_cpu/parser_cdhu.py` | **no motor** — `recompute_edicao` (conferido 27/10) |
-| `backend/core/import_cpu/parser_fde.py` | **no motor** — `recompute_edicao` (conferido 27/10) |
-
-> **Atualização 27/10/2026 (fix_conversao_preco, item 4) — SINAPI: decidido não mexer no import.**
-> Parser SINAPI × motor único na mesma edição e receita (08-24, 08-25, 08-26): **custo idêntico**
-> (0 diferença em ~2,4 mi linhas). Diverge só o RÓTULO da conferência nas edições antigas (o
-> parser usa limiar simples, o motor o classificador composto). A conferência em lote passou a usar
-> a receita DA EDIÇÃO (ae1ba62). Renan: "não é para mexer em motor de import". O que resta abaixo
-> é o débito de forma (D3) e do rótulo, sem efeito no número.
-
-**Por que importa, e não é estética.** O D3 existe porque import e precificação viva que não
-compartilham código **voltam a divergir** — foi o pecado original que o refactor matou do lado vivo.
-Hoje uma edição NOVA entra pelo número do parser; o `cc_custo_calculado` histórico foi consertado
-uma vez pelo `migracao/recompute_cc_calculado.py` (motor histórico, CDHU/FDE, SINAPI intocado), mas
-isso foi um cutover, não um hábito. A cada import novo a divergência pode voltar a nascer.
-
-**É a mesma varredura da conferência-no-import** (seção acima): quem passa a gravar pelo motor é
-quem passa a classificar pelo oráculo. Fazer as duas em momentos diferentes é mexer duas vezes nos
-mesmos três arquivos.
-
-**A fazer:** os três parsers param de calcular e passam a chamar o motor; o `cc_status_conferencia`
-sai do classificador composto (D5) no próprio import. Validar como o parser se valida nesta casa —
-rollback + checksum por chave de negócio, diff antes/depois contra o arquivo real da fonte, nunca
-"rodei e pareceu bom".
-
-**Débito irmão, do mesmo plano:** re-capture em massa já foi feita uma vez (o cutover de 2026-09-10);
-se os parsers mudarem o número de alguma edição já importada, decidir na hora se re-captura ou se
-aceita o histórico como está — a doutrina da composição descontinuada vale aqui (o preço gravado no
-orçamento é o certo e não se recaptura).
-
----
-
-## Sanidade do catálogo tem de rodar NO IMPORT, pela tela (2026-10-10)
-
-Existe o script [`z_scripts_apoio/sanidade/catalogo_custos.py`](../../../../z_scripts_apoio/sanidade/catalogo_custos.py),
-que confronta o que a fonte publicou (`cc_custo_fonte`) com o que o motor calcula
-(`cc_custo_calculado`) em cada edição. Ele roda à parte, por linha de comando — e **o import é
-feito em produção, pela tela, não em dev com curadoria**. Script solto que ninguém lembra de rodar
-não protege nada.
-
-**A fazer:** a conferência vira etapa do próprio import/publicar e o resultado aparece na tela,
-junto do manifesto. O padrão de cada fonte já está medido e é o que o script usa:
-
-| fonte | esperado | medido em 2026-10-10 |
-|---|---|---|
-| SINAPI | bate exato | 0 de 248.895, em 25 edições |
-| CDHU | diverge por arredondamento (a fonte publica com ROUND) | ~9% fora do limite de 1 centavo por item — **a explicar** |
-| FDE | diverge sempre: a fonte publica COM BDI, o nosso é limpo | 0 com calculado acima do publicado |
-
-O limite certo para "é só arredondamento" é **1 centavo por item da composição** — nem valor
-absoluto nem percentual servem sozinhos: R$ 13 num chiller de R$ 523 mil é 0,00%, e 6 centavos
-numa composição de R$ 0,24 com 7 itens são 25%.
-
-**Dois achados abertos do script**, nenhum deles regressão (estão assim desde 2021):
-- CDHU: ~9% das composições divergem acima do limite de arredondamento, em todas as edições.
-- 12.664 custos SINAPI (e 5 CDHU) publicados em composição vigente que o motor **não consegue
-  calcular** (`cc_custo_calculado IS NULL`).
-
----
-
-## Licenciamento, capacidade e consumo (2026-10-01)
+## F6 · Licenciamento, capacidade e arquivamento por produto — frente aberta
 
 Fonte: `docs/projects/axys-easy/contracts/axys_easy_modelo_licenciamento.md` — documento **oficial**
 do licenciamento, que **prevalece** sobre o anterior (`EASY_HUB_LICENCIAMENTO.md`, 15/08).
@@ -521,7 +266,7 @@ Aqui fica o resto.
 `emp_arquivado` já existe, o JWT já carrega `licencas[]` e há onde pendurar o que falta. O que
 falta é implementação, não redesenho. Dois pontos exigem coordenação com o Hub e estão marcados.
 
-## 1 · Capacidade  ✓ O HUB ENTREGOU EM 06/10 — falta o Easy aplicar por produto
+### 1 · Capacidade  ✓ O HUB ENTREGOU EM 06/10 — falta o Easy aplicar por produto
 
 **Deixou de depender do Hub.** O contrato fechou em 06/10 (`a12a4cd` no subrepo de documentação) e
 ficou explícito que **não existe JWT separada para licenciamento**: os entitlements vêm no MESMO
@@ -555,7 +300,7 @@ dois tetos e não um saldo de 10. `ativo.ativo_produto_status` já está no sche
 
 Ver a seção "Arquivamento por produto" abaixo: a tabela existe, o comportamento não.
 
-## 3 · Uso isolado: Price e CPU
+### 3 · Uso isolado: Price e CPU
 
 São produtos de **uso isolado** — saldo canônico no Hub, evento de consumo explícito, deliberado,
 transacional, auditável e **idempotente**.
@@ -585,7 +330,7 @@ unidade de trabalho, data/hora, evento, quantidade, saldo antes, saldo depois, i
 status da sincronização, quem confirmou, erro). `ativo.ativo_eventos` existe e está vazia — serve
 de base, mas o contrato pede mais campos do que ela tem.
 
-## 4 · Axys Intelligence e o AxysCoin (AXC)
+### 4 · Axys Intelligence e o AxysCoin (AXC)
 
 Terceira categoria comercial, nem licença nem capacidade: **créditos**.
 
@@ -615,7 +360,7 @@ O que precisa existir:
 - depois de rodar, **enfileirar a comunicação ao Hub** com idempotência e fallback de falha. O Hub
   registra o uso de qualquer jeito.
 
-## 5 · IA fora do Axys Intelligence (prompt externo)
+### 5 · IA fora do Axys Intelligence (prompt externo)
 
 O uso do Axys Intelligence **não é obrigatório**. Onde for tecnicamente aplicável, o Easy oferece
 **gerar e baixar/copiar o prompt**, para a pessoa usar a ferramenta que preferir sem gastar AXC.
@@ -627,7 +372,7 @@ validações da Axys. Empobrecido, não inútil.
 O valor cobrado é a **conveniência integrada**: preparar contexto, executar, tratar a resposta e
 conciliar com os dados do Easy. Não é restrição artificial ao acesso do usuário aos próprios dados.
 
-## 6 · Retenção e sanitização
+### 6 · Retenção e sanitização
 
 O próprio contrato registra os workers como pendência, para depois das primeiras vendas.
 
@@ -651,7 +396,7 @@ Regras que precisam ser respeitadas quando isso for construído:
 - **não** haverá banco operacional paralelo para tenant inativo;
 - restauração é serviço técnico interno, cobrado, nunca self-service.
 
-## 7 · Inadimplência — do Hub, o Easy respeita
+### 7 · Inadimplência — do Hub, o Easy respeita
 
 Inadimplência **não apaga dado, não arquiva ativo e não altera histórico**. Ela muda
 progressivamente o **modo de acesso** concedido pelo Hub:
@@ -670,32 +415,7 @@ conferir se cobre o estado "funcionalidades suspensas" do D+7, que é diferente 
 
 ---
 
-## 8 · Certificação digital — assinar em lote (2026-10-06, era o item 20 do refino)
-
-Veio do refino final da bancada, onde era o último item. **Sai do refino por decisão de 06/10**:
-não é ajuste de bancada, é produto novo, e só se mede depois da assinatura por documento rodar.
-
-A dor real: o Adobe assina um PDF por vez, e são oito documentos por entrega. **A decisão de
-assinatura por documento já resolve boa parte** — um consolidado é uma assinatura, não oito. Isso
-vale dizer antes de qualquer engenharia, porque muda o tamanho do problema.
-
-Para o que sobrar, três caminhos, do mais barato ao mais caro:
-
-1. **Consolidar mais.** Cada documento a menos é uma assinatura a menos. É desenho, não código.
-2. **Assinador local.** O certificado fica na máquina da pessoa, um agente nativo assina o lote e
-   devolve. É o único jeito honesto de assinar muitos sem a chave privada sair de lá — mas é um
-   produto próprio, com instalador por sistema operacional.
-3. **Assinatura no servidor** com certificado enviado pelo usuário (pyHanko e afins). Tecnicamente
-   o mais simples, e o que **não faria sem pensar muito**: guardar chave privada de terceiro é
-   responsabilidade jurídica séria, não detalhe de implementação.
-
-Navegador puro **não alcança**: a Web Crypto não lê o repositório de certificados do sistema. Sem
-agente nativo ou ponte PKCS#11, não há caminho.
-
-**Método, e é o que trava:** medir a dor depois da assinatura por documento estar no ar. Construir
-antes de medir é escolher o caminho 2 ou 3 sem saber se o caminho 1 já bastava.
-
-## 9 · Arquivamento por produto — PRÓXIMO RINGUE (2026-10-06)
+### 9 · Arquivamento por produto — PRÓXIMO RINGUE (2026-10-06)
 
 **Ordem combinada:** entra **depois** do ajuste da bancada. Não antes.
 
@@ -703,7 +423,7 @@ antes de medir é escolher o caminho 2 ou 3 sem saber se o caminho 1 já bastava
 fontes é **frente isolada**, que o Renan toca por fora da bancada e por fora do arquivamento;
 status de produto não tem relação com equivalência entre fontes.
 
-### A tabela já existe; o comportamento não
+#### A tabela já existe; o comportamento não
 
 `ativo.ativo_produto_status` entrou no schema e na migration `2026-10-06_ativo_produto_status.sql`
 em 06/10. Nasceu **vazia e sem leitor**: nenhum ponto do app cria, arquiva ou conta vínculo.
@@ -713,7 +433,7 @@ tenant incoerente recusado pela FK composta, produto e status fora da lista recu
 `ARQUIVADO` sem data (ou data sem `ARQUIVADO`) recusado. A contagem de ocupação sai em *Index Only
 Scan* pelo índice parcial `ix_atvp_ocupacao`.
 
-### ✓ DECIDIDO (Renan, 06/10): os DOIS status ficam, em hierarquia
+#### ✓ DECIDIDO (Renan, 06/10): os DOIS status ficam, em hierarquia
 
 A tabela parecia contradizer a decisão de 01/10 (slot num status único do ativo). **Não contradiz:
 são dois níveis, e a divergência acaba quando se diz qual manda.**
@@ -747,7 +467,7 @@ estouraria o teto e obrigaria a app a escolher quais derrubar.
 `ARQUIVADO`**. A chave geral entra na cláusula, senão um ativo arquivado continuaria ocupando slot
 pelos vínculos que ficaram para trás.
 
-### O que falta implementar
+#### O que falta implementar
 
 1. **Contagem de ocupação** em `ativo_produto_status` por `(tenant, licença)`, com o ativo não
    arquivado na cláusula. Substitui `ocupacao_ativos()`, que hoje conta por tenant sem produto.
@@ -758,46 +478,17 @@ pelos vínculos que ficaram para trás.
 5. **A expansão do status por produto na tab do ativo** — é onde a granularidade fica visível.
 6. **Easy One:** a ocupação é de `atvp_atv_id` **distintos** sob `atvp_licenca = 'ONE'`.
 7. Fazer isto na **mesma varredura** do mascaramento de rotas
-   (`redesign_rotas_exposicao.md`, Tarefa 2): a trava precisa achar o objeto pela URL, e é a URL
+   (F4, `next-steps/redesign_rotas_exposicao.md`, Tarefa 2): a trava precisa achar o objeto pela URL, e é a URL
    que a outra tarefa muda.
 
-### Pendências do lado do Hub (declaradas em 06/10)
+#### Pendências do lado do Hub (declaradas em 06/10)
 
 | | |
 |---|---|
 | retry persistente para notificação Hub → Easy | do Hub; hoje falha de notificação só fica registrada |
 | alteração de plano no dashboard comercial | do Hub |
-| código principal do Hub ainda **local, sem push** | só o subrepo de documentação foi publicado |
 
-### ✓ `audit.uso_isolado` — declarada e renomeada em 06/10
-
-Nasceu como `audit.license_usage_event`, criada direto nos bancos de dev e produção pelo time do
-Hub, fora do `schema.sql` e com nomes em inglês sem prefixo. Vazia nos dois.
-
-**Não era órfã:** `backend/core/licensing.py` a usa como **outbox** do consumo isolado — grava o
-evento local antes de chamar o Hub, e o retry repete a mesma chave de idempotência sem duplicar o
-débito. Mas nada chama `consume_isolated_usage`, porque Price e CPU ainda não existem (seção 3).
-
-**Feito em 06/10, nesta ordem:**
-
-1. **Declarada no `schema.sql`** — o defeito não era a tabela, era a foto não mostrar tabela que o
-   banco tem. Schema divergindo de código é o que não se pode deixar.
-2. **Renomeada para `audit.uso_isolado`**, português e prefixo `uso_`, como `audit.logs` e
-   `audit.login_logs`. Por `RENAME`, que preserva PK, UNIQUE, CHECKs, índice e defaults sem recriar
-   nada nem tocar linha. `uso_sync` passou a falar a língua da casa: `PENDENTE` · `CONFIRMADO` ·
-   `FALHOU`.
-3. **Ganhou uma guarda que não existia:** `ck_uso_confirmado` — data de confirmação e estado não
-   podem discordar, do mesmo jeito que em `ativo_produto_status`.
-
-Feito **agora de propósito**: com a tabela vazia e sem chamador, custou um arquivo. Depois do
-primeiro evento gravado custaria migração de dado, janela e risco.
-
-Provado no caminho real (Hub apontado para endereço morto, para não debitar nada): insert e falha
-marcam `FALHOU` sem data, retry com a mesma chave não duplica linha, `CONFIRMADO` grava a data e o
-saldo, a guarda recusa `FALHOU` com data velha, e a chamada idempotente devolve o saldo sem tocar o
-Hub.
-
-## O que está fechado e não é pendência
+### O que está fechado e não é pendência
 
 Para não reabrir por engano:
 
@@ -809,28 +500,246 @@ Para não reabrir por engano:
 - **não se escreve** regra financeira no microapp;
 - cadastrar empreendimento, por si só, **não** consome capacidade — quem ocupa é o ativo.
 
+> A trava do arquivamento (item 7 acima) é a mesma varredura de F4.
+
 ---
 
-## Herdados do `pendencias.md` da raiz (aposentado em 28/10/2026)
+## F7 · Cronograma (contrato §10) — frente aberta
 
-Havia um segundo arquivo de pendências na raiz do repo; quase tudo nele já estava feito. O que seguia
-aberto veio para cá — o original está no git (`git log -- pendencias.md`).
+- [ ] Período fixo de 30 dias.
+- [ ] "Distribuir linear" e "puxar curva".
+- [ ] Físico × financeiro.
+- [ ] Calibração do nível 4.
 
-- [ ] **Congelar a bancada quando o orçamento estiver CONCLUÍDO.** O badge e os três estados existem;
-      falta a AÇÃO de concluir (e a de reabrir/revisar) — nada escreve `aor_estado` hoje. Ordem: a
-      transição RASCUNHO → CONCLUÍDO com snapshot (a auditoria da bancada é justamente essa) e a volta;
-      depois uma guarda de rota que recusa escrita fora de RASCUNHO e o front desabilitando os gatilhos.
-- [ ] **Revisão R01: a composição não é copiada por revisão.** `aoc_aor_desde` existe e nada o grava;
-      enquanto tudo é R00 o editor grava no lugar sem risco. Com a R01, editar uma composição
-      compartilhada com revisão anterior tem de cloná-la. Mesma frente da *Revisão de orçamento*, acima.
-- [ ] **Cronograma × simulador de execução.** Decidir se o simulador escreve no mesmo cronograma
-      (origem "simulada" × "declarada") ou vive à parte e EXPORTA quando o usuário aceita.
-- [ ] **MCP sem o pré-planejamento** — suspenso pelo Renan (20/10). Ao retomar: leitura e prévia, nunca a
+---
+
+## F8 · Pré-planejamento — persistência e IA — frente aberta
+
+- [ ] Persistência das premissas.
+- [ ] O canal de IA.
+
+---
+
+## F9 · Memória de cálculo — levantamentos CAD/RVT/BIM — frente aberta
+
+- [ ] A seção Levantamentos é reservada: import de JSON estruturado CAD/RVT/BIM →
+      `mc_levantamentos` / `mci_levantamento_key` (as colunas já existem).
+- [ ] Decidir se uma memória pode misturar bloco de grid e de CAD (entendimento atual: sim, procedência
+      por bloco).
+
+---
+
+## F10 · Bancada colaborativa — frente aberta
+
+- [ ] Edição simultânea: lock por âncora e refresh do JWT.
+- [ ] Fluxo de tela da conciliação de código desconhecido.
+
+---
+
+## F11 · MCP — fila de leitura e pré-planejamento — frente aberta
+
+O `/mcp` está no ar em prod (OAuth só para ChatGPT, Claude e Gemini desde 28/10).
+- [ ] Fila de leitura.
+- [ ] Pré-planejamento no MCP — suspenso pelo Renan (20/10). Ao retomar: leitura e prévia, nunca a
       escolha (doutrina de produtividade); textos em `instrucoes_ia.md`.
 
 ---
 
-## Segurança — o que ficou, de risco baixo (auditoria de 28/10/2026)
+## F12 · Ficha técnica → orçamento — frente aberta
+
+- [ ] A "tabela 3" (ficha técnica → orçamento, base do Easy Price/CPU).
+- [ ] Uma rota do ativo ainda lê ficha/caderno de `catalogo.documentos`; migrar para
+      `external_path.versoes` as-of.
+
+---
+
+## F13 · Integração viva com Excel — em espera
+
+- [ ] Híbrido Power Query (leitura) + Office Add-in (escrita, SSO). Em espera por decisão do Renan.
+
+---
+
+## F14 · Catálogo — identidade da fonte, import e resíduos — frente aberta
+
+### Identidade da fonte — o que ficou de futuro (bug 2, 26/10/2026)
+
+A subida para prod está feita (conferida em 28/10). Abertos:
+- [ ] **Fonte derivada de verdade** (SBC, ORSE, COMPESA): parser + L.S. da MO de outra fonte. A função
+  única de edição por item e a tabela `catalogo.edicoes_dependencias` já existem (vazia). Quando
+  entrar, as telas de composição do catálogo (cliente `/consulta-composicoes/detalhar` e interna
+  `/composicoes/{id}/editar`) passam a mostrar a **data-base de cada insumo** — hoje é a mesma em
+  todas as linhas (nenhuma composição do catálogo mistura fontes).
+- [ ] **Correlação de fonte sucessora** (antecessora → sucessora, para a série atravessar o renome):
+  desenhada no contrato §2.2, construída no primeiro renome real.
+- [ ] **Divergência de arredondamento da FDE**: o oráculo conta CHEIA; as telas de insumo e a MO com
+  L.S. do catálogo truncam ("ROUND arredonda, o resto trunca"). Ficou como era, agora escrito
+  (contrato §2.3). Decidir se a tela deve seguir o perfil.
+- [ ] **9 linhas sem data-base em dev**: insumos CDHU numa revisão antiga que só declara a PRÓPRIA —
+  não há de onde tirar o mês; mostram "—".
+
+### FDE — descrições com DOIS itens colados (parser da analítica)
+
+**Sintoma (Renan, 2026-09-23, achado durante a curadoria de equivalências):**
+
+```
+FDE 6.30.77  TUBO DE COBRE CLASSE "E" DN=1 1/4" (35MM) P/AGUA QUENTE
+             ‖ TUBO DE COBRE NBR13206 CLASSE "E" DN 15 MM (1/2") AGUA QUENTE INCL CONEXOES COM
+```
+
+**Medido em dev:** 105 insumos FDE com 110+ caracteres; em **90** deles a cauda é, literalmente, o
+**início da descrição de outro item** do catálogo. Não é limite de coluna (`ins_descricao` é `text`)
+— o corte em ~160 caracteres é o fim da linha física do PDF.
+
+**Causa:** `fde_analitica_pdf_parser.py:252-258` cola na descrição as linhas anterior e seguinte
+quando elas "parecem continuação", e `is_continuation_line()` (:172) devolve `True` para QUALQUER
+linha que não seja cabeçalho/rodapé e da qual não se extraia um código. Quando o código de um item
+novo não é reconhecido, o item inteiro vira continuação do anterior. A pista está nos códigos que
+vazam — `16.06.047`, `16.07.045`, `06.03.066`: formato **2-2-3 dígitos**, que `extract_insumo_code`
+não reconhece, diferente do `d.dd.dd` do resto do FDE.
+
+**Impacto imediato:** os pares de equivalência que envolvem esses 90 itens **não são decidíveis** —
+a descrição não descreve um item só. Ficaram como `INDECIDIVEL` na curadoria.
+
+#### Caminho de correção proposto (Renan) — e candidato a via OFICIAL
+
+Prioridade declarada: **não deixar insumo/preço de fora**. Perder item é pior que descrição suja.
+
+1. **MarkItDown** — converter o PDF para Markdown em vez de reconstruir linhas por coordenada de
+   palavra. A estrutura de tabela sai pronta e o "parece continuação" deixa de ser heurística.
+2. **Ao tomar o PREÇO do insumo, revisar a descrição.** O scraper do portal FDE já busca preço item
+   a item (`fde_insumos_to_csv.get_price`) e a resposta traz a descrição **canônica da fonte**.
+   Usar essa descrição para corrigir/validar a que veio do PDF fecha o ciclo sem custo novo: quem
+   tem a verdade é o portal, não o PDF.
+
+#### Protocolo obrigatório para aplicar (a lição do carimbo)
+
+Conserto de parser **só entra com diff antes/depois contra o PDF real** — foi assim que o carimbo
+de emissão foi corrigido (3.380 linhas medidas, 78→0, zero dano colateral). Sem isso, troca-se um
+defeito conhecido por um desconhecido.
+- [ ] rodar o parser atual, guardar a saída como linha de base;
+- [ ] aplicar a correção; rodar de novo; **diferenciar item a item**;
+- [ ] critério de aceite duplo: as 90 descrições limpas **E** a contagem de insumos/preços
+      **não pode cair**;
+- [ ] `sanity_check()` do próprio arquivo não pega isto — ele só reprova acima de 20 descrições
+      suspeitas, e o critério dele não olha comprimento nem colagem. Endurecer junto.
+
+### Sanidade do catálogo tem de rodar NO IMPORT, pela tela (2026-10-10)
+
+Existe o script [`z_scripts_apoio/sanidade/catalogo_custos.py`](../../../../z_scripts_apoio/sanidade/catalogo_custos.py),
+que confronta o que a fonte publicou (`cc_custo_fonte`) com o que o motor calcula
+(`cc_custo_calculado`) em cada edição. Ele roda à parte, por linha de comando — e **o import é
+feito em produção, pela tela, não em dev com curadoria**. Script solto que ninguém lembra de rodar
+não protege nada.
+
+**A fazer:** a conferência vira etapa do próprio import/publicar e o resultado aparece na tela,
+junto do manifesto. O padrão de cada fonte já está medido e é o que o script usa:
+
+| fonte | esperado | medido em 2026-10-10 |
+|---|---|---|
+| SINAPI | bate exato | 0 de 248.895, em 25 edições |
+| CDHU | diverge por arredondamento (a fonte publica com ROUND) | ~9% fora do limite de 1 centavo por item — **a explicar** |
+| FDE | diverge sempre: a fonte publica COM BDI, o nosso é limpo | 0 com calculado acima do publicado |
+
+O limite certo para "é só arredondamento" é **1 centavo por item da composição** — nem valor
+absoluto nem percentual servem sozinhos: R$ 13 num chiller de R$ 523 mil é 0,00%, e 6 centavos
+numa composição de R$ 0,24 com 7 itens são 25%.
+
+**Dois achados abertos do script**, nenhum deles regressão (estão assim desde 2021):
+- CDHU: ~9% das composições divergem acima do limite de arredondamento, em todas as edições.
+- 12.664 custos SINAPI (e 5 CDHU) publicados em composição vigente que o motor **não consegue
+  calcular** (`cc_custo_calculado IS NULL`).
+
+### Resíduo no catálogo GLOBAL — `AX-000.001-CPU` (2026-10-06)
+
+Achado ao varrer o banco para a migration dos códigos próprios: existe **1 composição no catálogo
+GLOBAL** (`catalogo.composicoes`, `cmp_fte_id = 1`) com código no formato PRÓPRIO antigo —
+`AX-000.001-CPU`, "ENGENHEIRO JUNIOR DE CIVIL COM ENCARGOS". Existe em **dev e em produção**, e
+arrasta uma linha em `catalogo.search_document`.
+
+Cheira a resíduo do incidente do item 16 (o bucket paralelo criado porque o código da fonte era
+usado como chave de identidade). **Não foi tocado** pela migration de 06/10, que só mexe em
+`tenant_catalogo` — mexer no catálogo global sem entender a origem seria pior que o sintoma.
+
+**A resolver:** entender se é lixo (apagar) ou se é uma composição legítima que foi parar no bucket
+errado (mover para o tenant certo, com código novo).
+
+### Herdados dos planos de import de jun–jul (removidos em 29/10/2026)
+
+- [ ] **Manutenções da SINAPI não chegam ao banco.** O import recebe o arquivo `SINAPI_Manutenções`
+      (guardado como original), mas nada popula `catalogo.sinapi_manutencoes` (tabela existe, vazia), e a
+      reconciliação **SINAPI-Diff × Axys-DIFF** (as manutenções publicadas cobrem o que o diff da Axys
+      achou?) não existe. Era a Fase 3.4 do `PLANO_IMPORT_CATALOGO.md`.
+- [ ] **Template genérico de import para fonte não nativa** (CSV/Excel no formato normalizado dos
+      parsers + `parser_template.py` + testes). Era a Fase 6 do mesmo plano. Avaliar junto da *fonte
+      derivada de verdade* (acima), que é onde ele faria falta.
+- [ ] **4 blobs órfãos no R2 da FDE 04-26** (originais de runs antigos removidos do registro em 06/07:
+      `relatorio_…`, `honorarios_TABELA DE HONORÁRIOS`, `html_catalogos_…`, `html_componentes_…`).
+      Inofensivos, não linkados. Conferir se sobreviveram ao rebuild do catálogo antes de apagar —
+      por chave exata, nunca por padrão.
+
+---
+
+## F15 · Catálogo Colaborativo — frente aberta
+
+Referência: [../modules/catalogo/AXYS_CATALOGO_COLABORATIVO_v0.md](../modules/catalogo/AXYS_CATALOGO_COLABORATIVO_v0.md)
+
+**Objetivo:** composições produzidas por tenants disponibilizadas para toda a comunidade mediante
+validação da Axys. Depende de governança do catálogo, auditoria, versionamento e workflow de aprovação.
+
+- [ ] Definir arquitetura definitiva do Catálogo Colaborativo
+  - [ ] Definir modelo de curadoria
+  - [ ] Definir workflow de aprovação
+  - [ ] Definir mecanismo de reputação
+  - [ ] Definir política de versionamento
+  - [ ] Definir política de licenciamento de contribuições
+  - [ ] Definir critérios de promoção para catálogo oficial
+  - [ ] Avaliar indexação e busca pública
+  - [ ] Avaliar impactos de armazenamento
+
+---
+
+## F16 · Tabelas de domínio com tela (ADM) — frente aberta
+
+- [ ] **As tabelas de domínio precisam de tela** — `catalogo.profissoes` (39),
+  `catalogo.conselhos_classe` (3) e `doc_resp_tecnica` (3) nasceram semeadas no `schema.sql`, que é
+  o certo para lista fechada e pequena. Mas elas **não são imutáveis**: profissão entra e sai, o CFT
+  reconhece título novo, e o recorte de "construção e infraestrutura" é opinião — vai ser corrigido
+  no uso. Hoje, acrescentar uma profissão exige editar o schema, escrever migration e fazer deploy:
+  caro demais para uma linha de vocabulário. Pedem CRUD no módulo interno (ADM), ao lado do que já
+  existe para o catálogo. Não trava nada agora; vira dor no primeiro *"falta o meu título aí"*.
+  (Era o P7, e **tinha caído fora** desta lista na migração do documento do refino — recuperado do
+  histórico em 11/10.)
+
+---
+
+## F17 · Certificação digital — assinar em lote — sem execução prevista
+
+Veio do refino final da bancada, onde era o último item. **Sai do refino por decisão de 06/10**:
+não é ajuste de bancada, é produto novo, e só se mede depois da assinatura por documento rodar.
+
+A dor real: o Adobe assina um PDF por vez, e são oito documentos por entrega. **A decisão de
+assinatura por documento já resolve boa parte** — um consolidado é uma assinatura, não oito. Isso
+vale dizer antes de qualquer engenharia, porque muda o tamanho do problema.
+
+Para o que sobrar, três caminhos, do mais barato ao mais caro:
+
+1. **Consolidar mais.** Cada documento a menos é uma assinatura a menos. É desenho, não código.
+2. **Assinador local.** O certificado fica na máquina da pessoa, um agente nativo assina o lote e
+   devolve. É o único jeito honesto de assinar muitos sem a chave privada sair de lá — mas é um
+   produto próprio, com instalador por sistema operacional.
+3. **Assinatura no servidor** com certificado enviado pelo usuário (pyHanko e afins). Tecnicamente
+   o mais simples, e o que **não faria sem pensar muito**: guardar chave privada de terceiro é
+   responsabilidade jurídica séria, não detalhe de implementação.
+
+Navegador puro **não alcança**: a Web Crypto não lê o repositório de certificados do sistema. Sem
+agente nativo ou ponte PKCS#11, não há caminho.
+
+**Método, e é o que trava:** medir a dor depois da assinatura por documento estar no ar. Construir
+antes de medir é escolher o caminho 2 ou 3 sem saber se o caminho 1 já bastava.
+
+---
+
+## F18 · Segurança — RLS por schema — avaliar
 
 O isolamento entre tenants, o bucket privado, a fórmula no Excel, XSS, CSRF, OAuth do MCP, limite de login
 e de IA, sandbox do HTML importado e o LIKE foram fechados em 28/10 (vigia `sanidade/isolamento_tenants.py`).
@@ -850,7 +759,7 @@ Ficou:
 
 ---
 
-## Verificação de desempenho — com números (aberta em 28/10/2026)
+## F19 · Verificação de desempenho — com números — em curso
 
 **Sintoma (Renan, 16/09):** ambientes antigos, com MAIS dados, respondiam mais rápido que os atuais —
 o que descarta "faltou servidor" e aponta infraestrutura de back.
