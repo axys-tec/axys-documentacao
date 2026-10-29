@@ -1,7 +1,7 @@
 # Catálogo — Capability: Import (estágios + regras de importação)
 
 **Status:** Contrato Canônico (v1.0 · 2026-07-14 — funde `IMPORT_ESTAGIOS` + `edicoes_import_estagios` + as regras de import do ex-`CATALOGO_BUSINESS_RULES` §2/§3.2/§3.3/§4.1/§6/§7/§9)
-**Implementa:** `backend/modules/catalogo/estagios.py` (máquina de estados) · `backend/modules/catalogo/import_service.py` (tasks) · `backend/core/import_cpu/parser_*.py`. Coluna: `catalogo.edicoes.edi_estagios` (JSONB).
+**Implementa:** `backend/modules/catalogo/estagios.py` (máquina de estados) · `backend/modules/catalogo/import_service.py` (tasks) · `backend/core/import_cpu/parser_*.py`. Tabela: `catalogo.edicoes_estagios` (uma linha por execução; a coluna `edicoes.edi_estagios` está descontinuada desde 29/10/2026).
 **Por fonte:** [sinapi.md](sinapi.md) · [cdhu.md](cdhu.md) · [fde.md](fde.md) · [sbc.md](sbc.md). **Modelo do dado importado:** [../listagem.md](../listagem.md).
 
 > Governa **como cada fonte importa**: a máquina de estados dos 4 estágios (com cascata) e as regras de negócio do import (classificação, derivação de preço, conferência, situação, reimport, diff). Validado por `z_scripts_apoio/valida_amostra*.py` (Excel/CSV × banco, 0 divergências).
@@ -67,7 +67,7 @@ No import, após parsear e antes de gravar: "já existe?" → sim ⇒ computa di
 
 ---
 
-## PARTE B — Máquina de estados (`edi_estagios`)
+## PARTE B — Máquina de estados (`catalogo.edicoes_estagios`)
 
 ### B.1 Estágios (ordem fixa) — `preparar → precos → dados → documentos`
 | Estágio | Faz | Fecha quando |
@@ -78,12 +78,13 @@ No import, após parsear e antes de gravar: "já existe?" → sim ⇒ computa di
 | **documentos** | `gerar_caderno_edicao`: gate de unidades + caderno técnico da edição + CTCs | caderno pronto → publicável |
 
 ### B.2 Estados & cascata
-Estados: `locked` · `pronto` · `rodando` · `ok` · `erro` · `pendente_user`.
-- **Cascata (invariante):** um estágio fica `pronto` sse **todos os anteriores == `ok`**. `preparar` (entrada) nunca fica `locked`. `locked`/`pronto` são **derivados** (recalculados a cada escrita, `_aplicar_cascata`); `rodando`/`ok`/`erro`/`pendente_user` são **explícitos** (a cascata nunca os sobrescreve). Estágio anterior que regride → posteriores voltam a `locked`.
+Estados: `locked` · `pronto` · `rodando` · `ok` · `erro` · `pendente_user` · `skip`.
+- **Cascata (invariante):** um estágio fica `pronto` sse **todos os anteriores estão concluídos (`ok` ou `skip`)**. `preparar` (entrada) nunca fica `locked`. `locked`/`pronto` são **derivados** (recalculados a cada escrita, `_aplicar_cascata`); `rodando`/`ok`/`erro`/`pendente_user` são **explícitos** (a cascata nunca os sobrescreve). Estágio anterior que regride → posteriores voltam a `locked`.
 - **`documentos == ok` ⇒ edição disponível para publicação.**
 - **Suspensões (`pendente_user`):** **Preços** suspende quando há insumo SEM PREÇO (modal: informar / publicar sem preço); **Documentos** suspende quando há **unidade a descrever** (gate 4 DURO).
-- **API (`estagios.py`):** `get_estagios(edi_id)` (cascata aplicada; NULL→default `preparar=pronto`, resto `locked`) · `set_estagio(edi_id, nome, estado, detalhe, job_id)` (grava + carimbo `em` UTC + reaplica cascata) · `disponivel_para_publicar(edi_id)` (`documentos==ok`).
-- **Shape** (JSONB): cada estágio `{estado, job_id, em, detalhe}`.
+- **Persistência — uma linha por EXECUÇÃO** em `catalogo.edicoes_estagios` (`ee_estado`, `ee_resumo`, `ee_erro`, `ee_detalhe`, `ee_por`, `ee_job_id`, `ee_inicio`, `ee_fim`). Estado atual = última linha por (edição, estágio). `locked`/`pronto` **não se guardam**. `rodando` abre linha nova (salvo se a última já está `rodando`: é a mesma execução reportando progresso); `ok`/`erro`/`pendente_user`/`skip` fecham a execução aberta (`rodando` ou `pendente_user`) ou, sem execução aberta (ex.: avançar manual), registram-se em linha própria. Reabrir grava `reaberto`, que a cascata trata como não concluído. Dentro da mesma execução o detalhe novo **soma-se** ao anterior (os `import_params` do Preparar não se perdem). Não há mais checkpoint no R2 (`_state/estagios.json`).
+- **API (`estagios.py`):** `get_estagios(edi_id)` (cascata aplicada; sem linha → `preparar=pronto`, resto `locked`) · `set_estagio(edi_id, nome, estado, detalhe, job_id)` · `reabrir_estagio` · `salvar_params`/`carregar_params` · `disponivel_para_publicar(edi_id)` (`documentos==ok`).
+- **Shape devolvido** (inalterado para a tela e a e2e): cada estágio `{estado, job_id, em, detalhe}`, com `detalhe.resumo` = `ee_resumo`.
 - **Nomes internos legados:** SINAPI ainda usa `["preparar, precos, links, fichas, cadernos"]` (todos mapeiam a `dados` via `_ESTAGIO4_MAP`); CDHU/FDE já usam `preparar/precos/dados`.
 
 ---

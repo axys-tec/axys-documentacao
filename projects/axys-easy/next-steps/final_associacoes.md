@@ -126,10 +126,13 @@ deixa a versão nova `em_revisao` até alguém rodar `get_md`/`put_md` fora do a
 preenche no import. Fica só o segundo, sem chave de modo. Dois acertos junto:
 
 - **CTC inteiro no `documentos`, nas três fontes (decidido 29/10):** `dados` é dado, `documentos`
-  é produção de conteúdo. Hoje CDHU e FDE montam e preenchem o CTC no fim do `dados`, e o SINAPI
-  monta o request no `documentos` (depois dos cadernos, que entram nele) mas nunca o preenche — o
-  preenchimento automático só existe no `dados`. Tudo passa para o `documentos`: materializar,
-  montar o request e preencher;
+  é produção de conteúdo. Hoje o CTC inteiro roda no `dados`: CDHU e FDE materializam, montam o
+  request e preenchem no fim dele; o SINAPI monta o request no sub-passo interno "cadernos" (que o
+  código mapeia para `dados`, depois de capturar os cadernos da fonte, que entram no request) e
+  nunca o preenche — o preenchimento automático só existe no fluxo de CDHU/FDE. O `documentos` de
+  hoje só monta o caderno-índice da edição. Tudo do CTC passa para o `documentos`, antes do
+  caderno-índice (que lista os CTCs): materializar, montar o request e preencher. A captura dos
+  cadernos da fonte (SINAPI) é dado e fica no `dados`;
 - **falha não passa calada:** hoje o `IA_auto` é "enriquecimento, nunca derruba o import". Com a
   associação dependendo dele, descritivo que não preencheu leva o estágio a `erro` com a causa, e
   a retentativa preenche só o que falta.
@@ -479,7 +482,7 @@ Fechadas pelo Renan em 29/10.
 | fase | entrega | prova |
 |---|---|---|
 | **F0** | Leitura em prod: catálogo igual a dev e estrutura do 1×1 — **feito 29/10** (§0, §12.2). Falta: OpenSearch alcançável do worker e latência da busca, medidos na F3 | números no próprio doc |
-| **F1** | `edicoes_estagios` + `estagios.py` portado + estágio `associacoes` em `skip`; `IA_local` removido e descritivo preenchido no import nas três fontes, com falha visível (§3) | import real em dev com o mesmo comportamento, e toda CPU da edição com `remunera` vigente no fim do `documentos` |
+| **F1** | `edicoes_estagios` + `estagios.py` portado (o `associacoes` já cabe no CHECK; entra na lista de estágios e na tela só na F6, quando faz algo); `IA_local` removido e descritivo preenchido no import nas três fontes, com falha visível (§3) | import real em dev com o mesmo comportamento, e toda CPU da edição com `remunera` vigente no fim do `documentos` |
 | **F2** | hash única + histórico confiável na reexecução (§5.2) + `rodadas[]` no JSON por par | reimport da mesma edição em dev dá delta vazio; o JSON antigo vira `rodadas[0]` sem perder campo |
 | **F3** | rotina dos scripts portada ao backend, **sem IA**: delta, papéis, candidatos, filtros; `remunera` lido da versão vigente (§3) | mesmas listas que `monta_candidatos*` numa amostra; equivalência provada |
 | **F4** | IA + validador + pré-curadoria + JSON por item | rodada em dev sobre um delta forjado em transação com rollback |
