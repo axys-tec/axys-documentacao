@@ -8919,7 +8919,7 @@ ALTER TABLE ativo.ativo_orcamento_composicoes_custo ALTER COLUMN acc_id ADD GENE
 );
 CREATE TABLE IF NOT EXISTS ativo.ativo_orcamento_composicoes_itens (
     aci_id integer NOT NULL,
-    aci_aoc_id integer NOT NULL,
+    aci_aoc_id bigint NOT NULL,
     aci_ordem integer NOT NULL,
     aci_tipo text NOT NULL,
     -- BIGINT, como as FKs que eles apontam (aoz_id e aoc_id) e como a migração sempre criou:
@@ -9092,7 +9092,7 @@ CREATE TABLE IF NOT EXISTS ativo.ativo_orcamento_itens (
     ati_path text NOT NULL,
     ati_tipo text NOT NULL,
     ati_descricao text,
-    ati_cmp_id integer,
+    ati_cmp_id bigint,
     ati_custo_unit numeric(14,2),
     ati_quantidade numeric(14,2),
     ati_unidade text,
