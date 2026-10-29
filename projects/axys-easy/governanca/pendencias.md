@@ -811,6 +811,25 @@ Para não reabrir por engano:
 
 ---
 
+## Herdados do `pendencias.md` da raiz (aposentado em 28/10/2026)
+
+Havia um segundo arquivo de pendências na raiz do repo; quase tudo nele já estava feito. O que seguia
+aberto veio para cá — o original está no git (`git log -- pendencias.md`).
+
+- [ ] **Congelar a bancada quando o orçamento estiver CONCLUÍDO.** O badge e os três estados existem;
+      falta a AÇÃO de concluir (e a de reabrir/revisar) — nada escreve `aor_estado` hoje. Ordem: a
+      transição RASCUNHO → CONCLUÍDO com snapshot (a auditoria da bancada é justamente essa) e a volta;
+      depois uma guarda de rota que recusa escrita fora de RASCUNHO e o front desabilitando os gatilhos.
+- [ ] **Revisão R01: a composição não é copiada por revisão.** `aoc_aor_desde` existe e nada o grava;
+      enquanto tudo é R00 o editor grava no lugar sem risco. Com a R01, editar uma composição
+      compartilhada com revisão anterior tem de cloná-la. Mesma frente da *Revisão de orçamento*, acima.
+- [ ] **Cronograma × simulador de execução.** Decidir se o simulador escreve no mesmo cronograma
+      (origem "simulada" × "declarada") ou vive à parte e EXPORTA quando o usuário aceita.
+- [ ] **MCP sem o pré-planejamento** — suspenso pelo Renan (20/10). Ao retomar: leitura e prévia, nunca a
+      escolha (doutrina de produtividade); textos em `instrucoes_ia.md`.
+
+---
+
 ## Segurança — o que ficou, de risco baixo (auditoria de 28/10/2026)
 
 O isolamento entre tenants, o bucket privado, a fórmula no Excel, XSS, CSRF, OAuth do MCP, limite de login
