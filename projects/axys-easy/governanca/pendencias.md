@@ -847,13 +847,7 @@ Ficou:
       - Toda conexão do pool recebe `SET app.current_tenant` no começo da requisição e o esquece ao voltar
         ao pool; jobs/scripts que leem vários tenants usam um papel próprio. Sem o SET, o resultado é
         VAZIO em silêncio — testar cada consulta. Hoje só `core.jobs` tem RLS.
-- [ ] **Reset de senha — para depois** (Renan, 28/10). O fluxo do Easy não funciona em prod (o acesso direto
-      ao banco do Hub é bloqueado lá) e a senha é do Hub. Recomendação: APAGAR o reset do Easy e apontar o
-      "Esqueci minha senha" para o do Hub, em vez de consertar código que ninguém usa. Se for mantido: o
-      token serve mais de uma vez e não há limite de pedidos (gerador e segredo já corrigidos em 28/10).
-- [ ] **uuid de tenant possivelmente previsível** (versão 5, derivado de nome) — Renan vai perguntar ao Hub
-      de quê e com qual namespace ele é gerado, e se é tratado como público. Depois da guarda de posse não
-      abre nada sozinho; se for derivável, parar de usá-lo em caminho de arquivo e em link.
+
 ---
 
 ## Verificação de desempenho — com números (aberta em 28/10/2026)
