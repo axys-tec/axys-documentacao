@@ -4,7 +4,8 @@
 **Data:** 2026-06-03
 **Escopo:** decisões de governança/arquitetura ainda não fechadas.
 
-> Lista de pendências. Itens marcados `[ ]` estão abertos; `[x]` concluídos.
+> Lista do que está ABERTO. O que foi feito SAI daqui — o git guarda o histórico (Renan, 28/10/2026).
+> A última seção é sempre a verificação em curso.
 
 **Contratos que governam o que está aqui** — citados no cabeçalho de propósito: contrato que
 nenhuma pendência menciona desaparece em silêncio, e quem lê a pendência não vai caçá-lo.
@@ -18,27 +19,9 @@ nenhuma pendência menciona desaparece em silêncio, e quem lê a pendência nã
 
 ---
 
-## ⚠ SUBIDA DO BUG 2 PARA PROD — identidade da fonte (2026-10-26)
+## Identidade da fonte — o que ficou de futuro (bug 2, 26/10/2026)
 
-Tudo pronto e provado em dev (contrato `identidade_fonte.md`). Em prod, **com OK do Renan**, nesta
-ordem. Três migrations são aditivas; a `tenant_edicao_minima` **não é** — funde edições e tira coluna:
-o código antigo quebra depois dela e o novo quebra sem ela. Ela vai **colada no deploy**, numa janela
-curta, sem job rodando (deploy mata job).
-
-- [ ] **Ensaio** (`z_scripts_apoio/publicacao/ensaio_migrations.py --prod`): as quatro em prod numa transação desfeita — prova que passam (a
-      `tenant_edicao_minima` recusa se um insumo tiver preço em duas edições que se fundiriam)
-- [ ] `git push` (autoDeploy off: não dispara deploy); conferir que o Blueprint sincroniza no commit novo
-- [ ] aditivas, a qualquer hora: `2026-10-26_fonte_codigo_imutavel`, `2026-10-26_insumo_data_base`,
-      `2026-10-26_fonte_perfil_bdi`
-- [ ] **janela**: `2026-10-26_tenant_edicao_minima` → deploy manual dos três serviços →
-      `recalcular_custos_proprios.py --prod` → `preencher_data_base_insumos.py --prod`
-- [ ] `schema_fiel.py --prod` FIEL; abrir em prod a bancada, os Dados Próprios e Premissas
-
-Os orçamentos de homolog com CPU própria capturada pela regra antiga ficam congelados até alguém
-recalcular; ao recalcular, mudam (em dev seria Σ 76,0 mi → 60,5 mi — a maior parte é preço próprio
-registrado DEPOIS do mês da edição, que a regra nova não usa).
-
-### O que ficou de futuro
+A subida para prod está feita (conferida em 28/10). Abertos:
 - [ ] **Fonte derivada de verdade** (SBC, ORSE, COMPESA): parser + L.S. da MO de outra fonte. A função
   única de edição por item e a tabela `catalogo.edicoes_dependencias` já existem (vazia). Quando
   entrar, as telas de composição do catálogo (cliente `/consulta-composicoes/detalhar` e interna
@@ -73,8 +56,9 @@ Referência: [../modules/catalogo/AXYS_CATALOGO_COLABORATIVO_v0.md](../modules/c
 > Contêiner dos pontos de revisão da bancada (Renan tem ~13 a acrescentar). Trabalhar
 > quando a frente da bancada for aberta; por ora só registrados.
 
-> **CONGELADO em 11/10 — vai junto com o refactor do orçamento.** Os dois itens abaixo foram
-> implementados e validados neste dia, e então congelados por decisão do Renan: o caderno depende
+> **CONGELADO em 11/10 — vai junto com o refactor do orçamento.** O item abaixo (e o da composição
+> adaptada, já fechado em 25/10 por outro caminho) foi implementado e validado neste dia, e então
+> congelado por decisão do Renan: o caderno depende
 > do refactor de persistência e, com o estado persistido, o mesmo resultado sai muito mais simples.
 > Hoje a composição adaptada é resolvida **por item, em tempo de geração** (uma chamada a
 > `get_composicao_detalhe` por serviço); depois do refactor ela vem de onde já está gravada. É o
@@ -114,25 +98,6 @@ Referência: [../modules/catalogo/AXYS_CATALOGO_COLABORATIVO_v0.md](../modules/c
 >    Quem muda as LINHAS é rotação de regime e conversão de MDO/insumo — e é esse o gate que
 >    mantém o custo zero em orçamento sem conversão.
 
-- [x] **Caderno de Encargos reflete a composição ADAPTADA da bancada.** A CTA/CTC (descritivo)
-  em si não muda, mas a **composição dela** muda quando o item, na bancada, sofreu **rotação de
-  regime** (mensalista↔horista, badge REG) ou **conversão de MDO/insumo** (`converter_mdo`/
-  `converter_ins`). Nesses casos o Caderno deve refletir **o que está na BANCADA** (composição
-  adaptada), não a CTC crua do R2. **Escopo (rigor):** aplica-se SÓ ao caderno sobre o que está
-  na bancada — **NÃO** afeta os cadernos técnicos das EDIÇÕES do catálogo (esses seguem a fonte).
-
-  **Fechado em 25/10/2026, por outro caminho que não o patch congelado.** Depois do refactor de
-  persistência, o caderno lê a composição GRAVADA (`captura_estado.arvore_do_estado`), sem
-  fallback para a CTC. Três arestas foram fechadas nesse dia:
-  1. no AGRUPADO a rota passava `atv_id=0`, e a composição saía vazia em todos os serviços;
-  2. o mesmo serviço em duas obras com receitas diferentes se fundia na receita da primeira. Agora
-     só se funde quando a composição gravada e o descritivo do orçamento são iguais; divergindo,
-     sai uma entrada por variante com "Composição adotada em: <obra>";
-  3. as auxiliares saíam com a receita crua da CTC (e a própria era buscada no catálogo). Agora
-     saem com o texto da origem da sub e a receita do estado.
-
-  Prova em dev: nos 23 ativos o isolado sai com os serviços idênticos aos de antes; nos 6
-  empreendimentos multi-obra, aplicações e quantidades do agrupado somam exatamente o isolado.
 - [ ] **Composição própria sem descritivo bloqueia o Caderno de Encargos.** Composições próprias,
   ao serem criadas, não carregam descritivo (CTC) → não entram no caderno. Resolver: ou o
   descritivo passa a fazer parte da composição própria na criação, ou abre-se um campo para o
@@ -176,21 +141,6 @@ canônico é a **união** (mata o "não tem no SINAPI").
 re-curadas **a cada edição**). Precisa de estratégia de curadoria viável (IA-assistida com confiança
 alta, que hoje não há) antes de valer a pena. Adiado junto com a revisão geral da bancada.
 Ver: `../modules/catalogo/CATALOGO_VINCULACOES_INTRA_FONTES.md`, favoritar-fonte na bancada.
-
----
-
-## Desempenho — investigar infraestrutura de back (não é o servidor)
-
-**Sintoma (Renan, 2026-09-16):** stacks/ambientes **antigos com MAIS dados** respondem **mais rápido**
-que os atuais — o que descarta "faltou servidor/CPU". A suspeita é **infraestrutura de back** (não a
-máquina): candidatos a investigar — plano/conexão do Postgres (pooler, latência web↔DB, região),
-ausência/decaimento de índices, planos de query degradados (estatísticas/VACUUM/ANALYZE), N+1 nas
-telas, cache frio (Redis TTL/eviction), cold start dos serviços Render. 
-- [ ] Medir latência real por camada (web→DB, query pura, render de template) num endpoint lento
-      conhecido, comparando o ambiente rápido (antigo) × o atual — isolar ONDE está o tempo.
-- [ ] Conferir índices e `EXPLAIN ANALYZE` das queries quentes; rodar `ANALYZE` e comparar planos.
-- [ ] Revisar pooler/região dos 3 serviços (web/worker/mobile) × banco — RTT por round-trip.
-- [ ] Cache do catálogo: hit-rate e se o rewarm pós-restart está acontecendo.
 
 ---
 
@@ -439,29 +389,7 @@ errado (mover para o tenant certo, com código novo).
 
 ---
 
-## Refino final da bancada — ENCERRADO (2026-10-10)
-
-Os itens 1 a 21 foram entregues e validados no front. O documento de trabalho
-(`refino_final_bancada.md` e `refino_final_bancada_itens12-13.md`) sai do repo: o que ele
-decidia virou código com o porquê no comentário, os contratos em
-[`contracts/ativo/`](../contracts/ativo/) governam o resto, e o que sobrou de aberto está abaixo.
-
-> **Onde ler o documento original.** Ele não se perdeu — está no histórico do repo principal, e o
-> commit que o apagou é `33665ec` ("o refino final da bancada sai do repo, encerrado"). Para ler o
-> enunciado de qualquer item pela numeração antiga:
->
-> ```
-> git show '33665ec^:refino_final_bancada.md'
-> git show '33665ec^:refino_final_bancada_itens12-13.md'
-> ```
->
-> Fica anotado porque é a resposta para "de onde vem o P7?" — pergunta que a numeração órfã provoca
-> e que ninguém consegue responder caçando no escuro.
-
-Guardam o que foi entregue, e acusam se quebrar:
-`z_scripts_apoio/sanidade/documento_pdf.py` (51 checks, medidos no PDF gerado) e
-`z_scripts_apoio/sanidade/excel_valores.py` (confronta o que o Excel calcularia com o que o app
-calcula — openpyxl guarda a fórmula, não o resultado).
+## Abertos herdados do refino da bancada (2026-10-10)
 
 **O que ficou aberto do refino** — enunciado por extenso e sem a sigla: a numeração `P1..P21`
 vinha do documento de trabalho, que saiu do repo, e rótulo cuja fonte não existe mais não diz nada
@@ -503,44 +431,8 @@ a quem lê. **Nenhum dos itens abaixo é refino de tela** — esse fechou.
   mas o sequencial conta quantos empreendimentos existem na base. Trocar exige decidir o que fazer
   com link antigo, e vale para ativo também. É higiene, não trava nada.
 
-**RESOLVIDO · Responsável técnico no schema.** A observação era que o RT mora em `tenant_catalogo`,
-que o nome anuncia como catálogo técnico. **Não é problema:** `tenant_catalogo` também guarda
-`contratantes`, logo o schema é *os cadastros próprios do tenant*, e o RT ao lado do contratante é
-coerente. E tem integridade de verdade — `rt_profissao` com FK para `catalogo.profissoes`,
-`rt_conselho` para `catalogo.conselhos_classe`, o registro em três partes (conselho, UF, número) e
-três CHECKs, porque documento assinado sem profissão ou sem registro não é documento. Está
-documentado na §7 de
-[`contracts/ativo/apresentacao_orcamento_contrato.md`](../contracts/ativo/apresentacao_orcamento_contrato.md),
-que é quem governa o bloco de assinatura.
-
 **Duas frentes do documento seguem vivas em seção própria, abaixo:** a revisão de orçamento
 (decidida em 06/10) e o arquivamento por produto.
-
----
-
-## Sub-CPU auxiliar compartilhada — FECHADA em 27/10/2026 (contrato v1.5)
-
-Contrato: [EASY_ATIVO_CONTRATO.md §6.3](../contracts/ativo/EASY_ATIVO_CONTRATO.md) (v1.5 — uma
-composição, um preço).
-
-Não eram "dois preços legítimos": eram a MESMA composição calculada por duas regras no mesmo
-orçamento. A própria aplicava à auxiliar do catálogo só a L.S., ignorando a troca de MDO da fonte
-(CDHU 11.16.040: 189,84 dentro da C-000005 × 267,60 direto, ativo 22 — e no ativo 38 de dev os três
-serviços diretos tinham ficado a 189,84, porque vence quem captura por último); e a linha trocada
-para o MÊS apontava para a composição H, que passava a guardar a árvore e o preço do mês (88267,
-6.991,47 por hora, ativo 116). Fechado pela regra única da fonte, que desce até a última camada, pela
-linha trocada apontando para a substituta e pela propagação do custo a todos os pais. O vigia
-`sanidade/custo_composicao.py` (D, E) zera em dev; prod depende do deploy + recaptura
-(`z_scripts_apoio/manutencao/recapturar_regra_recursiva.py`).
-
-- [x] Receita AUTORAL em orçamento mensalista guardava a MO horista — **fechado 28/10**: o regime
-      alcança a receita (`captura_estado._regime_da_autoral`): CPU-função H → par MÊS, insumo MO H →
-      SINAPI-MÊS, coef ÷ divisor, original no vetor; MO sem par → sem preço, item ERR; horista desfaz.
-      Prod não tinha nenhuma autoral (nada a recapturar).
-- [x] Substituta da troca de MDO levava a L.S. pelo `converter_ls` da fonte que converte —
-      **fechado 28/10**: leva a da FAVORITA (`ls_favorita` em `preco_mo`), a mesma de direto na
-      bancada. Sem efeito numérico em prod (L.S. do ativo = L.S. da SINAPI); prova sintética com
-      L.S. 120%: 88309 dentro da CDHU 11.16.040 = 37,26 = direto.
 
 ---
 
@@ -615,43 +507,6 @@ numa composição de R$ 0,24 com 7 itens são 25%.
 
 ---
 
-## ⚠ SEQUÊNCIA DE DEPLOY — duas migrations com ordens OPOSTAS (2026-10-05)
-
-Há duas migrations pendentes de prod em estados diferentes, e **a ordem entre código e banco é
-inversa entre elas**. Errar a ordem derruba a app.
-
-| migration | prod | ordem obrigatória | se inverter |
-|---|---|---|---|
-| `2026-10-04_responsavel_tecnico.sql` | ✅ **já aplicada** | migration → código | código sem migration: `/dados-proprios` dá 500 (a contagem de responsáveis entra na mesma query das outras) |
-| `2026-10-05_empreendimento_parametros_documento.sql` | ⬜ **não aplicada** | **código → migration** | migration sem código: `get_contexto` quebra, porque a versão no ar ainda lê `epa_fonte` |
-
-### A sequência correta, de ponta a ponta
-
-1. **A do RT já rodou** em 05/10. Enquanto o código não sobe, prod tem tabelas vazias que ninguém
-   lê — inofensivo.
-2. **Pushar o código.** Aí a tela de RT passa a funcionar (a migration dela já está lá) e o
-   `get_contexto` já não lê `epa_fonte` (o degrau por empreendimento morreu no código).
-3. **Só então** rodar `2026-10-05_empreendimento_parametros_documento.sql`.
-
-Entre os passos 2 e 3 existe uma janela em que a tabela antiga ainda está em prod e ninguém a lê.
-É inofensiva: a tabela está vazia, e o código novo não a toca.
-
-### Por que a ordem é inversa
-
-A do RT **só acrescenta** — tabelas novas e uma coluna com default. Banco à frente do código é
-sempre seguro quando só se acrescenta.
-
-A de `empreendimento_parametros` **derruba e recria com outra forma**. Banco à frente do código
-significa o código antigo procurando `epa_fonte` numa tabela que já não a tem.
-
-### A trava que protege contra engano
-
-A migration de 05/10 tem um bloco `DO` que **aborta** se a tabela antiga tiver qualquer linha —
-testado. Ela protege contra dado inesperado, **não** contra a ordem errada: se rodar antes do
-deploy, ela passa (a tabela está vazia) e quebra a app.
-
----
-
 ## Licenciamento, capacidade e consumo (2026-10-01)
 
 Fonte: `docs/projects/axys-easy/contracts/axys_easy_modelo_licenciamento.md` — documento **oficial**
@@ -699,22 +554,6 @@ dois tetos e não um saldo de 10. `ativo.ativo_produto_status` já está no sche
 `2026-10-06_ativo_produto_status.sql` para isso — **vazia, sem leitor nenhum ainda**.
 
 Ver a seção "Arquivamento por produto" abaixo: a tabela existe, o comportamento não.
-
-## 2 · API de ocupação para o downgrade  ✓ IMPLEMENTADA EM 06/10
-
-O endpoint existe e responde `{tenant_uuid, product, em_andamento}`. `product` é obrigatório e tem
-de ser uma licença de capacidade; produto inválido dá `400`, credencial errada `401`. Se o Easy não
-responder, o Hub **não efetiva** o downgrade — e nenhum dos dois arquiva nada sozinho.
-
-**A ressalva que sobra é a mesma da seção 1:** a resposta hoje ignora o `product` para contar. Ele
-é validado contra a lista de apps e devolvido no corpo, mas a contagem é a mesma para qualquer
-produto. Fica correta quando a ocupação passar a ler `ativo_produto_status`.
-
-Credenciais: as de sempre. No Easy `EASY_HUB_CLIENT_ID`/`EASY_HUB_CLIENT_SECRET`, no Hub
-`EASY_SSO_CLIENT_ID`/`EASY_SSO_CLIENT_SECRET`. **Não existe segredo novo para licenciamento.**
-
-O Hub também corrigiu a alçada do lado dele: capacidade e modo de acesso passam a exigir sessão
-administrativa interna, e **a credencial do Easy não concede licença nem altera capacidade**.
 
 ## 3 · Uso isolado: Price e CPU
 
@@ -969,3 +808,22 @@ Para não reabrir por engano:
   operacional é do Easy, e os dois compartilham o id de idempotência;
 - **não se escreve** regra financeira no microapp;
 - cadastrar empreendimento, por si só, **não** consome capacidade — quem ocupa é o ativo.
+
+---
+
+## Verificação de desempenho — com números (aberta em 28/10/2026)
+
+**Sintoma (Renan, 16/09):** ambientes antigos, com MAIS dados, respondiam mais rápido que os atuais —
+o que descarta "faltou servidor" e aponta infraestrutura de back.
+
+**Feito em 28/10:** ataque pontual (cast que matava índice 2.134 → 8 ms; analítico 4,37 → 0,31 s; uma ida
+por gesto na bancada) e a MEDIÇÃO que faltava: toda resposta da app web sai com `Server-Timing`
+(`db` = tempo e nº de queries, `app` = Python/template, `total`), visível no DevTools em prod. As
+estatísticas de query de prod (`pg_stat_statements`) foram ZERADAS em 29/10 01:32 UTC — antes acumulavam
+desde 21/09, misturando cargas, migrations e o antes dos consertos.
+
+- [ ] Depois de alguns dias de uso real: ler `pg_stat_statements` de prod (as 20 de maior tempo total,
+      fora o agente de métricas da Render) e medir pelo `Server-Timing` os endpoints quentes — bancada,
+      analítico, cronograma, curva ABC, busca, caderno — separando rede, banco e app.
+- [ ] Com os números: fechar esta pendência, ou abrir ataque com alvo. Não se mexe no que não foi medido.
+- [ ] Ainda sem medida: pooler/região dos 3 serviços × banco (RTT por ida) e hit-rate do cache do catálogo.
