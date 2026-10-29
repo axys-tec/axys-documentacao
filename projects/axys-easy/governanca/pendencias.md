@@ -811,6 +811,24 @@ Para não reabrir por engano:
 
 ---
 
+## Segurança — o que ficou, de risco baixo (auditoria de 28/10/2026)
+
+O isolamento entre tenants, o bucket privado, a fórmula no Excel, XSS, CSRF, OAuth do MCP, limite de login
+e de IA, sandbox do HTML importado e o LIKE foram fechados em 28/10 (vigia `sanidade/isolamento_tenants.py`).
+Ficou:
+
+- [ ] **RLS no banco** — o isolamento de `ativo.*` e `tenant_catalogo.*` depende só do `WHERE` da aplicação
+      (a guarda de posse do roteador e os serviços). RLS seria a rede no banco; hoje só `core.jobs` tem.
+      Mudança de arquitetura: exige `SET app.current_tenant` em toda conexão e testar cada consulta.
+- [ ] **Logout por GET** (`/login/logout`) — um link de outro site desloga o usuário. Trocar por POST mexe
+      no menu de todas as telas; o efeito máximo do ataque é deslogar.
+- [ ] **Reset de senha** — o token de reset serve mais de uma vez e não há limite de pedidos. Hoje o fluxo
+      não funciona em prod (o acesso direto ao Hub é bloqueado lá); corrigir antes de reativá-lo.
+- [ ] **uuid de tenant possivelmente previsível** (versão 5, derivado de nome) — depois da guarda de posse
+      não abre nada sozinho; confirmar com o Hub como é gerado.
+
+---
+
 ## Verificação de desempenho — com números (aberta em 28/10/2026)
 
 **Sintoma (Renan, 16/09):** ambientes antigos, com MAIS dados, respondiam mais rápido que os atuais —
