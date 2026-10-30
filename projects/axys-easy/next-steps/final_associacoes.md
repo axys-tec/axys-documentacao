@@ -200,7 +200,8 @@ Só **novo** e **mudou** disparam análise. No início do estágio, numa transa�
   novo e trava só o seu par origem→destino (D5, revista em 29/10);
 - **mudou** (além do carimbo) com par → o par é apagado e guardado para o prompt (D6); o item volta à
   análise como origem (ou as origens que o tinham, quando X é alvo), e o parceiro fica livre;
-- **mudou só o carimbo** com par → confirmação 1×1 (acima, em §4.3).
+- **mudou só o carimbo** com par → confirmação 1×1 pela IA, antes desta transação (§4.3); o par que ela
+  recusa é apagado aqui, como o do **mudou**.
 
 Depois que a associação fecha, é banco contra banco: nada mais a comparar até o próximo import.
 
@@ -220,15 +221,22 @@ Por import:
 | FDE (4) | CDHU, SINAPI | — |
 
 **X como alvo — quem reabre.** A origem O (fonte maior) volta à análise contra X se:
-- (a) O tinha **par** com um item de X que **mudou** ou **saiu** (o par já foi apagado, §4.2); ou
+- (a) O tinha **par** com um item de X que **mudou**, **saiu** ou teve a confirmação por carimbo
+  recusada (o par já foi apagado, §4.2); ou
 - (b) O tem **negada** contra X (ou nunca foi decidida) **e** a busca de O passa a trazer um item
   de X **novo** ou **mudado além do carimbo**. Item com par nunca é tocado, nem como origem nem como
   candidato.
 
-**Carimbo `AF_` (Renan, 29/10/2026).** Item de X que trocou SÓ o carimbo de aferição não perde o par:
-o par vai à IA **1×1** — o parceiro atual como único candidato, para dizer se mantém ou recusa — e cai
-na 5b. Recusado, o par sai e vira negada; aceito, fica com a hash do texto novo. Sem par, o carimbo não
-reabre nada: a recusa continua valendo e só a hash é renovada. Na SINAPI 09/26: 262 das 297
+**Carimbo `AF_` (Renan, 30/10/2026, revendo 29/10).** Item de X que trocou SÓ o carimbo de aferição
+não perde o par de saída: **todos** os pares nessa condição vão à IA **1×1** numa passada, antes da
+fila — o parceiro atual como único candidato, `confirmacao_do_par` no pedido. **Aceito**, o par fica,
+sem curadoria, com a hash do texto novo, e a confirmação vai como rodada ao arquivo da origem.
+**Recusado**, o par sai sem virar negada — a recusa é da IA, não de quem cura — e o item vai aos
+**soltos**: entra no matcher como o que chegou (origem contra a fonte do par, e lista curta de (b));
+a origem reabre por (a), com o par e o parecer da recusa no prompt. A passada fica no storage
+(`_confirmacao_carimbo.json` da fila): resposta faltando é erro do estágio, nada é desfeito, e a
+retentativa pergunta só o que faltou. Sem par, o carimbo não reabre nada: a recusa continua valendo e
+só a hash é renovada. Na SINAPI 09/26: 262 das 297
 composições mudadas trocaram só o carimbo (nenhuma tinha par); a fila ficou com 193 itens.
 
 Para (b) (D7): busca **reversa** — "quem de lá se parece com quem chegou aqui": o item novo/mudou
@@ -479,7 +487,7 @@ Fechadas pelo Renan em 29/10.
 | D10 | gate de subgrupo no `dados`: **sai**. Nasceu para o matcher do app, e a rotina dos scripts não o usa |
 | D11 | JSON **continua por par de fontes**, com `rodadas[]`. O teste de sanidade (§5.3) mostrou que o ganho entre fontes vem do banco, não do arquivo |
 | D12 | o estágio reindexa X pela **presença na edição E**, marcada; a busca normal do app continua ignorando até o publicar (§4.1) |
-| D13 | reabre só o que o histórico escreve: **descrição e unidade**; `ALTERACAO_ITENS` sem mudança de cabeçalho não reabre. Troca **só do carimbo** `AF_` (29/10): o par vai à IA 1×1 e à curadoria; sem par, nada reabre (§4.3) |
+| D13 | reabre só o que o histórico escreve: **descrição e unidade**; `ALTERACAO_ITENS` sem mudança de cabeçalho não reabre. Troca **só do carimbo** `AF_` (30/10): o par vai à IA 1×1, todos numa passada; aceito fica, recusado solta para o matcher; sem par, nada reabre (§4.3) |
 | D14 | CPU: o insumo principal (`check_sanidade`; 91,5% de acerto, 2,3% de disparo em errado, em 413 pares) vai **no pedido à IA**, com a marca dos candidatos em que aparece; conflito com a resposta → repergunta uma vez, com o conflito apontado; o que sobrar chega marcado à 5b. Só raríssimo/raro. Sinal, nunca decisão |
 | D15 | **transitividade como sinal** (decidido 29/10). Quando o item entra na rodada, o candidato que o triângulo aponta (ex.: FDE a ↔ CDHU b e CDHU b ↔ SINAPI c → c para a FDE a) vai marcado no prompt e na 5b, como o principal da D14. Sinal, nunca decisão. As 64 lacunas que já existem (§5.3) são estado: vão para a 5a |
 
@@ -511,6 +519,7 @@ Fechadas pelo Renan em 29/10.
 | F4 | `deec95f` | prompts do script copiados pelo AST e conferidos **byte a byte**. Delta FORJADO na CDHU (edição 61: 12 itens "mudou", 6 com par e 6 com negada contra a SINAPI), em transação desfeita: 12 pares desfeitos, 160 análises montadas, 22 levadas à IA — **0 erro de contrato**; dos 11 itens com par anterior a IA reescolheu o mesmo em 7 e devolveu null em 4 (vão à 5b com o par anterior à vista); recusados chegaram como contexto (ex.: 29 recusados + 1 novo); 3 conflitos com o insumo principal reperguntados. JSON da rodada sobre o arquivo real: antigo → `rodadas[0]` (`sha1_40`), rodada nova com par anterior, diff, pareceres e `prompt_versao`. Triângulo (D15) provado num caso real FDE→CDHU→SINAPI: a lacuna entra na lista, marcada |
 | F5 | (este) | estágio real na SINAPI 09/26 pela task, com IA: **294 itens** na fila em 257 s (203 CPU + 91 INS — origens da CDHU e da FDE que a busca reabriu por trazer item novo/mudado da 09/26), todas com os recusados como contexto; **0 proposta de par** — os itens novos da 09/26 que caíram na lista são de outra coisa (ex.: lixadeira contra estaca), e a IA recusou; 2 conflitos com o insumo principal. O estágio parou em `pendente_user`. Atos, retomada, 1×1 dentro da rodada e fechamento (banco → JSON, idempotente) provados em teste (5); **a curadoria da fila real é sua** |
 | F6 | (este) | estágio na lista e no publicar (`documentos` ok **e** `associacoes` ∈ {ok, skip}); `rodar` despacha o estágio; nenhum Preços/Dados roda com associação aberta em outra edição (§6); painel do import com o chip e o link da 5b; e2e esperam a curadoria. Removido o §7: bloco de vinculação, gate de subgrupo, R6 e C do Dados; publicar não grava mais associação; `matcher_vizinhanca` + 2 scripts; 31 rotas e 15 templates/JS/CSS legados; `equivalencias_service` de 2.349 para 662 linhas (fica o que grava e o que os scripts importam); `insumos_equivalencias` (0 linha) com migration de DROP com trava; o selo "Equivalência" da listagem de insumos passou a ler `equivalencias_ins`. Vigia novo: `sanidade/associacoes_vigia.py`. **Falta: prod, com o seu OK** |
+| carimbo | (este) | a passada 1×1 do carimbo saiu da fila: IA julga todos os pares por carimbo antes do matcher; aceito fica sem curadoria (rodada no arquivo da origem), recusado solta o item para o matcher sem negada. Testes: aceito, recusado e retomada sem nova pergunta. SINAPI 09/26 refeita do zero: **193 itens**, igual à regra anterior (nenhum dos 262 carimbos tinha par) |
 
 **Ambiente da bancada.** O espelho local do storage não tem nada da SINAPI, e o `.env.local` aponta o R2 de
 produção. O import da prova rodou com storage HÍBRIDO — grava só no local, lê do local e cai para o R2
