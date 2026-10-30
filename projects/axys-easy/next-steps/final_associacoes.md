@@ -1,6 +1,6 @@
 # Associações entre fontes — plano final (motor no import + curadoria)
 
-**Estado: APROVADO em 29/10/2026 (decisões no §9).** Nada daqui foi executado.
+**Estado: APROVADO em 29/10/2026 (decisões no §9). Em execução — o que já foi feito está no §10.1.**
 Contrato que governa: `contracts/catalogo/vinculacoes.md`. Documento de trabalho da frente:
 `associacoes_entre_fontes.md` foi absorvido por este plano em 29/10 (§12) e removido.
 
@@ -489,6 +489,23 @@ Fechadas pelo Renan em 29/10.
 | **F5** | tela 5b + fechamento (banco, depois JSONs) | import real em dev ponta a ponta |
 | **F6** | plugue: estágio ligado, gate no publicar, remoção do §7 | import de SINAPI e de FDE em dev; depois prod, com o seu OK |
 | F7 | tela 5a | — |
+
+### 10.1 Execução
+
+| fase | commit | prova, medida em dev |
+|---|---|---|
+| F0 | — | §0 e §12.2 |
+| F1a | `b4af61a` | `edicoes_estagios`: 248 estados migrados, 0 diferença contra a API antiga em 62 edições; 7 testes |
+| F1b | `f59929c` | import da SINAPI 09/26 (edição 63): 382 descritivos preenchidos no Documentos; **10.599/10.599** composições da edição com `remunera` vigente. Migration do `modo`: 18.065 linhas, no-op na segunda passada |
+| F2 | (este) | reexecução do Preços da edição 63: histórico **idêntico** (380 eventos; muda só o `req_hash` do CTC, renovado pelo Documentos entre as passadas — as 4 criações de insumo, que o defeito apagava, ficaram). `hash_item` = `_hash` em 30.308 itens e nas 18.225 linhas de pares e negadas; `rodadas[0]` = arquivo antigo, campo a campo, nos 18.342 JSONs |
+
+**Ambiente da bancada.** O espelho local do storage não tem nada da SINAPI, e o `.env.local` aponta o R2 de
+produção. O import da prova rodou com storage HÍBRIDO — grava só no local, lê do local e cai para o R2
+(somente leitura) no que faltar (`STORAGE_READ_DRIVER=local`, `STORAGE_WRITE_DRIVER=local`,
+`STORAGE_ENABLE_READ_FALLBACK=1`, `STORAGE_READ_FALLBACK_DRIVER=r2`), chamando as tasks em processo (Celery
+eager), sem passar pela fila dos workers. Com `STORAGE_DRIVER=local` puro o hash dos requests do CTC mudaria em
+massa e dispararia milhares de chamadas pagas. O OpenSearch local foi recriado no colima (2.17.1, nó único,
+igual a prod) e reindexado do `search_document`.
 
 **Bancada de teste em dev — SINAPI 09/26** (`z_search_repos/09-26/`), sobre o banco em 08/26.
 Ponto de retorno: `axys_easy_db_bkp_0826`, cópia inteira do banco de dev criada em 29/10 (5,7 GB,
