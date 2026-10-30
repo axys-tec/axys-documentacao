@@ -16,6 +16,10 @@
 - **Mono-coluna de custo**: um único custo por insumo — **não distingue encargos/desoneração** (insumo é pelado/`SE`).
 - **Sem classificação nativa**: a planilha traz código, descrição, unidade e custo — não traz o tipo do insumo.
 - **Sem marcador textual de SEM PREÇO**.
+- **Unidade cortada em 5 caracteres** no xlsx: «m² x mês» chega `M2XME`, «cj x dia» chega `CJXDI`
+  (metodologia, UNIDADES PADRÃO). O parser desfaz só o corte (`M2XMES`, `CJXDIA`) em `unidade_cdhu`,
+  nos insumos e no cabeçalho das composições; a grafia própria da CDHU que cabe em 5 (`UNMES`,
+  `M2MES`, `CJDIA`…) entra como vem.
 
 ### 1.1 Arquivos e fluxo de import (tela — decisão Renan 2026-06-13)
 A CDHU divulga **4 arquivos**: `insumos`, `composicao` (analítico), `servicos`, `subgrupos`.

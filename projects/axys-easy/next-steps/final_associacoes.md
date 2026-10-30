@@ -1,6 +1,7 @@
 # Associações entre fontes — plano final (motor no import + curadoria)
 
-**Estado: APROVADO em 29/10/2026 (decisões no §9). Em execução — o que já foi feito está no §10.1.**
+**Estado: APROVADO em 29/10/2026 (decisões no §9). F1–F7 executadas e simuladas em dev (§10.1); falta
+prod, com OK, e as decisões do §13.**
 Contrato que governa: `contracts/catalogo/vinculacoes.md`. Documento de trabalho da frente:
 `associacoes_entre_fontes.md` foi absorvido por este plano em 29/10 (§12) e removido.
 
@@ -462,10 +463,38 @@ curadoria") levada ao navegador, mais o diff e a justificativa. Por item da fila
 
 Reusa as classes `.cpu-`/`.ae-` das telas aceitas. Sem texto explicativo na tela; modal fecha no Esc.
 
-### 5a — curadoria geral (depois do plugue)
+### 5a — curadoria geral (depois do plugue) — FEITA (F7, 30/10)
 
 Associar e desassociar isolado, sem IA, sobre o estado. Mexe em banco e JSON pelo mesmo
 caminho do fechamento 5b, e reusa a tela da 5b sem a fila do import.
+
+Em `/catalogo/associacoes` (sidebar: Fontes-Base › Associações), serviço
+`associacoes_geral_service`:
+
+- **Seleção:** tipo (INS, CPU, MDO) × par de fontes da regra 1 (FDE→CDHU, FDE→SINAPI,
+  CDHU→SINAPI) × lista da origem, com busca por código/descrição. Listas: **com par**,
+  **negados**, **sem decisão** (vivo, sem par nem negada), **triângulo** (D15: origem viva sem par
+  no destino cujo par numa terceira fonte tem par lá — a conta do `marca_sinais`, sobre o banco) e,
+  só em CPU, **resíduo do principal** (§12.1). MDO: com par / sem par.
+- **Item:** estado (par com destino, fator, status, observação, quem e quando; ou negada com motivo
+  e examinados), sinais da rodada (insumo principal D14, triângulo D15, pelo próprio
+  `marca_sinais`) e os candidatos da **mesma busca do motor** (`busca` + `intercala`, universo do
+  destino sem gêmeas e sem destino ocupado por outra origem — o parceiro atual fica, marcado);
+  a lista vem inteira e o `+` corre de 15 em 15, sem nova busca. Examinado da negada vem marcado.
+  MDO: o ranking léxico do `cura_mdo`, destino não exclusivo.
+- **Atos, todos com justificativa:** **associar** (destino + fator; troca o par quando há — o
+  anterior sai por id exato e vai como `par_anterior` na rodada; destino ocupado, gêmea, item
+  inativo e fator ausente são recusados; a negada da origem contra a fonte sai pelo `_grava_par`);
+  **desassociar** (apaga o par por id exato e a origem fica **negada** contra a fonte, com o
+  ex-parceiro nos examinados e a justificativa como motivo — `_nega_apos_desassociar`, isolada para
+  a decisão poder mudar; MDO só apaga o vínculo); **sem par** (registra ou soma a negada com os
+  candidatos exibidos). O ato leva o par que a tela viu: estado mudado é recusado.
+- **Gravação:** banco numa transação sob `pg_advisory_xact_lock(LOCK_GLOBAL)`, com auditoria
+  (`audit.logs`, antes/depois) de cada par, negada e vínculo tocado; **depois** a rodada no
+  arquivo da origem (`"origem": "5a"`, `edicao: null`, `curadoria {decisao, id_final, fator,
+  motivo, por, em}`, `par_anterior`). JSON que falha não desfaz o banco: o ato responde com aviso.
+- **Serialização (§6):** com associação aberta numa edição da fonte X, todo ato que envolve X é
+  recusado (409) e a tela mostra a edição aberta; os outros pares seguem.
 
 ---
 
@@ -504,7 +533,7 @@ Fechadas pelo Renan em 29/10.
 | **F4** | IA + validador + pré-curadoria + JSON por item | rodada em dev sobre um delta forjado em transação com rollback |
 | **F5** | tela 5b + fechamento (banco, depois JSONs) | import real em dev ponta a ponta |
 | **F6** | plugue: estágio ligado, gate no publicar, remoção do §7 | import de SINAPI e de FDE em dev; depois prod, com o seu OK |
-| F7 | tela 5a | — |
+| F7 | tela 5a (§8) — **feita 30/10** | atos, troca, desassociar → negada, 1×1, serialização, MDO e JSON provados em teste (13) |
 
 ### 10.1 Execução
 
@@ -520,6 +549,8 @@ Fechadas pelo Renan em 29/10.
 | F5 | (este) | estágio real na SINAPI 09/26 pela task, com IA: **294 itens** na fila em 257 s (203 CPU + 91 INS — origens da CDHU e da FDE que a busca reabriu por trazer item novo/mudado da 09/26), todas com os recusados como contexto; **0 proposta de par** — os itens novos da 09/26 que caíram na lista são de outra coisa (ex.: lixadeira contra estaca), e a IA recusou; 2 conflitos com o insumo principal. O estágio parou em `pendente_user`. Atos, retomada, 1×1 dentro da rodada e fechamento (banco → JSON, idempotente) provados em teste (5); **a curadoria da fila real é sua** |
 | F6 | (este) | estágio na lista e no publicar (`documentos` ok **e** `associacoes` ∈ {ok, skip}); `rodar` despacha o estágio; nenhum Preços/Dados roda com associação aberta em outra edição (§6); painel do import com o chip e o link da 5b; e2e esperam a curadoria. Removido o §7: bloco de vinculação, gate de subgrupo, R6 e C do Dados; publicar não grava mais associação; `matcher_vizinhanca` + 2 scripts; 31 rotas e 15 templates/JS/CSS legados; `equivalencias_service` de 2.349 para 662 linhas (fica o que grava e o que os scripts importam); `insumos_equivalencias` (0 linha) com migration de DROP com trava; o selo "Equivalência" da listagem de insumos passou a ler `equivalencias_ins`. Vigia novo: `sanidade/associacoes_vigia.py`. **Falta: prod, com o seu OK** |
 | carimbo | (este) | a passada 1×1 do carimbo saiu da fila: IA julga todos os pares por carimbo antes do matcher; aceito fica sem curadoria (rodada no arquivo da origem), recusado solta o item para o matcher sem negada. Testes: aceito, recusado e retomada sem nova pergunta. SINAPI 09/26 refeita do zero: **193 itens**, igual à regra anterior (nenhum dos 262 carimbos tinha par) |
+| F7 | (este) | tela 5a em `/catalogo/associacoes`, sem IA, sobre o estado (§8). Listas medidas em dev, 30/10: **resíduo do principal = 78** (CDHU→SINAPI 27, FDE→SINAPI 17, FDE→CDHU 34; os ambíguos dão 95, o número do contrato; a revisão de 28/09 contava 79) — bate par a par com o `check_sanidade.py` (b) restrito a raríssimo; **triângulo = 64** nas duas formas do §5.3 (INS 22 + 11, CPU 12 + 19) **e mais 24** na terceira (FDE→CDHU apontado pela SINAPI: INS 15, CPU 9), que o teste do §5.3 não contou; 6 delas têm o destino já ocupado (1×1). Item com busca e sinais em 0,2–0,4 s. Testes: 13 (associar, troca, desassociar → negada, sem par somando, destino ocupado, estado visto mudado, associação aberta só bloqueia os pares da fonte, JSON que falha, MDO N:1). **A curadoria do resíduo e das lacunas é sua** |
+| simulação | (este) | **todas as circunstâncias, banco e storage LOCAIS** (30/10; ponto de retorno `axys_easy_db_bkp_0926` + tgz do storage de associações). **SINAPI 09/26** com casos forjados (carimbo com par bom e ruim, mudou com par, destino que saiu com par, MDO com destino mudado): 272 itens; a confirmação recusou os 4 pares por carimbo e as origens reabriram com o parecer; retomada após violação de contrato perguntou só 1 item; curadoria com todos os atos (aceitar, informar contra a IA, informar do `+` com fator 0,5, contexto reperguntado, rejeitar, MDO N:1) e as 4 recusas de contrato; fechamento idempotente. **FDE 07/26 (62) e CDHU 08/26 (61) — F6 nas outras duas fontes:** o estágio sobre o delta real das edições (não há edição nova de FDE/CDHU para importar); FDE como origem contra CDHU e SINAPI (248 itens, 28 aceitos, 12 homônimos travados), CDHU nos dois papéis (446 itens: 45 como origem, 401 como alvo da FDE); D5 provada (origem FDE que saiu mantém o par); `skip` na edição antiga; motor fora do ar e descritivo faltando → `erro` sem gravar; IA com chave inválida para a rodada inteira na 1ª falha e a retomada pergunta só o que faltou; JSON travado no fechamento → banco gravado, `erro` aberto, retentativa repõe só o arquivo. **Achados e corrigidos:** (1) `erro` depois de desfazer pares não segurava os outros imports — agora conta como aberta quando a fila está gravada (`ee_detalhe.fila_gravada`); (2) reimport por cima da própria associação aberta reaproveitava a fila velha — Preços/Dados recusam (409); (3) "avançar estágio" fechava `associacoes` sem curadoria — recusado; (4) origem com par intacto podia entrar na fila (reativada com o par travado pela D5, ou já curada) — fica fora (`par_intacto`), e a reativada com texto novo passa a soltar o par como "mudou". Vigia verde. **Estado deixado para a validação de telas:** 09/26 aberta com os casos forjados (`ec_id` 950–952, `ch_id` 24687–24689 — fora do ponto de retorno) |
 
 **Ambiente da bancada.** O espelho local do storage não tem nada da SINAPI, e o `.env.local` aponta o R2 de
 produção. O import da prova rodou com storage HÍBRIDO — grava só no local, lê do local e cai para o R2
@@ -551,7 +582,8 @@ aponta para o R2 de produção.
   novas + 297 mudadas). Medir na bancada de teste.
 - **Import abandonado no meio**: o parser já sobrescreveu o texto de X e a associação não fechou.
   Como nenhum outro import começa com associação aberta (§4.1), o caminho é retomar ou descartar
-  essa edição; descartar precisa devolver o texto do `antes` (a definir na F1).
+  essa edição. Estudo com as opções e a medida do vazamento do rascunho no catálogo vigente:
+  `next-steps/estudo_descarte_import.md` — decisão no §13.
 
 ---
 
@@ -566,14 +598,41 @@ rotina dos scripts já resolveu, e o que dela vale está no §4 e no contrato `v
 
 | dívida | estado |
 |---|---|
-| `M2XME` no CDHU — unidade truncada na origem (1 insumo ativo em dev) | corrigir no parser do CDHU, não na associação |
+| `M2XME` no CDHU — unidade truncada na origem (1 insumo ativo em dev) | **corrigido no parser (30/10):** a CDHU corta a unidade em 5 caracteres no próprio arquivo; `unidade_cdhu` repõe `M2XME`→`M2XMES` e o mesmo caso `CJXDI`→`CJXDIA` (insumo 6289, composição 11178). O próximo import da CDHU corrige o dado; os 3 itens mudam de hash e reabrem uma vez na associação, com a recusa anterior de contexto (nenhum tem par) |
 | 90 descrições do FDE com dois itens colados | mora no `pendencias.md` ("FDE — descrições com DOIS itens colados") |
-| Resíduo de curadoria (contrato §6): 79 composições de principal raríssimo mantidas sem par, com candidato único apontado | uma passada humana na 5a |
+| Resíduo de curadoria (contrato §6): 79 composições de principal raríssimo mantidas sem par, com candidato único apontado | uma passada humana na 5a — lista **Resíduo do principal** (78 em 30/10, §10.1 F7) |
 | Vínculo de MDO com origem INATIVA: `equivalencias_mo` 67 — FDE `1.01.52 MOTORISTA` (inativo) → SINAPI 88281. Achado pelo vigia em 29/10 | pela D5 revista (origem inativa mantém o par) é estado válido; fica anotado |
-| Sobras versionadas em `z_scripts_apoio/_out_associacoes/`: três CSV de backup de set/2026 (`backup_carimbo_fde_local`, `backup_carimbo_fde_prod`, `backup_equivalencias_mo_prod`), ~40 KB | conferir se o conteúdo está no banco, remover e tirar a exceção `!…/backup_*.csv` do `.gitignore` |
+| Sobras versionadas em `z_scripts_apoio/_out_associacoes/`: três CSV de backup de set/2026, ~40 KB | **30/10:** os dois `backup_carimbo_fde_*` (78 linhas, texto antes/depois do limpa-carimbo) estão 78/78 no banco — removidos. O `backup_equivalencias_mo_prod` fica: o `cura_mdo.py` ainda o lê, e 3 dos 71 vínculos (AJUDANTE → 88241) só estão fora do banco porque o caso MDO forjado da simulação os desfez — voltam quando a 09/26 de dev fechar ou com o restore. Depois: remover o CSV, a exceção do `.gitignore` e o `carrega_backup` |
 
 ### 12.2 Estado em PROD — conferido em 29/10
 
 Os dois uniques (`uq_e*_ori`, `uq_e*_dest`), o CHECK `ck_e*_canonico` e a trigger `t_e*_guarda`
 existem em `equivalencias_ins`/`_cpu`, iguais a dev, e há 0 linha `pendente`. Com a última linha
 das 48 tabelas idêntica (§0), nada a fazer aqui.
+
+---
+
+## 13. Para decidir (Renan) — levantado na execução de 30/10
+
+1. **Descartar import** (§11): A só retomar + "cancelar associação" · B pelo histórico · **C foto do
+   antes (recomendada)** · D rascunho fora do catálogo vigente. Junto: foto no storage ou em tabela;
+   descartar apaga a edição ou a deixa RASCUNHO vazia. Medida que pesa: a 09/26 em RASCUNHO já mudou
+   312 composições vigentes e zerou a receita de 6. `next-steps/estudo_descarte_import.md` §4–5.
+2. **Backfill** (§6/§11): bloquear já o import de edição mais antiga que a vigente (horas) e, quando
+   houver backfill real, a "caixa de areia" da opção C. Mesmo estudo, §6.
+3. **Rigor da confirmação por carimbo.** Na simulação a IA recusou os 4 pares por carimbo, 3 deles
+   curados por gente (rodapé de mármore 7 cm; válvula de retenção 1 1/2"), por atributo que a origem não
+   declara (tipo de rejunte, classe de pressão). Nada se perde — a origem reabre na 5b com o par anterior
+   e o motivo, e você reassocia —, mas a confirmação hoje mede "a identidade está provada?", não "algo
+   mudou que desfaz o que já foi provado?". Manter, ou um prompt de confirmação próprio que só recuse
+   com mudança de receita/escopo demonstrada.
+4. **5a — desassociar:** hoje deixa a origem **negada** com o ex-parceiro (o item segue "decidido").
+   Alternativa: soltar sem negada (vai a "sem decisão"). `_nega_apos_desassociar`.
+5. **5a — ato "sem par"** (registra/soma a negada do item sem par): acrescentado para o item "sem
+   decisão" poder ser decidido. Manter ou tirar.
+6. **5a — associar a destino fora da busca:** a 5a aceita qualquer destino elegível (vivo, sem gêmea,
+   livre no 1×1); a 5b só da busca. Manter a diferença ou alinhar.
+7. **Triângulo — terceira forma (D15):** +24 lacunas (FDE→CDHU apontado pela SINAPI) além das 64
+   contadas no §5.3. A 5a já as lista; confirmar que entram.
+8. **`CJXDI`** entrou na correção do `M2XME` (mesma causa). Confirmar.
+
