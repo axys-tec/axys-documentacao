@@ -195,11 +195,12 @@ parser É o último estado fechado (regra 6), e o import JÁ registra a diferen�
 
 Só **novo** e **mudou** disparam análise. No início do estágio, numa transação:
 
-- **saiu** com par → o par é apagado (D5). O parceiro, na outra fonte, fica com a vaga livre e
-  entra na análise: se é da fonte maior, como origem contra X; se é da menor, volta a ser candidato;
-- **mudou** com par → o par é apagado e guardado para o prompt (D6); o item volta à análise como
-  origem (ou as origens que o tinham, quando X é alvo), e o parceiro fica livre como acima;
-- **saiu** com negada → a negada sai junto: item inativo não tem decisão viva.
+- **saiu** como **destino** de um par → o par é apagado: a origem, viva, perdeu o alvo e entra na
+  análise. **saiu** como **origem** → o par e a negada ficam como estavam: o item não entra em orçamento
+  novo e trava só o seu par origem→destino (D5, revista em 29/10);
+- **mudou** (além do carimbo) com par → o par é apagado e guardado para o prompt (D6); o item volta à
+  análise como origem (ou as origens que o tinham, quando X é alvo), e o parceiro fica livre;
+- **mudou só o carimbo** com par → confirmação 1×1 (acima, em §4.3).
 
 Depois que a associação fecha, é banco contra banco: nada mais a comparar até o próximo import.
 
@@ -221,10 +222,14 @@ Por import:
 **X como alvo — quem reabre.** A origem O (fonte maior) volta à análise contra X se:
 - (a) O tinha **par** com um item de X que **mudou** ou **saiu** (o par já foi apagado, §4.2); ou
 - (b) O tem **negada** contra X (ou nunca foi decidida) **e** a busca de O passa a trazer um item
-  **novo** de X. Item de X que só **mudou** não dispara (b): quem perdeu o alvo foi só a origem que
-  estava casada com ele, e essa volta por (a); quem já o tinha recusado mantém a recusa (endurecido
-  em 29/10/2026 — na SINAPI 09/26, a fila caiu de 294 para 164 itens, 1,3% dos 12.472 da CDHU e da FDE
-  que podem ter par com a SINAPI). Item com par nunca é tocado, nem como origem nem como candidato.
+  de X **novo** ou **mudado além do carimbo**. Item com par nunca é tocado, nem como origem nem como
+  candidato.
+
+**Carimbo `AF_` (Renan, 29/10/2026).** Item de X que trocou SÓ o carimbo de aferição não perde o par:
+o par vai à IA **1×1** — o parceiro atual como único candidato, para dizer se mantém ou recusa — e cai
+na 5b. Recusado, o par sai e vira negada; aceito, fica com a hash do texto novo. Sem par, o carimbo não
+reabre nada: a recusa continua valendo e só a hash é renovada. Na SINAPI 09/26: 262 das 297
+composições mudadas trocaram só o carimbo (nenhuma tinha par); a fila ficou com 193 itens.
 
 Para (b) (D7): busca **reversa** — "quem de lá se parece com quem chegou aqui": o item novo/mudou
 de X como consulta no índice da fonte maior — para fazer a lista curta de origens, e busca
@@ -466,15 +471,15 @@ Fechadas pelo Renan em 29/10.
 | D2 | estágio `associacoes` **depois do `documentos`**, último antes do publicar: o prompt de CPU decide pelo `remunera`, que o CTC escreve (§3) |
 | D3 | o "visto" é o banco; o que mudou é o histórico do catálogo (§5.2) |
 | D4 | grava no banco no **fechamento da curadoria 5b**, não no publicar |
-| D5 | item que **saiu** da fonte **perde o par** (é inativo); o parceiro fica livre e entra na análise (§4.2) |
+| D5 | (revista 29/10) item que **saiu** como **origem** mantém o par e a negada — trava só o seu par origem→destino e não entra em orçamento novo; saiu como **destino** → o par cai e a origem viva volta à análise (§4.2) |
 | D6 | item que **mudou** perde o par **na hora** e volta à análise — pode reassociar ao mesmo, a outro, ou ficar sem par. O par anterior vai no prompt. Sem tabela de desassociados: fica na rodada do JSON |
-| D7 | X como alvo: só item **novo** procura origem nova; item que mudou reabre só a origem que descasou (29/10). Busca **reversa** ("quem de lá se parece com quem chegou aqui") + confirmação **direta**; a rodada e a gravação respeitam `fte_id` maior → menor (§4.3) |
+| D7 | X como alvo: item **novo** ou **mudado além do carimbo** procura origem nova (§4.3). Busca **reversa** ("quem de lá se parece com quem chegou aqui") + confirmação **direta**; a rodada e a gravação respeitam `fte_id` maior → menor (§4.3) |
 | D8 | à IA vão os candidatos **nunca vistos**, como possibilidade, e os **recusados** que não estão associados a outro item, com o motivo, para ela saber o que não fazer (§4.4–4.5) |
 | D9 | MDO **entra no estágio**, sem IA, com o rito do `cura_mdo`; só o que é novo ou mudou passa; a 5b mostra só novidade (§4.6b) |
 | D10 | gate de subgrupo no `dados`: **sai**. Nasceu para o matcher do app, e a rotina dos scripts não o usa |
 | D11 | JSON **continua por par de fontes**, com `rodadas[]`. O teste de sanidade (§5.3) mostrou que o ganho entre fontes vem do banco, não do arquivo |
 | D12 | o estágio reindexa X pela **presença na edição E**, marcada; a busca normal do app continua ignorando até o publicar (§4.1) |
-| D13 | reabre só o que o histórico escreve: **descrição e unidade**. O carimbo `AF_` está no texto e conta; `ALTERACAO_ITENS` sem mudança de cabeçalho não reabre |
+| D13 | reabre só o que o histórico escreve: **descrição e unidade**; `ALTERACAO_ITENS` sem mudança de cabeçalho não reabre. Troca **só do carimbo** `AF_` (29/10): o par vai à IA 1×1 e à curadoria; sem par, nada reabre (§4.3) |
 | D14 | CPU: o insumo principal (`check_sanidade`; 91,5% de acerto, 2,3% de disparo em errado, em 413 pares) vai **no pedido à IA**, com a marca dos candidatos em que aparece; conflito com a resposta → repergunta uma vez, com o conflito apontado; o que sobrar chega marcado à 5b. Só raríssimo/raro. Sinal, nunca decisão |
 | D15 | **transitividade como sinal** (decidido 29/10). Quando o item entra na rodada, o candidato que o triângulo aponta (ex.: FDE a ↔ CDHU b e CDHU b ↔ SINAPI c → c para a FDE a) vai marcado no prompt e na 5b, como o principal da D14. Sinal, nunca decisão. As 64 lacunas que já existem (§5.3) são estado: vão para a 5a |
 
@@ -555,7 +560,7 @@ rotina dos scripts já resolveu, e o que dela vale está no §4 e no contrato `v
 | `M2XME` no CDHU — unidade truncada na origem (1 insumo ativo em dev) | corrigir no parser do CDHU, não na associação |
 | 90 descrições do FDE com dois itens colados | mora no `pendencias.md` ("FDE — descrições com DOIS itens colados") |
 | Resíduo de curadoria (contrato §6): 79 composições de principal raríssimo mantidas sem par, com candidato único apontado | uma passada humana na 5a |
-| Vínculo de MDO com origem INATIVA: `equivalencias_mo` 67 — FDE `1.01.52 MOTORISTA` (inativo) → SINAPI 88281. Achado pelo vigia `sanidade/associacoes_vigia.py` em 29/10 | apagar na 5a (D5: item inativo não tem associação) |
+| Vínculo de MDO com origem INATIVA: `equivalencias_mo` 67 — FDE `1.01.52 MOTORISTA` (inativo) → SINAPI 88281. Achado pelo vigia em 29/10 | pela D5 revista (origem inativa mantém o par) é estado válido; fica anotado |
 | Sobras versionadas em `z_scripts_apoio/_out_associacoes/`: três CSV de backup de set/2026 (`backup_carimbo_fde_local`, `backup_carimbo_fde_prod`, `backup_equivalencias_mo_prod`), ~40 KB | conferir se o conteúdo está no banco, remover e tirar a exceção `!…/backup_*.csv` do `.gitignore` |
 
 ### 12.2 Estado em PROD — conferido em 29/10
