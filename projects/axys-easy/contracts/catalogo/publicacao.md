@@ -77,7 +77,7 @@ axys-private/easy/fontes/{fonte}/{edicao}/
 
 axys-private/easy/fontes/{fonte}/ctc/    ← CTC AxysDoc: FONTE-LEVEL (estático por cmp_codigo)
 ├── _index.json                    ← cod → req_hash (MANIFESTO de import: governa o delta:hash; NÃO é vigência — §11.10)
-├── doc/{cod}.md                   ← MD-fonte do CTC (editável; fill da IA via get_md/put_md)
+├── doc/{cod}.md                   ← MD-fonte do CTC (§1/§2 «Em revisão»; o texto da IA mora em cmp_descritivo)
 ├── prompt/{cod}.md                ← prompt do CTC (PERSISTE, pareado ao doc — não é andaime)
 ├── {cod}.html                     ← CTC renderizado (o que a app serve)
 └── _old/{cod}_{ref}.md + {cod}_{ref}.prompt.md ← versões SUPERADAS (MD+prompt pareados, 1 par por revisão)

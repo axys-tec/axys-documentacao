@@ -2245,7 +2245,9 @@ CREATE TABLE IF NOT EXISTS catalogo.composicoes (
     cmp_ultima_alteracao DATE,
     cmp_external_path   JSONB,
     cmp_descritivo      JSONB,                            -- CTC VERSIONADO (fonte de verdade do texto; a tela lê 100% do banco):
-                                                          -- {modo, versoes:[{desde_edi, req_hash, status, medicao, remunera, origem}]}.
+                                                          -- {versoes:[{desde_edi, req_hash, status, medicao, remunera, origem}]}.
+                                                          -- (o campo 'modo' IA_local/IA_auto saiu em 29/10/2026: o import
+                                                          -- sempre preenche, no estágio Documentos.)
                                                           -- versoes[-1]=ATUAL; render por-edição = maior desde_edi<=edi. Mudança de fonte ANEXA versão
                                                           -- (preserva texto antigo no banco). _old .md = só auditoria/edição, render NÃO depende dele (§11.11).
                                                           -- ⚠️ REVISTO 2026-07-13: o prompt/MD do CTC vivem SÓ no storage
@@ -5147,7 +5149,9 @@ CREATE TABLE IF NOT EXISTS tenant_catalogo.composicoes (
     cmp_justificativa  TEXT,                              -- memorial da montagem (adequação orçamentária / derivada de…)
     -- DESCRITIVO (forma de medição + o que remunera). MESMA FORMA de catalogo.composicoes.cmp_descritivo,
     -- de propósito: {modo, versoes:[{desde_edi, req_hash, status, medicao, remunera, origem}]}, versoes[-1]
-    -- = atual. Espelhar a estrutura do catálogo faz o MESMO leitor servir aos dois — caderno de encargos,
+    -- = atual; aqui `modo` é a origem do texto (MANUAL/HERDADO) — no catálogo o `modo` (IA_local/IA_auto)
+    -- saiu em 29/10/2026 e o leitor nunca dependeu dele. Espelhar a estrutura do catálogo faz o MESMO
+    -- leitor servir aos dois — caderno de encargos,
     -- export, tela e, no dia em que houver, o CTC Fill escrevendo para o tenant. Campos que o tenant não
     -- usa (req_hash, desde_edi) ficam nulos e custam zero.
     -- SEM ISTO a composição própria entrava no caderno de encargos sem forma de medição e sem remuneração,

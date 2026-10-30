@@ -1,11 +1,15 @@
 # Contrato — Preenchimento do descritivo do CTC (IA)
 
 Governa a geração das seções **1) Forma de medição** e **2) Descritivo do que remunera** do CTC (AxysDoc)
-pela IA. Ferramenta: `z_scripts_apoio/ctc_fill.py`. Doutrina de estilo + dataset: `fine_tuning_cpus/descritivo/`.
+pela IA. Motor único: `backend/core/import_cpu/ctc_fill_core.gerar_descritivo`, chamado pelo estágio Documentos do
+import (`import_service._preencher_descritivos`) e pelo refino em massa (`z_scripts_apoio/ctc/ctc_refina.py`).
+Doutrina de estilo + dataset: `fine_tuning_cpus/descritivo/`.
 
 ## Princípios
-1. **Pipeline decoupla IA↔banco:** `ctc_pull` (DB/R2→`.md`) → `ctc_fill` (edita `.md`) → `put_md` (`.md`→
-   `cmp_descritivo`). Idempotente (só «Em revisão»); `--force` recalibra. A IA **não escreve no banco**.
+1. **No import, sempre (29/10/2026):** o estágio Documentos preenche as versões `em_revisao` da fonte
+   (delta:hash). A IA devolve texto; quem grava é o import (`gravar_descritivo`, `origem = IA_auto`).
+   Não preencheu → o estágio vai a `erro` com a causa e a retentativa pega só o que falta. O ciclo
+   manual `ctc_pull`→`put_md` (modo `IA_local`) foi extinto — plano `next-steps/final_associacoes.md` §3.
 2. **Determinismo estrutural:** o CÓDIGO monta a estrutura do §2 (frame por classe MAT/MO/EQP, mão de obra,
    contrações). O modelo só preenche o que faz bem. Nada de "esperar o modelo obedecer" a estrutura.
 3. **Fiel à composição, sem invenção:** nada de norma (NBR/ABNT), exclusão ("não remunera"), nem item fora
@@ -40,14 +44,7 @@ nome, que errava **6,4%** — MO/ENC_COMP viravam MAT):
 - **req_hash NÃO muda**: o hash (`_conteudo_req`) usa a tabela SEM Grupo — Grupo é metadado derivado, não
   identidade. Ao mexer na app, materializar §3/[c] com `_tabela_grupo` e manter `_tabela` (5 col) p/ o hash.
 
-### Ferramental (fonte única de layout: `_ctc_paths.py` — repo local ESPELHA o R2 `ctc/{doc,prompt,_old}`)
-- `ctc_pull.py [fonte] [--force]` — universo = todas CPUs com CTC (vigente + `_old` versionados por
-  `req_hash[:12]`). Sem `--force` = só o que falta local (preserva reparos). CTC_DIR por fonte.
-- `ctc_enriquece.py <fonte> [--apply]` — injeta a coluna Grupo (one-off local). Idempotente.
-- `ctc_repara.py [--apply] [--em-revisao] [--familia]` — conserta §1/§2 (custo-horário determinístico +
-  vazamento `[b]` + pole). `--em-revisao` = só não-preenchidos (p/ `_old`).
-- `put_md.py <fonte>` — FONTE-LEVEL: grava na versão certa de `cmp_descritivo` por `req_hash`
-  (`{cod}.md`→atual, `{cod}_{ref}.md`→`_old`) e sobe pro path-espelho.
-
-### Diferido (~próximo import): app `montar_prompt`/doc materializa com Grupo (`_tabela_grupo`) + tela de
-curadoria + IA_auto. Até lá, o enriquecimento é one-off local (`ctc_enriquece`).
+### Ferramental
+O ferramental local do ciclo manual (`_ctc_paths`, `ctc_pull`, `ctc_push`, `ctc_verifica`, `ctc_reconcilia`,
+`put_md`, `get_md`) saiu com o `IA_local` em 29/10/2026. Fica `ctc_refina.py` (refino em massa pelo motor
+único) — ver `z_scripts_apoio/ctc/instrucao_ctc.md`.

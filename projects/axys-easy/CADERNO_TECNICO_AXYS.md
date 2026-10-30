@@ -131,45 +131,26 @@ Uma tela por composição, renderizada pela app (não é o PDF da fonte):
   custo limitado — 1×/serviço/edição, cacheado). Reforço de fidelidade fica no contrato do prompt.
 - 1ª rodada Gemini foi DESCARTADA (leu `codex/` e copiou 58/58) — comparação só vale cega.
 
-## 6b. Modo de geração + request no import (FECHA o import antes da IA)
+## 6b. Request e preenchimento no import — estágio Documentos (revisto 29/10/2026)
 
-- **`AXYS_CPU_DESC_MODO`** (`runtime_config.cpu_desc_modo`): `IA_local` (default, nosso caso — request p/
-  codex-LOCAL, sem custo de token) | `IA_auto` (FUTURO — IA via token no fluxo). **Em ambos, o request é
-  montado no import.**
-- **Request montado no import da edição** (`descritivo_request.montar_request`/`gerar_requests_edicao`,
-  plugado no fim das 3 tasks): por CPU, monta o prompt **a/b/c/d** (referência dos docs vinculados +
-  composição + links) e grava **`composicoes.cmp_descritivo = {status:"em_revisao", modo, request}`**.
-  Mora no próprio JSONB (evita 10k+ arquivos/edição). `exportar_requests_md()` materializa os `.md` sob
-  demanda p/ o codex-local. A AXYS Screen mostra **"em revisão"** enquanto o texto não é gerado.
-- **Complemento** (desacoplado): codex-local roda sobre os `.md` → grava `cmp_descritivo={status:"ok",
-  medicao, remunera}`. (Ou, no futuro, `IA_auto` preenche via token.)
+Vale o plano `next-steps/final_associacoes.md` §3. O modo `IA_local` (`AXYS_CPU_DESC_MODO`, ciclo
+`get_md`/`put_md` fora da app) foi **extinto**: o import sempre preenche, sem chave de modo.
 
-### 6b.1 Fluxo fechado no pipeline (R5, 2026-07-07) — DADOS suspende + get_md/put_md FORA da app
-
-O estágio **DADOS** (uniforme nas 4 fontes, helper `import_service._suspender_dados`) faz, **depois** do
-parse pesado: (1) monta o request a/b/c/d (`gerar_requests_edicao`); (2) **GERA os `.md` no storage** —
-`_materializar_prompts` → `construcao/prompts/cpu_<cod>_prompt.md` (visíveis, privados). Cada `.md` traz
-seções **3)/4) prontas** (composição + docs) e um bloco delimitado **«✍️ RESPOSTA»** com placeholders p/
-**1)/2)** — a IA edita só isso, **in-place** (menos token). O marcador evita casar os `1)/2)` do template.
-
-Aí bifurca por `AXYS_CPU_DESC_MODO`:
-
-- **`IA_local`** (auto OFF, default): DADOS **suspende** (`edi_estagios.dados = "pendente_user"`). O
-  preenchimento é **FORA da app** — scripts de apoio `z_scripts_apoio/`:
-  - **`get_md <edi_id>`**: baixa os `.md` do storage p/ um dir local. **Necessário em produção** (storage =
-    R2); em dev o storage é disco local. É ferramenta de apoio, **não** endpoint.
-  - operador roda o **codex-local**, edita o bloco «✍️ RESPOSTA» de cada `.md`.
-  - **`put_md <edi_id>`**: lê os editados (`importar_descritivos_md`, pattern `*_prompt.md`), **substitui o
-    gerado**, grava `cmp_descritivo={status:ok, medicao, remunera}` e **fecha `dados = "ok"`** → destrava
-    DOCUMENTOS. A app **publica depois** (estágio Documentos → caderno/AxysDoc lê `medicao/remunera` via
-    `montar_axys_desc`).
-- **`IA_auto`** (auto ON): a **própria app** roda o ciclo (front → request → get → edita o bloco → fecha),
-  chamando o **conector de IA (serviço EXTERNO, via token)**. Ponto de chamada na app =
-  `import_service._ia_auto_preencher` — **PLACEHOLDER, `NotImplementedError`** (a implementação é externa).
-  Enquanto não ligado, IA_auto **cai no mesmo suspend** do local. Ver [[feedback_sem_apis_pagas]].
-
-**Estado:** IA_local pronto ponta-a-ponta (gera → get_md → codex → put_md → publica). IA_auto = placeholder
-documentado (não conectado).
+- **Onde:** estágio **Documentos** (`import_service.gerar_caderno_edicao` → `_ctc_da_edicao`), nas três
+  fontes, **antes** do caderno-índice (que lista os CTCs). O Dados não toca o CTC: é dado; o Documentos é
+  produção de conteúdo. A captura dos cadernos da fonte (SINAPI) segue no Dados, e o request lê dela.
+- **Request** (`descritivo_request.gerar_requests_edicao`): por CPU, hash do conteúdo [b]+[c]
+  (delta:hash). Mesmo hash → preserva o texto; mudou → anexa versão `em_revisao` em
+  `cmp_descritivo = {versoes:[{desde_edi, req_hash, status, medicao, remunera, origem}]}`.
+- **Documento** (`_materializar_construcao`): `ctc/doc/{cod}.md` + `ctc/prompt/{cod}.md`, fonte-level, só
+  para quem mudou (índice `ctc/_index.json`).
+- **Preenchimento** (`_preencher_descritivos`): motor único `ctc_fill_core.gerar_descritivo` sobre as
+  `em_revisao` da fonte; grava `origem = IA_auto`.
+- **Falha visível:** descritivo que não preencheu leva o Documentos a `erro` com a causa; re-rodar preenche
+  só o que falta. Falha da conta (chave, saldo, teto) para a rodada inteira na primeira ocorrência
+  (`ctc_fill_core.FalhaDeConta`).
+- **Por que no import e não depois:** o estágio `associacoes` (depois do Documentos) decide composição
+  pelo `remunera` vigente.
 
 ## 7. Passos de execução
 

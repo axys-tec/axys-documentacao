@@ -604,8 +604,9 @@ obrigatoriedade de API paga).
 
 - **Um conector `AIProvider`/gateway** serve **CTC descritivo E vinculações**. Provider por env
   (Anthropic/OpenAI/Gemini/Ollama) — troca sem tocar o domínio. Centraliza key/timeout/retry/custo/redaction/
-  versão. **Nunca** key em log ou banco em texto puro. É a **materialização do `AXYS_CPU_DESC_MODO`**
-  (`CADERNO_TECNICO_AXYS §6b`), hoje `_ia_auto_preencher = NotImplementedError`.
+  versão. **Nunca** key em log ou banco em texto puro. *(29/10/2026: o `AXYS_CPU_DESC_MODO` foi extinto —
+  o CTC preenche sempre no estágio Documentos; o motor de associação é o do plano
+  `next-steps/final_associacoes.md`, que substitui esta seção na F6.)*
 - **Toggle `auto on/off`:** **OFF (default)** = o request **para na borda**, o `.md` fica no **storage** →
   **get_md/put_md, SEM API paga** (honra [[feedback_sem_apis_pagas]] como default, não como proibição).
   **ON** = o conector chama o provider por token.

@@ -107,14 +107,15 @@ Advisory lock por fonte (serializa contra *publicar* e outro import). Snapshot +
 - **Fecha:** sobrou `pri_valor IS NULL` → `pendente_user` (modal por-insumo, dedup `ins_id`, em `_state/precos_pendentes.json`); senão `ok`.
 
 ### DADOS
-Docs **derivados** (HTML/insumo/CPU), parse do **LS detalhamento** (`els_itens`), vínculos, `edi_docs_status` (libera "disponível p/ publicação") e **materialização dos prompts** `.md` (`construcao/prompts/`, 1 por CPU, p/ o descritivo AXYS via get_md→put_md).
+Docs **derivados** (HTML/insumo/CPU), parse do **LS detalhamento** (`els_itens`), vínculos, `edi_docs_status` (libera "disponível p/ publicação"). Fecha no **gate de unidades** (sigla a descrever → `pendente_user`, antes de qualquer CTC). O CTC **não** é daqui (29/10/2026): é do Documentos.
 - **LS detalhamento:** header é canônico, itens são fidelidade do PDF (gravam mesmo com total divergente; aviso só p/ auditoria).
 - **Cadernos SINAPI:** parseia **só as versões novas** (reusadas só re-ligam a edição); grava HTML/CPU fonte-level, registra doc de fonte (arquiva anterior→`inativos`), **commit incremental** (worker 512MB, retomável).
 - **Fichas/cadernos → identidade:** ficha → `ins_external_path`; caderno_cpu → `cmp_external_path` (vigência por versão — [../publicacao.md](../publicacao.md)). ⚠️ **Pendência:** o vínculo composição→caderno-fonte / fichas FDE é **N:N** e usava `composicao_documento` (dropada no repense doc/path); a modelagem N:N está **deferida** (o §11.9 do repense reserva o `composicao_documento` p/ esse "cross-ref real").
 
 ### DOCUMENTOS (`gerar_caderno_edicao`)
-- **GATE 4 DURO:** `sincronizar_unidades` (get-or-create em `catalogo.unidades`); sigla **a descrever** (sem `un_descricao`) → **trava** (`pendente_user`) + `.md` `unidades_a_descrever` + manifesto, **não gera o caderno**. Retoma: preencher o `.md` → `aplicar_md_unidades` → regerar.
-- Passando: monta o **caderno técnico da edição** (Apresentação + [originais] + Encargos + [BDI] + CTCs), sobe ao storage (`caderno_tecnico`, `no-cache`), `documentos=ok` (**não purga os prompts**).
+- **CTC primeiro, nas três fontes** (`_ctc_da_edicao`, plano `next-steps/final_associacoes.md` §3): request por delta:hash → documento `ctc/doc|prompt/{cod}.md` → **preenchimento pela IA** das versões `em_revisao`. Descritivo que não preencheu → `documentos=erro` com a causa (nunca passa calado); re-rodar preenche só o que falta. Falha da conta para a rodada inteira.
+- Depois: monta o **caderno técnico da edição** (Apresentação + [originais] + Encargos + [BDI] + CTCs), sobe ao storage (`caderno_tecnico`, `no-cache`), `documentos=ok`. Qualquer exceção leva o estágio a `erro` (não fica `rodando` zumbi).
+- A regeração do caderno disparada pelo **publicar** (e o botão em edição já publicada) só refaz o caderno-índice: não roda o CTC nem mexe no estágio.
 - **CTCs** abrem **isolados** (`/axys-desc`); o caderno **aglomera** (índice), não embute. Composição por fonte: SINAPI = apres+originais+encargos+CTCs; CDHU = apres+encargos+CTCs; FDE = apres+encargos+**BDI**+CTCs.
 
 ### Matriz passo × fonte (resumo)

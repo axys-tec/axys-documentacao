@@ -18,9 +18,9 @@
 - **Ambiente:** dev usa `.env.local`; prod usa o env do Render. NUNCA editar `.env.local` de outra sessão.
 - **App no ar (dev):** para importar pela tela, subir a app + worker: `bash run_dev.sh` (web :8788,
   mobile :8790, worker Celery). O import roda no **worker**.
-- **IA do descritivo:** o import "formar item" (insumos/composições/custos) **não chama IA**. O estágio
-  de descritivo é separado; em dev deixe `AXYS_CPU_DESC_MODO=IA_local` (só monta o request `.md`). Em
-  prod é `IA_auto`.
+- **IA do descritivo:** Preparar, Preços e Dados **não chamam IA**. O estágio **Documentos** preenche o
+  descritivo das composições novas ou mudadas (OpenAI, cadeia `EASY_IA_MODELO_CTC`) — precisa de
+  `OPENAI_API_KEY`, em dev e em prod. Sem chave, saldo ou cota, o Documentos vai a `erro` com a causa.
 - **Edição semeada:** a edição-alvo (fonte + versão) precisa existir no banco antes do import
   (`catalogo.edicoes`). Se não existir, criar pela tela de Edições / rebuild.
 - **Credenciais FDE:** `FDE_USER` / `FDE_PASSWORD` na `.env.local` (o portal da FDE; ver §3).

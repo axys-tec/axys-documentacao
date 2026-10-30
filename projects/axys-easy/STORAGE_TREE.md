@@ -66,7 +66,7 @@ axys-private/
             │   └── _old/{cod}_{sha}.html          # versões superadas — vigência via external_path.versoes
             │
             ├── ctc/                             # CTC | AxysDoc — FONTE-LEVEL (estático por cmp_codigo)
-            │   ├── doc/{cod}.md                   # MD-fonte do CTC (recebe o fill da IA via get_md/put_md)
+            │   ├── doc/{cod}.md                   # MD-fonte do CTC (§1/§2 «Em revisão»; o texto da IA mora em cmp_descritivo)
             │   ├── prompt/{cod}.md                # prompt do CTC (PERSISTE, pareado ao doc — NÃO fica no banco)
             │   ├── {cod}.html                     # CTC renderizado
             │   ├── _index.json                    # MANIFESTO: cod → req_hash (governa o delta:hash)
