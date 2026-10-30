@@ -221,7 +221,10 @@ Por import:
 **X como alvo — quem reabre.** A origem O (fonte maior) volta à análise contra X se:
 - (a) O tinha **par** com um item de X que **mudou** ou **saiu** (o par já foi apagado, §4.2); ou
 - (b) O tem **negada** contra X (ou nunca foi decidida) **e** a busca de O passa a trazer um item
-  de X **novo/mudou** que não estava em `ein_candidatos`.
+  **novo** de X. Item de X que só **mudou** não dispara (b): quem perdeu o alvo foi só a origem que
+  estava casada com ele, e essa volta por (a); quem já o tinha recusado mantém a recusa (endurecido
+  em 29/10/2026 — na SINAPI 09/26, a fila caiu de 294 para 164 itens, 1,3% dos 12.472 da CDHU e da FDE
+  que podem ter par com a SINAPI). Item com par nunca é tocado, nem como origem nem como candidato.
 
 Para (b) (D7): busca **reversa** — "quem de lá se parece com quem chegou aqui": o item novo/mudou
 de X como consulta no índice da fonte maior — para fazer a lista curta de origens, e busca
@@ -465,7 +468,7 @@ Fechadas pelo Renan em 29/10.
 | D4 | grava no banco no **fechamento da curadoria 5b**, não no publicar |
 | D5 | item que **saiu** da fonte **perde o par** (é inativo); o parceiro fica livre e entra na análise (§4.2) |
 | D6 | item que **mudou** perde o par **na hora** e volta à análise — pode reassociar ao mesmo, a outro, ou ficar sem par. O par anterior vai no prompt. Sem tabela de desassociados: fica na rodada do JSON |
-| D7 | X como alvo: busca **reversa** ("quem de lá se parece com quem chegou aqui") + confirmação **direta**; a rodada e a gravação respeitam `fte_id` maior → menor (§4.3) |
+| D7 | X como alvo: só item **novo** procura origem nova; item que mudou reabre só a origem que descasou (29/10). Busca **reversa** ("quem de lá se parece com quem chegou aqui") + confirmação **direta**; a rodada e a gravação respeitam `fte_id` maior → menor (§4.3) |
 | D8 | à IA vão os candidatos **nunca vistos**, como possibilidade, e os **recusados** que não estão associados a outro item, com o motivo, para ela saber o que não fazer (§4.4–4.5) |
 | D9 | MDO **entra no estágio**, sem IA, com o rito do `cura_mdo`; só o que é novo ou mudou passa; a 5b mostra só novidade (§4.6b) |
 | D10 | gate de subgrupo no `dados`: **sai**. Nasceu para o matcher do app, e a rotina dos scripts não o usa |
