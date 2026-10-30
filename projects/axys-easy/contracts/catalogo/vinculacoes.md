@@ -2,6 +2,13 @@
 
 > **Status:** Contrato aprovado. **§5/§6 conferidas contra o banco de PROD em 2026-09-21** — o que
 > está lá é o que existe; o resto do documento é direção.
+>
+> **29/10/2026 — associação ENTRE fontes:** o motor passou a ser o estágio `associacoes` do import
+> (`associacoes_*_service`, porte da rotina de `z_scripts_apoio/analise_associacoes/`), com as regras
+> do §1 de `next-steps/final_associacoes.md` (direção maior→menor, 1×1 duro, recusa é fato, o import
+> cura novidade, justificativa obrigatória). O matcher do import, o manifesto `equivalencias.json`, os
+> gates R6/C, o gate de subgrupo, as telas de `/catalogo/equivalencias/*` e a tabela
+> `insumos_equivalencias` saíram. Onde este documento descrever esses caminhos, vale o plano.
 
 ---
 

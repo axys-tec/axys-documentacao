@@ -118,5 +118,11 @@ Docs **derivados** (HTML/insumo/CPU), parse do **LS detalhamento** (`els_itens`)
 - A regeração do caderno disparada pelo **publicar** (e o botão em edição já publicada) só refaz o caderno-índice: não roda o CTC nem mexe no estágio.
 - **CTCs** abrem **isolados** (`/axys-desc`); o caderno **aglomera** (índice), não embute. Composição por fonte: SINAPI = apres+originais+encargos+CTCs; CDHU = apres+encargos+CTCs; FDE = apres+encargos+**BDI**+CTCs.
 
+### ASSOCIAÇÕES (`jobs_async.associar_edicao`) — desde 29/10/2026
+Associação entre fontes da edição mais nova (edição antiga → `skip`). Plano: `next-steps/final_associacoes.md`.
+- **Começa** indexando a edição na busca (inativa até o publicar), desfazendo os pares do que saiu/mudou e montando a fila (dois motores; papéis origem/alvo); depois sinais, IA, pré-curadoria. A fila mora no storage (`_fila/{edi_id}`) e a retentativa retoma de onde parou.
+- **Para** em `pendente_user` até a curadoria 5b (`/edicoes/{id}/associacoes`) zerar a fila; o fechamento grava o banco sob lock global e depois os JSONs por item → `ok`.
+- **Publicar** exige `documentos = ok` e `associacoes ∈ {ok, skip}`. Nenhum Preços/Dados roda enquanto houver associação aberta em outra edição.
+
 ### Matriz passo × fonte (resumo)
 > A matriz detalhada (13 passos de PREPARAR, 13 de PREÇOS, 11 de DADOS, 9 de DOCUMENTOS × SINAPI/CDHU/FDE) segue no código (`import_service.py`) como fonte da verdade comportamental. Diferenças-chave: SINAPI captura livros/notas/fichas/cadernos + família/coeficientes (%AS); CDHU parseia serviços SD/CD + critérios + LS PDFs; FDE parseia custo-fonte cru (BDI) + BDI e, no modo **novo**, faz o scrape do portal.
