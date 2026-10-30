@@ -497,7 +497,9 @@ Fechadas pelo Renan em 29/10.
 | F0 | — | §0 e §12.2 |
 | F1a | `b4af61a` | `edicoes_estagios`: 248 estados migrados, 0 diferença contra a API antiga em 62 edições; 7 testes |
 | F1b | `f59929c` | import da SINAPI 09/26 (edição 63): 382 descritivos preenchidos no Documentos; **10.599/10.599** composições da edição com `remunera` vigente. Migration do `modo`: 18.065 linhas, no-op na segunda passada |
-| F2 | (este) | reexecução do Preços da edição 63: histórico **idêntico** (380 eventos; muda só o `req_hash` do CTC, renovado pelo Documentos entre as passadas — as 4 criações de insumo, que o defeito apagava, ficaram). `hash_item` = `_hash` em 30.308 itens e nas 18.225 linhas de pares e negadas; `rodadas[0]` = arquivo antigo, campo a campo, nos 18.342 JSONs |
+| F2 | `8e25f85` | reexecução do Preços da edição 63: histórico **idêntico** (380 eventos; muda só o `req_hash` do CTC, renovado pelo Documentos entre as passadas — as 4 criações de insumo, que o defeito apagava, ficaram). `hash_item` = `_hash` em 30.308 itens e nas 18.225 linhas de pares e negadas; `rodadas[0]` = arquivo antigo, campo a campo, nos 18.342 JSONs |
+
+| F3 | (este) | **equivalência com os scripts**: 240 itens sorteados em FDE→CDHU, FDE→SINAPI e CDHU→SINAPI (INS e CPU) — universo, elegíveis e lista de candidatos **idênticos** (0 diferença). D12: insumo novo da 09/26 entra no índice inativo — a busca normal não o vê, o motor vê (Postgres e OpenSearch). Fila da 09/26: 0 par desfeito (nenhum item mudado tinha par), **289 análises** (CPU: 124 da CDHU e 75 da FDE; INS: 50 e 40), todas com candidato novo; busca reversa + direta em **113 s** |
 
 **Ambiente da bancada.** O espelho local do storage não tem nada da SINAPI, e o `.env.local` aponta o R2 de
 produção. O import da prova rodou com storage HÍBRIDO — grava só no local, lê do local e cai para o R2
