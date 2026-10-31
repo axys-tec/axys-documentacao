@@ -35,6 +35,7 @@
 | F17 | Certificação digital — assinar em lote | sem execução prevista |
 | F18 | Segurança — RLS por schema | avaliar |
 | F19 | Verificação de desempenho — com números | em curso |
+| F20 | Modo degradado sem o R2 | avaliar |
 
 ---
 
@@ -651,3 +652,18 @@ desde 21/09, misturando cargas, migrations e o antes dos consertos.
       analítico, cronograma, curva ABC, busca, caderno — separando rede, banco e app.
 - [ ] Com os números: fechar esta pendência, ou abrir ataque com alvo. Não se mexe no que não foi medido.
 - [ ] Ainda sem medida: pooler/região dos 3 serviços × banco (RTT por ida) e hit-rate do cache do catálogo.
+
+---
+
+## F20 · Modo degradado sem o R2 — avaliar
+
+**Origem (Renan, 30/10, na frente das associações):** a Cloudflare cai pouco, mas já teve quedas de cerca
+de uma hora e uma queda global em 2025. Usuário do Easy não pode parar de trabalhar se o R2 ficar fora
+por muito tempo. Hoje a falha de escrita no R2 durante um estágio de import vira erro com aviso por Z-API
+e retomada; o que falta é o lado de quem usa a app.
+
+- [ ] Mapear o que o usuário perde sem o R2: CTC e fichas, cadernos, logos do tenant
+      (`doc_branding`), documentos gerados e anexos do ativo, arquivos de curadoria. Para cada um: leitura
+      ou escrita, e se há cópia no banco.
+- [ ] Com o mapa: decidir se precisa de modo degradado (servir do banco o que dá, enfileirar a escrita)
+      ou se basta o aviso. Storage local na Render não entra (disco efêmero).
