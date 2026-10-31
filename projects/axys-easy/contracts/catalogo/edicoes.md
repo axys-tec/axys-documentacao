@@ -32,6 +32,16 @@ Unicidade: `(edi_fte_id, edi_mes_ref)` (`uq_edicoes_fte_mes`).
 - Por fonte: exige `edi_fte_id` + `edi_mes_ref` (1º do mês). `edi_codigo_versao` conforme `fte_ordem_edicao`.
 - Bloqueia duplicidade `(fonte, mês)`.
 
+### 2.1 A edição sobe em sequência (Renan, 30/10/2026)
+Não existe "despublicar" nem descartar import: import começa porque saiu edição nova. A ordem é o **id**.
+- **Cadastro:** só se a última edição da fonte (maior id) estiver `PUBLICADA` (ou `ARQUIVADA`), e com
+  `edi_mes_ref` **posterior** ao dela. Fonte sem edição aceita qualquer mês. Editar o cadastro não tira o
+  mês da sequência (fica entre a anterior e a seguinte por id).
+- **Só se mexe na última edição da fonte (n):** importar (todas as telas de import), rodar estágio, reabrir
+  estágio e reabrir edição (recall) recusam edição superada (409). Recall cai sobre a vigente, nunca
+  sobre n−1. Ajuste numa edição antiga, se um dia for preciso, é script por fora.
+- Consequência: backfill (importar edição mais velha que a vigente) não acontece pela app.
+
 ## 3. Disponibilidade
 - **Disponível para novo uso** := `edi_situacao_ciclo IN ('PUBLICADA','EM_REVISAO')`. **Acessível (histórico)** := `IN ('PUBLICADA','EM_REVISAO','ARQUIVADA')`. A "vigente" (mais recente) segue `fontes.fte_ordem_edicao` (DATA ou VERSAO) entre as disponíveis.
 - **Não há mais `edi_ativa`** — o estado é único (`edi_situacao_ciclo`). Não existe "inativar/reativar" edição; o que se faz é **publicar**, abrir **revisão** (recall) e, no caso raro, **arquivar** (§5).

@@ -2,6 +2,19 @@
 
 *30/10/2026 · leitura de código + banco de dev (só SELECT). Pendência de origem: `final_associacoes.md` §11 ("import abandonado no meio") e §6/§11 (backfill regride o texto).*
 
+> **ENCERRADO — decisão do Renan, 30/10/2026: não há descarte de import.** Não existe despublicação;
+> import começa porque saiu edição nova. No lugar das opções A–D:
+> - a edição sobe em **sequência** e só se mexe na última da fonte — cadastro só com a anterior publicada e
+>   mês posterior; importar, rodar estágio e reabrir recusam edição superada (`contracts/catalogo/edicoes.md`
+>   §2.1). Isso também fecha o backfill do §6;
+> - o vazamento da janela (§0) se resolve na leitura: a edição que vai cair continua valendo **pelo
+>   histórico** até a nova ser publicada (`contracts/ativo/bancada_orcamento_contrato.md` §9.1). Inativar a
+>   composição removida no import (ideia da nota abaixo) não entra: tiraria da busca uma composição ainda
+>   vigente pela edição publicada, e as removidas já leem a receita do histórico;
+> - a associação aberta já serializa os imports entre fontes (§3.2).
+>
+> O resto do documento fica como registro do estudo.
+
 ---
 
 ## 0. Em uma tela
@@ -17,6 +30,18 @@ Um orçamento que capture uma composição da SINAPI hoje leva a receita de uma 
 **Hoje não existe descarte.** Não há rota, função nem script. O único ponto de retorno é a cópia inteira do banco de dev (`axys_easy_db_bkp_0826`), que não serve para prod.
 
 **Recomendação.** Opção **C, a "foto do antes"**: o Preços passa a guardar, na primeira passada, o estado exato das linhas da fonte que o parser vai mudar, e descartar é repor essa foto. As **falhas que valem qualquer que seja a escolha** (§3.2) já foram corrigidas. Para o backfill, **bloquear agora** e usar a mesma foto quando houver backfill de verdade (§6).
+
+R: Olha só. Descatar o import é algo que nao foi pensado porque, simplesmente não existe uma "despublicação". Ao iniciar um impoort, é porque saiu nova edicao. O que nao fazemos (suponho que nao) e talvez, devessemos fazer é verificar no import se é mesmo edicao nova (mais nova que a última publicada) ou se o user está selecionando arquvios que já não foram servidos anteriormente. Isso, deveria acontecer, logo no começo, que é a tomada dos arquivos e ainda não mexe em banco.
+
+Agora, temos um porém, que é o estado de transição. Teoricamente, importar uma edicao, até fechar, vai gerar isso que vc viu, até que se realize o publicar [eu já recomendaria, após o estágio 2, já que tocou no banco, inativar a composicao que foi removida, porque isso assegura que, bancadas com edicao n-1 peguem a receita da época correta e nao morram em silencio]. 
+
+Feito isso, acho que está assegurado. A CTC to pegando erros em prod. Tem coisas que nao estao com arquivos sendo servidos e isso é ruim. Mas, ela deve servir sempre o arquivo daquela edicao. Logo, nao era para mostrar dado errado.
+
+E eu acho que, agora, mesmo com ctc/associacao via IA, nao levaramos mais que meia hora por import, da sinapi sobretudo que é o maior de todos. estou certo? Se sim, é algo inerente ao processo. O que podemos fazer é bloquear a tela de import até que se feche a edicao.
+
+A APp deve chegar, no auge, com umas 30 fontes-base. Isso dá uma por dia, nao é algo complicado.
+
+Qual sua ideia?
 
 ---
 

@@ -1,7 +1,7 @@
 # Associações entre fontes — plano final (motor no import + curadoria)
 
-**Estado: APROVADO em 29/10/2026 (decisões no §9). F1–F7 executadas e simuladas em dev (§10.1); falta
-prod, com OK, e as decisões do §13.**
+**Estado: APROVADO em 29/10/2026 (decisões no §9). F1–F7 executadas e simuladas em dev (§10.1); decisões
+do §13 dadas pelo Renan em 30/10 e aplicadas. Falta: validação de telas e prod, com OK.**
 Contrato que governa: `contracts/catalogo/vinculacoes.md`. Documento de trabalho da frente:
 `associacoes_entre_fontes.md` foi absorvido por este plano em 29/10 (§12) e removido.
 
@@ -201,8 +201,7 @@ Só **novo** e **mudou** disparam análise. No início do estágio, numa transa�
   novo e trava só o seu par origem→destino (D5, revista em 29/10);
 - **mudou** (além do carimbo) com par → o par é apagado e guardado para o prompt (D6); o item volta à
   análise como origem (ou as origens que o tinham, quando X é alvo), e o parceiro fica livre;
-- **mudou só o carimbo** com par → confirmação 1×1 pela IA, antes desta transação (§4.3); o par que ela
-  recusa é apagado aqui, como o do **mudou**.
+- **mudou só o carimbo** com par → o par fica (§4.3): nasce aceito e vai à 5b só para conferência.
 
 Depois que a associação fecha, é banco contra banco: nada mais a comparar até o próximo import.
 
@@ -222,23 +221,21 @@ Por import:
 | FDE (4) | CDHU, SINAPI | — |
 
 **X como alvo — quem reabre.** A origem O (fonte maior) volta à análise contra X se:
-- (a) O tinha **par** com um item de X que **mudou**, **saiu** ou teve a confirmação por carimbo
-  recusada (o par já foi apagado, §4.2); ou
+- (a) O tinha **par** com um item de X que **mudou** ou **saiu** (o par já foi apagado, §4.2); ou
 - (b) O tem **negada** contra X (ou nunca foi decidida) **e** a busca de O passa a trazer um item
   de X **novo** ou **mudado além do carimbo**. Item com par nunca é tocado, nem como origem nem como
   candidato.
 
-**Carimbo `AF_` (Renan, 30/10/2026, revendo 29/10).** Item de X que trocou SÓ o carimbo de aferição
-não perde o par de saída: **todos** os pares nessa condição vão à IA **1×1** numa passada, antes da
-fila — o parceiro atual como único candidato, `confirmacao_do_par` no pedido. **Aceito**, o par fica,
-sem curadoria, com a hash do texto novo, e a confirmação vai como rodada ao arquivo da origem.
-**Recusado**, o par sai sem virar negada — a recusa é da IA, não de quem cura — e o item vai aos
-**soltos**: entra no matcher como o que chegou (origem contra a fonte do par, e lista curta de (b));
-a origem reabre por (a), com o par e o parecer da recusa no prompt. A passada fica no storage
-(`_confirmacao_carimbo.json` da fila): resposta faltando é erro do estágio, nada é desfeito, e a
-retentativa pergunta só o que faltou. Sem par, o carimbo não reabre nada: a recusa continua valendo e
-só a hash é renovada. Na SINAPI 09/26: 262 das 297
-composições mudadas trocaram só o carimbo (nenhuma tinha par); a fila ficou com 193 itens.
+**Carimbo `AF_` (Renan, 30/10/2026 — revê a passada pela IA do mesmo dia).** Item de X que trocou SÓ o
+carimbo de aferição **não vai à IA e não perde o par**: o par nasce aceito. A 5b mostra esses pares numa
+seção própria, com "descrição antiga → descrição nova" e os `AF_` em negrito, e o curador pode
+**desassociar** com justificativa (a origem fica negada contra a fonte, com o ex-parceiro nos
+examinados — "negou, negou"). A seção **não bloqueia o fechamento**: passou batido, fica associado. No
+fechamento, o par mantido tem a hash renovada e cada par de carimbo vai como rodada ao arquivo da origem.
+Motivo: a composição não é a razão da associação, desassociar por ela é muito difícil; tirar da IA elimina
+custo e garante que o que gente curou não se solta sozinho. Sem par, o carimbo não reabre nada: a recusa
+continua valendo e só a hash é renovada. Na SINAPI 09/26: 262 das 297 composições mudadas trocaram só o
+carimbo (nenhuma tinha par); a fila ficou com 193 itens.
 
 Para (b) (D7): busca **reversa** — "quem de lá se parece com quem chegou aqui": o item novo/mudou
 de X como consulta no índice da fonte maior — para fazer a lista curta de origens, e busca
@@ -473,9 +470,8 @@ Em `/catalogo/associacoes` (sidebar: Fontes-Base › Associações), serviço
 
 - **Seleção:** tipo (INS, CPU, MDO) × par de fontes da regra 1 (FDE→CDHU, FDE→SINAPI,
   CDHU→SINAPI) × lista da origem, com busca por código/descrição. Listas: **com par**,
-  **negados**, **sem decisão** (vivo, sem par nem negada), **triângulo** (D15: origem viva sem par
-  no destino cujo par numa terceira fonte tem par lá — a conta do `marca_sinais`, sobre o banco) e,
-  só em CPU, **resíduo do principal** (§12.1). MDO: com par / sem par.
+  **negados**, **sem decisão** (vivo, sem par nem negada; 6 no banco em 30/10) e, só em CPU,
+  **resíduo do principal** (§12.1). MDO: com par / sem par. Não há lista de triângulo (D15).
 - **Item:** estado (par com destino, fator, status, observação, quem e quando; ou negada com motivo
   e examinados), sinais da rodada (insumo principal D14, triângulo D15, pelo próprio
   `marca_sinais`) e os candidatos da **mesma busca do motor** (`busca` + `intercala`, universo do
@@ -487,8 +483,10 @@ Em `/catalogo/associacoes` (sidebar: Fontes-Base › Associações), serviço
   inativo e fator ausente são recusados; a negada da origem contra a fonte sai pelo `_grava_par`);
   **desassociar** (apaga o par por id exato e a origem fica **negada** contra a fonte, com o
   ex-parceiro nos examinados e a justificativa como motivo — `_nega_apos_desassociar`, isolada para
-  a decisão poder mudar; MDO só apaga o vínculo); **sem par** (registra ou soma a negada com os
-  candidatos exibidos). O ato leva o par que a tela viu: estado mudado é recusado.
+  a decisão poder mudar; MDO só apaga o vínculo). Não há ato "sem par": item sem decisão segue a regra do
+  import (§4.4 — busca, e candidato já recusado não vai à IA). O ato leva o par que a tela viu: estado
+  mudado é recusado. A 5a fica **fora do import**: por isso aceita destino elegível fora da busca; a 5b
+  (import) só aceita ou nega o que veio da busca.
 - **Gravação:** banco numa transação sob `pg_advisory_xact_lock(LOCK_GLOBAL)`, com auditoria
   (`audit.logs`, antes/depois) de cada par, negada e vínculo tocado; **depois** a rodada no
   arquivo da origem (`"origem": "5a"`, `edicao: null`, `curadoria {decisao, id_final, fator,
@@ -516,9 +514,9 @@ Fechadas pelo Renan em 29/10.
 | D10 | gate de subgrupo no `dados`: **sai**. Nasceu para o matcher do app, e a rotina dos scripts não o usa |
 | D11 | JSON **continua por par de fontes**, com `rodadas[]`. O teste de sanidade (§5.3) mostrou que o ganho entre fontes vem do banco, não do arquivo |
 | D12 | o estágio reindexa X pela **presença na edição E**, marcada; a busca normal do app continua ignorando até o publicar (§4.1) |
-| D13 | reabre só o que o histórico escreve: **descrição e unidade**; `ALTERACAO_ITENS` sem mudança de cabeçalho não reabre. Troca **só do carimbo** `AF_` (30/10): o par vai à IA 1×1, todos numa passada; aceito fica, recusado solta para o matcher; sem par, nada reabre (§4.3) |
+| D13 | reabre só o que o histórico escreve: **descrição e unidade**; `ALTERACAO_ITENS` sem mudança de cabeçalho não reabre. Troca **só do carimbo** `AF_` (30/10, revista no mesmo dia): sem IA — o par nasce aceito, aparece na 5b para conferência e só sai se o curador desassociar; não bloqueia o fechamento; sem par, nada reabre (§4.3) |
 | D14 | CPU: o insumo principal (`check_sanidade`; 91,5% de acerto, 2,3% de disparo em errado, em 413 pares) vai **no pedido à IA**, com a marca dos candidatos em que aparece; conflito com a resposta → repergunta uma vez, com o conflito apontado; o que sobrar chega marcado à 5b. Só raríssimo/raro. Sinal, nunca decisão |
-| D15 | **transitividade como sinal** (decidido 29/10). Quando o item entra na rodada, o candidato que o triângulo aponta (ex.: FDE a ↔ CDHU b e CDHU b ↔ SINAPI c → c para a FDE a) vai marcado no prompt e na 5b, como o principal da D14. Sinal, nunca decisão. As 64 lacunas que já existem (§5.3) são estado: vão para a 5a |
+| D15 | **transitividade como sinal** (decidido 29/10). Quando o item entra na rodada, o candidato que o triângulo aponta (ex.: FDE a ↔ CDHU b e CDHU b ↔ SINAPI c → c para a FDE a) vai marcado no prompt e na 5b, como o principal da D14. Sinal, nunca decisão. As 64 "lacunas" do §5.3 (e as 24 da terceira forma) são, todas as 88, origens **já negadas** contra o destino (medido em 30/10): negou, negou — não são lacuna e não há lista de triângulo na 5a |
 
 ---
 
@@ -551,6 +549,7 @@ Fechadas pelo Renan em 29/10.
 | carimbo | (este) | a passada 1×1 do carimbo saiu da fila: IA julga todos os pares por carimbo antes do matcher; aceito fica sem curadoria (rodada no arquivo da origem), recusado solta o item para o matcher sem negada. Testes: aceito, recusado e retomada sem nova pergunta. SINAPI 09/26 refeita do zero: **193 itens**, igual à regra anterior (nenhum dos 262 carimbos tinha par) |
 | F7 | (este) | tela 5a em `/catalogo/associacoes`, sem IA, sobre o estado (§8). Listas medidas em dev, 30/10: **resíduo do principal = 78** (CDHU→SINAPI 27, FDE→SINAPI 17, FDE→CDHU 34; os ambíguos dão 95, o número do contrato; a revisão de 28/09 contava 79) — bate par a par com o `check_sanidade.py` (b) restrito a raríssimo; **triângulo = 64** nas duas formas do §5.3 (INS 22 + 11, CPU 12 + 19) **e mais 24** na terceira (FDE→CDHU apontado pela SINAPI: INS 15, CPU 9), que o teste do §5.3 não contou; 6 delas têm o destino já ocupado (1×1). Item com busca e sinais em 0,2–0,4 s. Testes: 13 (associar, troca, desassociar → negada, sem par somando, destino ocupado, estado visto mudado, associação aberta só bloqueia os pares da fonte, JSON que falha, MDO N:1). **A curadoria do resíduo e das lacunas é sua** |
 | simulação | (este) | **todas as circunstâncias, banco e storage LOCAIS** (30/10; ponto de retorno `axys_easy_db_bkp_0926` + tgz do storage de associações). **SINAPI 09/26** com casos forjados (carimbo com par bom e ruim, mudou com par, destino que saiu com par, MDO com destino mudado): 272 itens; a confirmação recusou os 4 pares por carimbo e as origens reabriram com o parecer; retomada após violação de contrato perguntou só 1 item; curadoria com todos os atos (aceitar, informar contra a IA, informar do `+` com fator 0,5, contexto reperguntado, rejeitar, MDO N:1) e as 4 recusas de contrato; fechamento idempotente. **FDE 07/26 (62) e CDHU 08/26 (61) — F6 nas outras duas fontes:** o estágio sobre o delta real das edições (não há edição nova de FDE/CDHU para importar); FDE como origem contra CDHU e SINAPI (248 itens, 28 aceitos, 12 homônimos travados), CDHU nos dois papéis (446 itens: 45 como origem, 401 como alvo da FDE); D5 provada (origem FDE que saiu mantém o par); `skip` na edição antiga; motor fora do ar e descritivo faltando → `erro` sem gravar; IA com chave inválida para a rodada inteira na 1ª falha e a retomada pergunta só o que faltou; JSON travado no fechamento → banco gravado, `erro` aberto, retentativa repõe só o arquivo. **Achados e corrigidos:** (1) `erro` depois de desfazer pares não segurava os outros imports — agora conta como aberta quando a fila está gravada (`ee_detalhe.fila_gravada`); (2) reimport por cima da própria associação aberta reaproveitava a fila velha — Preços/Dados recusam (409); (3) "avançar estágio" fechava `associacoes` sem curadoria — recusado; (4) origem com par intacto podia entrar na fila (reativada com o par travado pela D5, ou já curada) — fica fora (`par_intacto`), e a reativada com texto novo passa a soltar o par como "mudou". Vigia verde. **Estado deixado para a validação de telas:** 09/26 aberta com os casos forjados (`ec_id` 950–952, `ch_id` 24687–24689 — fora do ponto de retorno) |
+| decisões 30/10 | (este) | §13 aplicado. **Carimbo sem IA:** `pares_de_carimbo` no índice da fila; seção "Carimbo AF_" na 5b (antiga → nova, AF em negrito; desassociar/manter com justificativa); fechamento: intocado = mantido com hash renovada, desassociado = DELETE por id + negada com o ex-parceiro; rodada `origem: "5b"` no JSON. Fila só com pares de carimbo fecha sozinha (passou batido, fica). Estágio real da 63 refeito do `bkp_0926`: **196 itens** (193 + 3 MDO forjados) e 4 pares de carimbo (`ec_id` 56, 216, 356, 950), nenhum desfeito. **Falhas:** novas tentativas `EASY_ASSOC_ESPERAS` (padrão 5,15,45 s) na indexação, no `faltou_motor` e nos JSON do fechamento; persistindo, `erro` + aviso Z-API (`backend/core/alerta_zapi.py`, telefone `EASY_SEARCH_ALERT_PHONE`, chave mascarada). **5a:** sem ato "sem par" e sem lista de triângulo. **Edição em sequência** (`edicoes.md` §2.1) e **receita pela edição** (bancada §9.1): as 318 da 09/26 (312 alteradas + 6 inativadas) resolvem na 08/26 igual ao `bkp_0826`, linha a linha. Suíte 295 OK, vigia verde |
 
 **Ambiente da bancada.** O espelho local do storage não tem nada da SINAPI, e o `.env.local` aponta o R2 de
 produção. O import da prova rodou com storage HÍBRIDO — grava só no local, lê do local e cai para o R2
@@ -612,27 +611,19 @@ das 48 tabelas idêntica (§0), nada a fazer aqui.
 
 ---
 
-## 13. Para decidir (Renan) — levantado na execução de 30/10
+## 13. Decisões do Renan (30/10/2026) — aplicadas
 
-1. **Descartar import** (§11): A só retomar + "cancelar associação" · B pelo histórico · **C foto do
-   antes (recomendada)** · D rascunho fora do catálogo vigente. Junto: foto no storage ou em tabela;
-   descartar apaga a edição ou a deixa RASCUNHO vazia. Medida que pesa: a 09/26 em RASCUNHO já mudou
-   312 composições vigentes e zerou a receita de 6. `next-steps/estudo_descarte_import.md` §4–5.
-2. **Backfill** (§6/§11): bloquear já o import de edição mais antiga que a vigente (horas) e, quando
-   houver backfill real, a "caixa de areia" da opção C. Mesmo estudo, §6.
-3. **Rigor da confirmação por carimbo.** Na simulação a IA recusou os 4 pares por carimbo, 3 deles
-   curados por gente (rodapé de mármore 7 cm; válvula de retenção 1 1/2"), por atributo que a origem não
-   declara (tipo de rejunte, classe de pressão). Nada se perde — a origem reabre na 5b com o par anterior
-   e o motivo, e você reassocia —, mas a confirmação hoje mede "a identidade está provada?", não "algo
-   mudou que desfaz o que já foi provado?". Manter, ou um prompt de confirmação próprio que só recuse
-   com mudança de receita/escopo demonstrada.
-4. **5a — desassociar:** hoje deixa a origem **negada** com o ex-parceiro (o item segue "decidido").
-   Alternativa: soltar sem negada (vai a "sem decisão"). `_nega_apos_desassociar`.
-5. **5a — ato "sem par"** (registra/soma a negada do item sem par): acrescentado para o item "sem
-   decisão" poder ser decidido. Manter ou tirar.
-6. **5a — associar a destino fora da busca:** a 5a aceita qualquer destino elegível (vivo, sem gêmea,
-   livre no 1×1); a 5b só da busca. Manter a diferença ou alinhar.
-7. **Triângulo — terceira forma (D15):** +24 lacunas (FDE→CDHU apontado pela SINAPI) além das 64
-   contadas no §5.3. A 5a já as lista; confirmar que entram.
-8. **`CJXDI`** entrou na correção do `M2XME` (mesma causa). Confirmar.
-
+1. **Descartar import: não existe.** Não há despublicação; import começa porque saiu edição nova. A
+   edição sobe em sequência (`contracts/catalogo/edicoes.md` §2.1) e a edição que vai cair continua
+   valendo pelo histórico até a nova ser publicada (`contracts/ativo/bancada_orcamento_contrato.md` §9.1).
+   Estudo: `next-steps/estudo_descarte_import.md` (encerrado).
+2. **Backfill: bloqueado.** Só se mexe na última edição da fonte (maior id); cadastro só depois da anterior
+   publicada e com mês posterior. Edição antiga se ajusta por script, por fora.
+3. **Carimbo sai da IA** (§4.3, D13): par nasce aceito, conferência na 5b, sai só se desassociado.
+4. **5a:** desassociar = negada (como estava; não se rediscute). Ato "sem par" retirado (não foi pedido).
+   Destino fora da busca só na 5a, que é fora do import. Triângulo: as 88 são negadas — sem lista (D15).
+5. **`CJXDI` → `CJXDIA`** junto do `M2XME` → `M2XMES`; dado de prod corrigido em 30/10
+   (`schemas/migrations/2026-10-30_cdhu_unidade_truncada.sql`).
+6. **Falhas** (`contracts/catalogo/imports/estagios.md`, Associações): busca fora do ar e JSON no
+   fechamento → novas tentativas e aviso Z-API; chave de IA → aviso Z-API e retomada manual; R2 fora por
+   muito tempo → `governanca/pendencias.md` F20.

@@ -285,6 +285,23 @@ Cada vez que a grade renderiza ou recalcula, a API resolve **ao vivo**:
 
 Rotacionar contexto (edição, UF, LS, regime, BDI) **re-resolve tudo** sem tocar item nenhum. É isto que mantém "preço resolvido, não gravado".
 
+### 9.1 Receita pela edição (Renan, 30/10/2026)
+
+O catálogo guarda em `composicoes_itens` uma receita só por composição, e o import da edição nova a
+sobrescreve **antes** do publicar (a SINAPI 09/26 em rascunho já tinha mudado 312 composições vigentes
+pela 08/26). Regra: **a edição que vai cair continua valendo, pelo histórico, até a mais nova ser
+publicada.**
+
+- Toda leitura da receita feita **para uma edição E** (captura, árvore da bancada, recálculo de custo,
+  ver composição, analítico por edição) usa `composicoes_itens` só se a receita da tabela é de edição
+  ≤ E. Se foi escrita por edição **mais nova** que E (último evento de `composicoes_historico` com
+  receita, por `edi_mes_ref`), usa a receita do histórico na edição E (`receita_na_edicao`).
+- Composição que a edição nova tirou (receita apagada) segue a mesma regra — era o caso especial que
+  já existia para a descontinuada.
+- Leitura sem edição de contexto = a receita vigente da tabela.
+- O histórico diz **quais itens e quanto de cada**; preço, L.S., regime e conversão seguem os da bancada.
+- Não se inativa composição no import: a vigência continua decidida no publicar.
+
 ---
 
 ## 9-bis. Colaboração por particionamento (bancada de apoio)
