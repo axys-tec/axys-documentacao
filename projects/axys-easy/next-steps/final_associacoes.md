@@ -247,7 +247,7 @@ mesmo tendo sido achada pela busca reversa.
 ### 4.4 Candidatos e filtros
 
 Como nos scripts: dois motores (postgres + elastic), profundidade 100 por motor, intercalados com
-dedup; à IA vão os primeiros 30 (INS) / 15 (CPU), e o resto fica para o `+` da tela. Motor que
+dedup; à IA vão os primeiros 30 (INS) / 15 (CPU), e o resto não chega à 5b (só ao `+` da 5a). Motor que
 falhou devolve o item à fila, sem IA (`faltou_motor`). Universo, dos dois lados: INS sem `MO` nem
 `ENC_COMP`; CPU sem a MDO-como-composição do SINAPI (`cmp_e_mdo`) — MDO é rito próprio (D9).
 Depois, nesta ordem:
@@ -449,12 +449,15 @@ resto sai, sem aproveitamento de lógica:
 curadoria") levada ao navegador, mais o diff e a justificativa. Por item da fila do estágio:
 
 - **diff simples**: `de` × `para` do histórico da edição, ou "novo";
-- origem à esquerda, candidatos à direita (como o `ve_diff.py`), com o parecer da IA em cada um e
-  a proposta (escolhido, fator, confiança, parecer geral); marca da pré-curadoria quando houver;
-- atos, os do script: **aceitar** a proposta, **informar outro candidato**, **rejeitar** (negar o
-  item contra a fonte), **`+` mais candidatos** (corre a lista que a busca já trouxe, sem custo),
-  **contexto** (analítico na CPU, utilizações no INS — anexa e refaz a pergunta à IA), **pular**.
-  Ajustar o fator vai junto do aceite;
+- abas por tipo (Insumos · Composições · MDO · Alteração Carimbo AF_) e um item por vez, com setas no topo
+  (31/10);
+- a origem, a recomendação (escolhido, fator, confiança, parecer geral) e **só os candidatos que a
+  IA julgou nesta rodada**, cada um com o parecer; marca da pré-curadoria quando houver. Os já
+  recusados e o resto da busca **não vêm à tela** — não há `+` na 5b (decisão de 31/10: o
+  curador não percorre a lista toda);
+- atos: **aceitar selecionado** (abre marcado o escolhido pela IA; marcar outro = informar outro
+  candidato) e **recusar todos** (negar o item contra a fonte); **contexto** (analítico na CPU,
+  utilizações no INS — anexa e refaz a pergunta à IA). Ajustar o fator vai junto do aceite;
 - todo ato exige justificativa: vem preenchida com o parecer da IA quando concorda, e vazia
   (obrigatória) quando o curador diverge.
 
