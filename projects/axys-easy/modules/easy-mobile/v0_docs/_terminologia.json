@@ -380,6 +380,27 @@
       "referencias": []
     },
     {
+      "id": "cbs",
+      "termo": "CBS",
+      "expansao": "Contribuição sobre Bens e Serviços",
+      "conceito_md": "Tributo federal criado pela Emenda Constitucional 132/2023 e regulado pela Lei Complementar 214/2025, que substitui o PIS e a COFINS. É não cumulativo, com crédito amplo, e cobrado por fora: não integra a própria base de cálculo.",
+      "funcao_pratica_md": "Para o orçamento, a mudança não é só de alíquota. Tributo por fora não vai para o denominador da fórmula do BDI como o PIS e a COFINS vão: ele se soma ao preço em vez de sair dele. 2026 é ano de teste, e a cobrança cheia começa em 2027.",
+      "distincoes": [
+        {
+          "termo": "PIS e COFINS",
+          "diferenca_md": "As duas são por dentro e dividem o custo pelo que sobra do preço. A CBS é por fora e se acrescenta ao preço."
+        }
+      ],
+      "ver_tambem": [
+        "ibs",
+        "iva",
+        "pis",
+        "cofins",
+        "bdi"
+      ],
+      "referencias": []
+    },
+    {
       "id": "coeficiente",
       "termo": "Coeficiente",
       "expansao": null,
@@ -395,6 +416,26 @@
         "composicao-de-custo-unitario",
         "insumo",
         "produtividade"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "cofins",
+      "termo": "COFINS",
+      "expansao": "Contribuição para o Financiamento da Seguridade Social",
+      "conceito_md": "Contribuição federal sobre a receita bruta, de 3% no regime cumulativo e 7,6% no não cumulativo.",
+      "funcao_pratica_md": "Compõe o campo de tributos do BDI ao lado do PIS, pela alíquota do regime em que a empresa efetivamente apura. Também é calculada por dentro.",
+      "distincoes": [
+        {
+          "termo": "CSLL",
+          "diferenca_md": "A COFINS incide sobre a receita e entra no BDI. A CSLL incide sobre o lucro e fica de fora."
+        }
+      ],
+      "ver_tambem": [
+        "pis",
+        "csll",
+        "bdi",
+        "cbs"
       ],
       "referencias": []
     },
@@ -596,6 +637,32 @@
         "jogo-de-cronograma"
       ],
       "referencias": []
+    },
+    {
+      "id": "csll",
+      "termo": "CSLL",
+      "expansao": "Contribuição Social sobre o Lucro Líquido",
+      "conceito_md": "Contribuição federal que incide sobre o lucro da empresa, e não sobre a receita da obra.",
+      "funcao_pratica_md": "Fica fora do BDI. O TCU afasta a inclusão de tributos sobre o lucro porque eles variam com o resultado da empresa e com o regime que ela escolheu, não com o preço do serviço contratado. Incluí-los faz a Administração pagar imposto de terceiro.",
+      "distincoes": [
+        {
+          "termo": "COFINS",
+          "diferenca_md": "Uma mede o que entrou, a outra mede o que sobrou. Só a primeira pertence ao preço do serviço."
+        }
+      ],
+      "ver_tambem": [
+        "irpj",
+        "lucro",
+        "bdi"
+      ],
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2622/2013",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2622-2013"
+        }
+      ]
     },
     {
       "id": "curva-abc",
@@ -1119,6 +1186,45 @@
       "referencias": []
     },
     {
+      "id": "ibs",
+      "termo": "IBS",
+      "expansao": "Imposto sobre Bens e Serviços",
+      "conceito_md": "Tributo de competência compartilhada entre estados e municípios, criado pela Emenda Constitucional 132/2023, que substitui o ICMS e o ISSQN. Também é não cumulativo e cobrado por fora, sob gestão de um comitê nacional.",
+      "funcao_pratica_md": "Substitui justamente os dois tributos que hoje alcançam a obra por caminhos diferentes, o material e o serviço. A transição é longa: participação crescente entre 2029 e 2032, com a extinção do ICMS e do ISSQN em 2033.",
+      "distincoes": [
+        {
+          "termo": "CBS",
+          "diferenca_md": "Mesma lógica e mesma base, competências diferentes. A CBS é federal, o IBS é estadual e municipal."
+        }
+      ],
+      "ver_tambem": [
+        "cbs",
+        "iva",
+        "icms",
+        "issqn"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "icms",
+      "termo": "ICMS",
+      "expansao": "Imposto sobre Circulação de Mercadorias e Serviços",
+      "conceito_md": "Imposto estadual sobre a circulação de mercadoria e sobre alguns serviços. Integra a própria base de cálculo, ou seja, é cobrado por dentro.",
+      "funcao_pratica_md": "Na execução de obra a construtora em regra não é contribuinte pelo serviço, que fica no campo do ISSQN. O ICMS alcança o orçamento pelo preço dos materiais, já dentro do custo direto, e não como parcela do BDI.",
+      "distincoes": [
+        {
+          "termo": "ISSQN",
+          "diferenca_md": "Quem define qual dos dois incide é a natureza da operação: mercadoria puxa ICMS, serviço puxa ISSQN."
+        }
+      ],
+      "ver_tambem": [
+        "issqn",
+        "ibs",
+        "insumo"
+      ],
+      "referencias": []
+    },
+    {
       "id": "insumo",
       "termo": "Insumo",
       "expansao": null,
@@ -1134,6 +1240,90 @@
         "coeficiente",
         "composicao-de-custo-unitario",
         "preco-unitario"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "ipi",
+      "termo": "IPI",
+      "expansao": "Imposto sobre Produtos Industrializados",
+      "conceito_md": "Imposto federal sobre o produto industrializado, calculado por fora: soma-se ao valor da operação sem integrar a própria base de cálculo.",
+      "funcao_pratica_md": "A construtora não o lança no BDI. Ele chega embutido no preço dos insumos industrializados que compõem o custo direto, como os de quem vende esquadria, tubo ou cabo.",
+      "distincoes": [
+        {
+          "termo": "ICMS",
+          "diferenca_md": "Os dois incidem na mesma nota de material, mas o IPI é por fora e o ICMS é por dentro, o que muda a conta de cada um."
+        }
+      ],
+      "ver_tambem": [
+        "icms",
+        "insumo",
+        "cbs"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "irpj",
+      "termo": "IRPJ",
+      "expansao": "Imposto de Renda Pessoa Jurídica",
+      "conceito_md": "Imposto federal sobre o lucro apurado pela empresa, com regras próprias conforme o regime de tributação adotado.",
+      "funcao_pratica_md": "Pela mesma razão da CSLL, não compõe o BDI de obra pública. Ver IRPJ ou CSLL lançados no campo de tributos é um dos achados mais comuns em análise de planilha.",
+      "distincoes": [
+        {
+          "termo": "CSLL",
+          "diferenca_md": "Dois tributos distintos sobre a mesma grandeza, o lucro. A consequência orçamentária é idêntica: nenhum dos dois entra no BDI."
+        }
+      ],
+      "ver_tambem": [
+        "csll",
+        "lucro",
+        "bdi"
+      ],
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2622/2013",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2622-2013"
+        }
+      ]
+    },
+    {
+      "id": "issqn",
+      "termo": "ISSQN",
+      "expansao": "Imposto Sobre Serviços de Qualquer Natureza",
+      "conceito_md": "Imposto municipal sobre a prestação de serviço, regido pela Lei Complementar 116/2003, com alíquota entre 2% e 5%. A execução de obra está no item 7.02 da lista anexa.",
+      "funcao_pratica_md": "Na construção civil o imposto é devido no município da obra, e não no domicílio do prestador. A base pode excluir os materiais fornecidos pelo prestador, conforme a lei local, então a alíquota efetiva costuma ser menor que a nominal. É o que entra no BDI.",
+      "distincoes": [
+        {
+          "termo": "ICMS",
+          "diferenca_md": "O ISSQN alcança o serviço prestado. O ICMS alcança a mercadoria, e numa obra chega embutido no preço dos materiais comprados."
+        }
+      ],
+      "ver_tambem": [
+        "icms",
+        "ibs",
+        "bdi",
+        "tema-118"
+      ],
+      "referencias": []
+    },
+    {
+      "id": "iva",
+      "termo": "IVA",
+      "expansao": "Imposto sobre Valor Agregado",
+      "conceito_md": "Modelo de tributação do consumo em que cada etapa da cadeia recolhe sobre o valor que acrescentou, aproveitando como crédito o que foi pago nas etapas anteriores.",
+      "funcao_pratica_md": "O Brasil adotou o IVA dual: a CBS no campo federal e o IBS no campo estadual e municipal. A característica que mais muda a planilha é a cobrança por fora, que tira os tributos sobre consumo do denominador do BDI.",
+      "distincoes": [
+        {
+          "termo": "Tributo cumulativo",
+          "diferenca_md": "No cumulativo o imposto incide em cada etapa sem crédito da anterior, e o efeito se acumula até o consumidor. No IVA, cada etapa abate o que já foi pago."
+        }
+      ],
+      "ver_tambem": [
+        "cbs",
+        "ibs",
+        "bdi"
       ],
       "referencias": []
     },
@@ -1628,6 +1818,25 @@
           "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
         }
       ]
+    },
+    {
+      "id": "pis",
+      "termo": "PIS",
+      "expansao": "Programa de Integração Social",
+      "conceito_md": "Contribuição federal que incide sobre a receita bruta da empresa. A alíquota depende do regime de apuração: 0,65% no cumulativo e 1,65% no não cumulativo.",
+      "funcao_pratica_md": "Entra no campo de tributos do BDI pela alíquota efetivamente devida no regime da empresa. É calculado por dentro: a base é o preço da nota, que já contém a contribuição, e por isso aparece dividindo e não somando.",
+      "distincoes": [
+        {
+          "termo": "COFINS",
+          "diferenca_md": "Mesma base e mesmo fato gerador. Mudam a destinação da arrecadação e a alíquota, e as duas são apuradas juntas."
+        }
+      ],
+      "ver_tambem": [
+        "cofins",
+        "bdi",
+        "cbs"
+      ],
+      "referencias": []
     },
     {
       "id": "planilha-orcamentaria",
@@ -2309,6 +2518,32 @@
           "tipo": "url",
           "rotulo": "Decreto 7.983/2013",
           "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/decreto/d7983.htm"
+        }
+      ]
+    },
+    {
+      "id": "tema-118",
+      "termo": "Tema 118",
+      "expansao": "Repercussão geral no RE 592.616",
+      "conceito_md": "Tema de repercussão geral em que o STF decidiu pela exclusão do ISS da base de cálculo do PIS e da COFINS, julgado em 21 de outubro de 2026. A modulação de efeitos não foi examinada naquele julgamento.",
+      "funcao_pratica_md": "Quando aplicável, reduz a base das duas contribuições sem alterar as alíquotas. No BDI, o campo de tributos deixa de admitir a soma direta das alíquotas, porque elas passam a incidir sobre bases diferentes.",
+      "distincoes": [
+        {
+          "termo": "Tema 69",
+          "diferenca_md": "O Tema 69 tirou o ICMS da base do PIS e da COFINS. O Tema 118 faz o mesmo movimento com o ISS, e é o que alcança a obra."
+        }
+      ],
+      "ver_tambem": [
+        "issqn",
+        "pis",
+        "cofins",
+        "bdi"
+      ],
+      "referencias": [
+        {
+          "tipo": "url",
+          "rotulo": "STF · ISS não integra a base do PIS e da COFINS",
+          "url": "https://noticias.stf.jus.br/postsnoticias/stf-decide-que-iss-nao-integra-base-de-calculo-do-pis-e-da-cofins/"
         }
       ]
     },

@@ -79,7 +79,7 @@
       "palavras": 731,
       "publicado_em": "2026-08-22",
       "pdf": "easy-mobile/artigos/como-nasce-o-preco-de-uma-obra-publica.pdf",
-      "pdf_bytes": 288007
+      "pdf_bytes": 288031
     },
     {
       "id": "bdi-sem-atalhos",
@@ -158,7 +158,7 @@
       "palavras": 692,
       "publicado_em": "2026-08-22",
       "pdf": "easy-mobile/artigos/bdi-sem-atalhos.pdf",
-      "pdf_bytes": 267735
+      "pdf_bytes": 267757
     },
     {
       "id": "encargos-sociais-horista-mensalista",
@@ -243,7 +243,7 @@
       "palavras": 610,
       "publicado_em": "2026-08-22",
       "pdf": "easy-mobile/artigos/encargos-sociais-horista-mensalista.pdf",
-      "pdf_bytes": 275335
+      "pdf_bytes": 275358
     },
     {
       "id": "sinapi-sicro-nao-sao-tabelas-prontas",
@@ -340,7 +340,7 @@
       "palavras": 547,
       "publicado_em": "2026-08-22",
       "pdf": "easy-mobile/artigos/sinapi-sicro-nao-sao-tabelas-prontas.pdf",
-      "pdf_bytes": 276378
+      "pdf_bytes": 276401
     },
     {
       "id": "sobrepreco-e-superfaturamento",
@@ -437,7 +437,7 @@
       "palavras": 561,
       "publicado_em": "2026-08-22",
       "pdf": "easy-mobile/artigos/sobrepreco-e-superfaturamento.pdf",
-      "pdf_bytes": 285069
+      "pdf_bytes": 285093
     },
     {
       "id": "aditivos-e-reequilibrio-economico-financeiro",
@@ -558,7 +558,7 @@
       "palavras": 752,
       "publicado_em": "2026-08-22",
       "pdf": "easy-mobile/artigos/aditivos-e-reequilibrio-economico-financeiro.pdf",
-      "pdf_bytes": 290686
+      "pdf_bytes": 290709
     },
     {
       "id": "truncar-ou-arredondar",
@@ -607,7 +607,7 @@
       "palavras": 839,
       "publicado_em": "2026-09-11",
       "pdf": "easy-mobile/artigos/truncar-ou-arredondar.pdf",
-      "pdf_bytes": 328035
+      "pdf_bytes": 328060
     },
     {
       "id": "fases-de-projeto-e-a-precisao-orcamentaria",
@@ -677,7 +677,7 @@
       "palavras": 936,
       "publicado_em": "2026-09-20",
       "pdf": "easy-mobile/artigos/fases-de-projeto-e-a-precisao-orcamentaria.pdf",
-      "pdf_bytes": 292957
+      "pdf_bytes": 292981
     },
     {
       "id": "eap-e-a-medicao-por-etapas-na-lei-14133",
@@ -753,7 +753,7 @@
       "palavras": 1110,
       "publicado_em": "2026-09-20",
       "pdf": "easy-mobile/artigos/eap-e-a-medicao-por-etapas-na-lei-14133.pdf",
-      "pdf_bytes": 292916
+      "pdf_bytes": 292938
     },
     {
       "id": "administracao-local-o-que-e-e-como-medir",
@@ -836,7 +836,7 @@
       "palavras": 1326,
       "publicado_em": "2026-09-20",
       "pdf": "easy-mobile/artigos/administracao-local-o-que-e-e-como-medir.pdf",
-      "pdf_bytes": 325835
+      "pdf_bytes": 325862
     },
     {
       "id": "as-seis-grandezas-do-orcamento-de-referencia",
@@ -898,7 +898,7 @@
       "palavras": 993,
       "publicado_em": "2026-10-24",
       "pdf": "easy-mobile/artigos/as-seis-grandezas-do-orcamento-de-referencia.pdf",
-      "pdf_bytes": 303153
+      "pdf_bytes": 303178
     },
     {
       "id": "o-desconto-nao-volta-atras",
@@ -978,7 +978,7 @@
       "palavras": 804,
       "publicado_em": "2026-10-24",
       "pdf": "easy-mobile/artigos/o-desconto-nao-volta-atras.pdf",
-      "pdf_bytes": 291608
+      "pdf_bytes": 291632
     },
     {
       "id": "quando-se-pode-adaptar-a-composicao-de-referencia",
@@ -1046,7 +1046,7 @@
       "palavras": 1104,
       "publicado_em": "2026-10-24",
       "pdf": "easy-mobile/artigos/quando-se-pode-adaptar-a-composicao-de-referencia.pdf",
-      "pdf_bytes": 308548
+      "pdf_bytes": 308573
     },
     {
       "id": "horista-para-mensalista-o-que-a-conversao-preserva",
@@ -1108,7 +1108,7 @@
       "palavras": 2900,
       "publicado_em": "2026-10-24",
       "pdf": "easy-mobile/artigos/horista-para-mensalista-o-que-a-conversao-preserva.pdf",
-      "pdf_bytes": 519064
+      "pdf_bytes": 519016
     },
     {
       "id": "onerado-ou-desonerado-a-conta-ano-a-ano",
@@ -1176,7 +1176,7 @@
       "palavras": 4059,
       "publicado_em": "2026-10-24",
       "pdf": "easy-mobile/artigos/onerado-ou-desonerado-a-conta-ano-a-ano.pdf",
-      "pdf_bytes": 613305
+      "pdf_bytes": 613292
     },
     {
       "id": "a-planilha-decide-quem-pode-disputar",
@@ -1254,7 +1254,7 @@
       "palavras": 1492,
       "publicado_em": "2026-10-24",
       "pdf": "easy-mobile/artigos/a-planilha-decide-quem-pode-disputar.pdf",
-      "pdf_bytes": 363788
+      "pdf_bytes": 363817
     },
     {
       "id": "o-que-o-acordao-2622-2013-realmente-diz-sobre-bdi",
@@ -1335,7 +1335,93 @@
       "palavras": 2006,
       "publicado_em": "2026-10-24",
       "pdf": "easy-mobile/artigos/o-que-o-acordao-2622-2013-realmente-diz-sobre-bdi.pdf",
-      "pdf_bytes": 429692
+      "pdf_bytes": 429672
+    },
+    {
+      "id": "imposto-por-dentro-imposto-por-fora",
+      "titulo": "Imposto por dentro, imposto por fora: como essa diferença muda o BDI",
+      "chamada": "Por que o I da fórmula do BDI aparece dividindo, e não somando. Tributo sobre faturamento não incide sobre o custo da obra: incide sobre o próprio preço, que já o contém.",
+      "assuntos": [
+        "bdi",
+        "preco",
+        "lucro",
+        "custo-indireto"
+      ],
+      "referencias": [
+        {
+          "tipo": "publicacao",
+          "rotulo": "Tema 118",
+          "grupo": "TERMINOLOGIA",
+          "id": "tema-118"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "ISSQN",
+          "grupo": "TERMINOLOGIA",
+          "id": "issqn"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "COFINS",
+          "grupo": "TERMINOLOGIA",
+          "id": "cofins"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "PIS",
+          "grupo": "TERMINOLOGIA",
+          "id": "pis"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "BDI",
+          "grupo": "TERMINOLOGIA",
+          "id": "bdi"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Preço",
+          "grupo": "TERMINOLOGIA",
+          "id": "preco"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Lucro",
+          "grupo": "TERMINOLOGIA",
+          "id": "lucro"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Custo indireto",
+          "grupo": "TERMINOLOGIA",
+          "id": "custo-indireto"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Acórdão TCU 2622/2013",
+          "grupo": "ACORDAOS",
+          "id": "tcu-2622-2013"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "O que o Acórdão 2622/2013 realmente diz sobre BDI",
+          "grupo": "ARTIGOS",
+          "id": "o-que-o-acordao-2622-2013-realmente-diz-sobre-bdi"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Cartilha TCU 2026 · BDI e preço de venda",
+          "grupo": "DOWNLOADS",
+          "id": "tcu-engenharia-custos-perguntas-respostas",
+          "pagina": 40
+        }
+      ],
+      "conteudo": "easy-mobile/artigos/imposto-por-dentro-imposto-por-fora.md",
+      "formato": "markdown",
+      "palavras": 1875,
+      "publicado_em": "2026-11-03",
+      "pdf": "easy-mobile/artigos/imposto-por-dentro-imposto-por-fora.pdf",
+      "pdf_bytes": 418107
     }
   ]
 }
