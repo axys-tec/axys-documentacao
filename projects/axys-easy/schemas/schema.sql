@@ -336,7 +336,7 @@ CREATE TABLE IF NOT EXISTS catalogo.fontes (
     -- (risco alto). Esta flag é o GATE consumido pelas telas de insumos/composições.
     fte_permite_manipular_dados BOOLEAN NOT NULL DEFAULT FALSE,
     -- A fonte pode ser DESTINO de equivalência — ou seja, pode ser favoritada na bancada?
-    -- Contrato: contracts/catalogo/vinculacoes.md §12.1. O eixo é o DESTINO, não o par:
+    -- Contrato: contracts/catalogo/vinculacoes.md §1.8. O eixo é o DESTINO, não o par:
     -- marcada TRUE, todas as outras fontes apontam para ela ("{todas} → CDHU habilitado").
     -- Um par está habilitado SE E SÓ SE uma das pontas é favoritável → a "tabela de pares
     -- habilitados" é derivável e NÃO deve existir.
@@ -397,7 +397,7 @@ INSERT INTO catalogo.fontes (fte_id, fte_codigo, fte_nome, fte_ordem_edicao,
 SELECT v.id, v.codigo, v.nome, v.ordem, v.tem_ins, v.tem_met, v.continuos, v.manipula, v.publico,
        v.favoritavel, v.perfil, v.bdi, 'Axys — seed inicial'
 FROM (VALUES
-    -- favoritavel: SINAPI por LEI (14.133); CDHU e FDE por decisão de produto (vinculacoes.md §12.1).
+    -- favoritavel: SINAPI por LEI (14.133); CDHU e FDE por decisão de produto (vinculacoes.md §1.8).
     -- AXYS (própria) não é destino de equivalência entre fontes-base.
     -- perfil/bdi: SINAPI trunca; CDHU arredonda; FDE conta cheia e publica com BDI.
     (1, 'AXYS',   'Composições Próprias',                               'DATA',   FALSE, FALSE, TRUE,  TRUE,  TRUE,  FALSE, 'ROUND', FALSE),
@@ -2620,7 +2620,7 @@ CREATE INDEX ix_composicoes_mapeamento_mdo_mes
 
 -- ============================================================
 -- GUARDA de catalogo.composicoes_mapeamento_mdo (H↔MÊS)
--- Contrato: contracts/catalogo/vinculacoes.md §0 (tabela FORA do refactor de associações)
+-- Contrato: contracts/catalogo/vinculacoes.md §2.4
 --
 -- A tabela é INTRA-FONTE e CPU↔CPU: horista [H] → mensalista [MÊS] da MESMA fonte.
 -- Isso nunca esteve escrito no banco — só no comportamento do gerador (conciliar_mdo).
@@ -2671,7 +2671,7 @@ CREATE TRIGGER t_cmm_guarda
 
 -- ============================================================
 -- TABELAS: catalogo.equivalencias_ins  +  catalogo.equivalencias_cpu   (NÃO-MDO)
--- Contrato: docs/.../contracts/catalogo/vinculacoes.md §11 · §12 · §13.3
+-- Contrato: docs/.../contracts/catalogo/vinculacoes.md §1.1–§1.3 · §2.1
 --
 -- REFACTOR 2026-09-22 — o que mudou e por quê:
 --  · Caiu o CHECK ref_fonte IN ('SINAPI','SICRO'): enquanto existia, fonte→fonte era
@@ -2805,7 +2805,7 @@ ALTER TABLE catalogo.equivalencias_cpu
 
 -- ============================================================
 -- TABELA: catalogo.equivalencias_mo   (MÃO DE OBRA — isolada)
--- Contrato: vinculacoes.md §13.3(d)
+-- Contrato: vinculacoes.md §2.2
 --
 -- Por que é separada de equivalencias_ins: a MDO é ASSIMÉTRICA por natureza — nas fontes
 -- (CDHU/FDE) é INSUMO; no SINAPI é COMPOSIÇÃO ("… COM ENCARGOS COMPLEMENTARES"), porque
@@ -2863,7 +2863,7 @@ ALTER TABLE catalogo.equivalencias_mo
 
 
 -- ═══════════ FASE C — guardas de tipo das 3 tabelas ═══════════
--- Contrato: vinculacoes.md §13.4 · Plano §2.4
+-- Contrato: vinculacoes.md §2.1 · §2.2
 --
 -- Por que trigger e não CHECK: o tipo do item não está na linha gravada — está em
 -- `insumos.ins_ti_id` / `composicoes_subgrupos.sub_descricao`. CHECK só enxerga a
@@ -3003,7 +3003,7 @@ CREATE TRIGGER t_mo_guarda BEFORE INSERT OR UPDATE ON catalogo.equivalencias_mo
 
 -- ============================================================
 -- TABELAS: catalogo.equivalencias_ins_negadas / _cpu_negadas   (2026-10-06)
--- Contrato: docs/projects/axys-easy/contracts/catalogo/vinculacoes.md §5.7 · §1.1
+-- Contrato: docs/projects/axys-easy/contracts/catalogo/vinculacoes.md §2.3 · §1.5
 --
 -- A RECUSA COMO FATO. Guardam "este item foi examinado contra esta fonte, contra estes
 -- candidatos, nesta data, e a resposta foi NÃO". Não é ausência (que não se guarda, §1.1) —
@@ -3125,7 +3125,7 @@ CREATE TRIGGER t_ecn_guarda BEFORE INSERT OR UPDATE ON catalogo.equivalencias_cp
 
 -- ============================================================
 -- TABELA: catalogo.equivalencias_subgrupos   (mapa de grupos — Ringue 2)
--- Contrato: docs/.../contracts/catalogo/vinculacoes.md §3.4.1
+-- Contrato: docs/.../contracts/catalogo/vinculacoes.md §2.5
 -- Mapa subgrupo-fonte → subgrupo(s) SINAPI (SINAPI só usa subgrupo → subgrupo×subgrupo).
 -- Restringe o match de CPUs ao grupo análogo. Cardinalidade 1:1 / N:1 / N:N.
 -- TODO subgrupo-fonte recebe alvo (mesmo casual — se não houver CPU a vincular, nada muda;

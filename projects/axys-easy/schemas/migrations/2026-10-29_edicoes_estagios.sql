@@ -1,6 +1,6 @@
 -- 2026-10-29 · catalogo.edicoes_estagios — estado dos estágios do import, uma linha por execução
 -- Contrato: docs/projects/axys-easy/contracts/catalogo/imports/estagios.md (Parte B)
--- Plano:    docs/projects/axys-easy/next-steps/final_associacoes.md §2 (D1)
+-- Contrato: docs/projects/axys-easy/contracts/catalogo/imports/estagios.md
 --
 -- O QUE MUDA. O estado dos estágios saía de `edicoes.edi_estagios` (JSONB, só o último estado) mais
 -- um checkpoint best-effort no R2 (`_state/estagios.json`). Passa a morar nesta tabela: uma linha

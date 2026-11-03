@@ -9,7 +9,7 @@ Doutrina de estilo + dataset: `fine_tuning_cpus/descritivo/`.
 1. **No import, sempre (29/10/2026):** o estágio Documentos preenche as versões `em_revisao` da fonte
    (delta:hash). A IA devolve texto; quem grava é o import (`gravar_descritivo`, `origem = IA_auto`).
    Não preencheu → o estágio vai a `erro` com a causa e a retentativa pega só o que falta. O ciclo
-   manual `ctc_pull`→`put_md` (modo `IA_local`) foi extinto — plano `next-steps/final_associacoes.md` §3.
+   manual `ctc_pull`→`put_md` (modo `IA_local`) foi extinto — contrato `imports/estagios.md` (Documentos).
 2. **Determinismo estrutural:** o CÓDIGO monta a estrutura do §2 (frame por classe MAT/MO/EQP, mão de obra,
    contrações). O modelo só preenche o que faz bem. Nada de "esperar o modelo obedecer" a estrutura.
 3. **Fiel à composição, sem invenção:** nada de norma (NBR/ABNT), exclusão ("não remunera"), nem item fora

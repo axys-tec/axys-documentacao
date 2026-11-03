@@ -1,5 +1,5 @@
 -- 2026-10-29 · catalogo.composicoes.cmp_descritivo perde o campo `modo`
--- Plano:    docs/projects/axys-easy/next-steps/final_associacoes.md §3 e §7 (IA_local extinto)
+-- Contrato: docs/projects/axys-easy/contracts/catalogo/imports/estagios.md (Documentos — IA_local extinto)
 -- Contrato: docs/projects/axys-easy/contracts/catalogo/CTC_DESCRITIVO_FILL.md
 --
 -- O QUE MUDA. O descritivo tinha dois modos (`AXYS_CPU_DESC_MODO`): IA_local, que deixava a versão

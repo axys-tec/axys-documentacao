@@ -128,12 +128,13 @@ Uma tela por composição, renderizada pela app (não é o PDF da fonte):
   (Gemini)**. O Gemini genérica exatamente onde está o valor (SINAPI + 69% FDE) — não lê a composição.
   Nos casos ricos (CDHU) empatam (ambos copiam a fonte).
 - **Decisão:** adotar motor **pago** para o gerador (exceção justificada à doutrina "sem API paga";
-  custo limitado — 1×/serviço/edição, cacheado). Reforço de fidelidade fica no contrato do prompt.
+  custo limitado — 1×/serviço/edição, cacheado). *(02/11/2026: a doutrina "sem API paga" caiu; vale o
+  uso **consciente** de IA — chamada pontual de produto é custo irrisório; volume em massa estima-se antes.)* Reforço de fidelidade fica no contrato do prompt.
 - 1ª rodada Gemini foi DESCARTADA (leu `codex/` e copiou 58/58) — comparação só vale cega.
 
 ## 6b. Request e preenchimento no import — estágio Documentos (revisto 29/10/2026)
 
-Vale o plano `next-steps/final_associacoes.md` §3. O modo `IA_local` (`AXYS_CPU_DESC_MODO`, ciclo
+Vale o contrato `contracts/catalogo/imports/estagios.md` (Documentos). O modo `IA_local` (`AXYS_CPU_DESC_MODO`, ciclo
 `get_md`/`put_md` fora da app) foi **extinto**: o import sempre preenche, sem chave de modo.
 
 - **Onde:** estágio **Documentos** (`import_service.gerar_caderno_edicao` → `_ctc_da_edicao`), nas três

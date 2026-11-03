@@ -87,7 +87,7 @@ O divisor é **função pura** de `(edi_id, uf, modalidade)`, e os três já est
 
 ## 4. O que o 220 continua sendo
 
-**O 220 identifica o par H↔MÊS e isso não muda.** `vinculacoes.md` §3.1 estabelece o par por `TRUNC(preço_mês / 220, 2) = preço_hora`, exato em 94 de 94 casos. Essa é a convergência da **remuneração-base**, que o artigo demonstra e os nossos dados confirmam (SERVENTE pelado: H R$ 9,95/h · MES R$ 2.189,00 ÷ 220 = R$ 9,95).
+**O 220 identifica o par H↔MÊS e isso não muda.** `vinculacoes.md` §3 estabelece o par por `TRUNC(preço_mês / 220, 2) = preço_hora`, exato em 94 de 94 casos. Essa é a convergência da **remuneração-base**, que o artigo demonstra e os nossos dados confirmam (SERVENTE pelado: H R$ 9,95/h · MES R$ 2.189,00 ÷ 220 = R$ 9,95).
 
 São dois usos distintos do mesmo número, e só um muda:
 
@@ -162,7 +162,7 @@ O parecer é gerado do mesmo dado que a conversão — não é texto fixo. Divis
 | `COEFICIENTE_FISICO_PRESERVADO` | O coeficiente horista continua acessível depois da rotação |
 | `HORA_NAO_SAI_DE_MES` | Nenhum caminho recupera horas físicas a partir da fração em MES |
 | `PARECER_PRESENTE` | Relatório de conversão sempre acompanhado do parecer, com os números daquela conversão |
-| `PAR_INTACTO` | A identificação do par H↔MÊS continua por 220 (`vinculacoes.md` §3.1) |
+| `PAR_INTACTO` | A identificação do par H↔MÊS continua por 220 (`vinculacoes.md` §3) |
 | `SEM_PAR_E_VALIDO` | Item sem par mensalista fica original e marcado, como hoje |
 
 **Cenários:** SP/SD e SP/CD; uma UF de cada extremo (173,16 e 179,82); composição com mão de obra de mais de uma profissão; composição com sub-CPU que rotaciona e outra que não; fonte sem regime mensalista (CDHU/FDE) — `sem_mapeamento`, inalterado.

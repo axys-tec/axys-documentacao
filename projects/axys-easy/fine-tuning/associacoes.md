@@ -18,7 +18,7 @@ O que está no banco é o resultado. O que está aqui é **por que** o resultado
 | prompt de insumo | `z_scripts_apoio/analise_associacoes/revisao_ia_curadoria.py` → `_DOUTRINA` |
 | prompt de composição | idem → `_DOUTRINA_CPU` (adendo sobre a doutrina de insumo) |
 | runner | `z_scripts_apoio/analise_associacoes/roda_associacoes.py` |
-| contrato da tabela | `contracts/catalogo/vinculacoes.md` §14 (1×1 duro) |
+| contrato da tabela | `contracts/catalogo/vinculacoes.md` §1.3 (1×1 duro) |
 | auditorias congeladas | `z_scripts_apoio/_out_associacoes/auditoria_rodada*/` |
 
 ---

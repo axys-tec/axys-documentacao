@@ -1,5 +1,5 @@
 -- 2026-10-29 · sai catalogo.insumos_equivalencias (legada)
--- Plano: docs/projects/axys-easy/next-steps/final_associacoes.md §7
+-- Contrato: docs/projects/axys-easy/contracts/catalogo/vinculacoes.md §2
 --
 -- A equivalência insumo↔insumo "difusa" (score/tipo, cadastro manual na tela do insumo) foi
 -- substituída pelas associações 1×1 entre fontes (equivalencias_ins/_cpu/_mo, motor do estágio

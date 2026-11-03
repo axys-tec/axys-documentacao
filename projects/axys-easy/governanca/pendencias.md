@@ -19,7 +19,6 @@
 | F1 | Ciclo de vida do orçamento | frente aberta |
 | F2 | Submain do orçamento | frente aberta |
 | F4 | Remover o id das rotas | frente aberta |
-| F5 | Associação entre fontes | frente aberta |
 | F6 | Licenciamento, capacidade e arquivamento por produto | frente aberta |
 | F7 | Cronograma (contrato §10) | frente aberta |
 | F8 | Pré-planejamento — persistência e IA | frente aberta |
@@ -112,14 +111,6 @@ Documento da frente: [`next-steps/redesign_rotas_exposicao.md`](../next-steps/re
       404 (guarda de posse no roteador), então é higiene, não vazamento: o sequencial conta quantos
       objetos existem. Decidir sha estável × rotativo, link antigo, e as rotas de arquivo (PDF, XLSX,
       caderno) junto.
-
----
-
-## F5 · Associação entre fontes — frente aberta
-
-Tudo da frente está em [`next-steps/final_associacoes.md`](../next-steps/final_associacoes.md):
-o plano do motor no import e das telas de curadoria, as decisões em aberto (§9), as fases (§10) e
-as dívidas e pendências herdadas (§12). A doutrina está no contrato `contracts/catalogo/vinculacoes.md`.
 
 ---
 

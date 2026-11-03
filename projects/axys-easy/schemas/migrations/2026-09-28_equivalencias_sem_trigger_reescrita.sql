@@ -2,7 +2,7 @@
 -- EQUIVALÊNCIAS ENTRE FONTES — trigger deixa de reescrever; a garantia vira declarativa
 --
 -- PENDENTE EM PRODUÇÃO em 2026-09-28. Aplicado e validado em dev.
--- Contrato: contracts/catalogo/vinculacoes.md §6.2 · §6.3 · ADR-022 §3.2
+-- Contrato: contracts/catalogo/vinculacoes.md §1.3 · §2.1 · ADR-022 §3.2
 --
 -- POR QUE
 -- As três triggers faziam duas coisas: RECUSAVAM (guardas que precisam de JOIN, legítimas) e

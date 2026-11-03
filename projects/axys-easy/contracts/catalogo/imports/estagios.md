@@ -113,13 +113,13 @@ Docs **derivados** (HTML/insumo/CPU), parse do **LS detalhamento** (`els_itens`)
 - **Fichas/cadernos → identidade:** ficha → `ins_external_path`; caderno_cpu → `cmp_external_path` (vigência por versão — [../publicacao.md](../publicacao.md)). ⚠️ **Pendência:** o vínculo composição→caderno-fonte / fichas FDE é **N:N** e usava `composicao_documento` (dropada no repense doc/path); a modelagem N:N está **deferida** (o §11.9 do repense reserva o `composicao_documento` p/ esse "cross-ref real").
 
 ### DOCUMENTOS (`gerar_caderno_edicao`)
-- **CTC primeiro, nas três fontes** (`_ctc_da_edicao`, plano `next-steps/final_associacoes.md` §3): request por delta:hash → documento `ctc/doc|prompt/{cod}.md` → **preenchimento pela IA** das versões `em_revisao`. Descritivo que não preencheu → `documentos=erro` com a causa (nunca passa calado); re-rodar preenche só o que falta. Falha da conta para a rodada inteira.
+- **CTC primeiro, nas três fontes** (`_ctc_da_edicao`, contrato `vinculacoes.md` §5): request por delta:hash → documento `ctc/doc|prompt/{cod}.md` → **preenchimento pela IA** das versões `em_revisao`. Descritivo que não preencheu → `documentos=erro` com a causa (nunca passa calado); re-rodar preenche só o que falta. Falha da conta para a rodada inteira.
 - Depois: monta o **caderno técnico da edição** (Apresentação + [originais] + Encargos + [BDI] + CTCs), sobe ao storage (`caderno_tecnico`, `no-cache`), `documentos=ok`. Qualquer exceção leva o estágio a `erro` (não fica `rodando` zumbi).
 - A regeração do caderno disparada pelo **publicar** (e o botão em edição já publicada) só refaz o caderno-índice: não roda o CTC nem mexe no estágio.
 - **CTCs** abrem **isolados** (`/axys-desc`); o caderno **aglomera** (índice), não embute. Composição por fonte: SINAPI = apres+originais+encargos+CTCs; CDHU = apres+encargos+CTCs; FDE = apres+encargos+**BDI**+CTCs.
 
 ### ASSOCIAÇÕES (`jobs_async.associar_edicao`) — desde 29/10/2026
-Associação entre fontes da edição mais nova (edição antiga → `skip`). Plano: `next-steps/final_associacoes.md`.
+Associação entre fontes da edição mais nova (edição antiga → `skip`). Contrato: `../vinculacoes.md` §5.
 - **Começa** indexando a edição na busca (inativa até o publicar), desfazendo os pares do que saiu/mudou e montando a fila (dois motores; papéis origem/alvo); depois sinais, IA, pré-curadoria. A fila mora no storage (`_fila/{edi_id}`) e a retentativa retoma de onde parou.
 - **Para** em `pendente_user` até a curadoria 5b (`/edicoes/{id}/associacoes`) zerar a fila; o fechamento grava o banco sob lock global e depois os JSONs por item → `ok`.
 - **Publicar** exige `documentos = ok` e `associacoes ∈ {ok, skip}`. Nenhum Preços/Dados roda enquanto houver associação aberta em outra edição.

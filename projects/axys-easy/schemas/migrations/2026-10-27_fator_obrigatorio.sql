@@ -1,6 +1,6 @@
 -- 2026-10-27_fator_obrigatorio.sql
 --
--- Contrato: docs/projects/axys-easy/contracts/catalogo/vinculacoes.md §3.4 · "Classes de conversão"
+-- Contrato: docs/projects/axys-easy/contracts/catalogo/vinculacoes.md §2.1 · §8
 --
 -- Descrição: o fator de conversão de catalogo.equivalencias_ins / _cpu passa a ser OBRIGATÓRIO e
 --            positivo. Sem fator não é associação: associação responde "tanto faz" (trocar um pelo
