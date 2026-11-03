@@ -1718,6 +1718,96 @@ CREATE TABLE IF NOT EXISTS commercial.lead (
 );
 
 -- ------------------------------------------------------------
+-- analytics.public_endpoint_hit
+-- Função:
+--   Contar a chegada efetiva a endpoints públicos no servidor.
+-- Privacidade:
+--   Não usa cookie e não armazena IP, identidade ou fingerprint persistente.
+--   Fica isolada do analytics comportamental sujeito a consentimento.
+-- ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS analytics.public_endpoint_hit (
+    hit_id          BIGINT      GENERATED ALWAYS AS IDENTITY,
+    route_path      TEXT        NOT NULL,
+    referrer_host   TEXT,
+    utm_source      TEXT,
+    utm_medium      TEXT,
+    utm_campaign    TEXT,
+    device_family   TEXT        NOT NULL DEFAULT 'unknown',
+    is_bot          BOOLEAN     NOT NULL DEFAULT FALSE,
+    is_preview      BOOLEAN     NOT NULL DEFAULT FALSE,
+    occurred_at     TIMESTAMPTZ NOT NULL DEFAULT now(),
+
+    CONSTRAINT public_endpoint_hit_pkey PRIMARY KEY (hit_id),
+    CONSTRAINT ck_public_endpoint_hit_route CHECK (route_path LIKE '/%'),
+    CONSTRAINT ck_public_endpoint_hit_device CHECK (
+        device_family IN ('android', 'ios', 'ipados', 'desktop', 'unknown')
+    )
+);
+
+CREATE INDEX IF NOT EXISTS idx_public_endpoint_hit_route_occurred
+    ON analytics.public_endpoint_hit (route_path, occurred_at DESC);
+CREATE INDEX IF NOT EXISTS idx_public_endpoint_hit_human_occurred
+    ON analytics.public_endpoint_hit (occurred_at DESC)
+    WHERE NOT is_bot AND NOT is_preview;
+
+COMMENT ON TABLE analytics.public_endpoint_hit IS
+    'Contagem técnica server-side de chegada a endpoints públicos, sem cookie, IP ou identificador persistente; isolada do analytics comportamental sujeito a consentimento.';
+
+-- ------------------------------------------------------------
+-- commercial.campaign_registration
+-- Função:
+--   Inscrição identificada em campanhas promocionais de produto.
+--   Confirma a participação na campanha, sem criar usuário, tenant
+--   ou conceder antecipadamente a licença sorteada.
+-- ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS commercial.campaign_registration (
+    registration_id      UUID        NOT NULL DEFAULT gen_random_uuid(),
+    campaign_code        TEXT        NOT NULL,
+    name                 TEXT        NOT NULL,
+    profession           TEXT        NOT NULL,
+    email                TEXT        NOT NULL,
+    phone                TEXT        NOT NULL,
+    participation_status TEXT        NOT NULL DEFAULT 'REGISTERED',
+    privacy_accepted_at  TIMESTAMPTZ NOT NULL,
+    news_consent_at      TIMESTAMPTZ NOT NULL,
+    rules_accepted_at    TIMESTAMPTZ,
+    visitor_id           UUID,
+    session_id           UUID,
+    utm_source           TEXT,
+    utm_medium           TEXT,
+    utm_campaign         TEXT,
+    referrer_url         TEXT,
+    source_platform      TEXT        NOT NULL DEFAULT 'other',
+    confirmation_email_sent_at    TIMESTAMPTZ,
+    confirmation_whatsapp_sent_at TIMESTAMPTZ,
+    confirmation_last_error       TEXT,
+    created_at           TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at           TIMESTAMPTZ NOT NULL DEFAULT now(),
+
+    CONSTRAINT campaign_registration_pkey PRIMARY KEY (registration_id),
+    CONSTRAINT ck_campaign_registration_code CHECK (campaign_code ~ '^[A-Z][A-Z0-9_]{2,79}$'),
+    CONSTRAINT ck_campaign_registration_status CHECK (
+        participation_status IN ('REGISTERED', 'ELIGIBLE', 'INELIGIBLE', 'SELECTED', 'NOT_SELECTED', 'CANCELLED')
+    ),
+    CONSTRAINT ck_campaign_registration_name CHECK (btrim(name) <> ''),
+    CONSTRAINT ck_campaign_registration_profession CHECK (btrim(profession) <> ''),
+    CONSTRAINT ck_campaign_registration_email CHECK (btrim(email) <> ''),
+    CONSTRAINT ck_campaign_registration_phone CHECK (phone ~ '^\d{10,15}$'),
+    CONSTRAINT ck_campaign_registration_platform CHECK (source_platform IN ('ios', 'android', 'other')),
+    CONSTRAINT fk_campaign_registration_visitor FOREIGN KEY (visitor_id)
+        REFERENCES analytics.visitor (visitor_id) ON DELETE SET NULL,
+    CONSTRAINT fk_campaign_registration_session FOREIGN KEY (session_id)
+        REFERENCES analytics.session (session_id) ON DELETE SET NULL
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS uq_campaign_registration_email
+    ON commercial.campaign_registration (campaign_code, lower(email));
+CREATE UNIQUE INDEX IF NOT EXISTS uq_campaign_registration_phone
+    ON commercial.campaign_registration (campaign_code, phone);
+CREATE INDEX IF NOT EXISTS idx_campaign_registration_created
+    ON commercial.campaign_registration (campaign_code, created_at DESC);
+
+-- ------------------------------------------------------------
 -- analytics.visitor_identity_link
 -- Função:
 --   Vínculo canônico entre visitor identificado e lead formal.
