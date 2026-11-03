@@ -381,7 +381,6 @@ Para não reabrir por engano:
 Persistência (rascunho no banco), o AI | Axys Intelligence (simplificado e combinado), a duração pela
 equipe, o Aplicar amarrado e os dois documentos estão no contrato (§17.4–§17.10). Aberto:
 
-- [ ] Prod: rodar `2026-11-02_ativo_rascunhos.sql` ANTES do deploy.
 - [ ] Prod: conferir (só leitura) cronogramas criados desde 19/10 com percentual em linha de SERVIÇO —
       o `_ROW_TIPOS` voltou a só GRUPO e esses percentuais ficariam órfãos.
 - [ ] Variação da IA (§17.9, §17.10): no modelo combinado a ordem da EAP com a duração da equipe
