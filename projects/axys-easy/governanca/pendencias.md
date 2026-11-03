@@ -35,6 +35,7 @@
 | F19 | Verificação de desempenho — com números | em curso |
 | F20 | Modo degradado sem o R2 | avaliar |
 | F21 | Ambiente — mesmas chaves em dev e prod | frente aberta |
+| F22 | AxysCoin pelo programa de preços | frente aberta |
 
 ---
 
@@ -377,8 +378,17 @@ Para não reabrir por engano:
 
 ## F8 · Pré-planejamento — persistência e IA — frente aberta
 
-- [ ] Persistência das premissas.
-- [ ] O canal de IA.
+Persistência (rascunho no banco), o AI | Axys Intelligence (simplificado e combinado), a duração pela
+equipe, o Aplicar amarrado e os dois documentos estão no contrato (§17.4–§17.10). Aberto:
+
+- [ ] Prod: rodar `2026-11-02_ativo_rascunhos.sql` ANTES do deploy.
+- [ ] Prod: conferir (só leitura) cronogramas criados desde 19/10 com percentual em linha de SERVIÇO —
+      o `_ROW_TIPOS` voltou a só GRUPO e esses percentuais ficariam órfãos.
+- [ ] Variação da IA (§17.9, §17.10): no modelo combinado a ordem da EAP com a duração da equipe
+      concorre sempre (grátis, determinística), o que segura o pior caso. Medir em ativos reais se a
+      escolha automática entre a ordem da IA e a da EAP acerta; se não, mostrar as duas para o
+      engenheiro escolher.
+- [ ] Custo em AxysCoin pelo programa de preços — ver F22.
 
 ---
 
@@ -678,4 +688,21 @@ produção, e em dev a leitura procura primeiro onde se grava.
       `.env.prod` + `render.yaml` (diferença só no valor), com lista curta de exceções declaradas.
 - `EASY_MOBILE_STORAGE_DRIVER` **fica** como está: é a chave da API mobile, que fala sempre com o R2
   real (o processo dela sobrescreve as chaves de storage com esse valor).
+
+---
+
+## F22 · AxysCoin pelo programa de preços — frente aberta
+
+**Origem (Renan, 03/11, no pré-planejamento):** o AxysCoin vale pelo programa de preços da Axys
+(`contracts/axys_easy_modelo_licenciamento.md`, tabela de consumo do Axys Intelligence): 1.000 AXC =
+US$ 1,00 de custo computacional efetivo, pelo preço de cada modelo. O código cobra por TOKEN —
+`EASY_IA_TOKENS_POR_CREDITO=1000` em `backend/core/ia_credenciais.py`, 1 AXC = 1.000 tokens, qualquer
+modelo —, e só coincide com o programa num modelo de US$ 1,00 por milhão de tokens. Vale para todas as
+IAs do Easy (descritivo, associações, pré-planejamento).
+
+- [ ] Tabela de preço por modelo (entrada, saída; cache, se houver), versionada, e o custo de cada
+      operação = Σ tokens × preço do modelo que de fato respondeu (a cadeia pode cair para outro).
+- [ ] `custo_creditos` / `creditos_estimados` / `debitar_tokens` passam a falar em US$ → AXC; o teto
+      duro do pré-planejamento (§17.5) continua valendo, convertido pela mesma régua.
+- [ ] Coordenar com o Hub, que guarda o saldo: o débito passa a carregar o custo em US$ além dos tokens.
 

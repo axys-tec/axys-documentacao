@@ -8555,6 +8555,38 @@ CREATE INDEX ix_evt_atv
 
 
 -- ============================================================
+-- §RASCUNHOS DO ATIVO  (Renan 2026-11-02)
+-- Contrato: contracts/ativo/pre_planejamento_execucao_contrato.md §17.4
+-- Trabalho EM CURSO de uma tela, guardado com o ativo e não com o navegador: quem abre de outra
+-- máquina continua de onde parou. Uma linha por (ativo, assunto); gravar de novo substitui, não
+-- empilha. É cache de trabalho, não registro: some quando o trabalho é concluído (ex.: aplicar o
+-- pré-plano ao cronograma), quando fica parado mais que o prazo de validade, ou com o ativo.
+-- Assunto novo entra no CHECK — é ele que documenta quem usa a tabela.
+-- ============================================================
+CREATE TABLE IF NOT EXISTS ativo.ativo_rascunhos (
+    ras_atv_id          INTEGER NOT NULL,
+    ras_assunto         TEXT    NOT NULL,
+    ras_tenant_uuid     UUID    NOT NULL,
+    ras_dados           JSONB   NOT NULL,
+    ras_atualizado_por  TEXT,
+    ras_atualizado_em   TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT pk_ras PRIMARY KEY (ras_atv_id, ras_assunto),
+    CONSTRAINT fk_ras_atv
+        FOREIGN KEY (ras_atv_id)
+        REFERENCES ativo.ativos (atv_id)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT ck_ras_assunto
+        CHECK (ras_assunto IN ('preplanejamento')),
+    CONSTRAINT ck_ras_dados_obj
+        CHECK (jsonb_typeof(ras_dados) = 'object')
+);
+
+CREATE INDEX IF NOT EXISTS ix_ras_atualizado
+    ON ativo.ativo_rascunhos (ras_atualizado_em);
+
+
+-- ============================================================
 -- §DOCUMENTOS / DIVERSIDADES DO ATIVO  (decisão Renan 2026-06-14)
 -- Registro REAL (não JSONB de cabeçalho) dos documentos/peças que descrevem o ativo
 -- — em especial o "repo-paradigma" dos modelos (is_catalog_source): arquivos que

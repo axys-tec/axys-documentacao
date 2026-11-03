@@ -1,7 +1,7 @@
 # Pré-planejamento de Execução — Contrato
 
 **Status:** V1 em dev — fluxo completo em três passos, memorial e reconciliação. Ver §17.
-**Data:** 2026-10-15, revisto em 2026-10-19
+**Data:** 2026-10-15, revisto em 2026-10-19 e 2026-11-02 (relações tipadas, ao longo da obra, formas de preencher, rascunho no banco)
 **Escopo:** como o AxysEasy propõe o cronograma de uma obra a partir do orçamento, com método declarado e memorial auditável. Indicadores: **Δ** (regularidade da série) e **carga do mês**.
 **Implementa (previsto):** `ativo.ativo_orcamento_cronograma`, `ativo.ativo_orcamento_cronograma_itens`, `backend/modules/ativo/cronograma_service.py`, `backend/modules/ativo/medicao_simulador.py`, `orcamento_service.get_histograma`.
 
@@ -243,13 +243,17 @@ Família ou substituibilidade (azulejista como "parente" do pedreiro). Isso é j
 |---|---|---|
 | `posicao_minima` | inteiro ≥ 1 | **Período absoluto** do cronograma. Primeiro período elegível para iniciar |
 | `modo` | `sequencial` \| `intercalada` \| `aleatoria` | Padrão de ocupação dos períodos |
-| `impeditivos` | lista de `ati_id` | Linhas cuja conclusão **integral** libera o início |
-| `tmax_periodos` | inteiro ≥ 1 \| nulo | Máximo de períodos entre início e fim, **pausas incluídas** |
-| `origem` | `manual` \| `eap` \| `ia` | Proveniência efetiva do parâmetro |
+| `ao_longo` | booleano | A frente vai **ao longo da obra**: começa até o P2 e termina no último período (§7.1) |
+| `relacoes` | lista de `{id, tipo}` | O que precede a frente, com o tipo da relação (§7.1) |
+| `tmax_periodos` | inteiro ≥ 1 \| nulo | Máximo de períodos entre início e fim, **pausas incluídas**. Nulo em `ao_longo` |
+| `origem` | `manual` \| `financeiro` \| `mao_de_obra` \| `ia` | Quem desenhou a janela por último (§17.4) |
+
+`impeditivos` (lista de `ati_id`), o formato anterior a 02/11/2026, continua aceito e vale como
+`relacoes` do tipo `so_depois`.
 
 **Posição mínima é período absoluto, e isto fecha a pendência.** A discussão original inclinava para "etapa relativa", com o argumento de que permitiria recalcular o prazo sem invalidar a parametrização. O argumento é bom e perde para um fato: a app **não tem** o conceito de etapa executiva. O que ela tem é path e ordem, que organizam o orçamento e não declaram sequência de obra. Criar "etapa" seria inventar uma terceira estrutura para conviver com a EAP e com o cronograma. Período absoluto encaixa no que existe, e o custo — reparametrizar ao mudar o prazo — é real e pequeno: o memorial registra a posição e o recálculo é um clique.
 
-**O par `posicao_minima` + `impeditivos` É a sequência executiva.** Ele não a substitui nem a aproxima: ele é o único lugar onde ela passa a existir. A EAP *deveria* declará-la, e às vezes declara — mas com frequência não, seja porque quem montou não se deu ao trabalho, seja porque misturou serviço com etapa na mesma hierarquia. Uma EAP assim organiza o orçamento e não diz nada sobre a obra.
+**O par `posicao_minima` + `relacoes` É a sequência executiva.** Ele não a substitui nem a aproxima: ele é o único lugar onde ela passa a existir. A EAP *deveria* declará-la, e às vezes declara — mas com frequência não, seja porque quem montou não se deu ao trabalho, seja porque misturou serviço com etapa na mesma hierarquia. Uma EAP assim organiza o orçamento e não diz nada sobre a obra.
 
 É por isso que a sequência **não se deriva** da EAP automaticamente. Derivar seria ler ordem visual como dependência, e uma EAP mal estruturada produziria um cronograma mal estruturado com cara de calculado. Quem preenche essa lacuna é a §10 — e é esse, não o preenchimento de campos, o trabalho principal da IA neste módulo.
 
@@ -266,6 +270,29 @@ Família ou substituibilidade (azulejista como "parente" do pedreiro). Isso é j
 **A EAP organiza, não impede.** Itens na mesma posição podem andar juntos — estrutura, alvenaria, elétrica e hidráulica são o caso clássico. Impedimento só existe quando declarado.
 
 **`tmax` conta períodos corridos, pausas incluídas.** Uma intercalada com três períodos ativos ocupa janela de cinco. Com `tmax=4`, isso é inviável e se declara: `TMAX_INCOMPATIVEL_COM_MODO`. O motor **não** troca o modo para caber.
+
+### 7.1 Relações e "ao longo da obra" (2026-11-02)
+
+"Só depois de" era a única relação, e presumia que uma frente só começa quando a anterior acaba.
+Obra real não é assim: numa fundação de 60 dias, depois de uns 30 já há frente para alvenaria ou
+estrutura. Por isso a relação ganhou tipo:
+
+| Tipo | Regra | Exemplo |
+|---|---|---|
+| `so_depois` | começa no período seguinte ao **fim** da outra | cobertura só depois da estrutura |
+| `ligeiramente_apos` | começa a partir do período seguinte ao **início** da outra | alvenaria ligeiramente após a estrutura |
+| `concomitante` | começa **no mesmo período** que a outra; a duração de cada uma sai do tamanho de cada uma | impermeabilização com a cobertura |
+
+O período é de 30 dias, e por isso "ligeiramente após" é sempre um período: menos que isso a grade
+não representa. Só `so_depois` segura o fim do antecessor (é ele que tem sucessor esperando a
+conclusão); as outras duas contam do início.
+
+**Ao longo da obra é atributo, não relação.** Relação liga duas frentes ("A depois de B") e só existe
+porque a outra existe. "Ao longo da obra" é da própria frente: ela começa cedo — até o P2 — e vai até
+o fim, sem depender de ninguém. Instalações hidrossanitárias e elétricas são o caso clássico: a EAP as
+põe depois da estrutura, mas a tubulação entra com a fundação. Escrevê-las como "concomitante com a
+fundação" as prenderia a ela, e elas não dependem dela: acompanham a obra. O atributo combina com o
+modo — "ao longo da obra" + "pode pausar" é a instalação que começa, para e volta.
 
 ---
 
@@ -320,9 +347,18 @@ Isso é comparação, não promessa. O sistema não afirma economia nem prazo se
 
 **O trabalho dela é declarar a sequência executiva que a EAP não declarou.** Essa é a tarefa, e o resto é consequência dela. Uma EAP bem feita já carrega a ordem da obra; muitas não carregam, porque misturam serviço com etapa ou foram montadas só para somar. Sem a sequência, o motor não tem o que respeitar e volta a distribuir por conta própria — que é exatamente o que este módulo existe para acabar. Preencher modo e duração máxima é a parte fácil; amarrar o que precede o quê é a parte que não dá para automatizar por regra.
 
-A IA recebe a **planilha sintética** — ids estáveis, código EAP, nível, descrição, agrupador/serviço, unidade, quantidade, valor e **horas por profissão** da linha. Não recebe composição, insumo nem coeficiente: a app já apurou isso.
+A IA recebe a **planilha sintética** — código EAP, nível, descrição, agrupador/serviço, unidade, quantidade, valor — e, para as frentes do nível de corte, o peso e as **horas por profissão**. Não recebe composição, insumo, coeficiente nem id interno: o item é identificado pelo código da EAP.
 
-Ela devolve **só o quadro de parametrização** (§7), por linha ou por agrupador, com `origem=ia`. O engenheiro revisa; ao editar, a origem passa a `manual` e a sugestão original fica guardada para comparação.
+**Implantado (2026-11-02), e mais estreito que o desenho abaixo.** A IA devolve só a *sequência*: por frente, `ao_longo_da_obra`, a `execucao` e as `relacoes` tipadas (§7.1), com `avisos`. **Não devolve janela, posição nem `tmax`**: as janelas saem do mesmo otimizador do "Distribuir pela EAP" (§17.4), com o peso financeiro × mão de obra que o engenheiro escolhe no modal. Assim a resposta da IA é medida pela mesma régua do resto da tela, e ela não precisa converter nada em percentual — o que o prompt abaixo já proibia ("não calcule cronograma"). Item desconhecido e relação que fecharia ciclo são descartados e contados num aviso. Prompt em `backend/modules/ativo/ativo_ia_requests.md`; serviço em `preplanejamento_ia_service.py`; modelo pela cadeia `EASY_IA_MODELO_PREPLAN`, e na falta dela a do CTC; o consumo é debitado em AxysCoins como as demais IAs.
+
+**Superado em 2026-11-03 pela medição por serviço (§17.5).** Relação por frente não enxerga o que
+a frente contém: "Dados e voz" ia cedo inteira ou tarde inteira, quando a obra põe o eletroduto
+enterrado com a fundação e o cabeamento no fim. A IA passou a propor, serviço a serviço, as semanas
+de execução — e com isso ela planeja o serviço no tempo, o que o título desta seção negava. O que se
+mantém do mandato: ela não faz conta (semana vira percentual na app), não recebe composição nem id
+interno, e as regras que o engenheiro declarou são duras.
+
+O texto abaixo é o desenho original, mantido como referência do mandato.
 
 ```text
 Você parametriza a execução de uma EAP de obra. Receberá ids, descrições,
@@ -523,29 +559,422 @@ Registro do que saiu do papel, para a próxima leitura não precisar adivinhar.
 | Amarras na tela | passo 2 do fluxo | prontas — posição mínima, execução, duração máxima e precedência por linha |
 | Reconciliação pelo provisionador (§4) | `reconciliar` + `aplicar` | pronta — a proposta passa pelo provisionador ANTES de gravar |
 | Memorial (§12) | `montar_memorial` + `gerar_memorial_pdf` | pronto — sete seções, reproduzível a partir das premissas |
-| Persistência das premissas | — | **falta**: vivem na página; precisam de schema, e com produção no ar a migration nasce no mesmo commit |
-| Canal de IA (§10) | — | falta |
+| Persistência das premissas | `ativo.ativo_rascunhos` + `rascunho_service` | pronta (02/11) — §17.4 |
+| Canal de IA (§10) | `preplanejamento_ia_service.sugerir` | interno pronto (02/11): a IA declara a sequência, o otimizador faz as janelas. Canal externo (§10.1) segue em aberto |
+| Distribuir pela EAP | `otimizar_sequencia` | pronto (02/11) — §17.4 |
 
 ### 17.3 O fluxo da tela, em três passos
 
 A tela não é um formulário só: é um caminho, e cada passo responde uma pergunta diferente.
 
 1. **Premissas da obra** — município (destrava o calendário real), início sugerido em hoje+90d,
-   prazo, nível do cronograma, tipo de obra e as horas úteis que saem disso. Tudo já preenchido: o
+   prazo, tipo de obra e as horas úteis que saem disso. Tudo já preenchido: o
    engenheiro cura, não inventa. A escada de efetivo médio por prazo (3 a 24 meses) é a ordem de
    grandeza com que ele dosa a escolha, e um clique nela escolhe o prazo.
-2. **Equipe e sequência** — quem a empresa tem, por profissão, com o tempo que cada frente leva
-   recalculado a cada tecla; e o que precede o quê, linha a linha. É aqui que a sequência executiva
-   passa a existir, porque a EAP não a declara.
+2. **Sequência Executiva** — a timeline (§17.4): o nível do cronograma, a janela de cada frente e
+   as relações entre elas. É aqui que a sequência executiva passa a existir, porque a EAP não a
+   declara. A equipe por profissão foi para as premissas ("Alocação por função"), porque é lá que se
+   decide o prazo.
 3. **Proposta** — o que o método produziu, medido. Daqui se volta para ajustar, se baixa o memorial
    ou se aplica. Aplicar passa pelo provisionador antes de gravar.
 
-**O nível do cronograma deixou de mentir.** Até 18/10 só GRUPO podia ser linha, e a EAP mista —
-grupo com subgrupo E serviços pendurados no mesmo nível — tornava indisponíveis todos os níveis
-abaixo do primeiro. No ativo 24 eram cinco serviços e R$ 62.107 sem linha no nível 2. Agora o
-serviço que está no nível de corte é linha como qualquer grupo, e os cinco níveis se oferecem. O
-ganho não é só de disponibilidade: no nível 2 o mesmo orçamento distribui com Δ de 5,4% contra
-11,7% no nível 1, porque há mais frentes para acomodar.
+**Linha do cronograma é GRUPO, e só grupo (revisto em 02/11).** Entre 19/10 e 02/11 o serviço que
+estava no nível de corte também virava linha, para destravar a EAP mista (grupo com subgrupo E
+serviços pendurados no mesmo nível). Isso enchia o cronograma de serviço solto — no nível 2, a
+Fundação se abria nos seus serviços 3.1…3.7 —, e não é como se lê um cronograma: o serviço se
+pendura no grupo acima e entra no valor dele. Voltou a regra original, e a EAP mista é tratada
+onde sempre foi: `niveis_validos` não oferece o nível que deixaria serviço sem linha.
+
+### 17.4 A Sequência Executiva: timeline, quatro formas de preencher, rascunho no banco (2026-11-02)
+
+**A tela é uma timeline.** Uma linha por frente; a barra clara é a janela, a cheia é o que o motor
+distribuiu nela. Arrasta-se a ponta para mudar início ou fim, o meio para deslocar, e clica-se na
+linha vazia para criar a janela. A descrição abre a execução, o "ao longo da obra" e as relações;
+as relações aparecem como setas. A cada mudança o motor redistribui e a linha de status remede.
+Frente sem janela não recebe distribuição (`distribuir(..., so_declaradas=True)`), e a proposta
+não se gera enquanto houver uma.
+
+**Quatro formas de preencher:**
+
+| Ação | O que faz |
+|---|---|
+| Limpar | grade vazia — o ponto de partida do desenho à mão, que não precisa de botão próprio |
+| Distribuir pelo financeiro | cascata da EAP (`otimizar_sequencia`) dá a ordem; o nivelamento posiciona serviço a serviço com a duração da equipe, alvo = Δ financeiro (§17.10) |
+| Distribuir pela mão de obra | o mesmo, alvo = **Δ por profissão** |
+| AI \| Axys Intelligence | modelo simplificado ou combinado (§17.9, §17.10) |
+
+Ao entrar no passo sem rascunho válido para o prazo e as frentes, a grade chega VAZIA: preencher é
+escolha do engenheiro — um dos botões, a IA ou o desenho à mão (decisão de 04/11; antes chegava
+preenchida pelo financeiro). Trocar o nível refaz a grade do mesmo jeito que ela estava: a da IA
+reagrupada, a de um botão pelo mesmo botão; a vazia ou desenhada à mão fica vazia.
+
+**O otimizador.** Parte da cascata da EAP — cada frente com janela proporcional ao seu peso, na
+ordem da planilha, com 25% do prazo de sobreposição — e faz busca local nas janelas (início, fim,
+deslocamento), ficando com o que baixa o alvo. O mínimo trivial de qualquer Δ é "tudo em todos os
+meses", então a busca é presa: a frente sem relação anda na ordem da EAP (não começa antes da
+anterior) e não se afasta mais que a sobreposição do lugar que o peso lhe dá; as relações e o "ao
+longo da obra" são respeitados; e o movimento se propaga pela cadeia de sucessores — quem ficou
+para trás é empurrado só o necessário, quem estava colado é puxado junto. As relações, o modo e o
+"ao longo da obra" já declarados se conservam: o otimizador só decide janelas.
+
+**Δ por profissão.** "Distribuir pela mão de obra" quer cada profissão com efetivo constante, não o
+total: dá para manter dez pessoas no canteiro trocando pedreiro por servente mês a mês. A régua
+(`avaliar`) passou a medir também `delta_profissao_pct` — o Δ de cada profissão, ponderado pelas
+horas dela —, e a linha de status mostra os três: Δ financeiro, Δ mão de obra (efetivo total) e Δ por
+profissão.
+
+Ativo 24, dez períodos, nível 1: pelo financeiro, Δ financeiro 2,99%; pela mão de obra, Δ por
+profissão de 84% para 57%. A cascata fixa que precedeu o otimizador dava Δ financeiro de 13%.
+
+**Rascunho no banco.** Premissas e sequência saíram do `localStorage` para
+`ativo.ativo_rascunhos` — uma linha por (ativo, assunto), JSONB, gravar substitui. Ela é do ativo,
+não do usuário: outra máquina ou outro usuário do tenant continua de onde parou, e vale a última
+gravação. É cache de trabalho e some sozinho — quando fica parado mais de 30 dias (varrido na leitura,
+sem job) e com o ativo (FK em cascata); aplicado, deixa de vencer e vira o registro do pré-plano
+(abaixo). "Ao fechar a aba" não é gatilho: o
+navegador não garante avisar. Rotas `GET`/`PUT /api/ativos/{id}/rascunho/{assunto}`; o assunto novo
+entra no CHECK `ck_ras_assunto`. Migration `2026-11-02_ativo_rascunhos.sql`.
+
+**Aplicar fecha o rascunho, não o apaga (2026-11-03).** Ele recebe a chave `aplicado` ({em, por}),
+deixa de vencer e vira o registro do pré-plano. Com o cronograma preenchido e esse registro, a tela
+reabre nos três passos só para leitura — premissas travadas, sem as ações da sequência nem o
+aplicar; navega-se e baixa-se o memorial. Cronograma preenchido sem o registro (feito à mão) segue
+no estado "já preenchido". Limpo o cronograma, o rascunho volta a ser de trabalho: a primeira
+gravação da tela descarta `aplicado`.
+
+### 17.5 AI | Axys Intelligence: a medição por serviço, com previsões (2026-11-03)
+
+**O que a IA recebe.** Prazo em meses e em semanas (4 por mês); as frentes, com peso e as regras que
+o engenheiro declarou (relações, ao longo da obra, execução); os subgrupos abaixo do corte, para
+contexto; e cada serviço com frente, descrição, unidade, quantidade, valor e horas por função
+(códigos F1, F2… com legenda, para não repetir o nome em cada serviço). Mais a prioridade financeiro ×
+mão de obra do modal. Acima de 1.500 serviços vão os de maior valor.
+
+**O que devolve.** Para cada serviço, `semanas: [primeira, última]`. Nada de percentual.
+
+**O que a app faz.** O mês tem 4 semanas úteis, de 25% cada. O serviço se reparte igualmente pelas
+suas semanas; o perfil da frente no mês é a soma dos seus serviços, pelo valor. O perfil vai na
+amarra (`perfil` {período: peso}, mais `servicos` com o detalhe) e o distribuidor o usa como está,
+sem redistribuir — a janela da frente é a que o perfil ocupa. Serviço sem resposta segue a janela da
+própria frente; frente sem nenhum serviço respondido vai ao motor no prazo inteiro.
+
+**A conversa: previsões, não rodadas.** Tudo o que é dado vai no pedido — planilha, regras, prazo e
+o CALENDÁRIO da obra (mês de cada período, dias úteis e feriados em dia útil, do município e do
+início das premissas). A conversa serve a uma coisa: a IA monta a medição e pede à app uma PREVISÃO
+para balizar o ajuste — `prever_financeiro` (valor do mês, carga do mês em % da média, Δ) ou
+`prever_profissoes` (efetivo de cada função mês a mês, carga, Δ por profissão, pico), ambas com a
+janela de cada frente e as regras desobedecidas. Até 3 previsões por consulta; esgotadas, só resta
+`entregar` (semanas por serviço, relações entre frentes, avisos). Na primeira chamada vão todos os
+serviços; nas seguintes, só os que mudam — o não mencionado fica onde estava (a primeira versão,
+em rodadas, tratava o não mencionado como "sem resposta", e a frente inteira caía no prazo todo,
+8,33% por mês). Entrega que deixa mais da metade dos serviços sem semana falha, sem débito.
+
+**O teto é duro.** O consumo mostrado no modal supõe o pior caso que a app permite (3 previsões e a
+entrega, cada volta reenviando a conversa) e é LIMITE: antes de cada chamada a app confere se ela
+cabe, reservando a entrega; não cabendo, força a entrega, e se nem ela couber encerra com a última
+proposta medida. O débito é `min(consumo real, teto)`.
+
+**API de respostas.** O modelo da casa (gpt-5.6-luna) só aceita ferramentas no chat com o raciocínio
+desligado; a consulta usa `/v1/responses`, que aceita ferramentas com raciocínio. Os itens de
+raciocínio e as chamadas voltam na entrada da volta seguinte.
+
+**As relações da IA viram as setas.** Ela declara, por frente, a que libera o seu trabalho. Entra
+como regra a relação que não repete uma do engenheiro, não fecha ciclo e é cumprida pela própria
+medição. A que a medição não cumpre como declarada, mas cumpre num tipo mais brando, entra nesse tipo
+(a IA pensa em semanas: "ligeiramente após" duas semanas depois cai no mesmo mês, que no cronograma é
+concomitante); só cai a que nem concomitante cumpre, contada num aviso.
+
+**Resposta por grupo.** O `item` pode ser o código de um grupo ou frente: vale para todos os serviços
+dele não citados um a um, e o grupo mais fundo manda sobre o mais raso. Sem isso obra grande não cabe
+numa resposta — no ativo 22 (778 serviços) a IA devolveu 179 e parou; com grupo, cobriu os 778.
+
+**O custo, antes.** Ao abrir o modal a app monta a consulta sem chamá-la e mostra, num quadro, o
+teto de AxysCoins e o saldo; sem saldo, o botão não libera. Depois, a linha de avisos diz o que se
+consumiu ao lado do teto.
+Durante a consulta o modal trava (sem fechar, sem duplo clique) e mostra a barra das gerações de PDF.
+
+**A mesma pergunta não se paga duas vezes.** A consulta tem uma chave — o hash da planilha, das
+regras, do prazo, do calendário, do peso, do prompt, das ferramentas e do modelo — e o resultado fica no rascunho, na
+chave `ia` (as 3 mais recentes). Repetir a pergunta reaplica o guardado, sem chamar a IA nem debitar;
+o modal avisa antes. `ia` é do servidor: a tela grava o rascunho e não a apaga.
+
+**A regra declarada é dura.** A frente que ainda desobedece na entrega perde o perfil e
+volta ao motor, que cumpre as relações por construção; repete-se até ninguém mais desobedecer, e
+cada frente devolvida vira aviso.
+
+**Mexer na frente devolve-a ao motor.** Arrastar a janela ou mudar execução/relações no painel apaga
+o perfil daquela frente. "Distribuir pelo financeiro/mão de obra" apaga o de todas.
+
+**O memorial** ganha a seção 4.1, "Medição por serviço": frente a frente, cada serviço com início e
+fim em período e semana.
+
+Ativo 24, doze períodos, Fernandópolis, peso 50/50: previsão do financeiro (Δ 29,1%), previsão das
+profissões, entrega com Δ financeiro 19,95%; 16 relações aceitas; ~144 mil tokens de um teto de ~230
+mil; 58 s. A lógica
+construtiva veio certa (eletroduto enterrado de dados e voz no P2–P3, embutido no P5–P9, tomadas no
+P11–P12; container do canteiro na obra inteira, placa em uma semana). A IA chega a uma curva em S,
+longe dos 3% que o otimizador alcança por frente — e mais perto da obra real.
+
+### 17.6 O trabalho da IA é do ativo, e o Aplicar é amarrado (2026-11-04)
+
+**A medição da IA não depende do nível.** Ela é por serviço, e o serviço não muda com o nível do
+cronograma — só a frente que o agrupa. A resposta da consulta traz a `medicao` (semanas por código de
+serviço e relações por código de frente), que a tela guarda no rascunho (`medicao_ia`). Trocar o
+nível com a grade vinda da IA chama `POST …/sequencia/ia/reagrupar`, que remonta a mesma medição nas
+frentes do nível novo, sem consulta e sem custo. As relações seguem a frente: descendo de nível, cada
+filha herda a relação da mãe (a predecessora vira a primeira filha dela para início-início, a última
+para término-início); subindo, a relação vai para a mãe e some quando as duas pontas caem na mesma;
+toda relação remontada passa de novo pelo crivo. O mês em R$ da provisão é idêntico em qualquer nível
+(o vigia confere); a prévia difere em décimos de ponto percentual, do arredondamento do % da frente.
+Limpar ou distribuir de outro jeito não apaga a `medicao_ia`.
+
+**O Aplicar é amarrado: cronograma, provisão das medições e trava, numa transação.** Depois de
+pré-planejado o fluxo se inverte — o cronograma e as medições derivam do pré-plano. `aplicar_proposta`
+(medicao_cronograma.py), com as mesmas guardas do `aplicar_percents` (que segue servindo ao MCP):
+  • a proposta vira o SNAPSHOT da provisão (o alvo que o simulador mira e para onde o Desfazer volta);
+  • o simulador mede a proposta e o cronograma gravado é o que a provisão REALIZA — a reconciliação
+    com o medível é a própria provisão;
+  • a provisão fica em `ativo_orcamento_cronograma_medicoes` com `origem: "preplanejamento"` e, havendo
+    medição da IA, `alvo_servico` {serviço: [R$ por mês]};
+  • o cronograma trava;
+  • o rascunho fecha (`aplicado` com `cro_id`, `cme_id`).
+Reaplicar pela tela de medições conserva a origem e os alvos. Sem tabela nem coluna nova.
+
+**O simulador ganha o modo por serviço.** Com `alvo_servico`, cada serviço segue a própria curva: a
+fração acumulada do alvo vira quantidade acumulada, SEMPRE POR BAIXO — inteira na peça indivisível,
+em centésimos no resto —, e no último mês da curva o serviço fecha inteiro. O acumulado medido nunca
+passa do previsto, e todo serviço é medido dentro dos meses da IA (o vigia confere, serviço a
+serviço). O serviço que a medição não trouxe anda no ritmo da frente. Medir contra o R$ (a primeira
+versão) deixava lasca: o trunc de cada mês ficava um centavo abaixo de N peças.
+
+**Pré-plano fechado.** Com o cronograma preenchido e o rascunho aplicado, a tela reabre nos três passos
+só para leitura (§17.4).
+
+**Caminho crítico.** `caminho_critico` (preplanejamento_service.py): a cadeia mais longa que termina
+no último período em que cada elo é uma relação JUSTA — a frente começa exatamente quando a relação
+com a predecessora deixa. Sem relação declarada, vazio. A tela do cronograma o destaca (`.cr-critico`)
+quando o cronograma veio de um pré-plano aplicado: relações do registro, janelas do cronograma como
+está. O memorial o desenha no Gantt e no fluxograma.
+
+### 17.7 Os dois documentos (2026-11-04)
+
+**Memorial técnico** (`POST …/preplanejamento/memorial`, `preplanejamento_pdf.py` +
+`preplanejamento_diagramas_pdf.py`), paisagem:
+  1. Calendário e horas úteis — início, prazo, município, jornada; tabela mês a mês (dias úteis, horas
+     úteis, feriados em dia útil) e o calendário da obra, um quadro por mês, feriado em destaque;
+     a chuva em texto corrido.
+  2. Mão de obra do orçamento — horas, efetivo médio no prazo, pico e mês do pico por profissão;
+     equipe informada só quando há.
+  3. Sequência executiva — de onde veio a sequência, quantas relações, o caminho crítico; Gantt das
+     frentes (percentual do mês na barra, setas das relações, caminho crítico em vermelho, quebrado
+     em blocos) e o fluxograma em rede (colunas = degraus de dependência).
+  4. Distribuição resultante — tabela mensal, curva S e histograma; regularidade e incidência.
+  5. Ajuste ao que é medível. 6. Ressalvas.
+Texto de memorial: frase técnica e corrida, sem nota no meio do corpo.
+
+**Provisão das medições** (`POST …/preplanejamento/provisao-pdf`): o PDF da tela de medições (Med 1
+a Med N, um documento por medição — sem o cronograma ajustado: na provisão o previsto é o realizado),
+alimentado pela proposta e pelo modo por
+serviço, com cada medição listando só o que se mede no período (`provisao=True`). É o que o Aplicar
+grava; antes dele, a prévia.
+
+**Bateria de 2026-11-04** (IA com previsões × botões Distribuir; peso 50/50; Δ = desvio-padrão ÷ média):
+
+| ativo | prazo | serviços | Distribuir financeiro Δfin | Distribuir MO Δprof | IA Δfin | IA Δprof | AXC cobrados |
+|---|---|---|---|---|---|---|---|
+| 36 | 3 m | 69 | 6,1% | 10,2% | 23,8% | 37,4% | 51 |
+| 26 | 4 m | 174 | 1,1% | 63,4% | 21,6% | 64,4% | 80 |
+| 24 | 12 m | 319 | 0,7% | 63,6% | 26,1% | 87,0% | 184 |
+| 22 | 24 m | 778 | 0,8% | 28,7% | 52,9% | 79,2% | 291 |
+
+A IA monta a medição com lógica de obra (curva em S, serviço no seu momento) e nivela pior que o
+otimizador, que não tem lógica de obra. Na obra grande (22) o nivelamento dela é fraco (pico de 464
+colaboradores contra 197–251 dos botões). Cada consulta: 37 a 62 s.
+
+**Peça inteira (2026-11-04).** O serviço de unidade indivisível (`catalogo.unidades`, categoria
+`unidade`) vai à IA com `inteira: true`, e é REGRA DURA do prompt: cada mês que ele ocupa recebe ao
+menos uma peça. A previsão aponta os espalhados (`pecas_inteiras_espalhadas`); o que ainda vier
+espalhado na entrega a app concentra no fim do período dado (`_concentra_pecas`), onde a medição o
+poria de qualquer jeito. O percentual da frente reparte a peça inteira pelas PEÇAS de cada mês
+(`_rateio`), não pelas semanas — o cronograma nasce igual ao que se mede. No ativo 24, o maior acerto
+ao medível caiu de 44,32 para 3,35 pontos percentuais.
+
+**Referências dos botões à IA — testado e DESCARTADO (2026-11-04).** Mandar à IA as duas
+distribuições dos botões (financeiro e mão de obra, % por frente e mês, com Δ e pico) como ponto de
+partida do equilíbrio PIOROU em todos os ativos, peso 50/50:
+
+| ativo | sem referência Δfin / Δprof / pico | com referência Δfin / Δprof / pico | frentes em bloco (com) |
+|---|---|---|---|
+| 36 | 20,7% / 35,9% / 32 | 28,9% / 38,6% / 35 | 0/5 |
+| 26 | 30,9% / 60,8% / 9 | 49,5% / 72,8% / 11 | 13/21 |
+| 24 | 23,3% / 76,3% / 10 | 47,0% / 105,0% / 15 | 19/28 |
+| 22 | 52,9% / 79,2% / 464 (bateria 04/11) | 54,1% / 104,4% / 666 | 83/85 |
+
+Ela ancora na referência (no 22, 83 de 85 frentes em bloco) e não converge com as previsões. O
+equilíbrio é conta, não julgamento: fica com a app (um "Nivelar" determinístico depois da IA).
+
+**Gantt entre páginas.** A relação cuja predecessora está em outro bloco ganha o conector de página:
+no bloco dela, a seta desce até a borda com "→ número"; no da frente, entra pela borda de cima com
+"número →". Os rótulos de mesma posição se juntam numa faixa própria, fora das barras.
+
+### 17.8 Dois fluxos, e como cada um se desfaz (2026-11-04)
+
+O cronograma chega preenchido por um de dois caminhos, e a provisão das medições guarda qual
+(`cme_medicoes.origem`):
+
+1. **Simulador** (`origem` ausente ou `simulador`): bancada → cronograma preenchido → medições
+   simuladas → afinadas → Aplicar ao cronograma. Na tela de medições, **Voltar ao anterior** devolve
+   o cronograma ao estado de antes do Aplicar.
+2. **Pré-planejamento** (`origem: preplanejamento`): o cronograma DERIVA da provisão. A tela de
+   medições mostra a origem, com link para o pré-plano, e **não oferece Voltar ao anterior** — não há
+   anterior; o servidor também recusa (`medicao_cronograma.voltar`).
+
+**Limpar cronograma** (os dois fluxos): o cronograma fica sem preenchimento — itens, provisão e trava
+saem juntos. É como se o Aplicar nunca tivesse acontecido: o rascunho perde `aplicado` e o pré-plano
+reabre editável, com o trabalho dele, para retomar ou desistir.
+
+**Reiniciar pré-planejamento** (`POST …/preplanejamento/reiniciar`): só existe com o pré-plano
+aplicado, no fim do passo 3 (**Resultado**), atrás de um modal. Faz o Limpar e zera o rascunho,
+menos as consultas de IA guardadas (`ia`).
+
+**Consultas anteriores** (`GET …/preplanejamento/sequencia/ia/anteriores`): o modal da IA lista as
+guardadas (as 3 mais recentes: data, prazo, nível, peso, AxysCoins pagos) e oferece **Reaplicar**
+sem nova consulta — a medição é por serviço, então vale em qualquer nível; só o prazo tem de ser o
+mesmo.
+
+### 17.9 A IA dá as regras, a app nivela (2026-11-04)
+
+Substitui a conversa de previsões de §17.5. As baterias mostraram que a IA tem lógica de obra e não
+faz conta — nem com as distribuições dos botões na mão (§17.7). A divisão passou a ser:
+
+- **A IA** (`consultar`, UMA chamada, ferramenta `entregar`): para cada serviço (ou grupo), a
+  `janela` de obra possível — do mais cedo em que pode começar ao mais tarde em que pode terminar,
+  NÃO o momento ideal — e a `duracao` [mínima, máxima] em semanas; as relações entre frentes; e, se o
+  prazo é curto para a obra com ciclos realistas, `prazo_sugerido_meses`, que vira recomendação de
+  revisar o prazo (a IA monta comprimida, encurtando todas as repetições por igual).
+- **A app** (`nivelamento_service.nivelar`): posiciona cada serviço dentro da janela, com duração na
+  faixa, pelo menor `peso·Δfin + (1−peso)·Δprof` — a mesma régua de `avaliar`. Relações (do
+  engenheiro e da IA), ao longo da obra e peça inteira são duras; as regras endurecem por rodadas
+  (`RODADAS`) para a busca não travar. Determinístico; menos de 3 s no ativo 22 (778 serviços).
+- **O peso não vai à IA** e não entra na chave: mudar o peso renivela as regras guardadas, sem custo.
+- **A medição guardada** tem `regras` (o que se pagou) e `semanas` niveladas com `peso_fin`. Trocar o
+  nível reaproveita as semanas (provisão idêntica em todo nível); trocar o peso renivela.
+- **Teto** = entrada + `max_output_tokens`; uma chamada, não passa.
+
+**Bateria de 04/11, peso 50/50** (Δfin / Δprof / pico de efetivo):
+
+| ativo | botões (melhor de cada) | IA com previsões (§17.7) | IA regras + nivelamento | tokens antes → agora |
+|---|---|---|---|---|
+| 36 | 6,1% / 10,2% / 28 | 20,7% / 35,9% / 32 | 17,9% / 23,7% / 31 | 51 mil → 12 mil |
+| 26 | 1,1% / 63,4% / 8–10 | 30,9% / 60,8% / 9 | 0,7% / 32,9% / 7 | 115 mil → 27 mil |
+| 24 | 1,35% / 65,5% / 9 | 23,3% / 76,3% / 10 | 0,74% / 53,6% / 9 | 138 mil → 44 mil |
+| 22 | 0,8% / 28,7% / 197–251 | 52,9% / 79,2% / 464 | 9,7% / 30,3% / 190 | 291 mil → 96 mil |
+
+**A variação entre consultas (F8, 04/11).** Medida com 5 consultas iguais por ativo (peso 50/50,
+Δfin mín / mediana / máx):
+
+| ativo | antes | só a regra do tempo (mesmas respostas, renivel.) | tudo (repetições + tempo + conferência) |
+|---|---|---|---|
+| 24 | 0,7 / 2,4 / 4,5% | igual (não tem serviço em MES) | 1,5 / 2,1 / 9,1% |
+| 22 | 4,2 / 14,0 / 40,5% | 0,9 / 10,2 / 12,6% | 11,1 / 13,8 / 15,7% |
+
+O que entrou, e por quê:
+- ~~**Unidade de tempo manda na duração**~~ — **superado por §17.10**: quantidade em MES/DIA é
+  informação, não duração (8 meses de engenheiro numa obra de 24 se diluem); a duração é da equipe.
+- **Repetições lidas pela app** (`_repeticoes`): grupos irmãos com os mesmos serviços (≥ 70% em comum,
+  3 ou mais) vão no pedido como `repeticoes` — no 22, 18 pavimentos (3.5–3.22, 46% da obra). A IA
+  fica com o ciclo; a variância do 22 estreitou.
+- **Conferência sem IA** (`_conferir`): esmagamento (faixa curta obrigada a carregar ≥ 1,6× a sua
+  parte e > 10% da obra), mês sem serviço possível, resposta grossa, serviço sem regra. Só os GRAVES
+  (esmagamento, mês sem serviço) pedem UMA correção, dentro do teto; a resposta grossa aparecia em
+  toda consulta e corrigi-la dobrava o custo sem melhorar o resultado. O que sobra vira aviso.
+- O teto mostrado passa a cobrir a correção (≈ 2× uma chamada); a consulta típica gasta uma.
+
+A curadoria é do engenheiro (e do MCP).
+
+### 17.10 A duração é da equipe; a ordem é da IA ou da EAP (2026-11-04)
+
+Completa §17.9. A hipótese de origem (incidência, intensidade, recorrência e densidade sobre as horas
+do orçamento) foi posta à prova nos seis ativos com cronograma em dev; o que dela ficou está aqui, e
+o que não ficou, registrado no fim. O documento de origem não se guarda: este contrato é a verdade.
+
+**Os indicadores** — sobre os serviços-folha fora da ALO, com as horas que a app já apura (`apurar`),
+a profissão pela família (§6). `H(i,p)` horas da profissão p no serviço i; `H` o total da obra.
+
+| Indicador | Conta | Pergunta | Papel no motor |
+|---|---|---|---|
+| Incidência | `H(p) ÷ H` | quanto do trabalho é dessa profissão | peso do Δ dela (já era: §17.9) |
+| Recorrência | serviços com p ÷ serviços com horas | em quantos serviços ela aparece | reforça o peso: `H(p) × (0,5 + R(p))` — a disseminada é equipe permanente; o especialista entra e sai |
+| Densidade | `V(i) ÷ Σp H(i,p)` (R$/h) | quanto vale o serviço por hora | consequência da regra da equipe: o elevador não se estica, porque não tem horas para isso |
+| Intensidade | valor dos serviços em que p aparece | exposição financeira | fica no termômetro como leitura; não decide |
+
+**A REGRA DA EQUIPE** (`nivelamento_service.duracao_pela_equipe`), em toda forma de preencher:
+
+- **Tempo de trabalho** do serviço: `T = H(i,k) ÷ HU-mês`, em meses de UMA pessoa, onde `k` é a
+  profissão-chave (a de mais horas no serviço) e HU-mês é a mesma hora útil da régua (`avaliar`) —
+  mudou a jornada, muda junto.
+- **Duração = T ÷ n**, com `n` pessoas, `1 ≤ n ≤ nmax`. Daí as duas regras duras:
+  - *pouca hora não dura muito*: duração ≤ T (uma pessoa, tempo integral);
+  - *muita hora não acaba curto*: duração ≥ T ÷ nmax.
+- `nmax = ⌈FATOR × efetivo médio de k⌉`, com efetivo médio = `H(k) ÷ HU-mês ÷ prazo`.
+- **FATOR** é premissa da tela (e do modal da IA), padrão **2**: "o fator determina o excedente limite
+  de profissionais por função e pode representar um aumento repentino de efetivo, gerando manejo de
+  equipe para o empreendimento. Recomendado no máximo 2." Mudar o FATOR renivela, sem nova consulta à IA (ele não
+  vai à IA nem entra na chave).
+- Serviço **sem horas** (equipamento, fornecimento) não tem regra de equipe: segue a janela que a
+  ordem lhe dá.
+- **Quantidade em MES ou DIA é informação, não duração** — o que manda é a complexidade da obra.
+- A janela que a ordem dá e que não comporta a duração mínima cresce para comportá-la. Não há
+  "prazo pela conta" por profissão: com `nmax` proporcional ao efetivo médio, a soma das horas de
+  uma profissão sempre cabe (no máximo prazo ÷ FATOR); o prazo curto aparece na SEQUÊNCIA, e quem o
+  aponta é a IA (`prazo_sugerido_meses`, §17.9) e o termômetro.
+
+**AS QUATRO FORMAS** — todas posicionam SERVIÇO A SERVIÇO pelo nivelamento (§17.9), com a regra da
+equipe; o que muda é de onde vem a ordem (a janela de cada serviço) e o peso:
+
+| Forma | Ordem | Peso |
+|---|---|---|
+| Distribuir pelo financeiro | cascata da EAP (`otimizar_sequencia`) | 100% financeiro |
+| Distribuir pela mão de obra | cascata da EAP | 100% mão de obra |
+| IA — modelo simplificado | a IA dá janela e duração (§17.9); a equipe corta a duração | o do modal |
+| IA — modelo combinado | a IA dá SÓ a ordem (janela e relações), recebendo o tempo de uma pessoa por serviço; a app calcula também a cascata da EAP e fica com a melhor pela régua | o do modal |
+
+Antes, os botões esticavam a frente inteira pelo prazo dela: 23% a 100% do valor ficava mais longo
+do que a equipe precisa — a curva lisa era física impossível.
+
+**O termômetro** mostra também o **Δ na presença** (o Δ de cada profissão só nos meses em que ela
+está em obra) e avisa quando o Δ alto vem do **porte** (profissão-chave com até 2 pessoas: uma a mais
+ou a menos já é 50%). Esse Δ é da natureza da obra; não se persegue.
+
+**A prova (04/11, peso 50/50, Δfin / Δprof; "esticado" = % do valor além do que a equipe permite).**
+Nos ativos 24 e 26, mediana de 3 consultas por variante; nos demais, uma.
+
+| ativo | IA de hoje (§17.9) | cascata EAP + equipe | IA + equipe | IA só ordem + equipe | melhor botão antigo |
+|---|---|---|---|---|---|
+| 22 | 45,9 / 87,5 (13%) | 1,1 / 40,1 | 40,7 / 88,7 | **2,6 / 30,5** | 25,6 / 28,7 (23%) |
+| 36 | 17,9 / 23,7 (7%) | 1,5 / 15,2 | 17,6 / 23,8 | **3,2 / 13,4** | 7,1 / 10,2 (23%) |
+| 25 | 47,2 / 49,6 (47%) | **0,9 / 12,6** | 48,4 / 53,6 | 8,4 / 24,8 | 0 / 0 (100%) |
+| 24 | 0,7 / 65,6 (53–58%) | 2,0 / 80,3 | **1,5 / 66,8** | 5,5 / 70,3 | 1,4 / 97,2 (95%) |
+| 26 | 14,8 / 49,3 (22–41%) | 9,9 / 66,5 | 19,4 / 52,6 | 27,2 / 49,2 | 1,1 / 74,3 (66%) |
+| 21 | 34,2 / 62,1 (43%) | 55,6 / 29,6 | 33,8 / 63,8 | 34,2 / 64,5 | 20,5 / 14,9 (100%) |
+
+Leitura: com a regra da equipe nada se estica e o Δ quase não paga por isso — os Δ baixos da IA de
+hoje vinham de esticar serviço e de sorte de rodada (no 26, 0,3 / 14,8 / 26,3 de Δfin em três
+consultas iguais). Só ordem e ordem com duração empatam onde se repetiu; a ordem pura ganha folgado
+no 22 e no 36 e segue a doutrina (a IA julga a obra, a app faz a conta). A cascata da EAP com a
+equipe, grátis e determinística, é a melhor ou perto dela em 4 de 6 — por isso o modelo combinado a
+calcula sempre, e a variação da IA não derruba o resultado. No 21 (13 serviços, 2,8 pessoas em
+média) nenhum método honesto alisa: é o porte.
+
+**Testado e descartado:**
+- a **matriz incidência × intensidade** por frente (continuidade / regularidade / concentrada /
+  acomodar) ajustando a faixa de duração: não ajudou, e o limiar de "alta" não se sustentou (quase
+  tudo caía em "acomodar");
+- o **Δ na presença como alvo do nivelamento**: não mudou nada, e piorou o Δprof do 24 (85–97%);
+  fica só como leitura;
+- a **duração dada pela IA** no modelo combinado: empatou com a ordem pura, custa o mesmo e põe a
+  conta na IA;
+- faixas de equipe arbitradas (1 pessoa a meio período / 6 pessoas): trocadas pela relação T ÷ n.
 
 ### 17.1 A chuva não precisa de parser
 
