@@ -18,7 +18,6 @@
 |---|---|---|
 | F1 | Ciclo de vida do orçamento | frente aberta |
 | F2 | Submain do orçamento | frente aberta |
-| F3 | Provisão de Medições | frente aberta |
 | F4 | Remover o id das rotas | frente aberta |
 | F5 | Associação entre fontes | frente aberta |
 | F6 | Licenciamento, capacidade e arquivamento por produto | frente aberta |
@@ -36,6 +35,7 @@
 | F18 | Segurança — RLS por schema | avaliar |
 | F19 | Verificação de desempenho — com números | em curso |
 | F20 | Modo degradado sem o R2 | avaliar |
+| F21 | Ambiente — mesmas chaves em dev e prod | frente aberta |
 
 ---
 
@@ -99,12 +99,6 @@ Eram as fases 6 e 8 do refactor do orçamento, redefinidas pelo Renan em 12/10:
 - [ ] Submain que absorve as tabs (Fontes, BDI e LS dentro do orçamento) e mostra o histórico de
       BDI/L.S. por revisão — desenho que serve os outros produtos também.
 - [ ] Recaptura granular em prod (por orçamento/composição) — nunca virou script.
-
----
-
-## F3 · Provisão de Medições — frente aberta
-
-- [ ] O card de Medições é placeholder; o simulador que funciona não tem card. Frente própria.
 
 ---
 
@@ -667,3 +661,30 @@ e retomada; o que falta é o lado de quem usa a app.
       ou escrita, e se há cópia no banco.
 - [ ] Com o mapa: decidir se precisa de modo degradado (servir do banco o que dá, enfileirar a escrita)
       ou se basta o aviso. Storage local na Render não entra (disco efêmero).
+
+---
+
+## F21 · Ambiente — mesmas chaves em dev e prod — frente aberta
+
+**Origem (Renan, 02/11, na frente das associações):** chave de dev diferente da de prod só no VALOR,
+nunca no nome. A configuração de ambiente mora em `backend/core/runtime_config.py`, e o que é afrouxado
+fora de produção nunca vale em produção.
+
+**Feito em 02/11:** login sempre pelo Hub em qualquer ambiente (saiu o login direto no banco do Hub com
+token HS256 local, `hub_db.py`), e o `.env.local` passou a `EASY_ENV=development`; o Render só sobe com
+`EASY_ENV=production` (`exige_ambiente_coerente`, no app, no worker e na API mobile); storage por
+`STORAGE_READ_DRIVER` / `STORAGE_WRITE_DRIVER` via `runtime_config.storage_drivers()`, r2/r2 forçado em
+produção, e em dev a leitura procura primeiro onde se grava.
+
+- [ ] Tirar `STORAGE_DRIVER`: as duas chaves passam a ser as únicas, em dev e no `render.yaml`
+      (prod = r2/r2, só por simetria — o código já força). Hoje ela ainda é a base quando falta uma das
+      duas e é a que o `render.yaml` declara.
+- [ ] `z_scripts_apoio/ctc/_ctc_env.py`: o apelido `CTC_STORAGE_DRIVER` → `STORAGE_DRIVER` e os
+      `CTC_STORAGE_*` do `.env.local` saem; o script lê as mesmas chaves do app.
+- [ ] Chaves sem uso no `.env.local`: `EASY_HUB_DB_URL` (o login não toca mais o banco do Hub) e o
+      que mais aparecer na varredura.
+- [ ] Vigia em `z_scripts_apoio/sanidade/`: o conjunto de chaves do `.env.local` é o mesmo do
+      `.env.prod` + `render.yaml` (diferença só no valor), com lista curta de exceções declaradas.
+- `EASY_MOBILE_STORAGE_DRIVER` **fica** como está: é a chave da API mobile, que fala sempre com o R2
+  real (o processo dela sobrescreve as chaves de storage com esse valor).
+
