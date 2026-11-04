@@ -100,7 +100,7 @@ Depois de gravado, o cronograma é a verdade da obra e dele derivam histograma, 
 | Constante | Valor | O que é | Onde vive |
 |---|---:|---|---|
 | `JORNADA_H_MES` | 220 | Fator de **remuneração**: relaciona o salário-base horário ao mensal. É a constante que a CAIXA publica para converter regime | `catalogo.parametros_normativos`, as-of |
-| `HORAS_UTEIS_MES` | 180 | Premissa de **produção**: converte horas de trabalho em gente no canteiro | `orcamento_service`, declarada na tela |
+| `HORAS_UTEIS_MES` | 180 | Premissa de **produção**: converte horas de trabalho em gente no canteiro. Só o **último recurso** da fonte única `horas_uteis_obra` (§5.1) | `orcamento_service`, declarada na tela |
 
 A fórmula oficial de conversão de regime é `custo mensalista = custo horista / (1 + ES_horista) × 220 × (1 + ES_mensalista)`, e o que atravessa a conversão é a remuneração-base. **O 220 não afirma que existam 220 horas produtivas no mês.** Usá-lo como fator de tempo produziu, no histograma, um mês com 9,89 MES de mão de obra — cerca de dez pessoas — desenhado como `0,04 colaborador`.
 
@@ -111,7 +111,7 @@ MES → a quantidade JÁ É gente-mês. 2 MES no mês são 2 colaboradores. Nada
 H   → horas de trabalho no mês ÷ horas úteis do mês.
 ```
 
-Horista e mensalista convivem no mesmo ativo (a bancada roda o regime item a item): cada balde vira gente pela sua regra e os dois se somam. **A premissa é declarada onde o número aparece** — "Colaboradores por mês (horas ÷ 180 h úteis)" —, porque sem ela ninguém confere.
+Horista e mensalista convivem no mesmo ativo (a bancada roda o regime item a item): cada balde vira gente pela sua regra e os dois se somam. **A premissa é declarada onde o número aparece** — "Colaboradores por mês (horas ÷ 179,51 h úteis)", com o número da obra (§5.1) —, porque sem ela ninguém confere.
 
 ### 5.1 As horas úteis do mês não são uma constante
 
@@ -123,6 +123,16 @@ Horista e mensalista convivem no mesmo ativo (a bancada roda o regime item a ite
 | 2 | **Persistência local.** Guardar os feriados no banco, como se guarda o histórico de índices, e servir dali quando a API cair | o mesmo, sem depender da rede |
 | 3 | **SINAPI, com férias repostas.** O livro publica 271,60 dias efetivos/ano para SP (Tabela 1.6) — mas eles descontam as férias, e férias se repõe. Devolvendo-as: 295,19 dias/ano = **180,39 h/mês** | média oficial corrigida, por UF |
 | 4 | **180 h** | último recurso — e, por coincidência aritmética, o mesmo que o nível 3 dá em SP |
+
+**Fonte única (2026-11-04).** Cronograma, histograma e pré-plano — régua (`avaliar`), nivelamento,
+pergunta à IA, botões, provisão e memorial — leem as horas úteis de **uma** função,
+`preplanejamento_service.horas_uteis_obra`. As premissas são as do pré-plano: município, início,
+prazo e tipo de obra. O que a tela manda vem primeiro; o que faltar sai do rascunho do pré-plano, e o
+prazo, da configuração do cronograma; o município do cadastro manda sobre os dois. Com as quatro, é o
+calendário do município menos a chuva; faltando alguma — cronograma montado à mão, sem pré-plano —
+são **180 h fixas**, e o rótulo diz "premissas do pré-planejamento não informadas". O pré-plano não
+deixa faltar: o Continuar exige as quatro (§17.3). O início e o tipo de obra são do pré-plano, não
+do cadastro: limpar o pré-plano os leva junto, e o cronograma volta às 180 h até novo pré-plano.
 
 O nível 2 só entra se o dado for barato de guardar — feriado municipal é volumoso e muda. Se não for viável, o nível 3 assume o posto de primeiro fallback, e ele não é inferior por acaso: é a mesma referência que precifica a obra.
 
@@ -553,7 +563,7 @@ Registro do que saiu do papel, para a próxima leitura não precisar adivinhar.
 | Associações de profissão | modal + PDF | prontas — o método à vista, porque acumular tudo na SINAPI muda quem é o gargalo |
 | Δ e carga do mês | `avaliar` | prontos — §8 |
 | Chuva | `chuva_referencia` | pronta — **B7 da SINAPI, já no banco**; não há parser de PDF a escrever (§17.1) |
-| Horas úteis | `premissa_horas_uteis` | cascata pronta: calendário do município (`catalogo.feriados`) ou o padrão, com a chuva por cima |
+| Horas úteis | `horas_uteis_obra` → `premissa_horas_uteis` | fonte única (§5.1): calendário do município (`catalogo.feriados`) com a chuva por cima; 180 h fixas sem as premissas |
 | Distribuidor | `distribuir` | V1 pronto (§17.2) |
 | Aplicar | `cronograma_service.aplicar_percents` | pronto — substituição em transação única |
 | Amarras na tela | passo 2 do fluxo | prontas — posição mínima, execução, duração máxima e precedência por linha |
@@ -568,8 +578,13 @@ Registro do que saiu do papel, para a próxima leitura não precisar adivinhar.
 A tela não é um formulário só: é um caminho, e cada passo responde uma pergunta diferente.
 
 1. **Premissas da obra** — município (destrava o calendário real), início sugerido em hoje+90d,
-   prazo, tipo de obra e as horas úteis que saem disso. Tudo já preenchido: o
-   engenheiro cura, não inventa. A escada de efetivo médio por prazo (3 a 24 meses) é a ordem de
+   prazo, tipo de obra e as horas úteis que saem disso. **As quatro são exigidas** para continuar;
+   o tipo de obra não vem marcado, porque é escolha. O município do cadastro (do ativo ou, por
+   herança, do empreendimento) vem travado. Sem ele, o usuário escolhe aqui e, ao continuar, um
+   modal pergunta se grava também no cadastro — no ativo e/ou no empreendimento; nada vai em
+   silêncio (`POST …/preplanejamento/municipio`, `service.gravar_municipio_obra`). No ativo de
+   endereço vazio, o endereço do empreendimento é copiado junto: gravar só o município o tornaria
+   "próprio" e esconderia, nos documentos, o resto do endereço herdado. A escada de efetivo médio por prazo (3 a 24 meses) é a ordem de
    grandeza com que ele dosa a escolha, e um clique nela escolhe o prazo.
 2. **Sequência Executiva** — a timeline (§17.4): o nível do cronograma, a janela de cada frente e
    as relações entre elas. É aqui que a sequência executiva passa a existir, porque a EAP não a
@@ -695,8 +710,11 @@ Durante a consulta o modal trava (sem fechar, sem duplo clique) e mostra a barra
 
 **A mesma pergunta não se paga duas vezes.** A consulta tem uma chave — o hash da planilha, das
 regras, do prazo, do calendário, do peso, do prompt, das ferramentas e do modelo — e o resultado fica no rascunho, na
-chave `ia` (as 3 mais recentes). Repetir a pergunta reaplica o guardado, sem chamar a IA nem debitar;
-o modal avisa antes. `ia` é do servidor: a tela grava o rascunho e não a apaga.
+chave `ia` — a mais recente de cada modelo (simplificado e combinado). Repetir a pergunta reaplica o
+guardado, sem chamar a IA nem debitar; o modal avisa antes. `ia` é do servidor: a tela grava o
+rascunho e não a apaga. **Só vive enquanto o pré-plano é rascunho:** o Aplicar a apaga (o registro
+já guarda a medição escolhida), e o Limpar com o pré-plano leva o rascunho inteiro (2026-11-04). Uma
+consulta pesa ~7 KB; o motivo não é espaço, é não guardar lixo sem prazo.
 
 **A regra declarada é dura.** A frente que ainda desobedece na entrega perde o perfil e
 volta ao motor, que cumpre as relações por construção; repete-se até ninguém mais desobedecer, e
@@ -752,9 +770,14 @@ só para leitura (§17.4).
 
 **Caminho crítico.** `caminho_critico` (preplanejamento_service.py): a cadeia mais longa que termina
 no último período em que cada elo é uma relação JUSTA — a frente começa exatamente quando a relação
-com a predecessora deixa. Sem relação declarada, vazio. A tela do cronograma o destaca (`.cr-critico`)
-quando o cronograma veio de um pré-plano aplicado: relações do registro, janelas do cronograma como
-está. O memorial o desenha no Gantt e no fluxograma.
+com a predecessora deixa. Sem relação declarada, vazio. A tela do cronograma o destaca (`.cr-critico`,
+só a barra lateral vermelha, com a legenda "Caminho crítico" acima da tabela — texto vermelho é da
+linha que não fecha 100%) quando o cronograma veio de um pré-plano aplicado: relações do registro,
+janelas do cronograma como está. O memorial o desenha no Gantt e no fluxograma.
+
+**Ver Fluxograma / Ver Gráfico de Gantt** (passo 2, `POST …/preplanejamento/desenho/{gantt|fluxograma}`):
+o mesmo desenho do memorial, sozinho, das mesmas premissas da tela — conferir a sequência antes do
+resultado. Valem também no pré-plano fechado, que é só leitura.
 
 ### 17.7 Os dois documentos (2026-11-04)
 
@@ -830,15 +853,20 @@ O cronograma chega preenchido por um de dois caminhos, e a provisão das mediç�
    anterior; o servidor também recusa (`medicao_cronograma.voltar`).
 
 **Limpar cronograma** (os dois fluxos): o cronograma fica sem preenchimento — itens, provisão e trava
-saem juntos. É como se o Aplicar nunca tivesse acontecido: o rascunho perde `aplicado` e o pré-plano
-reabre editável, com o trabalho dele, para retomar ou desistir.
+saem juntos. O pré-plano é escolha do usuário, numa caixa do modal **marcada por padrão** ("Limpar
+também o preenchimento do pré-planejamento", campo `preplano`): marcada, o rascunho sai inteiro,
+consultas de IA junto; desmarcada, o rascunho só perde `aplicado` e o pré-plano reabre editável, com
+o trabalho dele. O padrão é limpar:
+um pré-plano preenchido, com os passos verdes, sobre um cronograma vazio dizia que havia trabalho
+onde não havia (2026-11-04).
 
-**Reiniciar pré-planejamento** (`POST …/preplanejamento/reiniciar`): só existe com o pré-plano
-aplicado, no fim do passo 3 (**Resultado**), atrás de um modal. Faz o Limpar e zera o rascunho,
-menos as consultas de IA guardadas (`ia`).
+**Reiniciar pré-planejamento** (`POST …/preplanejamento/reiniciar`): o mesmo Limpar, sempre com o
+pré-plano, oferecido na
+tela do pré-plano. Só existe com o pré-plano aplicado, na linha dos três passos, à direita, atrás de
+um modal.
 
 **Consultas anteriores** (`GET …/preplanejamento/sequencia/ia/anteriores`): o modal da IA lista as
-guardadas (as 3 mais recentes: data, prazo, nível, peso, AxysCoins pagos) e oferece **Reaplicar**
+guardadas (a mais recente de cada modelo: data, prazo, nível, peso, AxysCoins pagos) e oferece **Reaplicar**
 sem nova consulta — a medição é por serviço, então vale em qualquer nível; só o prazo tem de ser o
 mesmo.
 
@@ -916,18 +944,18 @@ a profissão pela família (§6). `H(i,p)` horas da profissão p no serviço i; 
 - **Duração = T ÷ n**, com `n` pessoas, `1 ≤ n ≤ nmax`. Daí as duas regras duras:
   - *pouca hora não dura muito*: duração ≤ T (uma pessoa, tempo integral);
   - *muita hora não acaba curto*: duração ≥ T ÷ nmax.
-- `nmax = ⌈FATOR × efetivo médio de k⌉`, com efetivo médio = `H(k) ÷ HU-mês ÷ prazo`.
-- **FATOR** é premissa da tela (passo 1, e só lá), padrão **2**: "o fator determina o excedente limite
-  de profissionais por função e pode representar um aumento repentino de efetivo, gerando manejo de
-  equipe para o empreendimento. Recomendado no máximo 2." Mudar o FATOR renivela, sem nova consulta à IA (ele não
-  vai à IA nem entra na chave).
+- `nmax = ⌈efetivo necessário de k⌉`, com efetivo necessário = `H(k) ÷ HU-mês ÷ prazo` — o número
+  que a tela mostra em **Alocação por função** para o prazo escolhido. É regra do back, não premissa:
+  quem a governa é o PRAZO, que o usuário escolhe olhando a relação de efetivo por prazo e por função.
+  Prazo curto sobe o teto sozinho (o efetivo necessário cresce), e com esse teto **todo serviço cabe
+  no prazo**: as horas de um serviço não passam das da profissão na obra, então `T ÷ nmax ≤ prazo`.
 - Serviço **sem horas** (equipamento, fornecimento) não tem regra de equipe: segue a janela que a
   ordem lhe dá.
 - **Quantidade em MES ou DIA é informação, não duração** — o que manda é a complexidade da obra.
 - A janela que a ordem dá e que não comporta a duração mínima cresce para comportá-la. Não há
-  "prazo pela conta" por profissão: com `nmax` proporcional ao efetivo médio, a soma das horas de
-  uma profissão sempre cabe (no máximo prazo ÷ FATOR); o prazo curto aparece na SEQUÊNCIA, e quem o
-  aponta é a IA (`prazo_sugerido_meses`, §17.9) e o termômetro.
+  "prazo pela conta" por profissão: com `nmax` do efetivo necessário, a soma das horas de uma
+  profissão sempre cabe no prazo; o prazo curto aparece na SEQUÊNCIA, e quem o aponta é a IA
+  (`prazo_sugerido_meses`, §17.9) e o termômetro.
 
 **AS QUATRO FORMAS** — todas posicionam SERVIÇO A SERVIÇO pelo nivelamento (§17.9), com a regra da
 equipe; o que muda é de onde vem a ordem (a janela de cada serviço) e o peso:
@@ -974,7 +1002,15 @@ média) nenhum método honesto alisa: é o porte.
   fica só como leitura;
 - a **duração dada pela IA** no modelo combinado: empatou com a ordem pura, custa o mesmo e põe a
   conta na IA;
-- faixas de equipe arbitradas (1 pessoa a meio período / 6 pessoas): trocadas pela relação T ÷ n.
+- faixas de equipe arbitradas (1 pessoa a meio período / 6 pessoas): trocadas pela relação T ÷ n;
+- o **FATOR de equipe** sobre o efetivo médio (`nmax = ⌈FATOR × efetivo⌉`, premissa da tela, padrão
+  2): a varredura de 04/11 nos 6 ativos de dev, no prazo de cada um, deu o mesmo resultado de 1 a 4
+  (no 22, o maior, o 1 foi o melhor) — o arredondamento para cima e o prazo já fazem o trabalho. Saiu
+  da tela e do código; o teto é o efetivo necessário (fator 1);
+- **sugerir o prazo pela regularidade**: com a regra da equipe, o Δ melhora quanto MAIS CURTO o prazo
+  (prazo longo deixa meses vazios, porque o serviço não se estica) — ele apontaria sempre o mínimo,
+  com efetivo absurdo (no 22, 1.922 pessoas em 2 meses). O que limita a compressão é físico (gente no
+  canteiro), e a tela já mostra o efetivo por prazo e por função: o prazo é decisão do usuário.
 
 ### 17.1 A chuva não precisa de parser
 
