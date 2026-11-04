@@ -1778,6 +1778,7 @@ CREATE TABLE IF NOT EXISTS commercial.campaign_registration (
     utm_campaign         TEXT,
     referrer_url         TEXT,
     source_platform      TEXT        NOT NULL DEFAULT 'other',
+    acquisition_source   TEXT        NOT NULL DEFAULT 'META',
     confirmation_email_sent_at    TIMESTAMPTZ,
     confirmation_whatsapp_sent_at TIMESTAMPTZ,
     confirmation_last_error       TEXT,
@@ -1794,6 +1795,9 @@ CREATE TABLE IF NOT EXISTS commercial.campaign_registration (
     CONSTRAINT ck_campaign_registration_email CHECK (btrim(email) <> ''),
     CONSTRAINT ck_campaign_registration_phone CHECK (phone ~ '^\d{10,15}$'),
     CONSTRAINT ck_campaign_registration_platform CHECK (source_platform IN ('ios', 'android', 'other')),
+    CONSTRAINT ck_campaign_registration_acquisition_source CHECK (
+        acquisition_source IN ('META', 'EASY_MOBILE', 'CONTATOS_RENAN')
+    ),
     CONSTRAINT fk_campaign_registration_visitor FOREIGN KEY (visitor_id)
         REFERENCES analytics.visitor (visitor_id) ON DELETE SET NULL,
     CONSTRAINT fk_campaign_registration_session FOREIGN KEY (session_id)
@@ -1806,6 +1810,38 @@ CREATE UNIQUE INDEX IF NOT EXISTS uq_campaign_registration_phone
     ON commercial.campaign_registration (campaign_code, phone);
 CREATE INDEX IF NOT EXISTS idx_campaign_registration_created
     ON commercial.campaign_registration (campaign_code, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_campaign_registration_source_created
+    ON commercial.campaign_registration (campaign_code, acquisition_source, created_at DESC);
+
+CREATE TABLE IF NOT EXISTS commercial.campaign_invitation (
+    invitation_uuid UUID NOT NULL DEFAULT gen_random_uuid(),
+    campaign_code TEXT NOT NULL,
+    acquisition_source TEXT NOT NULL,
+    recipient_key TEXT NOT NULL,
+    recipient_name TEXT NOT NULL,
+    recipient_email TEXT,
+    recipient_phone TEXT,
+    channel TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'PENDING',
+    is_test BOOLEAN NOT NULL DEFAULT false,
+    sent_at TIMESTAMPTZ,
+    last_error TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    CONSTRAINT campaign_invitation_pkey PRIMARY KEY (invitation_uuid),
+    CONSTRAINT ck_campaign_invitation_source CHECK (acquisition_source IN ('EASY_MOBILE', 'CONTATOS_RENAN')),
+    CONSTRAINT ck_campaign_invitation_channel CHECK (channel IN ('EMAIL', 'WHATSAPP')),
+    CONSTRAINT ck_campaign_invitation_status CHECK (status IN ('PENDING', 'SENT', 'FAILED', 'SKIPPED')),
+    CONSTRAINT ck_campaign_invitation_recipient CHECK (
+        (channel = 'EMAIL' AND recipient_email IS NOT NULL)
+        OR (channel = 'WHATSAPP' AND recipient_phone IS NOT NULL)
+    ),
+    CONSTRAINT uq_campaign_invitation_delivery UNIQUE (
+        campaign_code, acquisition_source, recipient_key, channel, is_test
+    )
+);
+CREATE INDEX IF NOT EXISTS idx_campaign_invitation_status
+    ON commercial.campaign_invitation (campaign_code, acquisition_source, status, created_at DESC);
 
 -- ------------------------------------------------------------
 -- analytics.visitor_identity_link
