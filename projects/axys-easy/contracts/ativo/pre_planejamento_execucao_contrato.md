@@ -917,7 +917,7 @@ a profissão pela família (§6). `H(i,p)` horas da profissão p no serviço i; 
   - *pouca hora não dura muito*: duração ≤ T (uma pessoa, tempo integral);
   - *muita hora não acaba curto*: duração ≥ T ÷ nmax.
 - `nmax = ⌈FATOR × efetivo médio de k⌉`, com efetivo médio = `H(k) ÷ HU-mês ÷ prazo`.
-- **FATOR** é premissa da tela (e do modal da IA), padrão **2**: "o fator determina o excedente limite
+- **FATOR** é premissa da tela (passo 1, e só lá), padrão **2**: "o fator determina o excedente limite
   de profissionais por função e pode representar um aumento repentino de efetivo, gerando manejo de
   equipe para o empreendimento. Recomendado no máximo 2." Mudar o FATOR renivela, sem nova consulta à IA (ele não
   vai à IA nem entra na chave).
