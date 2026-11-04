@@ -128,9 +128,12 @@ Horista e mensalista convivem no mesmo ativo (a bancada roda o regime item a ite
 pergunta à IA, botões, provisão e memorial — leem as horas úteis de **uma** função,
 `preplanejamento_service.horas_uteis_obra`. As premissas são as do pré-plano: município, início,
 prazo e tipo de obra. O que a tela manda vem primeiro; o que faltar sai do rascunho do pré-plano, e o
-prazo, da configuração do cronograma; o município do cadastro manda sobre os dois. Com as quatro, é o
-calendário do município menos a chuva; faltando alguma — cronograma montado à mão, sem pré-plano —
-são **180 h fixas**, e o rótulo diz "premissas do pré-planejamento não informadas". O pré-plano não
+prazo, da configuração do cronograma; o município do cadastro manda sobre os dois. Com município,
+início e prazo, é o calendário do município; o tipo de obra acrescenta o desconto da chuva (a conta
+avança a cada premissa informada). Faltando uma das três — cronograma montado à mão, sem pré-plano —
+são **180 h fixas**, e o rótulo diz o que falta. **Horas informadas** pelo usuário (caixa "informar"
+ao lado do valor, chave `hu_inf` do rascunho) mandam sobre tudo: a obra de jornada reduzida não cabe
+em calendário nenhum. O pré-plano não
 deixa faltar: o Continuar exige as quatro (§17.3). O início e o tipo de obra são do pré-plano, não
 do cadastro: limpar o pré-plano os leva junto, e o cronograma volta às 180 h até novo pré-plano.
 
@@ -584,7 +587,7 @@ A tela não é um formulário só: é um caminho, e cada passo responde uma perg
    modal pergunta se grava também no cadastro — no ativo e/ou no empreendimento; nada vai em
    silêncio (`POST …/preplanejamento/municipio`, `service.gravar_municipio_obra`). No ativo de
    endereço vazio, o endereço do empreendimento é copiado junto: gravar só o município o tornaria
-   "próprio" e esconderia, nos documentos, o resto do endereço herdado. A escada de efetivo médio por prazo (3 a 24 meses) é a ordem de
+   "próprio" e esconderia, nos documentos, o resto do endereço herdado. A escada de efetivo médio por prazo (3 a 24 meses, de 3 em 3, e 36, 48 e 60 — o teto razoável de uma obra) é a ordem de
    grandeza com que ele dosa a escolha, e um clique nela escolhe o prazo.
 2. **Sequência Executiva** — a timeline (§17.4): o nível do cronograma, a janela de cada frente e
    as relações entre elas. É aqui que a sequência executiva passa a existir, porque a EAP não a
@@ -852,8 +855,10 @@ O cronograma chega preenchido por um de dois caminhos, e a provisão das mediç�
    medições mostra a origem, com link para o pré-plano, e **não oferece Voltar ao anterior** — não há
    anterior; o servidor também recusa (`medicao_cronograma.voltar`).
 
-**Limpar cronograma** (os dois fluxos): o cronograma fica sem preenchimento — itens, provisão e trava
-saem juntos. O pré-plano é escolha do usuário, numa caixa do modal **marcada por padrão** ("Limpar
+**Limpar cronograma** (os dois fluxos): o cronograma volta ao estado de nunca montado — itens,
+provisão, trava **e a configuração (prazo e nível)** saem juntos, e a tela pede prazo e nível de
+novo. Sobrar o prazo antigo foi defeito: o pré-plano reabria com ele preenchido, quando o prazo é
+premissa exigida dele (2026-11-04). O pré-plano é escolha do usuário, numa caixa do modal **marcada por padrão** ("Limpar
 também o preenchimento do pré-planejamento", campo `preplano`): marcada, o rascunho sai inteiro,
 consultas de IA junto; desmarcada, o rascunho só perde `aplicado` e o pré-plano reabre editável, com
 o trabalho dele. O padrão é limpar:

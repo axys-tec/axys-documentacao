@@ -69,6 +69,12 @@ Contrato que já existe e é ponto de partida:
       compartilhada com revisão anterior tem de cloná-la); o `{versao}` da URL apontando de verdade
       para a revisão.
 - [ ] **Contrato do ciclo de estados** — não existe; nasce com esta frente.
+- [ ] **Cronograma, pré-plano e histograma só com orçamento FECHADO (04/11/2026).** Hoje quebra em
+      silêncio: o usuário gera o cronograma ou o pré-plano, volta e mexe no orçamento, e cronograma,
+      provisão das medições, histograma e pré-plano ficam desatualizados sem nada acusar — o pior que
+      um sistema pode permitir. Regra: entrar em cronograma/pré-plano exige o orçamento no estado
+      fechado (depende do Concluir acima); reabrir o orçamento invalida o que derivou dele, às
+      claras. Resolver junto com o ciclo de estados.
 - [ ] **Composição própria sem descritivo no Caderno de Encargos.** Decidido em 11/10: não entra no
       caderno, e antes de gerar a tela **lista e pergunta** — *"Existem composições sem descritivo e
       estas serão ignoradas na montagem do Caderno de Encargos"*, com a lista (código + descrição, e a

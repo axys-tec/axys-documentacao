@@ -129,6 +129,27 @@ O cronograma é **escravo do valor** do orçamento, **dono da distribuição** t
 
 ---
 
+## 8.1 Provisão das medições e histograma (2026-11-04)
+
+**O histograma deriva da provisão das medições, não do percentual da etapa.** É a provisão que diz o
+que cada serviço executa em cada mês, com a última medição zerando o saldo; o histograma abre a
+composição de cada serviço sobre a quantidade medida no mês (`get_histograma`, via
+`simular_medicoes`). Assim ele fecha 100% por construção e nunca extrapola, e cronograma, medições e
+histograma têm a mesma granularidade — com ou sem pré-plano. As horas viram colaboradores pelas
+horas úteis da obra (fonte única, `horas_uteis_obra`; contrato do pré-planejamento §5.1).
+
+**Sem provisão não há histograma, e nada se cria em silêncio.** A tela do histograma abre com um
+modal que pede para provisionar as medições (e leva até elas); PDF e Excel dizem o mesmo; o
+agrupamento do empreendimento não sai se algum ativo não tem provisão.
+
+**O cronograma avisa.** Com o preenchimento 100% e sem erro (`preenchimento_completo`: montado, sem
+ERR/SEM CUSTO, sem serviço fora de linha, toda folha não-ALO fechando 100%) e ainda sem provisão, a
+tela mostra no topo: "Ainda não foram provisionadas as medições. Provisione-as antes de seguir para a
+conclusão." Antes de 100% não há aviso: provisionar um cronograma que ainda vai mudar não serve.
+
+**Limpar cronograma** apaga preenchimento, provisão, trava e a configuração (prazo e nível): volta ao
+estado de nunca montado.
+
 ## 9. Invariantes (cravados — valem nas três portas)
 
 1. **Cronograma é projeção temporal da árvore**, não uma segunda árvore. Não cria/deleta itens.
