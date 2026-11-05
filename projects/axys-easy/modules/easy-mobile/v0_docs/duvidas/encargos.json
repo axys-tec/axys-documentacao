@@ -24,6 +24,7 @@
       "id": "diferenca-horista-mensalista",
       "pergunta": "Por que horista e mensalista apresentam percentuais de encargos diferentes?",
       "resposta_direta": "Porque os regimes distribuem de forma diferente os dias remunerados, as horas produtivas e as obrigações trabalhistas. Percentuais distintos não significam necessariamente custos totais incompatíveis.",
+      "descricao_seo": "Horista e mensalista distribuem de outra forma dias remunerados e horas produtivas. Percentual maior não significa custo maior por unidade de serviço.",
       "explicacao_md": "No cálculo horista, diversas ausências e descansos remunerados precisam ser representados sobre a hora efetivamente trabalhada. No mensalista, parte desses efeitos já está incorporada ao salário do mês e a estrutura percentual muda. A comparação correta deve levar ambos a uma mesma unidade de produção, e não confrontar apenas as taxas finais.",
       "exemplo_md": "Uma taxa horista aparentemente maior pode produzir custo equivalente ao mensalista depois que salário, jornada mensal e coeficiente são harmonizados. O que importa é o custo por unidade do serviço.",
       "ressalva_md": "Não escolha o regime pelo menor percentual. A escolha deve refletir vínculo, jornada, forma de apropriação da mão de obra e parâmetros oficiais aplicáveis ao orçamento.\n\nComo verificação final, confira a data-base, a localidade, o regime de trabalho e a versão da referência utilizada. Pequenas diferenças nesses parâmetros alteram os percentuais e podem comprometer a comparação entre planilhas que, à primeira vista, parecem equivalentes.",
@@ -32,6 +33,24 @@
           "tipo": "url",
           "rotulo": "SINAPI Metodologias e Conceitos",
           "url": "https://www.caixa.gov.br/Downloads/sinapi-metodologia/Livro_SINAPI_Metodologias_Conceitos.pdf"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Encargos sociais: por que horista e mensalista não se convertem por regra de três",
+          "grupo": "ARTIGOS",
+          "id": "encargos-sociais-horista-mensalista"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Horista para mensalista: o que a conversão preserva",
+          "grupo": "ARTIGOS",
+          "id": "horista-para-mensalista-o-que-a-conversao-preserva"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Como converter encargos do regime horista para mensalista?",
+          "grupo": "DUVIDAS",
+          "id": "converter-horista-mensalista"
         }
       ],
       "publicado_em": "2026-08-22",

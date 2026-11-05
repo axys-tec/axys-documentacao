@@ -78,6 +78,7 @@
       "id": "comparacao-orcamento-onerado-desonerado",
       "titulo": "Escolha entre orçamento onerado e desonerado",
       "chamada": "A comparação precisa usar premissas equivalentes e considerar o regime vigente na data-base do orçamento.",
+      "descricao_seo": "Como comparar planilhas oneradas e desoneradas com premissas equivalentes, regime vigente na data-base e justificativa técnica da escolha.",
       "assuntos": [
         "encargos-sociais",
         "desoneracao-da-folha",

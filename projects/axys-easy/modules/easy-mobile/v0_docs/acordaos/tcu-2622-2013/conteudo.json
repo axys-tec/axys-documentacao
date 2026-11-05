@@ -38,6 +38,24 @@
       "rotulo": "Simples Nacional",
       "grupo": "TERMINOLOGIA",
       "id": "simples-nacional"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "O que o Acórdão 2622/2013 realmente diz sobre BDI",
+      "grupo": "ARTIGOS",
+      "id": "o-que-o-acordao-2622-2013-realmente-diz-sobre-bdi"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Administração local: o que é e como medir",
+      "grupo": "ARTIGOS",
+      "id": "administracao-local-o-que-e-e-como-medir"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Imposto por dentro, imposto por fora: como essa diferença muda o BDI",
+      "grupo": "ARTIGOS",
+      "id": "imposto-por-dentro-imposto-por-fora"
     }
   ],
   "publicado_em": "2026-08-21"
