@@ -36,6 +36,7 @@
 | F20 | Modo degradado sem o R2 | avaliar |
 | F21 | Ambiente — mesmas chaves em dev e prod | frente aberta |
 | F22 | AxysCoin pelo programa de preços | frente aberta |
+| F23 | Axys fala com o usuário — o sino do header | frente aberta |
 
 ---
 
@@ -711,3 +712,58 @@ IAs do Easy (descritivo, associações, pré-planejamento).
       duro do pré-planejamento (§17.5) continua valendo, convertido pela mesma régua.
 - [ ] Coordenar com o Hub, que guarda o saldo: o débito passa a carregar o custo em US$ além dos tokens.
 
+
+---
+
+## F23 · Axys fala com o usuário — o sino do header — frente aberta
+
+**Origem (Renan, 05/11/2026):** o conserto de cache de hoje (`80cbdba`) descreveu o estrago que a
+app podia causar em silêncio — a bancada precificando a edição vigente com o preço de ANTES de um
+reimport, estrutura nova sobre preço velho. O cache está consertado, mas o buraco de GOVERNANÇA que
+ele revelou não é de cache: **quando o catálogo muda debaixo de um orçamento, ninguém conta ao dono
+do orçamento.** É isso que esta frente abre.
+
+**A regra que governa a frente, e não se negocia:** mexer no catálogo **NUNCA** mexe no orçamento.
+Nada de recapturar preço, nada de "atualizar sozinho", nada de tocar item. O catálogo muda; a app
+**avisa** quem tem item desatualizado e diz **exatamente o que aconteceu**. Quem decide atualizar é
+o usuário, pela ação deliberada que já existe (`converter_precos`) — a notificação aponta para ela,
+nunca a executa. Orçamento é peça de responsabilidade técnica assinada: valor que muda sem ato do
+autor é defeito, não conveniência.
+
+**O que existe hoje** (para não começar do zero, nem duplicar): o sino está em
+`partials/app_header.html` (`#ae-notif-bell`, `.ae-notif-dot`, `.ae-notif-pop`) com
+`static/js/easy_notificacoes.js`. Mas ele é **insuficiente por três razões de fundo**, não por
+acabamento:
+
+- **só equipe interna** — o markup está dentro do gate `{% if axys_user.is_staff %}` e
+  `/api/import/ativo` exige `exige_internal_user`. O cliente não vê sino nenhum;
+- **só um assunto** — fala exclusivamente do import de edição em andamento/concluído;
+- **sem memória** — o estado vive na sessão do servidor e a dispensa num `localStorage` por
+  navegador. Nada é durável, nada é por usuário, nada sobrevive a trocar de máquina.
+
+Ou seja: hoje é um indicador de progresso de import para quem importa. A frente é transformá-lo num
+**canal de comunicação da Axys com o usuário**, e a primeira mensagem dele é a do catálogo.
+
+- [ ] **Rito primeiro, código depois.** Que fato gera mensagem (publicar edição, recall+reimport,
+      composição descontinuada, insumo sem preço na nova edição, associação trocada), quem recebe,
+      quanto tempo a mensagem vive, o que a dispensa significa. Sem isso o sino vira mural de ruído
+      e o usuário aprende a ignorá-lo — que é pior do que não ter.
+- [ ] **O conjunto afetado.** De (fonte, edição) que mudou → itens de orçamento vinculados → ativos
+      → tenants → usuários. O filtro dos itens vinculados já está escrito e é o MESMO de
+      `converter_precos` — ver `itens_do_orcamento` em `modules/ativo/orcamento_service.py`. Não
+      inventar um segundo critério de "item afetado": dois critérios divergem com o tempo.
+- [ ] **A mensagem diz o que aconteceu**, em substantivo e número, não em aviso genérico: qual fonte,
+      qual edição saiu e qual entrou, quantos itens de qual ativo, e o que muda se ele atualizar.
+      Nada de "há atualizações disponíveis".
+- [ ] **Persistência**: tabela durável por destinatário (lida/dispensada/expirada), auditada como
+      todo CRUD (`audit.logs`), com `tenant_id`. Schema novo nasce com a
+      migration no mesmo commit (AGENTS.md).
+- [ ] **Abrir o sino ao cliente** sem abrir o endpoint de import: o canal passa a ser por usuário, e
+      o import continua sendo assunto de equipe interna dentro dele.
+- [ ] **Desligar é direito do usuário** (preferência por tipo de mensagem), e o canal nunca é o
+      único caminho: a tela do orçamento tem de mostrar o mesmo estado de desatualização sem
+      depender de alguém ter visto o sino.
+
+**Fronteira com F14** (identidade da fonte, import e resíduos): F14 trata do que o catálogo faz com
+os dados; F23 trata do que a app CONTA a quem depende deles. A mudança de catálogo que F14 governa é
+o gatilho; a mensagem é desta frente.
