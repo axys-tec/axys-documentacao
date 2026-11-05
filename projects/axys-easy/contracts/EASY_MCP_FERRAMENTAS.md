@@ -77,6 +77,8 @@ pelo conteúdo (estrutura com remover; composição fora do orçamento).
 | [`easy_preplano_mover_servico`](#easy_preplano_mover_servico) | Prévia | tarefa | Easy Orça | Mover serviço |
 | [`easy_preplano_limpar_ajustes`](#easy_preplano_limpar_ajustes) | Prévia | tarefa | Easy Orça | Limpar ajustes finos |
 | [`easy_preplano_renivelar`](#easy_preplano_renivelar) | Prévia | tarefa | Easy Orça | Renivelar |
+| [`easy_preplano_relacao`](#easy_preplano_relacao) | Prévia | sempre | Easy Orça | Relação entre frentes |
+| [`easy_preplano_axys_intelligence`](#easy_preplano_axys_intelligence) | Prévia | sempre | Easy Orça | Consultar a Axys Intelligence |
 
 ## easy_guia
 
@@ -841,6 +843,30 @@ PRÉVIA de tirar os ajustes finos — de todos os serviços, ou só dos informad
 **Renivelar** · Prévia · Easy Orça · confirmação: tarefa
 
 PRÉVIA de renivelar a sequência com outro equilíbrio: `peso_financeiro_pct` (0–100) é o peso do financeiro regular; o resto vai para a equipe estável. É a régua "Aplicar ao Pré-Planejamento" da tela, sem nova consulta e sem custo. Os serviços com ajuste fino ficam onde estão. Exige consulta da Axys Intelligence.
+
+| Parâmetro | Tipo | Obrigatório |
+|---|---|---|
+| `ativo` | texto | sim |
+| `peso_financeiro_pct` | inteiro |  |
+
+## easy_preplano_relacao
+
+**Relação entre frentes** · Prévia · Easy Orça · confirmação: sempre
+
+PRÉVIA de incluir, trocar ou retirar a relação entre duas frentes (`tipo`: so_depois, ligeiramente_apos, concomitante ou remover) — inclusive as que o engenheiro declarou. Se a sequência atual não cumprir a relação nova, ela é renivelada (com a ordem da Axys Intelligence e os ajustes finos presos); sem consulta da IA, a prévia recusa. Ciclo é recusado. No aplicar, o Easy pede o ACEITE do usuário no próprio cliente.
+
+| Parâmetro | Tipo | Obrigatório |
+|---|---|---|
+| `ativo` | texto | sim |
+| `frente` | texto | sim |
+| `depende_de` | texto | sim |
+| `tipo` | so_depois | ligeiramente_apos | concomitante | remover | sim |
+
+## easy_preplano_axys_intelligence
+
+**Consultar a Axys Intelligence** · Prévia · Easy Orça · confirmação: sempre
+
+PRÉVIA da consulta PAGA da Axys Intelligence para a ordem da obra, com as premissas guardadas do pré-plano: mostra o teto em AxysCoins e o aviso de débito. Só no rascunho e sem ajustes finos; uma consulta por pré-plano (outra pede excluir a atual pela tela). Saldo insuficiente é recusado aqui. No aplicar, o Easy pede o ACEITE do usuário no próprio cliente; a resposta vai ao log junto da cobrança. A mesma pergunta já feita devolve a guardada, sem custo.
 
 | Parâmetro | Tipo | Obrigatório |
 |---|---|---|
