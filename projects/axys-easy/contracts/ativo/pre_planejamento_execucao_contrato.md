@@ -191,6 +191,20 @@ Quase 4% de capacidade entre a primeira linha e a terceira — meio mês de obra
 | **tipologia** (o 2º fator) | troca os 20% de atividades que exigem bom tempo | *tipologia declarada: infraestrutura, 80%* |
 | **dias de parada** diretos | só calcula | *parada informada pelo orçamentista* |
 
+**Em uso hoje (2026-11-05): a referência e o percentual direto.** O passo 1 tem "Perdas por chuva" com
+"Usar do SINAPI" marcado por padrão — mostra a perda da referência, ajustada ao tipo de obra.
+Desmarcado, o percentual informado vale direto como redução das horas disponíveis (`chuva_inf`,
+guardado no rascunho como as horas úteis informadas), o calendário e os feriados ficam, e o tipo de
+obra deixa de entrar (só ajusta o índice da SINAPI) e de ser exigido. Horas úteis informadas mandam
+sobre ela. O memorial diz: "utilizou-se a referência de X%, informada pelo responsável pelo
+planejamento, sendo este o percentual aferido dos impactos das chuvas no cronograma do
+empreendimento". Os níveis de dias de chuva da região e de tipologia livre seguem como desenho.
+
+**O percentual direto não pede fonte (decisão de 2026-11-05).** Quem desmarca a referência sabe o que
+está fazendo e anexa ao documento a origem do número; o memorial já diz que ele foi informado pelo
+responsável pelo planejamento. A regra abaixo vale para o nível de dias de chuva da região, ainda não
+implementado.
+
 **Fonte e período são obrigatórios quando o dado é do usuário.** Sem eles, "143 dias" vale menos que os 129 da referência, porque tem cara de medição e é palpite. Com eles, vira o melhor dado do documento — e em obra pública isso é comum: quem vai a uma CAT, a uma Casa da Agricultura ou à defesa civil e traz a série do município está trazendo dado **melhor** que o da capital, não pior.
 
 **O primeiro fator continua se aplicando sobre o dado local**, e a razão é que o usuário normalmente traz *dias com precipitação*, não *dias em que a obra parou* — e é exatamente isso que o fator traduz. Quem tiver diário de obra com paradas reais entra pelo último nível, e aí não há fator nenhum a aplicar.
@@ -1046,6 +1060,55 @@ espremia tudo em blocos curtos (ativo 22: Δ financeiro 0,4% → 46%, oscilaçã
 os testes, nivelava pelo Δ por profissão (a régua que espalha a função) e não tinha `diluir`. As
 consultas dele guardadas em rascunho não se reaplicam mais. O modal não oferece escolha: diz o que a
 Axys Intelligence faz, o teto de AxysCoins e, em vermelho, que o valor é debitado sem volta.
+
+**A IA lê no nível 5 (2026-11-05).** Qualquer que seja o nível da tela, a planilha vai à IA no nível
+mais fundo que o cronograma aceita, até o 5 (`NIVEL_IA`, `nivel_da_ia` — o mesmo crivo que trava os
+níveis na tela: nenhum serviço sem linha). Os níveis de cima derivam dele: a tela agrupa a resposta no
+nível dela pelo `reagrupar`. As regras declaradas nas frentes da tela descem às frentes do nível da IA
+(`_amarras_no_nivel`: a predecessora vira a primeira descendente dela, a última no "só depois"). Trocar
+o nível da tela nunca pede consulta nova — a pergunta é a mesma.
+
+**Exportar MS Project (2026-11-05).** Rodapé de Resultados: o XML do Project (MSPDI), para editar lá —
+abre no Project, no ProjectLibre e no GanttProject, e é o único formato que leva as predecessoras sem
+assistente de importação (planilha e CSV não levam). Vão a árvore da EAP (grupos como tarefas-resumo),
+as datas pelo calendário da obra (feriados do município como exceções, 8,8 h/dia), as relações ("só
+depois" → término-início; "concomitante" → início-início; "ligeiramente após" → início-início com 5
+dias de defasagem), o valor da linha como custo fixo e a distribuição mensal na nota. As tarefas vão
+MANUAIS: o Project abre com as datas do pré-plano, sem recalculá-las pelas ligações. XLSX não entra:
+o cronograma já exporta a mesma planilha.
+
+**A ordem é garantida: nenhuma inversão (2026-11-05).** O nivelamento é busca local — move um serviço por
+vez — e a relação cobrada só pelo início da frente o deixava empacar com a sucessora antes da
+predecessora (ativo 24: vigas no mês 2, pilares no 5; inversões também no 22 e no 26, que ninguém via).
+Agora, em três camadas: (1) o nivelamento cobra, além do tipo declarado pela frente, o PISO por
+serviço — nenhum serviço da sucessora começa antes do início da predecessora; (2) a inversão que
+sobrar aperta a janela dos serviços sucessores e o nivelamento roda de novo (`RODADAS_ORDEM`),
+reequilibrando já dentro da ordem; (3) por último, depois da peça inteira, a trava empurra a sucessora
+para o mês em que a predecessora começa (`_impoe_relacoes`), e a frente sem serviço medido também começa
+ali. O TIPO declarado ("ligeiramente após", "só depois") segue como regra forte do nivelamento, não como
+trava: a IA pensa em semanas, e numa obra de 3 ou 4 meses a cadeia pilar → viga → laje → telhado não
+cabe em "um mês depois" a cada elo — apertá-lo espremia a obra (ativo 36: Δfin 28% → 63%). Medido nos
+ativos 22, 24, 26 e 36: zero inversões, com Δfin e oscilação iguais ou melhores (24: 15,7% → 7,6%).
+
+**O caminho crítico é o dominante (2026-11-05).** Da frente que termina a obra volta-se sempre pela
+predecessora que mais a prende (menor folga), até uma sem predecessora. Antes eram só as relações justas,
+e num cronograma nivelado a cadeia quebrava no meio (ativo 24: "10.1 → 10.2 → 15.3"). Se a cadeia não
+chega à origem, ela parte do primeiro item da EAP que não seja ALO. Entre as que chegam, vence a mais
+longa; a frente que ocupa a obra inteira (canteiro, contêiner) não é fim de caminho — no ativo 22,
+"2.1 → 2.3 contêineres" ganhava das vigas e lajes pavimento a pavimento. No Gantt o caminho fica só nas
+setas (nome e barra em azul, as demais setas em cinza); quem destaca as frentes é o fluxograma, que
+pagina por blocos de colunas em vez de encolher a caixa (36 meses, ~60 degraus: 5 páginas legíveis).
+
+**A consulta é única por pré-plano (2026-11-05).** O modal tem duas fases. Antes da consulta: o
+que a Axys Intelligence faz, o teto em AxysCoins e, num segundo quadro em vermelho, que o débito não
+tem volta; Cancelar e Solicitar no meio do modal; sem régua. Ao voltar, o resultado preenche a grade
+da Sequência e o modal fica, agora com o LOG da consulta (quando, quem, prazo, nível, AxysCoins,
+tempo, serviços, relações e diluídos — sem os avisos da IA), a régua "Mais regular em" e um quadro
+dizendo que ela se altera e se aplica livremente, sem custo. A régua renivela na hora; o nível
+reagrupa sozinho. Outra pergunta é recusada (409): consultar de novo pede EXCLUIR a consulta — na
+linha do log, com confirmação ali mesmo —, o que vai ao log (DELETE) e não devolve AxysCoins. O
+PRAZO fica preso à consulta (a tela trava o campo e a escada; o servidor recusa outro prazo) até
+ela ser excluída. Consultas de antes deste desenho (sem log) não prendem nada.
 
 **A cobrança vai ao log.** Toda consulta que chama a IA grava em `audit.logs` (`ativo.ativo_rascunhos`,
 INSERT, registro = o ativo): quem pediu, o IP, a chave, o prazo, os tokens (entrada, saída, total,
