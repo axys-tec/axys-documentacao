@@ -970,10 +970,80 @@ equipe; o que muda é de onde vem a ordem (a janela de cada serviço) e o peso:
 | Distribuir pelo financeiro | cascata da EAP (`otimizar_sequencia`) | 100% financeiro |
 | Distribuir pela mão de obra | cascata da EAP | 100% mão de obra |
 | IA — modelo simplificado | a IA dá janela e duração (§17.9); a equipe corta a duração | o do modal |
-| IA — modelo combinado | a IA dá SÓ a ordem (janela e relações), recebendo o tempo de uma pessoa por serviço; a app calcula também a cascata da EAP e fica com a melhor pela régua | o do modal |
+| IA — modelo combinado | a IA dá SÓ a ordem (janela e relações); a app dosa a equipe pela permanência mínima e nivela pelo efetivo total (abaixo) | o do modal |
 
 Antes, os botões esticavam a frente inteira pelo prazo dela: 23% a 100% do valor ficava mais longo
 do que a equipe precisa — a curva lisa era física impossível.
+
+**O MODELO COMBINADO, refeito (2026-11-04).** A medição mostrou que o teto ⌈efetivo necessário⌉ valia
+por serviço e não por mês: com serviços da mesma profissão sobrepostos, a ativo 22 chegava a 21,9
+ajudantes de carpinteiro com teto 6. Teto mensal duro não é a resposta — o pico não tem limite, tem
+coerência. As regras:
+
+- **Significância.** Profissão IMPORTANTE é a de mais de 1 mês útil na obra: dedicação exclusiva,
+  premissa da empresa. As menores entram e saem quando a obra pede, sem limitar nada.
+- **Permanência mínima** (`duracao_pela_permanencia`): quem entra numa profissão importante fica pelo
+  menos o contrato de experiência. A equipe do serviço é n = ⌈horas ÷ (permanência × HU)⌉ — 800 h com
+  180 h/mês e 45/45: 3 pessoas por 1,5 mês, a duração mínima; a máxima é a de uma pessoa ("entrou 3,
+  fica 1,5 mês; depois pode reduzir"). As duas experiências — **45/45 (1,5 mês útil) e 30/90 (1,0)**
+  — são montadas, e fica a melhor. Sem teto pelo prazo.
+- **A régua é o EFETIVO TOTAL** (revisto em 04/11): a mão de obra deixa de ser medida pelo Δ de cada
+  profissão e passa a ser a **oscilação do efetivo total** — variação total ÷ (2 × média) − 1: zero
+  para o efetivo constante; na obra que sobe, fica e desce (o trapézio), o pico sobre a média; e
+  cresce a cada vai-e-volta (sobe, cai, volta a subir). O Δ puniria a rampa natural de entrada e
+  saída. A profissão sozinha oscilar não é defeito: a permanência mínima já segura a equipe.
+- **O vai-e-volta da função** (`VAIVEM_PESO` = 0,25 da régua do total): de cada profissão importante
+  cobra-se SÓ o vai-e-volta — variação total − 2 × pico, ÷ 2 × média —, zero para quem entra, fica e
+  sai, mesmo em rampa. O pico não se cobra, que espalharia a função pela obra. Na UBS (consulta D):
+  vai-e-volta somado das importantes 12,7 → 5,6 pessoas, oscilação do total 17,6% → 16,1%, Δfin
+  5,6% → 6,4%; com 0,5 e 1,0 o total piora (22,7% e 24,1%). O que a obra não tem — servente no mês da
+  fundação — nenhum nivelamento cria.
+- **Financeiro com teto** (`TETO_FIN` = 50%): até ele, o Δ financeiro é da natureza da obra
+  (acabamento vale mais e leva menos gente no mesmo tempo) e pesa só pelo peso escolhido; o que passa
+  dele pesa dez vezes mais, e a montagem acima do teto perde para qualquer uma dentro dele.
+- **Ordem de obra dentro da frente** (`_ordem_de_obra`, regra dura do nivelamento): o serviço cuja
+  janela começa e termina mais tarde não começa antes do outro; com a MESMA janela, vale a ordem dos
+  itens (fôrma, armação e concretagem do pilar, nessa ordem). A janela larga que contém a curta não
+  ordena nada. Fora das frentes ao longo da obra.
+- **O que vai à IA**: EAP, serviço, descrição e horas por função — sem valor, quantidade nem tempo de
+  uma pessoa (a quantidade só na peça inteira). A IA dá a ordem.
+- **Diluir** (`diluir`, por serviço ou grupo; o mais fundo manda): a IA marca `true` no que é mantido
+  durante a obra — locação de contêiner, serviço ou equipamento pago por mês, entulho, consumo,
+  vigilância, administração, equipamento de canteiro —, com a janela da obra inteira; a app dá a ele
+  um perfil FIXO na janela (`_perfil_diluido`) e o tira do nivelamento — os outros se nivelam em volta
+  (`nivelar(fixos=…)`). Pago por mês (UN·MÊS, M²·MÊS, MÊS): constante, o contêiner custa igual todo
+  mês; o resto em sino (começa baixo, pico no meio, desce; σ = ¼ dos meses). `false` no que tem
+  momento: mobilização no 1º mês, desmobilização no último, e o equipamento de uma TAREFA (a
+  plataforma de um mês para uma pintura específica) na janela da tarefa — esse não se espalha.
+- **Uma chamada só.** A IA dá a ordem; a conferência da app (sem IA, §17.9) pode devolvê-la uma vez
+  para correção; a montagem é da app, com as duas experiências, e fica a de menor alvo (excesso
+  sobre o teto financeiro; depois peso × Δ financeiro + (1 − peso) × oscilação do efetivo total).
+  Nada vai ao usuário.
+
+**Descartados no combinado (04/11, UBS Porte I, ativo 24, gpt-5.6-luna, duas consultas reais):**
+- a **validação pela IA** — a montagem voltava à IA, que apontava janelas a corrigir. Piorou a obra
+  todas as vezes: prendia serviço num mês só (laje 100% e alvenaria 79% no mês 5, pico de 16
+  pessoas), espalhava a laje até o mês 8, e nunca aprovou; custava ~30 mil tokens e ~1 min por ciclo;
+- a **ordem da EAP concorrendo** com a da IA: sem relações declaradas ela monta uma obra impossível
+  (laje e alvenaria no mês 1, drywall nos meses 1–4, louças antes da pintura) e por isso parece mais
+  regular — chegou a vencer. Fica só nos botões, que são a escolha explícita de quem não quer IA.
+
+Efeito, na mesma ordem da IA (oscilação do efetivo total / Δ financeiro): consulta A 38,5% / 14,0% →
+14,5% / 4,0%; consulta B (antes vencia a EAP, 52,5% / 6,1%) → 26,1% / 12,1%, com a sequência
+construtiva da IA.
+
+Medição na mesma ordem (EAP), peso 50%, antigo Δ × novo:
+
+| Ativo | Oscilação | Vai-e-volta | Presença < 2 meses | Δ financeiro |
+|---|---|---|---|---|
+| 22 (24 meses) | 114% → 58–60% | 9 → 4–7 | 4 → 1–2 | 0,4% → 3,3–4,7% |
+| 24 (10 meses) | 166% → 99–113% | 5 → 0 | 5 → 1 | 1,3% → 1,3–1,6% |
+| 21 (4 meses) | 46% → 11–15% | 2 → 0 | 0 | 56% → 63–67% |
+
+Fixar a duração em 1,5 mês (sem a faixa até uma pessoa) foi testado e descartado: na obra longa
+espremia tudo em blocos curtos (ativo 22: Δ financeiro 0,4% → 46%, oscilação 114% → 152%).
+
+O simplificado não muda: prompt curto, preço curto.
 
 **O termômetro** mostra também o **Δ na presença** (o Δ de cada profissão só nos meses em que ela
 está em obra) e avisa quando o Δ alto vem do **porte** (profissão-chave com até 2 pessoas: uma a mais
