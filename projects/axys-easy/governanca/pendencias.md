@@ -418,8 +418,21 @@ equipe, o Aplicar amarrado e os dois documentos estão no contrato (§17.4–§1
 
 O `/mcp` está no ar em prod (OAuth só para ChatGPT, Claude e Gemini desde 28/10).
 - [ ] Fila de leitura.
-- [ ] Pré-planejamento no MCP — suspenso pelo Renan (20/10). Ao retomar: leitura e prévia, nunca a
-      escolha (doutrina de produtividade); textos em `instrucoes_ia.md`.
+- [ ] **Pré-planejamento no MCP — o aprofundamento** (desenho fechado com o Renan em 05/11; substitui o
+      "nunca a escolha" de 20/10). Contrato: `EASY_MCP_CONTRATO.md` §4.11. O MCP desce ao serviço × mês
+      da provisão das medições (quantidade), no aplicado e no rascunho (ajustes finos), com as travas do
+      motor e a convivência com a tela. Ordem de construção:
+  - [ ] Leitura: `easy_preplano_ver`, `_provisao`, `_efetivo`, `_diagnostico`; consulta `_simular`.
+  - [ ] Ajustes finos no motor: a provisão (e o rascunho) aceitam quantidade por serviço × mês por cima
+        da proposta, com a marca de quem/quando/o quê; validação das regras duras (contrato fechado,
+        peça inteira, 1%, ordem, prazo); a ALO fora.
+  - [ ] Escrita (prévia → aplicar): `_mover_servico`, `_redistribuir_servico`, `_renivelar` (prendendo
+        os ajustados), `_limpar_ajustes` (sem desfazer).
+  - [ ] Aceite expresso por elicitation: `_relacao` e `_axys_intelligence` (saldo insuficiente bloqueia;
+        consulta única; a resposta do usuário no `audit.logs` com a cobrança).
+  - [ ] Tela: "ajustes finos fora da tela" no pré-plano e no memorial; aviso ao renivelar/reaplicar.
+  - [ ] Textos em `instrucoes_ia.md` (apêndice regenerado); testes em `backend/tests/mcp/`.
+  - [ ] Amarra com o ciclo do orçamento (F1) quando ele nascer — por ora, livre.
 
 ---
 

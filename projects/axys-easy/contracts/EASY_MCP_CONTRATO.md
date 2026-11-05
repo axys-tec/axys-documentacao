@@ -470,7 +470,64 @@ tokens. A pesquisa de preços se divide em dois passos:
 | curva ABC de serviços e insumos | leitura | `get_curva_abc` / `get_curva_abc_insumos` |
 | insumos e composições do orçamento | leitura | `orcamento_listas.insumos_do_orcamento` / `composicoes_do_orcamento` |
 | histograma, versões do orçamento | leitura | `get_histograma`, `versoes_do_orcamento` |
-| pré-planejamento | — | suspenso (Renan, 2026-10-20) |
+| pré-planejamento | leitura e escrita | §4.11 (desenho de 2026-11-05; a construir) |
+
+### 4.11 Pré-planejamento: o aprofundamento (desenho, Renan 2026-11-05; A CONSTRUIR)
+
+**Substitui a decisão de 2026-10-20** ("leitura e prévia, nunca a escolha"). O MCP do pré-plano vai
+MAIS FUNDO que a tela: a tela trabalha por frente, régua e IA; o MCP desce ao **serviço × mês da
+provisão das medições** — de onde o cronograma, o histograma e o memorial já derivam. Não é um segundo
+cronograma: escreve na mesma provisão que o Aplicar grava, pelo mesmo caminho (`aplicar_proposta` com
+os alvos por serviço), e o resto continua derivado pelas mesmas funções. A bancada não se toca
+(doutrina de produtividade). Contrato do comportamento: `ativo/pre_planejamento_execucao_contrato.md`.
+
+**Onde atua.** No pré-plano APLICADO (a provisão gravada) e também no RASCUNHO: ali ainda não há
+provisão, e os ajustes do MCP ficam no rascunho como **ajustes finos** (quantidade por serviço e mês)
+por cima da proposta; o Aplicar os leva junto. A amarra com o ciclo do orçamento (F1: orçamento em
+rascunho não deveria permitir) fica de fora por ora e entra quando o ciclo nascer, em tudo que depende
+do orçamento.
+
+**A unidade da edição é a QUANTIDADE** da provisão (o percentual quebra mais; a IA do usuário calcula o
+percentual que quiser e escreve a quantidade).
+
+**Ferramentas (nomes de trabalho):**
+
+| Ferramenta | Categoria | Confirmação | O que faz |
+|---|---|---|---|
+| `easy_preplano_ver` | leitura | | premissas, prazo, nível, estado (rascunho/aplicado), KPIs, caminho crítico, relações |
+| `easy_preplano_provisao` | leitura | | serviço × mês: quantidade, valor, % e saldo; filtra por frente, mês ou serviço |
+| `easy_preplano_efetivo` | leitura | | efetivo por função e mês (o histograma) |
+| `easy_preplano_diagnostico` | leitura | | pico de efetivo, função que sai e volta, mês acima do teto financeiro, folgas do caminho crítico |
+| `easy_preplano_simular` | consulta | | "e se" sem gravar (deslocar serviço, outro prazo, outra relação) |
+| `easy_preplano_mover_servico` | prévia | `tarefa` | desloca o serviço N meses |
+| `easy_preplano_redistribuir_servico` | prévia | `tarefa` | a curva do serviço mês a mês, em QUANTIDADE |
+| `easy_preplano_renivelar` | prévia | `tarefa` | renivela pelo peso, prendendo os serviços ajustados à mão |
+| `easy_preplano_relacao` | prévia | `sempre` + aceite | inclui, altera ou retira relação entre frentes — inclusive as do engenheiro |
+| `easy_preplano_limpar_ajustes` | prévia | `tarefa` | tira os ajustes finos feitos pelo MCP (não há desfazer: limpa e refaz) |
+| `easy_preplano_axys_intelligence` | prévia | `sempre` + aceite | a consulta paga, com as mesmas regras da tela (consulta única, teto, log) |
+
+**As travas são as do motor, em toda escrita.** A prévia mostra antes × depois (curva, efetivo por
+função, Δfin, oscilação, caminho crítico); o aplicar RECUSA se uma regra dura quebrar: soma por serviço
+= contrato (saldo 0,00), peça inteira só inteira, nenhuma medição abaixo de 1% (exceto a de
+fechamento), nenhuma inversão de ordem (§17.10), tudo dentro do prazo. A ALO não se edita — é derivada.
+
+**Aceite expresso (`sempre` + aceite): Axys Intelligence e relações.** A IA do usuário não sabe o que
+vem da Axys Intelligence, e alterar relação do engenheiro muda a obra: o servidor pede a confirmação AO
+USUÁRIO pelo diálogo do próprio cliente (elicitation do protocolo), com o teto em AxysCoins, o aviso de
+débito sem volta (o mesmo texto da tela, `AVISO_DEBITO_IA`) ou a relação antes × depois. A app se
+endurece para não seguir sem a resposta; cliente sem o recurso cai na confirmação `sempre` do §6.2 — se
+passar, passa. **Saldo insuficiente bloqueia** antes de qualquer pergunta. A resposta do usuário vai ao
+log junto da cobrança (`audit.logs`: quem, quando, o texto exibido, a resposta).
+
+**Convivência com a tela.** Uma fonte só: tela e MCP leem e escrevem a mesma provisão (ou o mesmo
+rascunho). A aba Resultados, o memorial, o histograma e as medições mostram os ajustes sem mudança. A
+provisão carrega a marca dos ajustes finos (quem, quando, o quê); a tela mostra "ajustes finos fora da
+tela" e o memorial os menciona. Renivelar ou reaplicar pela tela descartaria os ajustes: a tela avisa e
+pede confirmação — nada some em silêncio. A digital da provisão é conferida no aplicar (§6): mudou
+depois da prévia, `conflito`. Toda aplicação vai ao `audit.logs` com o antes e o depois.
+
+**Fora da primeira versão:** premissas (prazo, município, início, tipo de obra, chuva) e o orçamento
+seguem da tela; no MCP, prazo só em "e se", sem gravar.
 
 ## 5. Regras que valem para toda ferramenta
 
