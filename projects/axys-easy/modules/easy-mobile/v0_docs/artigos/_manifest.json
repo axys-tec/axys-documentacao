@@ -564,6 +564,30 @@
       "id": "truncar-ou-arredondar",
       "titulo": "Truncar ou arredondar: por que centavos decidem um orçamento — e protegem o orçamentista",
       "chamada": "Três centavos por metro quadrado viram seis mil reais numa planilha. E o auditor pode chamar isso de sobrepreço.",
+      "titulo_seo": "Truncar ou arredondar: por que centavos decidem um orçamento",
+      "descricao_seo": "Entenda como o critério aplicado em cada linha altera composições, acumula diferenças na planilha e pode afastar o orçamento do preço divulgado pela fonte.",
+      "faqs": [
+        {
+          "pergunta": "Qual é a diferença entre truncar e arredondar?",
+          "resposta": "Truncar elimina as casas excedentes. Arredondar observa o algarismo seguinte e pode elevar ou reduzir o valor mantido."
+        },
+        {
+          "pergunta": "O corte deve ocorrer em cada linha ou somente no total?",
+          "resposta": "O orçamento deve reproduzir o critério documentado pela fonte e pelo sistema adotado. Cortar linha a linha e cortar apenas o total podem produzir resultados diferentes."
+        },
+        {
+          "pergunta": "Uma diferença de centavos é relevante?",
+          "resposta": "Pode ser. A diferença unitária é multiplicada pelos quantitativos e pode se repetir em centenas de itens e composições encadeadas."
+        },
+        {
+          "pergunta": "Truncar altera coeficientes ou preços dos insumos?",
+          "resposta": "Não. O truncamento tratado aqui incide sobre o resultado monetário da linha, preservando coeficiente e preço unitário."
+        },
+        {
+          "pergunta": "Como conferir uma divergência entre dois sistemas?",
+          "resposta": "Compare primeiro fonte, competência, regime, coeficientes, preços unitários, número de casas internas e o momento em que cada sistema corta ou arredonda."
+        }
+      ],
       "assuntos": [
         "truncar",
         "arredondar",
@@ -1114,6 +1138,34 @@
       "id": "onerado-ou-desonerado-a-conta-ano-a-ano",
       "titulo": "Onerado ou desonerado: a conta, ano a ano, em um metro de alvenaria",
       "chamada": "A reoneração não foi aumento de preço, foi transferência: o que saiu do BDI entrou nas leis sociais. Medimos o saldo em um metro de alvenaria, com preços congelados.",
+      "titulo_seo": "Onerado ou desonerado: a conta, ano a ano, em um metro de alvenaria",
+      "descricao_seo": "Veja, com preços SINAPI congelados, como a reoneração altera Leis Sociais, BDI e o preço de um metro quadrado de alvenaria entre 2024 e 2028.",
+      "faqs": [
+        {
+          "pergunta": "Não desonerado é o mesmo que onerado?",
+          "resposta": "Sim. No contexto de orçamento de obras, as duas expressões normalmente identificam o cenário sem substituição da contribuição patronal pela CPRB."
+        },
+        {
+          "pergunta": "Qual orçamento deve ser adotado?",
+          "resposta": "O cenário juridicamente aplicável e tecnicamente justificável para a data-base e o objeto. A menor planilha não deve ser escolhida automaticamente."
+        },
+        {
+          "pergunta": "A desoneração sempre reduz o orçamento?",
+          "resposta": "Não necessariamente. O efeito depende da participação da mão de obra, da receita, do enquadramento e das demais premissas do orçamento."
+        },
+        {
+          "pergunta": "A CPRB faz parte do BDI?",
+          "resposta": "Quando aplicável ao cenário analisado, a CPRB deve ser tratada de forma coerente com a formação do preço e com os encargos utilizados, evitando duplicidade ou omissão."
+        },
+        {
+          "pergunta": "O que muda em 2026?",
+          "resposta": "Para as empresas enquadradas e optantes, a transição combina 60% da alíquota de CPRB aplicável com 50% das contribuições patronais previstas sobre a folha."
+        },
+        {
+          "pergunta": "É possível usar uma tabela histórica de encargos?",
+          "resposta": "Somente após conferir se sua competência, regime e premissas correspondem ao orçamento analisado. O nome da tabela, isoladamente, não comprova sua adequação."
+        }
+      ],
       "assuntos": [
         "regime-desonerado",
         "regime-nao-desonerado",
@@ -1169,6 +1221,12 @@
           "rotulo": "Acórdão TCU 2341/2020",
           "grupo": "ACORDAOS",
           "id": "tcu-2341-2020"
+        },
+        {
+          "tipo": "publicacao",
+          "rotulo": "Caso prático: escolha entre orçamento onerado e desonerado",
+          "grupo": "CASOS",
+          "id": "comparacao-orcamento-onerado-desonerado"
         }
       ],
       "conteudo": "easy-mobile/artigos/onerado-ou-desonerado-a-conta-ano-a-ano.md",
@@ -1176,7 +1234,7 @@
       "palavras": 4059,
       "publicado_em": "2026-10-24",
       "pdf": "easy-mobile/artigos/onerado-ou-desonerado-a-conta-ano-a-ano.pdf",
-      "pdf_bytes": 613292
+      "pdf_bytes": 614471
     },
     {
       "id": "a-planilha-decide-quem-pode-disputar",

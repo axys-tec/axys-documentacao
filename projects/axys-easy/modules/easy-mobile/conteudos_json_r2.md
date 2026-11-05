@@ -256,6 +256,33 @@ ordenado por data, **3 a 5 itens**. É o que dispensa rota de agregação na API
 **`chamada` é obrigatória.** Sem ela, montar uma lista de três itens obrigaria o app a
 baixar três `conteudo.json` inteiros só para ter o que escrever embaixo do título.
 
+### Metadados editoriais opcionais para web
+
+Todo item de conteúdo pode declarar no manifesto:
+
+```json
+{
+  "titulo_seo": "Título completo escolhido para o resultado de busca",
+  "descricao_seo": "Descrição completa escolhida editorialmente para o resultado de busca.",
+  "faqs": [
+    { "pergunta": "Pergunta frequente?", "resposta": "Resposta editorial completa." }
+  ]
+}
+```
+
+- `titulo` continua sendo o título editorial e o H1; `titulo_seo`, quando presente, é o
+  título da página e dos metadados sociais/de busca;
+- `chamada` continua sendo o resumo visível; `descricao_seo`, quando presente, é a meta
+  description e a descrição dos dados estruturados;
+- `titulo_seo` e `descricao_seo` são consumidos **como publicados**: o Hub não inventa
+  títulos a partir de pontuação e não corta palavras;
+- na ausência dos campos novos, cada consumidor mantém compatibilidade usando `titulo` e
+  `chamada` (ou o campo-resumo equivalente do grupo);
+- `faqs` é opcional e editorial. Componentes interativos permanecem responsabilidade da
+  apresentação; pergunta, resposta, título, resumo, referências e corpo permanecem na
+  fonte versionada do Easy;
+- esses campos nunca autorizam uma segunda versão do conteúdo dentro do Hub.
+
 ---
 
 ## `conteudo.json` — newsletter, artigo, institucional
@@ -722,6 +749,8 @@ vive num `.md` próprio, publicado como `text/markdown`:
 ``` json
 { "id": "bdi-sem-atalhos", "titulo": "BDI sem atalhos: …",
   "chamada": "Um percentual sem memória de cálculo não se defende.",
+  "titulo_seo": "BDI em orçamento de obras: cálculo e memória",
+  "descricao_seo": "Entenda como calcular e justificar o BDI de uma obra.",
   "assuntos": ["bdi", "custo-indireto"],
   "referencias": [ { "tipo": "publicacao", "grupo": "ACORDAOS", "id": "tcu-2622-2013",
                      "rotulo": "Acórdão TCU 2622/2013 — …" } ],

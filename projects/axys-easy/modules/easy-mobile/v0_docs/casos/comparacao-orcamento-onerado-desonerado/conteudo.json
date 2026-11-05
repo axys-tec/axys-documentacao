@@ -58,6 +58,12 @@
       "rotulo": "Orçamento",
       "grupo": "TERMINOLOGIA",
       "id": "orcamento"
+    },
+    {
+      "tipo": "publicacao",
+      "rotulo": "Onerado ou desonerado: a conta, ano a ano, em um metro de alvenaria",
+      "grupo": "ARTIGOS",
+      "id": "onerado-ou-desonerado-a-conta-ano-a-ano"
     }
   ],
   "assuntos": [
