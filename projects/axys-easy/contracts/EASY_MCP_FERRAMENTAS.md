@@ -68,6 +68,15 @@ pelo conteúdo (estrutura com remover; composição fora do orçamento).
 | [`easy_descritivo_editar`](#easy_descritivo_editar) | Prévia | livre | Easy Orça | Editar descritivo no orçamento |
 | [`easy_insumo_link_anexos`](#easy_insumo_link_anexos) | Leitura |  | Easy Orça | Link para anexar propostas (orçamento) |
 | [`easy_proprios_link_anexos`](#easy_proprios_link_anexos) | Leitura |  | Easy CPU | Link para anexar propostas (próprio) |
+| [`easy_preplano_ver`](#easy_preplano_ver) | Leitura |  | Easy Orça | Pré-planejamento |
+| [`easy_preplano_provisao`](#easy_preplano_provisao) | Leitura |  | Easy Orça | Provisão por serviço |
+| [`easy_preplano_efetivo`](#easy_preplano_efetivo) | Leitura |  | Easy Orça | Efetivo por função |
+| [`easy_preplano_diagnostico`](#easy_preplano_diagnostico) | Leitura |  | Easy Orça | Diagnóstico do pré-plano |
+| [`easy_preplano_simular`](#easy_preplano_simular) | Leitura |  | Easy Orça | Simular ajuste |
+| [`easy_preplano_redistribuir_servico`](#easy_preplano_redistribuir_servico) | Prévia | tarefa | Easy Orça | Redistribuir serviço |
+| [`easy_preplano_mover_servico`](#easy_preplano_mover_servico) | Prévia | tarefa | Easy Orça | Mover serviço |
+| [`easy_preplano_limpar_ajustes`](#easy_preplano_limpar_ajustes) | Prévia | tarefa | Easy Orça | Limpar ajustes finos |
+| [`easy_preplano_renivelar`](#easy_preplano_renivelar) | Prévia | tarefa | Easy Orça | Renivelar |
 
 ## easy_guia
 
@@ -737,7 +746,115 @@ Gera um LINK (válido por 30 minutos) para o USUÁRIO anexar os arquivos das pro
 | `edicao` | texto | sim |
 | `uf` | texto? |  |
 
+## easy_preplano_ver
+
+**Pré-planejamento** · Leitura · Easy Orça
+
+O pré-planejamento do ativo como a tela o mostra: fase (rascunho = ainda não aplicado; aplicado = já virou cronograma e provisão das medições; vazio = sem sequência), prazo em meses, nível, premissas (horas úteis, chuva), indicadores (variação financeira e de equipe, maior efetivo, valor e pessoas por mês), caminho crítico, relações entre frentes, janela de cada frente, se a Axys Intelligence já foi consultada e quantos serviços têm ajuste fino.
+
+| Parâmetro | Tipo | Obrigatório |
+|---|---|---|
+| `ativo` | texto | sim |
+
+## easy_preplano_provisao
+
+**Provisão por serviço** · Leitura · Easy Orça
+
+A provisão das medições do pré-plano, SERVIÇO × MÊS, em quantidade e valor: o contrato, o que se mede em cada mês e o saldo (sempre zero). Diz se o serviço tem ajuste fino, se é medido por peça (só inteiro) e o mínimo por mês. Filtre por `frente`, `mes` ou `servico`; paginado. A Administração Local é derivada (segue a obra) e não se ajusta.
+
+| Parâmetro | Tipo | Obrigatório |
+|---|---|---|
+| `ativo` | texto | sim |
+| `frente` | texto? |  |
+| `mes` | inteiro? |  |
+| `servico` | texto? |  |
+| `pagina` | inteiro |  |
+
+## easy_preplano_efetivo
+
+**Efetivo por função** · Leitura · Easy Orça
+
+O efetivo do pré-plano: pessoas por mês no total e por função (pedreiro, servente, carpinteiro…), pelas horas úteis da obra — o mesmo do histograma. `funcao` filtra por parte do nome.
+
+| Parâmetro | Tipo | Obrigatório |
+|---|---|---|
+| `ativo` | texto | sim |
+| `funcao` | texto? |  |
+
+## easy_preplano_diagnostico
+
+**Diagnóstico do pré-plano** · Leitura · Easy Orça
+
+O que dá para melhorar: meses com financeiro acima do teto (50% sobre a média), funções que saem e voltam para a obra (o que mais encarece a mão de obra), inversões de ordem (deveriam ser zero) e o caminho crítico. Use antes de propor ajustes, e proponha ao usuário — não ajuste por conta própria.
+
+| Parâmetro | Tipo | Obrigatório |
+|---|---|---|
+| `ativo` | texto | sim |
+
+## easy_preplano_simular
+
+**Simular ajuste** · Leitura · Easy Orça
+
+"E se": as quantidades por mês de um ou mais serviços → antes × depois dos indicadores, dos serviços que mudam e do caminho crítico. NÃO grava. Valida as regras duras (soma = contrato, peça inteira, mínimo por mês, dentro do prazo, sem Administração Local) e a ordem da obra.
+
+| Parâmetro | Tipo | Obrigatório |
+|---|---|---|
+| `ativo` | texto | sim |
+| `ajustes` | lista de AjusteServico | sim |
+
+## easy_preplano_redistribuir_servico
+
+**Redistribuir serviço** · Prévia · Easy Orça · confirmação: tarefa
+
+PRÉVIA de ajuste fino: as quantidades de cada mês de um ou mais serviços (uma por mês do prazo; a soma é a quantidade de contrato). O cronograma, o histograma e o memorial derivam da provisão ajustada. Pré-plano aplicado: grava na provisão e no cronograma; rascunho: fica no pré-plano e vai junto quando a tela aplicar.
+
+| Parâmetro | Tipo | Obrigatório |
+|---|---|---|
+| `ativo` | texto | sim |
+| `ajustes` | lista de AjusteServico | sim |
+
+## easy_preplano_mover_servico
+
+**Mover serviço** · Prévia · Easy Orça · confirmação: tarefa
+
+PRÉVIA de deslocar um serviço inteiro `meses` meses (positivo = adiar, negativo = antecipar), mantendo as quantidades de cada mês. Recusa se sair do prazo ou quebrar a ordem da obra.
+
+| Parâmetro | Tipo | Obrigatório |
+|---|---|---|
+| `ativo` | texto | sim |
+| `servico` | texto | sim |
+| `meses` | inteiro | sim |
+
+## easy_preplano_limpar_ajustes
+
+**Limpar ajustes finos** · Prévia · Easy Orça · confirmação: tarefa
+
+PRÉVIA de tirar os ajustes finos — de todos os serviços, ou só dos informados: eles voltam à distribuição da app. Não há desfazer: para corrigir um ajuste, limpe e refaça.
+
+| Parâmetro | Tipo | Obrigatório |
+|---|---|---|
+| `ativo` | texto | sim |
+| `servicos` | lista de texto? |  |
+
+## easy_preplano_renivelar
+
+**Renivelar** · Prévia · Easy Orça · confirmação: tarefa
+
+PRÉVIA de renivelar a sequência com outro equilíbrio: `peso_financeiro_pct` (0–100) é o peso do financeiro regular; o resto vai para a equipe estável. É a régua "Aplicar ao Pré-Planejamento" da tela, sem nova consulta e sem custo. Os serviços com ajuste fino ficam onde estão. Exige consulta da Axys Intelligence.
+
+| Parâmetro | Tipo | Obrigatório |
+|---|---|---|
+| `ativo` | texto | sim |
+| `peso_financeiro_pct` | inteiro |  |
+
 ## Campos dos objetos de entrada
+
+### AjusteServico
+
+| Campo | Tipo | Obrigatório | Explicação |
+|---|---|---|---|
+| `servico` | texto | sim | ref do serviço (de easy_preplano_provisao) |
+| `quantidades` | lista de número | sim | quantidade medida em cada mês, do mês 1 ao último do prazo (0 = não mede); a soma é a quantidade de contrato |
 
 ### Celula
 
