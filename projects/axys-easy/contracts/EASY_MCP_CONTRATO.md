@@ -472,7 +472,7 @@ tokens. A pesquisa de preços se divide em dois passos:
 | histograma, versões do orçamento | leitura | `get_histograma`, `versoes_do_orcamento` |
 | pré-planejamento | leitura e escrita | §4.11 (desenho de 2026-11-05; a construir) |
 
-### 4.11 Pré-planejamento: o aprofundamento (desenho, Renan 2026-11-05; A CONSTRUIR)
+### 4.11 Pré-planejamento: o aprofundamento (desenho, Renan 2026-11-05; construído em dev 2026-11-06)
 
 **Substitui a decisão de 2026-10-20** ("leitura e prévia, nunca a escolha"). O MCP do pré-plano vai
 MAIS FUNDO que a tela: a tela trabalha por frente, régua e IA; o MCP desce ao **serviço × mês da
@@ -498,7 +498,7 @@ percentual que quiser e escreve a quantidade).
 | `easy_preplano_provisao` | leitura | | serviço × mês: quantidade, valor, % e saldo; filtra por frente, mês ou serviço |
 | `easy_preplano_efetivo` | leitura | | efetivo por função e mês (o histograma) |
 | `easy_preplano_diagnostico` | leitura | | pico de efetivo, função que sai e volta, mês acima do teto financeiro, folgas do caminho crítico |
-| `easy_preplano_simular` | consulta | | "e se" sem gravar (deslocar serviço, outro prazo, outra relação) |
+| `easy_preplano_simular` | leitura | | "e se" sem gravar: quantidades por serviço × mês → antes × depois (dado da empresa, não catálogo: leitura, não consulta) |
 | `easy_preplano_mover_servico` | prévia | `tarefa` | desloca o serviço N meses |
 | `easy_preplano_redistribuir_servico` | prévia | `tarefa` | a curva do serviço mês a mês, em QUANTIDADE |
 | `easy_preplano_renivelar` | prévia | `tarefa` | renivela pelo peso, prendendo os serviços ajustados à mão |
@@ -525,6 +525,21 @@ provisão carrega a marca dos ajustes finos (quem, quando, o quê); a tela mostr
 tela" e o memorial os menciona. Renivelar ou reaplicar pela tela descartaria os ajustes: a tela avisa e
 pede confirmação — nada some em silêncio. A digital da provisão é conferida no aplicar (§6): mudou
 depois da prévia, `conflito`. Toda aplicação vai ao `audit.logs` com o antes e o depois.
+
+**Como ficou (2026-11-06).** Motor: `preplanejamento_plano_service` (carregar / montar / validar /
+inversoes / gravar / `ajustes_vigentes`). Ferramentas: `backend/api/mcp/tools/preplano.py`, executor
+`preplano` no `easy_aplicar_plano`. Aceite: `backend/api/mcp/aceite.py` — o `easy_aplicar_plano` recebe o
+`Context` do MCP e o aceite pergunta por ele (`elicit`, campo booleano "aceito"); resposta ≠ aceito
+(recusou, cancelou, sem resposta, falhou) = nada muda nem é cobrado, e a recusa vai ao log; cliente sem
+o recurso = confirmação `sempre`. A consulta paga é UMA função para as duas portas
+(`preplanejamento_consulta_service.consultar_axys`, usada pela rota da tela e pelo MCP); pelo MCP ela só
+roda no rascunho e sem ajustes finos (a consulta refaz a sequência), e o log da cobrança leva `canal` e
+`aceite`. A relação nova que a sequência atual não cumpre renivela com a ordem da IA (mesmo peso, ajustados
+presos); sem consulta da IA, a prévia recusa — a sequência se ajusta pela tela. Na tela: as rotas levam os
+ajustes vigentes (proposta, aplicar, provisão, memorial, MS Project); selo "Ajustes finos fora da tela";
+redistribuir, limpar, editar frente ou usar a IA com ajustes presentes pede confirmação e descarta
+(`POST /api/ativos/{id}/preplanejamento/ajustes/descartar`, auditado); o memorial (§3) declara os
+serviços ajustados.
 
 **Fora da primeira versão:** premissas (prazo, município, início, tipo de obra, chuva) e o orçamento
 seguem da tela; no MCP, prazo só em "e se", sem gravar.
