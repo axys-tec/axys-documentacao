@@ -619,7 +619,7 @@ não se gera enquanto houver uma.
 | Limpar | grade vazia — o ponto de partida do desenho à mão, que não precisa de botão próprio |
 | Distribuir pelo financeiro | cascata da EAP (`otimizar_sequencia`) dá a ordem; o nivelamento posiciona serviço a serviço com a duração da equipe, alvo = Δ financeiro (§17.10) |
 | Distribuir pela mão de obra | o mesmo, alvo = **Δ por profissão** |
-| AI \| Axys Intelligence | modelo simplificado ou combinado (§17.9, §17.10) |
+| AI \| Axys Intelligence | um modelo só: a IA dá a ordem, a app monta (§17.10) |
 
 Ao entrar no passo sem rascunho válido para o prazo e as frentes, a grade chega VAZIA: preencher é
 escolha do engenheiro — um dos botões, a IA ou o desenho à mão (decisão de 04/11; antes chegava
@@ -713,7 +713,7 @@ Durante a consulta o modal trava (sem fechar, sem duplo clique) e mostra a barra
 
 **A mesma pergunta não se paga duas vezes.** A consulta tem uma chave — o hash da planilha, das
 regras, do prazo, do calendário, do peso, do prompt, das ferramentas e do modelo — e o resultado fica no rascunho, na
-chave `ia` — a mais recente de cada modelo (simplificado e combinado). Repetir a pergunta reaplica o
+chave `ia` — só a mais recente. Repetir a pergunta reaplica o
 guardado, sem chamar a IA nem debitar; o modal avisa antes. `ia` é do servidor: a tela grava o
 rascunho e não a apaga. **Só vive enquanto o pré-plano é rascunho:** o Aplicar a apaga (o registro
 já guarda a medição escolhida), e o Limpar com o pré-plano leva o rascunho inteiro (2026-11-04). Uma
@@ -882,9 +882,10 @@ faz conta — nem com as distribuições dos botões na mão (§17.7). A divisã
 
 - **A IA** (`consultar`, UMA chamada, ferramenta `entregar`): para cada serviço (ou grupo), a
   `janela` de obra possível — do mais cedo em que pode começar ao mais tarde em que pode terminar,
-  NÃO o momento ideal — e a `duracao` [mínima, máxima] em semanas; as relações entre frentes; e, se o
-  prazo é curto para a obra com ciclos realistas, `prazo_sugerido_meses`, que vira recomendação de
-  revisar o prazo (a IA monta comprimida, encurtando todas as repetições por igual).
+  NÃO o momento ideal — e o `diluir`; as relações entre frentes. A duração saiu em §17.10. O PRAZO é
+  premissa do engenheiro, olhada antes de pedir (a escada de efetivo e o prazo mínimo do passo 1): a
+  IA monta dentro dele, encurtando as repetições por igual, e não o questiona — cobrar para dizer
+  "suba o prazo" não se faz (`prazo_sugerido_meses` saiu em 2026-11-04).
 - **A app** (`nivelamento_service.nivelar`): posiciona cada serviço dentro da janela, com duração na
   faixa, pelo menor `peso·Δfin + (1−peso)·Δprof` — a mesma régua de `avaliar`. Relações (do
   engenheiro e da IA), ao longo da obra e peça inteira são duras; as regras endurecem por rodadas
@@ -959,18 +960,16 @@ a profissão pela família (§6). `H(i,p)` horas da profissão p no serviço i; 
 - **Quantidade em MES ou DIA é informação, não duração** — o que manda é a complexidade da obra.
 - A janela que a ordem dá e que não comporta a duração mínima cresce para comportá-la. Não há
   "prazo pela conta" por profissão: com `nmax` do efetivo necessário, a soma das horas de uma
-  profissão sempre cabe no prazo; o prazo curto aparece na SEQUÊNCIA, e quem o aponta é a IA
-  (`prazo_sugerido_meses`, §17.9) e o termômetro.
+  profissão sempre cabe no prazo; o prazo curto aparece na SEQUÊNCIA e no termômetro.
 
-**AS QUATRO FORMAS** — todas posicionam SERVIÇO A SERVIÇO pelo nivelamento (§17.9), com a regra da
+**AS TRÊS FORMAS** — todas posicionam SERVIÇO A SERVIÇO pelo nivelamento (§17.9), com a regra da
 equipe; o que muda é de onde vem a ordem (a janela de cada serviço) e o peso:
 
 | Forma | Ordem | Peso |
 |---|---|---|
 | Distribuir pelo financeiro | cascata da EAP (`otimizar_sequencia`) | 100% financeiro |
 | Distribuir pela mão de obra | cascata da EAP | 100% mão de obra |
-| IA — modelo simplificado | a IA dá janela e duração (§17.9); a equipe corta a duração | o do modal |
-| IA — modelo combinado | a IA dá SÓ a ordem (janela e relações); a app dosa a equipe pela permanência mínima e nivela pelo efetivo total (abaixo) | o do modal |
+| AI \| Axys Intelligence | a IA dá SÓ a ordem (janela e relações); a app dosa a equipe pela permanência mínima e nivela pelo efetivo total (abaixo) | o do modal |
 
 Antes, os botões esticavam a frente inteira pelo prazo dela: 23% a 100% do valor ficava mais longo
 do que a equipe precisa — a curva lisa era física impossível.
@@ -1043,7 +1042,16 @@ Medição na mesma ordem (EAP), peso 50%, antigo Δ × novo:
 Fixar a duração em 1,5 mês (sem a faixa até uma pessoa) foi testado e descartado: na obra longa
 espremia tudo em blocos curtos (ativo 22: Δ financeiro 0,4% → 46%, oscilação 114% → 152%).
 
-O simplificado não muda: prompt curto, preço curto.
+**Um modelo só (2026-11-04).** O SIMPLIFICADO — a IA dando também a duração — saiu: perdeu em todos
+os testes, nivelava pelo Δ por profissão (a régua que espalha a função) e não tinha `diluir`. As
+consultas dele guardadas em rascunho não se reaplicam mais. O modal não oferece escolha: diz o que a
+Axys Intelligence faz, o teto de AxysCoins e, em vermelho, que o valor é debitado sem volta.
+
+**A cobrança vai ao log.** Toda consulta que chama a IA grava em `audit.logs` (`ativo.ativo_rascunhos`,
+INSERT, registro = o ativo): quem pediu, o IP, a chave, o prazo, os tokens (entrada, saída, total,
+teto e cobrados), o teto em AxysCoins que o modal mostrou, o aviso exibido (o mesmo texto da tela,
+`AVISO_DEBITO_IA`) e o debitado. O schema `ativo` não tem critério de retenção: o registro não sai na
+limpeza.
 
 **O termômetro** mostra também o **Δ na presença** (o Δ de cada profissão só nos meses em que ela
 está em obra) e avisa quando o Δ alto vem do **porte** (profissão-chave com até 2 pessoas: uma a mais
