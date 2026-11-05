@@ -1061,6 +1061,12 @@ os testes, nivelava pelo Δ por profissão (a régua que espalha a função) e n
 consultas dele guardadas em rascunho não se reaplicam mais. O modal não oferece escolha: diz o que a
 Axys Intelligence faz, o teto de AxysCoins e, em vermelho, que o valor é debitado sem volta.
 
+**O efetivo é o do histograma (2026-11-05).** A aba Resultados e o memorial medem a mão de obra SERVIÇO
+A SERVIÇO, pelo que a provisão mede de cada um no mês (`medicao_simulador.frac_por_servico`, a mesma
+função do histograma; `avaliar(frac_servico=…)`). Antes as horas da frente andavam com o % da frente, e
+o pré-plano dizia outro efetivo mês a mês (ativo 26: pico 7,59 no mês 3 × 7,53 no mês 2 do histograma).
+Agora horas e pessoas batem ao centésimo, inclusive com mão de obra mensalista.
+
 **A IA lê no nível 5 (2026-11-05).** Qualquer que seja o nível da tela, a planilha vai à IA no nível
 mais fundo que o cronograma aceita, até o 5 (`NIVEL_IA`, `nivel_da_ia` — o mesmo crivo que trava os
 níveis na tela: nenhum serviço sem linha). Os níveis de cima derivam dele: a tela agrupa a resposta no
