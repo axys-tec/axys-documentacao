@@ -1796,7 +1796,7 @@ CREATE TABLE IF NOT EXISTS commercial.campaign_registration (
     CONSTRAINT ck_campaign_registration_phone CHECK (phone ~ '^\d{10,15}$'),
     CONSTRAINT ck_campaign_registration_platform CHECK (source_platform IN ('ios', 'android', 'other')),
     CONSTRAINT ck_campaign_registration_acquisition_source CHECK (
-        acquisition_source IN ('META', 'EASY_MOBILE', 'CONTATOS_RENAN')
+        acquisition_source IN ('META', 'EASY_MOBILE', 'CONTATOS_RENAN', 'HUB_SITE')
     ),
     CONSTRAINT fk_campaign_registration_visitor FOREIGN KEY (visitor_id)
         REFERENCES analytics.visitor (visitor_id) ON DELETE SET NULL,
